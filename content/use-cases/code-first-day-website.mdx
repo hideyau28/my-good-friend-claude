@@ -1,0 +1,190 @@
+---
+title: "Claude Code 第一日：點起一個個人網站（識少少終端機嘅人）"
+slug: "code-first-day-website"
+issue: 20
+publishedAt: 2026-04-21
+audience: ["打工仔", "創作者"]
+category: "code"
+subcategory: "入門設定"
+difficulty: 3
+timeMinutes: 90
+toolsNeeded: ["Terminal (Mac)", "Claude Code CLI", "GitHub account", "Vercel account"]
+description: "唔係 developer 但會用 terminal？呢篇教你 Claude Code 嘅最 minimum workflow——由 install 到部署一個真實嘅個人簡介網站。完成之後，你部電腦會 forever 識用 Claude Code。"
+keywords: ["claude code", "個人網站", "next.js", "vercel 部署", "終端機入門"]
+related: ["repurpose-to-social"]
+featured: false
+---
+
+## 情境
+
+你聽過 Claude Code 講到神乎其神，但又驚自己唔係 developer 用唔到。
+
+事實係：你淨係要識**開 Terminal、貼幾條 command**。其他嘅嘢 Claude Code 自己同你傾。 呢篇用一個 concrete project 教你：**起一個個人簡介網站，部署到 vercel.com**，全程約 90 分鐘。
+
+完成後你會學到：
+- Claude Code 點 install
+- 點用 natural language 同佢交代任務（唔使識 code syntax）
+- 點 deploy 到 production
+- 點搵返一個你成日撞到嘅 error message 嘅意思
+
+> Caveat：呢篇假設你部係 Mac，識用 Terminal app（就算淨係識 `cd`、`ls`）。如果連 terminal 都未用過，呢篇可能太深，要先睇返一個 terminal 入門教學。
+
+## 跟住做
+
+### 1. 裝 Claude Code（10 分鐘）
+
+開 Terminal，貼以下 command：
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+如果 `npm` 都未裝過，先去 nodejs.org 裝 Node.js（會連埋 npm）。
+
+裝完試行：
+
+```bash
+claude --version
+```
+
+見到 version number 就 OK。
+
+### 2. 認證
+
+```bash
+claude login
+```
+
+佢會 open 你嘅瀏覽器，登入 Claude 賬戶。
+登入完返去 Terminal，會見到 `Authentication successful`。
+
+### 3. 建立 project folder
+
+```bash
+mkdir my-website
+cd my-website
+claude
+```
+
+呢條 `claude` command 啟動 Claude Code。你會見到 prompt 變成 `>` 等你輸入。 由呢度開始，**你唔需要識任何 code**，淨係用廣東話／英文同佢講你要做乜。
+
+### 4. 用呢個 prompt 開始
+
+<PromptBlock label="完整 prompt — Claude Code 入面入呢段">
+我想整一個個人簡介網站。要求：
+
+技術：用 Next.js 15 (App Router)、TypeScript、Tailwind CSS
+頁面：
+1. 首頁 - 我嘅名、一句自我介紹、聯絡方式（email、LinkedIn、Threads）
+2. /about - 我嘅背景，3-4 段
+3. /work - 列出我做過嘅 3 個 project，每個有 title + 描述 + link
+
+設計風格：
+- 簡潔、白底
+- 用 serif 字體做標題
+- mobile-friendly
+- 唔好搞 dark mode、唔好加多餘 animation
+
+請：
+1. Set 起個 Next.js project
+2. 整三條 route
+3. 用 placeholder 填內容（我之後自己改）
+4. 完成後話我點跑 dev server 睇效果
+5. 順便話我點部署到 Vercel
+</PromptBlock>
+
+Claude Code 接住會：
+- Pause 同你 confirm 佢明白
+- 跑一連串 commands（`npx create-next-app`、整 component file 等）
+- 每行 critical command 前會問你「OK 唔 OK」
+
+**你需要做嘅嘢：撳 enter 確認**。其他冚唪唥 Claude 整。
+
+### 5. 跑起 dev server
+
+Claude 整完之後會話：
+
+> 你而家可以 run `npm run dev`，喺瀏覽器開 http://localhost:3000
+
+你貼條 command 入 Terminal，按 enter。瀏覽器去 `localhost:3000`，你會見到網站 live。
+
+### 6. 改內容
+
+返去 Claude Code prompt，講：
+
+<PromptBlock label="改文案 prompt 例子">
+首頁嘅自我介紹改做：「我係 [你嘅名]，喺 [行業] 做 [職位]。鍾意寫文章同行山。」
+
+About 頁改做我以下 3 段：
+（貼三段你自己嘅 about）
+</PromptBlock>
+
+Claude 會打開正確嘅 file，改返你要嘅嘢，唔需要你開 editor。
+
+### 7. 部署去 Vercel
+
+<PromptBlock label="Deploy prompt">
+help me deploy this to Vercel.
+
+I haven't connected Vercel before — please walk me through.
+</PromptBlock>
+
+Claude 會：
+- 叫你 install `vercel` CLI
+- 跑 `vercel login`（你瀏覽器簽入）
+- 跑 `vercel`（佢自己 deploy）
+- 畀返你一個 `xxx.vercel.app` URL
+
+呢個 URL 即時 live 喺 internet，**全世界都可以 access**。
+
+## 變化例子
+
+### 變化 1：唔識點開頭，叫 Claude scope 個 project
+
+如果你連自己要乜都未諗清楚，可以叫 Claude 同你 brainstorm：
+
+<PromptBlock label="變化 1 — Brainstorm with Claude Code">
+我想整個個人網站，但未諗清楚要乜頁面、放乜內容。
+你問我 5 條問題，幫我 scope 個 project。
+答完之後出一個 simple plan 畀我 confirm，再 set up。
+</PromptBlock>
+
+### 變化 2：撞到 error 唔識點
+
+整下整下撞 error message？貼返畀 Claude：
+
+<PromptBlock label="變化 2 — Debug error">
+我跑 `npm run dev` 收到以下 error，請幫我睇下乜事，點 fix。
+唔該用 plain 嘅中文解釋，當我唔係 developer。
+
+【貼 error message】
+</PromptBlock>
+
+### 變化 3：擴充網站
+
+部署完之後，幾日之後想加 blog：
+
+<PromptBlock label="變化 3 — 加 blog">
+喺呢個網站加一個 /blog route。
+要求：
+- 用 MDX 寫文章
+- 列表頁顯示所有 post（最新喺前）
+- 每篇 post 有獨立 URL
+- design 跟現有風格
+
+加完之後 commit 同 deploy 上 Vercel。
+</PromptBlock>
+
+## 邊個適合呢條路？
+
+呢條路最啱以下幾類人：
+
+- **想學 code 但唔知由邊度開始**——Claude Code 係一個好溫和嘅入門，因為佢同你傾偈，唔係你要識 syntax
+- **打工仔／創作者想 own 啲 internet asset**——個人網站、portfolio、newsletter 嘅 self-hosted 版本，全部由呢度開始
+- **已經有 idea 但唔識 implement**——你描述得到，Claude Code 就整到
+
+唔啱：
+- 想完全自動化嘅人——Code 仲係需要你 review 同 confirm
+- 怕用 terminal 嘅人——呢個係硬 requirement，唔可以避
+
+完成第一個 project 之後，你會發覺呢個 mode 完全唔似你以為嘅「寫 code」。佢更似 **「同一個有耐性嘅資深工程師合作，但你唔使付佢人工」**。
