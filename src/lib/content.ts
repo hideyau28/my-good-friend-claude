@@ -37,3 +37,9 @@ export const CATEGORY_LABELS = {
   cowork: { name: 'Cowork', cn: '自動化 · 進階' },
   code: { name: 'Claude Code', cn: '開發者 · 進深' },
 } as const
+
+export const CATEGORIES = ['chat', 'cowork', 'code'] as const
+export type Category = (typeof CATEGORIES)[number]
+
+export const AUDIENCES = ['打工仔', '老闆', '學生家長', '創作者', '消費者'] as const
+export type Audience = (typeof AUDIENCES)[number]

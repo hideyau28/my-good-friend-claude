@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { useCases } from '#site/content'
 import { MastheadCompact } from '@/components/design/Masthead'
 import { Footer } from '@/components/design/Footer'
 import { UseCaseHeader } from '@/components/use-case/UseCaseHeader'
@@ -7,10 +8,10 @@ import { MdxRenderer } from '@/components/use-case/MdxRenderer'
 import { RelatedNext } from '@/components/use-case/RelatedNext'
 import { UseCaseJsonLd } from '@/components/use-case/JsonLd'
 import { NewsletterCTA } from '@/components/design/NewsletterCTA'
-import { getAllUseCases, getRelatedUseCases, getUseCaseBySlug } from '@/lib/content'
+import { getRelatedUseCases, getUseCaseBySlug } from '@/lib/content'
 
 export function generateStaticParams() {
-  return getAllUseCases().map((uc) => ({ slug: uc.slug }))
+  return useCases.map((uc) => ({ slug: uc.slug }))
 }
 
 type Params = Promise<{ slug: string }>
