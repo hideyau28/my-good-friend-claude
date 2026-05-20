@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { DateLine } from './DateLine'
 import { Seal } from './Seal'
 import { cn } from '@/lib/utils'
+import { SECTIONS } from '@/lib/content'
 
 /**
  * 滿載報頭 — 用喺首頁 / About / 訂閱頁。
@@ -104,8 +105,10 @@ function Nav({ compact = false }: { compact?: boolean }) {
 }
 
 /**
- * 副刊版面欄 — 兩個 main entry：3 tier curriculum + Use Case 庫。
- * 報紙感嘅 section bar，persistent 喺所有 page。
+ * 副刊版面欄 — 兩條 row：
+ *   Row 1: 3 tier curriculum + Use Case 庫 link
+ *   Row 2: 9 newspaper sections (財經 / 職場 / ...)
+ * Persistent 喺所有 page。
  */
 function SubNav({ maxW }: { maxW: string }) {
   const tiers = [
@@ -115,6 +118,7 @@ function SubNav({ maxW }: { maxW: string }) {
   ]
   return (
     <div className="border-t border-[var(--color-rule-soft)] bg-[var(--color-paper-2)]">
+      {/* Row 1: curriculum tiers + library */}
       <div
         className={cn(
           'mx-auto px-6 py-2.5 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 font-serif',
@@ -150,6 +154,36 @@ function SubNav({ maxW }: { maxW: string }) {
         >
           Use Case 庫 →
         </Link>
+      </div>
+
+      {/* Row 2: newspaper sections — flat browse bar */}
+      <div
+        className={cn(
+          'mx-auto px-6 py-2 border-t border-[var(--color-rule-soft)] font-serif',
+          maxW,
+        )}
+      >
+        <nav
+          aria-label="報紙版面"
+          className="flex flex-wrap items-baseline gap-x-1 gap-y-1 text-xs"
+        >
+          <span className="seal-text font-bold mr-2 tracking-[0.1em]">版面</span>
+          {SECTIONS.map((sec, i) => (
+            <span key={sec} className="flex items-baseline">
+              <Link
+                href={`/use-cases?section=${encodeURIComponent(sec)}`}
+                className="px-1.5 text-[var(--color-ink-soft)] hover:text-[var(--color-seal)] transition-colors no-underline"
+              >
+                {sec}
+              </Link>
+              {i < SECTIONS.length - 1 && (
+                <span aria-hidden className="text-[var(--color-rule)]">
+                  ·
+                </span>
+              )}
+            </span>
+          ))}
+        </nav>
       </div>
     </div>
   )
