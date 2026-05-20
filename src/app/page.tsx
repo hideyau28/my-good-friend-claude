@@ -155,7 +155,7 @@ function EntryCard({
 }) {
   return (
     <Link
-      href={`/use-cases?category=${category}`}
+      href={`/learn/${category}`}
       className="block group border-2 border-[var(--color-rule-strong)] bg-[var(--color-paper-2)] hover:bg-[var(--color-paper-3)] transition-colors p-6 no-underline"
     >
       <div className="flex items-baseline justify-between mb-3">
