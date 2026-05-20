@@ -48,7 +48,6 @@ export default async function TierLearnPage(props: { params: Params }) {
     ? tierArticles.filter((u) => u.slug !== firstRead.slug)
     : tierArticles
 
-  // Group rest by section, preserving newspaper order
   const groupedBySection = SECTIONS.map((sec) => ({
     section: sec,
     description: SECTION_DESCRIPTIONS[sec],
@@ -60,7 +59,21 @@ export default async function TierLearnPage(props: { params: Params }) {
   return (
     <>
       <MastheadCompact />
-      <main className="max-w-5xl mx-auto px-6 py-12">
+      <main className="max-w-5xl mx-auto px-6 py-8">
+        {/* Breadcrumb (P6) */}
+        <nav
+          aria-label="麵包屑"
+          className="font-serif text-xs text-[var(--color-ink-mute)] mb-6 uppercase tracking-[0.15em]"
+        >
+          <Link href="/" className="hover:text-[var(--color-ink)]">
+            首頁
+          </Link>
+          <span className="mx-2 text-[var(--color-rule)]">/</span>
+          <span className="seal-text">{curriculum.eyebrow.replace(/\s/g, '')}</span>
+          <span className="mx-2 text-[var(--color-rule)]">·</span>
+          <span className="text-[var(--color-ink-soft)]">{CATEGORY_LABELS[tier].name}</span>
+        </nav>
+
         {/* Tier hero */}
         <SectionLabel number={curriculum.eyebrow} label="課 程 階 段" className="mb-6" />
         <div className="flex items-baseline gap-3 mb-3 font-serif text-sm text-[var(--color-ink-mute)] uppercase tracking-[0.2em]">
@@ -76,54 +89,51 @@ export default async function TierLearnPage(props: { params: Params }) {
           {curriculum.intro}
         </p>
 
-        {/* Learnings + prereq panel */}
-        <section className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8 mb-16 pb-12 border-b-2 border-[var(--color-ink)]">
-          <div>
-            <h2 className="font-serif font-black text-xl text-[var(--color-ink)] mb-4">
-              你會學識
-            </h2>
-            <ul className="space-y-3 font-serif text-[var(--color-ink-2)] leading-relaxed">
-              {curriculum.learnings.map((l) => (
-                <li key={l} className="flex gap-3">
-                  <span className="seal-text font-bold shrink-0">▸</span>
-                  <span>{l}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <aside className="bg-[var(--color-paper-2)] border border-[var(--color-rule)] p-6">
-            <div className="font-serif text-xs uppercase tracking-[0.2em] text-[var(--color-ink-mute)] mb-3">
-              入學要求
-            </div>
-            <p className="font-serif text-sm text-[var(--color-ink-soft)] leading-relaxed">
-              {curriculum.prereq}
-            </p>
-            <div className="mt-4 pt-4 border-t border-[var(--color-rule-soft)] font-serif text-xs text-[var(--color-ink-mute)]">
-              本階段共 <strong className="text-[var(--color-ink)]">{tierArticles.length}</strong> 篇文章
-            </div>
-          </aside>
-        </section>
-
-        {/* Suggested first read */}
+        {/* First read MOVED UP (P1) + quick-start label (P5) */}
         {firstRead && (
-          <section className="mb-16">
-            <SectionLabel number="◉" label="由 呢 篇 開 始" className="mb-6" />
+          <section className="mb-12">
+            <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
+              <SectionLabel number="◉" label="由 呢 篇 開 始" className="flex-1 min-w-[200px]" />
+              <span className="font-serif text-xs uppercase tracking-[0.15em] font-bold seal-text">
+                ⚡ {firstRead.timeMinutes} 分鐘 quick start
+              </span>
+            </div>
             <h2 className="font-serif font-black text-2xl md:text-3xl mb-6">
-              第一篇，由淺到深嘅起點。
+              第一篇，由呢度入手。
             </h2>
             <UseCaseCard useCase={firstRead} variant="featured" />
           </section>
         )}
 
+        {/* Compact summary strip (P2 + P3) — 你會學識 inline 3-col + prereq one-liner */}
+        <section className="mb-12 py-6 border-y border-[var(--color-rule)]">
+          <h3 className="font-serif text-xs uppercase tracking-[0.2em] text-[var(--color-ink-mute)] mb-4">
+            本階段你會學識
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-3">
+            {curriculum.learnings.map((l) => (
+              <div key={l} className="font-serif text-sm leading-relaxed flex gap-2 text-[var(--color-ink-2)]">
+                <span className="seal-text font-bold shrink-0">▸</span>
+                <span>{l}</span>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 font-serif text-xs text-[var(--color-ink-mute)] leading-relaxed">
+            <strong className="text-[var(--color-ink-soft)]">入學要求：</strong>
+            {curriculum.prereq}
+            <span className="mx-2 text-[var(--color-rule)]">·</span>
+            本階段共 <strong className="text-[var(--color-ink)]">{tierArticles.length}</strong> 篇文章
+          </p>
+        </section>
+
         {/* Rest of tier, grouped by section */}
         {groupedBySection.length > 0 && (
           <section className="mb-16">
-            <SectionLabel number="◉" label="本 階 段 全 部 文 章" className="mb-6" />
             <h2 className="font-serif font-black text-2xl md:text-3xl mb-3">
-              按版面分。揀你工作 / 生活相關嘅。
+              本階段全部文章
             </h2>
             <p className="font-serif text-[var(--color-ink-soft)] mb-10">
-              {restArticles.length} 篇文章，按報紙版面分類；想 cross-cut 揀，可以去{' '}
+              按版面分，揀同你工作 / 生活相關嘅。想 cross-cut 揀，可以去{' '}
               <Link
                 href="/use-cases"
                 className="underline underline-offset-4 hover:text-[var(--color-seal-deep)]"
@@ -151,7 +161,7 @@ export default async function TierLearnPage(props: { params: Params }) {
           </section>
         )}
 
-        {/* Empty tier fallback (in case future tier has no content) */}
+        {/* Empty tier fallback */}
         {tierArticles.length === 0 && (
           <section className="text-center py-20">
             <p className="font-serif text-[var(--color-ink-mute)] italic">
