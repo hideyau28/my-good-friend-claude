@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { formatIssueNumber } from '@/lib/date'
-import type { UseCase } from '@/lib/content'
+import { CATEGORY_BADGES, type UseCase } from '@/lib/content'
 
 interface UseCaseCardProps {
   useCase: UseCase
@@ -29,6 +29,10 @@ export function UseCaseCard({
           <span className="seal-text">{formatIssueNumber(useCase.issue)}</span>
           <span>·</span>
           <span>{useCase.subcategory}</span>
+          <span className="ml-auto inline-flex items-center gap-1 normal-case tracking-normal text-[var(--color-ink-soft)]">
+            <span aria-hidden>{CATEGORY_BADGES[useCase.category].symbol}</span>
+            <span>{CATEGORY_BADGES[useCase.category].label}</span>
+          </span>
         </div>
 
         <h3

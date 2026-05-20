@@ -43,3 +43,37 @@ export type Category = (typeof CATEGORIES)[number]
 
 export const AUDIENCES = ['打工仔', '老闆', '學生家長', '創作者', '消費者'] as const
 export type Audience = (typeof AUDIENCES)[number]
+
+// 報紙版面 — 讀者揾文章嘅主要 axis（按報紙版次序排）
+export const SECTIONS = [
+  '財經',
+  '職場',
+  '商家',
+  '親子',
+  '生活',
+  '文化',
+  '科技',
+  '遊戲',
+  '其他',
+] as const
+export type Section = (typeof SECTIONS)[number]
+
+// Section 副標題 — newspaper masthead style
+export const SECTION_DESCRIPTIONS: Record<Section, string> = {
+  財經: '報稅 · 保險 · 投資',
+  職場: '搵工 · 合約 · 寫嘢',
+  商家: '小店 · 自動化 · 出單',
+  親子: '功課 · 學校 · 教養',
+  生活: '醫健 · 飲食 · 行程',
+  文化: '寫作 · 創作 · 翻譯',
+  科技: 'Code · 工具 · 設定',
+  遊戲: '遊戲 · 娛樂（即將上線）',
+  其他: '冇得分類嘅冷門 use case',
+}
+
+// Tool-tier badge — 喺 card 上面顯示用咩 Claude 路徑
+export const CATEGORY_BADGES: Record<Category, { label: string; symbol: string }> = {
+  chat: { label: '入門', symbol: '💬' },
+  cowork: { label: '進階', symbol: '🔧' },
+  code: { label: '進深', symbol: '⚡' },
+}

@@ -6,11 +6,11 @@ import { SectionLabel } from '@/components/design/ColumnRule'
 import { UseCaseCard } from '@/components/use-case/UseCaseCard'
 import {
   getAllUseCases,
-  CATEGORY_LABELS,
-  CATEGORIES,
+  SECTIONS,
+  SECTION_DESCRIPTIONS,
   AUDIENCES,
   type Audience,
-  type Category,
+  type Section,
 } from '@/lib/content'
 
 export const metadata: Metadata = {
@@ -18,38 +18,37 @@ export const metadata: Metadata = {
   description: '所有真實香港情境，跟住做就得。',
 }
 
-type SearchParams = Promise<{ category?: string; audience?: string }>
+type SearchParams = Promise<{ section?: string; audience?: string }>
 
-function buildHref(params: { audience?: Audience; category?: Category }) {
+function buildHref(params: { audience?: Audience; section?: Section }) {
   const qs = new URLSearchParams()
   if (params.audience) qs.set('audience', params.audience)
-  if (params.category) qs.set('category', params.category)
+  if (params.section) qs.set('section', params.section)
   const s = qs.toString()
   return s ? `/use-cases?${s}` : '/use-cases'
 }
 
 export default async function UseCasesIndexPage(props: { searchParams: SearchParams }) {
-  const { category, audience } = await props.searchParams
+  const { section, audience } = await props.searchParams
   const activeAudience = AUDIENCES.find((a) => a === audience)
-  const activeCategory = CATEGORIES.find((c) => c === category)
+  const activeSection = SECTIONS.find((s) => s === section)
   const allCases = getAllUseCases()
 
-  // Apply audience filter first (used for category nav counts so they stay
-  // meaningful when scoping by category)
+  // Apply audience filter first (used for section nav counts so they stay
+  // meaningful when scoping by section)
   const audienceFiltered = activeAudience
     ? allCases.filter((u) => u.audience.includes(activeAudience))
     : allCases
 
-  const filtered = activeCategory
-    ? audienceFiltered.filter((u) => u.category === activeCategory)
+  const filtered = activeSection
+    ? audienceFiltered.filter((u) => u.section === activeSection)
     : audienceFiltered
 
-  const grouped = CATEGORIES.map((cat) => ({
-    cat,
-    label: CATEGORY_LABELS[cat],
-    items: filtered.filter((u) => u.category === cat),
-    // Total within audience scope, regardless of active category
-    countInAudience: audienceFiltered.filter((u) => u.category === cat).length,
+  const grouped = SECTIONS.map((sec) => ({
+    section: sec,
+    description: SECTION_DESCRIPTIONS[sec],
+    items: filtered.filter((u) => u.section === sec),
+    countInAudience: audienceFiltered.filter((u) => u.section === sec).length,
   }))
 
   return (
@@ -63,7 +62,7 @@ export default async function UseCasesIndexPage(props: { searchParams: SearchPar
           一頁睇晒。
         </h1>
         <p className="font-serif text-lg text-[var(--color-ink-soft)] max-w-2xl mb-8">
-          {filtered.length} 個 use case，按入門路徑分類。
+          {filtered.length} 個 use case，按報紙版面分類。
         </p>
 
         {/* Audience filter chips */}
@@ -73,7 +72,7 @@ export default async function UseCasesIndexPage(props: { searchParams: SearchPar
           </div>
           <div className="flex flex-wrap gap-2">
             <Link
-              href={buildHref({ category: activeCategory })}
+              href={buildHref({ section: activeSection })}
               aria-pressed={!activeAudience}
               className={
                 'font-serif text-sm px-3 py-1.5 border transition-colors ' +
@@ -91,7 +90,7 @@ export default async function UseCasesIndexPage(props: { searchParams: SearchPar
                   key={a}
                   href={buildHref({
                     audience: isActive ? undefined : a,
-                    category: activeCategory,
+                    section: activeSection,
                   })}
                   aria-pressed={isActive}
                   className={
@@ -108,18 +107,18 @@ export default async function UseCasesIndexPage(props: { searchParams: SearchPar
           </div>
         </div>
 
-        {/* Sticky category filter nav */}
+        {/* Sticky section filter nav (newspaper-style) */}
         <nav
-          aria-label="分類篩選"
+          aria-label="版面篩選"
           className="sticky top-0 z-10 -mx-6 px-6 py-3 mb-10 bg-[var(--color-paper)]/95 backdrop-blur border-y border-[var(--color-rule)]"
         >
-          <div className="flex flex-wrap items-baseline gap-x-6 gap-y-1 font-serif text-sm">
+          <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1 font-serif text-sm">
             <Link
               href={buildHref({ audience: activeAudience })}
-              aria-pressed={!activeCategory}
+              aria-pressed={!activeSection}
               className={
                 'transition-colors ' +
-                (!activeCategory
+                (!activeSection
                   ? 'text-[var(--color-ink)] font-black underline underline-offset-4'
                   : 'text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]')
               }
@@ -129,24 +128,27 @@ export default async function UseCasesIndexPage(props: { searchParams: SearchPar
                 {audienceFiltered.length}
               </span>
             </Link>
-            {grouped.map(({ cat, label, countInAudience }) => {
-              const isActive = activeCategory === cat
+            {grouped.map(({ section: sec, countInAudience }) => {
+              const isActive = activeSection === sec
+              const isEmpty = countInAudience === 0
               return (
                 <Link
-                  key={cat}
+                  key={sec}
                   href={buildHref({
                     audience: activeAudience,
-                    category: isActive ? undefined : cat,
+                    section: isActive ? undefined : sec,
                   })}
                   aria-pressed={isActive}
                   className={
                     'transition-colors ' +
                     (isActive
                       ? 'text-[var(--color-ink)] font-black underline underline-offset-4'
-                      : 'text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]')
+                      : isEmpty
+                        ? 'text-[var(--color-ink-mute)] hover:text-[var(--color-ink-soft)]'
+                        : 'text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]')
                   }
                 >
-                  {label.name}
+                  {sec}
                   <span className="text-[var(--color-ink-mute)] font-normal ml-1.5">
                     {countInAudience}
                   </span>
@@ -156,16 +158,14 @@ export default async function UseCasesIndexPage(props: { searchParams: SearchPar
           </div>
         </nav>
 
-        {grouped.map(({ cat, label, items }) => {
+        {grouped.map(({ section: sec, description, items }) => {
           if (items.length === 0) return null
           return (
-            <section key={cat} id={cat} className="mb-16 scroll-mt-20">
+            <section key={sec} id={sec} className="mb-16 scroll-mt-20">
               <div className="flex items-baseline justify-between mb-6 pb-3 border-b-2 border-[var(--color-ink)]">
-                <h2 className="font-serif font-black text-2xl md:text-3xl">
-                  {label.name}
-                </h2>
+                <h2 className="font-serif font-black text-2xl md:text-3xl">{sec}</h2>
                 <span className="font-serif text-sm text-[var(--color-ink-mute)] uppercase tracking-[0.2em]">
-                  {label.cn}
+                  {description}
                 </span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -179,7 +179,9 @@ export default async function UseCasesIndexPage(props: { searchParams: SearchPar
 
         {filtered.length === 0 && (
           <p className="font-serif text-center text-[var(--color-ink-mute)] py-20">
-            未有匹配嘅 use case。
+            {activeSection
+              ? `「${activeSection}」版未有文章，即將上線。`
+              : '未有匹配嘅 use case。'}
           </p>
         )}
       </main>

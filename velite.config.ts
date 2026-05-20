@@ -3,8 +3,21 @@ import { defineConfig, defineCollection, s } from 'velite'
 // 受眾標籤
 const AUDIENCE = ['打工仔', '老闆', '學生家長', '創作者', '消費者'] as const
 
-// 三大入口分類
+// 三大入口路徑（tool tier — 讀者點開始用 Claude）
 const CATEGORY = ['chat', 'cowork', 'code'] as const
+
+// 報紙版面（content section — 讀者揾文章嘅 mental model）
+const SECTION = [
+  '財經',
+  '職場',
+  '商家',
+  '親子',
+  '生活',
+  '文化',
+  '科技',
+  '遊戲',
+  '其他',
+] as const
 
 const useCases = defineCollection({
   name: 'UseCase',
@@ -18,6 +31,7 @@ const useCases = defineCollection({
       updatedAt: s.isodate().optional(),
       audience: s.array(s.enum(AUDIENCE)).min(1),
       category: s.enum(CATEGORY),
+      section: s.enum(SECTION),
       subcategory: s.string(),
       difficulty: s.number().int().min(1).max(3),
       timeMinutes: s.number().int().positive(),
