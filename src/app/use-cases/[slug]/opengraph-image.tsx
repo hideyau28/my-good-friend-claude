@@ -114,8 +114,7 @@ export default async function OpenGraphImage(props: { params: Params }) {
           }}
         >
           <span>
-            難度 {'★'.repeat(uc.difficulty)}
-            {'☆'.repeat(3 - uc.difficulty)} · {uc.timeMinutes} 分鐘
+            難度 {uc.difficulty}/3 · {uc.timeMinutes} 分鐘
           </span>
           <span style={{ fontStyle: 'italic' }}>【編者撰】一個香港人</span>
         </div>
