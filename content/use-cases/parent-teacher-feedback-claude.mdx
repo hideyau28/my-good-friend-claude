@@ -1,0 +1,147 @@
+---
+title: "家長日 feedback / 學校投訴信：用 Claude 寫到企得硬又唔火爆"
+slug: "parent-teacher-feedback-claude"
+issue: 12
+publishedAt: 2026-02-24
+audience: ["學生家長"]
+category: "chat"
+subcategory: "寫嘢同溝通"
+difficulty: 2
+timeMinutes: 20
+toolsNeeded: ["Claude Chat"]
+description: "家長日 feedback / 學校投訴信點寫？用 Claude 寫到企得硬又唔燒橋。HK 家長 vs 學校嘅敏感情境，呢個 prompt 幫你 stay strategic。"
+keywords: ["家長日 feedback", "學校投訴信", "家長 學校 溝通", "claude 教育", "親子"]
+related: ["claude-tsa-homework-hk", "english-email-polish-hk"]
+featured: false
+---
+
+## 情境
+
+小朋友返學撞到問題：
+
+- 老師長期不公平對小朋友
+- 學校政策唔合理（功課量、罰則、成績計算）
+- 同學欺凌、家長未滿意處理
+- Special needs 評估／支援唔足夠
+
+你想寫信／email 同學校溝通，但：
+
+- **太 soft** —— 學校會敷衍處理，事情冇變
+- **太 aggressive** —— 學校會 defensive、未來幾年小朋友返學壓力反彈喺自己屋企人身上
+- **太 emotional** —— 顯得 unreasonable，正當訴求變咗 nuisance complaint
+
+呢度個甜蜜點係：**企得硬、但 framing 係 collaborative**。 你嘅角色係 partner 而唔係 adversary。 呢篇用 Claude 寫到呢類信。
+
+## 跟住做
+
+### 1. 先 collect 三樣嘢
+
+- **Fact pattern**——時間、地點、發生咗咩。具體日期，唔係「最近」。
+- **Direct impact 喺小朋友身上**——情緒、表現、健康。
+- **你想要嘅 outcome**——具體 ask，唔係「希望學校跟進」。
+
+呢一步唔可以 skip。冇呢三樣，AI 出嘅 letter 會係 generic 投訴，學校好易回應「我哋會留意」就完場。
+
+### 2. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — 家長同學校嘅 strategic letter">
+我要寫一封信／email 畀我小朋友嘅學校。資料：
+
+- 小朋友嘅名 + 班別：[填]
+- 學校：[填]
+- 收信人（班主任 / 副校長 / 校長）：[填，揀啱對應 escalation 層級]
+- 事件 fact pattern：
+  [點解寫呢封信？具體 date、發生咗咩、邊個 involve]
+- Direct impact 喺小朋友身上：
+  [例如：失眠、唔願返學、成績滑落、self-esteem 受影響]
+- 我希望學校做嘅嘢（具體）：
+  [例如：重新評估某成績 / 揾老師個別對話 / 改個別 policy]
+
+請幫我寫信，要做到：
+
+1. **第一段**：直接但唔對抗。一句講係咩事 + 為咩寫呢封信
+2. **第二段**：陳述事實（date、地點、發生咗咩）。NEUTRAL framing——「事件係 X」，唔係「老師居然 X」
+3. **第三段**：講 impact 喺小朋友身上。具體（「最近三個禮拜佢 11 點仲未瞓得著」），唔係 vague（「佢好唔開心」）
+4. **第四段**：clearly state 你想學校做乜。一個 specific 嘅 ask + 一個 fallback / 替代方案
+5. **第五段**：表達 willingness to collaborate（「希望可以同你 meet 傾」），但 set a timeline（「希望下星期之前可以有 initial response」）
+
+避免：
+- 用「居然」、「竟然」、「實在不能接受」呢類 escalation 字眼
+- Question 老師 / 學校嘅 motivation（「我懷疑佢係咁特別針對」）
+- 提其他家長一齊嘅意見（呢個會被當作 mobilization，影響負面）
+- 提 lawyer / 教育局——除非真係決定要 escalate，否則一寫就燒晒橋
+
+語氣：concerned parent who happens to be capable, articulate, and patient. 唔係 angry parent on warpath。
+</PromptBlock>
+
+### 3. 24 小時冷靜期
+
+呢類信寫完**一定要等一日**先 send。第二朝重 read，你會發現：
+
+- 某啲句仲係太 sharp（要 soften）
+- 某啲段太 vague（要 add 具體 detail）
+- 某啲 ask 太 broad（要 narrow 到可 actionable）
+
+呢類信冇 second chance。Send 出去之後，個 tone 已經 set 咗成個 dialogue 嘅基礎。
+
+### 4. 想 escalate 之前嘅順序
+
+通常順序係：班主任 → 主任 → 副校長 → 校長 → 校董會 → 教育局。 **唔好 skip 級**——你會輸 procedural credibility。 第一封信去班主任 / 主任。如果一個月內 unsatisfactory，先 escalate 落上一層。
+
+## 變化例子
+
+### 變化 1：寫家長日 prep notes（唔係正式信，係你自己嘅 talking points）
+
+<PromptBlock label="變化 1 — 家長日 talking points">
+我下個禮拜要參加家長日，要同班主任傾以下事情：
+
+[列出 3 個 concern，每個一句]
+
+請幫我整一份 talking points，要做到：
+1. 每個 concern 一段，包：點 frame、可能想問嘅問題、可能聽到嘅 response 同點 follow up
+2. 整體 30 分鐘可以傾晒（家長日通常每位家長 15-30 分鐘）
+3. 開頭一句 positive observation 緩衝（唔係 fake，係由小朋友嘅進步揀一個）
+4. 結尾 ask for next step（「我哋下次點 follow up」）
+
+語氣：collaborative、唔對抗、但企得硬。
+</PromptBlock>
+
+### 變化 2：學校行政層面嘅政策投訴
+
+<PromptBlock label="變化 2 — 政策層面投訴">
+我想就學校嘅某個 policy 寫信俾 [校長 / 副校長]：
+
+Policy：[描述邊個 policy]
+我嘅 concern：[具體點唔合理]
+
+請幫我寫信，要做到：
+1. 唔針對任何個別 staff——focus 喺 policy
+2. 引返 policy 本身嘅 wording（如果有條文）
+3. 提供 1-2 個 alternative 做法（其他學校點做、或者一個 reasonable suggestion）
+4. Ask: 希望學校 reconsider，或者 explain rationale
+5. 唔賣弄 expertise（除非你 actually 係 educator）
+
+語氣：concerned community member，唔係 sole complainant。
+</PromptBlock>
+
+### 變化 3：肯定 / 感激嘅信（少寫，但好有 power）
+
+<PromptBlock label="變化 3 — 肯定老師 / 學校嘅信">
+我想寫信表揚 [老師 / staff name] 對小朋友嘅關懷。
+
+Specific situation：[描述邊件事顯示佢嘅 care]
+
+請幫我寫一封 short 嘅感謝信，要做到：
+1. 簡短——半頁紙最 sweet
+2. Specific——唔係「老師好好」，係「上個月 [日期]，老師做咗 [嘢]」
+3. 寄一份 copy 落校長 / 校監處——令呢個 recognition 入到 staff record
+4. 唔好過度 effusive（過分讚反而 awkward）
+</PromptBlock>
+
+## 一個 framing 提醒
+
+家長同學校嘅關係，最後 stake 唔係你贏唔贏個 argument，係**你個小朋友返學嘅體驗**。
+
+每一封信都帶住一個 trade-off：你想出啖氣 vs 你想保留 future cooperation 嘅空間。 識揀啱個 trade-off，係呢類 letter 嘅真正藝術。
+
+**AI 幫你寫得 articulate，但揀邊個 trade-off 永遠係你嘅責任**。

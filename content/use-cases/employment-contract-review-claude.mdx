@@ -1,0 +1,178 @@
+---
+title: "Sign 新工合約前用 Claude 揾出 Non-compete、IP、解僱條款（HK 打工仔必睇）"
+slug: "employment-contract-review-claude"
+issue: 28
+publishedAt: 2026-06-16
+audience: ["打工仔"]
+category: "chat"
+subcategory: "讀文件做摘要"
+difficulty: 2
+timeMinutes: 30
+toolsNeeded: ["Claude Chat", "Employment contract PDF"]
+description: "Sign 僱傭合約前用 Claude review：揾出 non-compete、IP assignment、解僱條款、bonus clawback 等對打工仔最有 long-term impact 嘅條文。HK 簽新工必做嘅 30 分鐘。"
+keywords: ["僱傭合約 注意", "employment contract review", "non-compete 條款", "ip assignment", "解僱條款"]
+related: ["hong-kong-tenancy-agreement-claude", "claude-pdf-summary"]
+featured: true
+---
+
+## 情境
+
+你拎到 offer letter + employment contract。HR 話：
+
+> 「Sign 完 send 返我，下星期一報到。」
+
+合約 8-15 頁，律師體中英夾雜。你 scan 過 salary、bonus、leave，覺得 OK，準備 sign。 但你冇細讀：
+
+- **Non-compete clause**——可能 ban 你離職後 6 個月不可入同行
+- **IP assignment**——你 weekend 寫嘅 side project 可能屬於公司
+- **Garden leave**——離職時公司可以 pay you 但唔畀你做嘢 / 唔畀去新公司
+- **Bonus clawback**——拎咗 bonus 但離職 12 個月內 trigger 嘅 conditions
+- **Confidentiality scope**——廣度可能 cover 你成個 career 已知嘅 industry knowledge
+
+呢啲條款**唔影響你頭三個月嘅 work**，但**深刻影響你未來 10 年嘅 career flexibility**。
+
+呢篇用 Claude 做 30 分鐘嘅 strategic review：揾出 unusual / 對打工仔 unfavorable 嘅 clause、預警可能 lose 嘅 future optionality。
+
+> Disclaimer：呢個唔係 legal advice。Claude 嘅 output 係幫你**識得問問題**，唔取代律師。涉及大職位（C-level、senior partner）或者你 unsure，畀 $2-3K 揾僱傭法律師審半個鐘 ROI 永遠 positive。
+
+## 跟住做
+
+### 1. 上傳 contract（連 schedule / appendix 都要齊）
+
+成份 contract 包括：
+- Main employment agreement
+- Compensation schedule（salary、bonus structure）
+- Restrictive covenants schedule（non-compete、non-solicit）
+- IP / confidentiality schedule
+- 任何 referenced policy document（如「跟公司 handbook」）
+
+如果 HR 只 send 你 main agreement，**主動 ask appendix**——成日呢度埋伏嘅 catch 最多。
+
+### 2. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — Employment contract strategic review">
+我會 sign 呢份 HK 僱傭合約（新工）。請幫我 review。 我嘅 context：
+
+- 職位 + level：[填，例：Senior Marketing Manager / Director / 等]
+- 行業：[填]
+- Annual comp：[base + bonus structure，要 specific]
+- 我而家 / 上一份工係邊間：[填，relevance：可能影響 non-compete 嘅 scope]
+- 我嘅 long-term flexibility consideration：[example：未來 3 年想入同行 startup / 未來想自己創業 / 想保留 side project freedom]
+
+請整以下 5 個 section：
+
+**Part 1：Comp 細節核對表**
+
+- Base salary：金額 + 幾時 review
+- Bonus：% of base、是否 guaranteed、calc 邏輯、payment timing
+- 13th-month / contract gratuity：有冇、計算
+- 股票 / option：vesting schedule、cliff、accelerator clauses
+- Sign-on bonus：金額 + clawback condition
+- Benefits：MPF top-up、insurance、annual leave、sick leave
+
+如果某項冇 mention，標「未列明」。
+
+**Part 2：⚠️ Restrictive covenants（最重要嘅一段）**
+
+逐個 review：
+
+- **Non-compete**：duration、geographic scope、industry scope、是否 paid。問：條款 enforceable 嗎？（HK 法律下 non-compete 必須 reasonable scope + duration + paid 先 enforceable）
+- **Non-solicit**：cover clients only / staff only / both？duration？
+- **Non-deal**：有冇？呢個比 non-solicit 更廣，禁止你同前公司 client 做生意 even 對方主動 approach 你
+- **Garden leave**：公司可以強制？最長幾耐？呢段時間 paid full?
+
+每項：原文 quote + 是否 standard + 對我未來嘅 specific impact + 應該 negotiate 邊度。
+
+**Part 3：⚠️ IP / Confidentiality**
+
+- **Invention assignment**：公司 own 嘅 IP scope 有幾廣？是否 cover off-work creation? 是否 cover 喺 sign 之前已經有嘅 invention（pre-existing IP carve-out）?
+- **Confidentiality duration**：永久 vs limited time? 範圍係 trade secret only 定 broader confidential info?
+- **Side project / moonlighting**：有冇 explicit ban? 有冇 carve-out 機制?
+
+**Part 4：⚠️ Termination clauses**
+
+- **Notice period**：你 give 同公司 give 對等嗎？
+- **Cause vs without cause**：兩個 trigger 嘅 implication
+- **Bonus / equity 喺 termination 嘅 treatment**：唔同 trigger 唔同 outcome？
+- **Severance / payment in lieu**：用 PILON（payment in lieu of notice）替代 notice 嘅 right 屬於邊個？
+
+**Part 5：我應該同 HR / 老闆 negotiate 嘅 5 個 ask**
+
+由 above analysis 抽出 5 個對我 long-term flexibility 最 critical 嘅嘢，我 sign 之前 push back 嘅。畀埋：
+- 點 framing（avoid sounding 唔信任 / 麻煩）
+- 預想 HR 嘅 likely response
+- 我 fallback position（如果 push back full 嘅 ask 被拒，可以 alternative 點）
+
+語氣：sharp、specific、actionable。 唔出 generic 「sign 之前要小心」呢類 disclaimer（信尾 caveat 已有）。
+</PromptBlock>
+
+### 3. Verify 兩三個 critical clause 嘅原文
+
+呢類 contract 嘅 5% AI 錯誤可以等於幾年 career restriction。 至少 verify：
+- **Non-compete duration 同 scope 嘅原文** —— 一個字差別好大
+- **IP assignment 嘅 scope** —— 有冇 「conceived or developed during employment 」嘅 phrasing？呢個會 cover off-work
+- **Bonus / equity termination treatment** —— vested vs unvested 點處理
+
+### 4. Negotiate（HR 比你想像中 flexible）
+
+大部分 HK 打工仔 NEVER negotiate non-compete / IP clause，因為**唔知有嘢可以 negotiate**。
+
+事實係 HR 通常已 prepare 兩個 version：full restrictive 同 reasonable 版。 一個 informed candidate 主動 push back，**60-70% 嘅 case 公司會 adjust**（因為 HR 知 unreasonable 條款喺 court 反而 unenforceable）。
+
+**你嘅 leverage 唯一 window 係 sign 之前**。Sign 之後想 renegotiate = effectively 唔可能。
+
+## 變化例子
+
+### 變化 1：Senior level / C-suite contract
+
+<PromptBlock label="變化 1 — Senior level 加深 review">
+我嘅職位係 [VP / Director / C-suite]，contract 更 complex（有 LTIP、change-of-control provision 等）。
+
+請特別 deep dive：
+1. **Change-of-control trigger**：如果公司被收購、IPO、merger，我嘅 vesting / bonus / severance 點處理
+2. **Performance shares / LTIP**：goal-based vs time-based？是否 cap？
+3. **Indemnification / D&O insurance**：personal liability protection 範圍
+4. **Constructive dismissal triggers**：如果公司單方面 demote / relocate / 大改 scope，我嘅 right
+5. **Confidentiality 超越 employment**：whisteblower carve-out、co-operation 義務
+
+呢類 senior contract，律師審幾乎 mandatory。Claude 嘅 output 係幫你 prep 律師會議。
+</PromptBlock>
+
+### 變化 2：你係 freelance / contractor，唔係 full-time
+
+<PromptBlock label="變化 2 — Freelance / contractor 合約">
+我簽嘅係 contractor agreement（freelance / consulting / part-time），唔係 full-time employment。
+
+請特別 focus：
+1. **Independent contractor classification**：clauses 確保 you not deemed employee（避免 future labour tribunal claim 反向）
+2. **IP assignment**：你 deliverable 嘅 ownership? 你 background IP 嘅 retention?
+3. **Payment terms**：upfront / milestone / net-30？late payment 嘅 recourse
+4. **Termination**：你 give notice 同 client give notice 對等？
+5. **Indemnity**：客戶 sue 第三方嘅話，邊個負責
+6. **Non-compete for contractors**：通常 narrower scope 應該夠
+</PromptBlock>
+
+### 變化 3：你已 sign 咗，而家 retrospectively 想 understand
+
+<PromptBlock label="變化 3 — Sign 完之後 review">
+我已 sign 咗（[幾耐之前]），先睇返條款。請：
+
+1. 用上面 same 5 個 section 整理
+2. Flag 我而家 sign 咗 stuck 嘅 disadvantage
+3. 列我幾時可以 renegotiate（例：annual review、performance milestone trigger、加薪 conversation）
+4. Specifically：呢份 contract 嘅哪啲 clause 我下次轉工 / 下次 review 應該 push back
+
+最後問：基於呢份 contract，我可以做啲乜避免 future regret（例：document my off-work IP creation timestamp、avoid signing additional restrictive document）
+</PromptBlock>
+
+## 一個 mindset
+
+HK 打工仔 contract negotiation 嘅最大 myth：「公司唔會 budge，我 push back 就 lose 個 offer」。
+
+事實係，**HR 嘅 default 係 zero negotiation**——但係 zero negotiation 唔等於 「budget 唔 flexible」。 大部分 HR 拎住 standard contract template，唔係特登 trap 你。**一個有 specific ask 嘅 candidate，HR 通常會 escalate 上 legal / hiring manager 認真考慮**。
+
+你最壞 outcome：HR 話「呢條 cannot move」。 你最好 outcome：拎走幾條 clause 嘅 restriction。
+
+**所以 push back 嘅 expected value 永遠 positive**。
+
+Claude 嘅 leverage 就係令你由「唔知有嘢 negotiate」變「知有嘢 negotiate + 點 framing」。 30 分鐘嘅 review 工，可以 protect 你未來 10 年嘅 career optionality。

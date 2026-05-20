@@ -1,0 +1,155 @@
+---
+title: "用 Claude 一文變 5 條 social post：IG / Threads / FB / LinkedIn / X 嘅同步 prompt"
+slug: "claude-content-repurpose"
+issue: 21
+publishedAt: 2026-04-28
+audience: ["創作者"]
+category: "chat"
+subcategory: "內容生產"
+difficulty: 1
+timeMinutes: 15
+toolsNeeded: ["Claude Chat"]
+description: "用 Claude 一文 repurpose 變 5 條 social post：同時出 IG caption（連 hashtag）、Threads、Facebook、LinkedIn 同 X thread。Native 化每個平台嘅 tone 同 length，慳一半時間。"
+keywords: ["ig caption ai", "content repurpose", "social media 內容 創作", "threads 寫文 ai", "linkedin post ai"]
+related: ["cantonese-to-written-claude", "english-email-polish-hk"]
+featured: true
+---
+
+## 情境
+
+你寫咗一篇靚 blog 文章 / newsletter — 1,500 字、有資料、有觀點。 而家要喺 IG、Threads、FB、LinkedIn、X 都出。
+
+如果齋複製貼上：
+- IG 嘅 caption 太長、冇 hashtag、第一行抓唔到人
+- Threads 唔啱寫長文（會被 cut）
+- LinkedIn 嘅讀者會覺得太隨意
+- X 完全唔 fit（字數限制）
+
+每個平台改一改要幾分鐘 × 5 = 半個鐘起跳。**用 Claude，一次過出五個版本，你淨係執最後 polish**。
+
+## 跟住做
+
+### 1. 先 copy 你篇原文
+
+整篇文章準備好，連標題、副題、主要 example 都要齊。Claude 越睇得到原文越好。
+
+### 2. 用呢個「multi-platform brief」一次過 prompt
+
+<PromptBlock label="完整 prompt — 一次出五個版本">
+我啱啱寫好一篇 blog 文章（喺下面）。請你幫我 repurpose 去五個 social media 平台。
+
+每個平台嘅要求：
+
+**1. Instagram caption**
+- 長度：300 字以內
+- 第一句要 hook（停下嚟睇嘅程度）
+- 中間用 emoji 分段（適量，唔好過火）
+- 結尾畀 CTA（例如「完整版去 [link]」）
+- 列 5–8 個相關 hashtag（mix 大細 tag）
+
+**2. Threads post**
+- 長度：500 字以內
+- 唔用 hashtag
+- 可以分多段，每段一句，比較 conversational
+- 對話 feel，似你同朋友傾偈，唔係 broadcast
+
+**3. Facebook post**
+- 長度：400 字左右
+- 開頭用 personal 嘅 hook（「上個禮拜我撞到…」嗰種）
+- 中間 storytelling，唔好寫到 listicle
+- 結尾畀 CTA + 留問題畀讀者答
+
+**4. LinkedIn post**
+- 長度：300 字內
+- 開頭講 insight 或 contrarian observation
+- 中間用 bullet point 列 3 個 takeaway
+- 結尾留一個 thoughtful question
+- 語氣專業但唔死板
+
+**5. X (Twitter) thread**
+- 5–7 條 tweet
+- 每條 280 字以內
+- 第一條 hook，最後一條 call-to-action
+- 條條之間有 narrative 接駁
+
+語氣統一要求：
+- 用我自己嘅口吻（睇返原文）
+- 廣東話書面語、香港人睇得明
+- 唔好用「敬請垂注」嗰類老套字眼
+- 唔好 sell hard
+
+【原文】：
+（喺度貼你嘅 blog 文章）
+</PromptBlock>
+
+### 3. Review + polish
+
+Claude 出嘅五個版本，**90% 啱**，但有 10% 要你親手執。我嘅 routine：
+
+- IG hashtag 要查返而家熱嘅 — Claude 嘅 hashtag 知識可能舊
+- Threads 個 voice 有時太似 LinkedIn — 要加返啲 HK 口語
+- LinkedIn 嘅「contrarian observation」有時太 contrarian — 要 dial down
+- X thread 嘅第一條 hook 通常要 rewrite
+
+執完 5 個版本，total 10–15 分鐘。比起逐個平台由零寫，慳一半時間。
+
+## 變化例子
+
+### 變化 1：只係出某個平台（深度版）
+
+如果你淨係要 IG，但要做得好：
+
+<PromptBlock label="變化 1 — IG 深度單一版本">
+請幫我將下面呢篇文章變做一個 Instagram 內容 plan。
+
+我要：
+1. **Feed post caption**（300 字內，連 hashtags）
+2. **Story 系列**（5 張 story 嘅 outline，每張一個 key point + visual idea）
+3. **Reel script**（30 秒，hook + 3 個 key point + CTA）
+4. **可重用 carousel idea**（10 張 slides 嘅 outline）
+
+文章主題、語氣 keep my voice。Caption 要香港人睇得明。
+
+【原文】：
+（貼文章）
+</PromptBlock>
+
+### 變化 2：將 transcript 變 social
+
+如果你錄咗一條 podcast / YouTube 30 分鐘，用 transcript 出 social：
+
+<PromptBlock label="變化 2 — Transcript → 多平台">
+下面係我嘅 podcast transcript（30 分鐘）。請：
+
+1. 揀出 3 個最 valuable 嘅 quote／moment（連時間戳）
+2. 將每個 quote 包裝成 social media post 變化：
+   - IG quote graphic 用嘅 caption
+   - Threads 嘅 standalone hot take
+   - X thread 嘅 opener
+3. 整一個 episode 嘅 5–6 條 timestamp marker 畀 YouTube description
+
+【Transcript】：
+（貼 transcript）
+</PromptBlock>
+
+### 變化 3：定期 newsletter → social hook
+
+<PromptBlock label="變化 3 — Newsletter announce">
+我啱啱出咗呢一期 newsletter（主題、key takeaway 喺下面）。
+請幫我寫 3 條 announce post：
+
+- IG（畀現有 follower 望到，要 hook 佢哋去 subscribe）
+- Threads（畀新人睇到，要解釋我寫乜）
+- LinkedIn（畀 professional network 睇，要 angle 入 industry context）
+
+主題：（填）
+Key takeaway：（填 3 點）
+Newsletter link：（填）
+</PromptBlock>
+
+## 一個 mindset shift
+
+唔好諗住「每個平台都應該獨立創作」 —— 你冇咁多時間。
+亦唔好諗住「一篇文 cross-post 算數」—— 啲讀者會睇得出。
+
+中間有個甜蜜點：**一個 idea，五個 native 化嘅 expression**。 Claude 嘅 leverage 就係喺呢度，唔係幫你諗 idea，係幫你將同一個 idea 用唔同方法表達 5 次。

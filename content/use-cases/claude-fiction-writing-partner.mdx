@@ -1,0 +1,208 @@
+---
+title: "用 Claude 寫 fiction：plot brainstorm + 不替代你 voice 嘅 editor"
+slug: "claude-fiction-writing-partner"
+issue: 39
+publishedAt: 2026-09-01
+audience: ["創作者"]
+category: "chat"
+subcategory: "內容生產"
+difficulty: 2
+timeMinutes: 30
+toolsNeeded: ["Claude Chat"]
+description: "用 Claude 寫 fiction：plot brainstorm、character development、editor feedback。HK fiction writer / short story author 嘅 thinking partner setup，保留 your prose voice。"
+keywords: ["ai 寫小說", "fiction prompt", "claude 寫作", "小說 brainstorm", "short story 創作"]
+related: ["claude-content-repurpose", "cantonese-to-written-claude"]
+featured: false
+---
+
+## 情境
+
+你寫 fiction（short story、novel chapter、screenplay）。 過程嘅 friction：
+
+- **Plot stuck**：第二章卡咗 3 個禮拜
+- **Character feel flat**：你 protagonist 嘅 motivation 自己都覺得 weak
+- **Pacing 嘅 second-guessing**：呢段太長定太短?
+- **「呢段我寫完讀返自己唔 buy」嘅 self-doubt**
+
+你想要 thinking partner，但：
+
+- Writing group meet 週一次，太 slow
+- 朋友讀但 「You should listen yourself」 嘅 vague feedback
+- Editor expensive、要等
+
+呢個 case Claude 嘅 leverage 真實。 但要 **clearly setup boundary**：佢係 sparring partner、唔係 ghostwriter。
+
+## 跟住做
+
+### 1. Frame Claude 嘅 role（critical setup）
+
+第一條 prompt 設定，影響後續所有 conversation。 唔正確 setup，Claude 出嘅 「draft suggestion」 越來越多，最後**你 lose 你嘅 voice**。
+
+<PromptBlock label="完整 prompt — Setup fiction thinking partner role">
+我寫緊一個 [short story / novel / screenplay]：
+
+- **Genre**：[填]
+- **Length target**：[填]
+- **Stage**：[Idea / outline / first draft / revision / polish]
+- **POV**：[1st person / 3rd close / 3rd omniscient]
+- **Tone**：[literary / commercial / dark / lyrical / comedic / 等]
+- **我嘅 voice influence**（writer 我崇拜嘅）：[列 2-3 個]
+
+請扮**「靜靜傾偈嘅 writing partner」**，唔係 editor、唔係 ghostwriter。 規則：
+
+**你 do：**
+1. **Ask question to clarify intent** —— 「你想 reader 喺呢個 chapter end 有咩 feeling?」
+2. **Reflect back what I'm doing** —— 「我聽到你嘅 character X 想 Y，但 plot 入面 conflict 似乎 push 佢去 Z」
+3. **Surface contradiction** —— 「Chapter 2 你 establish A，但 chapter 5 個 setup 假設 not A」
+4. **Suggest direction, 唔 prescribe sentence** —— 「呢度 你可能想 explore X 嘅 angle」
+
+**你 do NOT：**
+1. **唔 write prose for me**——除非我 specifically 講「draft a sentence for me to compare」
+2. **唔 evaluate as 「good」/ 「bad」**——用 「呢個 work towards your stated intent 嗎」 嘅 framing
+3. **唔 introduce major plot turn**——除非我 explicitly invite
+4. **唔 compare 我同 famous writer**——「呢段似 [大師]」 呢類 comment 唔 helpful
+
+我會：
+- Share 我 outline / draft / specific paragraph
+- 問 specific question（「呢個 transition work 嗎?」）
+- 偶爾 vent frustration
+
+ready 嘅話，confirm 你明白 role，然後我 share 我而家 stuck 嘅地方。
+</PromptBlock>
+
+### 2. 三個常用 mode
+
+Setup 之後，conversation 嘅 typical pattern：
+
+**Mode A — Plot brainstorm**
+
+<PromptBlock label="Mode A — Plot brainstorm">
+我 stuck 喺 [描述 plot point]。
+
+我 already considered：
+- Option 1：[填]
+- Option 2：[填]
+
+但兩個都覺得 unsatisfying，原因：[你嘅 instinct]
+
+請：
+1. Articulate 點解兩個 option 都 weak（用我嘅 stated intent 判斷）
+2. Surface 3 個 underlying tension 我可能 ignore
+3. 提 2-3 個 fresh angle 我未 considered（唔好 「shock twist」 嗰類 cheap）
+
+唔好 write prose。 純 brainstorm direction。
+</PromptBlock>
+
+**Mode B — Character interrogation**
+
+<PromptBlock label="Mode B — Character interrogation">
+我嘅 character [名]：[brief description]
+
+我覺得佢 feel flat。 請：
+1. 問我 5-7 個 specific question about 呢個 character（佢 fear 乜? 佢嘅 daily 5pm 想做乜? 佢秘密?）
+2. 我答你之後，identify 邊個 answer 引發 「呢個 character 突然立體」嘅 moment
+3. Suggest 邊個 detail 加入 story 入面（specific scene placement）
+
+唔好 generate complete character bio。 你嘅 role 係 trigger my 諗深一層。
+</PromptBlock>
+
+**Mode C — Manuscript critique（read-and-react）**
+
+<PromptBlock label="Mode C — Manuscript critique">
+我 share 一段 [chapter / scene / 1000 字]：
+
+[Paste]
+
+請用以下 framework critique：
+
+1. **Reader experience**：第一句你會點繼續讀? 你停喺邊度? 你會 skim 邊度?
+2. **Intent alignment**：呢段 work towards 我之前 stated 嘅 chapter intent 嗎?
+3. **Spec issue（technical）**：tense consistency、POV slip、unclear pronoun
+4. **Voice consistency**：邊度 sound 似我之前 share 嘅 sample? 邊度 sound 唔似?
+5. **Recommendation**（priority order）：cut / expand / restructure / 留 alone
+
+⚠️ 唔好 rewrite 我嘅 prose——only point out issue。
+</PromptBlock>
+
+### 3. Workshop rhythm
+
+我嘅實際 rhythm：
+
+- **Week 1-2**：drafting alone。 唔 use Claude（你 voice find own ground 嘅 protected time）
+- **Week 3**：first 「Mode B character interrogation」 session
+- **Week 4-5**：drafting，偶爾 quick 「Mode A plot brainstorm」 5-10 分鐘
+- **Week 6**：first 「Mode C manuscript critique」 session
+
+唔好 daily 用。 過分 frequent dialogue 同 AI = lose your own voice 嘅 risk。
+
+### 4. 紅線 — 你應該知
+
+⚠️ **Use AI to brainstorm/critique = OK**
+⚠️ **Use AI 寫 publishable prose = NOT OK**
+
+呢個 distinction 喺 publishing industry 而家越來越 strict：
+- 大部分 literary magazine 禁 「AI co-authored」 submission
+- Major book publisher 出版時要求 author declaration
+- 讀者越來越 detect 到 AI generated prose 嘅 「smoothness」
+
+你做 thinking partner mode，你 prose 100% your own——呢個 honest path。
+寫 AI prose 直接 ship——呢個 problem。 你最後 hold 同自己嘅 work 嘅 honest relationship。
+
+## 變化例子
+
+### 變化 1：Worldbuilding for fantasy / sci-fi
+
+<PromptBlock label="變化 1 — Worldbuilding sparring">
+我 build 緊 [fantasy / sci-fi] world。 而家有：[簡述世界 setup]
+
+我 stuck 喺 worldbuilding：[specific question — 例：「呢個 magic system 嘅 cost 應該係咩」、「呢個 society 嘅 economy 點 work」]
+
+請：
+1. Surface 3 個我 設定嘅 implication 我可能未 considered
+2. 提 2-3 個 「what if」 thought experiment 探索 implication
+3. 唔好 give me 「final answer」——keep options open
+
+我自己揀 direction。
+</PromptBlock>
+
+### 變化 2：Dialogue 寫得 stiff
+
+<PromptBlock label="變化 2 — Dialogue critique">
+我 character 之間嘅 dialogue 自己讀返 feel stiff / unnatural。 
+
+呢度有 [N] 段 dialogue exchange：
+
+[Paste]
+
+請：
+1. Read out loud test — 邊段 sound 唔似真人講嘢
+2. Identify pattern（每個 character 同一 cadence? 信息密度太均? 缺 subtext?）
+3. Suggest 唔同 dialogue technique 我可以 inject（interruption、misunderstanding、parallel monologue）
+4. 唔好 rewrite line by line——指出 pattern，由我自己 revise
+</PromptBlock>
+
+### 變化 3：Stuck for 2 weeks，唔知 how restart
+
+<PromptBlock label="變化 3 — Writers block diagnosis">
+我 stuck 寫 fiction 已 [N 週]。 唔係 「冇 time」 嘅 stuck——係坐低 type 都 type 唔到。
+
+請問我：
+1. 我而家最近 read 過咩好嘢
+2. 我嘅 story 最後 work 嘅 paragraph 喺邊
+3. 我預期 next paragraph 點 develop，但係邊度 friction
+4. 我 emotionally 對 character 仲有冇 invested
+
+由 my answers identify likely cause（structural problem / character problem / personal mood / over-planning），suggest 一個低 stake 嘅 reset action。
+</PromptBlock>
+
+## 一個 honest note
+
+Fiction writer 用 AI 嘅 ethics 而家不斷 debate。 我自己 hold 嘅 line：
+
+**AI 可以幫我 think。 AI 不應該替我 write。**
+
+呢條線 reasonable 但 fuzzy。 你會 navigate 同自己嘅 conscience：「我 share 個 outline，AI 出 chapter title—— 算唔算 co-authored?」
+
+冇 universal answer。 每個 writer find own boundary。 但**至少 negotiate 呢個 boundary 嘅 willingness，係 mark 你 still own 你 craft**。 stop reflect 呢個 boundary，AI 就 quietly take over。
+
+呢個 use case 嘅 final value：保持你嘅 thinking sharpened、保持你嘅 craft 自己嘅、保持 fiction writing 嘅 personal accountability。

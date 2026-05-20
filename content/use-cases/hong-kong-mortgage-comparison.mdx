@@ -1,0 +1,142 @@
+---
+title: "香港按揭比較教學：用 Claude 一次過拆 3 間銀行 fine print（連信用卡 + 保險）"
+slug: "hong-kong-mortgage-comparison"
+issue: 17
+publishedAt: 2026-03-31
+audience: ["消費者"]
+category: "chat"
+subcategory: "決策同研究"
+difficulty: 2
+timeMinutes: 30
+toolsNeeded: ["Claude Chat", "瀏覽器（攞返每間銀行嘅 PDF）"]
+description: "香港按揭比較教學：用 Claude AI 一次過讀 3 間銀行嘅 term sheet，做 side-by-side 對照、揾出 hidden catch、計實際 monthly。配 3 條問銀行嘅 sharp question。"
+keywords: ["香港按揭比較", "信用卡比較", "按揭 fine print", "金融文件 ai", "hk 銀行 product"]
+related: ["claude-pdf-summary", "claude-content-repurpose"]
+featured: true
+---
+
+## 情境
+
+你要決定買 / 換按揭，揾咗三間銀行 — 滙豐、恒生、中銀 — 攞咗份 product term sheet。 三份睇落差唔多：「最優惠利率減 X」、「現金回贈 Y」、「最高貸款額 Z%」。
+
+但細看：
+- 一份話「H + 1.3%、上限 P - 1.5%」
+- 一份話「H + 1.25% with rate floor at P - 1.55%」
+- 一份話「prime rate 跟隨同業」
+
+**正常人睇唔出邊間實際抵啲、邊間有 catch**。 你又冇時間去 banker forum 比較。
+
+呢篇教你點用 Claude 做一次 structured comparison，**唔係齋 summary，係 surface 出真正嘅 trade-off**。
+
+> 重要 disclaimer：呢個 process 出嘅 output 係幫你**理解產品**，唔係取代專業顧問。最終 decision 仲係要你自己拍板（或者問 mortgage broker / financial advisor）。Claude 嘅 output 唔係 financial advice。
+
+## 跟住做
+
+### 1. 攞齊三份 PDF（或者 product page）
+
+由銀行官網 download 個 product term sheet / fact sheet。唔係 marketing page，係**真正嘅 T&C 文件**。如果只有 web page 攞唔到 PDF，cmd+P → 存 PDF 都得。
+
+### 2. 一次過 upload 三份畀 Claude
+
+Claude.ai 個對話框可以一次過攞多個 PDF。Upload 完之後，用以下 prompt。
+
+<PromptBlock label="完整 prompt — 比較三個按揭產品">
+我會喺呢三個按揭產品入面揀一個。請幫我做以下嘅比較：
+
+**Part 1：Side-by-side 對照表**
+
+請整一個 table，columns 係三間銀行，rows 包：
+- Effective rate（明寫 H+X% 或 P-X%，連 cap / floor）
+- 罰息期（penalty period） — 幾耐、提早還款罰幾多
+- 現金回贈 — 金額 + 需要鎖定幾耐
+- Mortgage Insurance Programme（按揭保險）嘅 requirement — 邊個 tier 要、保費點計
+- 最高貸款成數
+- 申請費 / 律師費 — 邊個 cover、邊個自己畀
+- 浮息／定息 — 邊個 mix、揀邊個
+
+如果某行銀行某個 row 冇明確 disclose，標「未列明，需詢問」。
+
+**Part 2：實際 numerical example**
+
+假設我借 $5M、按 30 年。請計：
+- 每間銀行頭一年嘅月供
+- 罰息期內 if 我提早 settle，會 lose 幾多
+- 5 年總利息（假設 prime rate keep 不變）
+
+**Part 3：每間嘅 catch / 隱藏 trade-off（最重要嘅一段）**
+
+每間銀行請列 1–2 點「marketing page 唔會 highlight，但係 fine print 嗰度寫住嘅 disadvantage」。 例如：
+- 「現金回贈嗰 $X 要鎖定按揭 3 年，提早走要還回」
+- 「H + 1.25% 表面 lowest，但 floor rate 比另外兩間高 0.1%，long term 反而貴」
+- 「申請費 waive 但律師費要自己畀，calc 落實際 $XX,XXX」
+
+如果某間冇明顯 catch，老實講「未見明顯 catch」，唔好硬作。
+
+**Part 4：我下一步應該問銀行 / broker 嘅問題（3 條）**
+
+由你嘅 analysis 出發，畀我 3 條 sharp、有針對性嘅問題。
+</PromptBlock>
+
+### 3. Cross-check 兩、三個關鍵數字
+
+Claude 嘅 output 通常 95% 啱，但**喺金融文件度，5% 嘅錯誤可能就係幾萬蚊嘅 difference**。
+
+至少 cross-check：
+- 邊間銀行邊個 effective rate
+- 邊間嘅罰息期幾耐
+- 任何畀「未列明」標記嘅嘢——返去 PDF 揾返，可能你 miss 咗
+
+### 4. 拎個 table + Part 3 + Part 4 去問 banker
+
+帶住一張 sharp table 同 3 條 specific question 去 banker，**你會由「畀人 sell」變「sell 緊人嗰個」**。 銀行職員見到你 prepared，多數會 cut to the chase 唔再 sell 唔相關嘅 promotion。
+
+## 變化例子
+
+### 變化 1：比較 3 張信用卡（cashback / mile / privilege）
+
+<PromptBlock label="變化 1 — 信用卡比較">
+我而家有 3 張信用卡 option，每張嘅 T&C 我上傳咗。請：
+
+1. Table 比較：年費（waive 條件、首年 vs 第二年）、cashback rate、mile earn rate、annual cap、迎新 offer
+2. 模擬：假設我每月碌 $20,000（5,000 食肆、5,000 超市、5,000 交通、5,000 網購），邊張回贈最多？計埋年費 net
+3. 隱藏 catch：每張卡 fine print 入面有冇 disadvantage（例：cap、特定 category exclude、迎新 offer 要 minimum spend 等等）
+4. 我嘅 lifestyle 應該揀邊張？簡短推薦 + 理由
+
+唔需要 generic 嘅信用卡 advice，淨係 focus 呢 3 張。
+</PromptBlock>
+
+### 變化 2：比較 2 個人壽保險 plan
+
+<PromptBlock label="變化 2 — 人壽保險比較">
+我喺度諗緊兩個人壽保險 plan（policy 文件已 upload）。請：
+
+1. Side-by-side table：保額、保費（按年）、保障年期、退保價值（5 年 / 10 年 / 20 年）、riders（critical illness、accident 等）
+2. 每個 plan 嘅「best fit」profile：邊類人最啱買呢個
+3. 每個 plan 嘅「red flag」：保單入面任何 unusual 條款（例：exclusion list 異常長、保證 cash value 唔保證、有 hidden fee 等）
+4. 5 條我應該問 agent 嘅 critical question
+
+請務必基於文件內容出 analysis，唔好用 generic 知識亂講。如果文件冇講某個 detail，標「未列明」。
+</PromptBlock>
+
+### 變化 3：比較 2 個個人貸款
+
+<PromptBlock label="變化 3 — 個人貸款比較">
+我考慮緊 2 個個人貸款 option。請：
+
+1. 比較 APR、實際年利率（如果有 origination fee 等）、還款期、提早還款 penalty
+2. 假設我借 $200K 還 36 個月，每月供 + 總利息
+3. 每個的 trade-off
+4. 唔係 financial advice，但 from a math perspective，邊個 cheaper？
+</PromptBlock>
+
+## 兩個 caveat
+
+**第一：呢個 process 唔係取代專業顧問**
+
+Claude 識讀文件，但唔識你嘅 full 財務狀況、未來計劃、風險承受能力。Mortgage broker / financial advisor 嘅價值唔係幫你 read fine print（呢個 Claude 做到），係幫你諗 long-term fit。**用 Claude 做 prep，留個專業顧問做 final decision support**。
+
+**第二：銀行嘅 T&C 隨時改**
+
+你上載嘅 PDF 係今日嘅版本。Sign 之前一定要問 banker：「呢份 quote 嘅 expiry date？啲 promo 條件會唔會 sign 完之後變？」
+
+但 prep 上花 30 分鐘用 Claude 做 structured comparison，比起冒著 fish-bait-or-bait 嘅情況入銀行傾偈，醒返成個 level。

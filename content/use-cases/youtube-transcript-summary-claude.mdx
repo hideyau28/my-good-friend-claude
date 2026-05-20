@@ -1,0 +1,164 @@
+---
+title: "YouTube 講座摘要：用 Claude 由 1 小時影片變 5 分鐘 takeaway"
+slug: "youtube-transcript-summary-claude"
+issue: 9
+publishedAt: 2026-02-03
+audience: ["打工仔", "學生家長", "創作者"]
+category: "chat"
+subcategory: "讀文件做摘要"
+difficulty: 1
+timeMinutes: 15
+toolsNeeded: ["Claude Chat", "YouTube Transcript（任何 download 工具）"]
+description: "YouTube 摘要工具：用 Claude 將 1 小時影片 transcript 變 5 分鐘 takeaway，附時間戳同 actionable item。HK 打工仔、學生家長、創作者學嘢必備 use case。"
+keywords: ["youtube 摘要", "video transcript ai", "claude 摘要影片", "影片 takeaway", "learning ai"]
+related: ["claude-pdf-summary", "cantonese-to-written-claude"]
+featured: false
+---
+
+## 情境
+
+人哋推薦你睇條 1 小時嘅 YouTube：
+
+> 「呢個 talk 講 [topic] 講得最好，你一定要睇。」
+
+你打開個 video，**1 小時 23 分**。你而家有 15 分鐘，下個會議就要開。 點 handle？
+
+- **唔睇** —— miss 個 valuable content
+- **2x 速度睇** —— 等於 41 分鐘，仲係冇晒
+- **scroll 過評論揾 summary** —— 通常冇人寫，或者寫得差
+
+呢篇用 Claude 將 YouTube 1 小時 transcript 變一份 5 分鐘可以讀完嘅 takeaway，附時間戳（你想 deep dive 嗰陣可以 jump 返去原 video 嗰段）。
+
+## 跟住做
+
+### 1. 攞個 YouTube transcript
+
+YouTube 自己有 auto-generated transcript（廣東話 / 普通話 / 英文 / 大部分主流語言都 OK，準確度 90%+）。
+
+**Method A — 直接喺 YouTube 攞**：
+1. 開條 video
+2. 撳描述下面個「...more」
+3. Scroll 落 transcript 區
+4. Copy 晒個 transcript
+
+**Method B — 用 third-party tool**（如果 YouTube 無 transcript）：
+- [tactiq.io](https://tactiq.io) — Chrome extension，免費
+- [youtubetranscript.com](https://youtubetranscript.com) — paste URL 出 transcript
+
+帶時間戳嗰個 format 最有用。
+
+### 2. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — 1 小時 video transcript → 5 分鐘 takeaway">
+以下係一個 YouTube video 嘅 transcript（連時間戳）。Video subject 係 [topic / speaker]。
+
+請幫我做以下 5 個 part：
+
+**Part 1：1 段 summary**
+用 3-4 句講晒個 video 嘅 main argument。當對方完全冇睇過。
+
+**Part 2：3 個 core insight**
+邊 3 個係呢個 video 嘅 most valuable point？逐個寫：
+- 一句 insight statement
+- 為咩呢個 point 重要 / 反直覺
+- Timestamp（原 video 邊度講）
+
+**Part 3：Actionable takeaway（最重要）**
+列 3-5 件**我可以實際做嘅事**——唔係抽象「諗一諗」，係 specific action：
+- 跟住呢個 framework 做 [X]
+- 試吓 [Y] 一個禮拜
+- 寫低 [Z] 再 reflect
+
+每個 action：1 句 + timestamp 來源。
+
+**Part 4：1 個 caveat / counterargument**
+有冇邊個 point 你覺得 weak / 過分泛化 / 唔 apply 喺 HK context？
+如果 video 一致 strong，輸出「未見明顯弱點」，唔好硬作。
+
+**Part 5：邊段值得 jump 返去原 video 親耳聽**
+列 1-2 段 timestamp，呢啲段需要對方 verbatim 聽（例如：emotional delivery、specific phrasing、quote）
+
+語氣：直接、結構化。
+避免：「Overall, this video covers a wide range of topics」呢類 generic intro。
+
+【Transcript】：
+（貼晒個 transcript）
+</PromptBlock>
+
+### 3. Save 落你個 notes app
+
+呢類 takeaway 嘅價值唔係即時讀完，係**3 個月後想揾返**。
+建議 save 落 Apple Notes / Notion / Obsidian，title format：
+`[YYYY-MM] [Speaker] — [Topic] takeaway`
+
+3 年後你 build 緊一個 personal knowledge base，呢類 note 係 gold。
+
+### 4. 真係要 dive 入去先 jump 返 video
+
+唔係每個 video 都要呢個 level 嘅 attention。Takeaway 讀完，如果**Part 5 嘅 timestamp 真係 calling you**，先 jump 返 video。 唔係，就 store 個 note，未來有需要再 retrieve。
+
+## 變化例子
+
+### 變化 1：多 video，整合 takeaway
+
+<PromptBlock label="變化 1 — 跨 video 整合">
+我聽咗 3 個唔同 speaker 講同一個 topic（transcript 喺下面）。 請幫我：
+
+1. **共識**：3 個 speaker 都 agree 嘅 core point（最多 3 個）
+2. **Tension**：3 個 speaker 觀點唔同嘅地方（佢哋 disagree 嘅 spectrum）
+3. **每個 speaker 嘅 unique angle**：佢哋各自 contribute 咩 distinct
+4. **我自己嘅 next question**：基於以上 analysis，我下一步應該深入研究嘅 3 條 question
+
+【Transcripts】：
+Video 1 by [speaker 1]：
+（貼）
+
+Video 2 by [speaker 2]：
+（貼）
+
+Video 3 by [speaker 3]：
+（貼）
+</PromptBlock>
+
+### 變化 2：學生家長想 distill 教育類 video 畀小朋友
+
+<PromptBlock label="變化 2 — 教育 video → 小朋友友善版">
+以下係一個 [科學 / 歷史 / 心理 / 等] 教育 video transcript。
+我想 distill 一個 child-friendly 版本俾我小朋友（[年齡]）。
+
+請：
+1. 用 [年齡] 對應嘅 vocabulary
+2. 拎出 video 入面最 vivid 嘅 3 個 example / experiment
+3. 整 5 條 follow-up question 我可以同小朋友傾（唔係 quiz，係 conversation starter）
+4. 提議一個 5 分鐘嘅 family activity 配呢個 topic
+
+廣東話書面語版本，HK context。
+</PromptBlock>
+
+### 變化 3：創作者要由一個 talk 抽材料寫文章
+
+<PromptBlock label="變化 3 — Talk → 一篇 blog post">
+我 admire 嘅 thinker 講咗 1 個 talk，內容 transcript 喺下面。
+我想以呢個 talk 為 starting point，寫一篇我自己嘅 blog post（800-1200 字）。
+
+請幫我：
+1. **抽 1 個 central thesis**（佢嘅，唔係我嘅）
+2. **抽 2 個 supporting evidence / story**（佢提過嘅）
+3. **建議 my own angle 嘅 3 個 option**——我可以點 build on / 同意 / 反對 / 應用喺 HK context
+4. **整 1 個 article structure**（headline、開頭、3 段 body、結尾）
+
+要清楚 attribute——邊啲係 speaker 嘅 idea、邊啲係我嘅 elaboration。
+
+【Transcript】：
+（貼）
+</PromptBlock>
+
+## 一個 reality check
+
+唔係每個 1 小時 video 都值得花 15 分鐘做 takeaway。睇下：
+
+- **Speaker 名氣**：佢係 saying same things 已經 publicly available 嘅 articles？如果係，揾返 articles 讀仲快。
+- **Talk 嘅 unique value**：呢個 talk 有冇 anecdote / fresh framework / unreleased thinking？冇就 skip。
+- **Subject 同你 current focus 嘅 relevance**：你今個 quarter 想 build 嘅 skill 上面，呢個 talk 加唔加分？
+
+呢個 prompt 嘅最大 leverage：**令你由「我冇時間睇 video」變成「我可以 sample 100 個 video，揀其中 5 個 deep dive」**。 量同質都 unlock 咗。

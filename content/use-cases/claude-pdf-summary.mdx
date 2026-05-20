@@ -1,0 +1,126 @@
+---
+title: "用 Claude 整 PDF 摘要：30 頁報告 15 分鐘做出 meeting summary（HK 打工仔版）"
+slug: "claude-pdf-summary"
+issue: 19
+publishedAt: 2026-04-14
+audience: ["打工仔"]
+category: "chat"
+subcategory: "讀文件做摘要"
+difficulty: 1
+timeMinutes: 10
+toolsNeeded: ["Claude Chat"]
+description: "用 Claude AI 整 PDF 摘要：教你個 prompt 由 30 頁報告 15 分鐘做出 executive summary + action items。HK office 打工仔最常用 use case，輸出可以直接帶去 meeting 用。"
+keywords: ["pdf 摘要 ai", "claude 讀文件", "報告 summary 工具", "meeting prep ai", "長文 ai 摘要"]
+related: ["hong-kong-mortgage-comparison", "english-email-polish-hk"]
+featured: true
+---
+
+## 情境
+
+下午 5 點，老闆 forward 你一份 30 頁嘅 PDF：
+
+> 「明朝 9 點要傾呢份，你睇下，整個 summary。」
+
+你冇兩個鐘讀完成份文件。 即刻丟去 ChatGPT / Claude 問「summarize this」，**出嚟係一段流水帳，老闆睇完仲係唔知你想佢點**。
+
+問題唔係 AI 唔識 summarize。**問題係你個 prompt 只係問「總結」，冇講你呢份 summary 係畀邊個睇、用嚟做乜**。
+
+呢篇教你一個三段式 prompt——15 分鐘出一份**可以直接用**嘅 summary，包：執行摘要、重點、行動清單。
+
+## 跟住做
+
+### 1. 上傳 PDF
+
+直接 drag 入 Claude Chat 個對話框就得。Claude.ai 支援 32MB 內嘅 PDF。 如果係 scan 出嚟嘅圖片 PDF（冇 text layer），先用 Mac 嘅 Preview 或者 Adobe 做 OCR；Claude 直接讀圖片 PDF 嘅準確度唔穩定。
+
+### 2. 用呢個 prompt（唔好問「summarize this」）
+
+<PromptBlock label="完整 prompt — copy 即用">
+我會用呢份 summary 去跟老闆 / 客戶開 30 分鐘嘅會。請幫我整理以下三個部分：
+
+**Part 1：執行摘要（5 句以內）**
+- 用簡單嘅中文，當對方完全冇睇過呢份文件
+- 一句講背景、一句講核心訊息、剩低嘅 cover 最關鍵嘅 finding／decision／risk
+
+**Part 2：重點 bullet（最多 8 點，按重要性排）**
+- 每點一行
+- 包括：數字 / 日期 / 關鍵人物 / 具體行動
+- 唔好用「值得注意」、「應加以考慮」呢類空話
+
+**Part 3：開會前我應該諗清楚嘅 3 條問題**
+- 唔係 yes/no 嗰類
+- 係 if-then 嗰種：「如果 X 真係咁，咁我哋係咪要 Y」
+- 仲要列：呢條問題嘅答案會喺份文件邊一段
+
+**Part 4：我自己要做嘅 follow-up（如果有）**
+- 用 checkbox format：[ ] 行動 — by 邊個 — by 幾時
+- 如果文件冇明確 owner / deadline，標「需 confirm」
+
+語氣：直接、實用，唔好用「敬請垂注」嗰類老套字眼。
+</PromptBlock>
+
+### 3. Verify 重點冇 miss
+
+Claude 出嚟之後，**隨機開兩三頁 PDF 對返**——揀個聽落最 critical 嘅 bullet point，去返原文 confirm 數字 / 日期 / 名啱唔啱。
+
+呢一步 30 秒，但 critical。AI 出 hallucinated 數字嘅 risk 唔係零，特別係表格密嘅報告。**唔好懶**。
+
+### 4. 改 tone 同帶去開會
+
+執走太 AI-feel 嘅字眼（「值得注意嘅是」、「綜合而言」），改返你自己嘅口吻。 然後 print 出嚟 / 帶平板開會。**唔好 paste 入 email 就算**，因為對方會睇得出。
+
+## 變化例子
+
+### 變化 1：份報告係英文，summary 要中文
+
+<PromptBlock label="變化 1 — 英文 PDF → 中文 summary">
+（同上面 prompt 一樣，但加返呢句）
+
+文件係英文，但我嘅 summary 要繁體中文（廣東話書面語）。
+保留英文 acronym（例如 KPI、ROI、Q4），唔好硬譯。
+數字 keep 原樣。
+</PromptBlock>
+
+### 變化 2：份係 minutes，要抽 decision + action
+
+如果係會議 minutes（多人發言、流水帳），唔好 summary，要 distill：
+
+<PromptBlock label="變化 2 — Minutes → Decisions">
+份係一個 60 分鐘 meeting 嘅 minutes。
+請幫我抽出：
+
+1. **Decisions taken**（已經敲定嘅）— 每條：decision + 誰決定 + 影響 / scope
+2. **Action items**（要有人做嘢嘅）— 每條：行動 + owner + deadline（如有）
+3. **Open questions**（仲未決定嘅）— 每條：問題 + blocker / 缺乜先決定到
+4. **唔關我事但要知嘅**（heads-up）— 其他人嘅 update，我留意一下
+
+唔需要 narrative summary，只係要呢四 list。
+</PromptBlock>
+
+### 變化 3：份報告係 spreadsheet，summary 要識讀數
+
+<PromptBlock label="變化 3 — Spreadsheet → 數據洞察">
+份係 Excel / Numbers spreadsheet（已轉 PDF）。請：
+
+1. 用一段話講晒個 dataset 嘅 shape（幾多 row、幾多 column、時間範圍）
+2. 列出 3 個最 striking 嘅 finding（出乎意料嘅 trend、outlier、變化）
+3. 列出 2 個 caveat（呢份 data 邊度可能誤導、邊個 column 可能有 noise）
+4. 提議 3 個我可以 ask 嘅 follow-up question（去深入挖呢份 data）
+
+唔好淨係 list 數字，要解釋呢啲數字 mean 乜。
+</PromptBlock>
+
+## 點解呢個 prompt 比「summarize this」好咁多
+
+「Summarize this」嘅問題：
+
+- 唔知 audience 係邊個（你？老闆？客戶？）
+- 唔知用嚟做乜（睇完 done？開會用？做 decision？）
+- 冇 format 指引（一段？bullet？分 part？）
+- 冇 length 指引（一頁？三頁？）
+
+AI 出嚟唯有畀你一個 generic 嘅嘢，**你睇完仲係要自己 distill 一次**——咁不如自己讀。
+
+加咗 audience、用途、format、length，AI 就由「圖書館員」變「同事」。**個分別係：圖書館員 surface 資料，同事幫你 think**。
+
+呢個 prompt 用熟咗，每次返工接到 PDF dump，10 分鐘就出到嘢——真係慳到時間，唔係扮慳到。

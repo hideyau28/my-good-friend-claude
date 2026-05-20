@@ -1,0 +1,90 @@
+---
+title: "用 Claude 陪小朋友做 TSA 操卷：HK 家長嘅 hint 引導 prompt"
+slug: "claude-tsa-homework-hk"
+issue: 24
+publishedAt: 2026-05-19
+audience: ["學生家長"]
+category: "chat"
+subcategory: "陪小朋友學嘢"
+difficulty: 2
+timeMinutes: 15
+toolsNeeded: ["Claude Chat", "手機相機"]
+description: "用 Claude AI 陪小朋友做 TSA 操卷功課：教 HK 家長點 prompt 至唔會畀直接答案，係用 hint 引導小朋友自己諗。手機 WhatsApp 入面操作。"
+keywords: ["tsa 操卷 ai", "小朋友功課 ai", "陪小朋友溫書", "claude 教育", "親子學習 ai"]
+related: ["claude-pdf-summary", "cantonese-to-written-claude"]
+featured: true
+---
+
+## 情境
+
+小朋友升 Primary 6，每星期要做 TSA 操卷。**你想幫，但又驚直接畀答案佢就唔識諗**。 而且有啲題目連你都唔記得點解（誠實啲，我細個都未必識）。
+
+呢篇用 Claude Chat 教你一個三步走嘅做法：影相 → 問 Claude 點教（**唔係問答案**）→ 自己 paraphrase 返畀小朋友。 全程喺 WhatsApp 入面嘅手機就做得到，唔使下載任何嘢。
+
+## 跟住做
+
+### 1. 影低題目
+
+用手機影低操卷嗰一題，盡量影到完整題目 + 圖（如果有）。 影完 upload 入 Claude Chat 個對話框就得。
+
+### 2. 點 prompt 先唔會被「劇透」
+
+呢度係 trick——你唔係問 Claude「答案係咩」，你係問佢「點教細路自己諗到答案」。
+
+<PromptBlock label="完整 prompt — copy 即用">
+我個女讀 P6，呢條 TSA 數學題佢做唔到（見圖）。
+
+唔好直接話我答案。請你做以下三件事：
+1. 用最簡單嘅廣東話講返題目想問乜，當我細路咁解釋
+2. 畀我三條引導性嘅問題（hint 級數，由淺到深），等我可以一步一步問返佢
+3. 最後先講啱嘅答案同步驟，等我自己核對
+
+我嘅目標係佢自己諗到，唔係抄答案。
+</PromptBlock>
+
+### 3. 用 Claude 嘅 hint 去同小朋友傾
+
+Claude 會畀返：
+- 簡化版題目（用你嘅口吻講）
+- 3 條由淺到深嘅問題
+- 完整答案（最尾，留畀你檢查）
+
+你用前面嗰 3 條問題同小朋友傾——「個題目係咁嘅⋯⋯如果你係佢，你會點諗第一步？」 小朋友答錯就再問下一條 hint。**九成情況，到第二條 hint 佢自己會出到答案。**
+
+> 親子相處 tips：如果小朋友嬲、唔肯諗，唔好夾硬。停十分鐘飲水傾下計，返嚟再試。
+
+## 變化例子
+
+呢個 prompt 嘅 framework 可以套去好多情境：
+
+<PromptBlock label="變化 1 — 換 DSE 通識／公社科">
+我個仔讀 F.5，呢條公社科題目佢做唔到（見圖）。
+
+唔好直接畀答案，請：
+1. 用 plain 啲嘅中文重講題目重點
+2. 畀我 3 個切入角度，等我可以用嚟引導佢
+3. 列出評卷準則嘅得分要點（呢點唔使等到最後）
+</PromptBlock>
+
+<PromptBlock label="變化 2 — 換英文閱讀理解">
+條 P5 英文閱讀題佢做唔到。
+
+請：
+1. 用簡單英文重講段落主旨（兩句）
+2. 列出佢應該重點 highlight 嘅 keyword
+3. 將每條問題拆成兩步：先 locate（喺邊一段／句），後 understand（個意思係咩）
+</PromptBlock>
+
+<PromptBlock label="變化 3 — 唔係 TSA 但係日常功課">
+小朋友份功課其實做緊呢樣嘢（描述題目），佢卡咗。
+你係一個有耐性嘅補習老師，請用 3 個遞進嘅 hint 引導我點同佢傾。
+唔好出答案，留到最後。
+</PromptBlock>
+
+## 點解呢個做法 work
+
+兩個 reason：
+- **小朋友自己諗到嘅，記得耐**。直接畀答案，下次見到類似題目佢仲係唔識。
+- **你唔使識識嗮 P6 數學**。Claude 識，但你嘅角色係「翻譯員 + 拍住佢諗嘅人」。
+
+呢個做法亦適合 working parents——成日返到屋企已經攰，用 15 分鐘 prompt 一次，比起 1 小時硬住頭皮逐題教，效率高好多。

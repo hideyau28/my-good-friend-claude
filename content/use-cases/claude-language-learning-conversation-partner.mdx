@@ -1,0 +1,165 @@
+---
+title: "用 Claude 學語言：日常 10 分鐘 conversation partner（英文 / 日文 / 普通話）"
+slug: "claude-language-learning-conversation-partner"
+issue: 37
+publishedAt: 2026-08-18
+audience: ["學生家長", "打工仔"]
+category: "chat"
+subcategory: "學嘢同問嘢"
+difficulty: 1
+timeMinutes: 10
+toolsNeeded: ["Claude Chat"]
+description: "用 Claude 做 daily language partner：10 分鐘 role-play、會話練習、實時錯誤 correction。比 Duolingo 更自由、比真人 tutor 更 zero pressure。HK 打工仔同學生家長都用得。"
+keywords: ["claude 學語言", "英文口語練習", "日文 自學", "普通話 練習", "ai conversation partner"]
+related: ["english-email-polish-hk", "cantonese-to-written-claude"]
+featured: true
+---
+
+## 情境
+
+你想 keep / improve 一個 second language：
+
+- **打工仔**：個老闆 promotion 你想 improve presentation English
+- **學生家長**：陪小朋友學日文 / 普通話，自己亦想 keep
+- **準備考試**：DSE / IELTS / JLPT / HSK
+- **純興趣**：每年諗 「今年要學日文」但 always abandon
+
+你試過：
+- **Duolingo**：頭一個禮拜興奮，第三個禮拜變死板，第二個月唔開 app
+- **真人 tutor**：$300+/hour，conversation pressure 大，怕 awkward
+- **看 Netflix**：passive，唔練 production
+
+呢度有一個 middle ground：**Claude 做你 daily 10 分鐘 conversation partner**——免費、zero awkwardness、可以 role-play 任何 scenario、得閒就 jump 入 chat 練習。
+
+## 跟住做
+
+### 1. 揀啱你嘅 「role-play scenario」（最重要嘅 step）
+
+語言學習嘅 retention 喺 「emotional engagement」。 dull scenario（「Talk about your hobby」）你會 abandon。
+
+揀 scenario：
+- **同你 real life 有關**（你下個月真係去日本旅行 / 你下星期要 present in English / 你想同伴侶 surprise 同佢講普通話）
+- **有 stakes**（你會 actually 用得着）
+- **可以 narrative develop**（同一個 scenario 多幾次 session）
+
+我試過效果好嘅 scenario：
+
+- **日文**：你係外國人喺日本租咗一個禮拜 short stay apartment。連續 7 日，每日同 fictional 房東傾偈（佢叫你出去買嘢、問你身體唔舒服、邀請你食飯）
+- **英文**：你係 new HR member 喺一間 startup。連續 5 日，handle 唔同 employee 嘅 complaint（passive-aggressive colleague、unfair promotion 質疑、salary 不滿）
+- **普通話**：你係 freelance designer，你 client 喺上海，你哋 weekly catch up（review work、negotiate timeline、discuss new project）
+
+### 2. 用呢個 prompt set up partner
+
+<PromptBlock label="完整 prompt — Setup language conversation partner">
+我想用你練 [語言]。我嘅 level：[A1 beginner / A2 elementary / B1 intermediate / B2 upper-intermediate / C1 advanced]。
+
+請扮 一個 [角色 — 例：日本短租 apartment 房東 / 上海 startup CTO / 美國 office 同事]。
+
+Scenario：
+[詳細描述。例：「我啱啱搬入你 short stay apartment 第一日。你係 60 歲日本女士，住隔壁，唔識英文。我下午 4 點 knock 你門想介紹自己 + 問 Wi-Fi password。你 reply 全程日文。」]
+
+互動 rule：
+
+1. **你嘅 reply 全部用 [目標語言]**——任何 corrections 同 explanation 用括號內 [我嘅母語] 寫
+2. **語速 / vocabulary**：適合我 level，太簡單或太難都 lose 學習效果
+3. **每 3-4 turn 之後**，畀我一個短 「review chunk」：
+   - 我最後一句嘅 grammar mistake（如有）—— specifically point out 邊個字、為咩錯、ideal phrasing
+   - 1 個 vocabulary / phrasing 我可以 upgrade（即係 native speaker 會用呢個 phrase 而唔係我用嘅）
+4. **如果我用我母語 say something**，你可以 reply 我母語（但 prompt 我返去目標語言）
+5. **角色保持**：你係 [角色]，唔出 「I am an AI...」 嘅 disclaimer
+6. **故事 progression**：scenario 唔好 stuck，每 5-7 turn 之後 introduce 一個 small twist / decision point
+
+我而家準備好。請由你 say 第一句開始呢個 scenario。
+</PromptBlock>
+
+### 3. 每日 10 分鐘 maintenance
+
+每日 commit 10 分鐘 minimum。 規律比 intensity 重要——一日 10 分鐘 × 30 日 > 5 日 1 小時 × 1 日。
+
+我用嘅 daily routine：
+
+- **8:00am**：開 Claude Chat（手機 app 或者 desktop）
+- **「Continue our scenario from last session」**——Claude 會 reference 之前 turn
+- 傾 10 分鐘
+- 你 stuck 嘅 vocabulary / phrasing，**截圖 save 落 Apple Notes**（review 用）
+
+### 4. 一個禮拜後做 review session
+
+7 日之後，用呢個 prompt：
+
+<PromptBlock label="Weekly review prompt">
+過去 7 日我哋傾咗 7 次 scenarios（[列重點]）。請整一份 review：
+
+1. 我頭一日 vs 今日嘅 grammar / vocabulary 進步在邊度
+2. 我 repeated 撞嘅 5 個 grammar mistake / 詞彙 pitfall —— specifically pattern 化
+3. 我已掌握得 OK 嘅 5 個 phrase / structure（可以 「retire」 出 active review）
+4. 下星期我可以 stretch 嘅 area：建議 next scenario level + 3 個 new grammar focus
+
+呢個 review 用我母語寫，方便 future reference。
+</PromptBlock>
+
+## 變化例子
+
+### 變化 1：陪小朋友學 + 你自己 keep
+
+<PromptBlock label="變化 1 — 親子 language session">
+我有 [年齡] 小朋友 learning [語言] at school。我想我哋一齊用 Claude 做 family practice。
+
+請設計 30 分鐘 family session：
+- 15 分鐘：小朋友主導，scenario 適合佢 level（更簡單）
+- 15 分鐘：我主導，scenario 適合我 level（更難）
+- 但 theme 連貫（例：「家庭去日本旅行」嘅 5 個 scenario）
+
+家長 angle：唔好 reveal 你 level 高過小朋友、令小朋友覺得 inferior。 用 collaborative framing。
+
+小朋友嘅 turn，你 grade 用 child-friendly language。 我嘅 turn，可以 critical。
+</PromptBlock>
+
+### 變化 2：考試 prep（IELTS Speaking / DSE Oral / JLPT）
+
+<PromptBlock label="變化 2 — 考試 oral prep">
+我考緊 [考試名] 嘅 [oral / speaking section]。
+考試 format：[描述：1-on-1 with examiner / group discussion / individual presentation]
+
+請扮 examiner 同我 mock interview。要做到：
+1. 跟 official format 嘅 timing（例：IELTS Speaking Part 1 = 4-5 分鐘、Part 2 = 1 分鐘 prep + 2 分鐘 talk、Part 3 = 4-5 分鐘）
+2. 用 official 嘅 question pattern + 難度
+3. Mock 之後，畀 「band score」 estimate + 3 個 specific improvement
+
+我哋每日 do 1 mock，每個 mock 30 分鐘以內。
+</PromptBlock>
+
+### 變化 3：商業 / 工作 specific 嘅 vocabulary build
+
+<PromptBlock label="變化 3 — 行業 vocabulary build">
+我 working in [行業 — 例：法律 / 金融 / 設計 / 教育] 嘅 [職位]。
+我嘅 language partner 之前 cover 咗 daily conversation，而家 want 行業 vocabulary。
+
+請設計 30 個 「day-on-the-job」 scenario，由唔同 angle hit 我行業嘅 specific vocab：
+
+- 同 senior 嘅 1-on-1
+- Client meeting
+- Email reply
+- Technical document review
+- Industry conference small talk
+- Project crisis handling
+- ⋯
+
+每個 scenario 後面 list：scenario unique 嘅 3-5 個 must-know phrase + 一個 「native vs non-native pitfall」 我常 confuse 嘅。
+</PromptBlock>
+
+## 一個 reality check
+
+語言進步嘅 hard truth：
+
+- **冇 magic number**——「30 日學識 X」呢類 promise 全部 marketing
+- **Plateau 係 normal**——3-6 個月 stuck 一個 level 之後突破
+- **Active use** > passive consumption——10 分鐘 talk > 30 分鐘 listen
+
+Claude 嘅角色：**幫你 lower 「daily commitment」 嘅 friction**。
+
+10 分鐘 / 日嘅 commitment 對 90% 嘅人 sustainable。 真人 tutor cost + scheduling 嘅 friction，多人 「I'll start next month」 拖落去 1 年。
+
+仲有個 emotional 層：**Claude 唔 judge 你**。你會 mistake，唔會 awkward。 first 6 個月嘅 fluency build 喺 「dare to speak」 嘅 mental state，呢個 AI 比真人 partner 反而強。
+
+到你 ready 真人 conversation 嗰陣，你 fluency 已 trained 喺 Claude session，真人 conversation 嘅 nervousness 大降。 呢個轉折，係呢個 setup 最大嘅 quiet leverage。

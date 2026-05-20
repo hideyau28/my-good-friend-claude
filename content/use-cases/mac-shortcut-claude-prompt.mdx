@@ -1,0 +1,179 @@
+---
+title: "Mac shortcut 一鍵問 Claude：唔開 web app，由任何 app 直接 prompt"
+slug: "mac-shortcut-claude-prompt"
+issue: 6
+publishedAt: 2026-01-13
+audience: ["打工仔", "創作者"]
+category: "code"
+subcategory: "Workflow 設定"
+difficulty: 2
+timeMinutes: 30
+toolsNeeded: ["macOS Shortcuts.app", "Anthropic API key"]
+description: "Mac shortcut 一鍵問 Claude：用 macOS Shortcuts.app + Claude API 整 keyboard shortcut，由任何 app（Notes / Mail / Browser）直接 highlight 一段 text 問 Claude，結果即時 paste 返。"
+keywords: ["mac shortcut claude", "claude api 教學", "claude 快速 prompt", "mac 自動化", "macos shortcut"]
+related: ["claude-code-tutorial-website", "claude-content-repurpose"]
+featured: false
+---
+
+## 情境
+
+你成日要問 Claude。Workflow 通常係：
+
+1. Highlight 一段 text（喺 Mail / Notes / Browser）
+2. Copy
+3. Switch 去 Claude desktop app（or browser tab）
+4. Paste
+5. Type 你嘅 prompt
+6. 等 reply
+7. Copy reply 返去原 app
+8. Paste
+
+8 步。每日 30 次 = 4 小時 friction。
+
+呢篇用 macOS Shortcuts.app + Anthropic API key 整個 keyboard shortcut：**Highlight → ⌥+space → Claude reply paste 返**。 3 步。每次省 30 秒。
+
+> Caveat：呢個需要：(1) 你 Mac 有 macOS 13+ 嘅 Shortcuts.app；(2) 你有 Anthropic API key（[console.anthropic.com](https://console.anthropic.com) 申請，cost ~$3/M input token）；(3) 你 OK 用 paid API 而唔係 monthly subscription。
+
+## 跟住做
+
+### 1. 攞 Anthropic API key
+
+1. 去 [console.anthropic.com](https://console.anthropic.com)
+2. Sign up → API keys → Create key
+3. **copy 保留好** —— 一旦 close 個 tab 就唔顯示
+4. Top up $5 落 console（足夠你用幾個月嘅 personal scale）
+
+### 2. 開 macOS Shortcuts.app 整 shortcut
+
+```
+Apps → Shortcuts → + 新 shortcut
+```
+
+或者用呢個 prompt 叫 Claude 幫你整個 .shortcut 檔（直接 import）：
+
+<PromptBlock label="完整 prompt — 整一個 Mac Shortcut 問 Claude">
+我想 macOS Shortcuts 整一個 shortcut，trigger 後做以下嘢：
+
+1. 攞我而家 highlight 嘅 text（喺任何 app）
+2. POST 落 https://api.anthropic.com/v1/messages
+3. Header：
+   - x-api-key: [我嘅 key，喺 keychain 攞]
+   - anthropic-version: 2023-06-01
+   - content-type: application/json
+4. Body：JSON 用 claude-sonnet model，max_tokens 1024
+5. 攞 response 嘅 content[0].text
+6. Paste 返去原 app
+7. （Optional）notification 顯示「Claude replied」
+
+請畀我：
+1. Step-by-step 點喺 Shortcuts.app 砌呢個 shortcut
+2. 用啲 default 嘅 prompt template（例：「Polish 呢段英文 email，保留我嘅 voice」），叫我點改成自己需要
+3. 點 bind keyboard shortcut（System Preferences → Keyboard → Shortcuts → App Shortcuts）
+4. 點存 API key 落 Keychain，唔好 hardcode 落個 Shortcut
+
+我用 macOS 14 (Sonoma)。
+</PromptBlock>
+
+跟 Claude 嘅 step-by-step（會 take 你 15-20 分鐘 first time）。
+
+### 3. Set keyboard shortcut
+
+```
+System Settings → Keyboard → Keyboard Shortcuts → Services → Text
+```
+
+揾到你個新 Shortcut，bind keyboard combo（我用 `⌥ + space`，因為通常未被佔）。
+
+### 4. 試一次
+
+開 Mail / Notes / 任何 app，highlight 一句英文，撳 `⌥ + space`，等 1-2 秒，**reply 自動 paste 落你個 cursor 位置**。
+
+🎉 成功。
+
+## 變化例子
+
+### 變化 1：唔同 prompt 對應唔同 keyboard shortcut
+
+整三個 Shortcuts，分別 trigger 唔同 prompt：
+
+<PromptBlock label="變化 1 — 多 prompt 多 shortcut setup">
+我而家有 1 個 Mac Shortcut 用緊 default prompt「Polish this text」。我想再整 3 個 variation：
+
+1. **`⌥ + cmd + space`**：「Translate to formal English」
+2. **`⌥ + shift + space`**：「Summarize in 1 sentence」
+3. **`⌥ + control + space`**：「Explain this code / concept in plain Cantonese」
+
+請：
+1. 點 duplicate 第一個 Shortcut，改 prompt
+2. 點 bind 唔同 keyboard combo
+3. 點 manage（避免我未來自己亂改）：建議 naming convention
+
+呢套 setup 完成後，我嘅 daily workflow 應該係 highlight → 揀啱嗰個 shortcut → result paste 返。
+</PromptBlock>
+
+### 變化 2：Trigger 後出選單，揀 prompt（無 keyboard combo 限制）
+
+<PromptBlock label="變化 2 — 一個 shortcut 出 prompt menu">
+我有太多想要嘅 prompt（5+ 個），但 keyboard combo 已用滿。
+
+請幫我重新 design Shortcut：
+
+1. 只 bind 一個 keyboard combo `⌥ + space`
+2. Trigger 後彈 macOS 選單，list 我預設嘅 prompt（例：「Polish」、「Summarize」、「Translate」、「Explain」等）
+3. 我用 arrow key 揀，撳 enter
+4. 跑揀咗嘅 prompt 落 highlighted text
+5. Reply 直接 paste 返
+
+呢個 setup 嘅 trade-off：多咗一步揀，但唔限於幾個 combo。
+</PromptBlock>
+
+### 變化 3：呢個 shortcut「Improve」呢段 selection（in-place 改）
+
+<PromptBlock label="變化 3 — In-place 改文 shortcut">
+我想要一個 shortcut：
+
+1. Highlight 一段 text
+2. 撳 keyboard combo
+3. Claude 收到呢段 text + prompt「Improve this writing, keep my voice」
+4. **直接覆蓋 highlighted text**（唔係 paste 喺旁邊，係 replace）
+
+呢個對於 inline 改 email、改 doc 最 useful。
+
+請：
+1. Modify 我嘅 Shortcut 落 replace mode（用「Replace Variable」或者「Set Clipboard」+「Cmd+V」嘅 trick）
+2. Note 嘅 caveat：呢個 action 唔可以 undo 容易，我需要 careful
+
+請畀完整 step-by-step。
+</PromptBlock>
+
+## API cost 估算
+
+如果你 daily 用 30 次，每次 ~1000 input token + ~500 output token：
+
+- Claude Sonnet：input $3/M、output $15/M
+- Daily：30 × ($3 × 1000/1M + $15 × 500/1M) = 30 × ($0.003 + $0.0075) = $0.32
+- Monthly：~$10
+
+比起 ChatGPT Plus / Claude Pro 嘅 $20/月，呢個 API setup 唔一定平。**但 leverage 在工作流程嘅 friction reduction，唔係銀碼**。
+
+如果你想 cost 再低 d，用 Claude Haiku（input $0.80/M）—— 質素稍低但日常 polish 已經夠用。
+
+## 同 Raycast 嘅比較
+
+Raycast 係另一個 Mac power user tool，亦有 AI extension（包 Anthropic / OpenAI API）。 對比：
+
+- **Raycast AI**：UI nicer、有 prompt library、可以 chain command。$10/月（Pro）或者免費 plan 限 GPT 一啲
+- **macOS Shortcuts + API**：DIY、要 setup、但完全 free 嘅 framework 加你自己嘅 API cost
+- **Mac shortcuts 嘅優勢**：唔依賴 third-party app；shortcut 喺 macOS update 之間 stable；可以 share .shortcut 檔畀朋友
+
+我自己用緊 macOS Shortcuts（because zero dependency on Raycast subscription），但 Raycast 對「我唔想搞 setup」嘅人 lower friction。
+
+## 一個 mindset
+
+呢個 setup 嘅 leverage 唔係省一兩秒，係**消除 context switching**。
+
+由 Mail 切去 Claude 再切返 Mail，**腦袋每次重新 load context** 都要 30-60 秒。 連續做幾次，你 working memory 散晒。
+
+`⌥+space` 落 in-place，**腦袋從未離開過 Mail**。 呢個 mental energy 嘅 preservation 比個 30 秒省到嘅 time 更值錢。
+
+Solo dev / creator 嘅 advantage 就係呢類 setup —— **你嘅 tool 適應你嘅 brain，唔係你適應 tool**。

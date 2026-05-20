@@ -1,0 +1,175 @@
+---
+title: "旅行 itinerary planning：用 Claude 整 day-by-day 行程（連 Google Maps link）"
+slug: "travel-itinerary-claude-day-by-day"
+issue: 41
+publishedAt: 2026-09-15
+audience: ["消費者"]
+category: "chat"
+subcategory: "決策同研究"
+difficulty: 2
+timeMinutes: 45
+toolsNeeded: ["Claude Chat", "Google Maps（用嚟 verify location）"]
+description: "旅行行程 ai：用 Claude 由你嘅 vibe、pace、budget 出 day-by-day 旅遊 itinerary。日本、韓國、東南亞、歐洲 7-14 日 trip 嘅 prompt 範本。"
+keywords: ["旅遊行程 ai", "travel itinerary planner", "日本旅行 行程", "自助遊 規劃", "claude 旅遊"]
+related: ["youtube-transcript-summary-claude", "hong-kong-tax-prep-claude"]
+featured: true
+---
+
+## 情境
+
+你哋 couple / family / friend group plan 緊去日本 / 韓國 / 東南亞 / 歐洲 7-14 日。 你已經買 機票 + 訂酒店，剩低 「每日去邊」 嘅 itinerary 未整。
+
+你打開 Google Sheet，準備 list 每日 plan。睇下 Klook 推介、blog post、Instagram saved——
+
+**4 個鐘之後，你 still 喺 day 1。** 因為：
+
+- 唔知 day 1 應該 jet-lag-friendly（去近啲、唔多 walking）定 ambitious（趁 fresh）
+- 每個地方喺 Google Maps 距離唔同，但你冇 spatial sense
+- Klook 推介 25 個地方，但 7 日邊個 fit
+- Travel blog 寫得詳細，但 「我嘅 group」 唔知 fit 邊幾個 stop
+
+呢篇用 Claude **由你嘅 vibe、pace、budget、group**，**出一個你可以 directly act on** 嘅 day-by-day 行程——連 Google Maps verification 同 「rainy day backup plan」。
+
+## 跟住做
+
+### 1. 先 honest assessment 你嘅 「travel philosophy」
+
+呢個 step 90% 嘅人 skip，但係出 useful itinerary 嘅 critical input。
+
+問自己：
+
+- **Pace**：每日 3-4 stops（chill）vs 6-8 stops（packed）vs 純休息 + 1 main attraction
+- **Vibe**：tourist must-see vs local hidden gem vs 純 food + cafe
+- **Time of day energy**：早起 type vs sleep-in type
+- **Group dynamic**：solo / couple / family with kids / 4-friend pack（每個 affect 多）
+- **Budget level**：daily budget per person（食 + activity + transport，唔包酒店）
+- **Walking tolerance**：4+ hours/day walking OK vs 想 max 2 hours
+- **Weather contingency**：1-2 日 rainy day 嘅 backup activity
+
+### 2. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — 7-14 日 day-by-day itinerary">
+我哋 [人數 + group type，例：couple / family with 2 kids age 8 和 12 / 3 friends] 去 [destination] [天數] 日。
+
+Logistics：
+- 機票：[arrival airport + time]、[departure airport + time]
+- 酒店：[city + neighborhood + check-in/check-out date]
+- 已 book 嘅 activity：[列任何 firm-booked 嘢，例：USJ Tickets Day 4 / Universal Studios Day 5]
+
+Travel philosophy：
+- Pace：[3-4 stops/day / 6-8 stops/day]
+- Vibe：[Tourist / Local / Food-focused / Mixed]
+- Time of day energy：[早起 / Sleep-in / 8am 起]
+- Walking tolerance：[OK 6+ km/day / 4 km max / 越少越好]
+- Daily budget per person（食+activity+transport，唔包酒店）：HKD [數字]
+- Weather contingency：[Backup 想 indoor activity-heavy / Outdoor backup OK]
+
+特別 preference / aversion：
+- 我哋鐘意：[列 3 樣]
+- 我哋唔鐘意：[列 3 樣，例：「唔鐘意大型 outlet shopping」]
+
+請整 day-by-day itinerary，每日結構：
+
+**Day X：[Theme 一句]**
+- **Morning**（XX:XX–XX:XX）：[Activity + Google Maps name + walking distance from 起點]
+- **Lunch**（XX:XX）：[Restaurant + cuisine + cost estimate + booking required?]
+- **Afternoon**（XX:XX–XX:XX）：[Activity + how to get there from lunch + travel time]
+- **Dinner**（XX:XX）：[Restaurant + cuisine + cost]
+- **Evening**（XX:XX–XX:XX，optional）：[Light activity]
+- **Total walking distance for the day**：~X km
+- **Estimated total cost per person**：HKD ~XXX
+- **Rainy day backup**：[替代 indoor activity]
+
+**Theme connection**：解釋點解呢日呢個 theme（jet-lag adjustment / local exploration / day trip / 等）
+
+**附 final summary：**
+
+- Total cost estimate（per person）
+- Day-by-day walking + transit total
+- 提示我可以 pre-book 嘅 activity（佔位 popular 嘅）
+- 3 個 「我可能 want to swap out」 嘅 stop（畀 alternative）
+
+語氣：具體、actionable、唔 over-promise（唔好 「最 instagram-able」 呢類 marketing 字）。
+</PromptBlock>
+
+### 3. Verify Google Maps
+
+Claude 嘅 output 90-95% 啱，但 specific location accuracy 偶爾會 hallucinate。
+**critical verify**：
+
+- 每個 venue 喺 Google Maps search 一次，confirm exists + 地址啱
+- Distance / travel time 用 Google Maps 「Directions」 verify
+- 餐廳 booking required 一定 verify（Tabelog / OpenTable / 餐廳官方）
+
+15 分鐘 verify 工作可以避免你到埋當地先發現 「呢間餐廳 closed last year」。
+
+### 4. 適度 「leave room」
+
+完美塞滿嘅 itinerary 永遠 fail。 留 「unplanned time」：
+
+- 每日 morning / afternoon 1 block 「open」 等你 spontaneous
+- 中間 1 日完全 unscheduled 嘅 「rest + wander」
+- 機 / 火車 delay buffer：唔好 schedule 落機後立即 main attraction
+
+呢類 「room」 唔係 lazy，係 retain travel 嘅 joy。
+
+## 變化例子
+
+### 變化 1：Family with kids 嘅 itinerary
+
+<PromptBlock label="變化 1 — Family with kids">
+（同上面 prompt 一樣，但 emphasize 以下）
+
+Family context：
+- Kids age：[填，每個小朋友]
+- Kids attention span：每個 stop max [X] 分鐘
+- Activity 要包 kid-friendly element（playground / interactive museum / 自然空間）
+- 飲食限制：邊個小朋友食邊樣
+- Stroller? Yes/No
+- 午睡 needed?
+- Pace adjustment：vs adult itinerary 大概 60-70%
+
+特別 add：每日 ad-hoc kid stress level adjustment 嘅 alternative（如果小朋友 meltdown，邊個 nearby stop 可以 retreat）
+</PromptBlock>
+
+### 變化 2：短 trip 嘅 ROI 最大化（3-4 日）
+
+<PromptBlock label="變化 2 — 短 trip max ROI">
+我哋只有 3-4 日嘅 short trip 去 [destination]。
+時間有限，要 max single 「representative experience」。
+
+請：
+1. 揀 ONE city / region focus，唔好分散
+2. Day 1 jet-lag friendly + iconic must-see
+3. Day 2-3 深入 探索 你揀嘅 niche（揀一個 — food / nature / culture / 等）
+4. Last day：light + airport-flexible
+
+唔好 「3 日 4 個城市」嘅 itinerary——太 stressful，去咗一場 photo 都唔太記得。
+</PromptBlock>
+
+### 變化 3：Honeymoon / 浪漫 trip 嘅 mood-driven itinerary
+
+<PromptBlock label="變化 3 — Honeymoon trip">
+我哋 honeymoon 去 [destination] [天數] 日。 唔同 regular trip：
+
+- Pace：偏 slow，唔趕 stops
+- 多 「together moment」 嘅 activity（avoid 純 photo tourist trap）
+- 餐廳 emphasis（quiet、scenic、唔太 noisy）
+- 1-2 個 「special memory」 moments（specific reservation：sunset cruise、private dinner、unique experience）
+- Hotel base camp 之後嘅 dayoff（half-day relax in / at hotel）
+
+Budget：[ honeymoon-level，可以 stretch]
+Vibe：[romantic / adventure-pair / quiet retreat]
+</PromptBlock>
+
+## 一個 mindset
+
+旅行 itinerary 最大嘅 myth：「完美 plan 等於完美 trip」。
+
+事實係：**最記得嘅 trip moment 通常係 plan 外嘅嘢**——unexpected detour、local conversation、隨意揾到嘅 cafe、突然下雨改去 museum。
+
+Claude 嘅 leverage 唔係幫你 「plan 死晒」，係 **「我有一個 reasonable plan，所以我可以 confident 地 deviate」**。
+
+冇 plan vs 有 plan 又改：兩個都 final 改變，但**後者你冇 anxiety**，亦 retain 改 plan 嘅 awareness（每天 plan 改之前你知 trade-off）。
+
+最後 reminder：**輸入嘅質素決定輸出**。 你 honest 描述你嘅 group dynamic（包括 trade-off：你 partner 鐘意 shopping 但你 hate），個 itinerary 會啱晒你 group。 你 「standard typical tourist」 描述自己，個 output 就 generic。 呢個唔係 AI 嘅 limitation，係輸入嘅 limitation。

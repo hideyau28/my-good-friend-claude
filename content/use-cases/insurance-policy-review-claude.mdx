@@ -1,0 +1,144 @@
+---
+title: "讀人壽 / 醫療保險 policy：用 Claude 揾 exclusion 同 fine print"
+slug: "insurance-policy-review-claude"
+issue: 27
+publishedAt: 2026-06-09
+audience: ["消費者"]
+category: "chat"
+subcategory: "讀文件做摘要"
+difficulty: 2
+timeMinutes: 45
+toolsNeeded: ["Claude Chat", "保險 policy PDF"]
+description: "保險 policy 拆解：用 Claude AI 揾 hidden exclusion、pre-existing condition、自殺條款。Sign 人壽 / 醫療保險前 30 分鐘做 strategic review。"
+keywords: ["保險 policy 拆解", "保險 exclusion", "vhis 保險", "醫療保險", "人壽保險"]
+related: ["hong-kong-mortgage-comparison", "employment-contract-review-claude"]
+featured: true
+---
+
+## 情境
+
+Agent send 你份保險 policy PDF：
+
+> 「Sign 完 send 返我，下星期 effective。」
+
+你 scan：保費、保額、續保條款 —— 你 ticked。 但 fine print 入面：
+
+- **Exclusion list** —— 邊啲 condition / 治療 唔 cover
+- **Pre-existing condition definition** —— 你以為 cover 嘅 chronic，可能 fall 入 exclusion
+- **Waiting period** —— Sign 完幾耐先 effective
+- **Sub-limit** —— Per condition / per year 嘅 hidden cap
+- **Definition of 「accident」 / 「critical illness」** —— Industry standard 同 layperson understanding 差好遠
+
+呢類 fine print 90% 嘅 buyer 唔讀（律師體中文 8 頁）。 但呢 8 頁決定你 claim 嗰陣 「whether you 真 covered」。
+
+呢篇用 Claude 做 strategic review。
+
+> ⚠️ Disclaimer：呢個唔係 financial / insurance advice。 涉及大保額或 complex condition，揾 independent insurance broker。
+
+## 跟住做
+
+### 1. Upload 整份 policy + benefits illustration
+
+兩份都要：
+- **Policy document**（actual contract）
+- **Benefits illustration**（agent show 你嘅 sales doc）
+
+兩份內容應該 align，但偶爾出 discrepancy。 Claude 會 cross-check。
+
+### 2. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — 保險 policy 30 分鐘 strategic review">
+我會 sign 呢份保險 policy（[人壽 / 醫療 / 危疾]）。請幫我做 review。 我嘅 context：
+
+- Policy type：[填]
+- 我嘅年齡 + 健康狀況：[填，特別 mention 任何 pre-existing condition]
+- 月 / 年保費：[填]
+- 保額：[填]
+- 我嘅 priority：[揀 — 想 cover 重病、想 protect family、想 cash value、純 cover 醫療開支]
+
+請整 5 個 section：
+
+**Part 1：核心保障 summary**
+- 主要保障 + 保額
+- 受保人 + 受益人
+- 保費 schedule（level / increasing / 一次過）
+- 保單年期
+
+**Part 2：⚠️ Exclusion list（最重要）**
+逐個 exclusion review：
+- 條款原文
+- 解釋 plain Cantonese 點理解
+- 我嘅 specific risk（基於我健康 + lifestyle）
+- 如何 navigate（例：sign 之前 disclose、買 rider 補）
+
+特別 catch：
+- Pre-existing condition 嘅 definition 廣度
+- 自殺條款（人壽通常 2 年 waiting）
+- 「Acts of war」 / pandemic exclusion
+- High-risk activity exclusion（diving、climbing、motorsport）
+
+**Part 3：Waiting period + Sub-limit**
+- Waiting period 每個保障項目
+- Per-condition cap
+- Per-year cap
+- Lifetime cap
+
+**Part 4：續保 / 終止**
+- 我終止 vs 保險公司終止嘅條件
+- 續保 right 屬於我（guaranteed）定 insurer（discretionary）
+- Premium 將來嘅 adjust mechanism
+
+**Part 5：5 條我應該問 agent / broker 嘅 question**
+基於 above，sharp specific question。
+</PromptBlock>
+
+### 3. Verify exclusion list 一個個
+
+Claude 出嘅 exclusion summary 95% 啱，但每條 exclusion 嘅原文你都要 read 一次。 Insurance contract 嘅 single word 差別 huge：「any pre-existing」 vs 「disclosed pre-existing」。
+
+### 4. 帶住個 sharp question list 揾 agent
+
+Agent 見到 prepared customer，**通常會老實 disclose**。 你嘅 30 分鐘 prep ROI：可能 save 你 claim 嗰陣被拒嘅 stress。
+
+## 變化例子
+
+### 變化 1：你已 sign，retrospective understand
+
+<PromptBlock label="變化 1 — 已 sign 嘅 retrospective review">
+我已 sign 咗保險 [幾耐]。請：
+1. 用上面 same structure review
+2. Flag 我而家 stuck 嘅 disadvantage
+3. 列我可以做嘅 action：upgrade rider / buy supplementary policy / 將來 review timing
+4. 列我未來 claim 嗰陣最容易撞嘅 dispute risk
+</PromptBlock>
+
+### 變化 2：對比兩個 plan（同公司唔同 tier）
+
+<PromptBlock label="變化 2 — 兩個 plan 對比">
+我考慮 2 個 plan（同保險公司，唔同 tier）：[Plan A] vs [Plan B]。
+請：
+1. Side-by-side benefit 對比
+2. Premium 差異 vs 保障差異 嘅 cost-effectiveness
+3. 我嘅 specific case，邊個 fit
+4. 「Upgrade later」 vs 「Sign higher tier now」 嘅 trade-off
+</PromptBlock>
+
+### 變化 3：VHIS（自願醫保）vs employer group medical
+
+<PromptBlock label="變化 3 — VHIS vs Group Medical">
+我 employer 已 cover group medical（policy attached）。我考慮買 additional VHIS。
+
+請：
+1. 對比 employer plan vs VHIS 嘅 coverage
+2. Identify gap：邊啲 condition / treatment employer 唔 cover 但 VHIS cover
+3. 計 VHIS 嘅 tax benefit（max $8K deduction/人）
+4. Recommend：buy VHIS 嘅 case strong 嗎？
+</PromptBlock>
+
+## 一個 mindset
+
+保險 industry 嘅 information asymmetry 比 mortgage 仲嚴重——你 claim 嗰陣先發現 「冇 cover」。
+
+Claude 嘅 leverage：sign 之前先 surface exclusion，畀你 informed choice。 **30 分鐘嘅 prep，可能避免 future $X,XXX 嘅 out-of-pocket**。
+
+但 reminder：呢個 process 唔取代 broker / lawyer。 大保額 plan 最後揾 professional confirm。

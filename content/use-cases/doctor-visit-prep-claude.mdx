@@ -1,0 +1,215 @@
+---
+title: "見醫生前用 Claude 諗清楚要問乜：HK 私家 / 專科 consultation prep"
+slug: "doctor-visit-prep-claude"
+issue: 44
+publishedAt: 2026-10-06
+audience: ["消費者"]
+category: "chat"
+subcategory: "決策同研究"
+difficulty: 1
+timeMinutes: 20
+toolsNeeded: ["Claude Chat"]
+description: "見醫生前用 Claude prep：整理 symptoms、列 specific question、預想 follow-up。HK 私家 / 專科 15 分鐘 consultation slot 嘅有效 prep prompt。"
+keywords: ["見醫生 準備", "醫療咨詢 ai", "claude 健康", "專科 預約", "看診 prep"]
+related: ["hong-kong-tax-prep-claude", "claude-pdf-summary"]
+featured: true
+---
+
+## 情境
+
+你約咗私家 / 專科醫生。 Slot 15 分鐘。 你 nervous + symptoms 講唔清：
+
+- **「最近 stomach 唔舒服」**——醫生會問 「具體點」，你 muttering
+- **覺得 GP 講嘅 advice 唔 thorough**，但 walk out 嗰陣諗起想問嘅 question
+- **唔知 distinguish 「shouldwait 觀察」 vs 「該即時 escalate」**
+- **私家收 $1,500+ per visit，唔想多 schedule 一次 follow-up**
+
+呢篇用 Claude **20 分鐘 prep**：
+
+- Organize 你 symptoms 嘅 timeline + 系統化
+- 列 5-8 條 specific 問題（醫生回答得到嗰種）
+- 預想 likely diagnoses + 對應 follow-up question
+- 寫 1 頁 「Notes for myself」 帶去 consultation
+
+> ⚠️ Critical disclaimer：呢個 prompt **唔係 medical advice**。 Claude 唔係醫生。 呢個 process 嘅 sole purpose 係**令你 consultation 更 informed、更 specific**——令醫生嘅 expertise 喺 15 分鐘內最大化發揮。
+> **任何 「我自己診斷自己」 嘅誘惑都要 resist**。 唯一決定 diagnosis 同 treatment 嘅人，係 你嘅 doctor。
+
+## 跟住做
+
+### 1. 整理 symptoms timeline（pre-prompt input）
+
+寫低（喺 Apple Notes / 紙）：
+
+- **每個 symptom 嘅 onset date**（盡量 specific：「3 月 15 日左右開始」）
+- **Severity 變化**（穩定 / 加劇 / 緩解 / cyclical）
+- **Trigger / pattern**（食嘢之後 / 早上 / pre-period / stress 之後）
+- **你已試過嘅嘢**（OTC 藥 / 改 diet / 改 sleep）
+- **任何 medical history relevant**：past condition、family history、現服藥
+- **Vital recent changes**（job、residence、travel、diet、stress level）
+
+冇呢個 input，Claude 嘅 output generic。
+
+### 2. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — 見醫生 consultation prep">
+我約咗醫生（[GP / 專科 — 例：胃腸科 / 婦科 / 心臟科]）下星期。Slot 預計 15 分鐘。
+
+我嘅 symptoms timeline：
+[paste 你嘅 brain dump from step 1]
+
+請幫我做以下 4 件事——但 **NEVER 嘗試 diagnose、prescribe、或 dismiss 我嘅 concern**。 你嘅 role 係 prep partner，唔係 doctor。
+
+**Part 1：Symptoms 整理（醫生友善 format）**
+
+將我 raw 描述改寫為 medical-professional 友善版本：
+
+- **Chief complaint**：1 句講你最 immediate 嘅 concern
+- **History of presenting illness (HPI)**：按時間順序，4-6 句講 symptoms onset、progression、associated symptoms
+- **Aggravating / relieving factors**：邊樣令到更差 / 更好
+- **Past medical history**：relevant background
+- **Medications**：而家服用嘅
+- **Family history**：relevant condition
+
+呢個 format 醫生第一眼睇就 catch 到 essential info。
+
+**Part 2：5-8 條 specific question 我應該問**
+
+唔係 「你覺得我有咩事」（太 open）。 係 specific、有 narrow answer 嘅 question：
+
+- 「呢類 symptom 喺 differential diagnosis 通常 narrow down 邊三幾個 condition」
+- 「First-line investigation 通常係 blood test / imaging / endoscopy 邊樣，邊樣 most informative for my case」
+- 「如果 first-line 唔 conclusive，next escalation step」
+- 「Lifestyle 改變 vs 藥物 treatment vs 觀察，醫生通常點 balance」
+- 「我有冇 「red flag symptoms」 應該 worry 嘅，例：[symptom X] 出現 = 即刻 ER」
+- 「我下次 follow-up timing 嘅 marker」
+- 「如果 condition turn 成 chronic，long-term management 嘅 outline」
+
+每條 question 對應到我 symptoms。
+
+**Part 3：預想 likely diagnoses + 對應 follow-up question**
+
+基於 symptoms timeline，list 3-5 個 「呢類 symptom commonly investigated for」 嘅 condition。
+
+⚠️ ⚠️ ⚠️ **唔係 diagnosis**——係 「醫學界 typically considered differential」 嘅 informational list。
+
+每個 hypothetical diagnosis：
+- 1 句 描述
+- 醫生會 do 嘅 typical investigation
+- 1 條 specific follow-up question 我可以 ask 來 understand prognosis
+
+**Part 4：「Notes for myself」 1 頁 print-out**
+
+整一頁，consultation 帶去用。Format：
+
+- **My questions（5-8 條）**——大字、可以 quickly glance
+- **Specific data 我要 record from doctor**：diagnosis / suspected、test ordered、prescription、follow-up date
+- **Decision points 我要 ask before leaving**：「如果 X happens 之後我點 reach you」
+
+⚠️ 結尾必須提示：
+- 呢份 prep 唯一目的係 enhance my consultation，唔取代醫生
+- 醫生 disagree 你 organized observation 嘅地方，trust 醫生
+- 任何 「自己想 prescribe / decide」 嘅 thought，請 actively suppress
+</PromptBlock>
+
+### 3. Send 出去之前，read 一次過
+
+Claude 出 output 之後讀一遍：
+
+- **Part 1**：寫成醫療術語嘅 symptoms，啱唔啱你想 communicate
+- **Part 2**：你 read questions，有冇覺得邊條 「我覺得我都答得到，唔需要問」——cut
+- **Part 3**：呢份 hypothetical list 你心情會點 react？有冇 catastrophize? 如果有，記得**你 read 嘅 list 唔係 diagnosis**
+
+如果 Part 3 嘅 list 令你過分 anxious，呢個 prompt 嘅 net effect 唔好。 對於 high-anxiety 體質嘅人，**skip Part 3，淨係 use Part 1, 2, 4**。
+
+### 4. Print Part 4，帶實體紙去
+
+電子版 phone 會 distract（你會睇通知）。**實體紙**。 邊問邊 write down 醫生答案。Take 2-3 分鐘紀錄。
+
+醫生通常 appreciate prepared patient——consultation 變高效對方都 benefit。
+
+### 5. 離開 clinic 之前 review checklist
+
+未起身之前 mental check：
+
+- [ ] 我問完所有 5-8 條 question
+- [ ] 我 record 咗 diagnosis（or differential）
+- [ ] 我知 next test / follow-up timeline
+- [ ] 我知 「red flag escalation」 嘅 trigger
+- [ ] 我知 prescription / instruction（再 confirm 一次）
+
+任何 unchecked，**留 30 秒問完**。 比起 walk out 之後 schedule 第二次 visit，呢 30 秒永遠 worth。
+
+## 變化例子
+
+### 變化 1：陪家人見醫生（家長 / 老人）
+
+<PromptBlock label="變化 1 — 陪老人 / 家人 consultation">
+我陪 [親人] 見醫生（[GP / 專科]）。
+親人嘅 symptoms timeline：
+[填]
+親人嘅 medical history：[填]
+親人嘅 communication style：[佢自己會詳細描述 / 佢通常 minimize symptoms / 佢溝通 cognitive impairment]
+
+請：
+1. Part 1 — 我 explain 親人 symptoms 嘅 best framing（補返 親人 self-report 可能漏咗嘅嘢）
+2. Part 2 — questions 包：佢嘅 condition + 我做 caregiver 嘅 question（example：「我如何 monitor at home」、「邊個 sign 我應該 escalate」）
+3. Part 4 — 整一頁 chart for 我陪診時 record 同 「caregiver instructions」 我帶返 屋企用
+
+⚠️ 強調 boundaries：
+- 親人 must consent for me to be in consultation
+- 我 not allowed override 親人 decision（如果 mentally capable）
+- 我 not allowed make treatment decision behalf of 親人 (unless legal capacity)
+</PromptBlock>
+
+### 變化 2：second opinion consultation
+
+<PromptBlock label="變化 2 — Second opinion prep">
+我已 seen 一個醫生（[GP / 專科]），佢嘅 diagnosis 係 [填]，treatment recommendation 係 [填]。
+我想 second opinion。
+
+請：
+1. 整理 第一個醫生嘅 findings + treatment plan（讓 second opinion doctor 一眼睇到）
+2. 列 specific question 我應該問 second doctor：
+   - 「Original diagnosis 嘅 differential 仲有冇 alternative」
+   - 「Recommended treatment 嘅 alternative + each trade-off」
+   - 「呢個 condition 嘅 prognosis 喺 different treatment path」
+3. ⚠️ 強調 ethics：
+   - 唔好 隱瞞 first opinion（醫生需要 know）
+   - 唔好 「shop around for the answer you want」
+   - Goal：increase your confidence + cross-validate，唔係 cherry-pick
+</PromptBlock>
+
+### 變化 3：chronic condition 嘅 periodic check-in
+
+<PromptBlock label="變化 3 — Chronic condition follow-up">
+我有 chronic condition（[填，例：糖尿病、高血壓、慢性 IBD]）。
+我每 [N 個月] 見專科 routine review。
+
+請整 periodic check-in prep：
+1. **Symptom log review**（past 6 months 嘅 pattern）
+2. **Lifestyle 變化** since last visit：diet、exercise、sleep、stress、medication adherence
+3. **Lab work review prep**（如果有 recent test）
+4. **Specific question 對應 chronic management**：
+   - 「Medication titration 嘅 timing」
+   - 「Long-term outlook adjustment」
+   - 「Specific lifestyle target 為下個 6 個月」
+
+呢類 routine visit，medical professional appreciation prepared patient。 你 take 5 分鐘做 prep，consultation efficacy 倍增。
+</PromptBlock>
+
+## 一個 mindset 同 final caveat
+
+呢個 prompt 嘅 leverage 唔係 「我可以 self-diagnose」——係 **「我可以 efficiently extract 醫生嘅 expertise」**。
+
+醫療系統 design 假設 patient 過分 passive。 醫生只能根據你 articulate 嘅 symptoms make judgment。 你 articulate 嘅 quality 直接 affect 你 receive 嘅 care quality。
+
+Claude 嘅角色：幫你 articulate 得 sharper。 醫生 receive 一個 prep 過嘅 patient，**consultation 由「點解你嚟」變「我哋一齊 explore」**。
+
+⚠️ 最重要嘅 mental discipline：
+
+- 唔好 「Claude 講過 might be X，我覺得就係 X」——Claude 列 differential 唔係 diagnosis
+- 唔好 「Claude 講 lifestyle change 已 enough」——你冇 examined，唔知
+- 唔好 skip 醫生 prescription 因為「我網上 read 唔需要」——醫生睇你嘅 specific context
+- 唔好 用呢個 prompt 嘅 output 代替 emergency room visit——任何 「red flag symptoms」（severe chest pain、unable to breathe、suspected stroke），999 即時。
+
+呢個 prompt 嘅最高境界：**令你嘅 consultation 由「scary unknown」變「informed dialogue」**。 但你嘅 doctor 永遠係 decision maker。 Stay humble、stay curious、stay safe。

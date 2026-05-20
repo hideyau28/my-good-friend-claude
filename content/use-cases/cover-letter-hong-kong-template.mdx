@@ -1,0 +1,133 @@
+---
+title: "Cover Letter 範本（香港版）：用 Claude 由零寫 + 改現有版本"
+slug: "cover-letter-hong-kong-template"
+issue: 14
+publishedAt: 2026-03-10
+audience: ["打工仔"]
+category: "chat"
+subcategory: "寫嘢同溝通"
+difficulty: 1
+timeMinutes: 20
+toolsNeeded: ["Claude Chat"]
+description: "Cover letter 範本（香港版）：用 Claude AI 由 JD + CV 寫一封 tailored cover letter，唔出『To whom it may concern』呢類老套字眼。HK 求職者必睇 prompt。"
+keywords: ["cover letter 範本", "cover letter 香港", "求職信 ai", "claude 求職", "香港 cv"]
+related: ["english-email-polish-hk", "whatsapp-customer-reply-hk"]
+featured: true
+---
+
+## 情境
+
+你 reply 緊一個職位 ad，職位 description 寫得幾 specific。 你嘅 cover letter draft：
+
+> 「To whom it may concern, I am writing to apply for the position of Senior Marketing Manager. I am very interested in this role and believe my skills would be a great match...」
+
+讀完自己都瞓得著。 HR 一日睇 200 封 cover letter，呢句開頭佢直接 skip。
+
+呢篇用 Claude AI 寫一封**真係針對嗰個職位** + **保留你個 voice** 嘅 cover letter。同時教你點改現有 cover letter，唔使每次由零開始。
+
+## 跟住做
+
+### 1. 收齊三樣嘢
+
+- **JD（職位 description）** — copy paste 整個 LinkedIn / job board 嗰段
+- **你嘅 CV** — 可以係 .pdf 或者 .docx，直接 upload
+- **你個 honest take**：點解 want 呢份工？（一兩句 bullet，唔使整文）
+
+### 2. 用呢個 prompt（一次過餵晒三樣）
+
+<PromptBlock label="完整 prompt — copy 即用">
+我而家 apply 緊以下呢份工，我嘅 CV upload 咗。請幫我寫一封 cover letter。
+
+要求：
+1. **唔好用「To whom it may concern」、「Dear Sir/Madam」**——如果 JD 有 HR name 就 use it；冇就直接「Dear [公司名] team」
+2. **第一句要 hook**：一句講你點解興奮呢份工，要 specific（提到 JD 入面某個 detail）
+3. **中段 3 段**：
+   - 第二段：我嘅最 relevant 經驗（揾 CV 同 JD 嘅 strongest overlap）
+   - 第三段：我嘅 differentiator（同其他 candidate 唔同嘅嘢，少少 personality）
+   - 第四段：我點解想 join 呢間公司（要 mention 公司 specific 嘅嘢，唔係 generic）
+4. **結尾**：簡短，禮貌但唔卑微（唔好「I look forward to hearing from you at your earliest convenience」呢類嘢）
+5. **長度**：300–400 字最 sweet spot。HR 鐘意 scannable
+6. **避免**：「proven track record」、「synergy」、「passionate」、「team player」呢類 generic buzzword
+
+語氣：自信但唔自大，正式但唔死板。香港 office context。
+
+【JD】：
+（貼 JD 全文）
+
+【點解想呢份工（我嘅 honest take）】：
+（你嘅一兩句 bullet）
+</PromptBlock>
+
+### 3. Cross-check 三樣嘢
+
+Claude 出嘅 draft，你要 verify：
+- **CV 入面有冇佢提到嘅 example** — 唔好畀 hallucinate 出嚟嘅 experience
+- **公司名拼得啱** — 一個 typo 就 game over
+- **個 voice 聽起來係咪你** — 讀出聲，覺得太「professional consultant」就要改返自己語氣
+
+### 4. 微調，print 出嚟 sleep on it
+
+Cover letter 唔好出嗰刻就 send。瞓返一晚，第二朝再 read 一次，通常會發現一兩個位想再 sharpen。
+
+## 變化例子
+
+### 變化 1：已經有一封 cover letter，要 tailor 落新 job
+
+<PromptBlock label="變化 1 — 改現有 cover letter">
+我有一封我之前用過嘅 cover letter（如下），啱啱用咗去 apply Job A。
+而家我 apply 緊另一份工 Job B（JD 喺下面），請：
+
+1. 識別出原版入面 generic 嘅 part（可以 reuse 嘅）
+2. 識別出原版入面 specific to Job A 嘅 part（需要 swap 出去）
+3. 用 Job B 嘅 JD 內容 swap 出新版本
+4. 由我嘅 CV（已 upload）pick 啱嘅 relevant example
+5. 出新版本之餘，highlight 你改咗咩，等我 review
+
+【原版 cover letter】：
+（貼）
+
+【Job B JD】：
+（貼）
+</PromptBlock>
+
+### 變化 2：轉行 / 轉 industry 嗰種 awkward case
+
+<PromptBlock label="變化 2 — 轉行 cover letter">
+我以前喺 [舊行業] 做 [舊職位]，而家想 transition 入 [新行業] 做 [新職位]。
+我嘅 CV 同 JD upload 咗。
+
+請幫我寫 cover letter，特別要做嘅嘢：
+1. 認 acknowledge 個 transition——唔好 hide 個跳行
+2. 提取舊 experience 入面同新職位 transferable 嘅 skill（要 specific，唔好用「leadership」呢類）
+3. 講你嘅 motivation 點解 transition（要係 thoughtful 嘅，唔係「I am passionate about」）
+4. 預咗 HR 會問「點解突然跳？」——喺 cover letter 已經輕度 address 呢個 concern
+
+語氣：confident 而非 defensive。唔好 over-explain 跳行嘅原因。
+</PromptBlock>
+
+### 變化 3：寫 follow-up email（apply 咗一星期未覆）
+
+<PromptBlock label="變化 3 — Follow-up email">
+我喺 [日期] apply 咗 [公司] 嘅 [職位]，到而家一星期未覆。請寫一封 short follow-up email：
+
+要求：
+1. 唔好 sound desperate
+2. 提返我 apply 咗（有 reference number 就 mention）
+3. 重申對個 role 嘅 interest（一句，唔好長篇）
+4. Offer 提供額外資料（CV、portfolio link）如果佢哋需要
+5. 唔好 explicitly 問「我幾時會知道」——太 pushy
+6. Tone：professional、light、唔卑
+
+長度：3 段以內。
+</PromptBlock>
+
+## HK 嘅特別 caveat
+
+呢度有幾個 HK office cover letter 嘅 norm，AI 唔一定識：
+
+1. **唔好 over-Americanize** —— US-style 嘅「I am thrilled / passionate / excited」太強烈。HK 用 confident understatement 反而好。
+2. **唔好用「Yours faithfully」or「Yours sincerely」嘅複雜 rule** —— 而家 HK 大多用「Best regards」or「Kind regards」就 OK。
+3. **PDF format submit 唔好 .docx** —— 防 formatting 走樣。
+4. **檔名重要** —— `Surname_Firstname_CoverLetter_2026.pdf` 比 `cover-letter-final-final.pdf` 專業。
+
+最後一個 reminder：**Claude 嘅 output 係 starting point，唔係 final**。 一封打動到 HR 嘅 cover letter，最後 10% 嘅 polish 要靠你自己嘅 nose。AI 幫你 skip 80% 嘅 boilerplate，留個 brainspace 畀你做嗰 critical 10%。

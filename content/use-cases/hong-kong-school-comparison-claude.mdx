@@ -1,0 +1,173 @@
+---
+title: "揀小學 / 中學用 Claude 對比：由 prospectus 抽 6 個關鍵指標"
+slug: "hong-kong-school-comparison-claude"
+issue: 5
+publishedAt: 2026-01-06
+audience: ["學生家長"]
+category: "chat"
+subcategory: "決策同研究"
+difficulty: 2
+timeMinutes: 45
+toolsNeeded: ["Claude Chat", "學校 prospectus PDF"]
+description: "揀小學 / 中學用 Claude 對比：由 3-5 間學校嘅 prospectus 一次過抽 6 個關鍵指標。HK 家長最大決策之一，呢個 prompt 幫你由 marketing material 揾出真實 information。"
+keywords: ["香港揀學校", "香港小學比較", "中學比較", "家長 揀校", "claude 教育決策"]
+related: ["claude-tsa-homework-hk", "claude-pdf-summary"]
+featured: true
+---
+
+## 情境
+
+每年 9-11 月，HK 家長進入「揀小學 / 中學」嘅 decision season。 你 collect 咗 3-5 間學校嘅 prospectus PDF（合 20-30 頁 each），加埋 GoodSchool / EDB 嘅 ranking page。
+
+問題：
+
+- 每間 prospectus 都係 marketing material —— 全寫 strength、零寫 trade-off
+- Format 唔同：辦學理念、課程、活動、收生標準 嘅 layout 各有各
+- 你想做 side-by-side 對比，但 manual 做要成個禮拜
+
+呢篇用 Claude 一次過讀 3-5 間學校嘅 prospectus + EDB data，**抽 6 個關鍵指標**做對比表，**揾出每間嘅 hidden trade-off**，列你應該問學校嘅 question。
+
+> Disclaimer：呢個 process 唔取代你親自 visit 同 attend open day。學校嘅 culture / 老師質素 / 家長氛圍，呢類軟性嘢只能親身感受。Claude 嘅角色係幫你 strategic prep，唔係 final decision。
+
+## 跟住做
+
+### 1. Collect 學校資料
+
+每間學校至少 3 份文件：
+
+1. **官方 prospectus PDF**（學校網站 download）
+2. **EDB 學校概覽 PDF**（[chsc.hk](https://chsc.hk) 或 [edb.gov.hk](https://www.edb.gov.hk)）
+3. **學校年報 / 校情**（如果可以公開攞到）
+
+如果你已經 visit 過 open day，加埋 your own notes（用 voice memo 錄、再 transcribe）。
+
+### 2. 上傳所有 PDF 落 Claude（一個對話）
+
+Claude.ai 一個 chat 可以 attach 多個 file。逐個 drag 入嚟。
+
+### 3. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — 揀學校 strategic comparison">
+我而家比較 [N] 間香港 [小學 / 中學]，要幫小朋友揀。各間學校嘅 prospectus 同 EDB report 我 upload 咗。 我嘅 context：
+
+- 小朋友嘅 profile：[性格 / 學習風格 / 強弱項，例如：好動 vs 安靜 / strong 學術 vs creative / 內向 vs 外向]
+- 家庭 priority（排優先次序）：
+  1. [例：學術成績]
+  2. [例：身心健康同 well-being]
+  3. [例：英語教學]
+  4. [例：地理位置 / 通勤時間]
+- 我嘅 concern：[例：個個學校都話自己「全人教育」，分唔到實際差異]
+
+請整以下 4 個 section：
+
+**Part 1：6 個關鍵指標 side-by-side table**
+
+Columns 係學校名，rows 係：
+
+1. **辦學語言 + 課程框架** — 英中文授課比例、本地 vs IB / GCSE、有冇 STEAM / 體藝 strand
+2. **學術 outcome** — DSE 升學率（如有）、Top 學校 placement、特別獎項
+3. **班級規模 + 師生比** — 一班幾多人、Whole school teacher : student ratio
+4. **課外活動** — 種類、深度（每週幾多 hours）、是否強制
+5. **收費 + 額外 cost** — 學費、書簿、活動費、學費 increase trajectory
+6. **校風 / 學校宣傳 identity** — 用 1-2 phrase capture 每間嘅 self-positioning
+
+每個 cell 一句寫晒。如某行某 cell 缺 info，標「未列明」。
+
+**Part 2：每間嘅 hidden trade-off**
+
+每間學校 1-2 點 「marketing 唔講，但 prospectus 字裡行間 hint 嘅」trade-off：
+
+- 「強調 STEM excellence —— 體藝活動明顯 underweighted」
+- 「DSE 成績好 —— 但畢業生重點 placement 都係本地大學，少 overseas」
+- 「Project-based learning —— 但功課量 prospectus 數字 hint 比一般學校多」
+- 「Small class 17 人 —— 但 teacher : student ratio 1 : 14，即 admin / support staff 比例細，老師 spread thin」
+
+冇明顯 trade-off 嘅，老實寫「未見明顯」，唔好硬作。
+
+**Part 3：對應我家庭 priority 嘅 ranking**
+
+基於我講嘅 priority order，每間學校：
+- Fit score（1-10）
+- 為咩
+- 主要 misalignment（如果有）
+
+**Part 4：我應該問每間學校 open day 嘅 question（每間 2 條）**
+
+由 above analysis，畀我 sharp、specific 嘅 question——不可以由 prospectus 自己讀到答案。 例：
+- 「你哋 prospectus 寫師生比 1:14，但 prospectus 入面 staff list 顯示有 15 個 teacher 教 200 學生，邊個數字真實？」
+- 「小朋友適應有困難嘅話，學校 SEN / counselling 嘅 specific resource 係咩」
+
+語氣：data-driven、唔 hype、實際幫我 decide。
+唔出 generic 「揀啱小朋友最重要」呢類 disclaimer（信尾 caveat 已經有）。
+</PromptBlock>
+
+### 4. Cross-check 同 verify
+
+Claude 嘅 output 90-95% 啱，但 EDB data 或 prospectus 嘅數字會 hallucinate（特別係 ranking、percentage、ratio）。
+至少 verify：
+- **DSE 升學率** — 返去 prospectus 原文 confirm
+- **班級規模** — 對返學校官方
+- **學費** — 對返學校最新 fee schedule（每年都會改）
+
+### 5. 帶 Part 4 嘅 question 去 open day
+
+呢個係呢個 process 嘅 highest leverage 部分。
+
+普通家長去 open day 問 generic question（「請問貴校嘅特色？」），HR 喺旁邊 standard answer。
+帶住 sharp specific question 去，**校方一發現你 prepared，會 cut to the chase 講真正嘅嘢**。
+你嘅 30 分鐘 open day 由「sales pitch」變「真實 dialogue」。
+
+## 變化例子
+
+### 變化 1：對比兩間學校做 final decision
+
+<PromptBlock label="變化 1 — Tiebreaker 對比">
+我 narrow 到 2 間學校。請：
+
+1. 用 [10 個關鍵維度] 做更深入嘅 side-by-side
+2. 推測哪間更適合我小朋友 profile（[填]）
+3. 列每間學校嘅「decision regret risk」—— 揀咗呢間，3 年後最可能 regret 嘅嘢
+4. 推 1 個 final tiebreaker question 我可以問校方（或者 visit 第二次嗰陣留意）
+
+我特別關心：[mention 一個 unresolved concern]
+</PromptBlock>
+
+### 變化 2：International school vs local school 對比
+
+<PromptBlock label="變化 2 — Int'l vs Local school">
+我考慮緊一間 international school（[名]）vs 一間 local school（[名]）。
+小朋友 profile：[填]
+家庭情況：[例：可能未來 5 年要 relocate / 想 keep 香港 root / 等]
+
+請：
+1. 唔好用 hype 嘅 framing（「international 一定好過 local」 / 「local 更踏實」呢類）
+2. 對比 5 個 dimension：academic、social、cultural identity、cost、long-term flexibility
+3. 對應我嘅家庭情況 fit 邊間
+4. 一個 risk hint：呢個 decision 之後幾年最可能改變 calculus 嘅 factor
+</PromptBlock>
+
+### 變化 3：揀完之後做 fit assessment（睇下啱唔啱）
+
+<PromptBlock label="變化 3 — 揀完之後 retrospective fit assessment">
+小朋友讀緊 [學校名] 嘅 [Grade]，我想 check 下 fit 點。
+我喺以下方面有 concern：[列 2-3 個 observation，例如：小朋友 stress level / 老師教學 / 同學關係]
+
+請：
+1. 由我描述嘅 symptom，揾 possible underlying issue（學校 culture / 課程 design / 老師 individual / 同學動態）
+2. 列 questions 我可以問小朋友（open-ended，唔係 leading questions）
+3. 列 questions 我可以同班主任 / counsellor 傾
+4. 唔好 jump 落「應該轉校」嘅 conclusion，先 explore 點 better understand
+5. 提示 red flag：邊啲 symptom 真係 「轉校 indicator」
+
+我而家未想 panic，係想做 informed observation。
+</PromptBlock>
+
+## 一個 framing
+
+揀學校呢個 decision 嘅 stake 唔在 「邊間係 best school」——係**邊間最 fit 我小朋友嘅 profile 同我屋企嘅 priority**。
+
+呢個 framing shift 之後，所有 「top schools」嘅 ranking 都係 misleading。 你揀嘅唔係抽象嘅 「最好」，係**揀啱嗰個三方 mismatch 最少嘅組合**。
+
+Claude 喺呢度嘅 leverage：**幫你 surface 出隱藏喺 marketing material 入面嘅 trade-off**，等你嘅 decision 唔係 based on emotional response，係 based on 你 informed comparison。
+
+最後 reminder：呢個 process 唔取代 visit、唔取代你嘅 instinct。 但比起 cold 對住 5 份 prospectus，呢個 30 分鐘嘅 strategic prep 可能改變你嘅 decision。

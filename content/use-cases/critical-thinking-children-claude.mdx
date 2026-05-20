@@ -1,0 +1,162 @@
+---
+title: "教細路 critical thinking：用 Claude 同 P5+ 小朋友傾抽象問題"
+slug: "critical-thinking-children-claude"
+issue: 38
+publishedAt: 2026-08-25
+audience: ["學生家長"]
+category: "chat"
+subcategory: "陪小朋友學嘢"
+difficulty: 1
+timeMinutes: 30
+toolsNeeded: ["Claude Chat"]
+description: "教細路 critical thinking：用 Claude 同 P5+ 小朋友傾抽象問題（「點解 X」、「如果 X 會點」）。HK 家長嘅親子討論 setup，唔係 quiz、唔餵答案、係一齊 explore。"
+keywords: ["critical thinking 小朋友", "親子討論", "小朋友 提問", "claude 教育", "啟發 思維"]
+related: ["claude-tsa-homework-hk", "hong-kong-school-comparison-claude"]
+featured: false
+---
+
+## 情境
+
+小朋友升 P5、P6 嗰個 stage，開始問你抽象問題：
+
+- 「點解人類要 work?」
+- 「如果 AI 識嗮所有嘢，學校仲做乜?」
+- 「點解我哋要 follow rule?」
+- 「公平係咩意思?」
+
+呢類問題唔似 「2+2 等於幾」 嗰種有 single answer。 你嘅 default 通常：
+
+- **太忙，敷衍**：「大個你就知。」
+- **過分簡化**：「因為要返工 啦。」
+- **直接 feed 你自己嘅觀點**：「人就應該 X」
+
+呢三個 response 都關閉咗 conversation。 小朋友 stop 問。
+
+呢篇用 Claude 做**「三方對話」**——你、小朋友、Claude 一齊 explore 一個抽象問題，30 分鐘 turn 成親子 quality time。
+
+> 重要：呢個用法**唔取代你嘅 parental presence**。Claude 嘅角色係 conversation catalyst，唔係 「replace dad/mom 答嘢」。
+
+## 跟住做
+
+### 1. 揀啱嘅 topic（critical step）
+
+小朋友自己 raise 嘅問題最好。 但如果你想 initiate，揀 topic 嘅 rule：
+
+- **有 multiple legitimate angle**（唔係 「邊個歷史總統 first」 嗰類 single-answer）
+- **同小朋友 daily life 有關聯**（友誼、公平、為咩要做某啲嘢）
+- **冇 emotional charge**（avoid family conflict、religious、political 嗰類 first attempt）
+- **小朋友會 form opinion 嘅 level**（唔係 「meaning of life」 哲學 elite，係 P5 認知範圍）
+
+好嘅 starting topic：
+- 「如果你發現朋友 cheat 考試，應該唔應該講?」
+- 「電腦遊戲入面 殺 character 算唔算殺生?」
+- 「點解大人話要 share，但有啲嘢佢哋唔 share?」
+
+### 2. Set up 三方 conversation prompt
+
+<PromptBlock label="完整 prompt — 三方 critical thinking conversation">
+我同我 [年齡] 小朋友 [小朋友嘅名] 想一齊 explore 呢個問題：
+
+「[呢度貼小朋友嘅問題或者你想 raise 嘅 topic]」
+
+請扮一個「好奇嘅同伴」（唔係老師、唔係 expert），同我哋一齊 think。 規則：
+
+**你嘅 role：**
+1. **唔好提供 final answer**——你嘅 job 係提 follow-up question，唔係 conclude
+2. **跟住 conversation flow**——我哋 typing speed 唔同，你要 patient
+3. **小朋友每個 contribution 之後**，畀一個 「encouraging acknowledgment」 + 一個 「dig deeper」 question
+4. **Surface 多角度**——當我哋淨係 explore 一個 angle 嘅時候，你 gently introduce 「但有啲人會諗 ⋯ 你哋有冇諗過?」
+5. **避免 jargon**——用 [小朋友年齡] 對應嘅 vocabulary
+6. **永遠唔好 「validate one 觀點 over another」**——keep neutral
+
+**Conversation flow：**
+
+我會輸入小朋友嘅 response（標 「[小朋友名]: ⋯」），偶爾我自己嘅 thoughts（標 「[我]: ⋯」）。 你回應全 group。
+
+**Time budget：** 30 分鐘大概 8-10 個 exchange。 conversation natural 到一個 conclusion point 就 wrap up 一個「summary observation」。
+
+**結尾：** 唔好 force 一個結論。 結尾 model：「今日我哋探索 咗 X、Y、Z 嘅 angle。冇 single answer，呢個係 normal——critical thinking 嘅 mark 唔係 reach conclusion，係 willing to entertain ambiguity。」
+
+我哋已 ready。 第一個 contribution：
+
+[小朋友名]: [小朋友 raise 嘅問題]
+
+請開始你嘅第一個 response。
+</PromptBlock>
+
+### 3. 你做 active facilitator
+
+小朋友打字慢，distract 容易。 你嘅 role：
+
+- **Type small contribution 落 chat**（小朋友 dictation 畀你打字）
+- **Step in 當對話 stuck**（「[小朋友名] 你覺得 Claude 講嗰句點?」）
+- **Inject 你嘅 view 適度**——你係 participant，唔係 silent observer。 但保留 「I'm one perspective, not the right answer」 framing
+- **Pause when needed**——如果小朋友 frustrated 或者 lost focus，stop session，唔好 force
+
+### 4. Conversation 之後
+
+不嬲 follow-up：
+
+- **第二日 / 一個禮拜後 revisit**：「上次我哋傾 X 你仲有冇 new thought?」
+- **Real life connection**：當 daily situation 引發類似 question，refer back：「呢個 sound similar to 我哋上次傾嗰個 case」
+- **小朋友 surface 過嘅 angle 你 ack**：「你上次提到 嗰點，我成日諗起⋯」
+
+呢類 follow-up 強化「我嘅 thinking has 重 量」嘅 self-perception——小朋友嘅 future critical thinking confidence 建喺呢度。
+
+## 變化例子
+
+### 變化 1：兄弟姊妹 都 join 嘅 family discussion
+
+<PromptBlock label="變化 1 — Family discussion (多個小朋友)">
+我哋有 [N 個] 小朋友（年齡 [列]）。 我想一齊傾呢個 question：[填]
+
+請：
+1. 用啱**最細小朋友嘅 vocabulary 為 baseline**（唔好 leave 細路 behind）
+2. 不時 specifically 邀請 specific 小朋友：「[最細小朋友名] 你覺得呢? 你會點做?」
+3. 唔好畀大細路 dominate
+4. Validate 唔同 view，特別當大細路同細細路 disagree
+
+我會 facilitate，你係 fourth participant。
+</PromptBlock>
+
+### 變化 2：唔講 abstract 概念，由真實 dilemma 入手
+
+<PromptBlock label="變化 2 — Real dilemma trigger">
+小朋友啱啱撞到 real situation：[描述事件，例如：朋友邀請佢 cheat、見到 classmate 偷嘢、覺得學校 rule 唔 fair]
+
+請：
+1. Acknowledge situation 嘅 emotion first（唔好 jump 落 reasoning）
+2. 開放 question：「你而家咩 feel?」 / 「你嗰陣諗緊咩?」
+3. 然後 abstract：「呢類 situation，你估其他人會點選擇? 點解?」
+4. 最後 actionable：「下次撞到類似情況，你有冇諗到可以點 handle?」
+
+呢個 sequence：feeling → reasoning → strategy。 唔好 skip feeling step。
+</PromptBlock>
+
+### 變化 3：Quiz-style explore，但 Claude 唔餵答案
+
+<PromptBlock label="變化 3 — Open-ended explore">
+小朋友問 一個 「fact」 question（「點解天空藍?」、「為咩有 leap year?」）。 我想用呢個 question 做 critical thinking opportunity，唔止係 「back 答案」。
+
+請：
+1. 第一步：唔答 fact。 反問：「你估點解?」「你 already know 啲咩 hint?」
+2. 慢慢由小朋友嘅 partial knowledge build up reasoning
+3. 喺啱嘅時候 fill in fact gap，但 frame 做 「Scientist 用 lots of years 研究 reach 呢個結論⋯」 唔係 「呢個係 final answer」
+4. 結尾 hook 一個 follow-up curiosity：「呢個答案 raise 一個新 question⋯」
+
+呢個 trade-off：30 分鐘 explore 過程比 30 秒 google 嘅答案 valuable，但需要小朋友 patient。
+</PromptBlock>
+
+## 一個 framing 對 parent
+
+呢個 use case 嘅 real value 唔在小朋友學識 specific content，係**小朋友 internalize 嘅 mental model**：
+
+- 唔啟齒 「我唔知」 同自己「諗 vs」 之間有 valuable middle ground
+- Multiple perspectives 可以 simultaneously valid
+- Adult 嘅 confidence 唔等於 knowing—— 係 willing 同 ambiguity coexist
+
+呢個 model 喺 P5-7 嘅 cognitive development 黃金期 install，**佢一世 career / relationship / civic life 都受益**。
+
+Claude 嘅 role 細，但啱：佢提供 patient、curious、唔 judgmental 嘅 conversation partner。 你 parent 嘅 role 大——你嘅 presence 同 active facilitation 先係 magic。
+
+最後 reminder：**唔好 over-use**。 每星期 1 次 30 分鐘 session 嘅 cadence sweet。 每日做反而 dilute 個 specialness。

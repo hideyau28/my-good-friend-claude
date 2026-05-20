@@ -1,0 +1,167 @@
+---
+title: "Cowork 自動 backup：家庭 photo + important doc 每月 audit"
+slug: "cowork-auto-backup-files-photos"
+issue: 31
+publishedAt: 2026-07-07
+audience: ["消費者"]
+category: "cowork"
+subcategory: "自動化重覆任務"
+difficulty: 2
+timeMinutes: 60
+toolsNeeded: ["Claude Cowork", "iCloud / Google Photos", "External hard drive / NAS"]
+description: "自動 backup 家庭 file 同 photo：用 Claude Cowork 每月 audit iCloud / Google Photos / external HD 嘅完整性 + flag missing copy。香港家庭 digital preservation 嘅 starter setup。"
+keywords: ["自動 backup 工具", "家庭 photo 備份", "icloud backup", "nas 自動同步", "重要 文件 備份"]
+related: ["cowork-expense-automation", "cowork-order-automation"]
+featured: false
+---
+
+## 情境
+
+你 family 嘅 digital memories 散喺：
+
+- iCloud Photos（自動 sync 你 phone）
+- Google Photos（partner 用 Android）
+- 一個 5 年前嘅 external HD（孩子 baby photo，未 verify 仲讀得到冇）
+- WhatsApp media folder（accumulated voice note / video）
+- Mac 桌面亂放嘅 「我下次再 organize」 嘅 photo dump folder
+
+問題：
+
+- 你唔知**呢啲 backup 完整嗎**
+- 如果 iCloud 出 issue，你 lose 邊 5 年
+- External HD 5 年冇插過電，可能已 corrupt
+
+呢類 「我以為已 backup」 嘅 setup，每個 HK 家庭都有。 真正 disaster strike 嗰陣先發現。
+
+呢篇用 Cowork 每月**自動 audit**：confirm 重要 file 有 multiple copy，flag missing。
+
+> ⚠️ Cowork 仲係 research preview。 涉及 family photo，設定**只讀** mode（唔畀 Cowork 自動 delete / move file）。
+
+## 跟住做
+
+### 1. List 你嘅 backup source
+
+- **Source A**：iCloud（你 phone + Mac 自動 sync）
+- **Source B**：Google Photos（partner / 之前用嘅 Android）
+- **Source C**：External HD（手動 backup）
+- **Source D**：Other（NAS / 雲端 service）
+
+每個 source：location、size、organize structure。
+
+### 2. 用呢個 prompt setup
+
+<PromptBlock label="完整 prompt — Setup family backup audit">
+我想 set up monthly automated family file backup audit。 流程：
+
+**Trigger time：** 每月 first Sunday，10:00
+
+**Sources：**
+1. iCloud Photos library（access via Mac /Users/[user]/Pictures/Photos Library.photoslibrary）
+2. Google Photos export（我每月手動 trigger export，attach 喺 ~/Documents/google-photos-monthly/）
+3. External HD：「/Volumes/Family-Backup」
+4. Mac 桌面 + ~/Pictures/ 嘅未 sort photos
+
+**每月做：**
+
+**第一步：inventory each source**
+- Count of items（photos + videos）by year
+- Total storage used
+- Last-modified date range
+
+**第二步：cross-source matching**
+基於 photo metadata（date taken、location、device），match 出：
+- 邊啲 photo 同時喺 ≥ 2 個 source（safe）
+- 邊啲 only 喺 1 個 source（vulnerable）
+- 邊啲 只喺 desktop 未 backup（urgent）
+
+**第三步：health check**
+- External HD：last accessed date，flag 超過 6 個月未動嘅
+- iCloud：sync status（last update time）
+- Google Photos：export 完整度
+
+**第四步：critical document audit**
+- ~/Documents/critical/ folder（我會 mark 重要 doc 入呢度）：strata title、保險 policy、身分證 scan、出世紙、結婚證書
+- Check 每個 file 有冇 cloud copy + physical print
+- Flag 任何 only 一個 source 嘅
+
+**第五步：generate report**
+寄一封 email 畀我：
+- Subject：「[月份] Family Backup Audit Report — [N] urgent flag」
+- Body：每個 section summary + specific action（「呢個禮拜需要 plug external HD 同 sync」、「Critical doc X 仲未 cloud copy」）
+- 附：trend chart（歷史 monthly storage growth）
+
+**重要 constraints：**
+- 唔好自動 delete / move / rename 任何 file
+- 唔好 share family photo content 內容 description（只 audit metadata + count）
+- 任何 read 操作做 minimum scope，唔深入 individual file content
+
+Setup 好嘅話 confirm，再 schedule。
+</PromptBlock>
+
+### 3. 第一次 audit 同 manual fix
+
+第一次 audit 通常出 5-10 個 urgent flag。 用 first month action：
+
+- Plug 返 external HD verify readable
+- Identify 「只喺 desktop」 嘅 photos → sync 落 iCloud
+- Print physical copy 嘅 critical doc（出世紙 / 結婚證書 / 戶口本）
+
+之後幾個月，audit report 變 thin（system stable）。 你 monthly 5 分鐘 read report，sleep at night.
+
+### 4. 1 年之後做一次 「fire drill」
+
+模擬 disaster：「如果 my Mac 今晚壞咗，重要 file 我點 restore？」
+
+走一次 recovery flow（restore from iCloud + external HD），驗證實際可行。 通常會發現 1-2 個 「以為 backup 緊但其實冇」嘅 file。
+
+## 變化例子
+
+### 變化 1：3-2-1 rule deep audit
+
+<PromptBlock label="變化 1 — 3-2-1 backup rule">
+專業 backup 嘅 3-2-1 rule：
+- **3 份 copy**
+- **2 種唔同 medium**
+- **1 份 offsite**
+
+請 audit 我每個 critical category（family photos、important docs、digital art）對應 3-2-1 嘅完整度：
+
+| Category | Copy 1 location | Copy 2 location | Copy 3 (offsite) location | Status |
+|---|---|---|---|---|
+
+Gap analysis：邊個 category 仲未 hit 3-2-1。 列 actionable steps 點 fix。
+</PromptBlock>
+
+### 變化 2：Aging parent / 老人嘅 backup
+
+<PromptBlock label="變化 2 — 老人家 photo / doc backup">
+我要幫年長家人（[70+]）做 family photo + 重要文件 backup。 佢哋自己 setup 唔到。
+
+請 design simpler workflow：
+1. 一個 「dump」 location（佢哋 hand off 物理 photo + doc 畀我）
+2. 我 scanning / digitize 嘅 efficient workflow（用 iPhone Scan / Apple Notes scan）
+3. Backup to Cloud + 一個 inheritance plan（我唔在嘅話，邊個 family member 知 access）
+4. 一個 「story metadata」 嘅 light tagging（咁將來世代知邊張係邊個）
+
+呢個 case 嘅 stake 高（不可重來），所以 emphasize redundancy。
+</PromptBlock>
+
+### 變化 3：小生意 嘅 backup 政策
+
+<PromptBlock label="變化 3 — Small business backup">
+我有一間 小店 / freelance 生意。 我需要保留：客戶記錄、財務記錄、合約。
+
+請：
+1. List 法律要求 嘅 retention period（HK 一般 7 年）
+2. Recommend backup setup（更 robust 過家庭）
+3. Encryption + access control 嘅 minimum
+4. Monthly audit 同 annual archive 嘅 cadence
+</PromptBlock>
+
+## 一個 reality check
+
+冇 「perfect」 backup setup。 Goal 唔係 100% safety，係 **「真係出事，loss 控制喺幾個月而唔係幾年」**。
+
+每月 5 分鐘 audit + 每年一次 fire drill = 99% protection at low cost。 vs 完全冇 audit + 自欺欺人 「我有 iCloud 就 OK」 = 真實出事嗰日 lose everything。
+
+Claude Cowork 嘅角色：將 5 分鐘 audit 變得 effortless，唔依賴你 discipline 去 manually 做。

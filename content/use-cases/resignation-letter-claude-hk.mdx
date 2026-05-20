@@ -1,0 +1,137 @@
+---
+title: "辭職信範本：用 Claude 寫到唔失禮（將來再見都唔尷尬）"
+slug: "resignation-letter-claude-hk"
+issue: 13
+publishedAt: 2026-03-03
+audience: ["打工仔"]
+category: "chat"
+subcategory: "寫嘢同溝通"
+difficulty: 1
+timeMinutes: 15
+toolsNeeded: ["Claude Chat"]
+description: "辭職信範本：用 Claude 寫一封簡潔、 professional、唔燒橋嘅 resignation letter。HK 打工仔常撞嘅情境——點寫先唔會失禮，亦唔會 over-explain。"
+keywords: ["辭職信 範本", "resignation letter", "辭職信 香港", "claude 求職", "離職 email"]
+related: ["english-email-polish-hk", "cover-letter-hong-kong-template"]
+featured: true
+---
+
+## 情境
+
+你決定咗轉工，要交辭職信。 你嘅 default 會係：
+
+> 「Dear [Manager], I am writing to inform you of my resignation from my position as [job title] at [company]. My last day will be [date]. Thank you for the opportunity...」
+
+讀返冇問題，但 HR / 上司睇完冇感覺——**冇感覺其實已經係好事**。 危險嘅係：
+
+- 寫太多解釋（顯得 defensive 或 awkward）
+- 投訴上司／公司（個 industry 細，幾年後重撞返）
+- 寫得太情緒化（唔係 break-up letter）
+- 太 cold / curt（10 年後想叫舊上司寫 reference 嗰陣，佢記得你呢封信）
+
+呢篇用 Claude 寫一封**唔燒橋、唔過度解釋、唔失禮**嘅辭職信。
+
+## 跟住做
+
+### 1. 諗清楚三樣事先 prompt
+
+寫之前要 confirm：
+- **Last day 日期** — 通常係 30 / 60 / 90 日 notice，跟 contract
+- **你準唔準備講「點解」** — 大部分情況唔需要
+- **你想唔想 negotiate counter-offer 嘅可能** — 大部分情況唔想
+
+### 2. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — 一封 standard 唔燒橋嘅辭職信">
+請幫我寫一封正式嘅辭職信。資料：
+
+- 公司名：[填]
+- 上司名：[填]
+- 我嘅職位：[填]
+- 入職日期：[填]
+- 計劃 last day：[填，跟 contract 嘅 notice period]
+- 我嘅心情：[揀一個——感激（即係喺度做得 OK）/中性（一般經驗）/想盡快走（avoid mention 呢個！）]
+
+要求：
+1. **冇 reasoning 部分**——唔好寫「due to / because of」開頭嘅句子。理由唔重要、唔關公司事
+2. **3 個 paragraph 最 sweet**：
+   - 第一段：formal resignation + last day 日期（兩句）
+   - 第二段：表達 appreciation（係 sincerely、唔係 sucking up）。如果心情係「想盡快走」，呢段保留 light gratitude，唔好 fake warmth
+   - 第三段：offer to help transition（簡短，唔好 over-commit）
+3. **結尾**：「Best regards / Sincerely」加你個名，唔需要其他 sign-off
+4. **字數**：150–200 字。短係 strength
+
+避免：
+- 講「I am pursuing other opportunities」呢類——多餘
+- 提具體 next job 或 next company——無謂
+- 任何 negative observation 關於公司／同事／文化
+- 「Hard decision / heavy heart」呢類戲劇性語句
+
+語氣：professional、warm but not gushing、final but not cold。
+</PromptBlock>
+
+### 3. Read out loud test
+
+寫完一定要讀出聲。如果讀到某句你皺眉，HR / 上司讀都會。Common pitfalls：
+
+- 「I have decided to」聽起來太 formal，可以變「I am writing to confirm」
+- 過度感謝同事個別名字——除非你真係特別感激嗰位，否則 mention 集體嘅 team 就夠
+
+### 4. Send 前 print 出嚟 sleep on it
+
+如果可以等一晚先 send，第二朝重 read 一次，你會 catch 到 4-5 個微調位。
+
+> 一個重要嘅 HK reality：**舊上司 / HR 可能成為你 future reference**。 一封 well-written 辭職信，10 年後仲係 asset。一封 over-share 或 entitled 嘅辭職信，10 年後仲係 liability。
+
+## 變化例子
+
+### 變化 1：要 mention 點解走（特殊情況）
+
+有啲情況你**要**講原因 —— 例如 family relocation、health、進修。你可以：
+
+<PromptBlock label="變化 1 — 有 specific 原因嘅辭職信">
+（同上面 prompt 一樣，但加返）
+
+我想喺信入面 mention 一個 specific 嘅原因：[例如 family-related relocation overseas / 進修 / health reasons]
+
+請幫我：
+1. 簡短講原因——一句頂晒（唔好 over-share）
+2. 用嘅 framing 唔會邀請 negotiation（即係上司聽完唔會話「我可以幫你 work from home」呢類）
+3. 保留同公司 future 嘅 connection（「希望將來再有合作機會」），但唔要過分熱絡
+</PromptBlock>
+
+### 變化 2：你想留 counter-offer 空間
+
+<PromptBlock label="變化 2 — 留 counter-offer 空間">
+（如果你 actually 想開啟 counter-offer 嘅對話）：
+
+請幫我寫辭職信，要做到：
+1. 看似 standard resignation
+2. 但個 paragraph 2（appreciation）寫到聽落比較有「we had good times」嘅嘢
+3. Paragraph 3 嘅「offer to help transition」放長啲，間接 signal 你有 flexibility
+4. 整體 tone：唔係 hard close door
+
+注意：呢個 framing 係雙刃劍——如果你個上司係 strategic，會睇出你想 counter；如果佢冇 read，呢封信都係正常辭職信。
+</PromptBlock>
+
+### 變化 3：你已經 mentally 走咗（toxic 環境）
+
+<PromptBlock label="變化 3 — 唔燒橋 even if 你想燒">
+我嘅 work 環境 [簡短描述——例：toxic manager / unrealistic workload / disrespectful culture]。
+我已經受夠咗，但我 NOT 想 burn bridge。
+
+請幫我寫辭職信，要做到：
+1. 完全 neutral——零 hint of frustration
+2. Appreciation paragraph 保留，但 minimum effort（兩句頂）
+3. Offer to help transition——但唔好 over-commit（一句）
+4. 個 tone 係「business-like + done」，唔係「passive aggressive」
+
+我嘅 hate 留喺自己心入面，唔好 leak 到 paper 上。
+</PromptBlock>
+
+## 一個 framing
+
+辭職信唔係寫畀你自己睇——係寫畀 **future you** 睇。
+
+5 年後你 hate 嘅嗰個上司可能去咗大公司做 HR head，10 年後嘅你撞返佢嗰陣，呢封信會係你哋之間最後嘅 official document。
+
+**Write it like a professional. Even if you don't feel like one right now.**

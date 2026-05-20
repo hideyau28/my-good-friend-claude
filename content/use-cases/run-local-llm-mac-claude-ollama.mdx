@@ -1,0 +1,184 @@
+---
+title: "喺 Mac local 跑 Llama / Mistral：唔上 cloud 嘅 privacy setup"
+slug: "run-local-llm-mac-claude-ollama"
+issue: 35
+publishedAt: 2026-08-04
+audience: ["打工仔", "創作者"]
+category: "code"
+subcategory: "Workflow 設定"
+difficulty: 3
+timeMinutes: 60
+toolsNeeded: ["macOS Sonoma+", "Ollama", "Mac M1/M2/M3 8GB+"]
+description: "Mac local LLM setup：用 Ollama 喺 Mac 跑 Llama 3.1 8B / Mistral，敏感 doc 唔上 cloud 嘅 privacy setup。HK 法律 / 醫療 / 金融行業適用。"
+keywords: ["local llm mac", "ollama 教學", "本地 ai", "privacy ai", "llama 3.1 香港"]
+related: ["claude-code-tutorial-website", "mac-shortcut-claude-prompt"]
+featured: false
+---
+
+## 情境
+
+你係：
+- **律師 / paralegal**：客戶 doc 法律上唔可以 upload 落 cloud
+- **醫療 / clinic admin**：patient record 受 PDPO 規管
+- **金融 / compliance**：internal model / risk doc 唔可以 leave 公司 network
+- **政府 / NGO**：受 specific data governance 限制
+
+但你想用 AI workflow：summarize、translate、polish writing。 Cloud Claude / ChatGPT 唔可以。
+
+呢篇 setup **local LLM 喺 Mac**——open-source model（Llama / Mistral）跑喺你部機，零 cloud transmission。
+
+> ⚠️ Caveat：Local model 嘅 quality 同 latest Claude / GPT-4 有 gap（特別係 reasoning + multilingual）。 但 routine task 已 enough。Setup 之前 align expectation：呢個係 「privacy first，quality second」。
+
+## 跟住做
+
+### 1. Hardware check
+
+最低要求：
+- Mac M1 / M2 / M3（intel Mac 跑得超慢，唔 recommend）
+- 8GB RAM minimum，16GB 跑 7B 模型 OK，32GB+ 跑 70B 模型
+- 30GB free disk（每個 model 4-8GB）
+
+如果你 Mac 唔 meet，呢個 setup 唔啱你。 Stay cloud + 加 enterprise data agreement。
+
+### 2. 裝 Ollama
+
+[Ollama](https://ollama.com) 係 macOS 嘅 local LLM runner，最簡易嘅 setup。
+
+```bash
+# Install via Homebrew
+brew install ollama
+
+# Start service
+ollama serve
+
+# 第二個 terminal：download Llama 3.1 8B
+ollama pull llama3.1:8b
+
+# Test
+ollama run llama3.1:8b
+> 你好
+```
+
+5-10 分鐘 setup time。
+
+### 3. Compare model 揀啱
+
+```bash
+# 中文友善
+ollama pull qwen2.5:7b    # Alibaba's Qwen, strong 中文
+ollama pull yi:6b         # Strong reasoning
+
+# 通用
+ollama pull llama3.1:8b
+ollama pull mistral:7b
+
+# 大 model（需 32GB+ RAM）
+ollama pull llama3.1:70b
+```
+
+每個 model 我嘅實際 benchmark（subjective）：
+- **Qwen 2.5 7B**：中文最強，廣東話書面語 reasonable。 文檔 summary 啱
+- **Llama 3.1 8B**：英文最強，code 不錯。 中文 reasonable 但唔 idiomatic
+- **Mistral 7B**：兩者之間，size 最細
+
+### 4. 用呢個 setup workflow
+
+<PromptBlock label="完整 prompt — Help me set up local LLM workflow">
+我裝咗 Ollama，pull 咗以下 models：[列]。 我嘅 use case：
+
+[填具體：例如 「summarize 法律文件」、「polish 醫療 patient notes」、「translate internal compliance doc」]
+
+請：
+1. Recommend 邊個 model best fit 我 use case（基於 size / language / reasoning capability）
+2. 整一個 simple terminal workflow：
+   - 我有一份 .txt 或 .md doc
+   - 我 want pipe 入 model 出 summary / polish / 翻譯
+   - 唔需要 build UI，pure command line OK
+3. 寫一個 bash function 簡化呢個 workflow（add 落 ~/.zshrc）
+4. Caveat：local LLM 嘅 typical limitation（context length、accuracy on niche topic）
+5. When to fall back to cloud：邊種 task local 顯然唔夠強，要 cloud（同公司 compliance team confirm）
+
+我嘅 mac：[M1 / M2 / M3，RAM size]
+</PromptBlock>
+
+### 5. Build simple bash function
+
+```bash
+# Add to ~/.zshrc
+function ask-local() {
+  local prompt="$1"
+  local file="$2"
+  
+  if [ -z "$file" ]; then
+    echo "$prompt" | ollama run qwen2.5:7b
+  else
+    cat "$file" | ollama run qwen2.5:7b "$prompt"
+  fi
+}
+
+# Usage:
+ask-local "用廣東話書面語做 3 句 summary：" my-doc.txt
+ask-local "Translate to English keeping legal precision:" contract.txt
+```
+
+呢個 minimum workflow，5 分鐘 setup 完。
+
+## 變化例子
+
+### 變化 1：Privacy-first 嘅 inbox triage
+
+<PromptBlock label="變化 1 — Local inbox triage">
+我要 local triage email（敏感行業，client info 唔可以 cloud）。
+
+請：
+1. Recommend Ollama model
+2. Setup：由 Mail.app 或 Outlook export 之後 pipe 入 local model
+3. Bash script triage 過去 1 日 email
+4. Output format 同 Cowork 嘅 cloud workflow 類似（5 sections）
+
+Trade-off acknowledge：local model 嘅 nuance lower、speed slower。 但 privacy gain 對我 case 重要。
+</PromptBlock>
+
+### 變化 2：Local code review（cloud 禁 code upload）
+
+<PromptBlock label="變化 2 — Local code review">
+我公司禁止 source code upload cloud LLM。 我想用 local model 做 code review。
+
+請：
+1. Pick 啱 local model（code-tuned 嘅，例：CodeLlama、DeepSeek Coder）
+2. Setup workflow：cd 入 project，跑命令 review 啱啱 commit 嘅 diff
+3. Output：bug pattern、style concern、refactor suggestion
+4. Caveat：local model 對 nuanced code understanding 不及 Claude / GPT-4，唔可能完全 replace senior dev review
+</PromptBlock>
+
+### 變化 3：Local + Claude 兩階段 workflow
+
+<PromptBlock label="變化 3 — Local + Cloud 結合">
+我大部分 work 用 cloud Claude，但 occasional 撞 sensitive doc。 想設計：
+
+- Default：cloud（速度 + quality）
+- Trigger 落 local：當文檔 contains [keyword list — 例：client name patterns、specific case ID format、internal jargon]
+
+請：
+1. Bash function 自動 detect sensitive content
+2. Route 落 local / cloud 對應
+3. Logging：哪 doc routed where（auditability）
+</PromptBlock>
+
+## 一個 trade-off framework
+
+Local LLM ≠ cloud Claude嘅 replacement。 兩者 fundamentally different trade-off：
+
+| Dimension | Cloud Claude | Local Llama |
+|---|---|---|
+| Quality | ★★★★★ | ★★★ |
+| Speed | ★★★★★ | ★★ |
+| Privacy | ★ | ★★★★★ |
+| Cost | $20-50/月 | One-time setup |
+| Setup friction | Low | Medium |
+
+決策：**任何 「if leak, real consequence」 嘅 task → local**。 Routine task → cloud。
+
+呢個 division 唔需要 black-or-white。 90% 嘅 HK 打工仔 work，cloud 完全 OK。 5% sensitive case 用 local。
+
+最後 mindset：local LLM 嘅 magic 唔係取代 Claude，係 unlock 「之前因 privacy ban AI use」 嘅 segment。 對 HK 法律 / 醫療 / 金融行業，呢個 unlock 真實。
