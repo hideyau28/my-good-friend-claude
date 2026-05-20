@@ -45,6 +45,7 @@ export function Masthead({ className }: { className?: string }) {
           </p>
         </div>
       </div>
+      <SubNav maxW="max-w-6xl" />
     </header>
   )
 }
@@ -68,13 +69,17 @@ export function MastheadCompact({ className }: { className?: string }) {
         </Link>
         <Nav compact />
       </div>
+      <SubNav maxW="max-w-5xl" />
     </header>
   )
 }
 
+/**
+ * 上邊 utility nav — 純識別位（關於、訂閱）。
+ * Use Case 庫 同 tier 入口已經移落 SubNav。
+ */
 function Nav({ compact = false }: { compact?: boolean }) {
   const items = [
-    { href: '/use-cases', label: 'Use Case 庫' },
     { href: '/about', label: '關於' },
     { href: '/#newsletter', label: '訂閱' },
   ]
@@ -95,5 +100,57 @@ function Nav({ compact = false }: { compact?: boolean }) {
         </Link>
       ))}
     </nav>
+  )
+}
+
+/**
+ * 副刊版面欄 — 兩個 main entry：3 tier curriculum + Use Case 庫。
+ * 報紙感嘅 section bar，persistent 喺所有 page。
+ */
+function SubNav({ maxW }: { maxW: string }) {
+  const tiers = [
+    { href: '/learn/chat', label: 'Chat', subtitle: '入門' },
+    { href: '/learn/cowork', label: 'Cowork', subtitle: '進階' },
+    { href: '/learn/code', label: 'Code', subtitle: '進深' },
+  ]
+  return (
+    <div className="border-t border-[var(--color-rule-soft)] bg-[var(--color-paper-2)]">
+      <div
+        className={cn(
+          'mx-auto px-6 py-2.5 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 font-serif',
+          maxW,
+        )}
+      >
+        <nav
+          aria-label="課程階段"
+          className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm"
+        >
+          {tiers.map((t, i) => (
+            <span key={t.href} className="flex items-center gap-2">
+              <Link
+                href={t.href}
+                className="text-[var(--color-ink-soft)] hover:text-[var(--color-seal)] transition-colors no-underline"
+              >
+                <span className="font-bold">{t.label}</span>
+                <span className="ml-1.5 text-xs uppercase tracking-[0.15em] text-[var(--color-ink-mute)]">
+                  {t.subtitle}
+                </span>
+              </Link>
+              {i < tiers.length - 1 && (
+                <span aria-hidden className="text-[var(--color-rule)]">
+                  ·
+                </span>
+              )}
+            </span>
+          ))}
+        </nav>
+        <Link
+          href="/use-cases"
+          className="text-sm text-[var(--color-ink-soft)] hover:text-[var(--color-seal)] transition-colors no-underline"
+        >
+          Use Case 庫 →
+        </Link>
+      </div>
+    </div>
   )
 }
