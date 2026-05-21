@@ -4,6 +4,7 @@ import { useCases } from '#site/content'
 import { MastheadCompact } from '@/components/design/Masthead'
 import { Footer } from '@/components/design/Footer'
 import { UseCaseHeader } from '@/components/use-case/UseCaseHeader'
+import { ArticleHero } from '@/components/use-case/ArticleHero'
 import { MdxRenderer } from '@/components/use-case/MdxRenderer'
 import { RelatedNext } from '@/components/use-case/RelatedNext'
 import { UseCaseJsonLd } from '@/components/use-case/JsonLd'
@@ -46,6 +47,7 @@ export default async function UseCasePage(props: { params: Params }) {
       <UseCaseJsonLd useCase={useCase} />
       <MastheadCompact />
       <article>
+        <ArticleHero useCase={useCase} />
         <UseCaseHeader useCase={useCase} />
         <div className="max-w-3xl mx-auto px-6 pb-12 prose-content">
           <MdxRenderer code={useCase.body} />
