@@ -5,9 +5,11 @@ import { CATEGORY_LABELS, type UseCase } from '@/lib/content'
 
 interface UseCaseHeaderProps {
   useCase: UseCase
+  /** When magazine-cover hero already renders the H1, suppress duplicate. */
+  hideTitle?: boolean
 }
 
-export function UseCaseHeader({ useCase }: UseCaseHeaderProps) {
+export function UseCaseHeader({ useCase, hideTitle = false }: UseCaseHeaderProps) {
   const cat = CATEGORY_LABELS[useCase.category]
 
   return (
@@ -23,10 +25,12 @@ export function UseCaseHeader({ useCase }: UseCaseHeaderProps) {
         <time dateTime={useCase.publishedAt}>{formatMastheadDate(useCase.publishedAt)}</time>
       </div>
 
-      {/* 標題（serif、大、收緊 leading） */}
-      <h1 className="font-serif font-black text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[var(--color-ink)] mb-6">
-        {useCase.title}
-      </h1>
+      {/* 標題（serif、大、收緊 leading）— 喺 photo hero 模式會 hide，避免重複 H1 */}
+      {!hideTitle && (
+        <h1 className="font-serif font-black text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[var(--color-ink)] mb-6">
+          {useCase.title}
+        </h1>
+      )}
 
       {/* lead description */}
       <p className="text-lg md:text-xl text-[var(--color-ink-soft)] leading-relaxed mb-8 max-w-2xl">

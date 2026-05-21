@@ -48,7 +48,7 @@ export default async function UseCasePage(props: { params: Params }) {
       <MastheadCompact />
       <article>
         <ArticleHero useCase={useCase} />
-        <UseCaseHeader useCase={useCase} />
+        <UseCaseHeader useCase={useCase} hideTitle={Boolean(useCase.heroImage)} />
         <div className="max-w-3xl mx-auto px-6 pb-12 prose-content">
           <MdxRenderer code={useCase.body} />
         </div>
