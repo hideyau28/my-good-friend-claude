@@ -33,6 +33,9 @@ const useCases = defineCollection({
       category: s.enum(CATEGORY),
       section: s.enum(SECTION),
       subcategory: s.string(),
+      // Hero image: absolute path under /public (e.g. "/hero/foo.webp").
+      // Optional — falls back to procedural hero block when absent.
+      heroImage: s.string().optional(),
       difficulty: s.number().int().min(1).max(3),
       timeMinutes: s.number().int().positive(),
       toolsNeeded: s.array(s.string()).default([]),

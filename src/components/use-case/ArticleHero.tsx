@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Seal } from '@/components/design/Seal'
 import { formatIssueNumber } from '@/lib/date'
 import { CATEGORY_BADGES, type UseCase } from '@/lib/content'
@@ -7,13 +8,43 @@ interface ArticleHeroProps {
 }
 
 /**
- * 副刊頭版式 procedural hero — 用喺 use case 內頁頂部。
- * 純 design-token，零 image file，每篇 article 由 subcategory
- * 第一個中文字做 motif，搭配 issue stamp + section + tier badge。
+ * Article hero — newspaper plate style.
  *
- * 將來 useCase 加 heroImage field 可以 swap 入真照片。
+ * 兩個模式：
+ *   1. useCase.heroImage 設咗 → render real photo / illustration
+ *   2. 否則 → procedural typographic hero（紅印章大字 motif）
+ *
+ * 同樣外框（double-rule border + paper-grain）令兩種 mode
+ * 視覺一致。Procedural 模式由 subcategory 第一個中文字做 motif。
  */
 export function ArticleHero({ useCase }: ArticleHeroProps) {
+  if (useCase.heroImage) {
+    return <PhotoHero useCase={useCase} />
+  }
+  return <ProceduralHero useCase={useCase} />
+}
+
+function PhotoHero({ useCase }: ArticleHeroProps) {
+  return (
+    <section
+      aria-hidden
+      className="border-y-[3px] border-double border-[var(--color-ink)] -mt-px bg-[var(--color-paper-2)]"
+    >
+      <div className="relative max-w-5xl mx-auto aspect-[16/9]">
+        <Image
+          src={useCase.heroImage!}
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 1024px"
+          className="object-cover"
+        />
+      </div>
+    </section>
+  )
+}
+
+function ProceduralHero({ useCase }: ArticleHeroProps) {
   const motif = pickMotif(useCase)
   const badge = CATEGORY_BADGES[useCase.category]
 
@@ -47,42 +78,16 @@ export function ArticleHero({ useCase }: ArticleHeroProps) {
           </p>
         </div>
 
-        {/* 裝飾 corner marks（newspaper plate feel） */}
-        <span
-          aria-hidden
-          className="absolute top-3 left-3 text-[var(--color-rule)] font-serif text-xs select-none"
-        >
-          ◢
-        </span>
-        <span
-          aria-hidden
-          className="absolute top-3 right-3 text-[var(--color-rule)] font-serif text-xs select-none"
-        >
-          ◣
-        </span>
-        <span
-          aria-hidden
-          className="absolute bottom-3 left-3 text-[var(--color-rule)] font-serif text-xs select-none"
-        >
-          ◥
-        </span>
-        <span
-          aria-hidden
-          className="absolute bottom-3 right-3 text-[var(--color-rule)] font-serif text-xs select-none"
-        >
-          ◤
-        </span>
+        {/* 裝飾 corner marks */}
+        <span aria-hidden className="absolute top-3 left-3 text-[var(--color-rule)] font-serif text-xs select-none">◢</span>
+        <span aria-hidden className="absolute top-3 right-3 text-[var(--color-rule)] font-serif text-xs select-none">◣</span>
+        <span aria-hidden className="absolute bottom-3 left-3 text-[var(--color-rule)] font-serif text-xs select-none">◥</span>
+        <span aria-hidden className="absolute bottom-3 right-3 text-[var(--color-rule)] font-serif text-xs select-none">◤</span>
       </div>
     </section>
   )
 }
 
-/**
- * 揀一個有意義嘅中文字做 motif。
- * 優先：subcategory 第一個中文字（e.g. 「讀文件做摘要」→ 「讀」）
- * Fallback：title 第一個中文字
- * 最後 fallback：「◉」（永遠唔應該 hit）
- */
 function pickMotif(useCase: UseCase): string {
   const han = /[一-鿿]/
   const fromSub = useCase.subcategory.match(han)
