@@ -1,0 +1,232 @@
+---
+title: "手遊抽卡前用 Claude：計清楚保底 + 月課數 + 你係咪 over-pull"
+slug: "gacha-pull-analysis-claude"
+issue: 47
+publishedAt: 2026-05-22
+audience: ["消費者", "打工仔"]
+category: "chat"
+section: "遊戲"
+subcategory: "戒課自救"
+difficulty: 2
+timeMinutes: 10
+toolsNeeded: ["Claude Chat", "你嘅 gacha 遊戲 transaction history（screenshot 或 export）"]
+description: "玩原神 / 星穹鐵道 / 藍檔 / FGO / ZZZ 等手遊？抽 banner 前用 Claude 計實際機率（含保底） + 對返你近 3 個月嘅課金，幫你由「感覺」抽變理性 decision。月課玩家戒課第一步。"
+keywords: ["抽卡分析", "原神 抽卡", "星穹鐵道", "gacha analysis", "手遊月課", "戒課 claude", "保底計算"]
+related: ["jp-rpg-translation-claude", "saas-tool-comparison-claude-hk", "hong-kong-mortgage-comparison"]
+featured: false
+---
+
+## 情境
+
+你打開原神，見到 banner：「夜蘭 復刻！限時 21 日。」
+
+腦入面立即跳出嗰句：
+
+> 「夜蘭一年先復刻一次⋯⋯今次唔抽下次唔知幾時⋯⋯而且我已經抽過好多五星⋯⋯抽多 30 連應該有保底啦⋯⋯」
+
+呢段內心 monologue 出現得多熟悉？呢個就係 gacha 嘅 design：用 **scarcity（限時）+ FOMO（一年一次）+ sunk cost（之前嗰啲）+ optimism bias（應該有保底）** 4 個 lever 同時 push 你撳「+10」掣。
+
+**唔係話唔可以抽——而係**：「我每月真係 budget 幾錢去抽」、「我宜家嘅 pity 喺邊」、「機率上 30 連真係夠？」呢 3 條問題你抽前有冇答到？
+
+呢篇用 Claude 喺**你撳「確認」之前嗰 60 秒**，幫你由「感覺」抽變理性 decision。
+
+⚠️ 呢篇唔係叫你戒，係幫你**知道自己抽緊乜**。Informed players 通常都係 healthier players。
+
+## 跟住做
+
+### 1. List 你嘅 baseline（一次性，之後 reuse）
+
+開新 Claude chat，第一次先 establish baseline：
+
+<PromptBlock label="完整 prompt — 建立你嘅 gacha baseline">
+我玩 [遊戲名，例：原神 / 星穹鐵道 / 藍檔]。
+
+📊 **基本 spec**
+- 我嘅 server / region：[asia / global]
+- 玩咗：[幾耐]
+- 帳號 stats：[level / pity 數 / 5★ 角 / 5★ 武器]
+
+💰 **過去 3 個月 transaction history**
+（睇 Apple / Google Play 個 subscription 同 IAP 記錄）
+- 月份 1：$X
+- 月份 2：$Y
+- 月份 3：$Z
+- Total: $XXX HK
+
+🎯 **我嘅 reasonable budget**
+我屋企／生活負擔：[簡單描述]
+我覺得每月最多花 [$Y] 喺呢隻遊戲先唔影響 essentials
+
+🧮 **數學 baseline**
+- 呢隻 game 嘅 pity 系統（如：原神 90 個保 5★、180 硬保 50/50）
+- 1 個 5★ 角嘅 expected cost（畀我 in-game currency + HKD conversion）
+- 1 個「想抽嘅 specific 5★」expected cost（含 weapon banner 共抽嘅 case）
+
+📂 **存呢個 baseline**
+我之後每次想抽 banner 之前 paste 返呢段 baseline，請即時 reference 我嘅 budget + pity 同呢個 banner，畀「抽 / 唔抽 / 抽幾多」嘅 recommendation。
+
+語氣：朋友 + 數學 tutor，唔好 lecture 我戒，係幫我 informed。
+</PromptBlock>
+
+⚠️ **關鍵**：呢個 baseline 你只係 set 一次，存喺一個 Claude project 或者你個 notes app 入面，下次用直接 paste。
+
+### 2. Banner 出現時，run 個 check
+
+新 banner 出嘅時候，唔好直接撳「+10」。先 paste：
+
+> 「呢個 banner 係：[角色名] + [武器名]。我宜家 pity 係 [數字]，距離保 50/50 仲差 [數字]。原神今期我已經 spend 咗 $[數字]，仲有 [幾日] week。請按我 baseline，answer：抽 / 唔抽 / 抽幾多。」
+
+Claude 應該畀到類似：
+
+```
+🎯 Quick answer: 抽 10 連觀察 50/50，唔好 commit 90 抽。
+
+📊 Reasoning:
+- 你 baseline budget $300/月，今期已花 $180
+- 你呢個月 pity = 53，距 90 保底差 37
+- 10 連 expected ≈ $32 USD ≈ HK$250 (剛剛超出你今月剩餘 $120)
+- 50/50 機率：6%（10 連 hit 5★）× 50%（指定）= 3%
+
+⚠️ Trap warning:
+- 你今期 spend 已超出 monthly avg 40%
+- Pity 53 仲遠，今期 commit 90 = 過 $1,500 HK
+- 角色 power 對你而家 abyss progress 並非必需
+```
+
+呢個唔係叫你唔抽，係**事前同事後嘅 reality check**。
+
+### 3. 抽完後 update transaction log
+
+抽完，無論 hit 定 lose 50/50，update 返你個 record：
+
+> 「我啱啱抽咗 10 連，hit 咗 4★。新 pity = 63。今期 total spend updated to $XXX。請 update 我嘅 baseline。」
+
+呢個 closed-loop 令你下次 reference 更精準。
+
+## 變化
+
+### 變化 1：3 個月戒課 review
+
+每季尾揾 1 個 evening，paste 過去 3 個月所有 transaction：
+
+<PromptBlock label="變化 1 — 季度 gacha 自我審視">
+以下係我過去 3 個月喺 [遊戲] 嘅課金記錄：
+
+[月份 1]
+- $X1: [purpose, e.g. monthly pass]
+- $X2: [purpose, e.g. dual banner pull]
+
+[月份 2]
+... (續上)
+
+請分析：
+
+**Part 1：Spending pattern**
+- 月平均
+- Peak month + 原因（係咪 anniversary / 出新角）
+- 「衝動 cluster」(同一日多次 IAP 嘅 pattern, 通常 = emotional pulling)
+
+**Part 2：ROI（自己定義）**
+畀我 estimate：
+- 過去 3 個月我抽咗幾多個 5★
+- 平均每個 5★ HKD cost
+- 對比官方 expected cost（畀個對比，講我 lucky / 平均 / bad luck）
+
+**Part 3：Lifestyle impact**
+- 季 total spend 等於我嘅 [其他開支 e.g. 食午餐 / 月票 / netflix] 嘅幾多倍
+- 如果呢筆錢去咗 [其他 use case e.g. ETF, travel fund]，long-term 點
+
+**Part 4：Trigger pattern**
+我邊類 banner / 邊類情境最易過度抽？
+（限時復刻？meta-relevant？我已 own 嘅 series 新角？）
+
+**Part 5：3 個月 ahead 建議**
+- 推薦 baseline budget
+- 建議啲 hard rule（例：唔抽 weapon banner、唔抽 50/50）
+- 1 個 specific behavioral change 試行下個月
+
+語氣：treat me like 朋友 + 理財顧問。唔好 lecture「玩 game 唔好花錢」。
+</PromptBlock>
+
+### 變化 2：新 banner 抽唔抽嘅 group decision
+
+如果你有公會 / Discord friends 都玩同款，可以做集體理性 check：
+
+<PromptBlock label="變化 2 — 集體 banner discussion 客觀化">
+我哋 [N 個] friends 都玩 [遊戲]，今期 banner 係 [角色]。
+
+我哋每人 baseline：
+- 玩家 A：pity X, 月 budget $X, account 主力 [DPS / support / shield]
+- 玩家 B：...
+- 玩家 C：...
+
+請畀**個人化 recommendation**：
+
+每個玩家：
+- 抽 / 唔抽 / 視乎 (50/50 win 先續)
+- Reasoning（1-2 句）
+- Risk-level（低 / 中 / 高）
+
+**Group 共識**
+- 角色定位 vs 我哋而家 team comp
+- 邊個 player 抽 worth it 過邊個
+- 如果有人 spend $1000 抽親同個 character，個 group「post-pull regret」regression line 點
+
+語氣：唔好做 hype man，做我哋嘅 sober second opinion。
+</PromptBlock>
+
+### 變化 3：新手玩家評估 commit 度
+
+如果你 considering 玩一隻新嘅 gacha 手遊：
+
+<PromptBlock label="變化 3 — 評估係咪要踩呢個 gacha 坑">
+我 considering 玩 [新遊戲名]。
+
+我嘅 gacha 履歷：
+- 之前玩過嘅 gacha：[列出]
+- 平均月花：$X
+- Quit 過嘅 gacha + 原因：[列出]
+
+我嘅 lifestyle：
+- 返工強度
+- 屋企／伴侶 attitude
+- 我而家其他 active hobbies
+
+請評：
+
+**Compatibility score (1-10)**
++ reasoning
+
+**呢隻 game 嘅 monetization aggression 評級**
+（player-friendly / mid / 油田 / 抽老婆地獄）
+
+**1-year projected spend**
+如果我同我之前 gacha pattern 一樣，預計花幾多
+
+**3 個 green flags**
+我會 enjoy 嘅 elements
+
+**3 個 red flags**
+我大機會 over-spend / burn out 嘅 patterns
+
+**建議**
+試玩 free 1 個月再 commit？skip？只玩 monthly pass tier？
+
+語氣：唔做 marketer 角色，做想你 enjoy 但 protect 你 wallet 嘅人。
+</PromptBlock>
+
+## 一個 mindset
+
+Gacha 嘅 design loop 係 **emotional first, math second**。Banner 出嘅嗰一刻，game 已經贏咗——你由 default state 變咗「FOMO state」，所有 decision 都帶 emotional tax。
+
+Claude 嘅 role 唔係 anti-gacha。係**幫你 inject 一個 60 秒嘅 cool-down**，喺撳「+10」之前同自己對返一次：
+
+- 我今期 budget 仲剩幾多？
+- 我宜家 pity 嘅 expected cost 啱我 budget 嗎？
+- 我抽呢個角，係因為我 want him / her，定係因為**limited 兩個字**？
+
+呢個 30 秒嘅 friction，long-term 會省你 4-5 位數 HK。
+
+最後：**如果你發覺自己每次 paste baseline 入 Claude 之後依然抽到爆 budget——咁問題唔係 information，係 emotional regulation**。呢個就要去搵嘅唔係 AI，而係 friend / partner / 心理輔導，認真。
+
+GG，理性 pull，enjoy game。
