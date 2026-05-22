@@ -1,0 +1,253 @@
+---
+title: "睇獸醫前用 Claude 整 prep 清單：HK 寵物主人嘅 15 分鐘 consultation 救星"
+slug: "vet-visit-prep-claude"
+issue: 50
+publishedAt: 2026-05-22
+audience: ["消費者", "學生家長"]
+category: "chat"
+section: "寵物"
+subcategory: "獸醫 prep"
+difficulty: 1
+timeMinutes: 10
+toolsNeeded: ["Claude Chat", "智能手機（錄症狀片／影屎尿）"]
+description: "BB（你隻貓 / 狗 / 倉鼠）唔肯食嘢／成日抓癢／屎硬咗，獸醫 consult 15 分鐘想問清楚？用 Claude 整 symptoms timeline + 3-5 條必問問題，唔會去到診所先空白。"
+keywords: ["獸醫 prep", "寵物醫療 ai", "claude 寵物", "HK 寵物主人", "貓狗 健康 check"]
+related: ["doctor-visit-prep-claude", "insurance-policy-review-claude"]
+featured: true
+---
+
+## 情境
+
+你隻貓 BB 過去 3 日：
+
+- 食量下降（平時食 80g，今日得 30g）
+- 屎變硬，少咗
+- 成日匿喺床下底唔肯出嚟
+
+你 google「貓 食量下降 屎硬」—搜到 50 條 forum post：肝病？腎衰？毛球？stress？食物中毒？牙痛？由「食壞嘢觀察一日」到「即刻送 ICU」全部都有。
+
+你約咗下午 4:30 獸醫。**15 分鐘 consultation。** 你帶 BB 入去 cage，醫生問你：
+
+> 「BB 幾時開始唔對勁？」
+
+你諗：「嗯⋯⋯應該禮拜一？定係禮拜日夜？」
+
+> 「食量大概減咗幾多？」
+
+「⋯⋯一半？三分二？我冇 quantify。」
+
+> 「屎變硬係邊一日？」
+
+「⋯⋯ um 唔記得。」
+
+你揾錢、揾時間、揾交通帶 BB 去診所。**結果 15 分鐘入面有 8 分鐘係你 reconstruct 記憶**，醫生只能根據你 fuzzy 嘅描述開檢查。檢查結果回得快或慢視乎你個 baseline 有幾完整。
+
+呢篇用 Claude **10 分鐘**將你雜亂無章嘅觀察整成 vet-ready brief —— symptoms timeline、quantified change、必問嘅 3-5 條問題、可能嘅 differential。
+
+⚠️ Claude 唔係取代獸醫——但**唔好 self-diagnose**。Claude 嘅 job 係 organize 你嘅 observation + 教你問啱嘅 question，等獸醫嘅 15 分鐘最有效。
+
+## 跟住做
+
+### 1. 寫低過去 3-7 日嘅 raw observation
+
+打開 Claude chat。**唔好就咁 ask「我貓有事點算」**——先 dump 你嘅 raw notes。語氣 messy 都得：
+
+> BB 8 歲 male neutered 短毛貓 4kg。
+> 
+> 禮拜六晚我返到屋企（佢平時 jump 落沙發 greet 我），冇出嚟。我搵到佢喺床下底。摸佢冇 reaction，但冇明顯傷。
+> 
+> 禮拜日朝佢自己食咗少少 dry food，跟住 nap 咗一日。
+> 
+> 禮拜一我返工出門，碗仲有大半。返到屋企水位低咗 D（平時飲乾），食碗大半樣。
+> 
+> 禮拜二（今日）朝 30g 都唔食晒，屎盆只有 1 粒小硬屎。
+> 
+> 平時：每日 80g 乾糧 + 1 罐濕糧。每日 2-3 砵屎水正常。
+
+呢類 timeline notes 係 Claude 整 vet brief 嘅 raw material。
+
+### 2. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — 整 vet consultation prep">
+我 BB（[簡單描述：種類 / age / weight / male/female / neutered 或 spayed / indoor/outdoor / 有冇 chronic 病]）有以下症狀，下午 [時間] 約咗獸醫。
+
+我嘅 raw observation：
+[paste 你寫嘅 timeline notes]
+
+過去病史 / vaccination：
+- 上次 vet visit：[幾時，原因]
+- Chronic 病：[填，例：FIV+ / 慢性腎病第 2 期 / 冇]
+- 食緊嘅藥：[填]
+- Vaccination 最近一次：[幾時]
+
+請整一份 **vet-ready brief**（A4 1 page 內）：
+
+**📋 1. Quick summary（醫生睇 30 秒入腦嘅 1-2 句）**
+今次主訴 + 嚴重度估計
+
+**⏱ 2. Symptom timeline（point-form, by day）**
+每日寫:
+- Day -X (yyyy-mm-dd 星期)
+  · [症狀 1] — quantify 如果可以（食量、屎量、體重、活動量等）
+  · [症狀 2]
+紅 highlight 嘅 sentinel events (e.g., 開始唔食 / 第一次屎變硬)
+
+**🩺 3. Differential（可能性 list — educational only）**
+3-5 個 likely cause，每個：
+- 名 + 1 句點解 fit 我 BB 嘅 pattern
+- 接下來 typical workup（驗血 / X-ray / ultrasound / urinalysis）
+**重要：呢個係 educational organizer，唔係 diagnosis。最終 call 醫生定。**
+
+**🎯 4. 5 條必問問題（priority order）**
+你進診室嘅頭 5 分鐘最值得問嘅嘢，例如：
+1. 你 differential top 3 係咩？
+2. 今日要做邊啲 test 先排除最危險嘅？
+3. 我帶 BB 返屋企應該 monitor 邊啲 sign？
+4. 如果今晚情況 escalate，邊間 24-hr emergency 你 recommend？
+5. 預算 / cost estimate？
+
+**💊 5. 我可能要 explicit ask 嘅嘢**
+獸醫忙嘅時候未必主動 mention 嘅，要我自己問：
+- 副作用 / drug interaction
+- 替代 treatment plan（example: oral vs injectable）
+- Follow-up frequency
+- Insurance claim 需要嘅 documentation
+
+**🚨 6. ⚠️ Red flag — 即送 emergency 嘅 sign**
+今晚我返屋企應該 watch 嘅 escalation sign（呼吸困難 / 持續嘔吐 / 不能站立 / pale gum 等）
+
+語氣：好似 vet tech 朋友幫你 prep，唔好 lecture，唔好 dump generic「帶寵物去獸醫」廢話。
+</PromptBlock>
+
+### 3. Print / save phone 開住
+
+Output 通常一頁。我嘅做法：
+
+- **iPhone**：share to Apple Notes → 入診所開大 screen，邊講邊 reference
+- **Print**：A4 1 張，獸醫好多會 appreciate 你 prepared
+- **email yourself**：consult 完之後加 vet's response 入返同一份 doc，build pet medical record
+
+### 4. Consult 完 → update record
+
+完 consult 之後 2 分鐘 paste 返獸醫話：
+
+> 「獸醫 diagnosed [病名]，open 咗 [藥]，叫我 follow up [幾耐]。」
+
+Claude update 你嘅 record，下次 vet visit 就有完整 longitudinal context（特別重要對於 chronic 病嘅老貓老狗）。
+
+## 變化
+
+### 變化 1：拍片 / 影 stool sample 加 description
+
+獸醫好多時要睇 stool / vomit / discharge 嘅樣。你可以**screenshot + paste 入 Claude 幫你 describe**：
+
+<PromptBlock label="變化 1 — Stool / vomit / discharge 描述助手">
+我 BB 嘅 [stool / vomit / discharge] 樣，影咗張相 attach 喺度。
+
+請幫我 medically-describe 呢個樣，畀獸醫睇我 record 一眼睇得明：
+
+**外觀**
+- 顏色（用 hex 或常見描述：tar-black / coffee-grounds / pink / cream-yellow 等）
+- Consistency（液體 / soft formed / hard pebble / mucus-coated 等）
+- Volume 估計
+- 有冇雜質（blood / hair / undigested food / parasite 形狀）
+
+**Pattern**
+- 邊一日 first appearance
+- Frequency
+- Associated symptom（嘔之前有冇 retching / 屎前有冇 straining）
+
+**Differential pointer**
+呢個 description 喺 vet differential 入面通常 point 去邊類問題（gastric / lower GI / liver / urinary / 等）— educational only
+
+⚠️ 注意：我只係 organize 觀察，最終 diagnosis 一定要獸醫 confirm。
+</PromptBlock>
+
+### 變化 2：對比新舊獸醫 / 第二意見
+
+如果你 considering 換獸醫或想第二意見：
+
+<PromptBlock label="變化 2 — Second opinion 準備">
+我 BB 喺 [現任獸醫] 度確診咗 [病名]。Treatment plan：
+- [藥 / treatment 1]
+- [藥 / treatment 2]
+- Follow-up: [幾耐 / cost]
+
+我考慮搵 [另一間獸醫] second opinion。
+
+請整：
+
+**Background brief（second opinion 醫生需要嘅 context）**
+1 段 paragraph 講 BB pet history + 現病史 + 現 treatment plan
+
+**5 條我應該問 second-opinion 醫生**
+唔淨係 confirm/deny diagnosis，仲要問：
+- 你嘅 differential 同 first opinion 邊度 different
+- 有冇 alternative treatment plan，trade-off 係咩
+- Test result 點 interpret（如果 first opinion 有 lab report）
+- Prognosis time horizon
+- 如果你係 owner，你會點 manage
+
+**準備帶嘅 documents**
+- Lab report
+- X-ray / ultrasound
+- 食緊嘅藥
+- Insurance form（如有）
+
+**Etiquette tip**
+點同 first opinion 講 / 唔講你搵 second opinion，HK 獸醫 community 細，唔好破壞 relationship。
+</PromptBlock>
+
+### 變化 3：Chronic 病嘅長期 tracking
+
+如果你 BB 有 chronic 病（CKD / 糖尿 / hyperthyroid / IBD 等）：
+
+<PromptBlock label="變化 3 — Chronic 病 long-term tracking">
+我 BB 確診咗 [chronic 病]，現時 stage [X]。
+
+過去 6 個月 lab values：
+- 月份 1：[BUN / Creatinine / SDMA / T4 / 等，視乎病]
+- 月份 2：[]
+- 月份 3：[]
+...
+
+現時 treatment：
+- [藥 + dose]
+- 飲食：[prescription diet 名]
+- 補充：[supplement]
+
+請整：
+
+**Trend analysis**
+- 邊個 marker 改善 / 穩定 / 惡化
+- 同 staging criteria 對比，我宜家 progression rate 點
+
+**下次 vet visit 議題**
+- 邊個 marker 應該 follow-up monitor
+- 有冇 dose adjustment 應該 raise
+- 有冇 new symptom 我應該 mention
+
+**Lifestyle adjustment**
+- 飲食 / activity / stress management 嘅 fine-tune
+- 屋企 monitoring metric 加 / 減（e.g., 每週體重 / 飲水量 / 屎尿次數）
+
+**Quality of life check**
+- 5 個 QOL marker 評估，幫我決定下一步 aggressive 治療 vs comfort care
+- ⚠️ 如果 QOL 低，獸醫可能 raise palliative option — 我應該點 emotionally prepare
+
+語氣：empathetic vet nurse，唔好 robotic。
+</PromptBlock>
+
+## 一個 mindset
+
+獸醫 consultation 比 GP 短、cost 高、frequency 低——但 stake 對你 family 一樣高。
+
+唔好以為「醫生會問返我」就唔使 prep。獸醫一日睇 30 隻 pet，佢嘅 cognitive load 已經爆。**你 prepared = 佢能夠 focus on 臨床判斷，唔使浪費時間 dig 你記憶。**
+
+最後 reminder：
+
+- ✅ Claude 嘅 role 係 organize observation + prep 問題 + post-visit 整理 record
+- ❌ Claude 唔係 diagnose、唔係 prescribe、唔係 alternative-medicine pusher
+- 🆘 如果 BB 出現 acute symptom（呼吸困難 / 痙攣 / 不能站立 / 持續嘔吐血），**直接送 emergency**，唔好用 Claude 拖時間
+
+BB 健康，家人安心。

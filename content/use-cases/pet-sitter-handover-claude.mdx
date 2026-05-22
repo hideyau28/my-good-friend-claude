@@ -1,0 +1,291 @@
+---
+title: "出 trip 前用 Claude 寫寵物 sitter handover：sitter / 家人接手都唔甩漏"
+slug: "pet-sitter-handover-claude"
+issue: 51
+publishedAt: 2026-05-22
+audience: ["消費者", "打工仔"]
+category: "chat"
+section: "寵物"
+subcategory: "離家照顧"
+difficulty: 1
+timeMinutes: 15
+toolsNeeded: ["Claude Chat", "現有寵物 routine memory / 之前嘅 sitter notes"]
+description: "你 4 日台北 trip，搵咗親戚 / 朋友 / 上門 sitter 照顧 BB。Verbal 講 5 分鐘佢哋一定唔記得。用 Claude 整 1 頁 handover doc — daily schedule、餵食 spec、藥、emergency contact、quirks，sitter 跟住做就得。"
+keywords: ["寵物 sitter", "pet sitter handover", "HK 寵物寄養", "離港 寵物", "claude 寵物 handover"]
+related: ["vet-visit-prep-claude", "travel-itinerary-claude-day-by-day", "doctor-visit-prep-claude"]
+featured: true
+---
+
+## 情境
+
+下星期一你飛台北 4 日。
+
+你揾咗你阿媽 / 隔離鄰居 / 上門 sitter 嚟照顧 BB。落 trip 前一晚，你企喺廚房，揾 5 分鐘 brief 佢：
+
+> 「BB 朝早食 80g 乾糧，傍晚食濕糧⋯⋯不過如果佢唔肯食可以 sprinkle 啲 churu⋯⋯水要每日換 fresh，但啲碗 wipe down 唔好用 detergent⋯⋯嗯，佢心臟藥每日傍晚 7 點⋯⋯吓，定係朝早 7 點？我問返獸醫先⋯⋯然後 litter box 一日清兩次⋯⋯如果佢匿喺床底底唔好騷擾⋯⋯」
+
+你講完，sitter 嘅 face 表情：🥲
+
+你哋雙方都知道，**5 分鐘 verbal brief 一定 retention 唔到 50%**。
+
+到你飛機升空，WhatsApp 開始響：
+
+- 「BB 邊度餵？」
+- 「呢個係佢嗰隻 churu 嗎？」（影張錯嘅 brand）
+- 「BB 唔肯出嚟食點算？」
+- 「BB 有冇 contact lens？！」（朋友以為你話咩）
+
+你喺台北永康街食小籠包，腦入面係 BB 嘅心臟藥到底有冇食。
+
+呢篇用 Claude **15 分鐘**寫一份 sitter-ready handover doc，sitter 跟住做唔使 message 你，你個 trip 真係 chill 到。
+
+## 跟住做
+
+### 1. Dump 你嘅 pet routine memory
+
+打開 Claude chat，**唔好 ask Claude generate template**。先 dump 你個 pet 嘅 actual routine（messy 都得，後面 Claude 會 organize）：
+
+> BB（8 歲 male short-hair cat, 4kg, indoor only, neutered, FIV negative）
+> 
+> 食：朝 8 點 80g 乾糧 (Royal Canin Indoor Adult)，傍 7 點 1 罐濕糧 (Hill's i/d wet)。佢揀食，如果唔肯食濕糧可以加 1 條 churu (INABA chicken flavor 黃色嗰隻)。
+> 
+> 水：3 個碗散開放——廚房、客廳、廁所角。每日全部換 fresh。唔好用洗潔精，用熱水沖。
+> 
+> 藥：每日傍晚同濕糧一齊食。Vetmedin 1.25mg/tab 1/2 粒。 hide 喺 churu 入面成功率 90%。如果唔肯食藥要 pill pocket（雪櫃有）。
+> 
+> Litter：朝晚各掃一次。Sand 喺廚房櫃下層。每星期一一次完全換 sand + 洗 box。
+> 
+> 個性：對人友善但 introverted。新人嚟頭 3 個鐘佢匿床底底 normal。摸 OK 但唔好抱（會掙脫跌親）。最鐘意人坐 sofa 佢就過嚟坐 lap。Trigger：吸塵機、高聲、男人 deep voice (driver / 維修工人)。
+> 
+> Vet：[vet 名]，[地址]，[電話]。Emergency: SPCA Hong Kong 24-hr [電話]。
+> 
+> 出問題即 call 我：[電話]。如 call 唔到，second contact 我細妹 [電話]。
+
+呢類 brain dump 唔需要 organized，Claude 之後會結構化。
+
+### 2. 用呢個 prompt 整 handover doc
+
+<PromptBlock label="完整 prompt — Sitter handover doc">
+我下星期一至四去 [destination]，搵咗 [sitter — 親戚 / 朋友 / 專業 sitter] 嚟照顧我 pet。
+
+📝 **Sitter 嘅 context**：
+- 同 BB 熟唔熟：[完全唔識 / 見過 1-2 次 / 經常見]
+- 養過 pet：[冇 / 養過 cat / 養過 dog]
+- 嚟我屋企 frequency：[每日來 1 次 / 每日 2 次 / 留宿]
+- 我可以 reach 佢嘅 channel：[WhatsApp / phone / 都得]
+
+🐾 **我 pet 嘅 raw notes**：
+[paste 你上面 dump 嘅 notes]
+
+⏰ **我嘅 trip dates**：
+[填]
+
+請整成 **1-2 頁 sitter handover doc**，結構：
+
+**📌 Page 1 — Daily Routine（sitter 每日 reference）**
+
+🌅 **AM (建議 8-9 點)**
+- [task 1] — quantify (e.g. 80g dry food)
+- [task 2]
+- [check / observation]
+
+🌙 **PM (建議 7-8 點)**
+- [task 1 — 含藥 hide 喺 churu 嘅 step-by-step]
+- [task 2]
+- [check]
+
+🧹 **Litter / cleaning**
+- 每日：[]
+- 每週：[]
+
+**📌 Page 2 — Reference Cards**
+
+🍽 **食物 cheat sheet**
+- 乾糧：brand / location / 每餐 portion
+- 濕糧：brand / location / 每餐 portion
+- Treats / 加料：churu brand + flavor（影張相 attach）
+- ❌ Pet 食物敏感 / 唔食：[列出]
+
+💊 **藥 schedule**
+- 藥名 / dose / 時間 / hide-in-food 方法
+- 如果唔食：步驟 1 (pill pocket) → 步驟 2 (call me)
+- ⚠️ Refill: [幾時要]
+
+🚨 **Emergency procedure**
+- BB 出現 [呼吸困難 / 持續嘔吐 / 不能站立 / 顯著行為改變] = 即 call:
+  · 我嘅 vet: [名 / 地址 / 電話]
+  · 24-hr emergency: [SPCA / Cityu Vet 24h / 其他]
+  · 我嘅 phone: [電話]，second contact: [親人 名 / 電話]
+
+🐾 **個性 + quirks**
+- ✅ OK do: [list — 摸頭 / 坐 lap / dangle 玩具]
+- ❌ Don't do: [list — 抱起 / 高聲叫 / 用吸塵機 / 強拉佢出]
+- ⚠️ Trigger: [list — 男聲 / 雷聲 / 維修工人]
+- 🏠 Hiding spot: [床底 / 沙發後] = normal, leave 佢alone
+
+🏠 **屋企 logistics**
+- 鎖匙：[where + 點 return]
+- 電燈 / 冷氣 set：[temp / schedule]
+- 補貨地點：[寵物店 / 超市 / Pet Pet Park 等]
+- WiFi：[name + password]
+
+📞 **Daily check-in plan**
+- 我希望 sitter 每日 [WhatsApp 1 張 BB 相 / 短訊 confirm 餵咗] — frequency [一日 1 次 / 一日 2 次]
+- 如果有 unusual ANYTHING（食量、行為、屎尿）= 立即 message
+
+語氣：友善 owner 體諒 sitter 嘅辛苦。clear structure，唔好 dump paragraph。
+</PromptBlock>
+
+### 3. Print + WhatsApp + visual demo
+
+Handover doc 出咗，做 3 個 deploy：
+
+1. **Print 1 份 A4** 貼喺廚房 fridge magnet
+2. **WhatsApp 個 PDF** 畀 sitter（方便佢隨時 reference）
+3. **走前一晚 walkthrough**：sitter 嚟過你屋企 30 分鐘，**跟住個 doc 一齊行一次** routine（你示範餵 / hide 藥 / clean litter / 收 churu）
+
+呢個 visual demo 比 verbal brief 嘅 retention 高 10 倍。
+
+### 4. Trip 中 minimal check-in
+
+WhatsApp 設個 daily「BB photo + ✓ fed」嘅 ritual。Sitter 唔需要 long message，1 張相 + 1 個 ✓ emoji 就夠。
+
+你食緊小籠包，腦袋唔再 BB heart medication。
+
+## 變化
+
+### 變化 1：寵物寄養（你送 BB 去 sitter 屋企）
+
+唔係 sitter 嚟你屋企，而係你送 BB 去佢屋企（或者 pet hotel）：
+
+<PromptBlock label="變化 1 — Pet boarding drop-off prep">
+我送 BB 去 [pet hotel / 朋友屋企] 寄養 [幾日]。
+
+[paste pet routine — 同主篇一樣]
+
+請整 **boarding-specific prep**：
+
+**🧳 Packing checklist**
+- 必帶 food (calc total portion needed × 日數，加 20% buffer)
+- 藥 + 詳細 dosing instruction card
+- 熟悉嘅 blanket / toy (familiar smell helps stress)
+- Carrier + transport plan
+- Vet record + vaccination 證明（pet hotel 通常要求）
+
+**📋 Drop-off briefing 5 minutes**
+你 face-to-face 同 sitter / pet hotel staff 講嘅 key points（priority order）
+
+**🏠 Pet 新環境 adjustment**
+- 首 24 小時 expected behavior（hide / 唔食 normal）
+- Day 2-3 settle expected
+- ⚠️ 如果到 Day 3 仲完全唔食 = 即 call vet + me
+
+**📞 Daily check-in format**
+建議 sitter 每日 send 你嘅 info：
+- 食左幾多
+- 屎 / 尿 normal?
+- 行為（active / withdrawn）
+- 1 張相
+
+語氣：唔好 paranoid，但保護 BB 嘅 safety baseline。
+</PromptBlock>
+
+### 變化 2：Long-term sitter（>1 個月）
+
+你出長 trip / 海外工幾個月：
+
+<PromptBlock label="變化 2 — Long-term sitter onboarding">
+我 [幾個月] 唔喺 HK，搵咗 [sitter relationship] 全 take care BB。
+
+[paste full pet history — age / breed / medical / personality / routine]
+
+請整 **comprehensive onboarding doc**：
+
+**📚 Pet history book**
+- Birth / adoption history
+- Medical history (past 3 yrs major events)
+- Behavioral evolution（佢點由 kitten 變到宜家 adult cat）
+- Vet relationship + 最近一次 visit 結論
+
+**🗓 Weekly / monthly schedule**
+- Daily routine（同 sitter brief 一樣）
+- Weekly: full litter change / 量體重 / 拍張 record photo
+- Monthly: trim claws / brush teeth / 補貨 inventory check
+- 季度: vet wellness check / dental cleaning (如有 plan)
+
+**💰 Financial setup**
+- 每月預算（food $X / litter $Y / 雜費 $Z）
+- 我 transfer 嘅 frequency
+- Vet 緊急 fund threshold（超過 $XXX 我要 approval）
+- Receipt 點收（影相 share / Google Drive folder）
+
+**🎯 Decision authority**
+- Sitter 可以自己做嘅 decision（routine vet visit / food brand switch within same line / cleaning supplies refill）
+- 要 call 我 approve 嘅（任何 medication change / non-emergency surgery / boarding-of-boarding）
+- 即做唔使等我 reply 嘅（emergency life-saving — drive to vet immediately）
+
+**🤝 Trust building**
+- 第 1 個月：daily photo + weekly call
+- 第 2-3 個月：reduce to 3x/week update
+- After：weekly check-in unless something
+
+**🏃 Exit plan**
+我返 HK 之前 1 星期：
+- Sitter 點 ease BB 返我 routine
+- Handover record（藥變化、行為觀察、anything significant）
+
+語氣：long-term 信任建立，唔係 helicopter parenting，但保 owner-of-record accountability。
+</PromptBlock>
+
+### 變化 3：多隻寵物 simultaneous brief
+
+你有 2 cats / 1 cat + 1 dog / 1 cat + 1 hamster：
+
+<PromptBlock label="變化 3 — Multi-pet sitter handover">
+我有 [N 隻 pet]，每隻：
+- BB（cat 8 歲）— [routine snippet]
+- Coco（dog 3 歲）— [routine snippet]
+- Sunny（hamster 1 歲）— [routine snippet]
+
+我 trip [幾日]，sitter [描述]。
+
+請整 multi-pet handover：
+
+**🐾 By-pet quick reference card**（每隻獨立一頁，唔好 mix）
+
+**🔀 Conflict / interaction notes**
+- Cat 同 dog 點 manage（feeding zones / play boundaries）
+- 邊隻會 stress 邊隻（cat 嚇到 hamster ok? dog jealous of cat attention?）
+
+**⏰ Master schedule（all pets in time order）**
+- 8am: [feed which / which / which / order]
+- 12pm: ...
+- 7pm: ...
+- 10pm: ...
+（順序 minimize chaos，e.g., 先 cat 後 dog 因為 cat 食得慢）
+
+**🚨 Multi-pet emergency**
+- 邊隻 priority 如果一齊出事
+- Vet 知唔知所有 pet（如果 vet 唔同，分開列）
+
+**🧠 Sitter mental load**
+最重要 3 樣嘢 sitter 記得 — 嚟 sitter 一定唔會記晒所有 detail，幫佢 prioritize。
+
+語氣：sympathetic — 照顧 multi-pet 比 single 難好多。
+</PromptBlock>
+
+## 一個 mindset
+
+養 pet 嘅 owner 通常會 develop 一種 invisible expertise——你知道 BB 邊個聲音係 hungry vs frustrated，邊個 hiding 係 normal vs sick。**呢類 tacit knowledge 喺你腦入面 effortless，但 transfer 出嚟極難。**
+
+Sitter 接手嘅 5 分鐘 verbal brief，本質係**你 5 年養 pet 知識嘅 lossy compression**。Loss 越多，trip 中嘅 anxiety 越大。
+
+Claude 嘅 value 唔係取代你嘅 pet expertise，係**幫你 externalize 個 tacit knowledge 變成 sitter readable doc**。下次 sitter / 你阿媽 / Air-bnb 上 pet sitter 嚟，**reuse 同一份 doc** 就可以——你 5 年知識嘅 marginal cost compounding。
+
+最後 reminder：
+
+- ✅ Handover doc 唔等於拋包袱。Sitter 仲係要 daily check-in，你仲係要 emergency reachable。
+- ⚠️ 第一次用新 sitter？建議 **trial 24-hour stay** before 真 trip — 你喺 HK 就 alongside available 救援。
+- 🆘 Sitter 唔信？trust 自己 instinct。BB 嘅 safety > 你慳幾百蚊嘅 sitting fee。
+
+Enjoy 你個 trip，BB 安好等你返。
