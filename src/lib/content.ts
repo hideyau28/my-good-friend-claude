@@ -67,7 +67,7 @@ export const SECTION_DESCRIPTIONS: Record<Section, string> = {
   生活: '醫健 · 飲食 · 行程',
   文化: '寫作 · 創作 · 翻譯',
   科技: 'Code · 工具 · 設定',
-  遊戲: '遊戲 · 娛樂（即將上線）',
+  遊戲: '攻略 · 抽卡 · 玩 game 輔助',
   其他: '冇得分類嘅冷門 use case',
 }
 
