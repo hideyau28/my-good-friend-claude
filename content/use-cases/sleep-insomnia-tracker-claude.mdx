@@ -1,0 +1,560 @@
+---
+title: "失眠 3 個禮拜揾唔到 trigger？用 Claude 整 sleep log + 排查 4 大兇手"
+slug: "sleep-insomnia-tracker-claude"
+issue: 68
+publishedAt: 2026-05-24
+audience: ["打工仔", "創作者", "消費者"]
+category: "chat"
+section: "健康"
+subcategory: "睡眠"
+difficulty: 1
+timeMinutes: 10
+toolsNeeded: ["Claude Chat", "（可選）Apple Watch / Fitbit / Oura ring"]
+description: "你過去 3 個禮拜每晚 11:30 上床、12:30 仲眼擘擘望天花板，朝 7am 鬧鐘響全日 brain fog。用 Claude 整 14 日 sleep log，排查 4 大兇手——caffeine / alcohol / 屏幕 / 焦慮——識別你 specific 嘅 trigger。文末有 GP referral threshold。"
+keywords: ["失眠 處理", "sleep hygiene", "HK 失眠", "sleep log tracker", "insomnia self-help", "睡眠衞生"]
+related: ["mental-health-journaling-claude", "chronic-condition-management-claude", "home-exercise-plan-hk-claude"]
+featured: false
+---
+
+> 急性失眠 (3 個月以下) Claude 可以幫 tracking. 慢性失眠 (>3 個月) **必須 GP visit** — chronic insomnia 通常 underlying cause (anxiety / depression / sleep apnea / 藥). Self-track 唔取代 medical diagnosis.
+
+## 情境
+
+而家係 1:14am。
+
+你 11:30pm 上床，「今晚要早 sleep」決心強烈。Read 30 頁書，瞓低 set alarm 7am。
+
+11:55pm: 仍 awake。Sigh.
+
+12:15am: brain 跳到「明日 9am meeting need prep」。
+
+12:30am: 你 check phone (just to silence rate). Now 你 awake. Phone scroll 20 分鐘.
+
+12:50am: phone down，再 attempt sleep。Brain 想 「呢樣 thinking — let me think it through quickly」。
+
+1:14am: 你 realize 已 1+ hr post-bedtime, sleep window shrinking. Anxiety about not-sleeping (meta-anxiety) 開始 dominate. 「If 我 唔 sleep 而家，明日 destroyed」 thinking loop.
+
+3:20am: 終於 fall asleep.
+
+7:00am: 鬧鐘. 4 hr 睡眠.
+
+7:30am: Brain fog. Coffee. 不知 source.
+
+呢個 cycle repeat 過去 3 個禮拜。你 try：
+
+- 早 sleep (11pm)：仍 1:30am sleep
+- 不 phone in bed (Day 5)：Day 1-3 better, Day 4-7 同樣
+- Sleep medicine OTC (Melatonin 3mg)：Day 1-2 work, Day 3-7 同樣
+- 「Just 唔 think」：唔 work （thinking-stop 嘅 paradox）
+
+呢個 acute insomnia 嘅 root cause：
+
+- **Suspect culprits 太多** (caffeine timing / alcohol / 屏幕 / 焦慮 / exercise timing / 食 / 室溫 / 鬧鐘 / partner snoring / 壓力 / hormonal)
+- **無 systematic data** — your sleep memory 24 hr 後 distorted
+- **「Just sleep」 reasoning 不 work** — anxiety + brain over-aroused = paradoxical insomnia
+- **隨機 attempt 唔 isolate variable** — 你改咗 3 樣同時，唔 know 邊樣 work
+
+呢篇用 Claude **14 日 sleep log**，systematically 排查 4 大 culprit，identify 你 personal trigger pattern。
+
+## 跟住做
+
+### 1. Understand 4 大 culprit + assessment
+
+開始 logging 前，先 mental model 邊 4 樣 most-likely culprit：
+
+<PromptBlock label="完整 prompt — Sleep culprit overview + my assessment">
+我 acute insomnia 3 個禮拜. 想 systematically diagnose 自己 trigger 之 前 self-log.
+
+請 explain 4 大 culprit + 我 self-assess 邊個 highest risk:
+
+🍵 **Culprit 1: Caffeine**
+- 半 衰期 5-6 hr (你 2pm coffee = 8pm 仍 50% in system)
+- 影響: delay sleep onset + reduce deep sleep quality
+- Self-assess:
+  - 我 daily cup count: [_]
+  - 最後一 cup timing: [_]
+  - Drink: [coffee / 茶 / energy drink / chocolate (yes, caffeine)]
+- 高 risk if: >3 cup/日 OR last cup after 12pm
+- Quick test: 1 週限 morning only (cut off 11am)
+
+🍷 **Culprit 2: Alcohol**
+- Mistake-thinking: 「alcohol 幫 sleep」
+- Reality: alcohol speed sleep onset BUT severely degrade sleep quality (REM disruption, midnight wake)
+- Self-assess:
+  - 每週 drink: [_]
+  - Evening drink 频繁度: [_]
+- 高 risk if: >2 drinks/週 OR any nightly drink
+- Quick test: 1 週 zero alcohol after 6pm
+
+📱 **Culprit 3: 屏幕 light + stimulation**
+- Blue light delay melatonin
+- Mental stimulation (Instagram / 新聞 / 工作 email) high cortisol
+- Self-assess:
+  - 上床 30 min phone usage: [_]
+  - Type: [scroll IG / reply work / 睇片 / read]
+  - Lights off + still phone?
+- 高 risk if: 上床 30 min phone (任何 type)
+- Quick test: 1 週 phone outside bedroom by 10pm
+
+🧠 **Culprit 4: 焦慮 / Brain over-arousal**
+- 「Anxious thinking」 trigger cortisol release
+- Brain treats unsolved problem 為 threat → arousal
+- Self-assess:
+  - 上床後 random thought intrusion: [_]
+  - Anticipatory anxiety about not-sleeping: [_]
+  - Daytime stress level 1-10: [_]
+- 高 risk if: 上床後 持續 active thinking, daytime stress >7
+- Quick test: brain dump journal before bed (next prompt)
+
+🌡 **Honorable mention (smaller impact 但 check):**
+- 室溫: optimal 16-19°C (HK 夏天 challenge)
+- 鬧鐘 light (digital clock 強光 bother)
+- Partner snoring
+- Exercise timing (intense exercise < 3 hr before sleep degrades sleep)
+- Late heavy meal
+- Hormonal (女性 月經 cycle)
+
+📊 **My initial diagnosis self-assessment (1-5 scale)**:
+- Caffeine risk: __/5
+- Alcohol risk: __/5
+- 屏幕 risk: __/5
+- 焦慮 risk: __/5
+
+請對 我 assessment, suggest 14 日 elimination order (highest-risk first):
+- Day 1-7: focus 邊 culprit
+- Day 8-14: focus 邊 culprit
+
+語氣：systematic, no judgment.
+</PromptBlock>
+
+Claude 出 your specific priority order。如 caffeine + 焦慮 high risk → Day 1-7 caffeine elimination test，Day 8-14 anxiety protocol test。
+
+### 2. 14 日 daily sleep log 整理
+
+每晚 + 每朝 5 分鐘 log。**Critical: 唔 skip 任何一日**——missing data ruins isolation analysis：
+
+<PromptBlock label="完整 prompt — Daily sleep log template">
+請整 daily sleep log template, 每晚 sleep + 每朝 wake 5 分鐘 fill.
+
+🌙 **每晚 fill (10pm 之前)**
+
+```
+DATE: __________
+
+⏰ **YESTERDAY day activities (matter for tonight's sleep):**
+- 最後 caffeine intake: ___ am/pm
+- Alcohol today (yes/no, amount): ___
+- Exercise today (intensity + timing): ___
+- 室外 daylight exposure: ___ minutes
+- Most stressful event today (1-10): ___
+- Late meal (after 8pm): ___
+
+🛏 **Tonight's intentions:**
+- Target bedtime: ___
+- Target wake time: ___
+- Aiming target sleep duration: ___ hr
+- Predicted sleep difficulty 1-10: ___
+
+📵 **Pre-sleep ritual completed?**
+- [ ] Phone outside bedroom by 10pm
+- [ ] Lights dim by 10pm
+- [ ] 1 hr no work content
+- [ ] Brain dump journal (2 min minimum)
+- [ ] 室溫 set 18-19°C
+- [ ] Last drink 1 hr before bed (avoid bathroom trip)
+```
+
+☀️ **每朝 fill (waking, before phone)**
+
+```
+🌅 **Actual sleep**
+- 上床 actual time: ___
+- 估計 sleep onset (asleep): ___
+- 任何 mid-night wake: yes/no, count, total time awake: ___
+- Actual wake time: ___
+- Sleep duration: ___
+
+📊 **Quality**
+- Sleep quality rating 1-10: ___
+- Dreams remembered: ___
+- Wake-up energy 1-10: ___
+- Headache / morning grog: ___
+
+🧠 **Mental state on waking**
+- Mood: ___
+- Anxiety: ___
+- Cognitive sharpness: ___
+
+🔍 **Data if available (Apple Watch / Fitbit / Oura)**
+- HRV: ___
+- Resting HR: ___
+- Sleep stages estimate: ___
+```
+
+📋 **Weekly review prompt**
+
+After 7 day log, paste 入 Claude:
+「請 review 過去 7 日 log. Identify:
+- 邊 night 最好 sleep? 邊 night 最差?
+- Common pattern between 好 night?
+- Common pattern between 差 night?
+- 主要 culprit 對應 我 risk profile?
+- Suggest Day 8-14 specific 改變?」
+
+語氣：detailed but quick to fill (5 分鐘 max).
+</PromptBlock>
+
+⏰ **Tips for sustainable logging**:
+- 設 phone alarm 9:55pm 每日 reminder
+- Keep template open in notes app
+- 朝 fill before checking email (no contamination from work cortisol)
+- 14 日 firm — don't quit Day 5 because 「frustrating no progress yet」
+
+### 3. Brain dump pre-sleep ritual (anxiety culprit)
+
+如果 anxiety high risk, 呢個 step 必須:
+
+<PromptBlock label="完整 prompt — Pre-sleep brain dump ritual">
+我 anxiety high risk for insomnia. 我 want a 5-minute pre-sleep journal ritual.
+
+🌃 **Setup (do once)**
+- 紙本 journal kept bedside (NOT phone — phone 引 stimulation)
+- 1 pen 拎住
+- 1 specific time: 上床 前 30 分鐘
+
+📝 **Each night 5-minute structure**:
+
+**Min 1: Brain dump (1 min raw)**
+- 寫低 任何 喺 mind 嘅 嘢
+- Run-on, 唔 censor
+- 5 minutes 前 你 thinking 咩? Worry list? Random?
+
+**Min 2: 「Tomorrow's list」 (1 min)**
+- 明日 must-do top 3 items
+- 預先 write on paper = brain release the「I must remember」 burden
+- 「If 我 唔 sleep, I 仲 know what tomorrow's priorities」
+
+**Min 3: 「Worry catalog」 (1 min)**
+- For each worry currently in head:
+  - Actionable? Next action: ___
+  - Not actionable / future event? 「Worry parking lot — revisit Wednesday」
+- Externalize the worry — brain understand 「呢個 is captured, I can release until Wednesday」
+
+**Min 4: 1 gratitude (1 min)**
+- 唔 generic 「I'm grateful for health」
+- Specific: 「Today's [specific moment] felt good because [specific reason]」
+- 不是 self-help cliche — 係 neurological reset to parasympathetic
+
+**Min 5: Body scan (1 min)**
+- Lay down
+- From toes → head, 1 second per body part
+- 注意 tension spots, 不 judge
+- Release breath at each
+
+💤 **Then sleep**
+- 唔 stress about onset speed
+- If 上床 20 分鐘 仍 awake: 起身, light reading 10 分鐘 (NOT phone), 再 return bed
+- 唔 watch clock - turn it away
+- 5am 完全 awake? Get up — better to be tired evening + push next bedtime ealier rather than stay in bed dreading
+
+📋 **Tools that complement ritual**
+- 上床 30 min 前: 1 cup chamomile tea (mild)
+- 室溫 18°C
+- Black-out curtain (light intrusion disrupt REM)
+- White noise machine if street loud
+- Magnesium glycinate 200-400mg 1 hr 前 bed (consult GP if 已 服藥)
+
+🚨 **DON'T**
+- 唔 supplement OTC sleep aid 持續 >7 日 (dependency risk)
+- 唔 alcohol 「to help」 (degrades sleep quality severely)
+- 唔 lie in bed >20 min trying to sleep — breaks sleep-bed association
+
+語氣：calming, specific, sustainable ritual.
+</PromptBlock>
+
+呢個 ritual 嘅 critical insight: **Brain 嘅 「我必須 think through 呢樣 嘢」 屬於 cognitive arousal**。Externalize 上紙 = brain release 該 「process」 命令 = parasympathetic activate = sleep enable.
+
+### 4. Day 14 review + escalation decision
+
+14 日 後做 systematic review:
+
+<PromptBlock label="完整 prompt — Day 14 sleep review + escalation">
+我 completed 14 日 sleep log. 請 systematic review.
+
+📊 **Paste data summary:**
+[14 日 each day key bullets:
+- 上床 / sleep onset / wake / duration
+- Sleep quality 1-10
+- Caffeine timing
+- Alcohol Y/N
+- 屏幕 ≥ 9:30pm Y/N
+- Anxiety daytime 1-10
+- Notable]
+
+📈 **Analysis:**
+
+**1. Sleep duration trend**
+- 14 日 average
+- Trend (improving / stagnant / declining)?
+- Variance (consistent or wild)?
+
+**2. Culprit correlation**
+- 邊 night 最好 = 共同 pattern?
+- 邊 night 最差 = 共同 pattern?
+- Specific factor 顯著 correlated with bad sleep?
+- 唔 always intuitive (e.g., exercise day 之 night ironically harder sleep)
+
+**3. Compliance to elimination protocol**
+- 我 elimination test (caffeine / alcohol / phone) execute 完整?
+- Slips? Notable slip 對應 sleep impact?
+
+**4. Intervention effectiveness**
+- 邊 intervention worked?
+- 邊 intervention 顯無效?
+- 邊 we 未 test?
+
+📋 **Verdict**
+
+**Option A: Identified clear trigger + 有 improvement**
+- 持續 ongoing protocol
+- Re-test 7 日 confirm
+- 6 個月後 evaluate sustainability
+
+**Option B: 有 noticeable improvement 但 still 5-6/10 quality**
+- Add 1 new variable test next 7 日
+- Specific: 邊一個 risk variable 未 isolated?
+- 持續 log
+
+**Option C: No clear improvement / persists**
+- 重 escalation: GP visit
+- Possible underlying issue (anxiety disorder / depression / sleep apnea / 慢性 pain)
+- Don't keep self-protocol if 3 個月 cumulative no progress
+
+🚨 **Escalation threshold (Stop self-track + GP):**
+- Persistent insomnia >3 個月
+- Daytime functioning impaired (work / mood / accident)
+- Sleep 少於 5 hr regularly
+- Mid-night wake regularly waking 3-4am unable return
+- Suspected sleep apnea (loud snoring + 朝 wake exhausted despite 7 hr)
+- Self-medicating alcohol / OTC sleep aid 持續
+
+📞 **GP visit prep**
+- Bring sleep log (14 日 data)
+- Specific complaint:「過去 3 個月持續 insomnia 影響 daily function. Self-track elimination 試 4 culprit, no clear isolatable trigger. 想 explore underlying cause.」
+- GP 可能 refer to:
+  - Sleep clinic for polysomnography
+  - Psychiatrist for anxiety / depression evaluation
+  - 慢性 pain / 內科 (if specific complaint)
+
+語氣：data-driven verdict, escalate when appropriate.
+</PromptBlock>
+
+## 變化
+
+### 變化 1：Shift work / 通宵 schedule insomnia
+
+夜班 / 三班制 schedule disruption:
+
+<PromptBlock label="變化 1 — Shift work insomnia adaptation">
+我 [hospitality / 護士 / 24-hr operations / shift work] 持續 dropdown sleep schedule.
+
+📐 **Shift work circadian challenge**
+- Body 天然 evolved for day-active
+- Force night active = circadian misalignment
+- 慢性 shift workers have higher cardiovascular / mental health risk
+- 但 reality: 不 all jobs allow standard hours
+
+✅ **Strategies (within constraints)**
+
+🛏 **Day-sleep optimization**
+- 全 blackout curtain (essential, not optional)
+- White noise mask daytime noise
+- 室溫 cool aggressive (16-17°C)
+- 鎖 phone outside room
+- Family / co-habitant aware「don't disturb until 4pm」
+
+🍵 **Caffeine strategy**
+- Start of shift: full mug
+- Mid-shift: small additional
+- 4 hr before end-shift: cut off (so 你 sleep 上 bed)
+
+🌞 **Sunlight timing**
+- End shift → home: wear sunglasses (block morning light, preserve melatonin)
+- Home → bed: dim lights 30 min ramp
+- Wake up: 5 minutes outdoor sun (循環 reset)
+
+📅 **Off-day strategy**
+- Don't completely flip schedule
+- 「Anchor sleep」 中 4-5 hr 一致 across all days
+- E.g., always sleep 2pm-9pm minimum, even off-days
+
+🍽 **Meal timing**
+- Heavy meal at 「dinner」 (mid-shift for night workers)
+- 細 snack mid-shift
+- Don't eat 2 hr before sleep regardless of clock time
+
+💪 **Health impact monitoring**
+- 每 6 個月 GP check
+- Cardiovascular markers
+- Mental health check
+- Vitamin D (sun deprivation common)
+
+🔚 **Long-term consideration**
+- Career trajectory: shift work years sustainable?
+- Health cost 真 — 不 ignore
+- Negotiate flexibility if option
+
+語氣：realistic, not all problems solvable while shift work persists.
+</PromptBlock>
+
+### 變化 2：Sleep apnea suspicion
+
+如果 snoring + daytime exhaustion despite 7+ hr：
+
+<PromptBlock label="變化 2 — Sleep apnea suspicion + medical pathway">
+我 noticed:
+- 持續 loud snoring (partner / family report)
+- 朝 wake exhausted despite 7-8 hr 'sleep'
+- Mid-night gasping / choking sensation
+- 朝 头痛
+- Daytime 困 frequent
+
+請 explain + medical pathway:
+
+🫁 **What sleep apnea is**
+- Repeated airway obstruction during sleep
+- Body briefly wakes to restart breathing (you don't remember)
+- Severe case: hundreds of micro-wake per night
+- Sleep quantity OK but quality 嚴重 degraded
+
+⚠️ **Risk factors**
+- 男性, 40+
+- Overweight / obese (但 also thin people)
+- Thick neck circumference
+- Family history
+- Smoking
+- Alcohol (worsen)
+- 鼻 sinus / 過敏 obstruction
+
+🏥 **Why critical to diagnose**
+- Untreated: cardiovascular disease 2-3x risk
+- Stroke risk elevated
+- Cognitive impairment
+- Workplace accident / car accident risk (drowsy driving)
+- Quality of life major impact
+
+📋 **Self-screen (before GP)**
+1. Print STOP-BANG questionnaire (free online)
+2. Sleep partner observation: count breath pauses / gasping
+3. Video / audio record yourself sleeping (phone recording on bedside)
+4. Note daytime symptoms
+
+🩺 **GP visit script**
+「我 suspect sleep apnea. Past month: persistent loud snoring (witnessed), gasping wake, 朝 头痛, daytime exhaustion despite 8 hr sleep. STOP-BANG score: [X]. 想 refer to sleep clinic for polysomnography.」
+
+🏥 **HK sleep clinic options**
+- Public: GP refer to QMH / Princess Margaret Sleep Centre (waitlist 6-12 個月)
+- Private: 養和 / 港島東 醫院 Sleep Centre (faster but $$)
+- Home sleep test (HSAT): 性 cost-effective initial screen
+
+🛌 **Possible treatment if diagnosed**
+- CPAP machine (gold standard, life-changing for OSA)
+- Mandibular advancement device (mild case)
+- Weight loss (if applicable)
+- Positional therapy
+- Surgery (rare, severe case)
+
+💰 **Insurance coverage**
+- Most HK insurance: diagnostic test + CPAP partially covered
+- Pre-authorization 通常 needed
+- Sleep clinic 替你 navigate
+
+🚨 **Don't ignore**
+- 「Just snoring」 mentality dangerous
+- Apnea ≠ 心 weakness — physiology issue
+- Treatment dramatically improves quality of life
+- Untreated cardiovascular consequence cumulative
+
+語氣：urgent without alarmist.
+</PromptBlock>
+
+### 變化 3：Travel / jet lag protocol
+
+跨時區 trip 之 後 insomnia:
+
+<PromptBlock label="變化 3 — Jet lag recovery + travel sleep">
+我 trip back from [destination X 時區 diff]. Jet lag affecting sleep [N] 日.
+
+請整 recovery protocol:
+
+✈️ **Jet lag physiology**
+- Body 「internal clock」 (circadian) misaligned with new timezone
+- Rule of thumb: 1 day recovery per 1 hr time diff
+- Eastward (e.g., HK→US East) harder than westward (US→HK)
+- Crossover melatonin, cortisol, body temperature cycle
+
+📅 **Pre-trip prep (if anticipated trip)**
+- 3-4 days before: shift bedtime 1 hr daily toward destination
+- 「Pre-adapt」 minimize lag impact
+- Hydrate aggressive
+
+🛫 **In-flight**
+- Stay hydrated (3L water for long-haul)
+- 限 alcohol + caffeine
+- Move every 90 min (circulation + DVT prevention)
+- Sleep when destination 夜
+- Awake when destination 日
+
+🌅 **Day 1-3 arrival adjustment**
+- 早 morning sunlight 30 分鐘 (synchronization signal)
+- Force-stay awake until destination bedtime (don't nap > 30 min)
+- 早 breakfast / morning routine destination time
+- Exercise outdoors (combined sun + movement)
+- Melatonin 0.3-1mg 1 hr before destination bedtime (NOT 5mg pharmacy default)
+- Avoid alcohol Day 1-3
+
+📋 **Day 4-7 consolidate**
+- Sleep should normalize
+- Persistent issue past Day 7: usual sleep hygiene baseline check
+- 持續 >2 週 = consult GP
+
+💊 **Aids (use sparingly)**
+- Melatonin (timing > dose)
+- 偶 zolpidem (prescription only, NOT habitual)
+- Magnesium for relaxation
+- Camomile / valerian tea
+
+🚫 **Don'ts**
+- Alcohol as 「sleep aid」 (worse jet lag)
+- 「Catch up sleep」 weekend after — push 唔 reset cycle
+- Caffeine after noon Day 1-5
+- Heavy meal 上 sleep
+
+📊 **Track recovery**
+- Daily sleep onset, wake, duration
+- Subjective energy
+- 期望: full recovery by Day [number of hours timezone diff]
+
+語氣：patient, jet lag is real not weakness.
+</PromptBlock>
+
+## 一個 mindset
+
+失眠 嘅 paradoxical truth: **「我 必 sleep」 心 念越 強，越難 sleep**。
+
+呢個 paradox 嘅 mechanism: Brain treat 「failure to sleep」 as a threat. Threat = sympathetic activation = cortisol release = arousal. Arousal antithetical to sleep.
+
+呢個 mindset 嘅 reframe: 14 日 sleep log 嘅 deeper purpose 唔係 「optimize sleep number」——係 **release 你 over-control of sleep**。
+- Sleep 唔係 something 你 「achieve」, 係 something 你 「allow」.
+- 你 brain over-attentive to sleep impossible to sleep.
+- Externalize tracking to Claude / log = brain release control命令.
+
+Claude 嘅 role here: 你 alone tracking 14 日 mental load 高, easy to abandon. Claude container = sustainable, structured, judgment-free. 你 dump data, Claude reflect pattern.
+
+最後 reminder：
+
+- ✅ **3 個月 是 critical timeline**. 3 個月以下 = acute, self-track 可能 sufficient. 3 個月+ = chronic, GP visit mandatory.
+- ⚠️ **Don't「make up」 lost sleep**. Sleep 唔係 bank account. Sleep cycle reset 比 sleep duration accumulation 重要.
+- 🆘 **如果 你 right now lying awake 2am reading this**: get out of bed, dim light, read for 15 min, return when 真 tired. 不 force sleep in bed.
+
+Sleep well. Or 不 — 都 OK. 14 日後睇 pattern.

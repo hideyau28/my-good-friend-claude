@@ -1,0 +1,542 @@
+---
+title: "糖尿 / 高血壓 / 哮喘 self-tracking：用 Claude 整 monthly log，下次睇醫生有 data"
+slug: "chronic-condition-management-claude"
+issue: 69
+publishedAt: 2026-05-24
+audience: ["消費者", "學生家長"]
+category: "chat"
+section: "健康"
+subcategory: "慢性病管理"
+difficulty: 2
+timeMinutes: 15
+toolsNeeded: ["Claude Chat", "你嘅 medication list + 上次 blood test report", "（可選）血糖機 / 血壓計 / peak flow meter"]
+description: "GP visit 每 3 個月 15 分鐘，但 90 日 symptom pattern brain 記唔到。用 Claude 整 monthly log — 藥 / symptom / trigger / lifestyle correlation。下次 visit 出示 90 日 data，treatment 更精準。糖尿 / 高血壓 / 哮喘 cover。"
+keywords: ["慢性病 self-management", "糖尿 tracker", "高血壓 log", "哮喘 management", "chronic condition HK", "GP visit prep"]
+related: ["mental-health-journaling-claude", "sleep-insomnia-tracker-claude", "doctor-visit-prep-claude"]
+featured: false
+---
+
+> ⚠️ Claude 唔取代 doctor. 文中所有 framework 係 self-tracking 工具，目的係 prep 你下次 GP visit 帶有用 data. 任何 medication / dose / treatment 決定 = doctor only.
+
+## 情境
+
+你 GP visit 3 個月 1 次。每次 15 分鐘。
+
+GP: 「過去 3 個月血糖點?」
+你: 「⋯⋯ OK 啦. 上禮拜 fasting 6.2.」
+GP: 「Average 點?」
+你: 「⋯⋯ 唔 record 嘅. Forgot. Lately seems OK.」
+GP: 「Symptoms 點?」
+你: 「⋯⋯ 啱啱 4 月嗰陣 sometimes 累. 5 月 OK.」
+GP nods, 重 prescribe same medication, schedule next 3-month visit.
+
+呢個 chronic condition 管理 嘅 invisible loss:
+- **90 日 你嘅 brain 記住 7 個 data point** (上週 + 重要 spike)
+- **180 日 你 forgot 80% trend**
+- **GP visit base on 你 verbal report = 10% of actual signal**
+- **Medication / dose adjustment less precise than possible**
+
+你 medication 而家 maybe 啱，但 maybe 唔啱。3 個月後你 fasting 突然 7.5 → GP escalate dose 50%。If 你 had data showing actual gradual rise + 2 specific trigger event → GP might tweak 25% instead，or adjust eating schedule.
+
+呢篇用 Claude **monthly chronic condition log**——specifically 設計：
+
+1. 30 分鐘 / month maintenance (sustainable)
+2. GP-readable summary at visit time
+3. Surface trend / trigger / pattern (你 missed)
+4. Empower 你 same as 你 GP empowerment
+
+覆蓋 3 大常見 HK condition：糖尿 (Type 2) / 高血壓 / 哮喘. 框架 universal — adapt for thyroid / IBS / 經痛 / chronic 痛 / autoimmune 都用得.
+
+## 跟住做
+
+### 1. Dump 你 baseline + 整 condition profile
+
+第一次 setup 30 分鐘。一次過 dump 你 medical baseline:
+
+<PromptBlock label="完整 prompt — Chronic condition profile setup">
+我 want set up monthly tracking for chronic condition.
+
+📋 **Condition profile**
+
+🏥 **Diagnosis**
+- Condition: [Type 2 diabetes / 高血壓 / 哮喘 / 其他]
+- Diagnosed when: [date]
+- Currently managed by: [GP / specialist]
+- Last clinical visit: [date]
+
+💊 **Current medication regimen**
+- [Med name 1] [dose] [frequency] [taken since]
+- [Med name 2] [dose] [frequency] [taken since]
+- 副作用 ever?: [list]
+
+📊 **Most recent labs / measurements**
+- HbA1c (糖尿): [value, date]
+- Fasting glucose: [value, date]
+- 血壓 (3 readings if 高血壓): [values, dates]
+- Lung function (哮喘 peak flow): [value, date]
+- 其他: [cholesterol, kidney function, etc.]
+
+🎯 **Treatment goal (per doctor)**
+- HbA1c target: [少於 7? 少於 6.5?]
+- 血壓 target: [少於 130/80? 少於 140/90?]
+- Peak flow target: [>80% personal best]
+
+🚨 **Specific 「red flag」 doctor 提醒**
+- 我 should immediate call doctor if: [list]
+- 我 should immediate ER if: [list]
+
+🍽 **Diet relevant info**
+- Major dietary restriction: [low carb? low sodium? gluten-free?]
+- Trigger food (哮喘 / IBS 等): [list]
+- 我 current pattern: [breakfast / lunch / dinner timing]
+
+🏃 **Exercise current**
+- Type + frequency: [walking 3x / week / 等]
+- 任何 exercise restriction by doctor?: [yes/no]
+
+😴 **Sleep pattern baseline**
+- Average sleep duration: [hr]
+- Sleep quality 1-10: [_]
+
+🧠 **Other relevant context**
+- Other chronic condition: [list]
+- 心理 health (anxiety / depression diagnosis): [yes/no]
+- Workplace stress level baseline: [_]
+
+請 review my profile 之後 設計:
+1. 月度 tracking 變量 (邊樣 metric most important to log for my specific condition?)
+2. 监 frequency for each (daily / weekly / monthly)
+3. Specific time-of-day to measure (e.g., 血糖 fasting 朝早)
+4. Trigger pattern to specifically look for in my condition
+
+語氣：clinical-aware, respect specialist plan.
+</PromptBlock>
+
+Claude 出 personalized monitoring plan。
+
+### 2. Daily quick log (1 minute / day)
+
+Daily log 唔 mental load 重 — quick fill。Form 一致 = 比較 across days:
+
+<PromptBlock label="完整 prompt — Daily chronic condition log template">
+請設計 daily 1-minute log template. 我 condition: [X]
+
+📅 **Daily log (filled before bed or evening)**
+
+```
+DATE: __________
+DAY OF WEEK: __
+
+🩸 **Key metric (specific to condition)**
+
+For 糖尿 (Type 2):
+- Fasting glucose 朝: ___ mmol/L
+- Post-meal (2 hr after lunch): ___ mmol/L
+- 任何 other reading: ___
+
+For 高血壓:
+- Morning reading: ___/___
+- Evening reading: ___/___
+- 任何 anomalous spike: ___
+
+For 哮喘:
+- Peak flow 朝: ___ L/min
+- 任何 rescue inhaler use today: count ___
+- 任何 wheezing / shortness: yes/no, severity 1-5
+
+💊 **Medication compliance**
+- 朝 dose taken on time: Y/N
+- 晚 dose taken on time: Y/N
+- Missed dose: Y/N, which one
+
+🍽 **Diet notable**
+- Major deviation from normal diet: [yes/no, what]
+- Late meal (after 8pm): Y/N
+- Trigger food consumed: [list any]
+- Hydration adequate (8 cups water): Y/N
+
+🏃 **Exercise**
+- 任何 today: [type + duration]
+- Effort 1-10: ___
+
+😴 **Sleep (yesterday)**
+- Hours: ___
+- Quality 1-10: ___
+
+🧠 **Stress / mood**
+- Stress level today 1-10: ___
+- Notable event affecting mood: ___
+
+🤒 **Symptoms / sensation**
+- Any unusual: [list]
+- Energy level 1-10: ___
+
+⚠️ **Red flag check**
+- 任何 reading exceeded threshold today?: Y/N
+- If Y: what + did 你 contact doctor?
+```
+
+⏰ **Filling tips**
+- 1 min max — keep template open in Notes app
+- 朝 fill what you measure 朝 (glucose / BP / peak flow)
+- 晚 fill rest before bed
+- Don't「remember backwards」 — log same day or 唔 log
+- If miss a day: log skip date, don't fabricate
+
+🎯 **Adherence over perfection**
+- 20/30 日 log > 25/30 日 fabricated 5 days
+- Honest blank = useful data signal too
+
+語氣：simple, sustainable.
+</PromptBlock>
+
+⏰ **Setup time:** Day 1: prep log template + first measurement. Daily 1 min thereafter.
+
+### 3. Monthly review + trend identification
+
+每月 1 次 30 分鐘 review:
+
+<PromptBlock label="完整 prompt — Monthly chronic condition review">
+我 completed [N] 月 daily log. 請 monthly review.
+
+📊 **Paste 月度 data summary:**
+[Each day's key metric values, medication compliance Y/N, notable events]
+
+📈 **Analyses needed:**
+
+**1. Metric trend (primary metric)**
+- Monthly average vs target
+- 1st week vs 4th week trend
+- Variance (consistent or spiky?)
+- Highest / lowest reading + what circumstance
+- Comparison to previous month (if available)
+
+**2. Medication adherence**
+- 朝 dose miss rate
+- 晚 dose miss rate
+- Pattern (e.g., always miss when traveling)?
+- Adjustment recommend?
+
+**3. Trigger pattern identification**
+
+For 糖尿:
+- Post-meal spike correlation with: [specific food / timing / exercise]
+- Stress level vs blood sugar correlation
+- Sleep quality vs fasting glucose correlation
+
+For 高血壓:
+- Time of day pattern (朝 high / 晚 high)
+- Day of week pattern (work day vs weekend)
+- Sodium intake vs reading
+- Sleep quality vs reading
+- Caffeine timing
+
+For 哮喘:
+- Symptom trigger common (allergen / cold / exercise)
+- Rescue inhaler use trend
+- Peak flow trend
+- Environmental factor (humidity / 工作環境)
+
+**4. Lifestyle factor correlation**
+- Exercise day vs metric: better / worse / same?
+- Stress 高 day vs metric correlation
+- Sleep quality vs metric correlation
+
+**5. Concerning trend (require GP attention)**
+- 任何 metric persistently breach threshold?
+- 任何 medication side effect emerging?
+- 任何 new symptom?
+
+📋 **Output: Monthly summary for GP visit**
+
+Format my data as 1-page summary I can show GP:
+- Top-line metric trend
+- 主要 trigger pattern identified
+- Specific question for GP (3-5 question, ranked)
+- Medication compliance honest report
+- 任何 concern want explicitly discussed
+
+🚨 **Escalation check**
+基於 month 數據, 我應 schedule unscheduled visit?
+- 任何 reading >threshold 連續 3+ 日: yes
+- New symptom not previously discussed: yes
+- 任何 medication 副作用 concerning: yes
+- Otherwise: scheduled visit OK
+
+語氣：data-driven, actionable, respect clinical autonomy.
+</PromptBlock>
+
+每月 review 嘅 hidden value: **identify trigger 你 daily 太 immersed to see**。第 1 個月可能 noise，第 2-3 個月 pattern emerge.
+
+### 4. Quarterly GP visit prep
+
+3 個月 visit 前 1 個禮拜，integrate 3 個月 monthly review:
+
+<PromptBlock label="完整 prompt — Quarterly GP visit prep">
+我 next GP visit 在 [date]. 過去 3 個月 monthly log. 請整 visit prep.
+
+📋 **Print 1-page handout (give to GP)**
+
+**Top section:**
+- 我嘅 condition + medication regimen
+- Time since diagnosis
+
+**Metric chart (last 90 days):**
+- 主 metric trend (paste data)
+- Average / range / variance
+- Comparison to last quarter
+- vs. clinical target
+
+**Pattern identified:**
+- Top 3 trigger pattern 我哋 noticed
+- Lifestyle factor correlation
+- Concerning trend (if any)
+
+**Specific question for GP (3-5):**
+- 「[Specific symptom] 持續 [Y] 週, related to [pattern]. Adjust treatment?」
+- 「Medication X 副作用 [specific], 揀其他 option?」
+- 「Lab work 應該 frequency?」
+- 「[Lifestyle change A] feasible for [improvement Z]?」
+
+**Update on doctor's previous recommendation:**
+- Recommendation: [X]
+- 我 compliance: [%]
+- Outcome: [results]
+
+⏰ **Visit logistics**
+- 15 分鐘 visit, present 1-page summary first 2 分鐘
+- Save 5 分鐘 for question
+- Don't try to explain everything — let GP review summary
+
+🎯 **What to bring**
+- 1-page summary print
+- Current medication bottles (or list)
+- Insurance card
+- Past lab reports (last 3 visits)
+- Any new symptoms documented
+
+💊 **Medication discussion prep**
+- 任何 side effect to flag
+- 任何 reason want to reduce / stop / switch
+- Refill schedule check
+
+📅 **Schedule next visit before leaving**
+- Don't「I'll call later」 — book before exit
+- 早 booking ensures next 3-month continuity
+
+🚨 **Don't**
+- Hide non-compliance (GP can adjust if knows)
+- Self-stop medication without telling
+- Self-diagnose new condition
+- Compare to friend / family treatment
+
+語氣：prepared partnership, not deference.
+</PromptBlock>
+
+呢個 prep 嘅 critical insight: GP visits 唔係 你 「report 完問題」, 係 collaborative session. 你 prep with data = GP 有 real signal to work with = treatment 更精準.
+
+## 變化
+
+### 變化 1：Multiple condition (共病) management
+
+如 你 同時 manage 2-3 condition:
+
+<PromptBlock label="變化 1 — Multiple condition management">
+我同時 manage [糖尿 + 高血壓 + 高血脂 / 等] [N] condition. 請整 integrated tracking.
+
+🎯 **Multi-condition 挑戰**
+- 互動 effect (e.g., 糖尿 加 高血壓 increase 心血管 risk)
+- Medication interaction
+- Different specialist / different schedule
+- Lifestyle factor overlap (diet affects 多 condition)
+- Cognitive load 高 (track 5+ daily metric)
+
+📊 **Integrated log design**
+
+```
+DAILY (1.5 min):
+- Glucose fasting 朝
+- BP 朝 + 晚
+- Peak flow (if 哮喘 too)
+- Cholesterol diet adherence Y/N
+- Medication 朝 + 晚 Y/N (all medications)
+- Notable symptom from any condition
+```
+
+📅 **Combined visit consideration**
+- 1 GP coordinate 所有 condition (preferred)
+- Or specialist-level coordination
+- Bring全部 data 1 visit
+
+💊 **Medication interaction check**
+- Pharmacist annual review (free service)
+- Bring全部 medication 1 bag
+- Check OTC + supplement interaction
+
+🍽 **Diet integration**
+- 1 diet plan addressing multiple condition
+- Mediterranean / DASH compatible for 糖尿 + 心 health + 高血壓
+- 唔 try 3 different diet 同時
+
+🏃 **Exercise integration**
+- 中度 intensity sustainable for all condition
+- Walking + light resistance 通常 universally safe
+- High-intensity restricted (specific condition)
+
+🧠 **Mental health overlap**
+- 慢性 condition + depression risk elevated
+- Track mental health metric alongside
+- Tap therapist / counselor 1 of network
+
+🚨 **Red flag integration**
+- 1 condition symptom may signal 其他 condition
+- E.g., 糖尿 + sudden BP spike = cardiovascular review
+
+語氣：comprehensive but not overwhelming.
+</PromptBlock>
+
+### 變化 2：女性月經 / hormone-related tracking
+
+女性 hormonal cycle 影響 chronic condition:
+
+<PromptBlock label="變化 2 — 女性 cycle-aware chronic tracking">
+我 female, [疾病 X] + 月經 cycle. 請 cycle-sync tracking.
+
+📐 **Cycle phase impact on common condition**
+
+🩸 **Menstrual phase (Day 1-7)**
+- Pain / cramping disrupting other condition管理
+- Mood fluctuation
+- 血糖 fluctuation (insulin sensitivity changes)
+- 哮喘 worsening (estrogen drop)
+
+🌱 **Follicular phase (Day 7-14)**
+- Energy high
+- 血糖 control easier
+- 哮喘 generally stable
+
+🥚 **Ovulation (Day 14-16)**
+- Slight body temperature rise
+- 血糖 control stable
+- Some 哮喘 mid-cycle worsening
+
+🌖 **Luteal phase (Day 16-28)**
+- Insulin resistance increase
+- 血糖 trend up
+- PMS overlay (mood, energy, appetite)
+- 哮喘 pre-menstrual worsening
+
+📊 **Integrated tracking**
+
+```
+Beyond standard log, add daily:
+- Cycle day
+- Estimated phase
+- Mood / energy
+- Cycle-related symptom
+```
+
+📈 **Monthly + cycle review**
+- Metric vs cycle phase pattern
+- Specific phase 對 condition treatment 唔同?
+- Premenstrual flare-up consistent?
+
+⚕️ **Discussion with GP**
+- If clear cycle correlation: discuss cycle-aware adjustment
+- E.g., 糖尿 luteal phase insulin slight dose change
+- E.g., 哮喘 premenstrual prophylactic inhaler
+
+🚨 **Cycle red flag**
+- 不 regular cycle (3+ 個月 absent): GP visit (PCOS / thyroid possible)
+- 嚴重 dysmenorrhea (period pain disabling): GP
+- Mid-cycle bleeding: GP
+
+語氣：respect cycle as data dimension.
+</PromptBlock>
+
+### 變化 3：Pediatric / 細路 condition (parent-managed)
+
+家長 manage 細路 condition (兒童哮喘 / type 1 糖尿 / 食物 allergy):
+
+<PromptBlock label="變化 3 — Parent-managed pediatric condition">
+我 manage [小朋友] [N 歲]'s [condition]. 我 想 track + GP visit prep.
+
+🧒 **Pediatric tracking specifics**
+
+📋 **Parent log (you fill, not 小朋友)**
+
+```
+DAILY (2-3 min):
+- Symptom: [list]
+- Medication: 朝 + 晚 + as needed Y/N
+- Trigger encountered today: [list]
+- Sleep quality 1-10
+- 食 schedule
+- Exercise / activity level
+- School / day-care report (any incident)
+- 任何 unusual mood / behavior
+```
+
+🏥 **Specific to common pediatric**
+
+**Asthma (兒童 most common chronic)**
+- Trigger track: pet / dust / cold / exercise / cold weather / 病
+- Peak flow if 6+ 歲 + cooperative
+- Rescue inhaler use count
+- ER visit / hospitalization Y/N
+
+**Eczema (atopic dermatitis)**
+- Flare location + severity
+- Trigger food / environment
+- Moisturizer compliance Y/N
+- Itch score 1-10
+
+**Food allergy**
+- Cross-contamination event
+- Hidden ingredient encounter
+- EpiPen check (expired?)
+- School / 親朋 awareness?
+
+👨‍⚕️ **Pediatrician visit prep**
+- 1-page summary
+- Growth tracking (height / weight / vs growth curve)
+- 學校 / 課外 impact
+- 教養 / 家庭 dynamic impact
+- 細路 own report (if old enough)
+
+🎓 **School coordination**
+- 學校 nurse aware
+- Action plan filed
+- Medication left at school?
+- 老師 inform
+
+🧠 **Emotional support 細路**
+- 細路 understand condition (age-appropriate)
+- Manage anxiety / shame around being「different」
+- 同朋輩 disclosure strategy
+
+🚨 **Red flag**
+- Treatment plan not working (>2 月 no improvement) — 2nd opinion
+- 細路 mental health concern: psychologist referral
+- Family burnout from caregiving — respite + support group
+
+語氣：empower parent, child still own agency where possible.
+</PromptBlock>
+
+## 一個 mindset
+
+慢性 condition 管理 嘅 paradox：你係 condition 嘅 daily expert，但 GP 係 medical decision authority。
+
+呢個 paradox 嘅 source: GP visit 15 分鐘 / 3 個月 = 0.0017% of your 「condition lived experience」 time. 你 90 日 × 24 hr = 2160 hr of lived experience，GP gets 15 min。
+
+呢個 mindset 嘅 reframe: 你 monthly log 唔係 「self-treatment」 — 係 **expand the 0.0017% signal availability to GP**. GP 而家 work with 2-page data 而非 30-second verbal report. Treatment precision dramatically increase.
+
+Claude 嘅 role 喺 chronic management: 你 alone tracking sustainable < 6 個月 (cognitive load 太重). Claude container + structured analysis = 6 個月 → 5 年 sustainable. 你 dump data daily, Claude reflect pattern monthly, you brief GP quarterly.
+
+最後 reminder：
+
+- ✅ **Honest non-compliance > fabricated compliance**. GP adjust based on what 你 actually do, 唔係 你 「應該」 do.
+- ⚠️ **Medication side effect > 你 think是 「自然 老 process」**. 任何 new symptom emerging post-medication start = flag GP.
+- 🆘 **Threshold-breaking reading** (例 血糖 >15 mmol/L random, BP >180/110, peak flow 低於 50% personal best): **不 wait next scheduled visit. Call now / urgent care**.
+
+90 日後 你 GP visit 帶住 data ride show up. GP 第 1 次見你 prep 充分嘅 patient — 對 treatment trajectory 改善 long-term significant.
