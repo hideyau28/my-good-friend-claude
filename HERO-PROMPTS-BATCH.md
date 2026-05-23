@@ -389,3 +389,407 @@ Vermillion 朱紅 chop seal bottom-right with「歉」.
 1. PNG → webp 壓縮
 2. 加 frontmatter `heroImage: "/hero/issue-NN-slug.webp"`
 3. Commit「content(hero): add hero illustration for issue NN」
+
+---
+
+# ━━━ APPENDED: SESSION 2 + 3 NEW ARTICLES (24 篇) ━━━
+
+呢 24 個 prompt 對應 issues 54-77，session 2 + 3 新寫嘅 articles。Featured 8 篇排頭，其餘 16 篇排後。
+
+---
+
+## 🌟 FEATURED (8 篇)
+
+### 25. 寵物 #54 — lost-pet-flyer
+**File:** `lost-pet-flyer-claude.mdx`
+**Title:** BB 走咗失？用 Claude 30 分鐘整 lost pet flyer + 香港社區 outreach plan
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK 公屋 corridor at midnight, lost-pet emergency moment.
+Anchors centre-left: an empty pet carrier with door ajar, a printed "LOST CAT" A4 flyer on the wall held by tape (vermillion headline visible), a flashlight on the floor casting a hatched beam, a small cat silhouette barely visible deep in the shadow beneath a stairwell. A vermillion-marked map sheet with circled streets near the carrier.
+Background hint: dim corridor with hatched concrete texture.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「尋」.
+```
+
+---
+
+### 26. 寵物 #55 — pet-end-of-life-grief
+**File:** `pet-end-of-life-grief-claude.mdx`
+**Title:** BB 病重 / 走咗，點 process？用 Claude 整 hospice plan + 揀 cremation + 寫 grief journal
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK home quiet evening, post-loss reflection moment.
+Anchors centre-left: a single lit candle, a folded soft cat blanket beside the candle, a framed photo (no recognizable face — abstract cat silhouette in the frame), a closed journal with a vermillion ribbon bookmark, an empty pet bowl placed neatly nearby, a steaming cup of tea.
+Background hint: HK home window at dusk with city lights as soft hatching dots.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「念」.
+```
+
+---
+
+### 27. 遊戲 #58 — mmo-guild-recruit-post
+**File:** `mmo-guild-recruit-post-claude.mdx`
+**Title:** 公會招人 / event 公告寫到吸引：用 Claude 出 5 個 tone version
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK 公屋 evening, MMO guild leader 寫 recruitment post moment.
+Anchors centre-left: a laptop with abstract dark Discord channel silhouette visible, a notepad with 5 different draft snippets handwritten (vermillion edits between them), a controller resting nearby, a steaming mug with the guild's abstract emblem on the side, a printed raid schedule pinned to the wall.
+Background hint: 公屋 window with city lights as hatching.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「召」.
+```
+
+---
+
+### 28. 遊戲 #59 — game-review-write
+**File:** `game-review-write-claude.mdx`
+**Title:** 通關 70 hr 想 write review？用 Claude 整 structure，唔係 IGN copy-paste
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK desk after marathon gaming session, review-writing mode.
+Anchors centre-left: a controller resting on a closed game case (no recognizable IP), an open notebook with a 4-axis review framework sketched (mechanics / narrative / vibe / value labels visible), a fountain pen with vermillion marks across the page, three crumpled draft papers off to the side, a glass of 港式奶茶 with steam lines (deliberation moment).
+Background hint: dim desk with hatched wood grain.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「評」.
+```
+
+---
+
+### 29. 旅遊 #62 — visa-application
+**File:** `visa-application-claude.mdx`
+**Title:** 第一次申請 Schengen / 美國 ESTA / 日本 eVisa：用 Claude 30 分鐘 prep checklist
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK home desk preparing visa application paperwork.
+Anchors centre-left: an HKSAR passport open to bio page (no recognizable face — silhouette portrait area), a stack of printed forms with vermillion checkbox marks down the side, a calendar showing a circled departure date (vermillion circle), a glass of 港式奶茶 (financial deliberation pattern), a folder labelled "VISA" with documents peeking out.
+Background hint: window with subtle world map outline as hatching.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「簽」.
+```
+
+---
+
+### 30. 旅遊 #63 — family-trip-itinerary
+**File:** `family-trip-itinerary-claude.mdx`
+**Title:** HK 家庭 5 日 4 夜大阪 trip：用 Claude 出大人 vs 細路 balanced itinerary
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK family planning trip together at dining table.
+Anchors centre-left: an open Osaka tourist map with vermillion route marks linking landmarks, a stroller silhouette tucked beside the table, two coffee cups + one juice box arranged together (adults + kid), a bullet train (新幹線) ticket on the map, a small notebook with a 5-day grid schedule sketched with vermillion daily highlights, USJ + Nara + 心齋橋 labels visible.
+Background hint: 屋企 dining area with hatched table grain.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「程」.
+```
+
+---
+
+### 31. 健康 #66 — mental-health-journaling
+**File:** `mental-health-journaling-claude.mdx`
+**Title:** 用 Claude 做 daily mental health journal：HK 打工仔嘅每晚 10 分鐘 routine
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK 公屋 bedroom desk, late-evening journal ritual.
+Anchors centre-left: an open paper journal with handwritten lines and vermillion margin notes (5-bullet brain dump visible), a fountain pen resting diagonally, a soft glowing desk lamp casting a hatched cone of light, a warm mug of tea with steam, a small clock showing 10:45pm. Phone visible upside-down on the desk (intentionally face-down).
+Background hint: 公屋 window with city night silhouette as fine hatching.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「靜」.
+```
+
+---
+
+### 32. 健康 #67 — home-exercise-plan-hk
+**File:** `home-exercise-plan-hk-claude.mdx`
+**Title:** HK 350 sqft 屋企 1 張 yoga mat：用 Claude 整 8 週運動 plan
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK 350 sqft apartment corner, minimal home gym setup.
+Anchors centre-left: a yoga mat unrolled on the floor (vermillion accent stripe along the edge), a single pair of dumbbells (3kg label visible), a pair of clean training sneakers placed beside, a printed 8-week calendar grid pinned to the wall with vermillion checkmarks across Week 1, a water bottle, a sweat towel folded nearby.
+Background hint: 公屋 living room corner with hatched wood floor + radiator silhouette.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「動」.
+```
+
+---
+
+### 33. 親子 #70 — dse-prep-mental
+**File:** `dse-prep-mental-claude.mdx`
+**Title:** DSE 倒數 6 個月，細路 daily breakdown？用 Claude 幫家長 set boundary + 真正支援
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK 公屋 hallway outside teen's bedroom, parent quiet vigil moment.
+Anchors centre-left: a closed bedroom door with light spilling underneath (vermillion warm tone), a wall calendar showing DSE date circled in vermillion 6 months out, a warm tea cup placed gently on a side table outside the door (silent parent gesture), a folded book of supportive notes, a small chair pulled near the door.
+Background hint: 公屋 hallway with hatched concrete texture, dim.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「定」.
+```
+
+---
+
+### 34. 財經 #74 — mpf-review
+**File:** `mpf-review-claude.mdx`
+**Title:** 強積金 fund 揀錯 10 年蝕咗 20 萬？用 Claude 做 MPF review + switch fund decision
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK home desk during MPF year-end review.
+Anchors centre-left: a stack of MPF statements with vermillion underlines on key numbers, a small pocket calculator with a number on screen, a printed 10-year growth chart sketched in ink with one rising curve vs one flat curve (showing fund comparison), a glass of 港式奶茶 (financial deliberation pattern), a fountain pen marking notes.
+Background hint: HK office window with IFC silhouette in background as hatching.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「儲」.
+```
+
+---
+
+### 35. 財經 #75 — emergency-fund
+**File:** `emergency-fund-claude.mdx`
+**Title:** HK 應急錢點計：6 個月開支定 12 個月？用 Claude 計埋 family-specific amount
+
+```
+16:9 editorial illustration on cream paper (#FBF7EA grain).
+Strict 4 colors only: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05.
+Ink hatching + cross-hatch shadows. NO photorealism, NO 3D, NO gradients, NO named artists, NO faces.
+
+Scene: HK home dining table, family financial review.
+Anchors centre-left: a ledger book open with vermillion-circled monthly expense rows, three small jars labelled "Tier 1" / "Tier 2" / "Tier 3" with stacking coins (vermillion lid accents), a calculator, a glass of 港式奶茶 (deliberation), a calendar in background with 9-month grid sketched.
+Background hint: dining area with hatched table wood grain.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 square chop seal bottom-right with「備」.
+```
+
+---
+
+## 📦 NON-FEATURED (16 篇)
+
+### 36. 寵物 #56 — pet-grooming-routine
+**File:** `pet-grooming-routine-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK home grooming corner, gentle pet-care moment.
+Anchors centre-left: a slicker brush + wide-tooth comb + nail clipper arranged on a folded towel, a cat silhouette curled patiently nearby (no face detail, abstract), a treat pouch open, a small spray bottle (detangling spray), a printed weekly routine schedule with vermillion checkmarks.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「整」.
+```
+
+---
+
+### 37. 寵物 #57 — pet-puppy-kitten-first-month
+**File:** `pet-puppy-kitten-first-month-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK 350 sqft 1-bedroom first day with new pet.
+Anchors centre-left: a small open pet carrier with a tiny silhouette peeking out cautiously, two ceramic bowls (food + water) placed on the floor with a small mat, a soft blanket folded nearby, a fluffy toy mouse, a 30-day calendar grid pinned to the wall with vermillion checkmarks on first 3 days.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「迎」.
+```
+
+---
+
+### 38. 遊戲 #60 — new-game-prep
+**File:** `new-game-prep-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK 公屋 evening, fresh game opened for first session.
+Anchors centre-left: an unboxed game case (no recognizable IP — abstract cover with vermillion title bar), a controller resting on top, a notepad with first-10-hour roadmap sketched (1-2-3-4-5 milestone labels visible), a glass of 凍檸茶 with lemon slice, a phone face-down beside (no alt-tab distraction).
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「啟」.
+```
+
+---
+
+### 39. 遊戲 #61 — trpg-world-building
+**File:** `trpg-world-building-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK home TRPG GM prep desk, deep world-building mode.
+Anchors centre-left: an open hand-drawn world map with city names labelled (vermillion regional borders), a stack of NPC index cards bound with a vermillion thread, a single d20 die resting on the map, a notebook labelled "WORLD BIBLE" with table of contents visible, a DM screen standing upright in the background.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「卷」.
+```
+
+---
+
+### 40. 旅遊 #64 — packing-list
+**File:** `packing-list-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK 屋企 bedroom floor, pre-trip packing inventory.
+Anchors centre-left: an open carry-on suitcase (8kg-limit label visible as vermillion tag), neatly rolled clothes in 3 compression cubes, a folded winter jacket draped over a chair, a pair of waterproof boots, a small luggage scale, a printed weather forecast with -10°C circled in vermillion, a passport on top.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「裝」.
+```
+
+---
+
+### 41. 旅遊 #65 — tax-refund
+**File:** `tax-refund-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK / Japan context.
+
+Scene: HK home desk reviewing trip receipts post-Japan.
+Anchors centre-left: a fanned stack of Japan retail receipts (some with vermillion stamps visible — Type A / Type B tax-free labels), an HKSAR passport on top of the stack, a small pocket calculator showing a refund amount, a glass of 港式奶茶 (deliberation), a small notebook with daily-log template visible.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「退」.
+```
+
+---
+
+### 42. 健康 #68 — sleep-insomnia-tracker
+**File:** `sleep-insomnia-tracker-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK 公屋 night context.
+
+Scene: HK 公屋 bedroom at 1:14am, insomnia tracking moment.
+Anchors centre-left: a bedside table with an analog clock showing 1:14, a paper sleep log with handwritten entries (vermillion column for "trigger"), a small lamp casting hatched light, a half-drunk cup of chamomile tea, a phone facing down on the table (intentionally not on bedside). A bed silhouette in background partially visible.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「眠」.
+```
+
+---
+
+### 43. 健康 #69 — chronic-condition-management
+**File:** `chronic-condition-management-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK home morning, chronic-condition self-tracking ritual.
+Anchors centre-left: a weekly pill organizer (Mon-Sun compartments visible with pills inside), a blood pressure monitor or glucose meter on the table, an open log book with vermillion-circled daily readings, a glass of warm water, a small notepad with this-month GP visit date circled. A folded medical bracelet visible.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「衡」.
+```
+
+---
+
+### 44. 親子 #71 — summer-camp-application-letter
+**File:** `summer-camp-application-letter-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK home dining table, parent writing letter to camp organizer.
+Anchors centre-left: a half-written letter on letterhead with vermillion edits, a printed medical form beside, a fountain pen, a steaming mug of 熱朱古力 with marshmallow (parent comfort pattern), a child's small backpack visible in the background corner ready-packed, a school crest envelope.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「託」.
+```
+
+---
+
+### 45. 親子 #72 — primary-school-makeup-request
+**File:** `primary-school-makeup-request-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK home dining table, parent + 細路 collaborative letter-writing.
+Anchors centre-left: a parent's typed letter draft + a child's handwritten reflection note placed side by side, a school-test paper visible with red 13/100 grade circled in vermillion at the corner, a fountain pen + a child's pencil resting together, a steaming mug of 熱朱古力 with marshmallow (parent comfort pattern), a school envelope addressed to the teacher.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「請」.
+```
+
+---
+
+### 46. 親子 #73 — sibling-conflict-mediation
+**File:** `sibling-conflict-mediation-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK home living room, parent observing sibling dynamics quietly.
+Anchors centre-left: two cereal bowls of different sizes side by side (one bigger one smaller — sibling metaphor), two cups same heights placed neatly between them, a parent's chair tucked into the corner of the frame with a mug of coffee placed on the armrest, a Level 1/2/3 framework note pinned to the fridge with vermillion intervention markers.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「和」.
+```
+
+---
+
+### 47. 財經 #76 — monthly-budget-hk
+**File:** `monthly-budget-hk-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK home desk, 3-month transaction review session.
+Anchors centre-left: a fanned spread of bank + credit-card statements (vermillion circles on suspicious recurring charges), a smartphone showing an abstract spreadsheet silhouette, a fanned stack of small receipts on the side, a glass of 港式奶茶 (deliberation), a notebook with 6 "silent leak" categories listed and 1 already crossed out in vermillion.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「省」.
+```
+
+---
+
+### 48. 財經 #77 — investment-portfolio-review
+**File:** `investment-portfolio-review-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home context.
+
+Scene: HK home desk, year-end portfolio rebalance review.
+Anchors centre-left: a hand-drawn pie chart on paper showing 4 portfolio slices (one significantly larger than originally planned — vermillion arrow pointing to the "drift" slice), a broker statement printed alongside, a small calculator, a glass of 港式奶茶 (deliberation), a notebook listing 3 rebalance options (A/B/C) with Option B circled in vermillion.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「均」.
+```
+
+---
+
+# 📌 Updated import workflow
+
+出完任何一張圖之後扔入 `/Volumes/PSSD/Downloads/`，然後話：
+> 「import issue NN」 或 「import issue 54, 55, 56, ...」
+
+我會跑 `scripts/batch-import-heroes.mjs`（fuzzy slug matcher）自動：
+1. PNG → webp 壓縮
+2. 加 frontmatter `heroImage: "/hero/issue-NN-slug.webp"`
+3. Commit 「content(hero): add hero illustrations for issues NN...」
+
+**Filename suggestion**：用 `N. {section} #{issue} — {slug-stem}.png` 格式（同 batch 1 一樣），batch import script 識自動 match slug。
