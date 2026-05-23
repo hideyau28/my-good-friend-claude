@@ -1,0 +1,598 @@
+---
+title: "HK 應急錢點計：6 個月開支定 12 個月？用 Claude 計埋你 family-specific 嘅 amount + 邊度放"
+slug: "emergency-fund-claude"
+issue: 75
+publishedAt: 2026-05-24
+audience: ["打工仔", "消費者"]
+category: "chat"
+section: "財經"
+subcategory: "緊急 / 儲蓄"
+difficulty: 1
+timeMinutes: 20
+toolsNeeded: ["Claude Chat", "近 3 個月 銀行 statement", "monthly expense estimate"]
+description: "你儲咗 HK$50k 覺得「應該夠 emergency」。Partner 失業 1 個月後你 realize 只 cover 月半。用 Claude dump fixed cost + risk profile + 家庭結構，計返真實 emergency fund amount + 邊度放 + 3 個月 build plan。"
+keywords: ["應急錢", "emergency fund HK", "急救金", "rainy day fund", "高息存款 HK", "緊急 儲蓄"]
+related: ["mpf-review-claude", "monthly-budget-hk-claude", "hong-kong-mortgage-comparison"]
+featured: true
+---
+
+## 情境
+
+5 月 13 日 sunday brunch, 你同 partner cafe 計 financial situation.
+
+Last month partner Jenny 嘅 contract job (旅遊 industry) suddenly terminated. 4 weeks notice. End date: April 30.
+
+Today: 13 May. Jenny job search 13 日, no offer yet.
+
+你哋 financial:
+- Combined monthly take-home: was HK$95k, now HK$60k (你 only)
+- Monthly fixed expense: HK$55k (mortgage HK$22k + 細路學費 HK$8k + insurance HK$4k + 家庭基本 HK$15k + utilities HK$6k)
+- Savings: 你 saving account HK$50k + 你哋 共同 saving HK$38k = HK$88k
+- Investment: HK$320k diversified (但 不 想 liquidate 短期)
+- Credit card: HK$15k balance (typical monthly cycle)
+
+你 brain mental calc:
+- HK$60k income - HK$55k expense = HK$5k surplus only
+- 不 acceptable cushion + 細路 emergency = thin
+
+Partner: 「If 我 唔 揾 job 3 個月內, 我哋 dip 到 saving big.」
+
+你: 「咁 our 「emergency fund」 actually OK 嗎?」
+
+Partner: 「我 哋 從 未 計過. 你?」
+
+你: 「冇. 」
+
+呢個 emergency fund 嘅 paradox:
+
+- **「儲 HK$50k 「覺」 OK」** — but never 真 calc 真正 expense base
+- **「3-6 個月 expense」 conventional wisdom** — but 邊個 expense base?
+- **「Saving account 隨 取」** — but 1% interest = inflation lose
+- **「Investment 流動」** — but 30% drop 不 ideal sell timing
+- **「Family income duplicate」** — but 突發 collective layoff 不 hypothetical
+
+What 你 actually need: **specific calc for 你 family + 邊度 stash decision + 3 個月 build plan**.
+
+呢篇用 Claude 20 分鐘 **systematic emergency fund calc + 邊度 stash + execution plan**.
+
+## 跟住做
+
+### 1. Dump 你 monthly cash flow + risk profile 入 Claude
+
+> **Monthly cash flow detail**
+> 
+> **Income (combined 之前)**:
+> - 我 take-home: HK$60k stable employment
+> - Partner take-home: HK$35k (contract, just ended)
+> 
+> **Monthly fixed expense (cannot easily reduce)**:
+> - Mortgage payment: HK$22k (15 年 余)
+> - 細路 學費 (2 細路): HK$8k
+> - Insurance (life + medical + critical illness, family): HK$4k
+> - 家庭基本 (food + household + transport): HK$15k
+> - Utilities (electric + water + internet + phone): HK$3k
+> - 物業 management + rates: HK$3k
+> - Total fixed essential: HK$55k
+> 
+> **Monthly discretionary (can reduce)**:
+> - 細路 課外 (piano + 補習): HK$3k
+> - Dining out + entertainment: HK$4k
+> - Subscription (Netflix, Spotify, gym): HK$1k
+> - 旅遊 saving fund: HK$3k
+> - Total discretionary: HK$11k
+> 
+> **Monthly savings target**: HK$10k (when both employed)
+> 
+> **Annual / sporadic expense**:
+> - 過 新年 / 大 holiday: HK$15k (avg HK$1.25k / mo)
+> - Vacation: HK$25k / yr (HK$2k / mo)
+> - 細路 medical / dental: HK$10k / yr (HK$0.8k / mo)
+> - Car / 大 appliance replacement: HK$30k / 5 yr (HK$0.5k / mo)
+> 
+> **Cash position (current)**:
+> - 我 saving account: HK$50k
+> - 共同 saving: HK$38k
+> - Total cash: HK$88k
+> - Investment (diversified, 不 想 short-term liquid): HK$320k
+> 
+> **Risk profile factor**
+> - Family: 2 細路 (8 + 5 歲) — 不能 missed monthly expense
+> - Mortgage: large monthly commitment — late payment serious
+> - Insurance: 全家 covered
+> - Job security: 我 stable industry, partner just lost job, 旅遊 sector recovering
+> - Health: 全家 healthy (no specific cost)
+> - 公婆 / 親朋: 不 dependent
+> 
+> **What 我 不 know**
+> - 真正 應急 amount specific to my family?
+> - 邊度 stash (HKD saving / FD / USD / 股票 / cash)?
+> - 「Emergency definition」 — what counts?
+> - 點 build target 系統 over 3 個月?
+
+呢類 dump 入 Claude — base for personalized calc.
+
+### 2. 用呢個 prompt 計算 你 family-specific emergency fund
+
+<PromptBlock label="完整 prompt — Family-specific emergency fund calc">
+[paste 你 cash flow dump]
+
+請 calculate emergency fund:
+
+📐 **Section 1: True monthly fixed cost calc**
+
+Fixed essential (1st-tier emergency cost): HK$55k
+- 不 negotiate (mortgage, school, insurance, basic family)
+- 1 個月 emergency = HK$55k
+
+What can reduce 短期:
+- 旅遊 fund: -HK$3k
+- 細路 課外: -HK$3k (kids attend public school free)
+- Dining out: -HK$4k
+- Subscription: -HK$1k
+- Total reducible: HK$11k
+
+**True monthly emergency budget = HK$55k + selective HK$3-5k buffer = HK$58-60k / month**
+
+📊 **Section 2: 應急 months recommended**
+
+Conventional: 3-6 月 expense
+你 specific situation considerations:
+- 2 細路 (dependent) → upper bound
+- Mortgage payment large + late penalty severe → upper bound
+- Both income recently lost (partner) → upper bound
+- HK 旅遊 industry partner: recovery timeline 6-12 月 typical → upper bound
+- Industry 我 stable: stay employed risk lower → lower bound somewhat
+- Insurance / medical covered → lower bound contribution
+
+**Recommend 9 個月 emergency fund**
+- 9 × HK$60k = HK$540k target
+
+Why 9 vs 6?
+- 2 細路 dependency
+- Mortgage 大 fixed payment
+- Recent partner job loss shows tail risk
+- 旅遊 industry slow recovery
+
+📍 **Section 3: Your current position vs target**
+
+Current cash: HK$88k
+Target emergency fund: HK$540k
+Gap: HK$452k
+
+📊 **Section 4: 邊度 stash emergency fund**
+
+考慮 liquidity, safety, return:
+
+**🏦 Tier 1: 即取 (HK$120-180k)**
+- HK$ saving account (immediate access)
+- High-yield online saving (1.5-3% currently)
+- 1 個月 expense kept here
+
+**🏦 Tier 2: 短期 FD ladder (HK$200-250k)**
+- 1-month, 3-month, 6-month, 12-month FD stagger
+- Higher rate than saving (3-5% currently)
+- Some early redemption penalty but accessible 1 个月
+
+**🏦 Tier 3: 中 risk (HK$80-120k)**
+- USD HKD stable cross
+- Short-term bond fund
+- 不 stock (too volatile for emergency)
+
+**🛑 不 emergency fund**:
+- Stock portfolio (sell during downturn = catastrophic)
+- MPF (locked 65)
+- Insurance cash value (slow access)
+- Property (illiquid)
+
+💰 **Section 5: Build plan (3 個月)**
+
+Current cash: HK$88k → 540k target
+Gap: HK$452k over 3 個月 = HK$150k / month build
+
+對 你 reality:
+- Partner unemployed 短期 (cannot build)
+- Your monthly surplus (post-job-loss): HK$5k / month only
+- 3-month build unrealistic without source
+
+**Realistic build plan**:
+
+**Month 1 (current)**:
+- Income: HK$60k (你 only)
+- Reduce discretionary: -HK$11k expense
+- Effective monthly surplus: HK$16k
+- Add to emergency: HK$16k
+
+**Month 2-3**:
+- Same approach
+- 月 add: HK$16k
+- 3 個月 build: HK$48k
+- New emergency total: HK$88k + HK$48k = HK$136k
+
+⚠️ **Reality check**: 不 6-9 個月 cover even after 3 個月 build.
+- 但: minimum 2.5 個月 expense covered (HK$58k × 2.5)
+- 持續 build over 12+ 個月: tax bonus, partner re-employ, income improve
+- 短期 (3-6 個月) discomfort, 不 catastrophe
+
+🎯 **Alternative: tap investment**
+
+Consider partially liquidate investment to bolster emergency:
+- HK$320k investment
+- Pull HK$100k → emergency fund
+- Total emergency: HK$188k = 3.1 個月 cushion
+- Trade-off: 不 ideal timing (market lower currently)
+- Long-term cost: missed growth
+
+If choose partial liquidate:
+- Sell tax-efficient (tax loss harvest)
+- Spread sell over 4-6 weeks
+- 不 panic sell all at once
+
+🔄 **Long-term rebuild (post-partner re-employ)**:
+- Once partner back: combined income return
+- Aggressive build: HK$15-20k / month → target
+- 6-9 個月 target hit: 1 year typical
+
+**Final recommendation**:
+1. Immediate: reduce discretionary by HK$11k / month
+2. Partial investment liquidate HK$100k (one-time boost)
+3. Total emergency: HK$188k (3 個月 cover) — start
+4. 12-month rebuild plan to HK$540k (9 個月 cover) target
+
+語氣：specific, realistic, both reassuring + honest about gap.
+</PromptBlock>
+
+Claude 出 calc. **Number specific**. 你 may push back: 「9 個月 太多 conservative」 — Claude 回 to revise based on adjusted risk view.
+
+### 3. 用呢個 prompt 揀 邊度 stash + product recommendation
+
+具體 product 揀:
+
+<PromptBlock label="完整 prompt — Emergency fund stash + product recommendation">
+我 want stash emergency fund HK$540k target (3 tier structure):
+- Tier 1 (HK$120k): immediate access
+- Tier 2 (HK$250k): 1-month access
+- Tier 3 (HK$170k): 3-month access
+
+請 recommend HK products:
+
+🏦 **Tier 1: 即取 (HK$120k)**
+
+✅ **Options**
+
+**High-yield HKD saving account**
+- 凱基 Saver: 4-5% short-term promo
+- ZA Bank Saver: 3-4%
+- Mox: 3-3.5%
+- WeLab: 3-4%
+- Note: most have「first HK$200k」 high-rate, then drop
+- Tactic: split 2 banks to maximize tier
+
+**Money market fund**
+- 雪佛 Liquid USD fund: 4-5%
+- 不 HK money market generally lower
+- Liquidity good but processing 1-2 working days
+
+**Avoid for Tier 1**
+- 公 saving rate (低)
+- Long-term FD (locked)
+- 股票 (volatility)
+
+🏦 **Tier 2: 1 個月 access (HK$250k)**
+
+✅ **HKD FD ladder**
+- Build 4 ranges (1-month, 3-month, 6-month, 12-month)
+- HK$62.5k each
+- Rates: 4-5.5% currently
+- Roll-over option
+
+✅ **USD FD ladder**
+- Higher USD rates 5-5.5%
+- Currency risk minimal HKD-USD peg (small fluctuation 7.75-7.85 range)
+- 比 advantageous yield-wise
+- 同 ladder structure
+
+**邊間 bank?**
+- HSBC: lower rate, established
+- Citi: competitive
+- 公 (大新 / 渣打 / 中銀): competitive promotional
+- Online bank (Mox / ZA / WeLab): often best promo
+
+🏦 **Tier 3: 3 個月 access (HK$170k)**
+
+✅ **Short-term bond fund (low duration)**
+- iShares HKD Short Maturity (HK$): 4-5%
+- Vanguard short-term US Treasury (USD): 4-5%
+- 1-month liquidity, low NAV volatility
+
+✅ **Premium bond**
+- 香港政府 iBond / 「銀色 Bond」 (50+): inflation-linked
+- HK$ corporate AA-rated bond: higher yield
+- 預 1 個月 sale liquidity
+
+**🛑 唔 emergency fund**
+- 股票 (S&P 500 / HSI etc.) — 太 volatile
+- 房地產 — 完全 illiquid
+- 加密貨幣 — 不 stable
+- Long-duration bond (10-yr+) — interest rate sensitive
+- Insurance saving plan — slow access + surrender penalty
+
+📋 **Diversification rule of thumb**
+
+- Spread across 2-3 banks (HK govt deposit insurance HK$800k per bank, security)
+- Mix HKD + USD (peg risk minimal but light hedge)
+- Mix instrument (cash + FD + short-term bond)
+- 不 concentrate single product
+- 1 backup credit card with 大 limit (last-resort emergency lifeline)
+
+📊 **Currency hedge**
+- HK$ saving sufficient for HK expense
+- 部分 USD: optional, 不 mandatory
+- 加幣 / 日 圓: 純 personal preference, 不 hedge necessity
+
+🚨 **Bank stability**
+- HK govt deposit insurance: HK$800k per bank per depositor
+- 4 banks holding emergency = HK$3.2m insured (more than your fund)
+- 不 worry single bank failure for diversified
+
+🎯 **Setup workflow**
+
+✅ **Week 1**
+- Open 1-2 high-yield online bank account (ZA, Mox, WeLab)
+- Transfer Tier 1 amount
+
+✅ **Week 2**
+- Open FD at 2 traditional banks for Tier 2
+- Stagger 4 ranges
+
+✅ **Week 3**
+- Buy short-term bond fund for Tier 3
+- Or government iBond if eligible
+
+✅ **Week 4**
+- Verify all accounts active
+- Set 1 spreadsheet tracking
+- Calendar reminder monthly check
+
+📅 **Maintenance**
+
+✅ **Monthly (15 分鐘)**
+- Confirm all positions current
+- 任何 maturing FD: re-deploy
+- Rate change: switch if 0.5%+ better
+
+✅ **Quarterly**
+- Rebalance if drift
+- Target percentage maintain
+- 任何 life change trigger re-evaluation
+
+語氣：specific HK products, realistic execution.
+</PromptBlock>
+
+### 4. Build target + ongoing maintain
+
+長期 build + maintain plan:
+
+<PromptBlock label="完整 prompt — Emergency fund long-term build + maintenance">
+我 target HK$540k emergency fund. Current HK$88k. Build to target over 1-2 years.
+
+📐 **Long-term build (after partner re-employed)**
+
+✅ **Phase 1 (Month 1-3 lean): emergency only mode**
+- Discretionary cut to bone
+- Build HK$48k buffer
+- Total: HK$136k
+- 2.5 個月 cushion
+
+✅ **Phase 2 (Month 4-6 partner re-employed)**
+- 雙 income return
+- Aggressive build: HK$25k / month
+- Build HK$75k over 3 個月
+- Total: HK$211k
+- 3.5 個月 cushion
+
+✅ **Phase 3 (Month 7-12)**
+- Maintain build pace HK$20-25k / month
+- Build HK$150k over 6 個月
+- Total: HK$361k
+- 6 個月 cushion ✅
+
+✅ **Phase 4 (Month 13-18)**
+- Reach target HK$540k
+- 9 個月 cushion fully built
+
+📋 **Ongoing maintenance**
+
+✅ **Annual check (Year-end)**
+- Recompute monthly expense (inflation adjust)
+- 每 year typically need 5% more HK$
+- E.g. HK$540k year 1 → HK$565k year 2 → HK$595k year 3
+- Add monthly contribution accordingly
+
+✅ **Quarterly tactical**
+- FD maturity roll
+- Bank rate shop (high-yield)
+- Tier-1 vs Tier-2 balance maintain
+
+🚨 **When to use emergency fund**
+
+✅ **Legitimate**
+- Job loss (involuntary)
+- Major medical (above insurance)
+- Major home repair (leak / roof / boiler)
+- 家庭 emergency 需要 travel
+- 公婆 / 親朋 sudden need
+
+🛑 **Not emergency**
+- 婚禮 (planned)
+- 旅遊 (planned)
+- 大 purchase (TV / car / phone)
+- 朋友推薦 「investment opportunity」
+- 「Buying the dip」 stock
+
+📝 **Process when use**
+- Discuss with partner (joint decision)
+- Use lowest-tier first (saving before FD)
+- 不 deplete all 1 emergency (consider partial)
+- Replenish ASAP (priority above other saving)
+- 不 view as 「success」 — emergencies real
+
+📅 **Re-evaluate trigger**
+- Career change
+- 細路 milestone (college, etc.)
+- Property purchase
+- Marriage / divorce
+- 大 health change
+- Retirement approach
+
+🎯 **Long-term**
+- Emergency fund 不 income generator
+- 真 「permission to weather storm」
+- Not glamorous, fundamental
+- 每 successful career compass 5-10 emergency moments
+
+語氣：boring 系列 sustainable, not exciting investment talk.
+</PromptBlock>
+
+## 變化
+
+### 變化 1：單身 / single income family
+
+唔同 dual income 嘅 dynamics:
+
+<PromptBlock label="變化 1 — Single income emergency fund">
+我 single income family, 我 only earner.
+
+📐 **Single income increased risk**
+
+- 1 paycheck failure = full income loss (vs dual half loss)
+- Insurance critical
+- Emergency fund target ↑ vs dual income
+
+🎯 **Adjustment**
+- 9-12 個月 target (vs 6-9 dual)
+- 細路 dependency: 上限
+- 大 mortgage: 上限
+- 公務員 / stable: 下限 contribution
+- Insurance 重點: critical illness + life
+
+📋 **Build strategy**
+- Higher saving rate priority
+- Career insurance / income protection 考慮 if 1 sole earner
+- 家庭 support backup (公婆 willing 出)
+- 「我 lose job」 specifically scenario plan
+
+🛑 **Don't**
+- Confidence in 1 income only (rare to be 100% stable)
+- Ignore disability insurance
+- Loan-leveraged investment (no margin for error)
+
+語氣：respect higher risk, more aggressive savings.
+</PromptBlock>
+
+### 變化 2：細路 大 / 養 老 considerations
+
+複雜 family structure:
+
+<PromptBlock label="變化 2 — Sandwich generation emergency fund">
+我 sandwich generation: 細路 + 公婆 elderly. 雙重 dependency.
+
+📐 **Sandwich generation considerations**
+
+⚖️ **Dual dependency**
+- 細路 daily expense (school, food, activity)
+- 公婆 occasional but unpredictable (medical, accident)
+- 突發 公婆 hospital admission = HK$30k-100k 短期 cost
+
+🎯 **Emergency fund target ↑**
+- 12 個月 expense
+- 多 buffer for 公婆 emergency
+- Combine emergency fund + 公婆 emergency fund? OR separate
+- 部分 「我們」 + 部分 「公婆 specific」 typically
+
+📋 **Communication with 公婆**
+- 透明 about your support capacity
+- 公婆 insurance ensure adequate
+- Sibling cost-sharing if applicable
+
+⏰ **Reactive vs proactive**
+- 公婆 plant insurance early
+- 細路 disability / illness 保 prep
+- 不 「emergency」 if predicted
+
+🆘 **公婆 sudden hospital**
+- Cash flow flexibility
+- Cross-family loan tolerance
+- Insurance claim process pre-known
+
+💰 **Inheritance / 公婆 own funds**
+- 公婆 willing 用 own funds?
+- 通常 yes initially, but pride / culture trigger 你 cover anyway
+- Communicate explicit「公婆 own funds for own emergency, 不 reserve for 我哋」
+
+語氣：respect 公婆 + plan complexity.
+</PromptBlock>
+
+### 變化 3：Job security 低 / freelance / startup
+
+不 stable income 嘅 emergency:
+
+<PromptBlock label="變化 3 — Variable income / freelance / startup emergency">
+我 freelance / variable income / startup founder. Income unstable.
+
+📐 **Variable income considerations**
+
+🎯 **Emergency fund larger**
+- 12-18 個月 expense recommend
+- 「3-6 個月 employed」 norm doesn't apply
+- Income drought 6-12 個月 not rare
+
+📊 **Income smoothing**
+- 「平均」 monthly income calc
+- 不 「Best month」 — set high expectation
+- 真 lowest 3-month average
+
+💰 **Tax + IRD prep**
+- Provisional tax estimate
+- 不 spend 「all income」 thinking is salary
+- Reserve 30% for tax 大 income year
+
+📋 **Practice cash flow discipline**
+- 1 「buffer account」 between income + spend
+- 月 income → buffer → 月 budget allocate
+- Skip months mental adjust
+
+🆘 **Specific scenario plan**
+- Client lost 突 (50% income gone): cushion test
+- 病 不能 work 1 個月: full income gone
+- Industry recession: 6-12 個月 income reduction
+
+🎯 **Stretch fund target**
+- 18 個月 target if heavy variability
+- 12 個月 acceptable steady-trend variability
+- Less than 6 個月 dangerous regardless
+
+📋 **Set-aside per project**
+- 30% income → tax / pension / emergency
+- 不 spend until set-aside done
+- Discipline 對 long-term feasibility critical
+
+語氣：variable income demands aggressive cushion.
+</PromptBlock>
+
+## 一個 mindset
+
+Emergency fund 嘅 paradox: **你 hope 你 唔 use it. 但越 hope 不 use, 越 critical to have it ready.**
+
+呢個 paradox 嘅 reason: 「Used emergency fund」 = adverse event 已 happen = catastrophic outcome avoided. 「Unused emergency fund」 = quiet confidence + sleep well.
+
+呢個 mindset 嘅 reframe: Emergency fund 唔係 「sitting idle waste」. Emergency fund 係 **「peace of mind paid in cash」**. The opportunity cost (lower return vs equity) **是 「permission slip for life crisis」**.
+
+Claude 嘅 role: 你 alone do 「emergency fund 我應該幾多」 reads generic blog 信 「6 個月」. Specific 你 family situation 不同。Claude 容你 dump complete picture, output specific number + tier structure + product. Decision-implementation gap 縮短.
+
+最後 reminder：
+
+- ✅ **「Some emergency fund」 > 「Perfect amount eventually」**. Start small (1 個月 expense), scale up over 12 個月.
+- ⚠️ **不 confuse 「emergency fund」 同 「saving for goal」**. Travel fund / car fund / 細路 college fund are separate.
+- 🆘 **使用 emergency 不 failure**. 使 it for real emergency, replenish, life continues.
+
+下個禮拜 open 1 高息 saving account, transfer HK$50k. 1 個月 cushion built. Year 1 end: 6 個月 cushion. Sleep better.
