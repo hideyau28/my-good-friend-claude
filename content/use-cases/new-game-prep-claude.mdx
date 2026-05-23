@@ -1,0 +1,509 @@
+---
+title: "買咗 BG3 / Cyberpunk 玩 4 hr 仲 confused？用 Claude 整 10 hr onboarding plan"
+slug: "new-game-prep-claude"
+issue: 60
+publishedAt: 2026-05-23
+audience: ["消費者"]
+category: "chat"
+section: "遊戲"
+subcategory: "新 game prep"
+difficulty: 2
+timeMinutes: 15
+toolsNeeded: ["Claude Chat", "新買 嘅 game 名 + 你嘅 playstyle preference"]
+description: "你買咗 BG3 / Cyberpunk 2077 / Disco Elysium，4 hr 仲 stuck 喺 character creation。用 Claude dump 你 playstyle，出 first 10 hr roadmap — 揀 class、dialog approach、build order，minimize regret rerolls。"
+keywords: ["BG3 入門", "Cyberpunk 2077 build", "Disco Elysium 攻略", "新 game 點 start", "RPG character creation", "遊戲 onboarding"]
+related: ["youtube-game-guide-extract-claude", "steam-game-similar-recommendation-claude", "trpg-gm-prep-claude"]
+featured: false
+---
+
+## 情境
+
+你 Steam summer sale HK$199 買咗 Baldur's Gate 3。
+
+朋友 hype 兩年。Reddit 講有人玩 400 hr 仲冇玩晒 content。你 finally 揾到一個 week 嘅長假，準備 dive in。
+
+Saturday 10am 開 game。
+
+10am-11am：cutscene + opening sequence，OK，你 attention engaged。
+
+11am：character creation 開。
+
+你睇住個 race selection 畫面：
+
+- Human, Elf, Half-Elf, Dwarf, Halfling, Gnome, Half-Orc, Tiefling, Dragonborn, Githyanki, Half-Drow⋯⋯ 
+
+11 個 race × 各自 sub-race × 7 個 sub-stat × Background 多選 = 你 stuck 喺度 30 分鐘 alt-tab Reddit。
+
+11:30am：揀完 race。Class selection。
+
+- Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladin, Ranger, Rogue, Sorcerer, Warlock, Wizard——12 個 class，每個 3-4 個 sub-class。
+
+你 alt-tab YouTube：「BG3 best class for beginners」。10 個 video tutorial 12-25 分鐘 each。你 揀第一個 10 分鐘 video。
+
+12pm：揀 class。Sub-class. Background. Ability score allocation. Skill proficiency.
+
+12:30pm：finally 入 game proper。
+
+12:30pm-2:30pm：你 explore Druid Grove，識 Astarion + Shadowheart + Gale。Dialogue option 通常 6-8 個 — 你 alt-tab 揾「BG3 dialog right answer」。
+
+2:30pm：你 realize 你 first dialog 揀錯，Astarion 對你 -5 approval。Reload save。
+
+4pm 收手：你 played 6 hr，actually combat encounter 完成 3 個，但**心情 exhausted**。
+
+你個感覺：**「我 enjoying this 但每個 decision 都驚 wrong，反而 burn out」**。
+
+呢個係**大型 RPG onboarding paralysis**：
+
+- 太多 choice，每個 choice feels permanent
+- Reddit / YouTube tutorial 都 hide 一句「play how you want」但 implicitly 你 know 部分 choice 係 trap
+- 你 want enjoy 個 story 但 mechanic anxiety 卡住
+
+呢篇用 Claude **dump 你 playstyle preference**，出 **first 10 hr roadmap** — 揀啱 class、揀啱 dialog approach、揀啱 build order，等你 minimize regret rerolls + maximize enjoyment。
+
+## 跟住做
+
+### 1. Dump 你嘅 RPG playstyle preference
+
+開 Claude 之前，先答 5 條 question 自我 mapping：
+
+> **Game**：Baldur's Gate 3
+> 
+> --- Playstyle dump ---
+> 
+> **Q1: RPG 經驗 background**
+> - 玩過：Divinity Original Sin 2 (50 hr), Pillars of Eternity (20 hr abandoned), DA: Origins (3 通關), Witcher 3 (200 hr), Skyrim (whatever)
+> - 唔玩過：Pathfinder games, BG1/2, Pen-and-paper D&D
+> 
+> **Q2: Combat preference**
+> - 鐘意：deliberate turn-based，鐘意 think before move
+> - 唔鐘意：twitch real-time，pause-and-play 混亂
+> - Approach：tactical > optimal （我會 reload save if 失誤但唔 min-max stat）
+> 
+> **Q3: Story preference**
+> - 鐘意：morally grey choice，唔 black-white
+> - 鐘意：companion 深度互動，romance 可有可無
+> - 唔鐘意：long info dump cutscene without agency
+> 
+> **Q4: 角色 preference**
+> - 鐘意：melee fighter / paladin / cleric — tank but with personality
+> - 中性：mage / sorcerer — interesting but 我學 spell management 慢
+> - 唔鐘意：rogue / monk — stealth + 高 micro mechanic
+> 
+> **Q5: Time investment expectation**
+> - 我預 80-120 hr 主線
+> - Side content：interesting 嘅做，generic fetch quest skip
+> - 我 only play 1 通關，唔 reroll multiple characters
+> 
+> **Q6: Spoiler tolerance**
+> - 唔 mind mechanic spoiler (e.g., 「Act 2 有 X 個 difficult fight, prepare for it」)
+> - 介意 narrative spoiler (don't tell me ending / companion fate)
+
+呢類 dump 入 Claude，係出 personalized roadmap 嘅 raw material。
+
+### 2. 用呢個 prompt 出 character creation guidance
+
+<PromptBlock label="完整 prompt — Character creation + first hour roadmap">
+[paste 你 playstyle dump]
+
+我準備玩 Baldur's Gate 3 first time。請整 **character creation guide + first hour roadmap**：
+
+🎭 **Character creation recommend**
+
+Base on 我 melee fighter / paladin preference + tactical turn-based combat + 1 通關 only：
+
+**Top 2 recommended class + sub-class**:
+- 第一推：[e.g., Paladin Oath of Ancients] — why fit my profile
+- 第二推：[e.g., Fighter Battle Master] — why second choice if want simpler
+
+**唔推 嘅 class**（base on my dump）：
+- [e.g., Wizard] — why mismatch（spell management 我 slow）
+- [e.g., Rogue] — why mismatch（micro stealth 我 weak preference）
+
+**Race / sub-race recommend**:
+- 2-3 個 stat-friendly option for my class
+- 簡單 explain stat boost rationale
+- 唔需要 perfect min-max — playable spread 已足夠
+
+**Ability score allocation**（point-buy）:
+- 簡單 spread for new player（唔需要 optimization wiki dive）
+- 邊個 stat 重要 / 邊個 dump-able
+- 「First playthrough proof」spread — survive 任何 dialog check OK
+
+**Background**:
+- 點影響 dialog option
+- 推 1-2 個 narrative-rich background for my preference
+
+**Origin character vs custom**:
+- BG3 unique 提供 玩 pre-made character with built-in story
+- 推：first playthrough 揀 [Origin X / custom] 因為 ⋯⋯
+
+⏰ **First hour roadmap**
+
+**0-15 mins**: Tutorial nautiloid ship - 唔好 stress, follow prompts
+- Skill check 失敗 = OK 嘅，BG3 design accommodate failure
+- 結尾 boss fight - 你 build 嘅 first real test
+
+**15-30 mins**: 落到 beach - 識 first companion
+- Dialog choice 唔 permanent（除非 specific moment 提示）
+- Companion recruit window 開放，唔急
+
+**30-60 mins**: Druid Grove 環境 explore
+- 主要 hub - 接觸 main quest hooks + 識其他 companion
+- Combat encounter 開始 - low-stake first fights
+- 唔 rush — 探索 every dialog OK
+
+**Save management**:
+- BG3 多 quick save - F5 manual save before 大 decision
+- Auto save 唔絕對 reliable - 每 30 分鐘 manual save habit
+
+🔄 **Re-roll cutoff time**
+- 如玩 5-10 hr 發現 class 唔 fit 你 playstyle：reroll OK
+- 玩 >15 hr 你 already invested, push forward 而唔 reroll (BG3 respec 可以 mid-game)
+- 我嘅 advice：commit 第一 class 到至少 Act 1 完（~25 hr）先 evaluate
+
+🚫 **唔好做**
+- 唔好開 wiki 邊玩邊查 ability score optimization
+- 唔好揀「meta best class」如果同你 playstyle 唔 match（你會 burn out）
+- 唔好 reroll 多次 character creation — 開始玩，你 5 hr 後比 wiki 知 more
+- 唔好 abandon companion 因為 reddit 講邊個「best」 — 你 personal chemistry 才 matter
+
+語氣：confident recommend with reasoning，唔 overwhelm with caveat。
+</PromptBlock>
+
+Claude 會出 specific recommendation。**唔需要 100% follow** — recommendation 係 starting point，唔係 prescription。
+
+### 3. 用呢個 prompt 出 first 10 hr build + dialog approach guide
+
+<PromptBlock label="完整 prompt — First 10 hr build order + dialog guide">
+[paste 你 playstyle + character class 決定]
+
+我揀咗 [Paladin Oath of Ancients / 其他]。請整 **first 10 hr roadmap**：
+
+📈 **Build progression (level 1-5)**
+
+**Level 1-2**: 基本生存
+- 點分配 starting equipment
+- 邊個 skill prioritize
+- 第一個 long rest before? 點 trigger
+
+**Level 3 (sub-class unlock)**:
+- Oath of Ancients sub-class abilities - 點 use
+- Channel Divinity 經典 trap: 唔好 over-spam early，save for tough fight
+- 第一個 boss 大致 strategy
+
+**Level 4 (Feat / ASI choice)**:
+- Recommend：[Great Weapon Master / Polearm Master / Stat boost]
+- Why fit my play preference
+- Trap feat 避開（new player attractive but underperform）
+
+**Level 5 (Extra Attack)**:
+- 對 Paladin 嘅 game-changing moment
+- 戰鬥嘅 routine 由「1 attack」變「2 attack + smite」
+
+🎯 **Dialog approach principle**
+
+BG3 dialog 唔係 right/wrong answer — 係 character expression。但部分 dialog 影響 game state：
+
+**🟢 通常安全嘅 dialog**:
+- 對 companion approval 嘅小 +1 / -1 影響輕微，唔 stress
+- Lawful Good Paladin voice 適合你 melee fighter preference
+- 「Tell me more」option always available - 唔 commit before info
+
+**🟡 注意 嘅 dialog**:
+- Approval drop > 2 一次 = 你 character voice diverging from companion - check if intentional
+- Faction reputation moments - 通常 game 提示 (e.g., 「The grove watches you closely」)
+
+**🔴 唔好 light-take 嘅 dialog**:
+- 任何 dialog 主動 attack NPC - irreversible faction lockout
+- Companion dismissal - 部分 companion 走 won't return
+- Specific moment：[Grove leadership decision / Goblin camp 點處理 / Druid faction conflict] - these are PIVOTAL Act 1 turning points
+
+🎒 **Companion roster recommend (first 10 hr)**:
+- Default roster：你揀 [Astarion / Shadowheart / Gale / Lae'zel / Karlach / Wyll]
+- For my Paladin Oath of Ancients：[recommend 2-3 companion 配合]
+  - [Shadowheart] - cleric 補位 / 故事互動有趣
+  - [Karlach] - 第二 melee complementary
+  - [Gale] - mage utility 補
+- 唔強迫 4-person roster early - 嚷舒服
+
+🗺 **Map approach: linear vs explore**
+
+**You should**: explore Druid Grove fully → Goblin Camp scouting → Decision point
+**Avoid**:
+- Rushing Act 1 main quest (你 miss 大量 companion quest + side content)
+- Going too far north early (over-leveled area, deaths frustrating)
+
+⚠️ **First 10 hr "wait, don't do that" moments**
+- 唔好 talk to certain elder before doing X
+- 唔好 commit goblin camp decision until you scout both side
+- 唔好 sell items you 唔 understand (BG3 cursed/legendary mixed amongst normal loot)
+
+請喺 each section 後加：
+- "If you 唔小心 messed up X：" recovery options（usually exists - BG3 forgiving design）
+- 我嘅 advice：first hour 卡住 / 揀錯 一刻 = normal first-time experience，唔 reload save 太頻
+</PromptBlock>
+
+### 4. Anti-paralysis principle — 唔好 alt-tab YouTube 每 5 分鐘
+
+最後嘅 step 唔係 prompt——係 mindset reminder：
+
+<PromptBlock label="完整 prompt — Anti-paralysis principles + recovery plan">
+我 tend to 玩 game 卡住 decision 就 alt-tab Reddit / YouTube。請幫我整 **anti-paralysis playbook**：
+
+🧘 **Pre-game commitments**
+寫低，貼喺 monitor 邊：
+- 我會 first playthrough enjoy 故事，唔追 optimal build
+- 我會接受 first character 唔 perfect — second playthrough 才 optimize
+- 我會 limit YouTube guide consumption to BEFORE / AFTER session, 唔 mid-game
+- 我會 trust the game design — major irreversible moments 通常會 warn
+
+🚫 **In-game alt-tab 禁區**
+- Combat encounter mid-fight (alt-tab break immersion 害死你)
+- Character creation 後（你 already committed）
+- Dialog mid-conversation (you'll over-analyze AI-suggested answer)
+- Loot inventory（賣錯一兩件嘢唔會 break game）
+
+✅ **Alt-tab 容許 moment**
+- Boss fight 全滅 3 次：可以 search strategy
+- 卡 puzzle 30 分鐘：可以 hint search（唔睇 full walkthrough）
+- 已通關 Act 1 / 重大 milestone：可以 stop and search 「what did I miss」
+
+⏰ **Session structure recommend**
+
+**Session length cap**: 2-3 hr per sit, > 4 hr decision fatigue 出現
+- Hour 1: warm up, easy content
+- Hour 2: 推 main quest / harder content  
+- Hour 3: explore / side content / 收 loot
+- 唔好 push past 4 hr - you'll start make worse decision
+
+**Session break ritual**:
+- Save (manual quick save)
+- Note 你 next session 想做咩（1 sentence）
+- 唔 alt-tab YouTube post-session - sleep on it
+
+📋 **Decision-fatigue recovery**
+
+如果你某 session 玩 4 hr 仍 卡 decision:
+- 揀 default option + push forward
+- BG3 design 唔會「punish」default choice — explore 過 dialog 全部 option，揀感覺對嗰個
+- Reload save < 3 次 per session habit cap
+
+🆘 **如果 5 hr 後 burn out**
+- Take 1-2 日 break，唔強迫
+- 唔需要 finish game in 1 stretch
+- 80% Steam library 都係 unfinished — 你嘅 abandon point 唔代表 game 唔好
+
+🎯 **First playthrough mindset reset**
+- 你 first playthrough 唔 perfect = feature, not bug
+- BG3 specifically design for 多 playthrough - first one always 「learn the game」
+- 你 future self 第二次 playthrough 會感謝 first 通關 嘅你 explored 各種錯誤
+
+語氣：reassuring + permission-giving。Anti-paralysis 唔係 will power，係 structural choice。
+</PromptBlock>
+
+呢個 playbook 比 mechanic guide 更 critical。**Paralysis 唔係 you skill issue — 係 systematic decision overhead 嘅 byproduct**。
+
+## 變化
+
+### 變化 1：Live-service / open-world game 嘅 onboarding
+
+冇 「linear progression」嘅 open-world / live-service game 同 BG3 唔同：
+
+<PromptBlock label="變化 1 — Open-world / live-service game onboarding">
+我買咗 [open-world game - Cyberpunk 2077 / 原神 / RDR2 / Witcher 3]。
+
+請整 onboarding plan**open-world specific**：
+
+🗺 **Open-world unique challenge**
+- 冇 「main quest only」optimal path
+- 太多 distraction
+- Easy to 「fail」by sidetracking too early
+
+📐 **First 10 hr roadmap structure**
+
+**Hour 1-2: Main quest discipline**
+- Push through main quest until first 「hub」 unlock
+- 唔 side-track（即使 distracted by side content）
+- Goal: 解鎖 fast travel + safe house + main mechanic
+
+**Hour 3-5: Soft explore**
+- 主城市 explore 為主
+- Side quest 揀 1-2 個高 rating（避免 fetch quest grind）
+- 接觸 build system - 開始 evaluate playstyle
+
+**Hour 5-7: Lock build direction**
+- 第 5 hr 你應該 feeling decision lock
+- Commit primary 戰鬥 style（hacking / netrunner / shotgun / sword）
+- 唔需要 perfect, 但 commit direction
+
+**Hour 7-10: First major sequence completion**
+- Push through main quest 1 個 milestone
+- Get 「state of game」: 你 fall in love or not?
+- Decision: 80 hr playthrough or 25 hr 主線 only?
+
+🚫 **Open-world trap**
+- 「I'll do all side quest」impulse - burn out by hour 30
+- Wiki 100% completion 揾每個 collectible - kills enjoyment
+- Multiple parallel quest 同時推 - confusion
+
+✅ **Open-world enjoy strategy**
+- Quality over quantity: 揀 5-10 個 「best」side quest（reddit recommend）
+- Skip generic 「kill X enemies」side content
+- 同 主線 平行：1-2 個 side quest 同時 max
+
+📋 **Build commitment**
+- 比 BG3 更難 reroll - open-world build 通常 mid-game respec costly / limited
+- 第 8 hr 你 commit 一個 direction，唔好 swing
+- Pre-build research permitted（YouTube before game even start）
+
+語氣：discipline-focused for hyperactive open-world player。
+</PromptBlock>
+
+### 變化 2：Story-rich narrative game 嘅 onboarding (Disco Elysium / Pentiment / 文字遊戲)
+
+文字 heavy 嘅 game 唔同 mechanical RPG：
+
+<PromptBlock label="變化 2 — Narrative-heavy game onboarding">
+我買咗 [Disco Elysium / Pentiment / Citizen Sleeper / 文字 narrative game]。我中文 / 英文 reading speed [moderate / slow / fast]。
+
+請整 narrative game **specific** onboarding：
+
+📖 **Narrative game unique mindset**
+- 「Stat / build」 less important than 「voice / curiosity / take time」
+- 主要 mechanic：dialog choice + internal monologue
+- Combat optional / scarce
+- Real 「lose」condition：rush 過 narrative texture
+
+📐 **First 10 hr roadmap**
+
+**Hour 1-2: Slow down**
+- Resist gamer instinct 「rush to next mechanic」
+- Read every dialog option even if you 唔 揀
+- Note: protagonist's voice 開始 emerge
+
+**Hour 3-5: Character emerge**
+- 你 protagonist 嘅 personality 開始 forge
+- 唔 force consistency - human contradiction is the point
+- 識其他 NPC, build slow chemistry
+
+**Hour 5-8: Mid-game decisions**
+- 唔好 reload save for 「optimal」outcome
+- 接受 ramification - failure 通常 narratively richer
+- Save management: light - 1-2 save slot total, no scumming
+
+**Hour 8-10: First major arc complete**
+- 故事 arc 第一個 climax
+- Evaluate: 我 enjoying writing? Continue or shelf?
+- 如 yes: prep for slow 50 hr investment
+
+⚙️ **Build mechanic (if exist)**
+
+Disco Elysium 例：
+- 24 個 skill - 唔 optimize, distribute base on interest
+- Failure 通常 narratively useful（red check + white check 都各自有 value）
+- 揀 skill base on你想 character 點 think，唔係 「win check」
+
+🚫 **Narrative game trap**
+- Skip dialog（你 missing the entire game）
+- Reload save 為 better outcome（depletes meaning）
+- 用 walkthrough avoid 「failure」 outcome - failure 通常 richer
+- Try multiple playthrough early (each playthrough 100 hr, commit single first)
+
+✅ **Optimal narrative play**
+- Slow reading pace
+- Take notes 物理紙（reduces alt-tab impulse）
+- Discuss with friend post-session（narrative game 同 friend talk = enhances enjoyment）
+- 接受 ambiguity - 你唔需要 「understand everything」
+
+語氣：patient + permission to slow down。
+</PromptBlock>
+
+### 變化 3：Multi-player co-op game 入門（同朋友一齊玩第一次）
+
+同朋友 first time co-op 完全唔同 dynamics：
+
+<PromptBlock label="變化 3 — Co-op game first-time onboarding with friend">
+我同 [N 個 friend] 開咗 [co-op game - Helldivers / Deep Rock Galactic / It Takes Two / 一齊玩 BG3]。我哋第一次合作呢個 game。
+
+請整 **co-op specific** onboarding plan：
+
+🤝 **Co-op unique challenge**
+- 唔同 friend pace / skill level
+- 朋友 schedule conflict
+- Build coordination tension（everyone want different class）
+- Communication overhead
+
+📐 **Pre-game alignment**
+
+**Session 0 (pre-game group call)**:
+- 大家 expectation：casual fun 定 hardcore progression?
+- 大家 time commit：每週幾 hr? 持續到 game 完?
+- Schedule lock：固定 time? Flexible?
+- Drop-out tolerance：member skip 1 session = game continue 定 wait?
+
+**Class / build coordination**:
+- 大家 each pre-think preference
+- Group commit complementary class（唔 4 個 same role）
+- Spec change rules：mid-session reroll？同意先
+
+🎮 **First session (game launch night)**
+
+**Hour 1: Tutorial together**
+- 唔 rush past tutorial - 大家 sync mechanic understanding
+- 開 voice chat (not chat) - voice critical for co-op
+- 揀「team leader」for game session - rotate 之後
+
+**Hour 2-3: First content**
+- 起手低 difficulty 先 - team chemistry first, challenge after
+- 失敗 OK - co-op failure laughter > solo silent frustration
+- 開 streamer 軟件 (OBS) record for fun moment if 大家 OK
+
+**Hour 3+: Rhythm establish**
+- 大家識 each other game style
+- Establish communication shorthand
+- Note：呢個 game 仲玩唔玩 long-term?
+
+📅 **Long-term group game maintenance**
+
+**Week 1**: Establish weekly slot
+- Same time 每 week
+- Reliable attendance > extra session
+- 1 member 唔 show = game progress 持續 vs pause? 同意先
+
+**Month 2-3 risk**: 一個 member burn out / lose interest
+- Game 邊個 part 對佢 boring? Address it
+- 點 adjust session for retain 佢?
+- 或：respectful exit ramp - 唔 force friend keep play
+
+🚫 **Co-op group game trap**
+- 「Power gap」player carry weaker friend permanently（resentment build）
+- Schedule slippage early - 1 week miss = 2 week miss = death
+- Group chat 拖 mid-session decision（「邊個揀？」5 分鐘 deadlock）
+- Drama from competitive moment（PvP 元素 in PvE game = friend group fragile）
+
+✅ **Healthy co-op group habit**
+- Post-session 5 分鐘 debrief：「呢個 session 邊個 moment fun?」
+- 一齊 take break - 唔 solo grind ahead of group
+- 1 player 唔 show = game still session, but skip story content if possible
+- 大家 voice opinion - 唔 silent suffer
+
+語氣：social health > game progress。
+</PromptBlock>
+
+## 一個 mindset
+
+買新 game 嘅 paradox：你買 game 為 enjoyment，但 modern game 嘅 onboarding overhead 大到 first 5-10 hr 你 spending more energy 「research how to play」過「actually playing」。
+
+呢個 paradox 嘅 root cause 唔係 game design 失敗（BG3 / Cyberpunk 嘅 onboarding 已經比 5 年前 better）。Root cause 係 **internet age 嘅 information availability** —— Reddit / YouTube / Wiki 永遠 1 click 之外，你 brain 知道「optimal answer exists somewhere」，呢個 knowledge 本身 generate paralysis。
+
+呢個 mindset 嘅 reframe：first playthrough 嘅 「optimal」 唔係 mechanically optimal——係 **enjoyment optimal**。一個 character build sub-optimal 但你 enjoyed 你 character嘅 voice，比 min-max build 你 cringe each dialog choice 更 valuable。
+
+Claude 嘅 role 喺 onboarding 中 唔係取代 game's own tutorial。係**幫你 dump 自己 preference clearly，等 你 commit 一個 direction without 5 hr Reddit research**。Direction 一旦 commit，你 brain freed up 去 enjoy 真正 important 嘅 嘢——story, character, moment-to-moment combat。
+
+最後 reminder：
+
+- ✅ **First playthrough 嘅 「regret」係正常**。第 5 hr 後悔 character 揀錯 = 你 learning the game。Second playthrough 你 informed 嘅。
+- ⚠️ **YouTube tutorial > 12 分鐘嘅你 alt-tab consume = 浪費 game time**。Pre-session 睇 10 分鐘 OK，mid-session 唔好。
+- 🎯 **Game 唔需要 「complete」**。Steam library 大部分 unfinished — 50 hr enjoyed 比 200 hr completionist exhausted 更 valuable。
+
+買咗就 dive in。Decision 唔係 perfect 唔 matter — moment-to-moment enjoyment matters。

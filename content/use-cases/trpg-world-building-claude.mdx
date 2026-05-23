@@ -1,0 +1,696 @@
+---
+title: "TRPG 跑 6 個月 campaign，NPC 名同地理開始 contradict？用 Claude 整 world bible + session log"
+slug: "trpg-world-building-claude"
+issue: 61
+publishedAt: 2026-05-23
+audience: ["消費者"]
+category: "chat"
+section: "遊戲"
+subcategory: "跑團助手"
+difficulty: 2
+timeMinutes: 25
+toolsNeeded: ["Claude Chat", "已有 session 嘅 rough notes / Discord channel scrollback"]
+description: "你 GM 緊一個 D&D campaign 6 個月。Session 18 introduce 個港口 Vandros，session 24 player 問港口名你 blank。用 Claude 整 world bible 結構 + session log template + pre-session consistency check workflow，等 long campaign 唔崩。"
+keywords: ["TRPG GM tools", "D&D world building", "campaign world bible", "session log template", "NPC tracker", "homebrew campaign"]
+related: ["trpg-gm-prep-claude", "claude-fiction-writing-partner", "newsletter-editorial-calendar-claude"]
+featured: false
+---
+
+## 情境
+
+你 GM 緊一個 D&D 5e homebrew campaign。
+
+第 1 個月你 prep 個 setting 巨 detail：5 個 major city、12 個 faction、30 個 NPC 寫晒 backstory + agenda。Player 4 個，每 2 週 4 hr session。
+
+Session 1-5：丝滑 — 你 prep 嘅 都 used，player 嘅 question 你都 quickly answer。
+
+Session 6-12：開始 improv 大量 — player 揀去 你冇 prep 嘅 direction，你 invent NPC + location 即場。你 quick scribble notes 喺 paper notebook + Discord channel + Roll20 handout。
+
+Session 13：你想 reference session 8 introduce 嘅 NPC「Captain Aldric Vell」。你 type「Captain ⋯⋯ Aldric ⋯⋯ Vetz?」player 一齊「Vell！」。你 cover：「右！老啦！」。
+
+Session 18：你 introduce 個港口 city「Vandros」。Player 入面 build long-term 計劃買船去 Vandros。
+
+Session 24：6 個月後。Player：「我哋去 Vandros 個船商」。你：「嗯⋯⋯港口」。Player：「對，Vandros 嘅港口」。
+
+你 stuck —— **你完全唔記得 Vandros 個 layout / 港口名 / 船商有冇 NPC**。你 5 分鐘 quick scroll Discord channel 都揾唔到 reference。
+
+你 wing it：「Vandros 港口 — 你哋 approach，個 harbormaster Tomas ⋯⋯」
+
+Session 25 一個 player 問：「Tomas 唔係 session 8 死咗咩？個 bandit 拳手？」
+
+你 freeze。
+
+呢個 long campaign 嘅 **continuity collapse** moment。每個 long campaign GM 都遇過。
+
+Symptoms:
+
+- NPC 名 inconsistent across sessions
+- Player 同你 disagree about basic 事實（「個 city wall 高 30 ft 定 50 ft?」）
+- 地理 contradict — 上 session 講 3 日 travel 嘅地方 而家 1 日
+- Plot thread 重啟（「點解我又見到呢個 NPC？佢 session 18 唔係 told us 走咗?」）
+- 你自己 confidence 下降 — 你 GM presence weaker because internally uncertain
+
+呢篇用 Claude **整 3 樣嘢**：
+1. World bible 嘅 structured template
+2. Session log + entity tracker
+3. Pre-session consistency check workflow
+
+**Goal**: 一個 6-12 個月 campaign continue 到 GM 唔 burn out + player 唔 frustrated。
+
+## 跟住做
+
+### 1. Build world bible structure — 唔係寫，係 organize
+
+第一個 task：把已有嘅 chaos notes organize into structured bible。**唔需要重新 invent**，係 reverse-engineer 你過去 6 個月 sessions。
+
+<PromptBlock label="完整 prompt — World bible structure for existing campaign">
+我 GM 緊 [D&D 5e / Pathfinder / Blades in the Dark / 其他 system] homebrew campaign 6 個月。我已有 chaos notes 喺：
+- Paper notebook
+- Discord text channel scroll-back
+- Roll20 / Foundry handout
+- 我嘅腦海 implicit memory
+
+請整一個 **world bible structure** 等我 retroactively populate：
+
+📖 **World bible 結構（建議用 Notion / Obsidian / Google Doc）**
+
+🗺 **Section 1: World overview (1-2 pages)**
+- World name + tone (high fantasy / dark fantasy / sword & sorcery / 自定)
+- Magic level (low / moderate / high / pervasive)
+- Tech level baseline
+- Calendar (year count, season system if 唔同)
+- Common knowledge baseline - 大眾常識（所有 player 都知）
+- Hidden / 秘密 knowledge - 部分 character 知 / GM only
+
+🌍 **Section 2: Geography (sub-page per region)**
+For each major region:
+- Region name
+- 1-paragraph description
+- Key cities / towns / landmarks
+- Distance / travel time to neighbors
+- 主要 fauna / flora / hazard
+- Politics overview (governance? faction?)
+- Active player adventure 連住嘅 site
+
+🏛 **Section 3: Cities + settlements**
+For each city player has visited or referenced:
+- City name (locked - don't改)
+- Population estimate + demographics
+- Government structure + ruler name
+- Notable districts / quarters
+- Iconic 1-2 landmark
+- Local culture / fashion / cuisine
+- Active NPC residing here
+- Recent 「event」（last session 入面影響 city）
+
+👥 **Section 4: NPCs (sub-page per NPC)**
+For each named NPC：
+- Name (full + nicknames + how player address)
+- Race / class / occupation
+- 1-2 sentence personality
+- 1 distinctive trait (mannerism / speech pattern / accent)
+- Goals / agenda (open + hidden)
+- Relationships to other NPC
+- Last session appeared + status (alive / dead / unknown / hostile)
+- Open plot thread tied to this NPC
+
+🏴 **Section 5: Factions**
+For each faction:
+- Name
+- Goals / agenda  
+- Methods / philosophy
+- 主要 NPC members (link to NPC page)
+- Active conflict with other factions
+- Player relationship (allied / hostile / unknown)
+- Active operation / scheme（current session）
+
+⚔️ **Section 6: Plot threads (active / dormant / resolved)**
+For each major plot thread:
+- Title
+- 1-paragraph summary
+- Status (active / dormant / resolved / forgotten)
+- Last session touched
+- Foreshadowing already deployed (player aware of clue)
+- Open question / next reveal
+- Connected NPC / faction / location
+
+📜 **Section 7: Session log (chronological)**
+- Session number + date IRL
+- 1-paragraph summary
+- New entities introduced (NPC / location / faction / item)
+- Plot thread advanced / introduced
+- Player choices with downstream impact
+- Notes for next session
+
+🎒 **Section 8: Player character (per PC)**
+- Name + class + race
+- Player real name (for scheduling)
+- Backstory connection to world (which faction / NPC / location 連住)
+- Active personal quest
+- Inventory特殊 items
+- Active conditions / blessings / curses
+
+🔮 **Section 9: GM private notes**
+- Twists / reveals 唔可以 leak to player
+- Foreshadowing planned
+- Pre-prepped encounter table
+- DM voice cheat sheet (NPC accent reminder)
+
+⏰ **Migration order**：
+1. Hour 1: Skeleton structure + 5 most important NPC（you can recall instantly）
+2. Hour 2: Active plot threads + active factions
+3. Hour 3: Geography + cities player visited
+4. Hour 4-5: Slowly populate from Discord scroll-back（spread over 1 week, 1 hour daily）
+
+⚠️ **Honest approach**
+- 你 retroactive populate 一定會發現 contradictions - note them
+- 唔好「rewrite」history — write down the contradiction + decide「我選 version A」
+- 部分 contradiction tell player next session：「我發現我 last session 講錯 X，正確係 Y」
+
+🛠 **Recommended tools**
+- Notion (free) - sub-page structure + bidirectional link
+- Obsidian (free) - markdown + graph view 睇 NPC relationship
+- Google Doc - simplest, less structure but accessible
+- Roll20 handout - 但 search 唔好用
+
+語氣：systematic + permission to have messy past。
+</PromptBlock>
+
+Claude 出嘅 structure，你 over **1 週時間 spread out 1 hour daily** 慢慢 populate。**唔好一日 4 hour rush 過** — 你會 burn out。
+
+### 2. Session log template — every session 結束 15 分鐘填
+
+Session log 係 long campaign 嘅 backbone。冇 it = continuity collapse 在 month 4-6 必然發生：
+
+<PromptBlock label="完整 prompt — Post-session log template">
+請整一個 **post-session log template**，我每 session 結束 15 分鐘 fill out（唔超過 15 分鐘，否則我會 skip）。
+
+📝 **Session log template (per session)**
+
+```
+SESSION #X — [Date]
+==================
+
+🎯 Session goal (set before session)：
+  [I planned to:]
+  
+🎲 What happened (3-5 bullet)：
+  - 
+  - 
+  - 
+
+👥 NPCs:
+  - New introduced:
+    · [Name] - [1-sentence description] - [location]
+  - Returning:
+    · [Name] - [development this session]
+  - Died / left / status change:
+    · [Name] - [what happened]
+  
+🗺 Locations:
+  - New:
+    · [Place name] - [1-line description] - [layer in region]
+  - Visited:
+    · [Place name] - [what changed]
+  
+🏴 Factions:
+  - 派系 status change:
+    · [Faction] - [what changed]
+  - New faction reveal:
+    · [Faction] - [introduce context]
+  
+📜 Plot threads:
+  - Advanced:
+    · [Thread name] - [progress]
+  - Introduced:
+    · [Thread name] - [seed]
+  - Resolved:
+    · [Thread name] - [outcome]
+  - Dormant:
+    · [Thread name] - [player forgot? or me forgot to bring back?]
+
+🎒 Player decisions:
+  - [PC name] - [decision] - [potential downstream impact]
+  - Loot acquired:
+    · [Item] - [who has it] - [significance if any]
+  - 結盟 / 樹敵:
+    · [PC] aligned with [NPC/faction]
+    · [PC] alienated [NPC/faction]
+  
+🃏 GM notes:
+  - 我 unprepared moments (improv 出嚟): 
+    · [What] - [how to canonize for future]
+  - Player surprise moments:
+    · [What] - [worth recording for callback]
+  - 我 forgot to use (planned but didn't): 
+    · [Encounter / NPC / detail] - [save for next session?]
+  
+⏭ Next session prep:
+  - Open questions player will likely ask:
+    · 
+  - Encounters / NPCs I want to deploy:
+    · 
+  - Plot threads to advance:
+    · 
+  - Time / weather / location starting state:
+    · 
+
+❓ Things to ask Claude for help with next prep:
+  - [e.g., generate a thieves' guild contact NPC who's friendly to PC X]
+```
+
+📅 **Workflow**
+- Session ends → 10-15 分鐘 fill template（while memory fresh）
+- 唔 perfect - skip section if 真係冇嘢
+- 1 week later GM 大腦會 forget — log = your second brain
+
+🔍 **Search workflow**
+- Notion / Obsidian: full-text search across all logs
+- Discord: search by keyword + session date
+- Tag system: #npc-name / #location / #plot-thread for cross-reference
+
+🎯 **Long-term value**
+- Session 30 reference session 8：log = 10 秒 retrieval
+- Player 問「Vandros 個 harbormaster 名係咩」：log 即答
+- Campaign 結束後可以 publish as 「campaign retrospective」 - 好作品
+
+🚫 **Anti-pattern**
+- 過度 detail (1 hour per session log) - burn out, you'll skip
+- 純 narrative-style 寫（「Then they encountered ⋯⋯」） - hard to search later
+- Different format every session - 失去 template value
+
+請 customize template if 我嘅 game system 唔同 (Blades in the Dark 嘅 clock tracking / Star Wars FFG 嘅 obligation system 等)。
+
+語氣：lightweight + sustainable.
+</PromptBlock>
+
+呢個 template 嘅 secret：**結構 over narrative**。Bullet point >> paragraph for searchability。
+
+### 3. Pre-session consistency check workflow
+
+每個 session 開始前 30 分鐘嘅 ritual，可以 prevent 90% continuity collapse：
+
+<PromptBlock label="完整 prompt — Pre-session consistency check">
+我要整一個 **pre-session 30 分鐘 ritual**，確保 session N 同 session 1-(N-1) consistent。
+
+📋 **30 分鐘 ritual structure**
+
+**🕐 Min 0-5: Read last session log**
+- 重新 read last session log（你寫嘅 1-2 hr 前）
+- Refresh memory：
+  - 上 session end 喺邊 location?
+  - Time / weather / 同行 NPC?
+  - Active conditions on PC (poisoned / blessed / cursed)?
+  - Last cliffhanger / unresolved question?
+- 寫 1 sentence 「starting state」for opening session
+
+**🕔 Min 5-10: Active NPC check**
+- Open NPC page for any NPC likely appearing this session
+- Re-read:
+  - Name (locked)
+  - 1-2 distinctive trait
+  - Their last appearance + status
+  - Their agenda / current secret
+- Highlight any NPC speech pattern reminder
+
+**🕙 Min 10-20: Active plot threads scan**
+- Open「Active plot threads」list
+- For each:
+  - Last touched session?
+  - Player aware of clue?
+  - 點 advance this session?
+- 1-2 thread should advance per session
+- 唔 strict force - PC choice may pivot
+
+**🕚 Min 20-25: Pre-prep contingency table**
+- Based on last session ending, 3 likely player direction：
+  - Direction A：[player travel to X] → encounter table + NPC roster
+  - Direction B：[player investigate Y] → clue layout + NPC for interrogation
+  - Direction C：[player do something unexpected] → improv toolkit ready
+- For each direction: 1-2 NPC pulled from world bible, ready to deploy
+
+**🕛 Min 25-30: Material prep**
+- Maps relevant to likely location
+- Encounter stat blocks if combat likely
+- Music / soundscape playlist
+- VTT (Roll20 / Foundry) tab open
+- Discord status: 「In session 」mode
+
+🚨 **Red flag triggers during session**
+出現呢類 moment = pause + check world bible：
+- 「等等⋯⋯ session X 點解 Y」 - PC challenge consistency
+- 「呢個 NPC 名係 Z 定 Z'?」 - 自己 doubt name
+- 「呢個 city 嘅 governance system 係咩?」 - improv moment, check bible
+- 「個 distance 係 N 日 travel?」 - check geography
+
+⏸ **Pause and check protocol**
+- 「Hold on, let me check my notes」 (player 完全 OK with brief pause)
+- 30 秒 search bible
+- Confirm answer or honestly improvise + log for canonization
+
+📝 **Post-improv canonization**
+- If improvise 一個 detail 過 game session：
+  - Add to world bible same day
+  - Tag as「retroactive canon set session N」
+  - 下次 reference consistent
+
+🚫 **Anti-pattern**
+- Skip pre-session ritual when「busy week」 = continuity drift
+- Improvise without logging = doom loop
+- Open bible during session and silent-read 5 分鐘 = breaks pacing
+- Player point out inconsistency, GM defensive = trust erosion
+
+✅ **Healthy GM admission**
+- 「Good catch! You're right, last session I said X. Let me reconcile - canon is X」
+- Player respect honest GM > GM pretending perfect memory
+
+語氣：sustainable ritual > heroic prep。
+</PromptBlock>
+
+呢個 30 分鐘 ritual 嘅 ROI 極高。**Skip 一次 = session 入面 5 個 wing-it moment**。
+
+### 4. AI as your campaign assistant — Claude 點協助 mid-prep
+
+Claude 唔取代 GM creativity，但可以 accelerate boring parts：
+
+<PromptBlock label="完整 prompt — Claude as TRPG campaign assistant">
+我想 establish Claude as my campaign assistant ongoing role. 我會 share world bible excerpt + ask specific support。
+
+🎯 **Claude best suited tasks**
+
+✅ **NPC generation (with consistency)**
+prompt format:
+「Based on [world bible region], generate 3 NPC for [purpose - 黑市 fence / informant / 隊伍 contact]. 
+Each NPC should be tied to existing faction [X / Y / Z]. 
+Their motivations / quirks 不 conflict with established [faction agenda / city culture].
+Distinct speech pattern / mannerism for each.」
+
+✅ **Encounter design (with stake)**
+prompt format:
+「Players are level [N], party size [4 PCs with class mix]. 
+They're investigating [plot thread]. 
+Design 3 encounter options (combat / social / exploration) 
+that advance plot AND respect player's current goal.
+Each encounter: 1 paragraph + key NPC / stake / possible outcome.」
+
+✅ **Location detailing (consistent with世界 tone)**
+prompt format:
+「City [X] in my campaign has [established traits from bible]. 
+Players entering for first time. 
+Detail: 5 sensory details (sight / sound / smell / texture / taste), 
+2 NPC encountered in opening scene, 
+1 plot hook subtle enough to ignore but rich if explored.」
+
+✅ **Plot thread development**
+prompt format:
+「My campaign has active thread: [summary]. 
+Players have unlocked [clue X, Y, Z]. 
+Help me brainstorm 5 ways this thread could evolve next 5 sessions, 
+maintaining mystery + player agency + ramping stake.」
+
+✅ **Faction politics simulation**
+prompt format:
+「3 factions in my campaign: [A goals], [B goals], [C goals]. 
+Current state: [relationship matrix]. 
+Players took action [X]. How do factions react in next 2-3 weeks game-time? 
+What political opportunity does this create for PC engagement?」
+
+⚠️ **Claude limitations for TRPG**
+- AI generated NPC tend toward generic - 你 layer specific quirk after
+- AI 唔 capture you home campaign 嘅 inside joke / running gag
+- AI 唔 know 你 player 嘅 metagame habit (一個 player 永遠 paranoid, 另一個 trustful)
+- Combat balance 你要 final approve (AI 估計 encounter difficulty inconsistent)
+
+🚫 **Claude 唔用 來做嘅嘢**
+- 替你 GM 決定 morally grey moment (你應該 own that)
+- 寫 entire session script (over-prepare kills improv)
+- 取代 player communication (any tension address 1-on-1, not AI mediated)
+- Make up player character backstory (PC own their story)
+
+📋 **Workflow integration**
+- Pre-session ritual hour: ask Claude help generate 1-2 NPC if needed
+- Post-session: ask Claude help interpret player decisions implications for plot evolution
+- Mid-campaign（month 3-6）: ask Claude help check consistency across your world bible（paste excerpt）
+- End-of-campaign: ask Claude help structure retrospective / write campaign zine
+
+📝 **Sample weekly cadence**
+- Sunday session (4 hr game time)
+- Sunday post-session: 15 分鐘 log fill
+- Monday: rest from game thinking
+- Tuesday-Wednesday: light review previous session, brainstorm seeds for next
+- Thursday: 30 分鐘 with Claude generate prep material
+- Friday: organize prep into world bible + handout
+- Saturday: 30 分鐘 pre-session ritual + session prep
+- Sunday session ⋯ repeat
+
+語氣：Claude as junior assistant, not co-GM. You're the auteur, Claude handles boring research / brainstorm.
+</PromptBlock>
+
+## 變化
+
+### 變化 1：1-shot adventure / mini-campaign (3-5 session)
+
+短 campaign 嘅 world bible 唔需要 6 個月 campaign 咁 detail：
+
+<PromptBlock label="變化 1 — Short campaign (3-5 session) lite world bible">
+我跑緊 3-5 session mini-campaign。唔需要 6 個月 campaign 嘅 full bible。
+
+請整 **lite world bible** for short campaign：
+
+📐 **3-5 session bible (1 page total max)**
+
+```
+🌍 World snapshot (3 sentences)
+- Setting: [tone + magic level + tech]
+- Conflict: [the central tension driving plot]
+- Stake: [why PC engage]
+
+🗺 Locations (max 5)
+- Hub: [where PCs return / start]
+- Site A / B / C: [adventure sites]
+- Optional：1 secret location reveal
+
+👥 NPCs (max 8)
+- 2 Allies (helpful but agenda)
+- 2 Antagonists (one face-level, one hidden mastermind)
+- 2 Neutral / wildcard
+- 2 Background flavour (vendor / barkeep / informant)
+
+🏴 Factions (max 3)
+- Faction X: [agenda]
+- Faction Y: [agenda]
+- Faction Z (hidden): [agenda]
+
+🎯 Plot threads (max 3 - 1 main + 2 side)
+- Main: [Acts 1-3 arc]
+- Side A: [optional engaging if PC bite]
+- Side B: [optional engaging if PC bite]
+
+🃏 Twists (max 2)
+- Mid-campaign twist
+- Climax revelation
+```
+
+⏱ **Prep time investment**
+- 4-6 hour total prep across 1 week
+- Session 1 prep: 2 hour
+- Session 2-5 prep: 30 min each
+- 唔需要 mega world bible
+
+✅ **Why short campaign suits this approach**
+- PC won't 探索 outside intended site (3 location enough)
+- 結尾 in sight (no need long-term hooks)
+- Player buy-in for guided experience > sandbox
+
+🚫 **Anti-pattern**
+- Build full世界 bible for 3 session = waste (will never use 80%)
+- Open-ended sandbox structure = anticlimactic conclusion
+- 太多 NPC = forgettable
+
+語氣：focused + economic。
+</PromptBlock>
+
+### 變化 2：Online TRPG (Discord / Roll20 / Foundry) — additional 工具 layer
+
+線上 TRPG 增加 technical overhead，但有 tool advantage：
+
+<PromptBlock label="變化 2 — Online TRPG world bible + 工具 integration">
+我跑 online TRPG，用 [Discord voice + Roll20 / Foundry VTT]。
+
+請整 **online TRPG specific** workflow：
+
+🛠 **Tool stack mapping**
+
+**Roll20 / Foundry (in-session)**:
+- Map handout
+- Token + initiative
+- Stat blocks roll
+- Combat tracker
+
+**Discord (out-of-session communication)**:
+- #campaign-info: pinned messages with world bible link
+- #session-recap: post-session log
+- #character-questions: PC-specific
+- #scheduling: session calendar
+- #spoiler-zone (DM only): GM-only思考
+
+**Notion / Obsidian (world bible)**:
+- Public-facing wiki (player-readable)
+- DM-only sub-page (secret)
+
+**Google Drive / Dropbox**:
+- Shared handout pdf
+- Audio recording if you record session
+
+📋 **Online-specific workflow**
+
+**Pre-session (Online unique tasks)**:
+- VTT prep: maps loaded, tokens placed (5-10 min extra)
+- Audio check: voice channel test, music streaming setup
+- Tab management: 6+ tabs open = lag risk, pre-close non-essential
+- Player ping schedule reminder 1 hour before
+
+**Mid-session (Online challenges)**:
+- Voice quality monitor (one player audio drop = derail flow)
+- Roll20 chat slow vs voice fast - manage pace
+- Player attention drift (Discord screen share game)
+- Recording (with consent) - useful for log writing later
+
+**Post-session (Online advantage)**:
+- Discord chat scroll = perfect session log raw material
+- DM Claude paste chat excerpt → ask summarize into session log
+- VTT positioning data save = exact map state continuity
+
+🎯 **Online-specific consistency tools**
+
+**Hover note on token**:
+- Each token in Roll20 / Foundry: add note with NPC info
+- DM whisper to self = quick reference mid-session
+- Saves 30 second "wait, who was this NPC again"
+
+**Pinned message system**:
+- #campaign-info: pin major NPC list
+- Each city as separate pinned message
+- Plot thread pinned summary
+
+**Recap rotation**:
+- Player A volunteers session 1 recap
+- Player B session 2 ⋯ rotate
+- 5-minute recap at start of next session = collective memory aid
+
+⚠️ **Online-specific anti-pattern**
+- Player multi-monitor = distracted (no fix but acknowledge)
+- DM share screen too small = strain (test prep)
+- Voice chat fatigue (4hr stretch hard online) - 5min mid-session break
+- Bot integration overdone (5+ bots = chat clutter)
+
+✅ **Online advantage to embrace**
+- Easy guest player join (one-shot guest)
+- Async between session: world bible exploration, player roleplay in #channel
+- Recording for absent player to listen
+- 「Show, don't tell」: image AI generate NPC portrait, share in chat
+
+語氣：technology serves storytelling，唔 reverse。
+</PromptBlock>
+
+### 變化 3：Solo journaling RPG (Ironsworn / Wretched & Alone / Thousand Year Old Vampire)
+
+冇 group 嘅 narrative game 唔同 dynamics：
+
+<PromptBlock label="變化 3 — Solo journaling RPG world building">
+我玩 solo RPG (Ironsworn / Wretched & Alone / TYOV)。冇 GM / player group。
+
+請整 **solo RPG specific** approach：
+
+🎭 **Solo RPG nature**
+- 你同時係 protagonist + narrator + GM + audience
+- 「Continuity」for an audience of 1 - 你自己
+- Goal：personal narrative experience，唔係 group entertainment
+
+📖 **Solo bible structure (simpler than group)**
+
+```
+📖 Protagonist
+- Name + background
+- Internal voice / mannerism
+- Personal stakes / what you protect / what you fear
+
+🗺 World (only what matters)
+- 1-2 location detailed
+- Other locations sketchy
+- 唔 over-build - solo play emergent
+
+👥 Supporting cast (max 5-7)
+- NPC arose during play (not pre-planned)
+- 1 sentence each
+- 「The doctor with kind eyes who knows too much」 vs full backstory
+
+📜 Personal threads
+- Current emotional question protagonist face
+- 1-2 obsession / mystery driving
+```
+
+📝 **Solo journaling specific log**
+
+Per session (you alone):
+```
+📅 Date IRL + in-fiction time
+🌑 Mood / scene opening
+💭 Protagonist's current internal state
+🎲 Oracle / random rolls + results
+✍️ What happened (more narrative，less bullet)
+🌃 Closing image / question
+📌 Next session: 你想 explore 邊個 question?
+```
+
+🛠 **Solo prompt tools**
+
+**Random oracle (built into most solo RPG)**:
+- Yes/No oracle for emerging events
+- Threat / opportunity scale
+- Plot twist roll
+- 唔 over-rely - your narrative instinct also valid
+
+**Claude as "external GM voice"**:
+- Ask Claude: 「Given my protagonist's situation X, what's a complication I haven't considered?」
+- 唔好 ask Claude write story for you
+- 用 Claude as inspiration prompt machine
+
+🎯 **Solo unique challenge**
+- Self-discipline: 無人 schedule, easy to abandon
+- Self-honesty: 唔好 reroll until「good outcome」 - failure narratively rich
+- Audience of 1: 你 enjoying yourself，唔需要 「publish」 quality
+
+✅ **Solo healthy pattern**
+- 30-60 min sessions, not 4-hour stretch
+- Hand journal physical (less screen / Wikipedia distraction)
+- Coffee / tea ritual
+- Music playlist = mood lock
+- Session count goal: 「I'll do 10 sessions」 not「I'll finish in 30 days」
+
+🚫 **Solo anti-pattern**
+- Trying to share solo play online (audience pressure changes the experience)
+- Pre-planning whole narrative arc (kills emergent magic)
+- Wiki-style world bible (overhead kills joy)
+- Compare to「published」solo play example (your play is for you)
+
+語氣：personal art-making。Solo RPG 係 你嘅 private 探索，唔 perform。
+</PromptBlock>
+
+## 一個 mindset
+
+長 campaign GM 嘅 hidden labor 唔係 prep 戰鬥或者 design 個 dungeon——係**maintain a coherent fiction across 6-12 個月嘅 real-time**。
+
+每個 session 你 introduce 嘅 detail（NPC 名、city geography、faction conflict）都成為 future session 嘅 commitment。Session 1 你輕鬆 invent「Captain Vell from Vandros」嘅 instant，accumulates 24 sessions 後變成 cognitive load。
+
+呢個 mindset 嘅 reframe：world bible + session log + pre-session ritual **唔係 administrative overhead**——係 **future self 同 player 嘅 gift**。你 month 4 嘅 self 將完全唔記得 month 2 你 hand-waved 嘅 detail。Log = month 2 嘅 你 thoughtfully 對待 month 4 嘅 自己。
+
+Claude 嘅 role 喺 long campaign 唔係 co-GM——係 **administrative assistant freeing up cognitive space for creative work**。NPC generation / encounter brainstorm / consistency check：呢類嘢 Claude 5 分鐘做完，你 freed up 嘅 30 分鐘 spent on shaping a memorable scene。
+
+最後 reminder：
+
+- ✅ **每 session 後 15 分鐘 log = 6 個月 campaign sustainability**。Skip = month 4 你 burn out。
+- ⚠️ **Player 抓 你 contradiction 唔係 attack — 係 player engaged enough to care about consistency**。Welcome it，acknowledge it，update bible。
+- 🎯 **唔好 over-prep**：world bible 寫到 100 hour 但 PC explore 唔到 90%。Prep enough for next 2 session，react to PC for further。
+
+你 30 sessions 後返睇 session 1 嘅自己——你會 surprised by how much your campaign 已 grown。Log 係 capture 嗰個 growth 嘅 fossil。
