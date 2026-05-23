@@ -1,0 +1,588 @@
+---
+title: "細路第一次去 summer camp，要家長介紹信？用 Claude 30 分鐘寫到 organizer 一睇就 confident"
+slug: "summer-camp-application-letter-claude"
+issue: 71
+publishedAt: 2026-05-24
+audience: ["學生家長"]
+category: "chat"
+section: "親子"
+subcategory: "課外 / camp"
+difficulty: 1
+timeMinutes: 30
+toolsNeeded: ["Claude Chat", "camp organizer 嘅 form / email", "你細路 personality + skill snapshot"]
+description: "細路 8 歲第一次 4 日 overnight camp，organizer 要家長 1 頁 introduction letter。點 frame quirks 唔似投訴？用 Claude dump 真 personality，出 honest + organizer-readable 嘅 letter + medical form prep。"
+keywords: ["summer camp 家長信", "camp introduction letter", "細路 介紹 信", "HK summer camp", "幼稚園 camp 信", "細路 personality letter"]
+related: ["parent-teacher-feedback-claude", "critical-thinking-children-claude", "dse-prep-mental-claude"]
+featured: false
+---
+
+## 情境
+
+而家 5 月底。
+
+你細路 Marcus 8 歲，6 月開始放暑假。你 sign 咗佢 7 月中 4 日 3 夜 「海洋公園 Marine Camp 」(由小學 PE 老師組織)。
+
+Day 1 form 出咗:
+- Medical form (allergy / asthma / medication / 緊急 contact)
+- Diet form (vegetarian / 過敏)
+- **「家長介紹信 (1 頁 A4) — 等 group leader 認識你 細路, special 注意 if any」**
+
+你 sit down 8pm 寫，13 分鐘後 stuck.
+
+你 draft:
+
+> 「Marcus is 8 years old. He is a nice boy. He likes swimming and Lego. He has no allergies.」
+
+讀完自己 cringe。
+
+你 try 加 detail:
+
+> 「Marcus is somewhat shy with new groups. He may need encouragement to participate. He is a sensitive eater.」
+
+讀完更 cringe。「Somewhat shy」 sound vague. 「Sensitive eater」 sounds like complaint. Organizer read 100 letters, 你 worry 你 letter 變 「demanding parent」 signal.
+
+你 try 「professional」 tone:
+
+> 「Marcus is a thoughtful and observant child who enjoys hands-on learning. He is most comfortable in structured environments with clear instructions.」
+
+讀完 you realize — 呢段 描述 任何 個 細路 都 啱. 唔 specifically Marcus.
+
+呢個 camp letter paradox：
+
+- **「Honest detail」** 怕似 投訴
+- **「Professional」** 怕似 generic
+- **「Quirky 細節」** 怕被 organizer 視 為 「difficult parent」
+- **太 short** organizer 唔 know how handle
+- **太 long** organizer 唔 read
+
+你 want: organizer **真 understand Marcus enough 不 force 佢 唔 啱 嘅 activity, 但 also 不 segregate / over-protect**.
+
+呢篇用 Claude 30 分鐘 produce **honest but readable 1 頁 letter** — focus on 「decoded behavior」 + 「practical accommodation」 + 「what success looks like for THIS kid」.
+
+## 跟住做
+
+### 1. Dump Marcus real personality 入 Claude (real, 唔 polished)
+
+唔 ask Claude「點 寫 camp 信」. 先 brain dump 真 personality:
+
+> **Marcus baseline**
+> - 8 歲, K3 完, 即將 P1
+> - 大眾 印象 嘅 personality: shy first, warm with familiar
+> - 同 group: 1-on-1 OK, 大 group (>10) overwhelm
+> - 學業: average, 中文 strong, 數學 struggle
+> - PE: swim love, ball game scared (afraid hit)
+> - Music: piano lesson 2 年, like
+> - 鐘意: Lego, marine animal (so picked this camp), reading non-fiction (animal encyclopedia)
+> - 唔鐘意: loud unexpected noise, ball thrown at him, mystery food
+>
+> **食**
+> - 鐘意: 白飯, 雞肉 plain, fruit, 麵
+> - 唔肯食: most vegetable, fish (interestingly given 對 marine love), spicy, sour
+> - Allergy: NO known
+> - 過往 camp: 1 個 day camp (3 hr only), missed lunch because 唔肯 食 mystery 飯 (organizer didn't know to escort to 7-Eleven)
+>
+> **Behavior nuance**
+> - 「Shy」 actually = needs 1 person 1-on-1 first 30 min, then warm up
+> - Hides 「scared」 by 「sulking」 or「physical complaint (我 head ache)」
+> - 唔 verbalize stress, body signal (清 throat / 摸 ear / quiet)
+> - 對「過熱」極 敏感 (HK 6 月 35°C)
+> - 唔 swimming pool 嘅 chlorine smell (panic)
+> - Nightmare possibility 1st 2 days new environment
+>
+> **Medical**
+> - 哮喘 mild (用 Ventolin inhaler 偶爾, last 用 3 個月前)
+> - 唔 medication daily
+> - 鼻 sinus seasonal (5 月 6 月 prone)
+> - 牙箍 (orthodontic retainer 夜 wear, requires shower-able storage)
+>
+> **過往 camp 經驗**
+> - 1 個 day camp (3 hr)
+> - Sleep over at 公婆 ok
+> - Never overnight outside family
+>
+> **我 want from organizer**
+> - 認識 Marcus 唔 paint as「difficult」
+> - Practical accommodation 唔 segregate
+> - 我 reachable 1st day if emergency
+> - 我 唔 expect 「favors」 — Marcus blend with 大眾 大致 OK with light awareness
+>
+> **我 fear**
+> - Organizer view 我 as「helicopter parent」
+> - Letter too detailed = organizer dismiss
+> - Letter too brief = Marcus stranded
+> - Marcus call 我 cry Night 1 (high probability)
+> - Marcus 一直 唔 reach out, suppress, melt down Night 3
+
+呢類 honest dump (warts and all) — Claude 之後 organize 成 organizer-readable.
+
+### 2. 用呢個 prompt 出 1 頁 camp letter
+
+<PromptBlock label="完整 prompt — 1 頁 camp introduction letter">
+[paste 你 Marcus dump]
+
+請整 **1 頁 A4 介紹信** for camp organizer:
+
+📐 **Letter structure**
+
+**Header**
+- 你 + partner name
+- Contact info: cell + WhatsApp + email
+- Best reach time
+
+**Opening 段 (3-4 sentence)**
+- Marcus age + background (1 sentence)
+- 1 sentence 你 grateful for organizer's experience
+- 1 sentence 我 letter purpose: 「To help 你 leader understand Marcus's specific need so he can fully participate.」
+- 不 cliché「Thank you for taking care of my precious child」
+
+**段 1: Practical (the 4 things organizer really needs)**
+
+**🍽 Food**
+- 鐘意 (likely 食): plain rice, plain chicken, fruit, noodle, pasta
+- Tries 唔 食 (likely refuse): vegetable (except cucumber), fish (specifically), spicy, sour, mystery sauces
+- 「If Marcus refuses meal, please offer alternative 簡 (rice + chicken) — 唔 force. He's not picky to be difficult, but specific food trigger gag reflex.」
+- No allergy
+
+**💊 Medical**
+- 哮喘 mild: Ventolin inhaler in his daypack (label name + dose)
+- 哮喘 trigger: cold air, heavy exercise, dust
+- Action if Marcus uses inhaler more than 1x / day: please call 我 (number)
+- 鼻 sinus seasonal: tissue + nasal spray in toiletry bag
+- Orthodontic retainer: night-only, dental case (label name) — 唔 require staff manage, Marcus can self-handle
+
+**🛏 Sleep**
+- 第 1 night likely homesick / cry — normal, please reassure briefly + don't force「stop crying」
+- 第 2 night usually adjusts
+- If 第 3 night still distressed, please contact 我 — may need shorter check-out
+
+**🏊 Activities**
+- 鐘意: swim, marine animal observation, Lego-type building, reading
+- 唔啱 well: ball sport (afraid being hit), crowded loud games
+- 「If Marcus opts out of an activity citing 'head ache' or 'tummy ache', it's usually his way of saying overwhelmed. Brief check-in + alternative seat-out option work well.」
+
+**段 2: Personality decode (the unique part)**
+
+「Marcus is initially shy in new groups (~30 minutes warm-up time). After warm-up, he engages well. He does NOT vocalize stress easily, but uses physical signal: clearing throat repeatedly, touching ear, becoming quiet, complaining of small ailment. Group leaders alert to these signal can offer Marcus a brief 1-on-1 check-in which usually resolves.」
+
+「Marcus thrives in: structured activity with clear instruction, marine biology context, partner activity with 1 buddy.」
+
+「Marcus struggles with: loud unpredictable sound, fast-changing instruction, large free-play (>15 kid).」
+
+「Marcus is comfortable with: light teasing once warmed up, encouragement, learning new vocabulary, helping younger kids.」
+
+**段 3: Communication (我 哋 want)**
+
+- Daily 1 photo / brief message acceptable (no need detail)
+- 任何 concern (medical / behavioral / homesick beyond normal) please call/WhatsApp immediately
+- 我 唔 expect daily call from camp staff — quiet days = good signal
+- If emergency: 我 (mom) cell, partner cell, 細妹's grandmother backup
+
+**Closing**
+
+- 1 sentence:「Marcus excited about this camp 因 marine animal — he's read [book name]. He may surprise 你 with detailed shark fact knowledge.」
+- 1 sentence:「Thank you for taking time to read this. We trust 你 experience.」
+- 簽 + date
+
+📋 **Style**
+
+- Total: 350-450 字 + minor format space
+- 1 頁 A4 print OK
+- Professional but warm
+- Honest, 不 minimize 真 challenge
+- 不 dramatize OR cliché
+- Phone + email at top + bottom (for organizer convenience)
+
+🚫 **Avoid**
+
+- 「Marcus is a special child who needs careful handling」 (red flag for organizer)
+- 「Please ensure Marcus...」 (demanding tone)
+- Long medical history beyond practical
+- Sister / family politics
+- 「If anything happens please...」 (broad demand)
+- Apologetic「I know this is many requirements」 (defensive)
+
+✅ **Include**
+- Practical「If X, then please Y」
+- Decode behavioral signal
+- Reassure 我 trust their experience
+- 1 positive note about Marcus (animal interest)
+- 我 contact info prominent
+
+語氣：partner with organizer, not micromanaging.
+</PromptBlock>
+
+Claude 出 draft. **唔 immediate finalize** — sit overnight，next 朝 fresh read，you spot 邊 tone awkward / 邊 detail missing.
+
+### 3. Medical form 細節 prep
+
+Medical form 通常 separate. Claude help structure:
+
+<PromptBlock label="完整 prompt — Camp medical form prep">
+我 fill medical form for Marcus. 請 advise specific structure:
+
+🏥 **Medical form 通常 ask**
+
+✅ **Confirmed allergies**
+- Marcus: NO known food / drug / environmental allergy
+- 寫 NIL 唔 leave blank (Important signal)
+
+✅ **Conditions**
+- Asthma: mild, intermittent
+- Last episode requiring inhaler: 3 個月前
+- Trigger: cold air, exercise
+- Severity: 從 未 hospitalize
+
+✅ **Medications**
+- Ventolin inhaler PRN (as needed)
+- 唔 daily medication
+- Dose: 2 puffs PRN
+- Brand: [Ventolin HFA / generic salbutamol]
+
+✅ **Surgical / hospital history**
+- Marcus: NIL
+
+✅ **Doctor info**
+- GP name + clinic + phone (last visit date if asked)
+- Specialist if any (Marcus: NIL)
+- 學校 nurse / doctor if specified
+
+✅ **Insurance**
+- Card number + provider
+- Policy effective + expire date
+- Customer service hotline (24-hr if available)
+
+✅ **Emergency contact 4 person**
+1. Mom (you): name + cell + WhatsApp + work hour limit
+2. Partner: same
+3. Grandma (細妹 嘅 婆婆): name + cell + relationship
+4. Family doctor 24-hr: clinic + emergency line
+
+✅ **Consent**
+- Sign + date
+- Witnessed by? (some camps require 2 witnesses)
+- Consent for: medical action in emergency (yes, with 我 attempt contact first)
+- Consent for: medication administration (specify which staff can — usually camp medical lead only)
+
+📋 **Specific instruction (add to「special instruction」 box if available)**
+
+- 哮喘 inhaler 「in his orange backpack front pocket, also 1 spare in his locker」
+- 「If 哮喘 attack: 2 puffs, wait 15 min, if no improvement 2 more puffs + call 我」
+- 「If 3rd dose needed within 4 hr OR severe difficulty breathing: call 我 + emergency immediately, A&E nearest is [hospital name]」
+- 鼻 sinus tissue + spray location
+- Retainer storage: case in toiletry bag, Marcus self-handle
+
+🚨 **Don't omit**
+- Sleep environment preferences: lower bunk (afraid fall)
+- Bedwetting history: NIL (or YES if applicable, no shame)
+- 自閉 / ADHD / dyslexia: 寫 NIL OR specify diagnosis
+- 心理 health: low day / past anxiety
+- Family pet: 唔 missing pet anxiety
+- 月經 cycle (if applicable, female 細路 11+)
+
+✏️ **Tips for accurate filling**
+- 唔 minimize symptom (organizer prefers full picture)
+- 唔 over-disclose unrelated history
+- 用 medical term 細路 自己 use (不 medical jargon if 細路 唔 understand)
+
+📞 **Phone strategy for emergency**
+- 我哋 always reachable + emergency
+- If 我 唔 reach: 「please leave message + try alternate immediately」
+- 不 frustrated organizer if 1st attempt fail — they'll always try next
+- During work meeting if non-life-threatening: WhatsApp 可以 wait 30 分鐘
+
+語氣：comprehensive + practical.
+</PromptBlock>
+
+### 4. Marcus own prep (week before camp)
+
+家長 letter 寫完，但 細路 emotional prep 同樣 critical:
+
+<PromptBlock label="完整 prompt — Pre-camp 細路 emotional prep">
+Marcus 8 歲 第一次 4 日 overnight. 我 want help him prep emotionally.
+
+📅 **Week before camp**
+
+**Day 7 前: introduce camp casually**
+- 「In 1 week 你 going camp! 我 already 同 organizer 講過. They know 你 動物 expert.」
+- 「You can call 我 anytime if you want.」 — 但 don't promise specific call schedule
+
+**Day 5 前: pack together**
+- Marcus 自己 揀 own clothes (limited choice: 你 lay out 2 options)
+- 1 comfort item from home (familiar pillowcase / soft toy)
+- 「I packed extra socks because feet get cold at night」 (you visible cared)
+
+**Day 3 前: 物 logistics review**
+- Show packed bag layout
+- 「You can find Ventolin here. Tissue here. Tooth brush here.」
+- 唔 too detailed — confidence build, 不 obsessive
+
+**Day 2 前: emotional preview**
+- 「You might feel a bit weird first night — that's normal. 我哋 used to feel that camp too.」
+- 「First night is hard. Second night easier. Third night you may not want come home!」
+- 「I 100% sure 你 OK. 我 trust you.」
+
+**Day 1 前: practice goodbye**
+- 「Tomorrow morning 8am 我 drop you off. We will hug, then 我 walk away. You walk towards your group.」
+- Practice 1 time at home
+- Marcus may 試 manipulate「don't go」 — caring response: 「I know it's scary. You can do this.」
+
+🚫 **Avoid (pre-camp)**
+
+- Over-promise:「You're going to LOVE it!」
+- Doom predict:「Don't get hurt」/「Don't lose your inhaler」
+- Compare:「Your sister was so brave at her camp」
+- Pre-anxiety transfer: 你 own crying / 過度 worried face
+
+✅ **What helps**
+- Casual tone, optimistic but realistic
+- 答 questions honestly
+- 1 secret family signal (specific hand wave, code word) for unspoken comfort
+- 1 written note hidden in his bag「Have fun! Love, Mom」 (will find Day 2, mood boost)
+- 公婆 / 親朋 visit before — distract excitement
+- 不 marathon「last weekend before camp」 over-tight schedule
+
+🛏 **Night before camp**
+- Normal bedtime — 唔 special change
+- 1 hug
+- 「See you Day 5. 你 going to do great. Goodnight.」
+- 你 自己 calm (Marcus mirror parent state)
+
+🚗 **Drop-off day**
+- Phone backup charged
+- Tissue in pocket (for 你 own emotion)
+- Quick hug, decisive walk away — don't linger
+- Cry in car if needed (你 own emotion)
+
+📞 **First 24 hr**
+- 你 expect call: probably yes
+- If call cry: short comfort + brief firm「You can do this. I will see 你 Day 5.」 don't extend call
+- If no call: trust system. Organizer would have contacted if issue.
+
+📅 **During camp**
+- Daily 1 photo from organizer (you check phone, but 不 obsessive)
+- 不 multiple call to organizer for update
+- 不 unannounced 「我 around if 你 want」 visit
+
+🏠 **Day 5 pickup**
+- Be there 10 min early
+- Marcus may be: tired / hyper / quiet / shy
+- 1st 24 hr return — let him decompress
+- Avoid bombarding「How was every detail!」
+- Story comes out gradually over the week
+
+🎯 **Post-camp**
+- Praise specific:「I'm proud you tried sailing」
+- 不 generic「good job!」
+- 1 small celebration (gelato, his choice)
+- Marcus build confidence for next year overnight
+
+語氣：parent-side prep equally important as 細路 side.
+</PromptBlock>
+
+## 變化
+
+### 變化 1：High-need 細路 (autism / ADHD / 過敏 severe)
+
+特殊需要 細路 嘅 letter 更 detailed:
+
+<PromptBlock label="變化 1 — Special needs 細路 camp letter">
+我細路 [autism spectrum / ADHD / severe allergy / 哮喘 severe / 慢性 condition]. 同 standard letter 唔同.
+
+📐 **Special needs adjustments**
+
+📋 **Letter expand (1.5-2 頁 OK)**
+
+**Diagnosis disclosure**
+- Direct, 不 hide:「Marcus has autism, level 1 (formerly 'Asperger's')」
+- 唔 sugar-coat:「he sometimes processes information differently」 awkward
+- Diagnosis date + diagnosing professional
+- Current support: OT / speech therapy schedule
+
+**Specific accommodation**
+- Sensory sensitivity (loud noise / texture / smell)
+- Pattern preference (routine / predictability)
+- Social communication style (literal interpretation)
+- Trigger + recovery: 「If Marcus melt down, give him 10 min quiet space, do NOT physical contact, then offer simple choice」
+
+**Strengths**
+- Hyper-focus area
+- 特長 (memorize fact / pattern / 動物)
+- Buddy match suggestion if camp can accommodate
+
+**Group leader 訓練 prep**
+- Recommend: 1 specific staff inform of diagnosis + accommodation
+- Other staff: basic awareness, not over-disclose to peer
+- Peer disclosure: 細路 own choice if at all
+
+**Emergency**
+- More 詳 escalation: 「If 你 unable handle, please WhatsApp 我 immediately — I can talk Marcus down phone」
+
+**Reasonable expectation set**
+- Marcus may not「fit in」 mainstream activity
+- Acceptable for him sit out big group game
+- Success measure for him: 1 friend made, learn 1 new fact
+- NOT: become extrovert
+
+🏥 **Medical sheet enhance**
+- Allergy: full list + cross-contamination concern
+- Medication: detailed dosing + timing
+- Emergency: EpiPen location + when use
+- Insurance + specialist
+
+📞 **Pre-camp call to organizer**
+- Recommended for high-need 細路
+- 15-min phone call 1 個禮拜 前
+- Discuss expectations both side
+- Sometimes camp refer alternate camp if not equipped — better know early
+
+🚨 **Be prepared:**
+- Organizer may decline if 過 needs camp 能 provide. 唔 take personal.
+- Specialized camp / smaller ratio may fit better
+
+語氣：advocate strongly + realistic.
+</PromptBlock>
+
+### 變化 2：分開 父母 / blended family
+
+複雜 family situation:
+
+<PromptBlock label="變化 2 — 分開 父母 camp letter coordination">
+我同 細路 父親 / 母親 [離婚 / 分開]. 細路 [住 我邊 / 住 對方邊 / shared custody]. Camp letter 點 coordinate.
+
+📋 **Two-parent letter consideration**
+
+**Joint authorship**
+- Best: 1 letter, both signed
+- 唔 fight in front of organizer (你 letter become evidence)
+- Drafted together OR each contribute factual section
+
+**Custody clarity**
+- Camp pickup permission: 邊個 allowed pickup?
+- Specify「only [parent name] OR designated person with our explicit OK」
+- Court order if applicable (camp may ask)
+- Emergency contact priority 順序: separate list
+
+**Different observation**
+- Each parent may notice different about 細路 (especially shared custody)
+- Both perspective valid
+- Letter may mention「Dad observes X, Mom observes Y」 if confusion useful
+
+**Communication**
+- One designated「point parent」 for organizer (reduces confusion)
+- Both reachable still
+- 唔 forward organizer messages to other parent unless agreed
+
+**During camp**
+- Both can call (organizer aware)
+- Family meeting / dispute 唔 happen during camp
+- 細路 receives stable message both side
+
+**Emergency**
+- Both authorized make decision
+- Disagreement: medical professional + 兒童 best interest applies
+
+🛑 **Anti-pattern**
+- 用 letter as battlefield (organizer awkward)
+- Cut other parent out without legal basis
+- 細路 carry message between parents
+- Different version of 「what 細路 likes」 contradicting
+
+💔 **If 細路 facing 父母 conflict at home**
+- Acknowledge brief 在 letter:「Marcus's parents are separated. We coordinate well, but he may occasionally bring up family stress.」
+- Camp staff trained to listen 不 problem-solve
+- Not「fix」the family situation during camp
+
+🤝 **Blended family**
+- Step-parent role clarify: pickup OK? Emergency call OK?
+- Half-siblings 細妹 / half-brother: their role
+- Camp letter from biological parent recommended primary
+
+語氣：mature co-parent, 細路 best interest center.
+</PromptBlock>
+
+### 變化 3：超 expensive overseas camp / 國外 boarding
+
+唔 同 local camp 嘅 differ stake:
+
+<PromptBlock label="變化 3 — Overseas / boarding camp letter">
+我細路 [overseas summer camp 國外 / boarding school enrolment / 連續 camp 4-6 週]. 較 stake.
+
+📐 **High-stake letter additional consideration**
+
+📋 **Background detail (more important)**
+- 細路 international / cultural background
+- Native language + comfort level English
+- Religious / dietary practice (kashrut / halal / 素食)
+- Holiday / cultural observance during camp
+- Currency / cell phone international setup
+- Time zone difference (parent contact timing)
+
+✈️ **Logistics complexity**
+- Flight detail (arrival + departure date / time)
+- Passport / visa copies on file
+- Guardian during transit (uncle / friend / unaccompanied minor service)
+- Banking (細路 access pocket money)
+- Phone / data plan abroad
+- Embassy / consulate contact
+
+🏥 **Medical considerations abroad**
+- Insurance international coverage check + claim process
+- Closest hospital / clinic where camp located
+- Prescription medication labelled (international)
+- Vaccinations + records (some country require)
+
+🌐 **Culture / context bridging**
+- 細路 may experience culture shock (food / norm / language)
+- Camp staff may misread 細路 behavior (Asian 「shy」 vs 國外 「disengaged」)
+- 1 paragraph cultural context if useful
+
+📞 **Communication frequency**
+- International call expensive — schedule weekly call
+- WhatsApp / WeChat detailed
+- Multiple time zones: parent flex
+
+🆘 **Emergency abroad**
+- Embassy contact
+- International SOS membership if applicable
+- Insurance 24-hr international hotline
+- Trusted local person (relative / friend in country)
+
+💰 **Financial pre-arrangement**
+- Pocket money distribution
+- Emergency fund authority
+- Camp incidentals (laundry / 加 spending)
+- Travel home if early termination
+
+🛂 **Departure / return logistic**
+- Unaccompanied minor service if young
+- Pickup / drop-off at airport
+- Connecting flight scenarios
+- Document checklist
+
+🏠 **Re-entry shock prep**
+- 細路 may struggle return after 6 週 absence
+- School / activity transition
+- Friend group dynamics changed
+- Sleep schedule jet lag adjust
+- 2 個禮拜 buffer before school resume
+
+語氣：sophisticated, 國際 ready, no over-anxiety.
+</PromptBlock>
+
+## 一個 mindset
+
+Camp letter 嘅 paradox: **你 want organizer 真 understand 你 細路, but 唔 want 細路 typecast as「needs accommodation」 細路.**
+
+呢個 tension's resolution: **specific decoded behavior + reasonable accommodation > vague worry + open-ended request**.
+
+呢個 mindset 嘅 reframe: 你 letter 真正 service 唔係 「protect 細路 from camp」 — 係 **bridge between 你嘅 deep knowledge of 細路 + organizer's general experience**. 兩者 combine = optimal experience.
+
+Claude 嘅 role 喺 letter writing: 你 default mode 寫 letter 容易 either 過 detailed (anxiety dump) OR 過 generic (defensive caution). Claude help structure dumps 入 organizer-readable specific. Output: organizer 第一眼 「I can work with this kid」.
+
+最後 reminder：
+
+- ✅ **Specific 「If X then Y」 instruction > generic 「he needs care」**. Organizer 揀 helpful detail.
+- ⚠️ **Marcus 第 1 day cry phone call ≠ failure**. Day 1 transition real. Trust system.
+- 🎯 **後 camp success metric ≠ best camper award**. = Marcus return home 一 thread of new confidence, 1 new fact about 動物, 1 sentence about new friend.
+
+4 日後 Marcus 返到屋企. Some moments he 想 tell 你, some 唔 tell. Both OK.

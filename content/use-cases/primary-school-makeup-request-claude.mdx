@@ -1,0 +1,576 @@
+---
+title: "細路 P3 中文 默書 13/100，要 apply makeup test？用 Claude 寫到老師會 say yes 嘅信"
+slug: "primary-school-makeup-request-claude"
+issue: 72
+publishedAt: 2026-05-24
+audience: ["學生家長"]
+category: "chat"
+section: "親子"
+subcategory: "學校 溝通"
+difficulty: 1
+timeMinutes: 20
+toolsNeeded: ["Claude Chat", "細路 嘅 test paper photo + recent academic snapshot"]
+description: "細路 P3 中文默書 13/100，你想 apply makeup test。學校 policy 要 parent request letter + home preparation evidence。用 Claude 寫到 specific evidence + reasonable ask，老師 say yes 機會 30% → 80%。"
+keywords: ["小學 重 考 信", "make up test request", "細路 學業 信", "HK 小學 家長 信", "默書 重考", "親子 學校 溝通"]
+related: ["parent-teacher-feedback-claude", "critical-thinking-children-claude", "summer-camp-application-letter-claude"]
+featured: false
+---
+
+## 情境
+
+5 月 3 日 8:14pm。
+
+你細路 Lily (P3, 9 歲) handwriting 把今日中文默書 paper 拎出嚟。Sticky note from teacher:「請家長 sign」。
+
+你 see grade: **13/100**.
+
+你 deep breath. 50 個生字, Lily 識 7 個.
+
+你 ask: 「點解咁?」
+
+Lily: 「嘅我 forgot study. 我 watch YouTube 嗰晚.」
+
+你 ask: 「你媽咪 唔 知 你 要 默書嗎?」
+
+Lily: 「我 唔 update homework book.」
+
+你 ask: 「咁 你 知 你 fail 啦?」
+
+Lily: 「Miss Cheung 話 13 分 lowest in class.」
+
+你 ask: 「如果 比 你 一次 chance, 你 study 嗎?」
+
+Lily: 「Yes! I serious!」
+
+你 weigh 同 partner:
+
+- **Option A**: Sign paper, accept 13 grade, 我哋 manage 大 picture (學業 still mid-range OK, 1 default 唔 catastrophic)
+- **Option B**: Apply makeup test (re-take exam)
+  - 學校 policy: parent's letter required justify request
+  - Approval rate: estimated 30-50% (admit teacher discretion)
+  - If approved: Lily prep + retake
+  - If denied: same as Option A
+- **Option C**: 補習班 加 一個 next 1 個月 prevent recurrence
+
+你 揀 Option B (give chance + parent accountability), 開 phone 寫信 8:34pm. 你 type:
+
+> 「Dear Miss Cheung, our daughter Lily got a low mark on yesterday's dictation. We are very sorry. Can she retake the test? Thank you.」
+
+讀完 cringe — sounds desperate.
+
+你 try:
+
+> 「Dear Miss Cheung, Lily failed her dictation 因為 she forgot. We respectfully request opportunity for her to retake to demonstrate her actual capability.」
+
+讀完更 cringe — sounds defensive.
+
+呢個 makeup test letter paradox:
+
+- **「對唔住」 over-apologize** — teacher think 你 entitled parent expecting favors
+- **「Lily forgot」** — teacher see 「parents excusing kid」
+- **「Demonstrate her actual capability」** — teacher think 你 dispute test validity
+- **太 brief** — teacher dismiss as not serious request
+- **太 long** — teacher annoyed reading
+
+你 want: teacher **read 知 你 parents took accountability + Lily took responsibility + specific learning evidence + reasonable ask**.
+
+呢篇用 Claude 20 分鐘 寫到 **specific evidence + reasonable ask + parent accountability** — teacher say yes 機會 30% → 80%.
+
+## 跟住做
+
+### 1. Dump situation honestly + identify what 「good evidence」 looks like
+
+開 Claude 之前 dump 真實 picture:
+
+> **Lily situation**
+> - P3, 9 歲, 中文 班 mid-class
+> - Default 中文 成績 60-75 range
+> - Today's dictation: 13/100
+> - 原因: 唔 prep ("forgot")
+> - Lily reaction: 沒 cry, sober, asked for chance
+>
+> **過往 pattern**
+> - 中文 一般 OK 但 not 強 subject
+> - 默書 typical: 55-75 range
+> - Dropped 50+ percentile 唯一 一次
+> - 學期 中段 (mid-term): grade still OK overall
+>
+> **What teacher knows about us**
+> - Teacher: Miss Cheung, P3 中文, 8 年 experience
+> - 我哋 attended parent-teacher day in Oct (formal)
+> - 我哋 reachable by 家長 平台 / phone
+> - We have not 拖 contact teacher before
+> - Lily not known as「troublemaker」 in class
+>
+> **我 want**
+> - 1 chance makeup test
+> - 重要: NOT to「erase」13 grade — but to show real capability
+> - Lily takes prep 認真 next week
+> - 我哋 parents involved in prep
+> - 唔 demand teacher
+>
+> **我 prep evidence (within 1 week if approved)**
+> - Lily own re-study plan
+> - 50 word list re-practice
+> - Parent monitor / partner with study
+> - 1 written reflection from Lily「why I failed + what I'll do differently」 (P3 level)
+>
+> **What 我 know about 學校 policy**
+> - 學校 policy: makeup tests granted at teacher discretion
+> - Parent letter required
+> - Usually approved if: parent communicates accountability + child shows preparation
+> - Usually denied if: parent excuses + child no preparation evidence
+>
+> **我 fear**
+> - Teacher denies → Lily disappointed
+> - Teacher approves but Lily fails again → worse
+> - 我 letter sets wrong tone → teacher question 我 parenting
+
+### 2. 用呢個 prompt 出 makeup test request letter
+
+<PromptBlock label="完整 prompt — Primary school makeup test request letter">
+[paste 你 dump]
+
+請整 **makeup test request letter** to Miss Cheung:
+
+📐 **Structure (1 頁 A4 max)**
+
+**Header**
+- Date
+- Your name + relation (parent)
+- 細路 name + class
+- Subject + relevant 試 / test reference
+
+**Opening (2-3 sentence)**
+- 唔 over-apologize
+- 唔 dramatize
+- 簡 statement:「I'm writing to request a makeup opportunity for Lily's dictation test (50 字, score 13/100, dated [日期])」
+
+**Paragraph 1: Take accountability**
+- 不 blame Lily alone, 不 blame ourselves alone
+- Specific:「Lily did not adequately prepare. We as parents did not check in on her preparation that week.」
+- 不 「we are very sorry」 repetitive
+- 1 acknowledge:「13/100 is below Lily's usual range (60-75) and reflects missing preparation, not lack of capability.」
+
+**Paragraph 2: 細路 ownership**
+- 1 sentence Lily's own reflection (paraphrase her words):
+- 「Lily acknowledged she did not study. She has expressed she is ready to prepare seriously if given another chance.」
+- 不 「Lily promises to do better」 (vague)
+- Specific evidence Lily 已 started reflection (見 prep section)
+
+**Paragraph 3: Specific prep plan**
+- 「If approved, our re-preparation plan:」
+  - 「Daily 20-min review of the 50 字 word list, Mon-Fri next week」
+  - 「Practice 默書 daily with parent quiz」
+  - 「Lily own written reflection (attached)」
+  - 「Parent sign each day's practice notebook」
+- 1 timeframe:「Re-takable within 7 day, schedule at 你 convenience」
+
+**Paragraph 4: 不 demanding tone**
+- 「We understand makeup tests are at 你 discretion and are exception, 不 standard practice.」
+- 「If approved, we appreciate the additional opportunity. If 不, we accept the original grade.」
+- 不 over-pressure teacher
+
+**Closing (1 sentence)**
+- 「Thank you for considering. We are reachable at [phone] / [email] if you need to discuss.」
+- Sign + date
+
+📋 **Attached evidence (1 page)**
+
+- 「Lily own reflection note」(in Lily's own handwriting):
+  - 「I forgot to study because I watched YouTube」
+  - 「I am sorry to Miss Cheung」
+  - 「My plan: 每日 review 字, ask Mom or Dad to test me, re-take 試」
+  - 「I will be honest about my preparation this time」
+
+- Parent prep schedule (signed by 你 or partner):
+  - Day 1: 字 list review + 練習
+  - Day 2: 字 list review + 練習
+  - Day 3: practice test 1 (parent monitor)
+  - Day 4: weak words 加 focus
+  - Day 5: practice test 2 (parent monitor)
+  - Day 6-7: rest
+  - Day 8: makeup test
+
+🚫 **Avoid phrases**
+- 「Sorry to bother 你」(submissive)
+- 「Please understand my child is really not like this」 (excuse)
+- 「Other parents...」 (irrelevant)
+- 「She'll be heartbroken if 唔 retake」 (emotional manipulation)
+- 「I know teaching is busy but...」 (passive aggressive)
+
+✅ **Include phrases**
+- 「Accountability」
+- 「Capability vs preparation」
+- 「Reasonable opportunity」
+- 「Thank you for considering」
+- 「We accept either decision」
+
+📝 **Tone**
+
+- Adult-to-adult professional
+- Equal partner with teacher
+- 不 deferential, 不 demanding
+- Specific evidence + plan
+- Mutually respectful
+
+語氣：collaborative request, prepared family.
+</PromptBlock>
+
+Claude 出 draft. **Read 1 次, sit 1 hour, read 第 2 次 fresh**. 點 polish:
+
+- Detail too school-specific 你 adjust
+- Voice 太 「professional」 cold — soften 1 phrase
+- Lily reflection note 用 her own words — 我 (parent) help structure, 不 ghost-write
+
+### 3. Lily 1 頁 reflection note (P3 level, her own writing)
+
+家長 letter 同時, Lily own reflection 同樣重要:
+
+<PromptBlock label="完整 prompt — P3 student own reflection note structure">
+我幫 Lily write own reflection note. Lily age 9, P3 level 中文 written.
+
+📐 **Structure for 9 歲 reflection (P3-level vocabulary)**
+
+**1 段 (5-7 sentence)** in her own handwriting:
+
+Hook:「Miss Cheung,」
+
+**Sentence 1: Honest fact**
+- 「我 default book 沒有 check」OR「我 forgot 學習 字」
+- 不 excuse, 不 blame YouTube alone
+
+**Sentence 2: Feeling**
+- 「我 sad about 13 分.」
+- 不 perform emotion, real word
+
+**Sentence 3: Realization**
+- 「呢 50 字 我 6 月 仲 useful, 我 知 我 need learn.」
+- Acknowledge longer-term
+
+**Sentence 4: Plan**
+- 「我 plan study 每日 20 分鐘. 媽咪 test me.」
+- Specific, parent visible
+
+**Sentence 5: Ask**
+- 「如 可以 重 try makeup test, I will prepare. If 不 can, I understand.」
+- Reasonable
+
+**Sentence 6: Close**
+- 「Thank you Miss Cheung.」
+
+**End: Sign:「Lily」 + date**
+
+🎯 **Voice tips for 9 歲**
+
+- Lily own handwriting (not parent's)
+- Lily own word choice (parent assist structure, not vocabulary)
+- 5 typo OK (more authentic 不 perfect)
+- 1 sentence simple Chinese OK if Lily 默 simple
+
+📋 **Helps teacher see**
+- 細路 真 take responsibility
+- Reflection 不 ghost-written by parent
+- Capable of acknowledgment + plan
+- 對 future learning attitude
+
+🚫 **Avoid for Lily reflection**
+- Adult phrasing「I deeply regret」(suspicious 細路 wrote)
+- Excuse「I had busy week」 (entitled)
+- Over-promise「I will get 100/100」 (unrealistic)
+- 對 Miss Cheung kissing up「Miss Cheung is best teacher」 (suspicious)
+
+✅ **OK to include**
+- 1 細路 honest acknowledgment「我 like YouTube too much sometimes」
+- 1 specific commitment「我 will use 字 cards」
+- 1 sentence Mom 同 dad role「Mom will check 我 study」
+
+語氣：authentic 9-year-old voice, honest, structured by parent but not ghost-written.
+</PromptBlock>
+
+⏰ **Lily 自己 spend 30 分鐘** write own letter. 你 sit nearby, help spell 1-2 字, 但 don't dictate. Lily letter authenticity = teacher trust signal.
+
+### 4. Submit + follow up
+
+<PromptBlock label="完整 prompt — Submit + post-decision protocol">
+Letter + Lily reflection ready. Submission + post-decision protocol:
+
+📬 **Submission**
+
+- 學校 家長 platform message OR direct email to Miss Cheung
+- 不 hand 細路 deliver (細路 may forget / lose)
+- Subject:「Makeup test request — Lily [class], dated [test date]」
+- Attach: parent letter (PDF) + Lily reflection note (photo of handwriting)
+
+📅 **Timing**
+- Within 3 working days of test result
+- Don't wait > 1 week (looks like afterthought)
+- Don't submit late evening (looks like rushed)
+
+⏰ **Expected response**
+- Teacher reply 1-3 working days typical
+- If 4+ days no response: gentle follow-up message
+- Subject:「Following up on makeup request — Lily [class]」
+- 不 multiple follow-up if 1 follow-up no response (teacher decision time)
+
+✅ **If approved**
+- Reply: 「Thank you. Lily and we are ready. Re-take 試 [proposed time]?」
+- Confirm logistics in writing
+- Lily prep執行 plan (8 day plan from letter)
+- Lily attend retake calm
+
+❌ **If denied**
+- Reply: 「Thank you for considering. We respect 你 decision. Lily's next dictation will be 認真 prepared.」
+- 不 negotiate 唔 push
+- Use as learning moment for Lily: 「We asked respectfully, teacher decided 不. That's allowed. We continue forward.」
+- Don't bad-mouth teacher in front of Lily
+
+📊 **Re-take outcome**
+
+- 若 Lily score >60: outcome OK, 13 grade lesson processed
+- 若 Lily score 低於 50: more serious 學業 conversation needed (Lily extra support, possible tutor)
+- 若 Lily score >80: bonus, 不 set unreal expectation for everyday tests
+
+🎯 **Long-term lesson**
+
+- Lily learnt: preparation matters, parents involved, default 不 catastrophic
+- Parents learnt: check-in on Lily prep weekly (not just trust 她)
+- Teacher learnt: this family communicates accountably
+- All: 1 default test 不 trajectory-changing
+
+📋 **Documentation**
+
+- Save letter + response + retake outcome in 1 folder
+- 如 future similar situation: reference 過去 communication
+- Lily 升 班 next year: not transferred to new teacher unless major
+
+🚫 **Anti-pattern after decision**
+
+- 公婆 / 親朋 discuss teacher decision adversarially in front of Lily
+- 細妹 compare:「你 lucky 唔似 sister」
+- Family dinner main topic:「Lily failed test」(traumatize Lily)
+- 公開 social media post about it
+- Letter become recurring resentment
+
+✅ **Healthy framing for Lily**
+
+- Approved + retake good: 「We took accountability + teacher gave chance. Lesson learned.」
+- Approved + retake mediocre: 「You tried. Better than 13. Next dictation pre-emptive prep.」
+- Denied: 「13 grade stays. We move forward. Next dictation prove yourself.」
+- 任何 outcome: 「You handled this maturely. We're proud you took ownership.」
+
+語氣：mature parents, mature 細路, 不 catastrophize.
+</PromptBlock>
+
+## 變化
+
+### 變化 1：高年級 (升中 / DSE prep) makeup test
+
+S.1-S.6 嘅 makeup request 同 P3 不同 dynamics:
+
+<PromptBlock label="變化 1 — Secondary school makeup test request">
+我細路 [S.1-S.6] 突發 medical / family / 緊急情況 missed exam. 想 apply makeup.
+
+📐 **Secondary makeup process**
+
+📋 **Letter expansion (1.5 頁)**
+
+**Header section**
+- Student name + class + form
+- Subject + test type (test / quiz / exam / mock)
+- 試 date missed + 原因
+- Doctor note attached if medical
+
+**Substantive request**
+
+**Reason category** (be specific):
+- Medical: 試 hospital letter / GP note (sealed)
+- Family emergency: 1 sentence respect privacy
+- 突發 (公共 transport disruption, severe weather): 學校 通常 OK if school-wide
+- Mental health: 學校 counsellor referral if 已 involved
+- Religious / cultural: prior notice 通常 required
+
+**Documentation required:**
+- Medical: GP / specialist letter on letterhead
+- Family: 家長 letter detailing
+- Mental health: counsellor 通信 (consent)
+- Religious: confirm with school chaplaincy / 家長 letter
+
+**Academic standing**
+- Student current grade trend in subject
+- Why missed exam impact disproportionate
+- 試 cycle context (mid-term vs final)
+
+**Make-up timing request**
+- Within 試 cycle if possible
+- Student prep status
+- Reasonable date
+
+**Family commitment**
+- 家長 oversight prep
+- Student own catchup plan
+- Parent-teacher partnership
+
+📞 **Communication channel**
+- 公私 校 通 不同 platform (e-Class / SAS-OnlinePlus / school portal / direct email)
+- 公校: typically slower response
+- 私校: typically faster but formal
+- Adviser teacher 1st contact, then escalate
+
+⏰ **Timing**
+- 24-48 hr of missed exam ideal
+- 「Within 7 days」 generally maximum
+- Late submission viewed less favorably
+
+🚨 **Boarding / overseas student adjustment**
+- Time zone factor
+- Pickup / drop-off coordination
+- 學校 nurse / doctor involved if applicable
+
+語氣：mature secondary student + parent partnership.
+</PromptBlock>
+
+### 變化 2：特殊 需要 細路 (SEN) makeup / 加 time request
+
+SEN 細路 嘅 accommodation 同 standard makeup 不同:
+
+<PromptBlock label="變化 2 — SEN 細路 academic accommodation request">
+我細路 SEN [dyslexia / ADHD / autism / 視 障 / etc.]. Want apply for 加 time / accommodation / alternative assessment.
+
+📋 **SEN-specific request structure**
+
+**Documentation required**
+- Psychological / educational assessment report (recent < 3 年)
+- Specialist diagnosis (psychologist / 公立 SEN team)
+- Past accommodation history
+- 細路 own awareness + agreement
+
+**Specific ask (be precise)**
+- 加 time (10%, 25%, 50% — 學校 standardize)
+- Quiet room
+- Spell-check tool
+- Reader / scribe
+- Computer typing
+- Break allowance
+- 等
+
+**Justification**
+- Diagnosis directly relates to assessment difficulty
+- Past evidence accommodation helps
+- 不 「unfair advantage」 — equal access argument
+
+**Permanent vs temporary**
+- Permanent: SEN diagnosis ongoing
+- Temporary: injury / 試 anxiety post-incident
+
+🏥 **HK SEN system**
+
+- 公立 學校: SENCO (Special Educational Needs Coordinator)
+- 私立 學校: own SEN policy variation
+- DSE specific: HKEAA SEN accommodation application (separate process)
+- 公務員 / police kindergarten: own protocol
+
+📞 **Process**
+1. Initial request to class teacher
+2. SENCO / VP referral
+3. Formal documentation review
+4. Trial accommodation 1-2 試
+5. Formal approval
+
+⏰ **Timeline**
+- Initial discussion: 1-2 個禮拜 before exam
+- 不 last minute (system 容納時間 needed)
+- Recurring (each new academic year reconfirm)
+
+🤝 **Family-school partnership**
+- 細路 own buy-in critical
+- Parent advocacy 平衡 細路 ownership
+- 學校 partnership 不 adversarial
+
+🚨 **DSE-specific (S.6)**
+- HKEAA application separate from school
+- Doctor's letter requirement strict
+- Deadline (typically 1 yr before DSE)
+- Appeal process if denied
+
+語氣：respect for institutional process, 不 demanding tone.
+</PromptBlock>
+
+### 變化 3：細路 嚴重 missed school (病 / family crisis)
+
+長期 missed school 後 catch-up:
+
+<PromptBlock label="變化 3 — Long absence catch-up letter">
+細路 [2-4 週 missed school for serious illness / family crisis / 海外 medical treatment]. 返校 catch-up letter.
+
+📋 **Long-absence return letter**
+
+**Substantive disclosure (judicious)**
+- Illness / surgery 詳 detail or 私 (parent choice)
+- Family event: privacy respected, 細路 emotional state shared briefly
+- 公 vs 私 disclosure 唔 同 sympathetic
+
+**Academic catch-up reality**
+- 細路 actual capacity 限制
+- 不 「we'll catch up everything quickly」 unrealistic
+- 1-2 subject priority (其他 OK 慢 catch)
+
+**Specific support ask**
+- Notes / handouts during absence (peer / teacher provide)
+- Tutorial session 細路 1-on-1 (paid tutor optional)
+- 試 makeup or 比 spread out
+- Lower-stakes assessment 短期
+- Counsellor support if emotional
+
+**Family circumstance briefing**
+- 細路 may behave differently for 4-6 週 post-return
+- 老師 awareness without exposing 細路 to peer
+- Reasonable expectation set
+
+**Timeline**
+- Return date
+- Catch-up assessment estimate
+- Realistic full re-integration estimate
+- Family contact schedule
+
+🎯 **Soft return**
+- First week: 細路 attend without academic pressure
+- 老師 understand reduced participation 短期
+- 1 friend 細路 trust for re-entry support
+- 親子 daily check-in
+
+⚕️ **Medical adjustment**
+- Doctor's letter for limitations (PE / 加 break / 醫 appointment)
+- Medication schedule school-aware
+- Emergency protocol updated
+
+🧠 **Mental health post-crisis**
+- 學校 counsellor referral
+- Family therapy if applicable
+- 細路 own coping resource
+
+📅 **Re-evaluate 4-6 週**
+- Progress check 老師
+- Adjust support if needed
+- Family meeting if major
+
+語氣：vulnerable 但 prepared, partnership with school.
+</PromptBlock>
+
+## 一個 mindset
+
+Makeup test request 嘅 hidden test 唔係 細路 capability — 係 **家長 同 老師 嘅 maturity 對話**.
+
+老師 see 200+ 細路 / year. 老師 see 平均 50 個 parent letter / month. 老師 嘅 mental shortcut: 「Is this family 有 accountable, organized, partnership-able?」 — 30 秒 within 你 letter, the answer 顯而易見.
+
+呢個 mindset 嘅 reframe: 你 letter 唔係 「argue Lily case」 — 係 **demonstrate family operates with maturity**. 老師 say yes to family that 老師 trust 會 take advantage of 機會 not waste.
+
+Claude 嘅 role 喺 letter writing: 你 parent default 多 emotional / defensive / over-justify. Claude container 提供 distance — 你 dump situation, output specific structure. 你 read draft, 認得 邊 tone is 「good parent」 voice vs 「entitled parent」 voice.
+
+最後 reminder：
+
+- ✅ **Specific 「we own this. Here's our plan.」 > vague 「we are sorry」**. Accountability shows.
+- ⚠️ **細路 own reflection note 真實 critical**. Ghost-written 100% transparent to 老師. Lily own messy handwriting 真.
+- 🎯 **Outcome (approved / denied) 不 reflect 細路 worth**. Both teach valuable lesson.
+
+明日 8am submit. Lily 8 月 1 個禮拜 prep. Either way 你 family 1 個禮拜後 仲 OK.
