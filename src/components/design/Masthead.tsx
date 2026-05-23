@@ -87,6 +87,7 @@ export function MastheadCompact({ className }: { className?: string }) {
 function Nav({ compact = false }: { compact?: boolean }) {
   const items = [
     { href: '/about', label: '關於' },
+    { href: '/collaborate', label: '合作' },
     { href: '/#newsletter', label: '訂閱' },
   ]
   return (
