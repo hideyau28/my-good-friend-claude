@@ -1,0 +1,714 @@
+---
+title: "寒帶 trip 唔知帶咩？用 Claude 出 weather-based packing list（連 8kg carry-on 限制）"
+slug: "packing-list-claude"
+issue: 64
+publishedAt: 2026-05-23
+audience: ["消費者", "打工仔"]
+category: "chat"
+section: "旅遊"
+subcategory: "Packing"
+difficulty: 1
+timeMinutes: 15
+toolsNeeded: ["Claude Chat", "destination + dates + 行李 limit", "你已有嘅 wardrobe inventory"]
+description: "12 月去北海道滑雪。HK 35°C 出發，札幌 -10°C 落地。HKExpress carry-on 限 8kg。用 Claude 出 weather-based packing list — layer system + outfit 重複穿、捲衣壓縮、連已有 wardrobe inventory，唔再買 unnecessarily。"
+keywords: ["寒帶 packing list", "carry-on 8kg", "滑雪 行李", "winter trip 行李清單", "Hong Kong trip prep", "minimal travel packing"]
+related: ["family-trip-itinerary-claude", "visa-application-claude", "tax-refund-claude"]
+featured: false
+---
+
+## 情境
+
+12 月 14 日 8am，你 standing in 你 bedroom，望住床上面晒咗嘅嘢。
+
+12 月 16 日 出發北海道 5 日 4 夜滑雪。
+
+行李 limit：HKExpress economy carry-on **8kg total**（行李箱 + 個人小袋）。
+
+床上面：
+
+- 1 件 down jacket (1.5kg)
+- 1 件 fleece (0.7kg)
+- 1 件 base layer top + bottom (0.5kg total)
+- 5 件 daily wear t-shirt (1.5kg)
+- 3 件 long-sleeve top (1.2kg)
+- 2 條 jeans (1.5kg)
+- 1 條 thermal pants (0.4kg)
+- 5 對襪 + 4 件內衣 (0.5kg)
+- 滑雪手套 + 頸巾 + 帽 (0.6kg)
+- 洗漱包 (1kg estimate)
+- 化妝品 + 護膚品 (0.6kg)
+- 充電器 + 轉換插 + Pocket WiFi (0.4kg)
+- 行李箱本身 (2.4kg empty)
+
+Total estimate：~13.8kg。**超 5.8kg**。
+
+你開始 mental triage:
+
+- T-shirt 5 件 → 3 件? 但 5 日 trip ⋯
+- Jeans 2 條 → 1 條 + 1 條 thermal? 但 jeans 暖唔暖 cold weather?
+- 化妝品全部要嗎? 全 split into smaller bottle 可以？
+
+你 stuck 30 分鐘。decision fatigue 開始 build。
+
+呢個 packing paralysis 嘅 root cause:
+
+- **「Just in case」 thinking** — 我可能下雨 / 我可能 sweat / 我可能去高級 restaurant
+- **缺乏 layering system understanding** — 唔知道 3 件 base + 1 件 mid + 1 件 outer 已經 cover -15°C
+- **冇 outfit-by-day plan** — 唔知道 5 件 t-shirt 其實 3 件夠（mix-match + 滑雪 day undershirt）
+- **過度依賴 HK 經驗** — 你 HK 出 trip 多次嘅習慣係「夏天 8 件 t-shirt」
+
+呢篇用 Claude **dump 你 destination + activity + 你已有 wardrobe**，出 weather-based packing list + carry-on weight budget + outfit-by-day mapping。
+
+## 跟住做
+
+### 1. Dump trip + wardrobe inventory 入 Claude
+
+開 Claude 之前，先 inventory 你 already own 嘅衣物：
+
+> **Trip**
+> - Destination: 札幌 (Sapporo) + Niseko 滑雪場
+> - Dates: 12月 16-20 (5 日 4 夜)
+> - Forecast: -10 to -5°C, occasional 大雪
+> - Activities: 2 日滑雪、2 日 city（札幌 + Sapporo Beer Museum）、1 日 onsen + hotel
+> - 我嘅 cold tolerance: medium (HK 人，14°C 已覺得凍)
+> 
+> **Carry-on limit**
+> - HKExpress economy: 8kg total
+> - 1 個 cabin baggage 56x36x23 + 1 個 personal item (laptop bag)
+> 
+> **我已有 wardrobe inventory**
+> 
+> 🧥 **Outer layer**
+> - Uniqlo Ultra Light Down jacket (550g)
+> - 1 件 thicker insulated jacket (1.2kg) — option, heavier
+> - 風褸 (waterproof shell) - 400g
+> 
+> 👕 **Mid layer**
+> - 1 件 Uniqlo fleece (650g)
+> - 1 件 wool sweater (500g)
+> 
+> 👔 **Base layer (warm)**
+> - 1 件 Uniqlo HEATTECH ultra warm top (200g)
+> - 1 條 HEATTECH ultra warm bottom (200g)
+> - 1 件 merino wool base top (250g)
+> 
+> 🧦 **Wool socks**
+> - 3 對 thick wool (180g total)
+> - 3 對 regular cotton (90g total)
+> 
+> 👖 **Pants**
+> - 1 條 dark jeans (550g)
+> - 1 條 fleece-lined trousers (700g)
+> - 1 條 滑雪褲 (rental cancellable) — currently uncertain
+> 
+> 🧤 **Accessories**
+> - Touchscreen 手套 (60g)
+> - 滑雪手套 (200g)
+> - 頸巾 (100g)
+> - Beanie 帽 (50g)
+> - Ear-muff (80g)
+> 
+> 👟 **Footwear**
+> - Waterproof boots Sorel (1kg, will WEAR not pack)
+> - 1 對 indoor slipper (100g, hotel slipper available alternative)
+> 
+> 🧴 **Toiletries (currently full size)**
+> - Skincare 4 個 product (450g)
+> - 洗髮 + 沐浴 (300g)
+> - 化妝 6 件 (350g)
+> - Lip balm + sunblock (60g)
+> - 牙刷 + 牙膏 + 刷牙杯 (80g)
+> 
+> 📱 **Tech**
+> - iPhone + charger (250g)
+> - Pocket WiFi (150g)
+> - 國際 adapter (90g)
+> - Earphones (50g)
+> 
+> 📋 **Documents**
+> - Passport + boarding pass print (50g)
+> - Wallet + cash + cards (150g)
+> 
+> **My concern**
+> - Total weight projection vs 8kg limit
+> - Outfit-by-day plan
+> - 揀邊一件 outer (Ultra Light Down 夠定要 thicker?)
+> - 化妝品 minimize
+> - 滑雪褲 rent 定 自己帶
+
+呢類 dump 入 Claude，係出 actionable packing plan 嘅 raw material。
+
+### 2. 用呢個 prompt 出 weather-based packing list
+
+<PromptBlock label="完整 prompt — Weather-based packing + carry-on weight budget">
+[paste 你 trip + wardrobe dump]
+
+請整 **packing plan**：
+
+📐 **Step 1: 揀邊一件 outer layer + 解釋 layering system**
+
+對 -10°C 札幌 + Niseko：
+- 你 Uniqlo Ultra Light Down 嘅 limit: ~5°C 室外 OK，-10°C **唔夠**
+- 你 thicker insulated jacket 嘅 limit: -10°C 室外 acceptable + 適合 city walking
+- 你 風褸 (waterproof shell): 滑雪日 wear 外（防雪 + windbreak）
+
+**Recommend**: 
+- City wear: thicker insulated jacket (1.2kg) - wear during transit
+- 滑雪 day: 風褸 outside + thicker jacket / fleece + base layer  
+- Or rent ski jacket at Niseko (省 1.2kg ✓)
+
+**Critical**: 飛機 wear thicker outer + boots + 1 set base layer = save 1.5kg luggage immediate
+
+⚖️ **Step 2: Weight budget allocation (8kg total)**
+
+- Clothes (5 日 outfit): 2.5kg
+- Toiletries: 1kg (轉小瓶 + buy 大阪 cheap)
+- Tech: 0.5kg
+- Document + wallet: 0.2kg
+- Snacks / emergency: 0.3kg
+- 行李箱 itself: 2.4kg
+- **Buffer**: 1.1kg
+
+**Total**: 8kg ✓
+
+🧥 **Step 3: 5 日 outfit plan (mix-match strategy)**
+
+**Day 1 (transit + 札幌 arrival)**
+- Wear: jeans + base top + fleece + thicker jacket + boots
+- Pack: nothing extra
+
+**Day 2 (滑雪 day 1)**
+- Wear: HEATTECH base top + bottom + 滑雪 trousers (rent) + fleece mid + jacket outer + 滑雪 socks + 滑雪 gloves + beanie
+- Repeat next ski day
+
+**Day 3 (滑雪 day 2)**
+- Same outfit as Day 2 (滑雪 wear 可以連穿，daily after-ski 洗澡 + dry)
+- 滑雪 base layer 帶 1 set spare 萬一 (wet emergency)
+
+**Day 4 (city day: 札幌 + Beer Museum)**
+- Wear: jeans + base top + wool sweater + jacket
+- 唔需要 second long-sleeve top (洗澡晚上 air dry overnight)
+
+**Day 5 (onsen day + departure)**
+- Wear: fleece-lined trousers + base top + fleece + jacket
+- Onsen: 唔需要自己 swimsuit (浴衣 provided)
+
+✅ **Outfit total**:
+- 2 條 pants (1 jeans + 1 fleece-lined trousers) - 不帶 second jeans
+- 3 件 base layer top (1 wear, 2 pack)
+- 1 條 HEATTECH bottom
+- 1 件 fleece
+- 1 件 wool sweater
+- 1 件 outer jacket
+- 1 件 風褸
+- 5 對 wool socks (1 wear, 4 pack)
+- 5 件 內衣 (1 wear, 4 pack)
+
+🧴 **Step 4: Toiletries split + reduction**
+
+⚠️ Carry-on liquid: 100ml per container + total in 1 zip bag
+
+**Skincare** (transfer to small bottle):
+- Cleanser: 50ml decant
+- Moisturizer: 30ml decant
+- 防曬 + lip balm: full size OK (under 100ml)
+- Toner: 50ml decant
+- Mask: 1-2 sheet packs
+
+**化妝品** (minimize travel-style):
+- Foundation: small palette only
+- Mascara + eyeliner full size OK (under 100ml)
+- 唇膏 1 支
+- Skip: 唇彩、唇釉、blush 帶 1 個多功能
+- **Goal**: 6 件 → 3 件
+
+**洗髮** (or hotel provided):
+- 札幌 high-end hotel 一般 provided shampoo + conditioner
+- Check hotel website first，唔帶 if provided
+- If 自己 brand 必須：50ml decant
+
+**Saved weight**: ~250g from toiletries
+
+📱 **Step 5: Tech (minimal)**
+- iPhone + charger: required
+- Pocket WiFi: required (or eSIM alternative — save 150g, no WiFi device)
+- 國際 adapter: 1 個 small (NOT bulky multi-region)
+- Earphones: required
+- **Skip**: laptop unless work mandatory, 1.5kg saved
+
+🎒 **Step 6: Packing technique (壓縮 + roll)**
+
+✅ **Roll, don't fold**:
+- T-shirt / base layer: roll 30% volume saving
+- Sweater / fleece: roll outside, lay inside compression cube
+
+✅ **Compression cubes** (HK$80-120):
+- 3 cube system: clothes / underwear-socks / accessories
+- 25% volume saving + 30% organize bonus
+
+✅ **Layer wear day-of**:
+- Wear heaviest item on plane (jacket + boots + 1 base layer)
+- 1.5kg immediate luggage saving
+
+✅ **Stuff small in shoe**:
+- Pack socks / 圍巾 inside boots (no wasted volume)
+
+🚫 **Skip / leave behind**
+- Spare jeans (1 already有, 5 日 reuse OK)
+- Spare wool sweater (already fleece + wool sweater enough)
+- Hotel slipper (provided)
+- Hairdryer (provided)
+- 過多 化妝品 (3 件夠)
+
+🆘 **Day-of triage if still over weight**
+- Remove: 1 spare 內衣 (買 emergency at Don Quijote if 突然 needed)
+- Remove: spare 牙刷 (1 dozen at Don Quijote $30)
+- Remove: 1 sheet mask (skip 1 night)
+- 仲多: switch to lighter wallet, lighter book / no book
+
+📊 **Final weight check (per item)**
+請列每 item 估計 weight + 累計，等我 verify 8kg 內。
+
+📲 **Bonus: 唔帶 嘅 嘢 但 在當地 buy**
+- 緊急 旅 fee
+- Don Quijote / 7-11 / Lawson 24 小時：cheap base layer / 內衣 / socks ¥500-1000 if needed
+- Drugstore: skincare / 化妝品 if forget
+- ヤマト delivery if shop too much: forward 大件 luggage back to hotel separately if return flight tight
+
+語氣：specific + permission to leave behind。Over-pack 罪魁係 「just in case」 thinking — Claude job 係 challenge that thinking。
+</PromptBlock>
+
+Claude 出嘅 list，**print 出嚟，packing 時 1 item 1 item check off**。Mental tracking = forgotten items。
+
+### 3. 用呢個 prompt 整 day-of packing day workflow
+
+Packing 嘅 day 一個 final-stage workflow:
+
+<PromptBlock label="完整 prompt — Packing day workflow + final QA">
+今日 (出發前 1 日) 我要 pack。請整 **packing day workflow + 60-min schedule**：
+
+⏰ **Packing schedule**
+
+**Hour 1: 集中 everything (10am - 11am)**
+- 將要帶嘅嘢晒喺床上（per packing list）
+- 物件 grouping：clothes / toiletries / tech / document
+- 量度 weight：每 item 知 weight + group total
+
+**Hour 2: Wear-on-plane outfit setting (11am - 12pm)**
+- Set 出 next-day 飛機 outfit:
+  - Wear: thicker jacket + jeans + base layer + boots
+  - Day pack: personal item with passport / phone / charger / 1 set under (delay protection)
+- Pre-pack 個 personal item
+
+**Hour 3: 行李 packing (1pm - 2pm) (午飯後)**
+- Compression cube clothes (roll method)
+- 細件 fill shoe + corner
+- Toiletries zip bag pack (visible top of luggage for security check)
+- Heaviest at bottom
+
+**Hour 4: Final weigh + QA (2pm - 3pm)**
+- 用 luggage scale (HK$80-120 worth investment - airport surcharge avoid 1 trip pay back)
+- Target: 7.5kg max (留 0.5kg buffer)
+- 仲超: remove items per priority
+
+🔍 **Final QA checklist**
+
+✅ **Documents**
+- [ ] Passport (validity > 6 month)
+- [ ] Boarding pass print
+- [ ] Travel insurance policy print
+- [ ] 1 emergency US$200 backup cash hidden
+- [ ] HK ID copy
+- [ ] Emergency contact list (HK + Japan)
+
+✅ **Health**
+- [ ] Daily medication (with prescription print if asked)
+- [ ] 1 basic first-aid (band-aid + 退燒 + 止痛)
+- [ ] Hand sanitizer
+- [ ] Cold medicine (寒帶 trip 易感冒)
+
+✅ **Money**
+- [ ] HK$ for taxi home / first day
+- [ ] JPY exchange done (¥30k-50k cash recommended)
+- [ ] 2 credit card (1 backup)
+- [ ] IC card if reused (Suica / ICOCA)
+
+✅ **Tech**
+- [ ] Phone full charged
+- [ ] Power bank charged (carry-on permitted, NOT check-in)
+- [ ] Pocket WiFi tested
+- [ ] 國際 adapter
+
+✅ **Last-min checks 12 hour before flight**
+- [ ] 出 trip 期間 home setting (alarm, water cut, 寵物 sitter)
+- [ ] 工作 OOO message
+- [ ] Email / message 必要 contact
+- [ ] Trusted friend 知 你 itinerary
+- [ ] Phone backup
+- [ ] 出門到機場 timing buffer 計算（peak hour traffic add 30 min）
+
+🚨 **Common 漏帶**
+- 細路 favorite 玩具
+- 充電 line specific
+- Visa documentation copy
+- Glasses spare
+- Specific medication (long-term)
+- Hotel address 寫低 (taxi communicate)
+- 行李 strap
+
+⏰ **Sleep before trip**
+- 晚 11pm 之前 sleep
+- 早 5am 起 if 7am flight
+- **NOT** 通宵 pack day-of (decision fatigue + miss item)
+
+📋 **Departure day morning**
+- 早 1 hr buffer
+- Eat light breakfast (avoid plane stomach issue)
+- Final phone charge top up
+- 出門 final round check: 鎖 / 火 / 水 / 冷氣
+
+🛬 **Arrival readiness**
+- Phone roaming / WiFi auto-connect setup
+- Hotel address Google Map saved offline
+- Local emergency number
+- Currency change rate awareness
+
+語氣：systematic + grace under packing pressure。
+</PromptBlock>
+
+### 4. 用呢個 prompt 出 emergency / lost luggage backup
+
+最 paranoid 但 worth do：
+
+<PromptBlock label="完整 prompt — Lost luggage 24-hour backup plan">
+我擔心 check-in luggage delay / lost。請整 carry-on 「24-hour survival kit」for 萬一 luggage 唔到 the moment we land。
+
+⚠️ **Reality check**: 99% case luggage on time。但 1% case ruin first 24 hour，所以 prep。
+
+🎒 **Carry-on bag (cabin baggage 56x36x23, weight inside 8kg limit)**
+
+✅ **24-hour survival**:
+- 1 set 內衣 + sock
+- 1 件 base layer top
+- 1 件 mid-layer (sweater / fleece)
+- 1 件 outer jacket (worn on plane)
+- 1 條 pants (jeans 或 thermal trousers)
+- Toiletries 100ml zip bag (essential only)
+- Medication 1 day supply
+- Phone + charger + cable
+- Earphones
+
+📋 **Daypack / personal item (laptop bag)**
+
+✅ **Critical day-of items**:
+- Passport
+- Wallet
+- Phone
+- Boarding pass
+- Travel insurance
+- Hotel address print
+- HK$ + JPY emergency cash
+- 1 small water bottle
+- 1 snack
+- 1 book / Kindle / entertainment
+- Mask / hand sanitizer
+
+🚨 **If luggage delayed at 札幌 (例):**
+
+**Hour 0-2 at airport:**
+- Report at airline counter (Property Irregularity Report)
+- 拍 luggage tag stub
+- Get reference number + claim form
+- Confirm hotel delivery address
+
+**Hour 2-12 hotel:**
+- WhatsApp HK insurance for delay reimbursement protocol (HK$1500-3000 typical first 24 hr)
+- Buy emergency essentials at Don Quijote (¥3000-5000 covers basics):
+  - 1 set 內衣 + sock
+  - 1 件 toiletry kit
+  - 1 件 sleepwear
+
+**Hour 12-24:**
+- Daily check airline status
+- Keep 收據 for insurance claim
+- Maintain trip plan (don't ruin Day 1-2 because of bag)
+
+**Hour 24+:**
+- If lost beyond 24 hr：airline contractually obligated reimburse essentials
+- Replacement clothing covered up to certain limit
+- File full insurance claim with photo + 收據
+
+🆘 **Most painful items if lost**
+
+不可 replace easily 喺日本：
+- Medication (prescription)
+- 老花 / contact lens prescription
+- Special-needs item (CPAP, hearing aid)
+- Sentimental items
+- HK-specific brand
+
+✅ **Solution**: 任何 above 必須 carry-on，不可 check-in
+
+📋 **Insurance contact prep**
+- 24/7 HK insurance hotline saved phone
+- Policy number written separately (not just in luggage!)
+- Email backup copy of insurance policy
+
+語氣：calm preparedness。99% case 都 OK，但 prep keeps stress 0 if 1% happens。
+</PromptBlock>
+
+## 變化
+
+### 變化 1：雨季 / tropical trip (Bali / 沖繩 雨季)
+
+熱帶 + 多雨完全唔同：
+
+<PromptBlock label="變化 1 — 熱帶 / 雨季 trip packing">
+我去 [Bali / Phuket / 沖繩 雨季 / 越南] [N 日]。Hot + humid + 突發 大雨。
+
+請整熱帶 packing list：
+
+🌡 **熱帶 climate consideration**
+- Temperature: 28-35°C
+- Humidity: 75%+
+- 突發 雨：30-min downpour 常見
+- 戶外 activity: 海灘 / 行山 / 城市 explore
+
+👕 **Clothes (volume saved due less layer)**
+- 7 件 t-shirt (light cotton / linen) - 5 日 trip 可以 5 件 if 洗
+- 3 件 long-sleeve (sun protection + evening cool)
+- 2 條 shorts
+- 2 條 swimwear (alternate dry)
+- 1 條 light pants (mosquito + AC restaurant)
+- 1 件 light jacket / cardigan (AC over-cool)
+- 1 條 sarong (multi-purpose: beach, modesty cover)
+
+🌧 **Rain prep**
+- Light raincoat (cheap, in carry-on)
+- 唔帶 umbrella (買當地 cheap if needed)
+- Waterproof phone pouch (海灘 + 雨)
+- Quick-dry towel
+
+👟 **Footwear**
+- 1 對 sandal (waterproof) - wear
+- 1 對 walking shoe
+- 1 對 flipflop (hotel / pool)
+
+🧴 **Toiletries**
+- 防曬 50+ (high SPF + reapply)
+- Insect repellent (DEET 30%+ for dengue area)
+- Aloe vera gel (post-sun)
+- Anti-fungal powder (sweat between)
+- Quick-dry deodorant
+
+💊 **Medication enhanced for tropical**
+- ORS sachet (heat dehydration)
+- Diarrhea medication (food sensitivity)
+- 防曬 + sun-burn after-care
+- Anti-itch cream
+- Motion sickness (boat trip)
+
+🦟 **Insect protection**
+- Long-sleeve light layers for evening
+- Repellent spray (DEET 30%)
+- Mosquito patches for kids
+- Bed net (if budget accommodation)
+
+📱 **Tech**
+- Waterproof phone pouch
+- Dry bag for camera / valuable @ beach
+- Quick-charge cable (humid heat drain phone)
+
+🚫 **Don't bring**
+- Heavy moisturizer (humid skin OK)
+- Thick jacket (overheating)
+- Too much cosmetic (will melt)
+- 過多 cotton t-shirt (slow dry, mildew risk)
+
+✅ **Wash + reuse**
+- Daily wash 1 set (quick dry overnight)
+- 3 t-shirt rotating system: 1 wear, 1 dry, 1 backup
+- Sink wash + balcony dry
+
+語氣：light + practical for humid heat。
+</PromptBlock>
+
+### 變化 2：商務 trip (穿西裝 + tech 重 + minimal time)
+
+商務 trip 完全 different priority：
+
+<PromptBlock label="變化 2 — Business trip packing">
+我商務 trip [destination] [N 日]。Meet client + 1-2 presentation + 1 dinner formal。
+
+🎯 **Business trip packing principle**
+- Clothes wrinkled = unprofessional
+- 衣 limited variation OK (重複 client 唔記得 you wore A vs B)
+- Tech overstocked (laptop must work)
+- Time pressure: no time to shop / fix mistake
+
+👔 **Outfits**
+- 1 西裝 (wrinkle-resistant if possible)
+- 2 dress shirt (1 wear, 1 backup)
+- 1 tie (if formal sector)
+- 2 polo / business casual (off-day or dinner)
+- 1 condition jeans / chinos (relax evening)
+
+🎒 **Hand-carry bag** (NOT check-in)
+- Laptop + charger + cable
+- Backup charger (if 1 fail)
+- Backup mouse / dongle
+- Power bank
+- Printed presentation (USB + hard copy)
+- Business card
+- Pen + notebook
+
+📁 **Document folder**
+- Boarding pass
+- Hotel + meeting address
+- Client gift (if local culture)
+- Receipt 收 (expense report later)
+
+👟 **Shoes**
+- Wear: dressy shoe with sock
+- Pack: casual sneaker (off-time)
+
+🧴 **Toiletries minimal**
+- Hotel-provided most items
+- Bring: razor + shaving cream + own moisturizer
+- Cologne / scent (impression matters)
+
+💊 **Medication**
+- Daily + 1 day extra
+- Caffeine pills (jet lag)
+- Headache + stomach (stress trigger)
+
+⏰ **Pre-meeting prep night before**
+- Iron shirt (request hotel iron)
+- 30-min review presentation
+- Phone full charge
+- Set 2 alarms (3-min apart)
+- Lay outfit on chair
+
+語氣：efficiency + professionalism。
+</PromptBlock>
+
+### 變化 3：露營 / 行山 trip（自給自足 + load light）
+
+露營 packing 同 normal trip 完全唔同（weight critical + survival mode）：
+
+<PromptBlock label="變化 3 — 露營 / 行山 multi-day trip packing">
+我去 [HK 麥理浩徑 / 日本 富士登山 / 台灣 玉山] [N 日露營 / 行山]. 
+
+⚖️ **Backpack weight critical**
+- 行 8 hr/day with all gear
+- Weight = comfort proportion
+- Max recommend: 15-20% body weight
+- e.g., 65kg person = max 13kg pack
+
+🎒 **Backpack** (60L for multi-day)
+- Internal frame
+- Hip belt for weight transfer
+- Multiple compartment for organize
+- Rain cover
+
+🏕 **Shelter**
+- Tent (2-person, ~2kg)
+- Sleeping bag (-5°C rated)
+- Sleeping pad (insulation from ground)
+- Optional: hammock if forest
+
+🍳 **Cooking**
+- Backpacker stove (gas canister)
+- 1 pot small + 1 cup
+- Spork
+- Dehydrated meal x N days
+- Water filter / purification tablet
+
+💧 **Water**
+- 2L bottle on pack
+- Refill source mapped daily
+- Electrolyte tablet for hot days
+
+👕 **Clothes layered + minimal**
+- 3 base layer (1 wear, 2 rotate)
+- 2 mid layer
+- 1 outer (wind + rain resistant)
+- 2 pants
+- 4 sock (wet pre on-route)
+- 1 sleepwear set (dry pre-sleep)
+- 1 hat
+- Gloves
+- 唔帶 jeans (heavy + cotton dry slow + dangerous wet)
+
+👟 **Footwear**
+- Hiking boots (broken in)
+- Camp shoe (light slipper for after-day)
+- Gaiter (wet ground)
+
+🔦 **Tools**
+- Headlamp + spare battery
+- Multi-tool / knife
+- Whistle + signal mirror
+- Compass + map (download offline)
+- First aid kit (expanded)
+- Sunscreen + insect repellent
+- Toilet paper + trowel + trash bag (Leave No Trace)
+- Repair kit (duct tape + needle + thread)
+
+📞 **Communication**
+- Phone (off most time, save battery)
+- Power bank (2x phone capacity)
+- Satellite communicator (Garmin inReach) for serious wilderness
+- Emergency contacts written separately
+
+💊 **Medical**
+- Day supply hiking medication (motion sickness, blister care, electrolyte)
+- Personal medication + 2 day extra (delay protection)
+- Specific allergy meds
+
+🆘 **Wilderness safety**
+- Trip plan with non-going friend (when expected back)
+- Check-in schedule (daily if possible)
+- Weather pre-check daily
+- Don't go alone unless experienced
+- Bring more food than calculated
+
+🚫 **唔帶 嘅 嘢**
+- 過多 toiletries
+- Cotton 衣 (slow dry, dangerous wet)
+- Heavy book
+- Tech entertainment (downtime = rest, not Netflix)
+- Glass bottle (broken risk + weight)
+
+✅ **Pre-trip practice**
+- Pack at home + walk 1 hour with full pack
+- Feel discomfort = revise before real trip
+- Test stove / tent setup once
+- Confirm food works for your stomach
+
+語氣：safety-first + minimal but completed。
+</PromptBlock>
+
+## 一個 mindset
+
+Packing 嘅 paradox：你帶嘅嘢愈多，trip 嘅 stress 愈大。
+
+呢個 paradox 唔 obvious 因為 default thinking 係「more is safer」。但 actual 行李 dynamics:
+
+- 重行李 = lifting / dragging 增加 fatigue
+- Carry-on 超 limit = airport scramble + check-in fee
+- 行李箱 packed full = 揾嘢 friction increase
+- 多 items = decision fatigue（「今日穿邊件」）
+- Over-pack = 留 trip 期間 buying / experiencing nothing new
+
+呢個 mindset 嘅 reframe：packing list 係 **decision pre-commitment**。Trip 前嘅你做決定（呢 5 件衫 enough），trip 中嘅你 freed up from same decisions。
+
+Claude 嘅 role 唔係取代你嘅 packing instinct——係 challenge 你 「just in case」 thinking。當 Claude 問「你過去 5 個 trip 用過 spare jeans 嗎？」你 honestly answer「冇」，packing list 自動 reduce。
+
+最後 reminder：
+
+- ✅ **Wear heaviest on plane**。1-2kg saving immediate。
+- ⚠️ **8kg carry-on limit 唔可妥協**。Airport pay extra surcharge HK$300+ + scramble — preventable。
+- 🎯 **Trip 中 buy 嘅嘢 比 home pack 嘅 sentimental value 更高**。Leave room for souvenir + new experience。
+
+行李輕 = 旅行 心情 輕。

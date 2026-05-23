@@ -1,0 +1,693 @@
+---
+title: "HK 家庭 5 日 4 夜大阪 trip：用 Claude 出大人 vs 細路 balanced itinerary"
+slug: "family-trip-itinerary-claude"
+issue: 63
+publishedAt: 2026-05-23
+audience: ["消費者", "學生家長"]
+category: "chat"
+section: "旅遊"
+subcategory: "家庭行程"
+difficulty: 2
+timeMinutes: 25
+toolsNeeded: ["Claude Chat", "屋企人 ages + interest + 食物敏感 info", "酒店 area + budget range"]
+description: "你 plan 大阪 5 日 trip：你 + partner + 8 歲女 + 5 歲仔。USJ thrill ride 細仔玩唔到、Kuromon 半個鐘就 meltdown。用 Claude balanced itinerary：每日大人 highlight + 細路 anchor + meal + 休息 buffer，唔 4pm 全屋企人崩潰。"
+keywords: ["家庭 旅遊 行程", "Osaka family trip", "親子 行程 日本", "HK 家庭 旅行 plan", "細路 USJ 行程"]
+related: ["visa-application-claude", "packing-list-claude", "tax-refund-claude"]
+featured: true
+---
+
+## 情境
+
+你 plan 緊 8 月家庭 trip 去大阪 5 日 4 夜。
+
+家庭組成：
+
+- 你（38, marketing manager）
+- Partner（40, accountant）
+- 8 歲女（升 P3，喜歡 Disney + Universal）
+- 5 歲仔（K2，attention span 30 分鐘 max，meltdown trigger 包括「行得耐」/「餓」/「熱」）
+
+你嘅 trip preference：
+
+- 食物日本 ramen / sushi / yakiniku
+- Shop 心齋橋 + 道頓堀 + 美食巷
+- 1 日 USJ
+- 1 日 Kyoto day trip
+- Nara 鹿如果可以加埋
+
+你 partner 嘅 preference：
+
+- Avoid over-rush
+- 細路 meltdown = 全屋企人 ruin day
+- 預 daily 1-2 hr rest time
+- Cash flow 唔好 over-budget
+
+8 歲女 嘅 preference：
+
+- USJ 全日（Harry Potter + Minions + Hello Kitty）
+- Shopping for K-pop / toys
+- 食 ice cream / strawberry desserts
+
+5 歲仔 嘅 preference：
+
+- Train ride（loves 新幹線）
+- 公園跑 + 玩水
+- 食 udon / fries / 飯團
+- 唔肯食生嘢
+- 30 分鐘 cap on walking
+
+你 try 自己 list 5 日行程：
+
+- Day 1：抵步 + 心齋橋
+- Day 2：USJ
+- Day 3：Kyoto + Nara
+- Day 4：Osaka castle + 大阪城 area
+- Day 5：心齋橋 + return
+
+你 stare at list 半個鐘，realize problem：
+
+- **Day 2 USJ**：8 歲女 + 你 want 全 11 個 ride，5 歲仔玩唔到 7 個。佢點 sit through 全日？
+- **Day 3 Kyoto + Nara**：1 日 day-trip too aggressive 對 5 歲仔。搭新幹線 + Kyoto 古蹟 + Nara 鹿 = 8+ hr 戶外 = meltdown risk 100%
+- **每日 meal**：你想試 ramen / sushi / yakiniku；細路淨係食 udon / 飯團。你哋分開食 vs find 既兩者都得嘅 restaurant?
+- **Energy management**：5 歲仔 11am sharp 起 starvation tantrum；2pm 後 nap window；4pm 後 second wind 但易 meltdown
+
+呢個 family trip planning 嘅 paradox：**4 個 traveller × 4 個 different need = 行程 90% 嘅 conflict tension**。
+
+你 default 邊個 take care of?
+
+- 8 歲女 + 大人 want = 5 歲仔 suffer
+- 5 歲仔 anchor = 8 歲女 boring → 自身 meltdown
+- 對半 split = 全 day 鬥嘴
+
+呢篇用 Claude **dump 全家 preference + constraint，出 balanced 5 日 itinerary**——每日有大人 highlight + 細路 anchor + meal + 休息 buffer，minimize meltdown probability。
+
+## 跟住做
+
+### 1. Dump 全家 specific preference 入 Claude
+
+唔好 ask Claude「整 family trip itinerary」。先做 family preference inventory：
+
+> **Trip**: Osaka 5 日 4 夜 8 月（夏天 — heat 35°C+ 重要 factor）
+> 
+> **酒店**: 心齋橋 Cross Hotel (book 咗) — 中心地段 walkable + train accessible
+> 
+> **家庭 members & specifics**:
+> 
+> 🧑‍💼 **你（38, marketing manager）**
+> - 鐘意：local 食 + walking explore + shopping experience
+> - 唔鐘意：theme park crowd / 太多 transit time
+> - Energy：morning person, fade after 8pm
+> - Risk tolerance：moderate
+> 
+> 👩‍💼 **Partner（40, accountant）**
+> - 鐘意：comfortable, less rushed, scenic
+> - 唔鐘意：crowded, expensive surprise
+> - Energy：steady throughout, prefer indoor cooler activity
+> - Risk tolerance：low
+> 
+> 👧 **8 歲女（P3）**
+> - 鐘意：theme park / shopping / desserts / IG-worthy spots
+> - 唔鐘意：「boring 古蹟」/「太多 walking」/「等」
+> - Energy：high, but tantrum risk if hungry / 太熱
+> - 食：no seafood, no strong flavor, loves sweet / ice cream / curry
+> - Specific must-do: USJ 全日 (Harry Potter focus)
+> 
+> 👦 **5 歲仔（K2）**
+> - 鐘意：train（especially 新幹線）、公園、water play、small animals
+> - 唔鐘意：walking > 30 分鐘、heat、unfamiliar 食物
+> - Energy：sprint then crash, nap 12-2pm critical
+> - 食：udon、飯團、白飯、fries、boiled eggs、小食、唔肯試 raw
+> - Tantrum trigger：hungry、tired、forced to wait > 15 min
+> - Stroller：有 (5 歲仔 仍會用 if long walk)
+> 
+> **食物 family-wide constraint**:
+> - 我哋鍾意 ramen、yakiniku、izakaya（adult experience）
+> - 細路淨係肯食 family restaurant（kid-friendly menu）
+> - 我哋 OK 分開食 occasionally (5 歲仔 食 udon shop, then meet for adult dinner)
+> 
+> **Budget**: total HK$30k (excluded flight + hotel), focus on experience + food
+> 
+> **Logistics**:
+> - 全程 IC card (Suica / ICOCA)
+> - 細仔 stroller available
+> - 1 個 carry-on suitcase per person
+> 
+> **Day-by-day 你 already drafted**:
+> - Day 1 (arrival): 心齋橋
+> - Day 2: USJ
+> - Day 3: Kyoto + Nara
+> - Day 4: Osaka castle area
+> - Day 5: shopping + return
+> 
+> **我 concerns**:
+> - Day 2 USJ - 5 歲仔點 enjoy
+> - Day 3 太 aggressive for 5 歲仔
+> - 每日 meal coordination
+
+呢類 dump 入 Claude，係出 **真正 family-functional itinerary** 嘅 raw material。
+
+### 2. 用呢個 prompt 出 balanced 5 日 itinerary
+
+<PromptBlock label="完整 prompt — Family balanced 5 日 Osaka itinerary">
+[paste 你 family preference dump]
+
+請整 **5 日 4 夜 family-functional itinerary**：
+
+📐 **Constraint** 我哋要 balance:
+- Every day: 大人 highlight + 細路 anchor + 1-2 hr rest buffer
+- 食物：each meal addresses both adult + kid taste
+- Energy: 5 歲仔 nap 12-2pm 預留 OR 室內 rest activity
+- Heat：8 月 35°C+，11am-3pm 戶外 activity 避免
+- Walking cap：5 歲仔 30-min stretches, stroller for >30 min
+
+🗓 **5 日 itinerary**
+
+**📅 Day 1 (Wed) — Arrival + soft landing**
+
+- **AM** (12pm 機場 arrival)
+  - 12-2pm: KIX → Osaka Cross Hotel (Kansai express + taxi for last mile)
+  - 2-3pm: hotel check-in + decompress (細路 free play)
+- **PM**
+  - 3-5pm: 心齋橋 light explore (walking distance, stroller OK)
+    - Dotonbori glico sign 影張相
+    - Don Quijote (細路 fun + 大人 buy household)
+    - 必嘗 takoyaki / icecream (細路 anchor: ice cream)
+  - 5:30pm: dinner @ Ichiran Ramen (adult-led, 細路 menu: white rice + chashu rice)
+    - 或 family-style: Saizeriya / Coco Curry House (細路 friendly + 大人 OK)
+  - 7pm 返酒店 wind down (5 歲仔 sleep 7:30pm)
+
+- 🧒 **5 歲仔 anchor**: ice cream + glico sign + early bedtime
+- 👧 **8 歲女 anchor**: Don Quijote shopping
+- 👨‍👩 **大人 highlight**: walk 道頓堀 + ramen
+- ⚠️ **Risk**: jetlag - keep Day 1 light
+
+**📅 Day 2 (Thu) — USJ Day (high stake)**
+
+- **Pre-USJ strategy** (5 歲仔 點玩)
+  - USJ 提供 express pass: 可以 spend HK$1,500/person skip line - worth for family
+  - 5 歲仔 can do: Hello Kitty area / Sesame Street / Minions show (low-thrill)
+  - 5 歲仔 cannot do: Harry Potter dark ride (height) / Jurassic / Hollywood Drop
+  - Strategy: split for 1-2 hr chunks
+
+- **AM**
+  - 7am 起 + family breakfast hotel (細路 udon at hotel restaurant if available)
+  - 8am USJ open (early entry if hotel package有 it)
+  - 8-11am: family together (Sesame Street + Hello Kitty + Minions)
+  - 11am: SPLIT - 你 + 8 歲女 → Harry Potter castle ride;  partner + 5 歲仔 → Hello Kitty area + character meet
+- **Lunch**
+  - 12pm: regroup @ Krusty Burger (Simpson land - both kids enjoy)
+  - 12:30pm-1:30pm: rest (find shaded area, 5 歲仔 50% nap chance in stroller)
+- **PM**
+  - 1:30-3pm: low-thrill ride together (Minions Mayhem - everyone OK; Sing on Tour)
+  - 3-4pm: SPLIT again - 你 + 8 歲女 → second Harry Potter visit; partner + 5 歲仔 → Universal Wonderland (kid-friendly area)
+  - 4pm: ice cream regroup + show / parade if scheduled
+  - 5pm: leave park (細路 melt-down probability rising)
+- **Dinner**
+  - 5:30pm: 返酒店 area, light dinner @ family restaurant nearby
+- **Evening**
+  - 7pm: 細路 bedtime
+  - 9pm: 你 + partner sneak out (hotel staff watch 細路 alt 一齊瞓覺) for 30-min 心齋橋 night walk + 1 杯飲 (adult moment)
+
+- 🧒 **5 歲仔 anchor**: Hello Kitty area + Minions + stroller naps
+- 👧 **8 歲女 anchor**: Harry Potter Castle + Butterbeer + character meets
+- 👨‍👩 **大人 highlight**: Express pass minimize queue, evening adult moment
+- ⚠️ **Risk**: heat exhaustion. Hydrate every 20 min. Cooling towels prep.
+
+**📅 Day 3 (Fri) — Kyoto + Nara 改版**
+
+⚠️ **Adjusted from your draft**: 1-day Kyoto + Nara too aggressive for 5 歲仔. Recommend **Nara ONLY day**, save Kyoto for if time permits.
+
+- **AM**
+  - 8am 起 + breakfast hotel
+  - 9am 出發: Osaka → Nara via JR Yamatoji line (~50 min, 5 歲仔 train ride happy)
+  - 10am: Nara Park 鹿
+    - 細路 餵 鹿 (vendor sell 鹿仙貝)
+    - 大人 walk Todaiji temple (8 歲女 OK for 30 min, 5 歲仔 stroller)
+- **Lunch**
+  - 12pm: kid-friendly Nara restaurant (try Saboten chain - tonkatsu + 細路 white rice + kid menu)
+- **PM**
+  - 1-2pm: rest @ Nara park bench area (5 歲仔 stroller nap likely)
+  - 2-3pm: more 鹿 + small shrine walk
+  - 3pm: return train to Osaka
+- **Late PM**
+  - 4-5pm: 返 hotel rest
+- **Dinner**
+  - 6pm: family yakiniku @ 心齋橋 (細路 menu: 白飯 + cooked 牛肉 plain)
+
+- 🧒 **5 歲仔 anchor**: train ride + 鹿 + stroller nap
+- 👧 **8 歲女 anchor**: 鹿 feeding + temple snap photos
+- 👨‍👩 **大人 highlight**: Todaiji temple + scenic park walk + evening yakiniku
+- ⚠️ **Risk**: heat in Nara summer (鹿 also tired). 早 start finish 3pm before peak heat.
+
+**📅 Day 4 (Sat) — Osaka castle + 食 + 心齋橋 shopping**
+
+- **AM** (slow start - cumulative tiredness)
+  - 9am breakfast hotel
+  - 10am: Osaka Castle (train 3 stops away)
+    - Tour castle ~1 hr (8 歲女 + 大人 enjoy; 5 歲仔 30 min OK, stroller)
+    - Castle park: 5 歲仔 公園 跑 + fountain water play
+- **Lunch**
+  - 12pm: castle area family restaurant or convenience store picnic on park bench
+- **PM**
+  - 1-2pm: 返 hotel rest (5 歲仔 nap window)
+  - 2-4pm: 心齋橋 + 道頓堀 shopping
+    - 8 歲女 K-pop store / toy store (Pokemon Center if available)
+    - 大人 random shopping
+    - 細仔 stroller
+- **Dinner**
+  - 5-6pm: street food snacking (takoyaki + okonomiyaki) + family yakitori
+  - 7pm 返酒店
+
+- 🧒 **5 歲仔 anchor**: 公園 + fountain + stroller naps
+- 👧 **8 歲女 anchor**: shopping + Pokemon center
+- 👨‍👩 **大人 highlight**: castle history + street food + leisurely shopping
+- ⚠️ **Risk**: shopping fatigue for 細路 - cap @ 2 hr max
+
+**📅 Day 5 (Sun) — Light morning + return**
+
+- **AM**
+  - 9am breakfast
+  - 10-11am: last 心齋橋 souvenirs purchase
+  - 11:30am: hotel check out
+- **Lunch**
+  - 12pm: airport-direction restaurant near 新大阪 station
+- **PM**
+  - 1pm: 新大阪 → KIX (Kansai express)
+  - 3pm: KIX check-in + duty free
+  - 5pm: flight depart
+
+- 🧒 **5 歲仔 anchor**: 新幹線 short ride (細仔 happy)
+- 👧 **8 歲女 anchor**: souvenir spending
+- 👨‍👩 **大人 highlight**: relaxed pace, no rush
+- ⚠️ **Risk**: avoid over-pack last day
+
+📊 **Daily structure principle**:
+- AM (8-12pm): main activity (energy peak)
+- Lunch (12-1pm): family meal, sit-down
+- Rest (1-3pm): hotel / shade (5 歲仔 nap critical)
+- PM (3-6pm): lighter activity / shopping
+- Dinner (6-7pm): early family meal
+- Evening (7pm): 細路 wind down, adult quiet time
+
+💡 **Built-in flexibility**
+- Day 3 Kyoto NOT included (over-aggressive). If trip going smooth Day 1-2, optionally add Kyoto Day 4 morning trip.
+- Buffer 30 min before each scheduled activity
+- 1 day "rest" possible if 5 歲仔 melts down (skip Castle, hotel pool/park instead)
+
+🍱 **Meal coordination strategy**
+
+- **Breakfast**: hotel buffet (細路 always find something)
+- **Lunch**: family restaurant chain (Saizeriya, Coco curry, Family Mart on-the-go OK)
+- **Dinner**: ONE adult-focused option + kid-menu coexist:
+  - Yakiniku - 大人 grill, 細路 食白飯+plain meat
+  - Ramen shop - 大人 main bowl, 細仔 small bowl + 飯團
+  - Izakaya - 大人 sashimi, 細路 yakitori + rice
+- **Snack**: 餘 budget for 5 歲仔 between-meal hunger (energy bars / 細路 snack from convenience store)
+
+🆘 **Meltdown protocol**
+- 5 歲仔 hangry → 即 emergency snack (always pack 2-3 in bag)
+- 5 歲仔 tired → 即返 hotel even if mid-day
+- 8 歲女 boring → split (one parent take her to activity, other stay with 細仔)
+- 大人 exhausted → take turns "off duty" 1 hour each day
+
+語氣：realistic + permission to flex。
+</PromptBlock>
+
+Claude 出嘅 itinerary 你 print 出嚟，**每日 quick reference**。**唔好 lock 死 schedule** — itinerary 係 default，meltdown 來臨就 pivot。
+
+### 3. 用呢個 prompt 整 family bag essentials
+
+家庭出 trip 嘅 bag 同 solo 完全唔同：
+
+<PromptBlock label="完整 prompt — Family trip bag essentials">
+[paste 你 family info — 8 歲女 + 5 歲仔 + 細仔 stroller]
+
+我哋 5 日 4 夜 Osaka trip 8 月（35°C heat）。請整 **family bag essentials list**：
+
+🎒 **Daily city bag (1 bag per parent)**
+
+**Parent A bag (你)**:
+- 細仔 snack pouch (3-4 個 individual portions)
+- Wet wipes (Japanese ones 細仔 sensitive OK)
+- Diaper if applicable (5 歲仔 emergency)
+- Small towel + cooling spray
+- HK ID + passport scan
+- Cash + 2 cards
+- 細仔 favourite small toy (anchor item)
+
+**Parent B bag (partner)**:
+- Sun screen 50+ + reapply schedule (every 2 hr)
+- Sun hat for 細路
+- Insect repellent (Nara 鹿 area)
+- Extra clothes for 細仔 (spill / accident)
+- Phone charger + cable
+- Tissue + handkerchief
+- Basic first aid (band-aid + thermometer)
+
+🧒 **5 歲仔 stroller pouch**
+- 1 toy + 1 book (calm-down anchor)
+- 1 small blanket (stroller nap cover)
+- Spare hat
+- Sippy water cup
+- Extra mask + tissue
+- Plastic bag for any vomit / mess
+
+👧 **8 歲女 own backpack** (養 ownership)
+- 細小 bag, she carries
+- 1 toy + 1 book
+- Snack (her choice)
+- Water bottle
+- Coin purse with HK$200 equivalent for souvenir
+- Mask + tissue
+
+🌡 **Heat-specific (8 月 essential)**
+- Cooling neck towel (wet + freeze, reusable)
+- Portable fan (handheld for stroller)
+- Hydration salts (盒裝 powder)
+- Extra hat
+- UV cool sleeve
+- ORS sachet (oral rehydration) emergency
+
+💊 **Medication kit**
+- Adult: panadol / loperamide / antihistamine
+- 細路: kid panadol / oral rehydration / ibuprofen junior
+- Bandage + antibiotic ointment
+- Thermometer
+- 8 歲女 + 5 歲仔 平時用藥 (asthma inhaler / 過敏 EpiPen if applicable)
+
+🎈 **Sanity tools (for adult)**
+- Earplugs (細仔 hotel 過於興奮 sleep 時用)
+- 1 wine / drink can airport pickup (post-bedtime moment)
+- Audiobook / podcast for cancel-out 細仔 noise on transit
+- Travel pillow
+
+📋 **Tech / connectivity**
+- Pocket wifi 1 個 (cover 4 個 device)
+- Or each phone with eSIM Japan plan
+- Hotel name + address in 日文 (taxi communication)
+- Embassy phone (in case lost)
+
+🆘 **Emergency kit**
+- HK insurance contact + policy number
+- 大阪 family-friendly 醫院 list (research before trip)
+- Foreign card backup
+- 1 set extra clothes for both kids in carry-on (luggage delay protection)
+
+💼 **Carry-on vs check-in split strategy**
+- Check-in: bulk clothes + souvenirs
+- Carry-on: 1 set kid clothes + medication + 1 day's snack + valuables
+- 萬一 luggage delay you survive 24 hr without stress
+
+語氣：dad-mode practical，唔過度 over-pack。
+</PromptBlock>
+
+### 4. 用呢個 prompt 出 meltdown contingency 同 evening adult moment plan
+
+呢個 step 唔 visible 但 family trip success critical：
+
+<PromptBlock label="完整 prompt — Meltdown contingency + adult moment plan">
+[paste 你 family info]
+
+請整兩個 plan:
+
+🆘 **Meltdown contingency playbook**
+
+**5 歲仔 type meltdown:**
+- Trigger A: 餓 → response: immediate snack (no negotiate)
+- Trigger B: 累 → response: stroller + return to hotel within 30 min
+- Trigger C: 熱 → response: enter nearest aircon space + cooling spray
+- Trigger D: bored / waiting → response: distraction toy + bribe with future ice cream
+- Trigger E: overstimulated → response: quiet space + 30-min screen time OK
+
+**8 歲女 type meltdown:**
+- Trigger A: jealous of 細仔 attention → response: dedicated 1-on-1 hr daily (parent rotation)
+- Trigger B: boring activity → response: split, give her something engaging
+- Trigger C: hungry → response: same snack protocol
+- Trigger D: heat / tired → response: same as 5 歲仔
+- Trigger E: shopping deprived → response: pre-allocated daily souvenir HK$ budget
+
+**Parent type meltdown** (don't ignore):
+- Trigger A: 細路 simultaneous tantrum → response: take turns, no shame in stepping away 5 min
+- Trigger B: itinerary slip → response: drop optional activity, no recovery push
+- Trigger C: budget anxiety → response: pre-commit budget on Day 1, don't recalculate mid-trip
+- Trigger D: parent vs parent disagreement → response: side bar 5 min, decide, don't fight in front of 細路
+
+🍷 **Adult moment plan (essential for 5-day family trip)**
+
+**Why this matters**: 5 days of high-alert parenting without adult moment = burnout = next-day worse parent.
+
+**Daily 30-60 min adult moment options:**
+
+Option A (most days): **Post-bedtime sneak out**
+- 細路 bedtime 7:30-8pm
+- 8-9pm: one parent stay (uses hotel staff if available / 1 monitor app)
+- Other parent solo 心齋橋 walk + 1 drink
+- Rotate parent each day
+- Hotel-back by 9pm
+
+Option B (Day 4 evening): **Joint adult dinner**
+- 細路 ate early (5:30pm) at family restaurant
+- One parent take 細路 back hotel 7pm
+- Other parent secure babysitter / hotel kids program OR move kids to early bedtime + monitor
+- Adult joint dinner 7:30-9pm somewhere walking distance
+
+Option C: **In-hotel quiet time**
+- 細路 sleeping 8pm+
+- Sit on hotel balcony / hotel bar
+- One drink + chat with partner
+- 30-min decompress
+
+Option D: **Co-op solo time on day off**
+- One parent take 細路 for 「pool day」
+- Other parent solo afternoon shopping
+- Switch next day if desired
+
+🎯 **Adult moment ground rules**
+- Schedule it in advance, don't 「let's see if energy permits」 (energy won't permit, force it)
+- Don't compare your trip to single / couple traveller (different game)
+- 唔好 spend adult moment 講 細路 logistics (talk dreams, news, gossip, anything else)
+
+📷 **Pre-trip family alignment moment**
+- Before trip: family meeting to align expectation
+- Everyone (including 5 歲仔) name 1 「must do」 thing they look forward to
+- Acknowledge everyone's pick
+- Daily 30-second checkin: 「what's your favourite moment today?」
+- This builds family memory, not just photo
+
+語氣：normalize parent stress + permission to adult-time。
+</PromptBlock>
+
+呢個 contingency + adult moment plan 比 itinerary 本身更 critical。**Trip success = 90% energy management + 10% sightseeing**。
+
+## 變化
+
+### 變化 1：Solo / couple trip（無細路）
+
+冇 細路 constraint 嘅 trip 完全唔同：
+
+<PromptBlock label="變化 1 — Solo / couple trip itinerary">
+我哋 couple 去 [destination] [N 日]，冇 細路 / 老人家 constraint。
+
+請整 solo / couple-optimized itinerary：
+
+🎯 **No-kid trip 嘅 freedom**
+- Earlier start time OK (沒 sleep schedule)
+- Later evening OK (沒 bedtime)
+- Skip family restaurant
+- Take risk on niche local spot
+- 戶外 long walk acceptable
+- Late dinner OK
+
+📐 **Day structure (vs family pattern)**
+- AM: aggressive sightseeing start
+- Lunch: 自由 — random street food / niche restaurant
+- PM: continue or rest 由你 mood
+- Evening: late dinner + bar / club / night market
+- Night: late return acceptable
+
+✅ **Activity types 適合 couple**
+- Cooking class / cultural experience
+- 行山 / outdoor adventure
+- Museum + gallery (allow long viewing)
+- Local market early morning
+- Late-night izakaya 觀察 local life
+
+💑 **Couple-specific consideration**
+- 1 day each 「自己揀」(give partner full agency over 1 day)
+- 1 「splurge」 meal experience (couple memory anchor)
+- 1 「local immersion」 (homestay / class / volunteer)
+- Avoid: rushing through every check-list item (rest = travel quality)
+
+📊 **Budget allocation different**
+- Higher % on experience (cooking class / private tour)
+- Higher % on food (worth couple investment)
+- Lower % on transit (less luggage to schlepp)
+
+🚫 **Pitfall**
+- Couple 但每日 100% together → over-saturation
+- Schedule one half-day solo apiece is healthy
+
+語氣：indulgent + autonomous。
+</PromptBlock>
+
+### 變化 2：老人家 trip（行動較慢 + medical考慮）
+
+帶父母 / 公公婆婆出 trip 完全唔同 dynamics：
+
+<PromptBlock label="變化 2 — Senior parent trip planning">
+我帶 [我父母 65 + 70 / 公公婆婆 75+] 出 trip [destination] [N 日]。佢哋[walking pace + medical condition + dietary]。
+
+請整 senior parent-optimized itinerary：
+
+🏥 **Senior-specific pre-trip prep**
+- Medical clearance from family doctor
+- Comprehensive travel insurance with senior coverage
+- Medication 1.5x doses (買 extra)
+- Doctor's letter for prescription (carry-on)
+- 病歷 summary in English (for foreign hospital if emergency)
+- 國際 SOS membership consideration
+
+⏰ **Pace adjustment**
+- Walking speed: 50-60% of younger person
+- 1 main activity per day (max 2)
+- Rest scheduling: every 90 minutes
+- Avoid stairs heavy locations
+- Lift / escalator preferred
+
+🚶 **Mobility planning**
+- Hotel: elevator + accessible bathroom
+- Transport: avoid 8-hour bus, prefer train + taxi
+- Activity proximity: cluster nearby to minimize transit
+- Walking shoes critical (新鞋 唔好出 trip 試)
+- 隨身 walker / cane (if applicable)
+
+🍽 **Dietary consideration**
+- Diabetes / 高血壓 specific menu
+- Salt / oil reduction request when ordering
+- Familiar 食物 anchor 1-2 meal daily (rice + simple cooked vege)
+- Avoid raw seafood / 街邊 unverified
+- Stomach upset response kit
+- Tea preference (older parent 鐘意 hot tea on arrival)
+
+🌡 **Climate consideration**
+- Avoid extreme heat / cold destinations
+- 80°F is uncomfortable for many seniors
+- Hot tub / onsen 注意 cardio condition
+- 高原 destinations (Tibet / 高海拔 Peru) cardio risk
+
+💊 **Daily routine maintain**
+- Morning meds same time as home
+- Bowel habit maintain (1-2 day disruption normal但 medical alert if 3+ day)
+- Sleep schedule: 早 sleep early rise
+- Daily walk (15-30 min) maintain
+
+🎯 **Activity match**
+- 鐘意 嘅 senior activities:
+  - 古蹟 / temple (sit + admire OK)
+  - Garden walk
+  - Cruise (sedentary + view)
+  - Cooking class (lighter version)
+  - Hot spring (with medical OK)
+  - Tea ceremony
+- 唔啱:
+  - High thrill (theme park)
+  - Aggressive hiking
+  - Long-haul flight without rest day
+  - Adventurous food
+
+🆘 **Emergency planning**
+- Hotel staff 知 senior special需要
+- Nearest hospital identified pre-trip
+- Local language emergency phrase saved on phone
+- Family member emergency contact 24/7
+- Embassy / consulate contact saved
+
+🤝 **Inter-generational moment**
+- Schedule 1 daily「story time」 ( senior 講 你 / 你細路 過去)
+- Photo with parent at meaningful spot
+- 帶 parent 揀 1 souvenir for grand-kids (engagement task)
+- 唔好 take parent for granted - this trip might be limited
+
+語氣：respect + caretaking but not condescending。
+</PromptBlock>
+
+### 變化 3：蜜月 / 紀念日 trip（couple 慶祝 specific）
+
+蜜月 / 紀念 trip 同 regular couple trip 唔同 — celebration anchor 為主：
+
+<PromptBlock label="變化 3 — Honeymoon / anniversary trip planning">
+我哋 couple 慶祝 [蜜月 / N 週年紀念 / 個人 milestone]。我哋去 [destination] [N 日]。
+
+請整 celebration-specific itinerary：
+
+💍 **Celebration framing**
+- 1-2 「signature moment」 plan ahead (proposal-level memorable):
+  - Sunrise / sunset specific spot
+  - Private dining experience
+  - Helicopter / yacht / unique transport experience
+  - Surprise gift exchange specific moment
+- Daily 「small celebrate」 (small habit ritual)
+
+🌟 **Bookend prep**
+- Day 1 arrival: signature champagne / welcome
+- Last evening: anchor dinner (book ahead, dress up)
+- 中間 day: balance between sightseeing + relax
+
+📸 **Memory documentation**
+- 1 professional photo session (1-2 hr)
+- 1 「ourselves only」 selfie spot daily
+- Daily journal prompt: 「today's favourite moment」
+- Voice memo: each share 1 reflection
+- Polaroid / instant camera for tangible memory
+
+🛌 **Splurge intentionally**
+- Hotel upgrade for 1 night minimum (rooftop view / honeymoon suite)
+- 1 spa day or couple massage
+- 1 fine-dining (with reservation in advance)
+- 1 unique experience (wine tasting / private tour)
+
+🍷 **Daily structure (relax-leaning)**
+- Slow morning (no 6am alarm)
+- 1 cultural / scenic activity AM
+- Long lunch
+- Free PM (option: spa, beach, hotel pool, or further sightseeing)
+- Long dinner
+- Evening drinks / star gazing / late-night talks
+
+💑 **Couple-only moment commit**
+- 90% trip together OK
+- 10% solo time (each go solo 1 morning to prevent over-saturation)
+- 1 「serious conversation」 ritual (relationship check-in)
+
+🚫 **Pitfall**
+- 過 packed itinerary: defeats celebration purpose
+- 一齊 social media 多過 each other: phone fast 1-2 hr daily
+- Argument about logistics: prep so logistics 已 sorted, focus on each other
+- 同 wedding 高潮 vibe compare: 蜜月 different magic, don't force
+
+🎁 **Surprise element**
+- Pre-book 1 surprise for partner (don't disclose)
+- E.g., couple massage scheduled they don't know
+- Or note left in luggage from home
+- Daily 1 small gesture: love note in pocket / hotel room
+
+語氣：tender + intentional。Memory > efficiency。
+</PromptBlock>
+
+## 一個 mindset
+
+5 日家庭 trip 嘅 success metric 唔係 「我哋 hit 完所有 attraction」——係 **5 日後返 HK，全屋企人 fond memory + 想再 trip together**。
+
+呢個 metric 嘅 implication：family trip planning 嘅 enemy 唔係 missed attraction，係 **cumulative meltdown that erodes family bond**。Day 3 全屋企人 hot + 累 + hungry 鬥嘴嘅 90 分鐘，比 missed Kyoto 嘅 disappointment 影響 deeper。
+
+呢個 mindset 嘅 reframe：family itinerary 唔係 「optimize attraction count」——係 **engineer 4 個 different need 嘅 simultaneous satisfaction window**。每日有 1 個 大人 highlight + 1 個 細路 anchor + meal both like + 休息 = success。
+
+Claude 嘅 role 喺 family trip：你 alone 估計 multi-person preference 嘅 capacity 有限。Claude help you systematically dump 全家 preference + constraint，再 output 一個 considered itinerary。**唔係 perfect itinerary — 係 thoughtful starting point that respects each family member**。
+
+最後 reminder：
+
+- ✅ **Itinerary 唔需要 100% follow**。Family trip nature flexible，預 30% buffer for 細路 mood / weather / 突發。
+- ⚠️ **Daily 30-min adult moment 唔 optional**。Skip 一日你 OK，連續 5 日 skip 等於 burnout。
+- 🎯 **Cumulative memory > daily efficiency**。8 歲女 + 5 歲仔 5 年後唔記得 itinerary detail，但記得「我哋一齊去 Osaka 嘅 8 月，5 歲仔 喺 Nara 餵鹿 笑到趴喺地」。Engineer for that moment。
+
+Bon voyage, 屋企人。
