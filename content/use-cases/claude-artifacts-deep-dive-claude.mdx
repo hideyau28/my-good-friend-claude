@@ -1,0 +1,272 @@
+---
+title: "Claude Artifacts 5 個用法：HTML / code / chart / 大文本，邊 type 用 邊度"
+slug: "claude-artifacts-deep-dive-claude"
+issue: 81
+publishedAt: 2026-05-24
+audience: ["打工仔", "創作者", "老闆"]
+category: "cowork"
+section: "商家"
+subcategory: "Artifacts"
+difficulty: 1
+timeMinutes: 20
+toolsNeeded: ["Claude.ai (Pro+)"]
+description: "你問 Claude 整一段 HTML，佢出咗一段 markdown code block，你 copy 出去 render 先見到結果。Artifacts 改變呢個 flow — Claude 即時 render 你嘢，你直接見 preview + iterate。教你 5 個 practical use case。"
+keywords: ["Claude Artifacts", "HTML preview", "interactive Claude", "code artifact", "chart artifact", "Claude.ai feature"]
+related: ["claude-projects-setup-claude", "claude-skills-build-claude", "claude-content-repurpose"]
+featured: false
+---
+
+## 情境
+
+你問 Claude：「整個簡單 landing page HTML 推 我新 product」
+
+Pre-Artifact 年代：
+
+1. Claude 出 200 行 HTML code 喺 chat
+2. 你 copy 全部
+3. 開 text editor，paste，save as `index.html`
+4. Double click open 瀏覽器
+5. Render 出嚟，2 個 layout issue
+6. 返 Claude，paste 「呢度 broke，呢段 fix」
+7. Claude 出 修改版
+8. 重複 copy / paste / save / refresh
+
+20 分鐘 才見到 final 版。每個 small iteration ~3-5 分鐘 overhead。
+
+**Artifacts era**：
+
+1. 你問 Claude，「呢度 → artifact preview」 panel 即時 render
+2. 你 see HTML 即 working
+3. 你話「H1 字大啲、CTA button vermillion」
+4. Claude 直接 update artifact，preview 即 refresh
+5. 3 minute iteration cycle
+
+呢篇拆 5 個 Artifacts 真實用 use case，每個 demo prompt + when-to-use。
+
+## 跟住做
+
+### 1. Understand: 咩 trigger Artifacts
+
+Claude 喺以下 case 自動 render artifact:
+
+- HTML / CSS / JS code → live preview
+- Python / JavaScript script → code + 可 download
+- Mermaid diagram → rendered diagram
+- React component → interactive preview
+- Markdown 長文 (typically > 1000 字) → standalone document
+- SVG / 圖 / 圖標 → rendered visual
+- Spreadsheet-like data → table
+
+如 Claude 出咗 code 但 唔 artifact preview，你可以 explicit「render as artifact」 / 「show in artifact panel」。
+
+### 2. Use Case 1 — Landing page mockup (HTML)
+
+**Trigger prompt**:
+
+```
+整個簡單 1-page landing page 推 [產品]:
+- 主 colour：vermillion #C42424 + cream #FBF7EA
+- 結構：hero (大 headline + 1 sentence + CTA button) → 3 個 feature card → 1 個 testimonial → footer
+- Font：serif 配 sans
+- Mobile-responsive
+- 用 inline CSS (single file)，唔 external lib
+```
+
+Output: 完整 HTML 喺 artifact panel，preview render 出嚟。
+
+**Iteration approach**:
+
+```
+H1 字細啲 (60px → 48px)，CTA button hover effect 加 darker shade，feature card spacing 增加
+```
+
+Claude 直接 update artifact，preview 即時 refresh。20 分鐘 internal 多 iteration → final draft 出。
+
+**Limitation**: Claude artifact 唔 connect real backend / form submission。Real production deploy 仍要 你 push to Vercel / Netlify。但 mockup / 概念 demo / pitch deck slide 已 enough。
+
+### 3. Use Case 2 — Chart visualization (HTML / SVG)
+
+你有 data 想 quick visualize 但 唔 想 open Excel:
+
+**Trigger prompt**:
+
+```
+我 raw data:
+- Q1 sales HK$120k
+- Q2 sales HK$180k
+- Q3 sales HK$140k
+- Q4 sales HK$220k
+
+請 render bar chart artifact:
+- 主 color vermillion
+- Background cream
+- Y-axis HK$
+- 上面 title 「2025 quarterly sales」
+- 數字 label on each bar
+```
+
+Output: Live SVG chart artifact。
+
+**Iterate**:
+
+```
+Add 1 dashed reference line at HK$150k (target line)，label「target」
+```
+
+3 分鐘出 presentation-ready chart。Beat Excel chart 5 分鐘 setup time。
+
+### 4. Use Case 3 — Interactive prototype (React component)
+
+你 design lead，想 demo 一個 UI concept 比 stakeholder:
+
+**Trigger prompt**:
+
+```
+整 1 個 React component:
+- 個 form 同 3 個 input field: name / email / message
+- Submit button (vermillion)
+- 按下後 simulate API loading (1.5 sec) → success message animate in
+- 用 Tailwind for styling
+- 不需 real API call，淨係 visual demo
+```
+
+Output: Interactive React component artifact。你可以 真 在 panel 入面 click button + 見 loading animation + success message。
+
+**Use case**:
+- Design review meeting demo
+- 比 stakeholder concept feedback
+- A/B 試 2 個 design (re-prompt + 整 alternate version)
+
+呢類 interactive prototype 比 Figma static mockup 更 高 fidelity，比 actual code dev 快 10x。
+
+### 5. Use Case 4 — 長文 standalone document
+
+你 draft 緊一封 8 頁 嘅 client proposal:
+
+**Trigger prompt**:
+
+```
+基於我 dump 嘅 client requirement (paste 你 brief)，draft 8-page consulting proposal:
+
+結構：
+1. Executive summary (1 頁)
+2. 客 challenge understanding (1 頁)
+3. Proposed approach + methodology (2 頁)
+4. Timeline + milestone (1 頁)
+5. Team + qualification (1 頁)
+6. Investment + commercial term (1 頁)
+7. Next step (0.5 頁)
+
+語氣：professional, 唔 corporate cliche, HK 客 audience。
+```
+
+Output: 長文 artifact，markdown format。比 chat 入面 inline output 易讀，可以 download / share。
+
+**Iterate**:
+```
+第 3 page approach section, 加多 1 具體 example case study
+```
+
+Artifact panel 即 update。Final 版 export as markdown / PDF。
+
+### 6. Use Case 5 — Code script you can download
+
+你 want quick Python script clean CSV file:
+
+**Trigger prompt**:
+
+```
+寫 Python script:
+- Read input.csv (column: date, amount, category)
+- 過濾 date >= 2025-01-01
+- Group by category，sum amount
+- Output result_cleaned.csv
+
+用 pandas，要 error handling for missing column
+```
+
+Output: Code artifact + download button。你直接 download `script.py` 入 terminal 跑。
+
+**Iterate**:
+```
+加 progress bar (用 tqdm) 因為 input file 200k 行
+```
+
+Claude update artifact，新 version 即 ready download。
+
+呢類 quick utility script 平時 你 search Stack Overflow 30 分鐘 + glue 自己 code。Claude artifact: 1 個 prompt + 1 download。
+
+## 變化
+
+### 變化 1：Multi-file project artifact
+
+新版 Claude Code + 部分 Claude.ai feature 支援 multi-file artifact (整個 project structure):
+
+**Trigger prompt**:
+```
+整個簡單 Next.js project:
+- pages/index.tsx — landing
+- components/Hero.tsx
+- components/FeatureGrid.tsx
+- styles/globals.css
+- tailwind.config.js
+- package.json
+```
+
+Output: 多 file artifact，每個 file 獨立 tab。Download as zip。
+
+你 unzip → `npm install` → `npm run dev` → 直接 run。
+
+### 變化 2：Iterate artifact with conversation
+
+你 唔 satisfy artifact，feedback flow:
+
+✅ **Good iteration prompt**:
+- 「Hero section 添加 background image，使用 cream / vermillion gradient」
+- 「Feature card 4 個 改 3 個，每個寬大啲」
+- 「CTA button copy 改：『試 7 日』 → 『立刻開始』」
+
+❌ **Bad iteration prompt** (容易 confuse Claude):
+- 「Make it better」 (vague)
+- 「Like Apple website」 (assumes context)
+- 「Fix the styling」 (specifies nothing)
+
+Specific delta > vague improvement.
+
+### 變化 3：Artifact for教學 / onboard 同事
+
+你想 teach 同事一個 concept (e.g., 「點 use Excel pivot table」):
+
+**Trigger prompt**:
+```
+整一個 interactive tutorial HTML artifact:
+- 上方 explain pivot table 概念 (1 paragraph)
+- 中間 show 1 example data (table render)
+- 下方 step-by-step 點 build pivot table (5 step, numbered)
+- 結尾 quiz 3 條 question with show-answer button
+- 用 vanilla JS，唔 framework
+```
+
+Output: 完整 educational artifact。Share link / export HTML，同事 self-paced learn。
+
+呢類 internal training material 平時 video / Notion doc setup 1 hour，artifact 5 分鐘出。
+
+## 一個 mindset
+
+Artifacts 嘅 deeper value 唔係「render preview」——係 **reduce iteration friction to near-zero**。
+
+當 iteration cycle 由 5 分鐘 → 30 秒，**你 thinking pattern 改變**:
+- Pre-Artifact: 你 brain 預先 plan「完美 prompt」, scared to revise
+- Post-Artifact: 你 brain free to「Try, see, adjust」 quickly
+
+呢個 friction reduction 對 design / creative / explorative work 顯著 — 你 try 5 個 version 嘅 cost low，所以 你 actually try 5 個 version (instead of locking in first decent version)。
+
+Quality output 嘅 root cause 唔係 「prompt engineering」, 係 「low-friction iteration enabling diverse exploration」.
+
+最後 reminder：
+
+- ✅ **Iteration > perfection**。Artifact 第一版 80% OK，iterate 3 次 reach 95%。
+- ⚠️ **Artifact ≠ production code**。Mockup / demo / quick utility OK，但 production deploy 要 真 testing + edge case handling。
+- 🎯 **Artifact 可以 download + reuse**。一次 build 嘅 chart template / form 結構，下次 paste 入 new context modify。
+
+下次你 想「整個 簡單 HTML」 時，唔 paste request to text，直接讓 Claude render artifact。3 分鐘 iteration cycle = 你 work 嘅 quality 提升 verde。

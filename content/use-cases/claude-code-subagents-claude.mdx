@@ -1,0 +1,280 @@
+---
+title: "Claude Code Subagents：5 個 parallel agent 同時做嘢 (refactor + test + 寫 docs)"
+slug: "claude-code-subagents-claude"
+issue: 86
+publishedAt: 2026-05-24
+audience: ["創作者"]
+category: "code"
+section: "科技"
+subcategory: "Subagents"
+difficulty: 3
+timeMinutes: 30
+toolsNeeded: ["Claude Code installed"]
+description: "Review 大 PR 30 分鐘 sequential。用 subagent parallel：code review + test coverage + security scan + PR description 4 agent 並行 6-8 分鐘完。教你 setup + 邊個 task 適合 parallel。"
+keywords: ["Claude Code subagents", "parallel agents", "Claude agent SDK", "AI agent orchestration", "Claude Code workflow"]
+related: ["claude-code-install-claude", "claude-code-slash-commands-claude", "claude-code-worktrees-claude"]
+featured: false
+---
+
+## 情境
+
+你 senior dev. 同事 push 咗 一個 大 PR — 500 行 change 跨 12 file。
+
+你 review 動作:
+
+1. Read 全部 file diff: 15 分鐘
+2. Check test coverage: 5 分鐘
+3. Run security scan (manually): 5 分鐘
+4. Write thoughtful PR comment: 10 分鐘
+
+Total: 35 分鐘 sequential。
+
+呢個 sequential 嘅 root issue: **任務 之間 唔 互相 dependent** — code review 唔 wait test coverage 結果，test coverage 唔 wait security scan。但 你 default 跑 sequentially because brain 只能 focus 1 個 task at a time.
+
+**Subagents** 解決呢個: 一個 main session 同時 spawn N 個 subagent，每個 focused 不同 sub-task，並行 run。
+
+**Concept**:
+- **Main agent** (你)：orchestrate + integrate result
+- **Subagents**：parallel workers，each 收 specific task + return result
+
+呢篇拆 subagent setup + 5 個 daily use case scenarios。
+
+⚠️ Subagent 要 較 high difficulty understanding — 適合 已 用 Claude Code 1-2 個月 + comfortable with config files。
+
+## 跟住做
+
+### 1. Subagent concept clearer
+
+```
+Main session (you in interactive Claude Code)
+  │
+  ├── spawn → Subagent 1 (Code reviewer)
+  │             └── output: 5 issue spotted
+  │
+  ├── spawn → Subagent 2 (Test coverage analyst)
+  │             └── output: 80% coverage, 3 untested function
+  │
+  ├── spawn → Subagent 3 (Security scanner)
+  │             └── output: no secret leaked, 1 SQL injection risk
+  │
+  └── integrate → final summary 比 你
+```
+
+每個 subagent 獨立 context window，own conversation history。Parallelism = real wall-clock time savings.
+
+### 2. Built-in vs custom subagents
+
+Claude Code 自帶 一啲 standard subagent type:
+
+- **General-purpose**: open-ended task
+- **Explore**: read-only search across codebase
+- **Plan**: software architect role planning
+- **Code reviewer**: focus on code quality issues
+
+Custom subagents: 你可以 define own (next section).
+
+### 3. Invoke built-in subagent
+
+Inside Claude Code session, you can spawn subagent via Agent tool:
+
+```
+Agent(
+  description: "Find all auth-related code paths",
+  subagent_type: "Explore",
+  prompt: "Search the codebase for all files involved in authentication. Look for auth middleware, login routes, session management. Report file paths + brief description of each. Don't read full files, just locate."
+)
+```
+
+(Specific syntax depends on Claude Code version + your IDE integration. `claude --help` shows current.)
+
+呢個 spawn 一個 Explore subagent. 佢 returns 一份 summary, main agent 接住 work on full files.
+
+### 4. Spawn multiple subagents parallel
+
+Critical insight: 你 spawn 多個 subagents 喺 same response, parallel.
+
+Example workflow (PR review):
+
+```
+我哋 spawn 4 個 subagents parallel:
+
+Agent({
+  description: "Code quality review",
+  subagent_type: "general-purpose",
+  prompt: "Review the PR diff in current branch. Focus on: error handling, naming, complexity. Output 3-5 specific issues with file:line references."
+})
+
+Agent({
+  description: "Test coverage audit",
+  subagent_type: "general-purpose",
+  prompt: "Identify which functions in the PR diff lack test coverage. Check /tests folder. Output: list of untested function names + suggested test scenarios."
+})
+
+Agent({
+  description: "Security risk scan",
+  subagent_type: "general-purpose",
+  prompt: "Scan PR diff for security risks: SQL injection, XSS, exposed secrets, unsafe deserialization. Output: risk level + specific code references."
+})
+
+Agent({
+  description: "Generate PR description",
+  subagent_type: "general-purpose",
+  prompt: "Read the PR diff and write a 200-word PR description: what changed, why, test plan. Output in markdown."
+})
+```
+
+4 個 agent 同時 spawn → 並行 work → main session 等 4 個 都 done → integrate 4 個 result → 你 see comprehensive review。
+
+Wall-clock time: 6-8 分鐘 vs 30-35 分鐘 sequential。
+
+### 5. Custom subagent definition
+
+Define re-usable subagent 喺 `~/.claude/agents/` (user-level) or `./.claude/agents/` (project-level):
+
+File `code-reviewer.md`:
+
+```markdown
+---
+name: code-reviewer
+description: Specialist for thorough code review. Use proactively after writing significant new code or before commit.
+tools: Read, Grep, Bash(git diff:*)
+---
+
+You are a senior code reviewer with 15 years experience in JavaScript/TypeScript and Python.
+
+Your job:
+1. Read the recent code changes carefully (use `git diff` to see)
+2. Identify specific issues in these categories:
+   - Bugs / edge case missing
+   - Performance concerns
+   - Naming / readability
+   - Error handling gaps
+   - Security issue
+3. Output: 5-10 specific findings, each with:
+   - File path + line number
+   - Issue type
+   - 1 sentence explanation
+   - Suggested fix
+
+Tone: Direct, specific. No filler. Treat me as peer dev.
+```
+
+Save。Claude Code 自動 load 隨 new session。
+
+Use:
+```
+Agent({
+  description: "Review my changes",
+  subagent_type: "code-reviewer",
+  prompt: "Review the last 3 commits in current branch"
+})
+```
+
+### 6. Daily subagent use cases
+
+✅ **Use case 1: Parallel investigation** (你 read 大 codebase)
+
+```
+Agent({ subagent_type: "Explore", prompt: "Find database schema files" })
+Agent({ subagent_type: "Explore", prompt: "Find auth middleware" })
+Agent({ subagent_type: "Explore", prompt: "Find API route definitions" })
+```
+
+3 個 parallel investigation, main session integrate result, you decide where to focus.
+
+✅ **Use case 2: Multi-perspective review**
+
+```
+Agent({ subagent_type: "security-reviewer", prompt: "Audit auth flow security" })
+Agent({ subagent_type: "performance-reviewer", prompt: "Audit auth flow perf" })
+Agent({ subagent_type: "readability-reviewer", prompt: "Audit auth flow clarity" })
+```
+
+3 different lens, same code. Main session synthesize.
+
+✅ **Use case 3: Parallel content generation**
+
+```
+Agent({ prompt: "Draft user-facing release notes for these commits" })
+Agent({ prompt: "Draft internal team update for these commits" })
+Agent({ prompt: "Draft social media announcement for these commits" })
+```
+
+3 audience, 3 voice, parallel.
+
+✅ **Use case 4: Pre-deploy parallel checks**
+
+```
+Agent({ prompt: "Run npm run test and report failures" })
+Agent({ prompt: "Run npm run lint and report errors" })
+Agent({ prompt: "Check for hardcoded secrets in diff" })
+Agent({ prompt: "Verify all new env vars documented in README" })
+```
+
+4 deploy gate checks, parallel. 1 fail → halt deploy.
+
+✅ **Use case 5: Bug investigation**
+
+```
+Agent({ prompt: "Search for error 'XYZ' in logs" })
+Agent({ prompt: "Find similar past issue in GitHub" })
+Agent({ prompt: "Check related test cases for coverage gap" })
+```
+
+3 parallel investigative angle, main agent integrate findings.
+
+## 變化
+
+### 變化 1：When NOT to use subagents
+
+唔 適合 parallel:
+
+❌ Task 之間 strict dependency (each depend on previous output)
+❌ Single-file edit (no parallelism gain)
+❌ 簡單 query (overhead of spawn > task time)
+❌ Stateful task series (need shared context)
+
+✅ 適合:
+- Independent investigation
+- Multi-lens review
+- Parallel content gen
+- Pre-deploy multi-check
+- Multi-source data fetch
+
+Subagent value scales with task independence。
+
+### 變化 2：Sub-subagents (recursive)
+
+進階：subagent 自己可 spawn sub-subagents。
+
+E.g., 「Refactor architecture」 main agent → spawn 「Plan refactor」 subagent → which spawns「Read existing auth module」 sub-subagent。
+
+3 層 hierarchy 通常 enough。深過 = orchestration complexity 過高。
+
+### 變化 3：Subagent + Skills + Commands combination
+
+Skills tier (per 第 79 篇) 應用 specific 「procedure logic」。Subagent 應用 「parallelism」。
+
+例：
+- `/pre-deploy-check` slash command 觸發
+- 內 spawn 4 個 subagent (test / lint / security / docs)
+- 每個 subagent 內可 invoke skills (e.g., security-audit skill)
+- 整合 後 single summary report
+
+呢個 3-tier composition (command → subagent → skill) 係 advanced workflow architecture。
+
+## 一個 mindset
+
+Subagent 嘅 deeper insight: **CPU / IO parallelism 對 server task 已成熟，但 cognitive task parallelism 對 human 仍 困難。AI subagent 是 the breakthrough**.
+
+之前 你 brain 1 thread sequential。Even 多 monitor 都 不可 真正 parallel attention。Subagent = 把 你 parallelism 外包 — 5 個 subagent 同時 跑 5 個 task，你 main brain 只負 orchestration + integration。
+
+呢個 paradigm 顯著改變 senior dev / orchestrator 角色 — 不再 「solo execution」, 而係 「multi-agent orchestration」.
+
+最後 reminder：
+
+- ✅ **Subagent value 大喺 「independent task parallelism」**. 識別 independent task 係 key skill.
+- ⚠️ **Subagent 之間 唔 share context**. 各自 fresh memory. 你 spawn time 必須 include all needed context.
+- 🎯 **Custom subagent in 1 month 自然 evolve**. 1 你 daily ship 「I keep doing same review pattern」, codify into reusable subagent definition.
+
+下個 大 PR review 試 4-parallel subagent. 30 分鐘 → 8 分鐘. 你 brain 嘆「點解 之前 sequential 咁慢」.

@@ -1,0 +1,275 @@
+---
+title: "Claude Code slash commands：built-in 10 個 + 點 build 你 own /command"
+slug: "claude-code-slash-commands-claude"
+issue: 84
+publishedAt: 2026-05-24
+audience: ["創作者"]
+category: "code"
+section: "科技"
+subcategory: "Slash commands"
+difficulty: 2
+timeMinutes: 25
+toolsNeeded: ["Claude Code installed (見 第 83 篇)"]
+description: "你 Claude Code 每日 paste 同樣 instruction 5 次。Slash command 解決：定 1 次「/commit」，往後 type 命令觸發。介紹 built-in 10 個 essential command + 教你 build own /command in 15 分鐘。"
+keywords: ["Claude Code slash commands", "/help /commit", "custom slash command", "Claude Code workflow", "CLI shortcut"]
+related: ["claude-code-install-claude", "claude-code-mcp-servers-claude", "claude-code-hooks-claude"]
+featured: false
+---
+
+## 情境
+
+你 Claude Code 用 1 個月。每日 daily flow:
+
+- 「請 review my changes」 (5 次 / day)
+- 「請 寫 commit message」 (3 次 / day)
+- 「請 run 個 tests」 (2 次 / day)
+- 「請 explain 呢段 code」 (4 次 / day)
+- 「請 update CHANGELOG」 (1 次 / day)
+
+15 個 daily prompt，每個 you type 一遍。Calculate：daily 5-10 分鐘 typing 同樣嘢。每月 2.5-5 hr。
+
+Slash command 一個 word 解決：
+- Type `/commit` → Claude 即時 review + 寫 commit message
+- Type `/explain` → 簡 explain selected code
+- Type `/test` → run tests
+
+呢類預定 command save daily typing time，更重要 — **standardize workflow** across sessions / team members。
+
+呢篇拆 built-in 10 個 essential commands + 教你 build own custom `/command` 15 分鐘。
+
+## 跟住做
+
+### 1. Built-in slash commands
+
+開 Claude Code 後 type `/` 顯示 available commands:
+
+**🛠 Setup + info**:
+
+- `/help` — Show commands list + brief description
+- `/model` — Switch model (Opus / Sonnet / Haiku) inline
+- `/config` — Open settings.json
+- `/permissions` — Manage tool permissions
+- `/cost` — Show current session API cost
+
+**📁 Working with files**:
+
+- `/init` — Initialize current directory as Claude Code project (create `.claude/`)
+- `/clear` — Clear conversation context (start fresh)
+- `/compact` — Compress old conversation to save context window
+
+**🔍 Code understanding**:
+
+- `/review` — Review current diff for bugs / improvements
+- `/explain` — Explain selected file / function
+- `/test` — Run project tests
+- `/commit` — Generate commit message from diff
+
+**🤖 Agent management**:
+
+- `/agents` — List + manage subagents
+- `/loop` — Set up recurring task
+- `/schedule` — Schedule remote task
+
+⚠️ Specific available commands evolve. `/help` always shows current full list.
+
+### 2. Daily workflow examples
+
+**Morning daily reset**:
+```
+/clear
+# Fresh conversation start
+```
+
+**Mid-session compact** (conversation feel slow):
+```
+/compact
+# Old messages summarized, context preserved core points
+```
+
+**End-of-feature commit**:
+```
+/review
+# Claude reviews diff, flags issues
+# If OK:
+/commit
+# Generates message, you confirm
+```
+
+**Code explanation** (highlight a function in IDE):
+```
+/explain
+# Specific selected code explained
+```
+
+### 3. 點 build custom slash command
+
+每個 user 都可以 add custom `/command`. Location:
+
+- **User-level** (你所有 project share): `~/.claude/commands/`
+- **Project-level** (此 project only): `./.claude/commands/`
+
+Example: build `/release-notes` command。
+
+Create file `~/.claude/commands/release-notes.md`:
+
+```markdown
+---
+description: Generate release notes from recent commits
+---
+
+請 review 過去 7 日嘅 git commits + generate user-facing release notes:
+
+1. Run `git log --since="7 days ago" --oneline` 拎 commits
+2. Group commits by type (feat / fix / refactor)
+3. Translate technical commit message → user-readable feature description
+4. Format as markdown 「## What's new」 section
+5. 排序: new feature first, bug fix second
+6. 唔包含 internal refactor (除非 user-facing impact)
+
+Output structure:
+## ✨ New features
+- ...
+
+## 🐛 Bug fixes
+- ...
+
+## 🔧 Improvements
+- ...
+
+語氣：concise, user-focused, 唔 technical jargon.
+```
+
+Save file。返 Claude Code，type `/release-notes`。
+
+Claude 即 read 你 instruction file + execute。每次 release ready → 1 word command → notes 出。
+
+### 4. 進階：command with arguments
+
+Custom command 可以接受 argument:
+
+`~/.claude/commands/refactor-function.md`:
+
+```markdown
+---
+description: Refactor a specific function with clear input
+---
+
+請 refactor 我指 function:
+
+Function name (from 我 first message): $ARGUMENTS
+
+Step:
+1. Locate function 喺 codebase
+2. Identify: complexity / readability issue
+3. 提 2-3 refactor option
+4. Implement after my approval
+```
+
+Invoke:
+```
+/refactor-function calculateTotal
+```
+
+Claude read instruction + `$ARGUMENTS` = `calculateTotal`，知道 refactor 邊個 function。
+
+### 5. 進階：tool restriction in command
+
+部分 command 想 specific tools restriction:
+
+`~/.claude/commands/read-only-review.md`:
+
+```markdown
+---
+description: Read-only architecture review (no edits)
+allowed-tools: Read, Grep, Bash(git diff:*)
+---
+
+請 read 過 codebase + 出 architecture overview:
+
+1. 用 Read tool 識 main entry point
+2. Grep 揾 critical module
+3. 不要 edit 任何 file
+4. Output:
+   - Architecture diagram (mermaid)
+   - 3 個 strength
+   - 3 個 weakness / refactor opportunity
+```
+
+呢類 read-only command 安全，唔小心 destructive edits。
+
+### 6. Sharing commands with team
+
+如 整個 dev team 用 Claude Code，shared `./.claude/commands/` 入 git repo:
+
+```bash
+# In project root
+mkdir -p .claude/commands
+git add .claude/commands/
+```
+
+Team commit shared commands. New hire pull repo + `/your-command` works immediately。Standardizes team workflow。
+
+## 變化
+
+### 變化 1：Frequent patterns 整理 commands list
+
+過 1 個禮拜 use Claude Code，audit 自己:
+
+「邊個 prompt 我 type > 5 次?」
+
+Top 5 list — 每個變 custom slash command:
+
+- `/morning-standup` — review last commit + draft today's standup
+- `/deploy-check` — pre-deploy checklist (tests passed / no debug code / etc)
+- `/changelog-update` — update CHANGELOG.md from new commit
+- `/explain-error` — paste error → Claude explain + suggest fix
+- `/onboard-newhire` — generate onboarding doc for new dev
+
+每個 15 分鐘 build, 後續 daily save 5-10 分鐘 / each。
+
+### 變化 2：Project-specific 同 user-level distinction
+
+**User-level** (`~/.claude/commands/`): 跨 project useful 嘅 generic
+- /commit, /explain, /test (universal)
+
+**Project-level** (`./.claude/commands/`): specific to this codebase
+- /deploy-to-vercel (Next.js project)
+- /generate-migration (Supabase project)
+- /publish-to-pypi (Python lib project)
+
+Project-level command 跟 codebase 走 — team 入 same repo 用 same commands。
+
+### 變化 3：Combining slash commands + skills + hooks
+
+3-tier customization stack:
+
+- **Skills** (per 第 79 篇): 重複 workflow with rules (e.g., email-polish-hk skill)
+- **Slash commands** (此 篇): explicit trigger 嘅 named procedure
+- **Hooks** (第 87 篇): event-triggered automation (e.g., auto-format on save)
+
+Use case overlap 有時 — 你 揀 邊個 tier:
+
+- 「我想 explicit trigger」 → slash command
+- 「我想 Claude auto-decide invoke」 → skill
+- 「我想 system event auto-trigger」 → hook
+
+Example:
+- `/format-code` slash command (explicit, on-demand)
+- email-polish skill (auto-detect 我 paste email)
+- on-save hook (auto run linter)
+
+## 一個 mindset
+
+Slash command 嘅 deeper value 唔係 「typing speed」 — 係 **codifying personal workflow into reusable named procedure**.
+
+你 brain 每日 reinvent 「點 commit」 「點 release notes」 「點 explain bug」. Each reinvention 5-10 分鐘 mental load. Slash command = 1 次 design + repeated execution.
+
+Long-term: 你嘅 `~/.claude/commands/` 變成 你嘅 「engineering brain extension」 — 10-20 custom commands sharpening over years。新 hire 看到 你 commands 就明 你 workflow philosophy。
+
+最後 reminder：
+
+- ✅ **第 1 個 custom command 唔需要 perfect**. 15 分鐘 ship, iterate weekly.
+- ⚠️ **唔 over-engineer command upfront**. 確認 你 真 daily use 嘅 pattern 至 codify.
+- 🎯 **Share team-level command in git repo**. Onboarding tool + workflow standardize.
+
+下個 hour build 1 個 custom command. 1 個禮拜 後 你 instinctively type `/your-command` daily.

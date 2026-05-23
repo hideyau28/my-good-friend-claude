@@ -1,0 +1,268 @@
+---
+title: "50-message conversation 開始變慢 + 失去 context？點 break 變 reusable Project + Skills"
+slug: "claude-long-conversation-management-claude"
+issue: 82
+publishedAt: 2026-05-24
+audience: ["打工仔", "創作者", "老闆"]
+category: "cowork"
+section: "商家"
+subcategory: "Workflow management"
+difficulty: 2
+timeMinutes: 25
+toolsNeeded: ["Claude.ai (Pro+)"]
+description: "你同 Claude 傾咗 3 小時、52 個 message。Claude 開始變慢、答唔 consistent、context window 食滿。教你 systematic break 長 conversation 入 Project + Skill 結構，可 reuse + share。"
+keywords: ["long conversation Claude", "context window", "Claude memory", "conversation archive", "reusable workflow"]
+related: ["claude-projects-setup-claude", "claude-skills-build-claude", "claude-artifacts-deep-dive-claude"]
+featured: false
+---
+
+## 情境
+
+5 月 22 日，禮拜五 9pm。
+
+你 wrap up 3 小時嘅 product brainstorm session 同 Claude。Conversation thread 52 message：
+
+- 第 1-15 messages：你 dump rough product idea，Claude 反問 clarifying question
+- 第 16-30：refine target audience, brand positioning, USP
+- 第 31-42：messaging architecture, key visual direction
+- 第 43-52：specific launch copy, IG caption sample
+
+呢個 conversation 有 quality output，但：
+
+- Claude 開始 **慢** — 每 message 30-60 秒 回
+- 你 ask 第 50 條 question, Claude 「forget」 第 8 message 揀過嘅 brand voice direction
+- 你 scroll up 揾返第 27 message 嘅 key insight = 20 秒 scroll
+- 你 thinking「下個禮拜 reopen 條 chat 繼續 — 但 chat 名 / context 我 brain forget」
+- 你 thinking「想 share 比 partner 但 52 messages 唔可 ask 佢 read 嗮」
+
+呢個 long conversation 嘅 universal problem：
+
+- **Context window fill**: Claude 處理 conversation tokens 越多，response 越慢 + quality drift
+- **Memory drift**: Claude 「remember」 early message but reasoning weakens
+- **Discovery friction**: 你 brain 知 第 27 message 有 key insight, 但 揾 cost 高
+- **Reuse barrier**: 1 個 chat = 1 個 silo, 唔 easy reuse
+
+**Solution framework**:
+
+✅ Extract conversation **value** (insights / decisions)
+✅ Compress 入 Project knowledge base
+✅ 重要 workflow extract 為 Skills
+✅ 關 old chat, open fresh chat with Project context
+
+呢篇教你 5-step systematic break 長 conversation 嘅 process。
+
+## 跟住做
+
+### Step 1: Identify conversation value type
+
+返 chat thread, scroll 過全部 52 message。每段 message 屬於 邊類:
+
+🎯 **Type A — Standing context (應 入 Project knowledge)**
+- Brand voice rule
+- Target audience profile
+- USP / positioning
+- 永遠 future chat 用嘅 background
+
+🔄 **Type B — Workflow / procedure (應 變 Skill)**
+- 點 generate IG caption (步驟)
+- 點 polish email (rules)
+- 重複 task 嘅 logic
+
+📝 **Type C — Specific output (應 archive 為 file)**
+- 完成嘅 IG caption (10 條)
+- 寫好 嘅 product brief
+- Final visual direction note
+
+🗑 **Type D — Conversational filler (可 delete)**
+- 「OK 試下」/「不錯」/「等等⋯」 type back-and-forth
+- 你 自己 emotional reaction
+- Dead-end 方向 (你 跟住 abandon 嘅)
+
+每段 message tag 為 ABCD。20 分鐘 systematic review。
+
+### Step 2: Extract Type A → Project knowledge
+
+開 new Claude Project (per 第 78 篇 setup)。
+
+System prompt:
+```
+[Type A 嘅 standing context — 1 paragraph 整合]
+
+例：
+你係 幫 Bull Kicks 做 marketing 嘅 partner.
+
+Brand voice:
+- 誠實 唔 賣弄
+- 自嘲 OK 但 唔 weak
+- HK 廣東話 + 英文 自然 mix
+
+Target audience:
+- HK 25-40 中產
+- 識 sustainability concept
+- 唔 like preachy / moralizing tone
+
+USP:
+- 「Rescued」 sneakers 真實 second-life narrative
+- 唔 「eco brand」 generic positioning
+- Specific brand collab story
+```
+
+Upload supporting file (`reference/brand-voice-decisions.md`):
+- Paste Type A 嘅 detailed message 入 一個 MD file
+- 重要 context Claude 永遠可 reference
+
+### Step 3: Extract Type B → Skill
+
+長 conversation 入面 你 同 Claude 一齊 develop 出嘅 procedure (e.g., 「點 generate IG carousel from 1 個 product brief」)，extract 為 reusable Skill:
+
+```markdown
+---
+name: ig-carousel-from-brief
+description: Generate IG carousel (5 slide) from product brief. Trigger when user pastes a product brief + asks for carousel.
+---
+
+# IG Carousel Generator
+
+## When to use
+- User pastes product brief + asks IG carousel
+- 唔 trigger for non-IG content
+
+## Step-by-step
+1. Read brief, extract: product hook / 3 features / target emotion
+2. Plan 5-slide arc:
+   - Slide 1: hook (大字 + 強 visual concept)
+   - Slide 2-4: 3 features (1 per slide)
+   - Slide 5: CTA + brand sign-off
+3. For each slide:
+   - Headline (max 8 字)
+   - Body (max 25 字)
+   - Visual concept (1 句)
+4. 出 3 個 alternative tone (playful / serious / mysterious)
+5. Recommend 1 + 1 句 why
+
+## Rules
+- 唔 用「Game-changer」/「Revolutionary」/「Best-in-class」
+- Each slide standalone readable (唔 require 跟住前一張)
+- 中英 mix 自然
+```
+
+呢個 skill 從 你 52-message conversation extract — 但 變 portable reusable, can be invoked any future chat。
+
+### Step 4: Archive Type C → external file
+
+具體 output (Type C) save 為 external 文件：
+
+```
+/Bull-Kicks-Launch-Project/
+  ├── 2026-05-22_brand-voice-decisions.md
+  ├── 2026-05-22_product-brief-final.md
+  ├── 2026-05-22_ig-captions-10.md
+  └── 2026-05-22_visual-direction-notes.md
+```
+
+放 Notion / Google Drive / GitHub depending on team。
+
+呢類 archive 比 chat thread search 易揾 — file name 直接 say what's inside。
+
+### Step 5: 開 fresh chat in Project
+
+關 舊 52-message thread (或 archive — 唔 active 就 OK)。
+
+返 Project，「+ New chat」 開新 thread。
+
+第一個 message 可以好短:
+```
+基於 我哋 上次 brand voice + product brief，generate Mother's Day campaign IG caption 5 個。
+```
+
+Claude 即時用 Project 嘅 brand voice + 可能 invoke ig-carousel-from-brief skill。
+
+5 分鐘出 5 個 caption，全部 voice-consistent。**vs 重 paste 5 段 background**。
+
+每星期 你開 fresh chat in Project。chat thread 持續 short + sharp。
+
+## 變化
+
+### 變化 1：「我未 setup Project」 — 緊急 export 法
+
+仲未 build Project / Skill，但條 long chat 已 critical：
+
+**Quick export 方法**：
+
+1. 開 Claude chat
+2. 滾 上 top
+3. ⌘+A select all
+4. Copy
+5. Paste 入 markdown file (e.g., `conversation-2026-05-22.md`)
+
+Save 入 你 archive folder。下次 你 用 嘅 時候 open 該文件，reference specific decision「per our 5/22 conversation, brand voice OK」。
+
+呢個係 manual band-aid，唔 systematic — 但 緊急 場景 OK。
+
+### 變化 2：Conversation handoff to teammate
+
+你 leave 公司 / 換 project / 同事 take over，要 hand off complex Claude conversation：
+
+**Handoff document structure**:
+
+```markdown
+# Project [Name] — Claude Conversation Handoff
+
+## What I've been using Claude for
+- [Daily / weekly task list]
+
+## Key context Claude knows
+- [Brand voice rules — paste]
+- [Target audience — paste]
+- [USP — paste]
+
+## Patterns I've established
+- [Specific prompt patterns that work]
+- [Things that don't work]
+
+## Setup
+- Claude Project name: [link if shared Team plan]
+- Skills installed: [list]
+- Reference files location: [link]
+
+## Suggested onboarding
+1. Read this doc
+2. Open Project, review system prompt
+3. Try 1 simple chat to see voice
+4. Iterate system prompt as needed
+```
+
+呢個 doc 比「open ChatGPT and figure it out」 慳同事 3-6 個禮拜 ramp time。
+
+### 變化 3：Conversation 變 internal training video
+
+長 chat 入面有 「教學 moment」 — Claude explain 某 concept 你 first 時間 understand。Extract 為 training material:
+
+1. Identify「教學 moment」 messages
+2. Copy 嗰段 Q + A pair
+3. Format 入 training doc
+4. Add screenshot / 圖 illustrate
+
+例：你 ask 「點 evaluate Schengen visa rejection risk」，Claude 出 5-factor framework。Extract 呢段做 internal sales training material → 新 hire 5 分鐘 read = 1 個鐘 onboarding 慳。
+
+## 一個 mindset
+
+長 conversation 嘅 paradox：**conversation 越長 valuable，越 hard to maintain quality + reuse**.
+
+呢個 paradox 嘅 reason: chat thread 係 ephemeral medium (sequence of message)，但 valuable content 嘅 nature 係 structured + searchable + reusable。Mismatch 直接 frustrate。
+
+呢個 mindset 嘅 reframe: chat thread 唔係 「永久 archive」 — chat thread 係 「explore + iterate sandbox」. Crystallized output 應 migrate to structured container (Project / Skill / file).
+
+呢個 process 同 你 writing journal:
+- Journal entry (free thinking) — equivalent to chat
+- Personal essay (crystallized thinking) — equivalent to Project knowledge / Skill
+
+兩種 都 valuable，唔 should be confused.
+
+最後 reminder：
+
+- ✅ **每星期 1 hour review long chat → extract value → migrate**. 比 「我 next time scroll find」 更 reliable.
+- ⚠️ **50+ message chat 真係 慢**. Don't push past. 開 fresh thread 入 Project + reference past output.
+- 🎯 **Extract 嘅 effort 第 1 次 1 hour，但 setup 後每月 慳 5-10 hours**. ROI 明顯。
+
+下個禮拜 dedicate 1 hour, breakdown 你 最長嘅 active chat. 你會 surprise — 50% content 屬於 Type D (conversational filler), 真 valuable 嘅 Type A + B 其實只 20%. 20% 嘅 提取 + structure = high-leverage time investment.

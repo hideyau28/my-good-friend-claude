@@ -1,0 +1,262 @@
+---
+title: "Git worktrees + Claude Code：3 個 feature 同時 parallel 開發，唔 stash 唔 conflict"
+slug: "claude-code-worktrees-claude"
+issue: 88
+publishedAt: 2026-05-24
+audience: ["創作者"]
+category: "code"
+section: "科技"
+subcategory: "Worktrees"
+difficulty: 3
+timeMinutes: 25
+toolsNeeded: ["Claude Code installed", "Git 基本識"]
+description: "Feature A 做緊一半，老闆 ask 「急 fix feature B」— 20 分鐘 context switch overhead。Git worktree 解決：每個 feature 自己 folder + 自己 Claude Code session，可 parallel。教你 setup + Claude Code 整合。"
+keywords: ["git worktrees", "Claude Code parallel", "feature branch", "context switching", "parallel development"]
+related: ["claude-code-install-claude", "claude-code-subagents-claude", "claude-code-slash-commands-claude"]
+featured: false
+---
+
+## 情境
+
+你 mid-day 做緊 feature A: 「Add user search to dashboard」. 編寫 4 個 file, 30% done, 心 model loaded.
+
+老闆 ping: 「Need 急 fix feature B production bug — users can't login since 2pm」.
+
+Pre-worktree workflow:
+
+1. Stash uncommitted A work: `git stash` (但 lose Claude Code session context)
+2. Switch branch: `git checkout main && git pull && git checkout -b fix/login-bug`
+3. Open Claude Code re-onboard: 「我 而家 fix login bug, 你 context 唔 know feature A. Forget that.」
+4. Fix bug, commit, push, PR
+5. Switch back: `git checkout feature-a`
+6. Stash pop: `git stash pop`
+7. Re-onboard Claude Code: 「Resume feature A. 我 之前 stash, 而家 restored.」
+
+Context switch overhead: 20-30 分鐘 each direction。Daily 你做 2-3 個 switch = 1-1.5 hr 都 lost on switching alone。
+
+**Git worktree** 解決:
+
+- Each branch lives in **own folder**
+- 你 可 simultaneously 有 main, feature-a, fix-login 3 folder
+- 每個 folder own Claude Code session, own context
+- Switch 「project」 = `cd ~/projects/feature-a` (zero overhead)
+
+呢篇拆 worktree setup + Claude Code 整合 pattern。
+
+## 跟住做
+
+### 1. Worktree concept
+
+Standard git: 1 repo = 1 folder, branches share folder (only 1 active 一次)。
+
+Worktree git: 1 repo = main folder + N worktree folders, each worktree = 1 active branch.
+
+```
+~/projects/my-app/                 ← main repo, branch=main
+~/projects/my-app-feature-a/       ← worktree, branch=feature/user-search
+~/projects/my-app-fix-login/       ← worktree, branch=fix/login-bug
+```
+
+3 個 folder，3 個 branch concurrent。
+
+### 2. Setup first worktree
+
+去 你 existing repo:
+
+```bash
+cd ~/projects/my-app
+git status
+# 確認 clean (no uncommitted change)
+```
+
+Create worktree:
+
+```bash
+# Format: git worktree add <path> <branch-name>
+git worktree add ../my-app-feature-search feature/user-search
+```
+
+呢 個 command:
+- 創建 folder `~/projects/my-app-feature-search/`
+- 喺 該 folder check out branch `feature/user-search` (如 唔 exist, create)
+- Sub-folder share same `.git` 目錄 (via reference)
+
+`ls ~/projects/`:
+```
+my-app/
+my-app-feature-search/
+```
+
+Cd into new worktree:
+```bash
+cd ../my-app-feature-search
+git status
+# On branch feature/user-search
+```
+
+獨立 working directory，own state。
+
+### 3. Open Claude Code 喺 worktree
+
+```bash
+cd ~/projects/my-app-feature-search
+claude
+```
+
+Claude Code 視 呢 個 folder 為 own project. Independent conversation history. No bleed from main repo。
+
+開始 work feature:
+```
+我 implementing user search. 需要 add API endpoint /search?q= + frontend search bar.
+```
+
+Claude 跟 你 feature 度 design + implement，independent context。
+
+### 4. 突發 production bug — open second worktree
+
+老闆 ping production bug. 你 唔 stash feature work, 唔 switch branch:
+
+```bash
+cd ~/projects/my-app
+git worktree add ../my-app-fix-login fix/login-bug
+
+cd ../my-app-fix-login
+claude
+```
+
+新 Claude Code session, fresh context for fix:
+```
+急 fix: users can't login since 2pm. Help me investigate.
+```
+
+Claude 1 session: feature work, no context pollution.
+Claude 2 session: bug fix, fresh focus.
+
+兩個 同時 active. Tab 1 IDE + Claude Code A. Tab 2 IDE + Claude Code B.
+
+### 5. Fix + ship + return
+
+```bash
+# In fix worktree
+git status  # See your fix
+git add .
+git commit -m "fix: login bug, regenerated session tokens"
+git push -u origin fix/login-bug
+gh pr create
+```
+
+PR open, fix shipped。
+
+回 feature worktree:
+```bash
+cd ~/projects/my-app-feature-search
+# Feature work still intact, Claude Code session 仍 running
+```
+
+You resume in 1 second. No stash pop, no re-onboard.
+
+### 6. Cleanup worktree after merge
+
+PR merged. Cleanup:
+
+```bash
+cd ~/projects/my-app
+git worktree remove ../my-app-fix-login
+# Removes folder + cleans worktree registry
+git branch -d fix/login-bug
+```
+
+Folder gone, Git history intact (commit merged into main).
+
+### 7. Common worktree commands
+
+```bash
+# 列嗮 worktrees
+git worktree list
+
+# Add new worktree
+git worktree add <path> <branch>
+
+# Remove worktree (clean exit)
+git worktree remove <path>
+
+# Force remove (uncommitted changes)
+git worktree remove --force <path>
+
+# Prune (cleanup stale registry entries)
+git worktree prune
+```
+
+## 變化
+
+### 變化 1：Claude Code parallel agent + worktree combination
+
+Claude Code 嘅 `Agent` tool 配 `isolation: "worktree"` parameter — spawn subagent 喺 separate worktree:
+
+```
+Agent({
+  description: "Refactor auth module",
+  isolation: "worktree",
+  prompt: "Refactor /src/auth/* for clearer separation of concerns. Run all tests after."
+})
+```
+
+Effect: Claude 自動 spawn subagent → create temp worktree → subagent work in isolation → 如 changes made, commit + 返 path. 你 review → merge or discard。
+
+呢個 pattern: 「Claude experiments in isolated branch」 + 「if good, merge to main」. Risk-free exploration.
+
+### 變化 2：5+ parallel worktrees pattern
+
+進階用法: 5+ worktrees concurrent。
+
+```
+~/projects/my-app/                  ← main
+~/projects/my-app-feature-a/        ← feature A
+~/projects/my-app-feature-b/        ← feature B
+~/projects/my-app-experiment/       ← experimental
+~/projects/my-app-hotfix/           ← hotfixes
+~/projects/my-app-docs/             ← documentation rewrite
+```
+
+每 worktree own Claude Code session, own task。你 daily:
+
+- Morning: feature A worktree 1 hr
+- Mid-morning: experiment worktree explore approach
+- Lunch
+- After lunch: feature B
+- 3pm: docs rewrite
+- 4pm: review hotfix
+
+Day end: 5 個 PR potential. Comparator: traditional 1-branch workflow, 你 maybe ship 1-2.
+
+⚠️ Cognitive overhead: keeping 5 features in mind 全日. 唔 適合 less experienced dev. Sweet spot: 2-3 parallel for most.
+
+### 變化 3：Worktree + IDE tab 嘅 pairing
+
+Set IDE (VS Code) 多 window pattern:
+
+- Window 1: main repo (overview / config)
+- Window 2: feature-a worktree (focused work)
+- Window 3: bug-fix worktree (急 task)
+
+VS Code 「Open Recent」 / 「Workspace」 feature 管理。Each window 嘅 file tree show only that worktree's files — focus clear.
+
+Claude Code session per window. Total: 3 active IDE + 3 active Claude = 1 dev orchestrate level beyond traditional.
+
+## 一個 mindset
+
+Worktree 嘅 deeper insight: **Context switch overhead 唔 「inevitable」 — 係 「default workflow's friction」**.
+
+Traditional git: 1 working dir, branches as views. Switch view = mental flush + reload. 你 brain 唔 capable of perfect mental flush — 你 spend 5-10 分鐘 re-loading context.
+
+Worktree: branches as separate physical workspaces. Switch = `cd`. Brain 唔 flush — feature A space 仍 完整 ready when 你 return. Switch overhead → near zero.
+
+呢個 paradigm 對 senior dev / consultant / multi-project freelancer 改變 daily output significantly。
+
+最後 reminder：
+
+- ✅ **Try with 2 worktree first**. Add more as comfort grows.
+- ⚠️ **Folder count discipline**. >5 worktrees + 你 brain 唔 track which is which. 用 descriptive folder name.
+- 🎯 **Worktree + Claude Code subagent + slash command = ultimate parallelism**. Senior 級 workflow.
+
+下個 大 feature 試 dedicate worktree. 1 個禮拜 後你 context switch friction 顯著降低. 1 個月後 你 wonder 點解 traditional branch switch 默 default.
