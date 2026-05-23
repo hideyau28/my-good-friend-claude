@@ -1,0 +1,583 @@
+---
+title: "領養咗新 BB？用 Claude 整 30 日 settle + 訓練 schedule（HK 屋企 reality 版）"
+slug: "pet-puppy-kitten-first-month-claude"
+issue: 57
+publishedAt: 2026-05-23
+audience: ["消費者", "學生家長"]
+category: "chat"
+section: "寵物"
+subcategory: "新成員適應"
+difficulty: 2
+timeMinutes: 20
+toolsNeeded: ["Claude Chat", "BB 嘅 source + age + breed info", "（可選）adoption paperwork / health record"]
+description: "你頭先由 SPCA 領養咗隻 8 週小貓 / puppy，BB 第一晚匿床底 cry。用 Claude 拆 Day 1-7 settle、Day 8-14 routine、Day 15-30 social + basic training，加埋 HK 屋苑 reality + 第一次 vet visit timing。"
+keywords: ["領養寵物 香港", "SPCA HK adoption", "new puppy schedule", "kitten first month", "寵物 適應", "屋苑 養寵物"]
+related: ["vet-visit-prep-claude", "pet-picky-eater-diet-transition-claude", "pet-sitter-handover-claude", "pet-grooming-routine-claude"]
+featured: false
+---
+
+## 情境
+
+你頭先 6pm 由 SPCA Wan Chai branch 帶 BB 返屋企。
+
+BB 8 週大，short-hair black-and-white kitten / mixed-breed puppy。adoption paper 簽完，volunteer 同你 brief 5 分鐘，SPCA 送你一個 starter pack：少量試食、a brochure、microchip 證書、第一次 vaccination record。
+
+你抱住 carrier 上的士，BB 喺 carrier 入面震。你住 8 樓，住緊 350 sqft 1-bedroom flat。lift lobby 嗅住消毒水味，鄰居睇你 抱住 carrier，笑下，問「咩 breed?」你答「mixed」。
+
+入屋。
+
+你 carefully 開 carrier 嘅 door，set 喺地下中央。等。
+
+BB 探頭，望住個 unfamiliar 環境（4 面 vinyl floor、新 furniture smell、aircon 嘅 hum），縮返入 carrier。
+
+你坐喺 sofa，唔知做咩好。冰箱 hum。隔離單位電視聲 muted but audible。BB 喺 carrier 入面，過咗 10 分鐘冇出嚟。
+
+8pm 你嘗試放 food bowl 1 米外。BB 唔出嚟。
+
+10pm 你瞓覺，BB 仲喺 carrier。
+
+凌晨 2am 你聽到 BB cry。你 turn on phone torch，發現 BB 匿咗喺 sofa 底，眼閃閃，嘴細細 cry。
+
+呢一刻你 panic：**我係咪 traumatize 咗 BB? 我做錯咩? 30 日內我要點 reset?**
+
+呢篇用 Claude 拆 4 個 phase（Day 1-7 / 8-14 / 15-30 / 30 天後），每個 phase 嘅 specific milestone + warning sign。
+
+## 跟住做
+
+### 1. 用呢個 prompt 整 30 日 day-by-day schedule
+
+開 Claude 之前，先 dump BB 嘅 baseline info：
+
+> BB 8 週 male short-hair kitten (SPCA 領養，混色 black + white)。adoption 時間：今晚 6pm。
+> 
+> 屋企 setup：350 sqft 1-bedroom，HK 高層 apartment。8 樓。窗有鐵窗網。冇 garden / outdoor space。
+> 
+> 屋企人：我 (35, work from home 一半時間)。Partner 朝早出朝 8pm 返。冇細路。冇其他 pet。
+> 
+> Daily routine：朝 7am 起身，9am-7pm work（在家或 office），晚 7-11pm dinner + relax。Weekend：自由 schedule。
+> 
+> Goal：BB 健康 + 適應 屋企 + 同我哋 bond + basic potty trained by Day 30。
+
+呢類 dump 比 generic「new kitten schedule」嘅 prompt 出嘅 plan 好太多。
+
+<PromptBlock label="完整 prompt — 30 天 new pet onboarding schedule">
+[paste 你上面嘅 dump]
+
+請整 **30 日 day-by-day schedule**，每個 phase 包括 daily routine + milestone check + warning sign。
+
+🗓 **Phase 1 — Day 1-7：Settle（最 critical week）**
+
+**Goal**: BB 接受屋企環境 + 開始建立 trust + 食 / 屎尿 normalize
+
+**Daily routine**:
+- Wake + first feeding：[time]
+- Play / interaction：[次數 + duration]
+- Quiet time（BB rest 為主，唔強迫互動）：[%]
+- Last feeding + sleep transition：[time]
+
+**Day 1-2 — Safe room only**
+- BB confined 喺 1 個 small room（bathroom / 細房間）— overwhelming 全屋
+- Essentials：food, water, litter（cat）/ pee pad（dog）, bed, hiding spot
+- 你 routine：每 1-2 小時 sit silently 喺 room 入面（唔 chase, 唔抱）讓 BB approach 你
+
+**Day 3-5 — Expand to living area**
+- 開 safe room door，BB 自己 explore（唔抱出嚟）
+- Identify hot spots（BB 鐘意 hide 嘅 spot — sofa 底 / window 邊 / closet）
+- 確保 hide spot 安全（冇 hazard — 電線 / 細小可吞食物 / 化學品）
+
+**Day 6-7 — Full apartment access**
+- BB 應該 voluntarily explore 全屋
+- 仲未 explore 嘅 area：唔強迫
+- 第一個 vet visit 預約 Day 7+（如 SPCA 證書要求 deworming follow-up）
+
+**Day 1-7 milestone check**:
+- ✅ Eating regularly Y/N（pet 8 週 新環境，唔食 24-36 hr normal，>48 hr = vet）
+- ✅ Using litter / pee pad Y/N
+- ✅ Voluntarily approach you for treat Y/N
+- ✅ Sleeping >6 hr continuously Y/N
+
+🗓 **Phase 2 — Day 8-14：Routine 建立**
+
+**Goal**: BB enter daily routine pattern + identify personality + first vet visit done
+
+**Daily routine refined**:
+- Feeding times：[固定 — 朝 7-8am, 中午 12-1pm, 晚 6-7pm（cat 3 餐 / dog 3-4 餐 small portion）]
+- Play sessions：cat 2x 15 分鐘 daily；puppy 4x 10 分鐘 daily (short attention span)
+- Sleep zone established（BB 自己揀嘅 spot，唔 force）
+- Quiet hours（你工作時段 — BB 自己 amuse）
+
+**Week 2 specific tasks**:
+- Day 8 — 第一次 vet visit:
+  - Full physical exam
+  - Confirm vaccination schedule
+  - Deworming
+  - Microchip verified
+  - Discuss neuter / spay timing
+- Day 10 — Introduce grooming tools（brush placed in environment without use）
+- Day 12 — Start name recognition training:
+  - Say BB's name + treat 5x daily
+  - 唔係 train command — train name association
+- Day 14 — First photo / weight log（每月 baseline 比較）
+
+**Week 2 milestone check**:
+- ✅ Recognize own name? (look up when called)
+- ✅ Comfortable being touched on body (not ears / paws yet)
+- ✅ Established sleep zone
+- ✅ Predictable feeding behavior
+
+🗓 **Phase 3 — Day 15-30：Social + basic training**
+
+**Goal**: Trust solidified, basic commands started, socialise with sights / sounds
+
+**Week 3 — Touch desensitization**:
+- 每日 30 秒 touch ears / paws / tail base → immediate treat
+- 唔 push past resistance — short positive sessions
+- 你 partner 都加入（多人 touch handling = robust adult pet）
+
+**Week 4 — Basic commands (puppy) / Engagement (kitten)**:
+
+對於 puppy:
+- Sit: lure + reward, 2x 5 分鐘 daily
+- Come: indoor only, treat 反應
+- Crate / bed: positive association
+
+對於 kitten:
+- 唔需要 formal command — focus engagement:
+- Interactive toy play 引發 hunt instinct
+- Treat 嚟 recognize 「呢個聲 = good thing」
+
+**Socialization checklist**（呢個 week 介紹）:
+- 不同 sounds: vacuum cleaner（distant + 低 volume）, hair dryer, doorbell, traffic
+- 不同 visitors: 1-2 個 friend brief visit, calm interaction
+- 不同 textures: tile, carpet, towel, grass (balcony pot if no garden)
+- Carrier positive association: place open carrier with treats inside daily
+
+**Week 3-4 milestone check**:
+- ✅ Tolerates basic handling (touch all body parts briefly)
+- ✅ Eats in front of you / approaches treat hand confidently
+- ✅ Predictable routine and behavior pattern
+- ✅ Plays interactively (not just self-play)
+- ✅ Carrier positive association (enters voluntarily)
+
+🚨 **Warning signs throughout — vet immediately**:
+- 持續 >24 hr 唔食
+- 嚴重 diarrhea / vomiting (puppy / kitten dehydrate 快)
+- Lethargic + 唔玩
+- Visible parasites (worms in stool / fleas)
+- Limping / pain signs
+- Eye / nose discharge
+
+🏠 **HK 屋苑 reality reminders**:
+- 確認屋苑允許養 pet（lease + 業主立案法團 rules — 部分 estate 限制 dog size / breed）
+- 鄰居 noise considerations: puppy crying 頭幾晚 normal — leave a note for direct neighbors apologizing + timeline
+- 細空間 living: cat OK 350 sqft；dog 需要 daily outdoor walk regardless of size
+- Lift / lobby etiquette: carrier when transit, no off-leash
+
+📋 **Day 30 review**:
+- BB weight / size change
+- Personality emerged
+- Routine settled
+- Bonding strength
+- Plan ahead: spay / neuter (typical 5-6 months), training progression, second vet check at 4 months
+
+請每個 phase 整 print-friendly daily checklist format。
+
+語氣：grounded + realistic。Don't overpromise — 部分 BB Day 30 仲冇完全 adjust，呢個 normal。
+</PromptBlock>
+
+Claude 出嘅 schedule print 一份貼喺 fridge。**每日 fill 一次 milestone check**——你會見到緩慢但持續 progress。
+
+### 2. Pre-arrival prep + Day 1 essentials
+
+如果你 read 呢篇文係 adopt 前（congrats — proactive prep 唔多 owner 做到），呢個 step 係 prep checklist。
+
+<PromptBlock label="完整 prompt — Pre-arrival shopping + setup checklist">
+我即將 [幾日 / 1 週後] 由 SPCA 領養 8 週 kitten / puppy。我屋企 350 sqft 1-bedroom HK apartment。冇現有 pet。
+
+請整 **pre-arrival shopping + setup checklist**（priority order — 必買 → nice to have）：
+
+🛒 **必買（Day 1 已 ready）**
+
+For kitten:
+- Litter box (1.5x BB size) + cat litter (start with same brand SPCA used — switch gradually later)
+- Food bowl + water bowl (ceramic / stainless — 唔好 plastic)
+- 同 SPCA 一樣嘅 food (transition gradually after Day 7)
+- Bed / blanket (washable)
+- Carrier (for vet visits)
+- Few interactive toys (wand / ball)
+- Nail clipper
+- Scratch post / pad (cat — saves your sofa)
+
+For puppy:
+- Crate (right size — 唔可以太大，BB會 use far corner as toilet)
+- Food + water bowl
+- Same food as source (transition gradually)
+- Pee pads (for indoor potty training first few weeks)
+- Leash + harness (right size)
+- Few chew toys (teething)
+- Crate blanket
+- Treats (high-value for training)
+
+⚙️ **Setup（before BB arrives）**
+
+- **Safe room**: 揀 small enclosed room (bathroom OK for cat, larger room for puppy)
+- **Pet-proof full home**: 
+  - 收走 cords / cables 入 cable management
+  - 收走 toxic plants (lily / pothos for cat / lily extremely toxic)
+  - 收走 small swallow-able items
+  - Childproof lock on toxic chemical cabinets
+  - 確認窗戶有鐵窗網（cat — high-rise syndrome real risk in HK）
+  - Toilet seat 落（puppy drown risk）
+- **Schedule yourself**: 安排 first 3 days off / WFH (BB 需要持續 presence)
+- **Vet pre-booked**: identify vet, register, get Day 7 appointment
+
+🟡 **Nice to have（Week 2-4 add）**
+- Pet camera (Tapo / Wyze — 你出去時 monitor)
+- Pet insurance research (see [pet-insurance-review-claude])
+- Travel carrier (different from vet carrier — bigger for longer travel)
+- Grooming starter kit (brush + dental supplies)
+- Feeding mat (catches spills)
+
+💰 **HK 2026 typical first-month budget**
+- Essentials: HK$1,500-2,500
+- Food first month: HK$300-600
+- First vet visit: HK$800-1,500
+- Vaccination remainder: HK$1,000-1,500
+- Microchip + license (if not done by SPCA): HK$300-500
+- **Total Month 1: HK$4,000-6,500**
+
+⚠️ **唔好做嘅 Day 1 mistake**:
+- 唔好 invite 親戚朋友 come 見 BB Day 1 — overwhelming
+- 唔好 force interaction — let BB 揀 pace
+- 唔好 expect BB 同你 cuddle 第 1 晚 — could take 2-4 週
+- 唔好 immediately change BB's food brand — gradual transition Day 7+
+- 唔好 leave BB alone all day Day 1-3 — even 半日 OK, full day 唔好
+
+語氣：practical, budgeting realistic to HK。
+</PromptBlock>
+
+### 3. 同 BB bond 建立 — 唔係靠抱，靠 ritual
+
+新 owner common mistake：too much physical interaction too soon。Bonding 喺**predictability + safety**，唔係 cuddle frequency。
+
+<PromptBlock label="完整 prompt — Trust + bond 建立 daily rituals">
+我想 understand 點 build long-term trust + bond with my new BB（8 週 kitten or puppy）。我發現你建議唔好 over-cuddle 頭 2 週，但又怕「冷淡」BB。
+
+請整 **daily bonding rituals**（5-10 分鐘 each, 高 trust ROI）：
+
+🌅 **Morning ritual (5 mins)**
+- 你起身 first task：sit on floor near BB sleeping area + silent presence
+- 唔 immediate touch — let BB approach 你
+- 如果 BB 過嚟：treat from hand
+- Establish: you = first thing predictable + safe
+
+🍽 **Meal-time presence**
+- Sit nearby during BB eating (1-2 米距離，唔 hover)
+- 唔 disturb meal — 但 BB associate your presence with positive (food)
+- Same time daily — predictability is bonding
+
+🎯 **Play ritual (15-30 mins)**
+- 同一 toy daily (wand for cat, tug rope / chew for puppy)
+- 同一 time daily (e.g., 7pm before dinner)
+- End on win — BB 「catch」 toy, then small treat
+- Don't over-stimulate — short positive sessions
+
+🧘 **Quiet co-presence**
+- 你 read / work，BB 同 room 自由
+- 唔 demand attention — BB voluntarily approach over weeks
+- 呢類 silent co-presence 比 active interaction 對 long-term bond stronger
+
+🌙 **Bedtime ritual**
+- 同一 phrase before sleep（"goodnight BB"）— BB learn vocal pattern + day-end cue
+- Lights dim 一致 schedule — establish circadian rhythm
+- 唔 force sleep in your bed — let BB 揀
+
+🚫 **Anti-bonding actions（即使 well-intentioned）**
+- 抱起 BB 走嚟走去（BB feel out of control = bonding setback）
+- 用 BB 做 social media content too frequently（"propping" — over-handling）
+- 多人 simultaneously approach BB（overwhelming）
+- 喺 BB hiding spot 強拉 BB out
+- Inconsistent schedule（today 7am feed, tomorrow 9am — destabilizing）
+
+🔬 **Bonding signals BB shows you（progressive）**:
+
+Week 1:
+- 開始 voluntarily come out from hiding when you enter room
+- Eat food while you sit nearby
+
+Week 2:
+- Approach you for treat (not just food)
+- Briefly lean against you / 過嚟 touch your leg
+
+Week 3:
+- Sleeping in your visible area (not hidden)
+- Belly exposure during rest (high trust sign)
+- Slow blink (cat)
+- Tail wag relaxed (puppy)
+
+Week 4+:
+- Voluntarily seeks physical contact
+- Greets you at door
+- Vocalizes for attention
+- Sleeps near you
+
+語氣：patience-emphasized。Bonding 唔係 weekly milestone — 係 multi-year compound。Year 5 你哋嘅 bond 唔係 year 1 嘅 base + 4 年延續 — 係完全不同 quality.
+</PromptBlock>
+
+### 4. Crisis management — Day 1-7 常見問題
+
+新 owner 頭 7 日通常遇到 1-3 個 panic moments。Claude help triage：
+
+<PromptBlock label="完整 prompt — Common Day 1-7 issues triage">
+我新 BB（8 週）住咗 [幾日]。出現以下 issue [描述]。
+
+請 help me triage:
+
+📋 **常見 Issue 1: BB 唔食 12-24 hr**
+
+Triage:
+- 少於 12 hr: Normal stress reaction, monitor + offer high-value food (small piece churu for cat / cooked chicken for puppy)
+- 12-24 hr: Try food variety + warm slightly (release smell) + hand feed if needed
+- >24 hr (kitten / puppy): VET — small animals dehydrate / hypoglycemia 快
+- 任何時候 + lethargic / vomiting / diarrhea: VET immediately
+
+📋 **常見 Issue 2: BB 持續 hide + cry**
+
+Triage:
+- Day 1-3: Normal acclimation, do NOT force out, 確保 food / water / litter accessible near hiding spot
+- Day 4-7: 仲完全 hide = your presence pattern 可能太 intense, 反而 give more solitude
+- 加 night cry: 可能 missing siblings (8 週 BB 剛離開 litter) — 加 ticking clock under blanket (mimics heartbeat) + warm hot water bottle wrapped in towel
+- Cry + 唔食 + lethargic = VET
+
+📋 **常見 Issue 3: Litter / potty 唔成功**
+
+對於 kitten:
+- Place BB in litter after meals + waking
+- 確認 box size + litter type same as source
+- 多 box if large apartment (Cat: N+1 box for N cats)
+- 唔好 punish accidents — clean with enzyme cleaner (prevents repeat)
+- 持續 >Day 5 唔 use: medical issue check (UTI common in young kittens)
+
+對於 puppy:
+- 8 週 puppy bladder very small — 每 1-2 hr potty trip
+- After meals + waking + play: immediate to pee pad
+- 唔好 puppy free-roam too soon — accidents = setback
+- 持續 >Week 2 唔 progress: behavioral consultation
+
+📋 **常見 Issue 4: BB 咬 / 抓 你**
+
+Triage:
+- Play biting normal — but redirect to toy immediately
+- 唔好 hand-as-toy 訓練 BB (long-term problem)
+- High-pitched「ouch」+ ignore 1 minute (mimics littermate teaching)
+- Persistent aggression beyond play: behavioral consultation (rare in 8 週 — usually under-socialization)
+
+📋 **常見 Issue 5: BB 同 partner / family member 不熟**
+
+Triage:
+- BB 通常 first bond with primary caregiver (the one feeding most)
+- Partner / family slowly join via:
+  - Sit silently in room (no interaction demand)
+  - Hand treat once trust builds
+  - Take over 1 feeding session per day
+- Don't 強迫 BB interact with stranger - lifelong fearful adult
+
+📋 **常見 Issue 6: 鄰居 complaint (puppy 持續 cry)**
+
+Triage:
+- 8 週 puppy 頭幾晚 cry normal (missing litter)
+- Solutions:
+  - Crate near your bed first 2 週 (proximity reassurance)
+  - Heartbeat clock + warm pad
+  - 短期 anti-anxiety pheromone diffuser (Adaptil) HK$300
+- Communicate proactively with direct neighbors: knock + explain + apologize + timeline
+- 持續 >2 週: vet consult (separation anxiety meds short-term + behavioral plan)
+
+🚨 **Vet immediately signals (Day 1-7)**:
+- 持續 vomiting >2 episodes / 8 hr
+- Diarrhea + blood
+- Refused food + water >24 hr
+- Visible parasites
+- Lethargic + 唔玩 + 唔 respond to stimuli
+- Difficulty breathing
+- Limping suddenly
+
+語氣：reassuring but not dismissive — 第一次 owner 嘅 concern valid，但唔係每個 anxiety = emergency。
+</PromptBlock>
+
+## 變化
+
+### 變化 1：領養 senior pet（5 歲以上）
+
+Senior pet adoption 嘅 dynamics 完全唔同：
+
+<PromptBlock label="變化 1 — Senior pet (5+) adoption onboarding">
+我領養 [5 歲 / 8 歲 / 10 歲+] 嘅 [species]，源自 [SPCA / surrender / rescue]。Adult pet 唔係 8 週 kitten — 完全唔同 approach。
+
+請整 senior-specific 30 天 onboarding：
+
+🐾 **Senior adopt 嘅獨特 challenge**
+- 已有 personality + habit pattern（possibly trauma history）
+- 健康 baseline 未知（不像 kitten/puppy 平均健康）
+- Adaptation 慢過 young pet（established neural patterns）
+- 部分 senior pet 一世只 bond with 一個 caregiver
+
+🗓 **Phase 1 — Day 1-7：Slow exposure**
+- BB 自己揀 pace — 真係自己揀（部分 senior pet 頭週完全 hide normal）
+- 唔需要 daily「playful」interaction — senior pet 可能 prefer quiet
+- Maintain previous routine if known (rescue 可能 keep record)
+
+🗓 **Phase 2 — Day 8-14：Health baseline**
+- 第一次 vet visit Day 7-10:
+  - Full blood panel (senior baseline)
+  - Dental check (常見 senior issue)
+  - Arthritis assessment
+  - Vaccination history reconcile
+- Diet review: switch to senior formula if not already
+
+🗓 **Phase 3 — Day 15-30：Personality emerge**
+- 部分 trauma signs surface 喺 Week 3-4 (not Week 1)
+- Identify trigger pattern (specific noise / object / behavior)
+- Behavioral plan if needed (consult cat / dog behaviorist)
+- Bond 進度 slower than kitten — Year 1 才真正「settle in」
+
+⚠️ **Adjust expectation**:
+- Day 30 review: senior pet 可能仲 cautious — normal
+- 健康 issue may emerge first 3-6 個月 — financial buffer 重要
+- 鐘意 senior pet 嘅 owner share 一個 trait: patience + non-comparison
+
+語氣：respectful for senior pet's life history，唔好 try to「fix」existing personality。
+</PromptBlock>
+
+### 變化 2：已有 resident pet — Second pet introduction
+
+如果你屋企有現有 pet，新加入需要 careful introduction：
+
+<PromptBlock label="變化 2 — Second pet 介紹 protocol">
+我屋企有 [resident pet — species + age + temperament]。我即將 adopt [new pet — same / different species + age]。
+
+請整 **safe introduction protocol** (avoid common mistake — too fast = lifelong tension)：
+
+🗓 **Phase 1 — Week 1: No visual contact**
+- New pet in separate room, door closed
+- 唔好 face-to-face yet
+- Scent swap daily:
+  - Swap blanket / bed between rooms
+  - Wipe each pet's cheek with same cloth, present to other
+- Resident pet routine UNCHANGED — 唔好因為新嚟者 disrupt resident
+
+🗓 **Phase 2 — Week 2: Door-cracked / barrier introduction**
+- Door cracked open or baby gate
+- Both pets see each other briefly + treat reward
+- 短期 sessions (5 mins x 2-3 / day)
+- 唔 force interaction — observe body language
+
+🗓 **Phase 3 — Week 3: Supervised same-room**
+- Both in same room, both leashed / new pet in carrier
+- 5-10 mins at a time, treats throughout
+- 任何 hissing / lunging = back to Phase 2 next session
+- Resident pet's POV: 確認 you not「neglecting」 — 1-on-1 time with resident daily
+
+🗓 **Phase 4 — Week 4+: Slow free interaction**
+- Supervised free interaction
+- Separate feeding stations (food guarding common conflict source)
+- Separate resting spots (each pet has own safe zone)
+- Resident pet preferential treatment maintained (you ate first, you greeted first)
+
+🚩 **Red flags — slow down protocol**:
+- Resident pet 唔食 / withdraws
+- Resident pet aggressive
+- New pet shows extreme stress (constant hiding even >Day 14)
+- Resident pet starts marking / spraying (territorial response)
+
+🎯 **Long-term success**:
+- 大部分 properly introduced pet 6-12 個月成 friendly companions
+- 部分 (about 20%) tolerate but never close - acceptable outcome
+- 極少數 (少於 5%) cannot coexist - rehome consideration after 6 個月 honest attempt
+
+語氣：patience-emphasized。Wrong intro = years of tension. Done right = lifelong companions.
+</PromptBlock>
+
+### 變化 3：街上撿到嘅 pet — Rescue 從零
+
+街上撿到 pet 嘅 onboarding 完全唔同 — health unknown + history unknown：
+
+<PromptBlock label="變化 3 — 街上 rescue pet 處理">
+我喺街上 [區] 撿到一隻 [估計年齡 + species]。狀況: [瘦 / 受傷 / friendly / 驚 / matted / 跳蚤可見]。我想 keep 但首先要 stabilize。
+
+請整 immediate rescue protocol：
+
+⚠️ **Hour 0-24：Stabilize + assess**
+
+- Safety first:
+  - 用 carrier / 紙箱 transport (唔好 直接抱 — 街 pet 可能 panic bite / scratch)
+  - 戴 thick towel as barrier
+  - 唔好接近 visibly aggressive / 受傷 嘅 pet — call SPCA (2802 0501) for assistance
+
+- Immediate medical:
+  - 即去 vet (24-hr emergency if 嚴重 dehydrated / 受傷)
+  - 同 vet brief: street rescue, unknown history
+  - First check:
+    - Microchip scan (可能 someone's lost pet, not stray)
+    - Parasites (fleas, ticks, worms — almost certain in street pet)
+    - Wounds / infections
+    - FIV / FeLV test (cat) / heartworm test (dog)
+    - Vaccination start
+
+- Isolation:
+  - 如有 existing pet, KEEP STREET RESCUE COMPLETELY SEPARATE first 2 週 (disease prevention)
+  - Quarantine in bathroom / 細房間 with own supplies
+  - Wash hands between handling
+
+🏛 **HK 法律 reality**
+- 狗：強制 chip + license — scan chip 即知 owner. 冇 chip 嘅 stray dog 撿到須報 AFCD (1823) 24 hr 內
+- 貓: 唔強制 chip，但建議仍 report to AFCD lost pet database — 可能有 owner 揾緊
+
+🗓 **Day 1-14: 健康 stabilize + check ownership claim**
+
+- AFCD wait period: 通常 4-7 days for chip lookup + posting public lost pet board
+- 期間 you can foster (不 own — 律師 perspective)
+- 同時:
+  - Treat parasites
+  - Vaccination series start
+  - Spay / neuter discuss (鼓勵成功率 stray adopt)
+
+🗓 **Day 15+: 如果 confirmed no owner**
+
+- Officially adopt：
+  - SPCA / AFCD paperwork
+  - License (dog mandatory)
+  - Chip register your details
+- Begin standard new pet onboarding (本文 Phase 1-3) BUT account for unknown history:
+  - May have trauma triggers
+  - Socialization gaps possible
+  - Behavioral surprises Week 3-6
+
+🆘 **如果 you cannot keep**
+- Honest assessment Day 1: keeping street pet long-term 是 7-15 年 commitment
+- Foster + 同 SPCA / rescue 合作 find adopter — 比 abandon 好
+- 唔好 「return to street」 — once removed from territory, releasing 等於死刑 (territory taken by others)
+
+語氣：respect for the rescue impulse + reality check on commitment。
+</PromptBlock>
+
+## 一個 mindset
+
+你 adopt BB 嗰一刻，你 simultaneously do 兩樣事:
+
+**1. 你 commit 一個 7-15 年 caretaking relationship**。BB 嘅 lifespan 大部分時間你哋會係 daily presence 喺對方 life。
+**2. 你 enter 一個 pre-existing being 嘅 narrative**——BB 8 週前已經有 personality genetic + 母親 nurturing + littermate dynamics 嘅 first 8 weeks experience。
+
+呢個 mindset 嘅 reframe：你嘅 30 日 onboarding plan 唔係「training BB」——係**你同 BB 互相 learn 嘅 first chapter**。
+
+BB 學識你嘅 voice、你嘅 schedule、你 sit on sofa 嘅哪個 spot 係 favourite。同時你學識 BB 嘅 tail flick 何時 means 興奮 vs frustration、佢 hide 何時 normal vs concerning、佢 silence 何時 calm vs withdrawn。
+
+呢個 mutual learning curve **未來 14 年都 ongoing**——你 Year 5 仲會 surprise BB shows new trick。
+
+最後 reminder：
+
+- ✅ **Day 1 唔 perfect 唔 representative**。第一晚 BB cry 唔係 sign 你 failed — 係 sign BB 經歷 huge transition。
+- ⚠️ **唔好 compare 你嘅 BB 同 social media 嘅 「instantly cuddle」 BB**。Camera 唔 show Week 3 嘅 vet visit / Week 4 嘅 accidents。
+- 🆘 **Day 30 仲 struggling = call vet + 唔係 ashamed**。Adoption return rate 喺 honest discussion 之下 manageable。BB 應該 thrive with right family — not necessarily yours, and that's OK.
+
+歡迎 BB 嚟到你 屋企。下一個 14 年精彩開始。

@@ -1,0 +1,368 @@
+---
+title: "BB 走咗失？用 Claude 30 分鐘整 lost pet flyer + 香港社區 outreach plan"
+slug: "lost-pet-flyer-claude"
+issue: 54
+publishedAt: 2026-05-23
+audience: ["消費者", "學生家長"]
+category: "chat"
+section: "寵物"
+subcategory: "走失應急"
+difficulty: 1
+timeMinutes: 30
+toolsNeeded: ["Claude Chat", "BB 最近 5-6 張不同角度 photo", "Canva 或 Pages（最後出 flyer）"]
+description: "11pm 你開窗等冷氣涼啲，BB 由 30cm 窗台跳咗出去。12am 你發現佢唔見，腦袋一片白。呢篇用 Claude 30 分鐘整一份 effective lost pet flyer + HK 社區 outreach plan — 商鋪 / 物管 / SPCA / 寵物 FB group / NextDoor，由你 panic 嗰一刻 take you through 頭 48 小時黃金時間。"
+keywords: ["走失寵物", "lost pet HK", "lost cat flyer 香港", "SPCA 寵物走失", "AFCD 寵物登記", "走失貓 處理", "lost dog Hong Kong"]
+related: ["vet-visit-prep-claude", "pet-sitter-handover-claude", "pet-insurance-review-claude"]
+featured: true
+---
+
+## 情境
+
+而家係 12:14am。
+
+你個鐘頭前開咗窗，因為新界 5 月晚上 28 度悶到死，你想等空氣對流啲先瞓。窗台寛 30cm — 你心諗 BB（你隻 4 歲 short-hair cat）平時都唔會跳出去，5 樓嘅鐵窗有條鐵枝佢應該唔過得到。
+
+你瞓著咗 15 分鐘，醒返。
+
+BB 唔係佢平時瞓喺你腳邊個位。你叫佢，冇反應。你開燈，行嗮成屋——梳化底、書架後、廁所、廚房櫃。冇。
+
+你企喺廚房，望住個開咗嘅窗，個鐵枝其實有條 12cm 隙位你之前冇留意——剛好夠隻 cat 過。
+
+你嘅胃沉落去。
+
+**你嘅 brain 而家完全 offline。** 你想喊。你 type「lost cat hong kong」入 Google，搜出 500 條結果，每條 link 你都打開唔到。你揾你 partner，佢瞓緊覺，你 30 秒之內又 close 個 message 唔想嘈醒佢。
+
+呢個 30 分鐘極重要。**頭 48 小時係搵返走失 pet 嘅黃金時間。** 你需要：
+
+1. 一份睇得明嘅 lost pet flyer（physical 版印出嚟 + digital 版 share）
+2. 一個系統嘅 community outreach plan（邊度貼 / 邊個 group post / 邊個部門 call）
+3. 一個 search strategy（physical 搜索 radius + 時間段）
+
+Claude 唔識搵返你 BB，但 Claude 識喺你個 brain offline 嘅 30 分鐘，**幫你 externalize 個 panic 變成 actionable steps**。
+
+呢篇就係教你點用。
+
+## 跟住做
+
+### 1. Stop panic — 頭 30 分鐘做呢 4 樣嘢（唔需要 Claude）
+
+開 Claude 之前，先做呢啲，因為 cat 走失頭 1 小時佢仲可能喺度：
+
+- **🔦 樓下 + 同層走廊搜一次**：手電（唔好太光）+ 細聲叫 BB 名 + 帶包佢平時鐘意嘅 treat（churu / freeze-dried 雞肉）。Cat 走失通常匿喺**最近嘅 dark hiding spot**——後巷、單車停泊位、停車場底、樓梯間。
+- **🚪 同層鄰居 — 留 note 唔好夜半敲門**：寫張 hand-written 紙條塞入信箱：「BB 走失 [時間 + 描述 + 你電話] — 如見到請 WhatsApp」。等朝早再 follow-up。
+- **🪟 開返扇窗 + 喺窗外放隻 littler box + 佢嘅毛巾**：cat 用嗅覺定位，佢自己嘅 litter smell + 你嘅 scent 可以引佢返。
+- **📸 揾返 BB 最近 5-6 張不同角度嘅 photo**：face front、side profile、full body、特徵（白手手 / 斑紋 / 黑點）。Flyer + post 都會用。
+
+呢 4 樣做完，**你個 panic level 應該由 100 跌到 70**——你 took action。
+
+而家坐低，打開 Claude，開始整 flyer。
+
+### 2. 用呢個 prompt 整 lost pet flyer
+
+<PromptBlock label="完整 prompt — Lost pet flyer (cat 版)">
+我隻 cat BB 喺 [日期 + 時間 + 地址 area] 走失。請幫我整一份 effective lost cat flyer，內容包括 physical flyer text + 一個 80-words 嘅 digital post version。
+
+🐾 **BB 嘅 details**：
+- 名：BB
+- Breed / coat：[Short-hair / Long-hair / mixed]
+- 顏色：[tabby / black / white / orange / 雙色 / 三色 + 詳細 description]
+- 性別 + neuter：[male/female + spayed/neutered Y/N]
+- 大約 size：[幾 kg / small / medium / large]
+- 年齡：[歲]
+- 特徵（**最重要**）：
+  - [eye 顏色 — 黃 / 綠 / 藍 / heterochromia]
+  - [collar Y/N — 顏色 + ID tag 有冇 phone]
+  - [microchip Y/N — chip number 如有]
+  - [unique mark — 白爪 / 黑點 / 缺尾 / 疤痕]
+- Indoor / outdoor cat：[indoor only / occasional outdoor]
+- 行為：[friendly to strangers? / 驚人? / 會唔會被人 lure 走?]
+
+📍 **走失 location**：
+- 地址：[building 名 + 街 + 區]
+- 樓層：[X 樓窗 / 從 ground floor 走出]
+- 走失時間：[精確到分鐘 if possible]
+- 你估佢走失嘅 direction：[ground 落街 / 同層走廊 / 樓上樓下]
+- 附近 landmark：[公園 / 商場 / MTR / 商鋪 — 幫人 locate]
+
+📞 **Contact info**：
+- 你電話：[]
+- WhatsApp 同電話一樣？[Y/N]
+- 如 call 唔到，second contact：[]
+
+💰 **Reward**：[HK$ amount 或「酬金面議」]
+
+請整：
+
+**A. Physical flyer text（A4 print 出嚟貼街）**
+- 大字 headline："走失！LOST CAT"（雙語）
+- 1 張大相 placeholder + 2 張小相 placeholder（不同角度）
+- BB 嘅 description（bullet points，5 條 max — too detail 反而冇人睇）
+- 走失 location + 時間
+- Contact + reward
+- 結尾 1 句 emotional appeal（短，唔好過度 dramatic）
+
+**B. Digital post（WhatsApp / FB / IG 用）**
+80 words 中英混合 HK 講法。Emoji 適度。結尾 call-to-action「請 share + 如見到請 WhatsApp [number]」。
+
+語氣：urgent but factual。**唔好誇張 emotional**（路人睇 flyer 5 秒就 move on，靠 description specificity 唔係靠情感）。
+</PromptBlock>
+
+Claude 出嘅 flyer 你會見到佢有 clear hierarchy — headline / photo / 5 條 bullet description / contact。你 copy 入 Canva（free template「Lost Pet Flyer A4」就有），attach 5 張 photo，print 30 份。
+
+**A4 print 30 份係 minimum**。後面要貼。
+
+### 3. HK 社區 outreach plan — 邊度貼 / 邊個 group post
+
+Flyer 印好，下一步係 deploy。Claude 幫你整 outreach checklist 按 priority order。
+
+<PromptBlock label="完整 prompt — HK lost pet outreach plan">
+我隻 cat BB 喺 [地址 + 區] 走失。我已經印咗 30 份 A4 flyer + 整咗 80-words digital post。
+
+我要一份**香港 lost cat 社區 outreach action plan**，按 priority order（最高 impact 排頭）：
+
+請涵蓋：
+
+🏪 **Physical posting locations（24 小時內貼晒）**
+- 同棟大廈：lift lobby / mailroom / management office bulletin board — point of contact: 物管 office（提供建議 script 點同保安講）
+- 同 estate / 附近 estate：同樣
+- 半徑 500m 範圍：
+  - 寵物店（PetPet Park / Whiskers N Paws / 小型獨立 pet shop）
+  - Vet clinic 內部 notice board
+  - 7-Eleven / 便利店（部分接受 community notice）
+  - 商場 customer service desk
+  - 街市附近燈柱（**注意：唔好亂貼私人物業，可能被人撕。focus 公共 community board**）
+- 走失方向估計嘅 hotspot：公園 / 後巷 / 停車場 community board
+
+📱 **HK lost pet FB / online groups（priority order）**
+請列出 HK 最 active 嘅 lost pet community groups（包括 cat-specific + general lost pet），加埋每個 group 嘅 posting etiquette 提示（e.g., 部分 group 要 admin approve / 部分要先 read pinned rules）。我知道 examples 包括：
+- 香港愛護動物協會 (SPCA) 失寵尋寵
+- HK Lost & Found Pets
+- 區域性 group（Tai Po / Sha Tin / 新界東 etc 跟我住嘅區）
+
+🏛 **政府 + NGO 部門 call list**
+- AFCD（漁護署）— microchip database 報失流程
+- SPCA — lost & found service 點 register
+- 任何 24-hr animal hospital — 通常會 keep lost pet log（路人撿到會送嚟）
+- KCRC / MTR / Bus depot lost & found — 如果走失點靠近 station
+
+📧 **Personal network mobilization**
+- 你嘅 vet — call / email，請 clinic 通知佢 client base
+- 街坊群組（屋苑 WhatsApp / Telegram channel）
+- 你嘅 cleaner / 保安 / 信差 / 早晨買報紙嘅檔主 — 呢類人**最常見到走失 cat**（他們街上時間最多）
+
+⏰ **48-hour schedule**
+- Hour 0-2：physical search + 樓下 estate 貼 flyer
+- Hour 2-6：online post 全部 deploy
+- Hour 6-24：第 2 輪 physical search（黃昏時段 — cat 通常 dawn/dusk active）
+- Hour 24-48：擴大 radius 到 1km，重貼脫落 flyer
+- Day 3+：daily routine search + escalate to humane trap if no sighting
+
+請每個 location 加備註：要唔要 ask permission、approximate cost（多數 free）、estimated effectiveness。
+</PromptBlock>
+
+Claude 會出一份 ~15-20 個 actionable items 嘅 list，你可以一個一個 tick off。
+
+**最易 forget 嘅一樣**：你嘅 vet。Vet clinic 嘅 staff 收 sighting report 嘅頻率好高，路人撿到貓會送去 vet 確認 chip。Day 1 朝早 9am 就打你 vet phone：「我隻 BB 走失，麻煩 broadcast 畀你 clinic 嘅 client」。
+
+### 4. 用 Claude 整個 daily search log + escalation triggers
+
+走失 cat 唔係單一 event — 係 multi-day search process。你需要一個 log + 點先升級到 next step。
+
+<PromptBlock label="完整 prompt — Daily search log + escalation plan">
+我隻 BB 走失咗 [幾日 / 幾小時]。我要一個**每日 search log template + escalation triggers**。
+
+請整：
+
+📋 **Daily search log（你每日填一次）**
+- 日期 + 時間段
+- Search 地點（具體 — 後巷名 / 樓層 / 公園）
+- 用咗咩 lure（treat / 玩具聲 / 你 voice）
+- 觀察：見過任何 sighting / 路人 report / 留低嘅食物 trace 有冇被食
+- 鄰居 / 保安 feedback（誰 reported 見過 / 邊個 area / 何時）
+- 下次 search adjust：[根據今日觀察改變 search location / 時間 / 方法]
+
+🚨 **Escalation triggers — 出現呢啲就升級**
+
+如果 24 小時冇 sighting：
+- 重貼脫落 flyer（雨水 / 風 / 人撕）
+- 擴大 radius 到 800m
+- Post 多 2-3 個區域性 FB group
+- Contact 多 1 間 area vet clinic
+
+如果 48 小時冇 sighting：
+- Humane trap（向 SPCA / cat rescue volunteer 借）
+- Camera trap（行山 camera / Wyze cam）放後巷 / 餵 stray cat 嘅 spot
+- 提高 reward（如果初始細）
+- Hire pet detective（HK 有少數，例如「香港尋寵協會」）
+
+如果 1 週冇 sighting：
+- 心理 reset — 走失 cat 1-3 週後返自己 territory 嘅 case 唔少
+- 持續 weekly check vet clinic + AFCD pound log
+- 保持 flyer 在某些 high-traffic location（**唔好全部撤** — 8 週後仲有人 report sighting 嘅 case 存在）
+
+🛑 **Emotional pacing reminders**
+- 唔好 Day 1 通宵 search — 你 Day 2-7 仲要有體力 + judgment
+- Day 3-7 係 emotional low point，prepare for it
+- 同 partner / 家人 communicate 唔好獨自承擔
+- 如果情緒崩潰 = SPCA bereavement helpline / 信任嘅朋友傾偈
+
+請語氣：calm + structured，唔好過度 reassuring（虛假 hope 比 honest expectation 更傷）。
+</PromptBlock>
+
+Claude 整咗呢份 log，你貼喺 fridge。每日 fill 一次。**唔係每次 search 都填**——一日結束 fill 一次，做 day-level reflection。
+
+呢個 log 嘅 hidden value：當你第 5 日 emotional 低，你回頭睇 Day 1-4 你做咗咩，會 realize 你 took meaningful action，唔係 helpless。
+
+## 變化
+
+### 變化 1：Indoor-only cat 走失（vs outdoor）
+
+Indoor-only cat 走失同 outdoor cat 走失嘅 search strategy 完全唔同：
+
+<PromptBlock label="變化 1 — Indoor-only cat 走失 search adjust">
+我隻 BB 係 indoor-only cat，從來冇行過街。佢 [點走失 — 窗 / 門開咗 / 搬屋 / 修理工人入屋]。
+
+請調整 search strategy：
+
+🏠 **Indoor cat 走失行為 profile**
+- Indoor cat 走失通常**唔會行遠**（80% 找回喺 500m radius 內）
+- 佢哋會匿喺**最近嘅 dark + quiet hiding spot**——熟悉 building 嘅後巷 / 停車場 / 樓梯間 / 雪櫃機房
+- 佢哋極驚，**唔會 respond to 你個 voice calling**（會匿得更實）
+- 反而會喺 night 2am-5am stress 散，慢慢探索
+
+🔦 **Adjusted search method**
+- Search 時間：dawn 5-6am + dusk 7-9pm（cat active 時段）
+- Search 方法：**唔好叫名** — cat too scared to respond。改用：
+  - 帶把佢平時鐘意嘅 treat 個袋（搖出聲）
+  - 帶個熟悉嘅 toy（fishing wand / 鈴鐺）
+  - 影音 record 佢平時嘅 meow 聲 play out（佢可能 respond to 同類聲）
+- Search radius：頭 24 小時 focus 50m 內，慢慢擴大
+- 留嘢喺 building 外：佢 used litter（嗅覺 marker）+ 你 worn t-shirt + 食物盒（記得 cover 防其他動物）
+
+📷 **Wildlife cam / camera trap**
+便宜 setup（HK$200-400）：
+- TP-Link Tapo C100 indoor camera 放後巷對準食物盒
+- 24-48 小時可以 confirm 佢有冇出嚟食
+- 如見到，trap window opens
+
+⏰ **唔好 escalate 太快**
+Indoor cat 第 1-3 日通常太 scared 唔會出嚟食。**Day 2-4 才開始 sighting 係 normal**。唔好 Day 1 就放 humane trap（cat 太驚 trigger trap 反而嚇得更實）。
+
+語氣：rational，提醒 indoor cat owner 唔好放棄太快——80%+ indoor cat 1-2 週內喺 50m 內 found。
+</PromptBlock>
+
+### 變化 2：狗走失（不同於 cat 嘅 search）
+
+狗走失嘅 search 方式同 cat 完全唔同：
+
+<PromptBlock label="變化 2 — Lost dog HK search plan">
+我隻狗 [名 + breed + size + age] 喺 [地點 + 時間] 走失。
+
+請整 **lost dog**-specific plan（同 cat 唔同 because dogs are social + 行得遠）：
+
+🐕 **狗走失行為 profile**
+- 狗會行得遠（10km+ 唔出奇，尤其驚嘅 dog）
+- 狗會 follow scent trail / 跟陌生人 / 跟其他狗
+- 狗 visible — 路人見到報告率比 cat 高
+- 狗驚會 freeze，唔好直接撲過去 catch — 會嚇佢逃跑
+
+🔍 **Adjusted search**
+- Search radius：頭 24 小時 1-2km，48 小時擴大到 5km
+- 走 walking trail / 公園（狗會 instinctively 揾草地 / 樹）
+- Contact 附近所有 vet clinic + AFCD pound（**狗強制 microchip — 路人撿到必須 scan**）
+- Post 區內 FB group + 行山 group（行山客係主要 sighting source）
+- 巴士 / 小巴司機 — 沿途見到狗 alert（部分 route 願意 share message）
+
+🏛 **Strong escalation — AFCD**
+HK 狗強制 microchip + license。路人撿到送 AFCD 嘅機會率高。
+- AFCD 動物管理中心 hotline：1823
+- 24 小時內 register lost dog report
+- 持續 daily check（佢哋 keep stray dog 14 日，過期可能 euthanize — 緊迫）
+
+📷 **Sighting 點 catch（最關鍵）**
+- 如果有 sighting，**唔好衝過去**——狗驚會逃跑得更遠
+- 帶高嗅覺 food（cooked chicken / sausage）
+- 蹲低，唔好直接 eye contact
+- 用佢熟悉嘅 voice tone calmly call 佢
+- 慢慢 approach，等佢自己過嚟
+
+🚨 **Trap & escalate**
+如 48 小時冇 catch：
+- 喺 sighting hotspot 設 feeding station + camera
+- Contact 香港愛護動物協會 / 保護遺棄動物協會 for humane trap rental
+- Hire pet detective specialized in dog tracking
+
+語氣：urgent — 狗喺街上 risk higher（車禍 + AFCD pound time limit）。
+</PromptBlock>
+
+### 變化 3：失而復得之後 — 防止再走失 + post-trauma 處理
+
+BB 返咗——首先恭喜你。但走失過嘅 cat / dog 通常會有 behavioral aftermath：
+
+<PromptBlock label="變化 3 — 失而復得 aftercare plan">
+我隻 BB 走失咗 [幾日] 之後返咗。佢宜家：
+- 體重：[輕咗 / 同走前差不多]
+- 行為：[匿、唔肯食、過度黏人、jumpy at sounds]
+- 受傷：[Y/N — 邊度 / 程度]
+
+請整 **post-recovery care + 防止再走失** plan：
+
+🏥 **24-48 小時內 vet visit**
+即使 BB 表面 OK：
+- Check dehydration + 體重 baseline
+- Scan microchip 確認仍 functional
+- Check 隱性 wound / parasite（戶外幾日易有 fleas / ticks）
+- Stool sample（戶外食 strange thing 可能影響腸胃）
+
+🍽 **Refeed slowly**
+唔好一返就大餐：
+- 頭 24 小時：1/2 portion 多餐（4-5 次）
+- Day 2-3：慢慢加回 normal portion
+- 水：encourage drinking，唔好強迫
+- 觀察嘔吐 / 屎變化，異常即 vet
+
+🧘 **Behavioral aftermath**
+走失過嘅 cat 常見變化：
+- 對 trigger 走失嘅 event 變敏感（窗 / 開門 / 維修工人 / 大聲 — 邊樣 trigger BB 走失？要 specifically address）
+- 過度黏人 1-2 週（normal — give 安全感）
+- 突然 hide：正常 phase，唔好強拉佢出
+- Sleep pattern disturbed（白天 sleep / night active）— 通常 2-4 週 reset
+
+🚪 **防止再走失 — physical audit**
+請整 audit checklist：
+- 窗：所有 windows install 鐵窗網（cat-proof mesh — 唔係普通鐵枝，要 6mm grid max）
+- 門：玄關設 double door system / pet gate（外人入屋時 BB 唔即衝出）
+- Balcony：full enclosure（**HK BB 常見走失地點**）
+- Microchip：BB 有冇 chip？冇就趁 vet visit 即做（HK$300 一次 lifetime）
+- ID collar + tag：phone number engraved（**雖然 cat 唔鐘意，但 critical**）
+
+🆘 **Just-in-case kit**
+喺屋企 keep 一個 lost pet kit：
+- 最新 photo（每年 update）
+- BB physical description 一頁（背得熟，急時可以即報）
+- Microchip number 寫低
+- 寵物店 + vet + AFCD phone 寫低
+- 5 張 spare flyer（萬一）
+
+語氣：reassuring 但實際。BB 已經返咗，但 trauma 真實，照顧者亦需要 process 自己嘅 anxiety。
+</PromptBlock>
+
+## 一個 mindset
+
+走失寵物嘅頭 30 分鐘，你嘅 brain 完全 offline。
+
+呢個 offline 狀態唔係你軟弱——係 evolution。當你 perceive 一個 attachment object 失去咗，你嘅 cortisol spike，prefrontal cortex（負責 planning）短暫 shutdown，你變成只能 react 嘅生物。
+
+**呢個 mindset 嘅關鍵：你 brain offline 嘅時候，需要一個 external structure 接管。**
+
+呢個 external structure 唔一定要係 Claude — 可以係一個提前寫好嘅紙條、可以係一個信任嘅朋友 call 你 walk through、可以係一個你 bookmarked 嘅 SPCA emergency guide。
+
+Claude 嘅 value 喺呢度：你 panic 時 brain 唔組織得到 sequential action plan，但你仲 type 得到「BB 走失，幫我」入 Claude。佢可以喺 30 秒內 give 返你個 structure。
+
+**最後三樣 reminder**：
+
+- ✅ **走失頭 48 小時黃金時間 — 但 8 週後仲搵返嘅 case 唔少**。唔好早放棄。
+- ⚠️ **Microchip 唔係保證搵返**——但係搵返嘅最強 indicator。冇 chip 嘅 pet 走失 return rate ≈10%，有 chip ≈40%。趁宜家就做。
+- 🆘 **唔好獨自承擔**。SPCA bereavement helpline (2802 0501) 唔淨係處理 pet 死亡——亦提供走失 pet owner emotional support。打去傾偈唔等於放棄。
+
+希望你 BB 平安返到。

@@ -1,0 +1,399 @@
+---
+title: "BB 每次去 grooming 都嚇到匿 3 日？用 Claude 整 home routine + 揀啱 groomer 嘅 5 條問題"
+slug: "pet-grooming-routine-claude"
+issue: 56
+publishedAt: 2026-05-23
+audience: ["消費者"]
+category: "chat"
+section: "寵物"
+subcategory: "美容護理"
+difficulty: 1
+timeMinutes: 15
+toolsNeeded: ["Claude Chat", "BB 嘅 breed + coat type info", "（可選）上次 groomer 嘅 receipt / 過程描述"]
+description: "BB 上次去 grooming 嚇到匿床底 3 日，連你都唔想再 book。用 Claude 拆 weekly home routine（brushing / nail / ear / dental）+ vetting 下一個 groomer 嘅 5 條 question + 一個 4 週 desensitization plan，讓 BB grooming 唔再 trauma。"
+keywords: ["寵物美容 香港", "pet grooming HK", "home grooming cat", "寵物剪甲", "cat grooming anxiety", "dog groomer 揀邊間"]
+related: ["vet-visit-prep-claude", "pet-sitter-handover-claude", "pet-picky-eater-diet-transition-claude"]
+featured: false
+---
+
+## 情境
+
+上星期六，你帶 BB（你隻 5 歲 long-hair cat / dog）去 grooming。
+
+10am check in。Groomer 跟你 brief 一輪「冇 mat 嗎，要剪短啲嗎，indoor cat 啱 lion cut 嗎」。你 sign 張 consent form。
+
+2pm pick up。Groomer face 有啲不自然：「BB 比較 unsettled。我哋盡量做晒，但 mat 太多有啲位剪得短咗 ⋯⋯ 佢有少少 vocal 但 OK ⋯⋯」
+
+你抱 BB 返屋企，佢一落 floor 即衝入床底。
+
+接落嚟 3 日：
+- BB 唔出嚟食
+- 你 peek 床底，見到佢個 body 全身 trim 得 patchy
+- 第 2 日佢手手有個小傷口（trim 太貼？）
+- 第 3 日佢仲 hide，但開始出嚟食少量
+
+你查 receipt：HK$680。你個心 sink。
+
+宜家 6 個月後又到 grooming season（夏天 mat 易嚴重）。你冇 confidence book 同一間，但又唔知點揀。同時，你想 minimise 將來 grooming 嘅頻率——可唔可以 home maintain？
+
+**呢篇用 Claude 拆 3 樣**：
+1. 你可以喺屋企做嘅 weekly routine（減 grooming 頻率）
+2. 揀新 groomer 嘅 5 條 vetting question
+3. BB 嘅 4 週 desensitization plan（即使 next time grooming，stress level 細好多）
+
+## 跟住做
+
+### 1. Dump BB 嘅 coat + behavior info 入 Claude
+
+開 Claude，先 brain dump，唔好 ask Claude 直接 generate routine：
+
+> BB 5 歲，male, neutered。Long-hair cat (Maine Coon mix? 或 Persian mix — 唔肯定 breed)。
+> 
+> Coat：full undercoat + topcoat，特別肚 + 大髀 + 腋下易結 mat。Shedding 全年都有，spring + autumn double coat blowing。
+> 
+> Behavior：對被 brush 嘅反應——頭 30 秒 OK，之後扭動 + 咬刷 + 走。Nail trim 嚴重 resistant，要 2 人 hold 先做到 1 隻爪。Bath 完全 cannot（last bath @ vet 用了 sedation 才完成）。
+> 
+> 過去 grooming 經驗：
+> - 6 個月前 groomer A — 平 ($380) 但 trim patchy
+> - 上週 groomer B — 貴 ($680) 但 BB 嚇到匿 3 日
+> 
+> 我每日 routine：朝 9am / 7pm 餵食。我可以喺早晚各 spare 5-10 分鐘做 grooming if BB tolerate。
+
+呢類 dump 比 generic「點 home groom cat」嘅 prompt 出 personalized routine 好太多。
+
+### 2. 用呢個 prompt 整 home grooming routine
+
+<PromptBlock label="完整 prompt — Home grooming weekly routine">
+[paste 你上面嘅 dump]
+
+請幫我整一個 **realistic home grooming routine**——強調 BB 嘅 tolerance level，唔係 ideal frequency。
+
+我嘅 goal：
+- 減少 professional grooming 頻率（由 6 個月 → 8-12 個月）
+- 減少 mat formation（特別 hot spots）
+- BB tolerate 不致 trauma — incremental progress
+
+請整 **每週 schedule**：
+
+📅 **Daily（2-3 分鐘）**
+- 邊樣 minimal task BB 應該 daily handle?（e.g., 5-10 strokes 用 wide-tooth comb 喺 hot spots）
+
+📅 **2-3 次 / 週（5-10 分鐘）**
+- 全身 brushing 用咩 tools — list 2-3 種：
+  - Slicker brush（undercoat removal）
+  - Wide-tooth comb（detangling）
+  - Rubber grooming mitt（low-stress alternative）
+- Sequence：邊度開始（low-anxiety zone — back / cheek）→ 邊度尾（high-anxiety zone — belly / paws）
+- BB tolerance signal：tail flick、ear back、low growl — 一出現 = pause + reward
+
+📅 **1 次 / 週（10-15 分鐘）**
+- Mat check：spot check 5 個 hot zones（armpit / belly / behind ear / tail base / leg back）— 用手指 vs 揾出已成 mat
+- 微小 mat：detangling spray + finger work — **唔好用剪刀埋皮**（最常見 home grooming 受傷）
+- 大 mat：DON'T attempt — log down，留畀 professional groomer
+
+📅 **每 2 週**
+- Nail trim：BB嚴重 resistant — 分階段 desensitize（本文步驟 4）
+- Ear check：用 cotton ball + ear cleaning solution（vet 推薦 brand）擦外耳。**唔好用 Q-tip 入耳道**
+
+📅 **每月**
+- 體重 check（mat-prone cat 易因 weight change 影響 coat condition）
+- Photo log：影 5 個 hot zone close-up，month-on-month 比較 — 你可以 catch coat 變化早
+
+🛒 **Tool budget**（HK 2026 typical）
+- Slicker brush（FURminator / Trixie）: HK$120-180
+- Wide-tooth comb: HK$60-100
+- Rubber grooming mitt: HK$80
+- Detangling spray (Earthbath / Burt's Bees): HK$120
+- Nail clipper (cat-specific guillotine type): HK$80
+- Treat pouch（high-value treats — freeze-dried chicken）: $40 + treat $80
+
+⏰ **Realistic schedule for long-hair cat with grooming anxiety**
+- 唔好 ambitious 一開始 daily — 你會 burn out + BB associate grooming with 你 anxiety
+- 由每週 2 次 5 分鐘 brushing 開始，4 週後 evaluate
+- 進度標準：BB 嘅 tolerance window（tolerate without escape）長咗 → upgrade
+
+🚫 **唔好做**
+- Bath at home：long-hair cat home bath 失敗率高 + 強化 trauma（少數 exception — 用 dry shampoo / wet wipe spot clean OK）
+- Scissor trim mat 接近皮膚：受傷風險高
+- 強制 hold BB 完成 routine：long-term 強化 anxiety
+- Compare with social media 嘅 grooming influencer — 佢哋寵物經多年 desensitization
+
+語氣：realistic + non-shaming。Owner 知道 BB 有 anxiety 唔等於 owner failed。
+</PromptBlock>
+
+Claude 出嘅 routine 你 print 一份貼喺貓砂盆隔籬（你每日見到）。**頭 4 週 focus 喺一致性，唔係 quality**——BB tolerate 你拎個 brush 出嚟，已經係 progress。
+
+### 3. Vetting 下一個 groomer 嘅 5 條 question
+
+唔係所有 groomer 適合 anxious pet。Claude 幫你出一份 vetting question list：
+
+<PromptBlock label="完整 prompt — Groomer vetting questions">
+我要揀新 groomer for BB（[species + breed + temperament + past grooming trauma]）。
+
+過去 negative experience：
+- Groomer B 上次令 BB 嚇到匿 3 日，trim patchy，有小 wound
+- 我而家極謹慎 vet new groomer
+
+請整 **5 條 critical question + 點 evaluate answer**：
+
+❓ **Question 1：如果 pet visible 嚴重 stressed during grooming，你會點 handle?**
+- 🟢 Good answer：「我哋會 pause + offer break，部分情況我會 recommend 分 2 次 visit / 或 escalate to vet for sedation」
+- 🟡 OK answer：「我哋會 continue but gentler」
+- 🔴 Red flag：「我哋有經驗 handle，唔需要 stop」
+- 額外 ask：你哋有冇 trained 喺 fear-free grooming approach?
+
+❓ **Question 2：你 typical 1 隻 cat / dog grooming session 幾耐？同步 vs separate?**
+- 🟢 Good：30-60 分鐘 per pet, **同步 only 1 隻 at a time, 喺 separate room**
+- 🟡 OK：60-90 分鐘 but room shared with calm dog
+- 🔴 Red flag：「100+ 隻一日，shared cage area, 同時處理 multiple」 = grooming mill model, high stress
+
+❓ **Question 3：你可唔可以 update 我中途，或者我 stay 喺度?**
+- 🟢 Good：「Owner can stay or we send photo update mid-session，唔 affect grooming quality」
+- 🟡 OK：「我哋 prefer owner 唔喺度（pet behave 唔同）但 send WhatsApp update」
+- 🔴 Red flag：「Drop off only, pick up only, no communication during」 = lack of transparency
+
+❓ **Question 4：你哋有冇 cancel 嘅 case? 點 handle?**
+- 🟢 Good：「如果 BB 過度 stressed，我哋會 stop early + 只 charge partial。我哋唔會 force 完成」 — 表示 ethics
+- 🟡 OK：「Cancel 有 cancellation fee，但會 explain」
+- 🔴 Red flag：「我哋 commit complete the service」 = pressure to finish at pet's expense
+
+❓ **Question 5：可唔可以做 trial visit?（10-20 分鐘 short session）**
+- 🟢 Good：「Yes，我哋有 desensitization session $XXX，纯 socialize, no actual cut」
+- 🟡 OK：「我哋可以 short brushing session 試下 fit」
+- 🔴 Red flag：「我哋 only full service」 = inflexible
+
+📋 **Additional verification（before book）**
+- Google review / FB review 揀 specific keywords：「anxious」「scared」「rescued」— 睇佢哋 handle 過 anxious pet 嘅 review
+- Visit 一次 facility 唔 book（揾 excuse 入去拎 brochure）— 觀察：
+  - Pet 之間 separated 嗎？
+  - Groomer 緊張 / calm？
+  - Smell（urine / fear pheromone — clean facility 唔應該 strong smell）
+  - 同 owner communicate 方式（patient / dismissive）
+
+🚩 **絕對 walk away signal**
+- 拒絕 answer 你嘅 question
+- 「我嚟 18 年從來冇 pet stressed」 = lying or bad observer
+- Pricing 含糊 / hidden add-on
+- Pressure 你 book 快 / discount today only
+- Refuse 你 visit facility before booking
+
+語氣：empowering — owner 唔係 paranoid，係 advocate。Groomer 嘅 stress response = BB future grooming experience。
+</PromptBlock>
+
+5 條 question 嘅 answer quality 比 price 更重要。**寧願多付 30% 揀 calm groomer，唔好慳 30% 累 BB 半年 recovery**。
+
+### 4. BB 嘅 4 週 desensitization plan
+
+家居 desensitization 嘅 goal 唔係訓 BB「鐘意」grooming——係讓 grooming associate 由「panic」變到「neutral + treat」。
+
+<PromptBlock label="完整 prompt — 4 週 grooming desensitization plan">
+BB grooming 嚴重 anxious。我想喺屋企做 4 週 desensitization，目標：next professional grooming visit BB stress level 細好多。
+
+BB tolerance baseline：
+- 被 brush：30 秒 OK，之後 escape
+- 被觸碰 paw：抗拒嚴重
+- 見到 nail clipper：即逃跑
+- 聽到 grooming-related 聲（電動剪刀 / hair dryer）：hide
+
+請整 **Week 1-4 progressive plan**（每日 2-3 分鐘）：
+
+🗓 **Week 1 — Just presence**
+**Goal：BB associate grooming tools with high-value treat**
+- Day 1-2：放 brush 喺地下 5 米外，BB 過去聞 = treat
+- Day 3-5：放 brush 喺地下 1 米外，BB 過去聞 = treat
+- Day 6-7：手攞 brush，BB 過嚟 = treat（**唔係 brush，淨係 hold**）
+- Treat：freeze-dried chicken / churu / 任何 BB 鐘意嘅
+- 唔 brush。重複「tool = treat」association
+
+🗓 **Week 2 — Touch without tool**
+**Goal：BB tolerate 你 hand touch hot zones**
+- Day 1-3：1 分鐘 session — touch BB neck + shoulder（low anxiety zone），完成 → treat
+- Day 4-5：加 back stroke
+- Day 6-7：嘗試 touch belly 1 second（high anxiety zone）→ immediate treat
+- Threshold rule：BB 一 escape = stop. 唔 chase. 等下次 session.
+
+🗓 **Week 3 — Tool + minimal contact**
+**Goal：BB tolerate 1-2 brushing strokes**
+- Day 1-2：brush 觸 fur 1 stroke → treat
+- Day 3-4：3 strokes → treat
+- Day 5-7：5 strokes → treat。**頭只觸 low anxiety zone（neck / cheek / shoulder）**
+- 唔做 hot zone（belly / paw / tail base）
+
+🗓 **Week 4 — Expand zone + introduce other tools**
+**Goal：BB tolerate full session 3-5 分鐘**
+- Day 1-3：包括 back + leg outer side
+- Day 4-5：嘗試 paw touch 1 second → treat
+- Day 6-7：introduce nail clipper（不剪 — 只放 visible + treat）
+- 一直 maintain low expectation：5 分鐘 max session
+
+📈 **Progress markers**（每週末 check）
+- Week 1 end：BB voluntarily approach tool? Y / N
+- Week 2 end：BB tolerate 30 sec touch without escape? Y / N
+- Week 3 end：BB tolerate 5 strokes? Y / N
+- Week 4 end：BB calm during 3 分鐘 full session? Y / N
+
+如果某週 plateau（冇 progress 7 日）：
+- DON'T push to next week
+- 重複該週 1 額外週
+- Reduce session 長度（2 分鐘 → 1 分鐘）
+- Increase treat value
+
+🚨 **絕對 stop signal**
+- BB hide >1 hr after session：你 push 太快
+- BB starts to fear treat hand：reset entire approach
+- BB self-injure scratching / hot spots：vet visit, possible anxiety condition
+
+🐾 **Bonus — Counterconditioning 聲音**
+- Week 2+：play electric clipper YouTube sound（低音量），BB 過嚟 → treat
+- Week 4+：嘗試 hair dryer 短 burst（distant + low）
+
+語氣：patient + realistic。4 週唔保證 BB「rebrandы grooming」 — 但保證 baseline 進步。Long-term sentence: 持續 maintenance routine 6-12 個月先見大 improvement。
+</PromptBlock>
+
+呢個 plan 嘅 secret：**唔係訓 BB，係訓你**。你嘅 patience + treat timing + reading BB body language 嘅 sensitivity，全部都係 skill。BB 進步係 byproduct。
+
+## 變化
+
+### 變化 1：短毛 pet（cat / dog）grooming routine
+
+短毛 pet 嘅 routine 唔同 long-hair：
+
+<PromptBlock label="變化 1 — Short-hair pet grooming routine">
+我隻 BB 短毛 [breed + species]。佢冇 mat 問題，但 [shedding 嚴重 / 油脂多 / 皮屑]。
+
+請整短毛 routine：
+
+🐾 **Short-hair grooming priorities**
+唔 focus mat prevention，focus：
+- Shedding management（家居 hygiene）
+- Skin health monitor（短毛皮膚 visible，易見 condition）
+- Nail + ear（同 long-hair 一樣）
+- Dental（特別重要 — short-hair breed 易 dental issue）
+
+📅 **Schedule**
+- Daily：3 分鐘 grooming mitt 全身（mainly remove loose hair）
+- 2x/week：bristle brush 全身（stimulate skin oil + distribute）
+- 1x/week：nail check / ear check
+- 1x/month：dental check / brushing if 接受
+- 1x/3 個月：bath if needed（short-hair 唔需要常 bath，過度 bath 反而 dry skin）
+
+🛒 **Tools**
+- Rubber grooming mitt（key tool for short-hair）: HK$80
+- Bristle brush: HK$100
+- Toothbrush + pet-specific toothpaste: HK$120
+- Wet wipe（pet-safe）for spot cleanup: HK$40 per pack
+
+🔍 **Short-hair specific concerns**
+- Bald patches / hot spots = 通常 sign of allergy / stress / parasites — vet visit
+- 過度 shedding seasonal vs 持續異常 — 後者 vet check
+- Cat: 短毛 cat 自己 groom 80% — 你嘅 routine 係 supplement, 唔係 main grooming source
+
+語氣：concise — short-hair 唔需要 complex routine，過度 grooming 反而 harm。
+</PromptBlock>
+
+### 變化 2：狗 grooming — trim style + breed cut
+
+狗 grooming 比 cat 複雜（breed-specific trim style + bath frequency）：
+
+<PromptBlock label="變化 2 — Dog grooming routine + breed-specific trim">
+我隻 BB 狗 [breed + age + coat type]。佢需要：
+- Trim frequency: [每 6 週 / 每 8 週 / 每 12 週]
+- Bath frequency: [每 2 週 / 每月 / 視乎活動量]
+- Daily walk - 街上 dirt accumulation
+
+請整：
+
+📅 **Schedule**
+- Daily：paw wipe after walk（remove urban grit + chemical from pavements）
+- 2-3x/week：full brushing
+- 1x/week：bath（如 breed 需要 — Poodle / Doodle / 部分 Terrier）or 每 2-4 週（其他 breeds）
+- 1x/月：ear cleaning + 牙
+- 每 6-12 週：professional trim
+
+🦴 **Breed-specific 注意**
+你嘅 breed 嘅 typical cut style + maintenance：
+- Poodle / Doodle: continuous coat, 高 mat risk, 需 professional trim 每 6 週
+- Shih Tzu / Maltese: silky long coat, 持續 daily brushing, eye area 持續 clean
+- Bulldog / Pug: skin folds 持續 clean（mid-day wipe），少 trim 需要
+- 中型 mixed: 視乎 coat type，部分需要 trim 部分淨係 brush
+
+🛁 **Bath at home for dog**
+（cat 唔建議，但 dog 通常 OK）
+- Lukewarm water + dog-specific shampoo（pH 唔同人類）
+- Cover ears with cotton ball
+- Rinse 徹底（leftover shampoo = skin irritation）
+- 完成後 towel + low-heat blow dry
+- Treat reward 全程
+
+🚶 **Walk-related grooming**
+- HK 街道熱 / 化學 cleaning agent：paw burn 風險，summer afternoon 避免 hot pavement
+- Tick check after 行山：focus armpit / ear / 腳跟
+- Mud on long-coat dog：rinse paws 不 full bath（過度 bath dry skin）
+
+語氣：breed-aware — 唔同 breed 完全唔同 grooming reality。
+</PromptBlock>
+
+### 變化 3：Senior pet grooming — 安全 considerations
+
+10 歲+ pet 嘅 grooming 需要特別 care：
+
+<PromptBlock label="變化 3 — Senior pet (10+ yrs) safe grooming">
+我隻 BB [12 歲 cat / 14 歲 dog]，最近 [行動慢 / arthritis / kidney disease / skin condition]。我擔心 grooming 對佢 too stressful，但又唔可以唔做（coat 開始 unkempt）。
+
+請整 senior pet-specific approach：
+
+⚕️ **Pre-grooming vet consult**
+- Senior pet grooming 前 check：
+  - 心臟 fit for sedation if needed?
+  - Arthritis 嚴重程度 — restraint 引發 pain?
+  - Skin condition — sensitive area避開
+- Vet 可能建議：home-only grooming，唔再 professional visit
+
+🏠 **Home grooming adjustments**
+- Surface：soft padded（瑜伽 mat）— hard floor 對 arthritis joint 痛
+- Sessions：shorter（2-3 分鐘 max），更頻 頻（5-7x/week）
+- Position：BB 自己 comfortable position — 唔強迫 standing
+- Skip：areas BB strongly resist（不要 forced — senior pet 嘅 resistance 可能 indicate pain）
+
+🛁 **Bath alternatives**
+- Senior pet 持續濕 = chill risk + skin issue
+- 用 dry shampoo / wet wipe spot clean
+- 如必須 bath（accident soiled）：partial bath + immediate towel + warm
+- Avoid blow dryer noise + heat — towel dry only
+
+✂️ **Mat handling**
+- Senior pet 嘅 mat 通常 due to reduced self-grooming
+- 細小 mat 用 detangling spray + finger
+- 大 mat: **唔好自己剪埋皮** — senior skin 薄 + 易 tear。Call mobile groomer / vet 處理
+- 嚴重 unkempt = consider lion cut (short all over) once，then maintain easier
+
+⚠️ **Red flag signals**
+- BB vocalise during grooming = pain, stop + vet check
+- New lump found during grooming = vet
+- Skin condition worsening = vet
+- BB 唔肯食 after grooming = stress level 過 threshold
+
+📋 **End-of-life consideration**
+如果 BB 喺 hospice phase（見 [pet-end-of-life-grief-claude]），grooming priority changes：
+- 目標 唔再 aesthetic — comfort + hygiene
+- 接受 unkempt 為 trade-off for 不 disturb BB
+- Spot clean accidents 為主，full grooming 唔重要
+
+語氣：respect for senior pet — grooming 唔係 owner 嘅 vanity, 係 BB 嘅 comfort。Senior phase BB lifestyle changes, grooming approach should too。
+</PromptBlock>
+
+## 一個 mindset
+
+Grooming 喺 owner 嘅 narrative 入面通常 framed as「BB 嘅事」——BB 鐘意唔鐘意，BB 反應強唔強。
+
+但其實，grooming 嘅 quality outcome 80% 取決於 **owner 嘅 skill + patience + consistency**。groomer 一個月見 BB 1 次 1 小時，你一個月見 BB 720 小時。**你嘅 home routine 影響嗰個 weight, beats any single grooming visit**。
+
+呢個 mindset 嘅 reframe：home grooming 唔係 cost-saving hack，係 ownership skill。同你學煮飯 / 學洗衣服分顏色一樣，**係 long-term pet co-existence 嘅 baseline competency**。
+
+最後 reminder：
+
+- ✅ **進度標準唔係「BB 鐘意 grooming」**——係「BB tolerate without trauma」。Low bar, achievable。
+- ⚠️ **唔好 compare 你嘅 BB 同 social media 嘅 perfect grooming pet**。佢哋花咗 2-3 年 desensitization training。
+- 🆘 **Severe grooming anxiety > 6 個月 home work after 仲冇 progress** = consider vet-prescribed anxiety meds（短期 + 持續行為 work）+ specialised fear-free groomer。BB 嘅 anxiety 唔係 character flaw — 係 medical issue worth address。
+
+Next grooming visit, BB 唔會 anxiety-free，但 anxiety threshold 高過上次——已經算 win。

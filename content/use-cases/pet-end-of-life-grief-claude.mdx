@@ -1,0 +1,415 @@
+---
+title: "BB 病重 / 走咗，點 process？用 Claude 整 hospice plan + 揀 cremation + 寫 grief journal"
+slug: "pet-end-of-life-grief-claude"
+issue: 55
+publishedAt: 2026-05-23
+audience: ["消費者", "學生家長"]
+category: "chat"
+section: "寵物"
+subcategory: "臨終關懷"
+difficulty: 2
+timeMinutes: 20
+toolsNeeded: ["Claude Chat", "深呼吸 — 先 hydrate 一杯水", "（可選）BB 嘅 photo 同 routine 記憶"]
+description: "BB 14 歲，獸醫話 hospice 時候到，或者突然走咗。用 Claude 整 quality-of-life checklist、揀 HK pet cremation、寫 final letter、12 週 grief journal。Claude 唔取代真人 grief support — 文末有 HK helpline。"
+keywords: ["寵物臨終", "pet hospice HK", "寵物火化 香港", "pet bereavement", "SPCA grief support", "寵物 grief 處理"]
+related: ["pet-insurance-review-claude", "vet-visit-prep-claude", "parent-teacher-feedback-claude"]
+featured: true
+---
+
+> **如果你 right now 喺 acute crisis**（BB 突然走咗，你 24 小時內），跳到本文末「真人支援」section 拎 helpline。呢篇文唔取代 grief counselor — 係輔助你 process 嘅 structure。
+
+## 情境
+
+兩個情境，可能你係其中一個。
+
+**情境 A — Hospice 已知**：
+
+BB（你隻 14 歲 cat 或 12 歲狗）上星期睇 vet。佢嘅 kidney value 過去 6 個月由 borderline 升到 critical，食量跌咗 40%。Vet 同你坐低，溫和但 direct：
+
+> 「我哋過去 1 年 manage 得唔錯，但宜家 BB 嘅 quality of life 開始落下嚟。我建議我哋傾下 hospice care — focus 喺 comfort，唔再 aggressive treatment。」
+
+你聽住，眼淚跌出嚟。你問：「仲有幾耐？」Vet 答：「2 星期到 2 個月，視乎 BB。我哋以 BB 嘅 comfort 為主。」
+
+你返到屋企，望住 BB 瞓喺平時嗰張 mat。你唔知道呢 2 星期到 2 個月，**你應該做啲咩**。
+
+**情境 B — 突然走咗**：
+
+BB 平時健康。今朝你發現佢 cold，唔郁。你 panic 去 vet，vet 確認 BB 過咗。可能心臟驟停，可能血栓，可能你永遠唔會知。
+
+你而家攞住 BB 嘅 body（或 vet 暫時 keep 住），需要：
+- 24 小時內決定 cremation arrangement
+- 同屋企人 / 細路解釋
+- 處理 BB 用緊嘅嘢（food / litter / bed）
+- 你自己嘅情緒
+
+**兩個情境，Claude 都可以 help structure 你個 process**。注意：Claude 唔 replace grief。佢 help 你 navigate logistics + organize 思緒，等你嘅情緒有空間 surface。
+
+## 跟住做
+
+### 1. 用 quality-of-life checklist 判斷 hospice timing（情境 A）
+
+如果你喺 hospice 階段（vet 已 indicate end-of-life approaching），最 hardest decision 係**幾時係離別嘅時間**。Claude 可以幫你建立一個 daily QoL log，等你判斷唔係靠單一 emotional moment。
+
+<PromptBlock label="完整 prompt — Pet quality-of-life daily log">
+我隻 BB（[species + age + condition]）喺 hospice care 階段。vet 估計仲有 2 星期至 2 個月。我想建立 daily quality-of-life tracker 幫我 objectively 判斷邊一日係佢嘅 comfort threshold。
+
+請整 **HHHHHMM scale（adapted from vet hospice literature）**嘅 daily log，每日 score 7 條：
+
+1. **H**urt — 痛唔痛？得到 manage 嗎？（pain meds effective? 行動時有冇 stiffness / vocalisation）
+2. **H**unger — 食得嗎？需要 syringe feed 嗎？
+3. **H**ydration — 飲水量 OK？需要 sub-cut fluid 嗎？
+4. **H**ygiene — 自己 grooming OK？大小便 control OK？
+5. **H**appiness — 仲 enjoy 平時鐘意嘅嘢嗎？（被抱 / 望窗 / play / 同你 contact）
+6. **M**obility — 自己行得到嗎？需要被抱嗎？
+7. **M**ore good days than bad — 過去 7 日，good days 多過 bad days 嗎？
+
+請整：
+- 每條 0-2 score（0=poor, 1=concerning, 2=acceptable），total 14
+- Day-by-day 表格 template（讓我每日記）
+- Threshold guideline：
+  - Total >10 = 持續 hospice
+  - Total 7-10 = 同 vet discuss adjustment
+  - Total 少於 7 持續 3 日 = serious conversation about timing
+- 提醒：呢個 score 唔係 algorithm。係 conversation tool 同 vet。**Final decision 包含 emotional + practical + vet recommendation**
+
+加埋一段 reminder：
+- 養 pet 嘅人嘅 instinct 通常 accurate — 你 know BB best
+- 但 grief 會令你 either 過早放棄（fear of more suffering）or 過遲（fear of loss）
+- Daily log 幫你 ground decision in observation，唔係單一 emotional moment
+
+語氣：respectful + 醫療 grounded + emotional aware。
+</PromptBlock>
+
+Claude 出嘅 log，print 一份貼喺 fridge。每晚 9pm fill 一次（同 BB 食藥同一時段，等成為 ritual）。
+
+呢個 process 真實 hard。但它畀你**objective ground**——當 vet 問你 BB 過去 1 週點，你唔會 just say「冇咁好」，你有具體 data。
+
+### 2. 揀 HK pet cremation service（情境 A 提前 prep / 情境 B 緊急）
+
+呢一 step，**情境 A 嘅人應該提前做**——hospice 階段 prep cremation，唔係 morbid，係減輕 acute crisis 嗰一刻嘅 logistical 壓力。情境 B 嘅人 24 小時內要 decide。
+
+<PromptBlock label="完整 prompt — HK pet cremation service comparison">
+我需要喺香港為我嘅 [pet species + weight] 安排 cremation。請幫我整 comparison framework + 我要問每間 service 嘅 questions。
+
+📋 **HK pet cremation options（大類）**
+
+1. **Private cremation（單獨火化，骨灰返你）**
+   - 費用範圍（HK 2026 typical）
+   - 過程：take 邊度、要幾耐、骨灰幾時 ready
+   - 你可以 attend ceremony？
+
+2. **Communal cremation（集體火化，骨灰唔返你）**
+   - 較平
+   - 適合 owner 唔需要 keep 骨灰嘅 case
+
+3. **Pickup vs drop-off**
+   - 部分 service 提供 home pickup（24-hr available？）
+   - 部分要你 transport BB body 過去（box / blanket prep）
+
+4. **Memorial options**
+   - 骨灰盒選擇（wood / ceramic / biodegradable）
+   - Paw print impression（clay / ink）
+   - Fur clipping 留念
+   - Photo memorial
+   - Garden burial（**注意 HK 法律 — 私人土地 OK，公園 / 公共地方唔合法**）
+
+🔍 **Questions to ask each service**（before you commit）
+- 確認單獨 cremation（防 mixed-up — 行業內有 case）— 有冇 chain-of-custody documentation
+- 我可以 witness 嗎（部分 owner find closure）
+- Wait time（緊急 24-hr 可能 limited service available）
+- 私隱 — body 點處理喺 transport 過程
+- 骨灰 return timeline + collection
+- Pricing — 有冇 hidden add-ons（urn / certificate / paw print 各加錢）
+- 退款政策 — 如果你 change mind
+
+🏛 **HK well-known providers**（我知道部分 examples — 你可以 list 同 fact-check）：
+- Goodbye Dear（細龍仔嘅家）
+- 香港寵物善終服務
+- 部分 vet clinic in-house referral
+- AFCD 不提供 private cremation，但提供 mass disposal option
+
+⏰ **24-hr 緊急 logistic checklist**（情境 B 用）
+- BB body 短期保存（vet 通常 keep 24-48 hr free）
+- 你 transport 工具（box + towel + maintain cool — 唔可以放 freezer，雖然 fridge OK if vet 唔 keep）
+- 屋企人 emotional decision 共識（單獨 vs 集體？葬 vs 火化？）
+- Documentation：vet 開 cause of death note（部分 cremation service 要）
+
+語氣：practical，唔過度 sanitized。處理一個 loved one 嘅 body 係 hard，但 logistics 唔應該 obscure 你哋嘅 grief。
+</PromptBlock>
+
+Claude 會出你一份具體 question list + comparison framework。你打 2-3 間 service phone（**唔好 email — 太慢 + 你 grief 狀態 phone 比較 direct**）。
+
+**Hospice 階段 prep 嘅人**：你 prep 完，folder 收埋。BB 仲喺度，但你 freed up 個 brain space。
+
+### 3. 寫 final letter / 同細路 + 屋企人解釋
+
+呢個係 emotional 最 heavy 嘅一 step。Claude 幫你嘅唔係寫一封假 sentimentality 嘅信——係**幫你 surface 你自己想講嘅嘢**。
+
+<PromptBlock label="完整 prompt — Final letter / 同細路解釋">
+我想用 Claude 幫我兩樣嘢（揀其一 / 都做）：
+
+**A. 寫一封 final letter to BB**（給自己嘅 closure ritual）
+
+BB 嘅 context：
+- 我同 BB 一齊 [幾多年]
+- 我點認識 BB（adopt 過程）
+- BB 同我 life events 嘅交織：[搬屋 / 失業 / 失戀 / 細路出生 / pandemic — BB 陪過你哪些 chapter]
+- BB 嘅 personality 5 個 word：[例 stubborn / cuddly / 食家 / dignified / silly]
+- 我希望感謝佢嘅 specific 事：[bullet points — concrete examples，唔係 generic]
+- 我希望同佢講嘅遺憾 / 對唔住嘅事（optional）：[有就寫，冇就唔寫]
+- 我點 imagine BB 而家（如果你有 spiritual frame）
+
+請幫我整一個 **draft 框架**（唔係 final 信本身 — 信要你自己寫，AI 唔取代你 voice）。框架包括：
+1. Opening — 邊度 anchor 你哋嘅 first memory
+2. Middle — 3-4 個 BB 帶畀你嘅 specific gift
+3. Acknowledgment — 你哋 difficult moments + 你 forgiveness（you forgive yourself + BB）
+4. Closing — letting go / 帶你哋情誼 forward 嘅 way
+
+語氣：唔好 over-sentimental。Real grief 通常 包括 humor + 怒火 + tenderness 混雜。
+
+**B. 同細路（[年紀] 歲）解釋 BB going / has gone**
+
+請整 **age-appropriate script** + 預期細路 reaction：
+
+對於 [年紀] 歲嘅小朋友：
+- 用咩 language（避免「BB 瞓著咗」呢類含糊講法 — research 顯示會引發 sleep anxiety）
+- 解釋 death 嘅 concept 點 frame
+- 細路可能 ask 嘅 5 條 question + 點 answer
+- 細路情緒 reaction range（normal vs 需要 support）
+- 引入 ritual：細路 participate 嘅 ceremony（畫張畫、揀件 BB 嘢 keep、種一棵植物）
+- 1-2 本 HK 家長推薦嘅 children's book about pet loss
+- 學校 communicate：要唔要 inform 老師（如果細路會帶情緒返學）
+
+語氣：respectful — 細路 grief 唔係細路小事，往往 first death experience，influence 終身。
+</PromptBlock>
+
+Claude 出嘅 framework 你可以 sit with 一陣。**唔好即寫**——讓 framework 喺你腦 marinate 一兩日。然後手寫一份（手寫 vs typing 嘅 emotional resonance 唔同）。
+
+**手寫嘅 letter 你之後點放**：你可以揀
+- 火化嗰日同 BB 一齊
+- Keep 喺 BB 嘅 box / album
+- Read 出聲，然後燒掉（部分傳統 ritual）
+
+冇對錯。
+
+### 4. Grief journal — 之後 1-3 個月
+
+最 heavy 嘅 step。BB 走咗之後 1-3 個月，**grief waves 嚟得 unpredictable**——你以為冇事，sudden trigger（見到 BB food brand、聽到 random meow、回到舊住處）會 collapse 你。
+
+<PromptBlock label="完整 prompt — Post-loss grief journal prompts (1-3 個月)">
+BB 走咗 [幾日 / 幾週]。我想 Claude 幫我整一個 **weekly grief journal prompt set**——唔係每日寫，係每週末 sit down 10 分鐘 write，help me process。
+
+請整 **12 週嘅 weekly prompts**（每週一條，progress through grief stages）：
+
+**Week 1-2 (Acute)** — 你仲 numb / shock
+- prompts focus on small concrete memories（唔係 big emotion，去 anchor 喺 specific moment）
+
+**Week 3-4 (Acknowledgement)** — reality 開始 sink in
+- prompts focus on letting feelings come without trying to fix
+
+**Week 5-6 (Anger / regret)** — 部分人會出現
+- 對 vet / 自己 / 對 fate 嘅 anger，呢個 phase 唔可恥
+- prompts: 「邊一刻你最 angry?」「Anger 想保護你 from 咩?」
+
+**Week 7-8 (Bargaining / what-ifs)** — 「如果我早 1 年發現」
+- 處理 hindsight 同 acceptance
+
+**Week 9-10 (Sadness deepening)** — counterintuitively, 部分人 8-10 週先到 deepest sadness
+- 唔好 panic 你「冇 improve」— grief 唔係 linear
+
+**Week 11-12 (Integration)** — BB 嘅 absence 開始 integrate 入 daily life，唔再覆蓋一切
+- prompts: 「BB 點 shaped 我 today?」「我點 carry forward 佢嘅 gift?」
+
+加埋每週 reminders：
+- 唔需要做 prompt 如果嗰星期 你 incapable — 跳過 OK
+- 唔好 share 你 journal 除非你想（呢個係你 + BB 嘅 space）
+- 如果某週 prompt 觸發 unbearable distress — pause + contact 真人 support
+
+**特別注意**：呢個 journal 唔取代 professional grief counseling。如果你出現以下任何一樣，請 escalate to 真人：
+- 持續睡眠困難 >2 週
+- Daily functioning impaired（返唔到工 / 唔肯食）
+- 自我傷害 thoughts
+- Alcohol / substance use 增加
+- Isolation from 所有 social contact
+
+語氣：tender, real, non-prescriptive。Grief 唔係 problem to solve，係 process to live through。
+</PromptBlock>
+
+Claude 整咗 12 週 prompts，**唔好一次過睇晒**。每週末 reveal 一條。
+
+當你 Week 8 仲 deep sad，你回頭睇 Week 1 你寫嘅嘢——你會見到自己 took action 嗰 hardest period。
+
+## 變化
+
+### 變化 1：突然 loss 嘅 24 小時內處理（情境 B 緊急）
+
+BB 突然走咗，你 right now 唔知道下一步做咩：
+
+<PromptBlock label="變化 1 — 突然 loss 頭 24 小時 immediate steps">
+我隻 BB 今朝突然走咗。我而家 [vet 屋企 / 自己屋企 / 都唔知]。
+
+請整 **頭 24 小時 immediate action checklist**，極 simple structure，因為我 brain 而家 offline：
+
+⏰ **Hour 0-2**
+- BB body 短期 — 邊度 keep（vet 通常 keep 24-48hr free；屋企 cool dry 地方 + towel cover）
+- Call 一個 immediate support person（partner / 家人 / 信任朋友），唔好獨自 process
+- 唔需要 immediately 決定 cremation — take a breath
+
+⏰ **Hour 2-12**
+- 通知必要嘅人：
+  - 屋企人（包括住喺度嘅 + immediate family）
+  - 細路（如有 — 用 age-appropriate language，本文步驟 3）
+- BB 用緊嘅嘢暫時收起（food bowl / litter）— 唔好即丟棄，但唔好 keep visible（trigger）
+- Vet 開 documentation：cause of death note（部分 cremation service 要）
+
+⏰ **Hour 12-24**
+- 揀 cremation service（本文步驟 2）— 打 2-3 間 phone
+- 安排 transport / pickup
+- 屋企人 emotional check-in
+- 你自己 — eat something（even if 唔餓） + hydrate + sleep（唔通宵 grief — 你 Day 2 仲要 navigate logistics）
+
+⏰ **Day 2-7 reminders**
+- 唔好 immediately throw out BB 嘅 嘢 — 給自己 1-2 週決定
+- 如果有其他 pet，注意佢嘅 reaction（pets grieve too — 唔肯食 / 揾 missing 同伴）
+- 唔好 immediately adopt 新 pet「填補空白」— at least 1-2 個月 wait
+
+🆘 **如果你 right now overwhelmed**
+- SPCA HK bereavement helpline: 2802 0501
+- 香港愛護動物協會（CSPCA）寵物善別服務
+- 撒瑪利亞會（Samaritans）多語 hotline: 2896 0000
+- 你嘅 family doctor — 失去 pet 嘅 acute grief 可以 prescribe 1 週 sleep aid
+
+**Reminder**：你 grief 嘅 intensity 同 pet 嘅大小 / type 無關。失去倉鼠嘅 grief 同失去 dog 嘅 grief 同樣 valid。
+
+語氣：immediate, practical, validating。Don't sanitize the rawness。
+</PromptBlock>
+
+### 變化 2：屋企有其他 pet — 佢哋都會 grieve
+
+剩低嘅 pet 會經歷自己嘅 grief，唔好 overlook：
+
+<PromptBlock label="變化 2 — 處理 surviving pet 嘅 grief">
+我有 [N 隻其他 pet — species + age + 同 BB 關係 close/aloof]，BB 走咗之後佢哋 [行為描述]。
+
+請幫我 understand + handle：
+
+🐾 **Pet grief 嘅 sign**
+- 食量下降 / 唔肯食
+- 過度叫 / search behavior（揾 BB 平時嘅 spot）
+- Withdrawal / 唔玩 / sleep 多咗
+- Clingy 過度，跟你寸步不離
+- 屎尿異常（regression）
+- Aggression（不常見但可能）
+
+⏰ **Timeline expectation**
+- Acute phase 1-3 週
+- 大部分 pet 1-3 個月 adjustment
+- 部分 case（特別係 closely bonded pair）需要 3-6 個月
+- 觀察 quality-of-life — surviving pet 偶爾出現 stress-related illness
+
+🤝 **可以做嘅 supports**
+- Maintain routine（feeding / walk / play 時間唔變）
+- Extra attention 但唔好過度（你嘅 anxiety 會 transmit）
+- 讓 surviving pet 見 / 聞 BB body（部分 vet 建議，唔係所有 — 同你 vet discuss）
+- 唔好即清走 BB 嘅 bed / blanket — surviving pet 嘅 scent comfort
+- 如出現 1 個月+ 持續行為改變 = vet visit
+
+⛔ **唔好做**
+- 即刻 adopt 新 pet「替代」 — surviving pet 需要時間 adjust，新加入 introduce 過早 = double stress
+- 強迫 surviving pet「開心」— let 佢以自己 pace
+- 同 surviving pet 過度 baby talk grief（佢唔識 verbal，但 sense 你 anxiety — calmer you = calmer them）
+
+🏥 **何時 escalate to vet**
+- 唔食 >48 小時
+- 體重跌 >10%
+- Self-grooming 停 / 過度 grooming（hot spots）
+- 出現 stress illness（cystitis / vomiting / diarrhea）
+
+語氣：reminder you don't have to navigate alone — surviving pet 嘅 grief 同你嘅 parallel。Tend to both。
+</PromptBlock>
+
+### 變化 3：3-6 個月後 — 何時 ready for next pet
+
+呢個 question 冇 universal answer，但 Claude 可以 help 你 think it through：
+
+<PromptBlock label="變化 3 — 何時 ready for 新 pet (3-6 個月後)">
+BB 走咗 [幾個月]。屋企人 / 朋友開始 ask「幾時養新一隻？」我自己 ambivalent — 想 again，但又怕。
+
+請幫我 think through，**唔係 give answer**：
+
+🤔 **Self-check questions**（誠實 answer）
+1. 你想養新 pet 嘅 motivation 係：
+   - (a) 填補 BB 嘅 空白
+   - (b) 你 genuinely want 養 pet（如果 BB 仲喺度，你會養第二隻？）
+   - (c) 屋企人 / 細路 push
+   - (d) 你怕「無 pet 嘅自己」
+   
+   (a) 同 (d) = 危險 signal — 新 pet 應該以自己身份被 welcomed，唔係 BB substitute
+   
+2. 你 dream 中 嘅 BB 嘅 visit 仲頻 / intense 嗎？
+   - Frequent + intense = grief 仲 acute，wait
+   - Becoming softer + occasional = 你 closer to ready
+
+3. 你提起 BB 嘅 時候：
+   - 純哭 = wait
+   - 哭 + 笑 = closer to ready
+   - 純笑（denial-like）= 可能仲 process 緊
+
+4. 你嘅 daily routine：
+   - 你已經 adjust 到 BB-less routine 嗎？
+   - 養新 pet = disruption 重新 adjust
+
+5. Logistics：
+   - 經濟 / 時間 / 空間 — 你 capacity 同 BB 時期一樣 嗎？年紀大 / 工作變化 / 家庭結構 變化？
+
+🐾 **如果你 think 你 ready**
+- 揀 pet：唔好揀同 BB 一模一樣 嘅（強化 substitute 心理）。揀**不同顏色 / breed / personality**，給佢自己空間
+- 揀 source：SPCA / rescue 唔淨係 ethical，rescue pet 嘅「給我家」narrative 同 grief healing 有 synergy
+- Timing：避免重要 anniversary（BB 走 嘅日子 / 你抱 BB 返屋企嘅日子）— 唔好 layered association
+- 名：BB 嘅名唔再用喺新 pet（separate identity）
+
+🛑 **如果 still not ready**
+- 養新 pet 唔係 grief 嘅 milestone — 部分人 1 年 ready, 部分人 5 年, 部分人 not at all
+- 「我永遠唔再養」係 valid choice — 唔需要 justify
+- Foster 短期 pet 係 middle ground — 試下你嘅 capacity 而唔 commit
+- Volunteer 喺 SPCA / rescue — pet 接觸 without ownership
+
+語氣：non-judgmental。Whatever you decide, it's right for you。
+</PromptBlock>
+
+## 一個 mindset
+
+養 pet 14 年，你 build 咗一個 silent partnership——BB 唔識 verbal，但 over years 你發展咗一套互相讀懂嘅 language。佢一個耳朵 twitch 你知佢 hungry，你 sigh 佢過嚟坐 lap，你哋互相 attuned 到一個 level 連你最 close 嘅人類關係都做唔到。
+
+呢個 partnership 嘅 loss 唔係 small——而且 society 唔總是 acknowledge 佢嘅 magnitude。同事問你「點解唔回 message」，你答「我寵物走咗」，部分人 reaction：「噢⋯⋯ pet ja？」嗰種 dismissal 比 loss 本身更 isolating。
+
+**呢個 mindset 嘅 core：你嘅 grief 係 proportionate to 你嘅 love，唔係 proportionate to society 認為 acceptable to grieve over 嘅嘢。**
+
+Claude 喺呢個 process 嘅 role 唔係 emotional companion。Claude 唔 grieve，Claude 唔 understand love。但 Claude 可以喺你 grief 嘅 acute hour，**hold structure for you**——揀 cremation 嘅 logistics、整 letter 嘅 framework、weekly journal 嘅 prompts——等你嘅 emotion 有空間 surface，唔被 logistics 淹沒。
+
+---
+
+### 🆘 真人支援（HK，2026）
+
+**Pet bereavement 專線**：
+- SPCA HK bereavement support: 2802 0501（中英）
+- 香港愛護動物協會（CSPCA）寵物善別
+
+**General grief / mental health**：
+- 撒瑪利亞會 多語 hotline: 2896 0000（24 小時）
+- 撒瑪利亞防止自殺會: 2389 2222（中文）
+- Mind HK referral to therapist database
+
+**如出現以下，請 immediately 搵真人支援**：
+- 自我傷害 thoughts
+- Daily functioning impaired >2 週
+- 持續睡眠 / 飲食 disturbed
+- Isolation from all social contact
+
+最後 reminder：
+
+- ✅ **Grief over a pet is real grief**。冇人需要你 justify。
+- ⚠️ **唔好 self-medicate with alcohol / 過勞**。Acute grief 已經 dysregulate 你嘅 sleep + appetite — 加 substance / overwork 只係 delay。
+- 🤝 **Tell 1 個 trusted person**。你唔需要 explain 晒，但 1 個 person knowing 你 going through 呢個，就夠。
+
+BB 嘅 14 年喺度過，唔會因為佢 physical absence 而 invalidate。Carry 佢 forward。
