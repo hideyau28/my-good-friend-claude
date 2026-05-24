@@ -8,7 +8,7 @@ _Last session ended: 2026-05-24, deep voice retone round 4 — strict bar <0.30 
 - Collab page: https://my-good-friend-claude.vercel.app/collaborate
 - Repo: https://github.com/hideyau28/my-good-friend-claude
 - Dev port: 4321 (launch.json name: `next-dev`)
-- Project dir: symlinked at `/Users/ngyau/stockflow-pos/.my-good-friend-claude`
+- Project dir: `/Users/ngyau/Projects/my-good-friend-claude`
 
 ## 📊 Current state (top of main)
 
