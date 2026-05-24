@@ -51,14 +51,14 @@ _Last session ended: 2026-05-24, 24 articles + 1 new section + 1 collab page shi
 ## 🎨 Hero illustration status
 
 - **Master style**: 16:9 cream paper / 4-color (#FBF7EA #F7F2E2 #C42424 #0F0B05) / ink hatching / no faces / vermillion 朱紅 印章 corner
-- **Done**: 24 + 24 = **48 articles have heroes** (mostly session 1 + sessions 2-3 batch 1)
-- **Pending**: 11 articles (issues 78-88, tutorials) — prompts NOT YET appended to HERO-PROMPTS-BATCH.md
+- **Done**: ✅ **84 / 84 articles have heroes** (100% coverage as of 2026-05-24)
 - **Tooling**: `node scripts/batch-import-heroes.mjs` (drop PNGs in `/Volumes/PSSD/Downloads/` with filename pattern `N. {section} [#issue] — {slug-stem}.png`)
+- **Note**: filename stem 要 match MDX slug — `pet-` 等 prefix 要 explicit（曾出現 `picky-eater-...` 唔 match `pet-picky-eater-...` 個 case）
 
 ## 🔓 Open backlog (priority order)
 
 ### 🔥 Quick wins
-1. **Append 11 tutorial hero prompts** (issues 78-88) to HERO-PROMPTS-BATCH.md — 10 min
+1. ~~**Append 11 tutorial hero prompts** (issues 78-88) to HERO-PROMPTS-BATCH.md~~ ✅ done (entries 49-59 in Batch 3) — next step: user generates PNGs → batch import
 2. **Replace `/collaborate` email** placeholder (`hello@my-good-friend-claude.com`) — production launch-ready blocker
 3. **Pricing anchors** on `/collaborate` FAQ — after first paid quote
 
@@ -70,11 +70,11 @@ _Last session ended: 2026-05-24, 24 articles + 1 new section + 1 collab page shi
 - **健康 deepen** (just launched) — 經期管理 / 男士 prostate check / 大病 second opinion / 老人家 護理
 
 ### 🎨 Hero illustrations
-- 11 tutorial heroes (78-88) — append prompts → user generates → batch import
+- ~~11 tutorial heroes (78-88)~~ ✅ done (2026-05-24) — 全 84 篇 100% coverage
 
 ### 🔧 Polish
-- Homepage `/` — add tutorial section / CTA pointing to `/learn/cowork` + `/learn/code`
-- `/learn/cowork` + `/learn/code` — verify new tutorials surface correctly (auto via velite, but check)
+- ~~Homepage `/` — add tutorial section / CTA pointing to `/learn/cowork` + `/learn/code`~~ ✅ done — EntryCards now show article counts (61/11/12) + topic tags (Projects/Skills/MCP/Subagents/Hooks etc.)
+- ~~`/learn/cowork` + `/learn/code` — verify new tutorials surface correctly~~ ✅ verified — cowork=11, code=12; "Claude Code 由零安裝" auto-picked as code first-read (lowest difficulty)
 - OG image gen — Velite occasionally times out fetching Google Fonts (handoff 1 note)
 - Custom domain (currently `my-good-friend-claude.vercel.app`)
 - `/collaborate` Calendly / Tally form upgrade later

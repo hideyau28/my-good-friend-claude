@@ -6,11 +6,16 @@ import { SectionLabel } from '@/components/design/ColumnRule'
 import { EditorByline } from '@/components/design/EditorByline'
 import { NewsletterCTA } from '@/components/design/NewsletterCTA'
 import { UseCaseCard } from '@/components/use-case/UseCaseCard'
-import { getAllUseCases, getFeaturedUseCases, CATEGORY_LABELS } from '@/lib/content'
+import { getAllUseCases, getFeaturedUseCases, CATEGORY_LABELS, type Category } from '@/lib/content'
 
 export default function HomePage() {
   const featured = getFeaturedUseCases(6)
-  const totalUseCases = getAllUseCases().length
+  const all = getAllUseCases()
+  const totalUseCases = all.length
+  const countByCategory = all.reduce<Record<Category, number>>(
+    (acc, u) => ({ ...acc, [u.category]: (acc[u.category] ?? 0) + 1 }),
+    { chat: 0, cowork: 0, code: 0 },
+  )
 
   return (
     <>
@@ -76,6 +81,8 @@ export default function HomePage() {
               title="Claude Chat"
               subtitle={CATEGORY_LABELS.chat.cn}
               body="第一次用就由呢度入手。打字傾偈、問問題、寫 caption、改 email——識用 WhatsApp 就識用，唔使裝任何嘢。"
+              count={countByCategory.chat}
+              topics={['寫嘢', '搵資料', '日常決定']}
               cta="由 Chat 開始 →"
             />
             <EntryCard
@@ -84,6 +91,8 @@ export default function HomePage() {
               title="Cowork"
               subtitle={CATEGORY_LABELS.cowork.cn}
               body="想啲嘢自動幫你做？用 Projects 同 Skills 整 workflow。重覆嘅嘢交畀 Claude——客人查詢、報表整理，唔使次次問。"
+              count={countByCategory.cowork}
+              topics={['Projects', 'Skills', 'Artifacts', 'Sheets 整合']}
               cta="學自動化 →"
             />
             <EntryCard
@@ -92,6 +101,8 @@ export default function HomePage() {
               title="Claude Code"
               subtitle={CATEGORY_LABELS.code.cn}
               body="識少少 code、或者想學嘅人。由開 terminal 到部署網站，一步步落實做出嘢嚟。"
+              count={countByCategory.code}
+              topics={['安裝', 'Slash cmd', 'MCP', 'Subagents', 'Hooks', 'Worktrees']}
               cta="行入 Code →"
             />
           </div>
@@ -144,6 +155,8 @@ function EntryCard({
   title,
   subtitle,
   body,
+  count,
+  topics,
   cta,
 }: {
   num: string
@@ -151,12 +164,14 @@ function EntryCard({
   title: string
   subtitle: string
   body: string
+  count: number
+  topics: string[]
   cta: string
 }) {
   return (
     <Link
       href={`/learn/${category}`}
-      className="block group border-2 border-[var(--color-rule-strong)] bg-[var(--color-paper-2)] hover:bg-[var(--color-paper-3)] transition-colors p-6 no-underline"
+      className="block group border-2 border-[var(--color-rule-strong)] bg-[var(--color-paper-2)] hover:bg-[var(--color-paper-3)] transition-colors p-6 no-underline flex flex-col"
     >
       <div className="flex items-baseline justify-between mb-3">
         <span className="seal-text font-black text-2xl">№ {num}</span>
@@ -170,9 +185,16 @@ function EntryCard({
       <p className="font-serif text-sm leading-relaxed text-[var(--color-ink-soft)] mb-4">
         {body}
       </p>
-      <span className="font-serif text-sm font-bold underline underline-offset-4">
-        {cta}
-      </span>
+      <div className="mt-auto pt-4 border-t border-[var(--color-rule)]">
+        <p className="font-serif text-xs text-[var(--color-ink-mute)] mb-3 leading-relaxed">
+          <strong className="seal-text font-bold">{count} 篇文</strong>
+          <span className="mx-2 text-[var(--color-rule)]">·</span>
+          {topics.join(' · ')}
+        </p>
+        <span className="font-serif text-sm font-bold underline underline-offset-4">
+          {cta}
+        </span>
+      </div>
     </Link>
   )
 }

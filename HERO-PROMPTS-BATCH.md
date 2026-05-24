@@ -782,6 +782,166 @@ Vermillion 朱紅 chop seal bottom-right with「均」.
 
 ---
 
+# ━━━ BATCH 3: TUTORIALS (11 篇, issues 78-88) ━━━
+
+_Claude tools 教學系列。Scene 圍繞 desk / 工具 / 紙上 diagram — 避免每張都係 laptop screen 搶眼。_
+
+---
+
+### 49. 商家 #78 — claude-projects-setup
+**File:** `claude-projects-setup-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home-office context.
+
+Scene: HK home desk, organising recurring chat context into a reusable project.
+Anchors centre-left: a thick ring-binder lying open with 4 colour-tabbed dividers visible ("品牌 voice" / "客戶 A" / "寫作規則" / "常用 prompt"), a stack of loose A4 pages being slid into one of the divider pockets, a sticky note in vermillion reading「30 min setup」, a laptop edge silhouette at the back showing a faint left-rail sidebar suggesting project nav.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「集」.
+```
+
+---
+
+### 50. 商家 #79 — claude-skills-build
+**File:** `claude-skills-build-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home-office context.
+
+Scene: HK home desk, drafting a reusable skill as a markdown recipe.
+Anchors centre-left: a notebook page laid open with 「SKILL: polish-email」 written at top, 5 bullet rules listed below (one with vermillion underline for the key tone rule), 2 small recipe-style index cards on the side labelled "reference" and "tone", a fountain pen resting diagonally, a tea cup with steam lines.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「技」.
+```
+
+---
+
+### 51. 商家 #80 — claude-google-sheets-integration
+**File:** `claude-google-sheets-integration-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK small-shop back-office context.
+
+Scene: HK 小店 back-office desk, month-end sales report automation.
+Anchors centre-left: a printed monthly sales sheet with rows of transactions, vermillion circles grouping rows into 3 categories on the margin, a small wall calendar showing the last day of the month, an arrow drawn in vermillion from the raw sheet to a single neat 1-page summary card beside it, a small bell on the desk (notify boss).
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「表」.
+```
+
+---
+
+### 52. 商家 #81 — claude-artifacts-deep-dive
+**File:** `claude-artifacts-deep-dive-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home-office context.
+
+Scene: HK home desk, 5 artifact types fanned out as preview cards.
+Anchors centre-left: 5 overlapping paper cards fanned diagonally — card 1 a tiny HTML page wireframe, card 2 lines of code with hatched line numbers, card 3 a bar-chart sketch with vermillion bars, card 4 a long-text scroll motif, card 5 a flow-diagram of boxes-and-arrows. A small magnifying glass laid flat over the chart card.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「件」.
+```
+
+---
+
+### 53. 商家 #82 — claude-long-conversation-management
+**File:** `claude-long-conversation-management-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK home-office context.
+
+Scene: HK home desk, breaking one long messy conversation into reusable structures.
+Anchors centre-left: a long crumpled paper scroll labelled「52 messages」running diagonally across the left half, a pair of scissors mid-cut, two neat stacks emerging on the right side of the cut — one labelled「Project」 the other 「Skill」 — with vermillion arrows pointing from scroll to the stacks. A small clock above showing "3:00" (3 hours).
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「拆」.
+```
+
+---
+
+### 54. 科技 #83 — claude-code-install
+**File:** `claude-code-install-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK developer desk context.
+
+Scene: HK developer's desk, 30-minute install setup.
+Anchors centre-left: a terminal-window card drawn on paper showing 「$ install claude-code」 prompt line with a cursor, an open instruction booklet beside it, a checklist of 5 setup steps (steps 1-2 ticked in vermillion, step 3 with a vermillion arrow "you are here"), a coiled USB cable looping around the corner of the desk, a small key icon (API key) on a sticky note.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「裝」.
+```
+
+---
+
+### 55. 科技 #84 — claude-code-slash-commands
+**File:** `claude-code-slash-commands-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK developer desk context.
+
+Scene: HK developer's desk, slash command reference laid out.
+Anchors centre-left: a keyboard silhouette in hatched outline with the「/」 key filled in vermillion (the hero key), a paper index card beside it listing 10 built-in commands as a numbered column (/commit, /review, /test, /plan, ... — hatched-out so suggestive not literal), a separate smaller card labelled「/my-command」with a recipe outline being written, a fountain pen.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「令」.
+```
+
+---
+
+### 56. 科技 #85 — claude-code-mcp-servers
+**File:** `claude-code-mcp-servers-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK developer desk context.
+
+Scene: HK developer's desk, hub diagram of 5 MCP servers.
+Anchors centre-left: a hand-drawn hub-and-spoke diagram on paper — a central node labelled「Claude」with 5 vermillion lines radiating to 5 labelled boxes (「Notion」「Slack」「GitHub」「DB」「Calendar」) arranged in a fan around it. A small power-plug connector motif at the centre to suggest plug-in. A tea cup at the corner.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「接」.
+```
+
+---
+
+### 57. 科技 #86 — claude-code-subagents
+**File:** `claude-code-subagents-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK developer desk context.
+
+Scene: HK developer's desk, 4 subagents running parallel on one PR.
+Anchors centre-left: 4 paper cards arranged in a 2×2 grid each labelled with a task (「code review」「test coverage」「security scan」「PR description」), each card with a tiny vermillion "running" dot in its corner, a central master clock above the grid showing the minute hand at 6-8 vs a smaller faded clock at 30 (the old sequential time) crossed out in vermillion.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「並」.
+```
+
+---
+
+### 58. 科技 #87 — claude-code-hooks
+**File:** `claude-code-hooks-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK developer desk context.
+
+Scene: HK developer's desk, hooks intercepting events around a tool call.
+Anchors centre-left: a horizontal chain of 3 paper cards left-to-right — card 1 labelled「PreToolUse」, card 2 (centre, bigger) labelled「Tool」, card 3 labelled「PostToolUse」 — connected by vermillion arrows. A small terminal-card insert in the PreToolUse box showing 「rm -rf /」 with a thick vermillion X blocking it. A small prettier icon sticker on the PostToolUse box.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「鉤」.
+```
+
+---
+
+### 59. 科技 #88 — claude-code-worktrees
+**File:** `claude-code-worktrees-claude.mdx`
+
+```
+16:9 editorial illustration on cream paper. Strict 4 colors: cream #FBF7EA, warm beige #F7F2E2, vermillion #C42424, deep ink #0F0B05. Ink hatching style, no photorealism, no faces, HK developer desk context.
+
+Scene: HK developer's desk, 3 parallel worktrees as separate folders.
+Anchors centre-left: 3 manila folders fanned out side by side, each labelled (「feature A」「feature B (急 fix)」「feature C」), each folder with its own tiny terminal-card peeking out showing a different cursor session — middle folder marked in vermillion as "urgent". Behind, a faint tree-branch diagram with one trunk splitting into 3 branches matching the folders. NO「stash」box visible.
+Right 40%: empty cream paper for title block.
+Vermillion 朱紅 chop seal bottom-right with「枝」.
+```
+
+---
+
 # 📌 Updated import workflow
 
 出完任何一張圖之後扔入 `/Volumes/PSSD/Downloads/`，然後話：
