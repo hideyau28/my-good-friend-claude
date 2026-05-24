@@ -19,7 +19,7 @@ featured: false
 
 ## 情境
 
-你出咗成個月差，receipt 散喺手機相簿、email 附件、Apple Notes 度。 公司用緊舊式 expense system，**每月底要 submit 一份 .xlsx**：
+你出咗成個月差，receipt 散喺手機相簿、email 附件、Apple Notes 度。公司用緊舊式 expense system，**每月底要 submit 一份 .xlsx**：
 
 - Date
 - Vendor
@@ -29,11 +29,11 @@ featured: false
 - Project / Trip code
 - Receipt attached (Y/N)
 
-正常人花一個鐘整呢個 report，**因為個 task 完全係 mechanical** — 開 email、揾 receipt、cross-reference trip、抄入 sheet、conversion rate。 呢個 task 完美 fit Cowork：**重覆、有規律、唔需要創意**。
+正常人花一個鐘整呢個 report，**因為個 task 完全係機械式** — 開 email、揾 receipt、cross-reference trip、抄入 sheet、conversion rate。呢個 task 完美 fit Cowork：**重覆、有規律、唔需要創意**。
 
-呢篇 set up 一個每月底自動行嘅 expense report draft —— **你個 final review 仍然要做（公司審計需要 human approval），但 80% 嘅 mechanical work 已經自動完成**。
+呢篇 set up 一個每月底自動行嘅 expense report draft —— **你個 final review 仍然要做（公司審計需要 human approval），但 80% 嘅機械式 work 已經自動完成**。
 
-> Caveat：Cowork 仲係 research preview。佢會直接讀你 Gmail / local files。Setup 之前喺 Mac 開一個 dedicated 「expense」folder 畀佢，唔好畀佢漫遊敏感檔案。
+> Caveat：Cowork 仲係 research preview。佢會直接讀你 Gmail / local files。Setup 之前喺 Mac 開一個 dedicated「expense」folder 畀佢，唔好畀佢漫遊敏感檔案。
 
 ## 跟住做
 
@@ -81,7 +81,7 @@ Apple Notes 開一個叫「Trips & Projects」嘅 note，list 你呢個月有去
 - Scan ~/Documents/expenses/2026-[月份]/receipts/ folder 入面所有圖片
 - 由每張 receipt 抽：日期、vendor name、金額、currency
 
-第二步：categorize
+第二步：分類
 - 用 vendor name 估 category：
   - Airlines / 機票 / 酒店 → Travel
   - 餐廳 / cafe → Food
@@ -92,7 +92,7 @@ Apple Notes 開一個叫「Trips & Projects」嘅 note，list 你呢個月有去
 第三步：match trip / project
 - 用日期 cross-reference Apple Notes「Trips & Projects」
 - 將每張 receipt assign 落最相關嘅 trip / project code
-- 如果 ambiguous（例如同一日有兩個 project），標「需 confirm」
+- 如果含糊（例如同一日有兩個 project），標「需 confirm」
 
 第四步：currency conversion
 - 如果唔係 HKD，攞當日嘅 exchange rate（用 publicly available rate）
@@ -102,7 +102,7 @@ Apple Notes 開一個叫「Trips & Projects」嘅 note，list 你呢個月有去
 - 喺 ~/Documents/expenses/2026-[月份]/ 度生成「[月份]-expense-draft.xlsx」
 - 三個 sheet：
   - **Main**：完整 expense list，columns 同公司 template 一致
-  - **Flagged**：需要我 confirm 嘅項目（缺 receipt、ambiguous category 等）
+  - **Flagged**：需要我 confirm 嘅項目（缺 receipt、含糊 category 等）
   - **Summary**：每個 category 嘅 total、每個 trip / project 嘅 total
 
 第六步：email 提醒
@@ -134,11 +134,11 @@ Setup 好嘅話 confirm 我，再 schedule 落每月最後一日 9pm 行。
 
 第一個月 Claude 生成 draft 之後，你親自 cross-check 嘅時候要：
 
-1. 開 Flagged sheet — 處理所有 ambiguous item
+1. 開 Flagged sheet — 處理所有含糊 item
 2. 開 Main sheet — 隨機抽 5 條 cross-check：vendor name、金額、currency 對返 receipt 啱唔啱
 3. 對返 Summary — 個總數 sanity check（接近你心目中個 monthly burn rate？）
 
-通常第一個月會發現 2-3 樣要調整嘅嘢（例：某啲 vendor categorize 錯、某啲 trip 你忘記咗加入 Notes）。**Fine-tune 一次 prompt，之後幾個月就 smooth**。
+通常第一個月會發現 2-3 樣要調整嘅嘢（例：某啲 vendor 分類錯、某啲 trip 你唔記得加入 Notes）。**Fine-tune 一次 prompt，之後幾個月就 smooth**。
 
 ## 變化例子
 
@@ -167,7 +167,7 @@ Setup 好嘅話 confirm 我，再 schedule 落每月最後一日 9pm 行。
 - 如果我有 receipt match 到 → OK
 - 如果冇 receipt → 喺 Flagged sheet 標「Missing receipt」+ vendor + amount
 
-呢個幫我 catch 嗰啲我食完忘記攞 receipt 嘅花費（落酒店嘅 minibar、店內 tap pay 但冇要 invoice 等等）。
+呢個幫我 catch 嗰啲我食完唔記得攞 receipt 嘅花費（落酒店嘅 minibar、店內 tap pay 但冇要 invoice 等等）。
 </PromptBlock>
 
 ### 變化 3：團隊版本（你係 manager）
@@ -182,20 +182,20 @@ Setup 好嘅話 confirm 我，再 schedule 落每月最後一日 9pm 行。
 4. Flag：有冇邊個 outlier（例：某個下屬 dining spending 明顯高過 team average）— 唔係指控，係幫你準備同 finance 解釋
 5. 出 team-level summary email 寄畀 me + finance partner
 
-Privacy reminder：呢個 task 處理嘅係 sensitive employee data，唔好 share 其他人嘅 individual details 畀錯人。
+私隱 reminder：呢個 task 處理嘅係 sensitive employee data，唔好 share 其他人嘅 individual details 畀錯人。
 </PromptBlock>
 
 ## 點解呢個 task 啱 Cowork 唔啱 Chat
 
 呢個 task 嘅特性：
 - ✓ 重覆：每月做同一件事
-- ✓ Mechanical：rule-based、唔需要創意 judgement
+- ✓ 機械式：rule-based、唔需要創意判斷
 - ✓ 多 source：要 cross-reference Gmail + folder + Notes + Calendar
 - ✓ 有明確 output format
 - ✓ Failure tolerant：draft 出錯 OK，你 review 時可以 catch
 
-Chat mode 嘅 limit 喺：你要每月主動開 chat、逐個 upload receipt、逐個指示佢點做。**做一次唔煩，做 12 次就煩**。
+Chat mode 嘅限制：你要每月主動開 chat、逐個 upload receipt、逐個指示佢點做。**做一次唔煩，做 12 次就煩**。
 
-Cowork 嘅 leverage 喺：**setup 嘅 30 分鐘投資，換成個年慳返 12 個鐘 + 永遠唔會 forget**。
+Cowork 嘅 leverage 喺：**setup 嗰 30 分鐘嘅投資，換成個年慳返 12 個鐘 + 永遠唔會 forget**。
 
-最後一個 reminder：Cowork 而家仲係 research preview，**唔好交畀佢做 critical 決策**（submit expense、發 client email、charge money）。佢嘅 sweet spot 係 **「draft + collate」**，最後一步嘅 approve 永遠係 you。
+最後一個 reminder：Cowork 而家仲係 research preview，**唔好交畀佢做 critical 決策**（submit expense、發 client email、charge money）。佢嘅 sweet spot 係 **「draft + collate」**，最後一步嘅 approve 永遠係你。

@@ -1,5 +1,5 @@
 ---
-title: "Claude Code Hooks：auto-format / auto-test / auto-block 危險 command"
+title: "Claude Code Hooks：auto-format / auto-test / 自動 block 危險 command"
 slug: "claude-code-hooks-claude"
 issue: 87
 publishedAt: 2026-05-24
@@ -11,7 +11,7 @@ heroImage: "/hero/claude-code-hooks-claude.webp"
 difficulty: 3
 timeMinutes: 25
 toolsNeeded: ["Claude Code installed", "Familiar with shell scripts (bash basics)"]
-description: "成日忘記 run prettier commit 就 lint fail。或擔心 Claude 突然 run `rm -rf /`。Hooks 解決：PreToolUse 阻 destructive，PostToolUse auto-format。教你 setup 5 個 essential hook + 邊個 event 對 邊類 task。"
+description: "成日唔記得 run prettier，commit 就 lint fail。或擔心 Claude 突然 run `rm -rf /`。Hooks 解決：PreToolUse 阻破壞性命令，PostToolUse 自動 format。教你 setup 5 個必備 hook + 邊個 event 對邊類 task。"
 keywords: ["Claude Code hooks", "PreToolUse hook", "PostToolUse hook", "auto-format Claude", "Claude Code safety", "shell hook"]
 related: ["claude-code-install-claude", "claude-code-slash-commands-claude", "claude-code-worktrees-claude"]
 featured: false
@@ -21,29 +21,29 @@ featured: false
 
 你 Claude Code 用 6 個禮拜:
 
-- Yesterday 突發: Claude 改 大 refactor，你 manually `git commit` — 但 forgot run `npm run format`. CI lint fail，要 amend commit revert + format + re-push. 額外 15 分鐘 hassle.
+- 尋日突發: Claude 改大 refactor，你手動 `git commit` — 但唔記得 run `npm run format`。CI lint fail，要 amend commit revert + format + re-push。額外 15 分鐘 hassle。
 
-- 上禮拜: 你 testing 一個 destructive script，唔小心同意 Claude 「run rm -rf node_modules」 (intended for cleanup) — but Claude 跑去 `rm -rf /tmp/某 important folder`。 Recovery 1 hour.
+- 上禮拜: 你 testing 一個 destructive script，唔小心同意咗 Claude「run rm -rf node_modules」(intended for cleanup) — 但 Claude 跑去 `rm -rf /tmp/某 important folder`。Recovery 1 hour。
 
-- 上個月: 你 push 一個 commit, 後來 spotted 你 import 咗 production API key 入 .env.example file. Embarrassing leak.
+- 上個月: 你 push 一個 commit, 後來 spotted 你 import 咗 production API key 入 .env.example file。Embarrassing leak。
 
-呢類 mistake 共同 pattern: **manual discipline**。你 brain 應 remember 每次 do X (format / verify / scan)，但 brain 偶 forget = mistake leak through。
+呢類錯誤共同 pattern: **靠手動紀律**。你個腦應 remember 每次 do X (format / verify / scan)，但個腦偶然會唔記得 = 錯誤漏出去。
 
-**Hook** 解決: Claude Code execution lifecycle 嘅 specific event 你可以 hook 入去 — 自動 run你 desired check / action。
+**Hook** 解決: Claude Code execution lifecycle 嘅 specific event 你可以 hook 入去 — 自動 run 你想要嘅 check / action。
 
-**3 個 key event**:
+**3 個關鍵 event**:
 
 - **PreToolUse**: before Claude runs any tool (read / write / bash / etc) — 可以 inspect + block
 - **PostToolUse**: after tool runs — 可以 react / chain
 - **Stop**: end of session — final verification / cleanup
 
-呢篇拆 5 個 essential hooks + setup walkthrough。
+呢篇拆 5 個必備 hooks + setup walkthrough。
 
 ## 跟住做
 
 ### 1. Hook architecture
 
-Hook = 一個 shell script 你 register 喺 Claude Code settings.json。每次 specific event fires, Claude Code 自動 run 你 script + decide action based on script's exit code.
+Hook = 一個 shell script 你 register 喺 Claude Code settings.json。每次 specific event fires, Claude Code 自動 run 你 script + decide action based on script's exit code。
 
 ```
 [Claude action: write file] 
@@ -63,7 +63,7 @@ Open settings:
 
 ```bash
 claude --config
-# 或 manual edit ~/.claude/settings.json
+# 或手動 edit ~/.claude/settings.json
 ```
 
 Hook structure:
@@ -97,10 +97,10 @@ Hook structure:
 }
 ```
 
-- `matcher`: tool name (Bash / Write / Read / Edit / etc) hook only fires for matching tool
+- `matcher`: tool name (Bash / Write / Read / Edit / etc) — hook 只係 matching tool 嗰陣 fire
 - `command`: shell script path
 
-### 3. Hook 1 — Block destructive commands (safety)
+### 3. Hook 1 — Block 破壞性命令 (safety)
 
 Create `~/.claude/hooks/pre-bash-safety.sh`:
 
@@ -139,9 +139,9 @@ exit 0
 
 Register hook (per Step 2 example)。
 
-Effect: 如 Claude 試 `rm -rf /` (real or accidental)，hook block + Claude see error → try alternative approach。
+Effect: 如 Claude 試 `rm -rf /` (真嘅或唔小心)，hook block + Claude see error → try alternative approach。
 
-### 4. Hook 2 — Auto-format after write
+### 4. Hook 2 — Write 完自動 format
 
 Create `~/.claude/hooks/post-write-format.sh`:
 
@@ -150,7 +150,7 @@ Create `~/.claude/hooks/post-write-format.sh`:
 input=$(cat)
 file_path=$(echo "$input" | jq -r '.tool_input.file_path')
 
-# 確認 是 code file
+# 確認係 code file
 if [[ "$file_path" =~ \.(ts|tsx|js|jsx|json|md)$ ]]; then
   cd "$(dirname "$file_path")"
   # Use prettier if installed
@@ -164,9 +164,9 @@ exit 0
 
 `chmod +x` + register PostToolUse for Write matcher。
 
-Effect: Claude write 新 file / edit existing file → prettier format auto runs → 你 never see lint error from formatting。
+Effect: Claude write 新 file / edit existing file → prettier format 自動 run → 你永遠唔會見到 formatting lint error。
 
-### 5. Hook 3 — Stop session cleanup
+### 5. Hook 3 — Stop session 時 cleanup
 
 Create `~/.claude/hooks/stop-cleanup.sh`:
 
@@ -201,9 +201,9 @@ Register as Stop hook:
 }
 ```
 
-Effect: 每次 你 exit Claude Code session → cleanup runs → 你 git working dir always clean from cruft。
+Effect: 每次你 exit Claude Code session → cleanup runs → 你 git working dir 永遠唔會留低 cruft。
 
-### 6. Hook 4 — Pre-commit safety check
+### 6. Hook 4 — Pre-commit 安全 check
 
 Create `~/.claude/hooks/pre-bash-precommit.sh`:
 
@@ -230,11 +230,11 @@ fi
 exit 0
 ```
 
-Register PreToolUse for Bash matcher (along with safety check)。
+Register PreToolUse for Bash matcher (連 safety check 一齊)。
 
 Effect: Claude 試 `git commit` → hook check staged content → 如 detected secret → block + suggest review。
 
-### 7. Hook 5 — Auto-test after code change
+### 7. Hook 5 — Code change 完自動 test
 
 Create `~/.claude/hooks/post-write-test.sh`:
 
@@ -253,15 +253,15 @@ fi
 exit 0
 ```
 
-Effect: Claude edit src file → test auto run → result shown to Claude → Claude react if fail。
+Effect: Claude edit src file → test 自動 run → result 顯示畀 Claude → Claude react if fail。
 
-⚠️ 唔 啱 大 test suite (slow). For 大 project, restrict to specific test pattern or skip。
+⚠️ 唔啱大 test suite (慢)。對大 project，限制 specific test pattern 或者跳過。
 
 ## 變化
 
 ### 變化 1：Project-scope hook
 
-User-level hook in `~/.claude/settings.json` applies all project. Project-scope hook in `./.claude/settings.json` applies only this project:
+User-level hook in `~/.claude/settings.json` 適用全部 project。Project-scope hook in `./.claude/settings.json` 只適用呢個 project:
 
 ```json
 // .claude/settings.json in project root
@@ -281,9 +281,9 @@ User-level hook in `~/.claude/settings.json` applies all project. Project-scope 
 ```
 
 Use case:
-- Some project 嚴格 lint rule
-- Some project 唔 want auto-format (legacy code)
-- Some project specific deploy 命令 need extra guard
+- 某 project 嚴格 lint rule
+- 某 project 唔想 auto-format (legacy code)
+- 某 project 具體 deploy 命令需要額外 guard
 
 ### 變化 2：Conditional hook (event filter)
 
@@ -303,33 +303,33 @@ fi
 # ... rest of script
 ```
 
-呢個 granularity 等你 hook 只觸發 真 relevant case。
+呢個 granularity 等你 hook 只觸發真正 relevant case。
 
-### 變化 3：Hook + Skills + Commands combination
+### 變化 3：Hook + Skills + Commands 三者組合
 
-3-tier customization stack: hooks + skills + slash commands.
+3-tier customization stack: hooks + skills + slash commands。
 
-- **Hooks**: passive automation (event-triggered)
-- **Skills**: workflow logic (auto-detect intent)
-- **Commands**: explicit user trigger
+- **Hooks**: 被動自動 (event-triggered)
+- **Skills**: workflow logic (自動 detect intent)
+- **Commands**: 用戶明確 trigger
 
 Use case:
-- `/deploy` command 觸發 → spawn 4 subagents (parallel checks) → 每個 subagent 寫 file → PostWrite hook auto-format → 一切 deploy gate clean → 你 1 word done.
+- `/deploy` command 觸發 → spawn 4 subagents (並行 checks) → 每個 subagent 寫 file → PostWrite hook 自動 format → 一切 deploy gate clean → 你 1 個 word 搞掂。
 
 呢個 architecture 高 sophistication 但 highly leveraged daily workflow。
 
 ## 一個 mindset
 
-Hooks 嘅 deeper insight: **AI agent + human collaboration 嘅 safety + quality 唔 should 全 manual discipline. Automate the boring guardrails.**
+Hooks 嘅深層 insight: **AI agent + human 協作嘅安全 + quality 唔應該全靠手動紀律。將煩悶嘅 guardrails 自動化。**
 
-你 brain capacity 應 spent on judgment (邊 design choice better, 邊個 trade-off 該揀), 唔 spent on remembering (run format / run test / check secret). Hooks 將 後者 offload 至 system.
+你個腦 capacity 應該 spend 喺 judgment (邊個 design choice 較好, 邊個 trade-off 該揀)，唔好 spend 喺 remembering (run format / run test / check secret)。Hooks 將後者 offload 落 system。
 
-呢個 reframe: hook 唔 「micromanage Claude」, hook 「automate 我 own discipline」. Claude action OK → hook silent. Claude action problematic → hook intercept and prevent error 我會做.
+呢個 reframe: hook 唔係「micromanage Claude」，hook 係「自動化我自己嘅紀律」。Claude action OK → hook 靜靜地。Claude action 有問題 → hook 攔截 + 防止我會做嘅錯誤。
 
 最後 reminder：
 
-- ✅ **Start with 1-2 hook** (safety + format). 加 1 個 / 月 as you spot 重複 manual action.
-- ⚠️ **Hook script bug 可以 block 全部 Claude action**. Test hook in isolation before depend on it.
-- 🎯 **Share team-level hook in git repo**. Pre-commit secret scan should be team-wide.
+- ✅ **由 1-2 個 hook 開始** (safety + format)。每月加 1 個，當你發現重複嘅手動動作。
+- ⚠️ **Hook script bug 可以 block 全部 Claude action**。隔離 test hook 至 depend on it。
+- 🎯 **Share team-level hook 入 git repo**。Pre-commit secret scan 應該係 team-wide。
 
-下個 hour write 1 個 safety hook block destructive command. 你 sleep tonight 唔 worry Claude run rogue command.
+下個鐘 write 1 個 safety hook block 破壞性命令。你今晚瞓覺唔使擔心 Claude run rogue command。
