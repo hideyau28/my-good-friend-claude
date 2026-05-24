@@ -1,5 +1,5 @@
 ---
-title: "Cowork 自動 schedule social post：由 newsletter 拆條 IG / Threads / FB / LinkedIn"
+title: "Cowork 自動排程社交貼文：由 newsletter 拆做 IG / Threads / FB / LinkedIn"
 slug: "cowork-social-media-scheduler"
 issue: 33
 publishedAt: 2026-07-21
@@ -11,7 +11,7 @@ heroImage: "/hero/cowork-social-media-scheduler.webp"
 difficulty: 2
 timeMinutes: 50
 toolsNeeded: ["Claude Cowork", "Buffer / Later", "Newsletter (Beehiiv etc.)"]
-description: "Cowork 自動 social schedule：每星期由 newsletter 拆 5 條 native social post（IG caption、Threads、FB、LinkedIn、X thread），自動排 Buffer / Later。Solo creator 嘅 distribution 一鍵化。"
+description: "Cowork 自動排程社交媒體：每星期由 newsletter 拆出 5 條原生貼文（IG caption、Threads、FB、LinkedIn、X thread），自動排落 Buffer / Later。Solo creator 嘅分發流程一鍵化。"
 keywords: ["social media 自動 schedule", "buffer 自動化", "創作者 ai 工具", "newsletter 變 social post", "claude cowork creator"]
 related: ["claude-content-repurpose", "cowork-weekly-inbox-triage"]
 featured: false
@@ -19,29 +19,29 @@ featured: false
 
 ## 情境
 
-你係 solo creator / 小品牌 owner。 每星期：
+你係 solo creator / 小品牌老闆。每星期：
 
 - 寫一篇 newsletter（300-800 字嗰種）
-- 然後 manually 拆 5 條 social media post：
+- 然後手動拆 5 條社交媒體貼文：
   - IG caption + hashtag
   - Threads
   - Facebook
   - LinkedIn
   - X thread
 
-正常人 1-1.5 小時 done。 你又要 schedule 落 Buffer / Later，再隔幾個 timezone 重 review。
+正常人 1-1.5 個鐘搞掂。你又要排程落 Buffer / Later，再隔幾個時區重新檢視。
 
-呢類 distribution work 係 根本機械式。 創作 newsletter 嘅 unique value 喺你；distribute newsletter 嘅 leverage 喺 automation。
+呢類分發工作根本係機械式。創作 newsletter 嘅獨特價值喺你度；分發 newsletter 嘅槓桿就喺自動化。
 
-呢篇用 Cowork 設定：**每星期一 newsletter publish 之後，自動拆 5 條 social post + schedule 落 Buffer queue**。
+呢篇用 Cowork 設定：**每星期一 newsletter 發佈之後，自動拆 5 條社交貼文 + 排程落 Buffer 隊列**。
 
-> ⚠️ Cowork research preview。 涉及 social account access，set up minimum-permission OAuth。 永遠 「Draft to queue」 唔係 「Publish immediately」——保留 final human review。
+> ⚠️ Cowork 仲係研究預覽版。涉及社交帳號權限，設定最低權限嘅 OAuth。永遠「Draft to queue」唔係「Publish immediately」——保留最後嘅人手檢視。
 
 ## 跟住做
 
-### 1. 建立 newsletter source
+### 1. 建立 newsletter 來源
 
-由 Beehiiv（或者你 newsletter platform）setup webhook / RSS feed 落一個 dedicated folder：
+由 Beehiiv（或者你嘅 newsletter 平台）設定 webhook / RSS feed 落一個專用資料夾：
 
 ```
 ~/Documents/newsletter-published/
@@ -49,149 +49,149 @@ featured: false
     └── YYYY-MM-DD-issue-N.md
 ```
 
-每次 publish newsletter，呢度自動有 markdown copy。
+每次發佈 newsletter，呢度會自動有 markdown 副本。
 
-### 2. 用呢個 prompt setup
+### 2. 用呢個 prompt 設定
 
-<PromptBlock label="完整 prompt — Setup weekly social distribution">
-我想 set up Cowork 自動將我嘅 newsletter 拆做 social post。
+<PromptBlock label="完整 prompt — 設定每週社交分發">
+我想設定 Cowork 自動將我嘅 newsletter 拆做社交貼文。
 
-**Trigger：** 每星期 newsletter publish 之後 4 小時（即 Sunday 1pm，避開 send 嗰個 moment）
+**觸發條件：** 每星期 newsletter 發佈之後 4 個鐘（即星期日 1pm，避開 send 嗰一刻）
 
-**Input：** ~/Documents/newsletter-published/ 嘅 latest .md file
+**輸入來源：** ~/Documents/newsletter-published/ 嘅最新 .md 檔案
 
-**每次 trigger：**
+**每次觸發：**
 
-**第一步：read newsletter**
-- Pick 出 newsletter 嘅 central idea（1 句）
-- Pick 出 2-3 個 supporting quote / observation
-- Pick 出 newsletter URL（最頂 metadata）
+**第一步：讀取 newsletter**
+- 抽出 newsletter 嘅中心思想（1 句）
+- 抽出 2-3 個支持觀點嘅引言 / 觀察
+- 抽出 newsletter URL（最頂嘅中繼資料）
 
-**第二步：generate 5 platform-native posts**
+**第二步：生成 5 條平台原生貼文**
 
-每個 platform 嘅 specific rule：
+每個平台嘅具體規則：
 
 A. **IG Caption**（300 字內）
-- Hook 第一句
+- 吸引眼球嘅第一句 (Hook)
 - 中段用 emoji 分段
 - 結尾 CTA：「完整版 link in bio」
-- 5-8 hashtag mix 大細 tag
+- 5-8 個 hashtag，混合大細 tag
 
 B. **Threads post**（500 字內）
 - 唔用 hashtag
-- 分多段，conversational
-- Link 喺 conversation thread reply（avoid 第一條 post link 被 throttle）
+- 分多段，對話語氣
+- Link 放喺對話串回覆度（避免第一條貼文嘅 link 被限流）
 
 C. **Facebook post**（400 字）
-- 開頭 personal hook
-- Narrative storytelling
-- 結尾 CTA + question
+- 開頭有個人化吸引點 (personal hook)
+- 敘事形式講故事
+- 結尾 CTA + 問題
 
 D. **LinkedIn post**（300 字）
-- Insight opening
-- 3 個 bullet takeaway
-- 結尾 thoughtful question
+- 有洞察力嘅開場白
+- 3 個重點 (takeaway)
+- 結尾有深度嘅問題
 
 E. **X thread**（5-7 條 tweet）
 - 第一條 hook
-- 中間 narrative
+- 中間講故事
 - 最後 CTA
 
-**第三步：draft 落 Buffer queue**
-- Push 每個 post 落對應 platform 嘅 Buffer queue
-- Schedule timing：
-  - IG: 該週 Tuesday 11am
-  - Threads: 該週 Wednesday 4pm
-  - Facebook: 該週 Thursday 9am
-  - LinkedIn: 該週 Tuesday 8am
-  - X thread: 該週 Wednesday 10am
-- Status：**Draft（pending review）**，唔係 immediately publish
+**第三步：草稿放入 Buffer 隊列**
+- 將每條貼文推落對應平台嘅 Buffer 隊列
+- 排程時間：
+  - IG: 該週星期二 11am
+  - Threads: 該週星期三 4pm
+  - Facebook: 該週星期四 9am
+  - LinkedIn: 該週星期二 8am
+  - X thread: 該週星期三 10am
+- 狀態：**草稿（等待檢視）**，唔係即時發佈
 
-**第四步：email me review reminder**
+**第四步：電郵我檢視提醒**
 - Subject：「Weekly Social Schedule Ready for Review — N posts queued」
-- Body：每個 post 嘅 preview + Buffer link 直接去 edit
-- 我有 24 小時 review（Sunday 5pm → Monday 5pm）
-- Monday 5pm 之後 posts auto-publish per schedule
+- 內容：每個貼文嘅預覽 + Buffer link 直接去編輯
+- 我有 24 小時檢視（星期日 5pm → 星期一 5pm）
+- 星期一 5pm 之後貼文按排程自動發佈
 
-**Constraints：**
-- 唔好 自動 publish——only queue as draft
-- 唔好 改 hashtag / 內容 一旦 I edited
-- Privacy：唔好 mention 任何 internal team / client name 喺 social post（除非 newsletter 已 publicly mention）
+**限制：**
+- 唔好自動發佈——只可以排隊做草稿
+- 唔好改 hashtag / 內容一旦我編輯過
+- 私隱：唔好喺社交貼文提及任何內部團隊 / 客戶名（除非 newsletter 已經公開提過）
 
-Setup 好之後 confirm，再 schedule。
+設定好之後確認，再排程。
 </PromptBlock>
 
-### 3. 第一週 manual review 仔細
+### 3. 第一個禮拜仔細人手檢視
 
-第一次 output 通常 80% OK，20% 要 tweak：
+第一次輸出通常 80% OK，20% 要微調：
 
-- Hashtag relevance（Claude 嘅 default hashtag 可能過時）
-- LinkedIn tone（容易 too「Threads-y」）
-- IG hook（first sentence 攔截力）
+- Hashtag 相關度（Claude 嘅預設 hashtag 可能過時）
+- LinkedIn 語氣（容易太「Threads 味」）
+- IG hook（第一句嘅攔截力）
 
-第二週 onwards，review time 由 30 分鐘 cut 到 10 分鐘。
+第二個禮拜開始，檢視時間由 30 分鐘減到 10 分鐘。
 
-### 4. 月底 evaluate engagement
+### 4. 月尾評估互動率
 
-每月底 review Buffer analytics：
-- 邊個 platform engagement 強過 baseline
-- 邊個 post format AI consistently 出 weak（要 manually rewrite）
+每個月尾檢視 Buffer 數據分析：
+- 邊個平台嘅互動率強過基準
+- 邊種貼文格式 AI 持續出得差（要人手重寫）
 
-Iterate prompt → improve output → less manual editing。 通常 3-4 個月 reach reasonable autopilot。
+改良 prompt → 改善輸出 → 減少人手編輯。通常 3-4 個月就會達到合理嘅自動導航狀態。
 
 ## 變化例子
 
 ### 變化 1：Podcast 而唔係 newsletter
 
 <PromptBlock label="變化 1 — Podcast → social">
-我源頭係 podcast，唔係 newsletter。
-每集 publish 之後我 want similar distribution：
+我嘅源頭係 podcast，唔係 newsletter。
+每集發佈之後我想要類似嘅分發：
 
-- 用 podcast transcript 做 source
-- 拆 3-4 個 quote graphic（IG carousel slide）
-- 拆 1 個 60-second clip script（reel / shorts）
-- LinkedIn announcement post
+- 用 podcast 逐字稿做來源
+- 拆 3-4 個引言圖（IG carousel slide）
+- 拆 1 個 60 秒嘅短片講稿（reel / shorts）
+- LinkedIn 公佈貼文
 
-請 modify 流程 fit podcast workflow。
+請修改流程去配合 podcast 工作流程。
 </PromptBlock>
 
-### 變化 2：Brand owner 嘅 product launch distribution
+### 變化 2：品牌老闆嘅產品發佈公佈
 
-<PromptBlock label="變化 2 — Product launch announcement">
-我有產品 launch announcement（[描述]）。 唔同 newsletter 嘅 weekly schedule，呢個係 one-off。
+<PromptBlock label="變化 2 — 產品發佈公佈">
+我有產品發佈公佈（[描述]）。同 newsletter 嘅每週排程唔同，呢個係一次性嘅。
 
 請：
-1. 拆 announcement 為 launch-day staggered post（不同 platform 唔同時間）
-2. 加 pre-launch teaser post（launch 前 3 日）
-3. 加 post-launch follow-up（launch 後 1 週收 reaction）
-4. Calendar 上 sync 落 Buffer 全部 draft（我可以 review timing 同 message）
+1. 拆份公佈做發佈日錯開時間嘅貼文（唔同平台唔同時間）
+2. 加預熱貼文（發佈前 3 日）
+3. 加發佈後跟進（發佈後 1 個禮拜收集反應）
+4. 日曆上同步落 Buffer 做全部草稿（等我可以檢視時間同訊息）
 </PromptBlock>
 
-### 變化 3：你係 employer brand / company comms
+### 變化 3：你負責企業品牌 / 公司通訊
 
-<PromptBlock label="變化 3 — Company comms">
-我做緊 [公司] 嘅 marketing / comms。 我 source 係 internal company blog（[平台]）。
+<PromptBlock label="變化 3 — 公司通訊">
+我做緊 [公司] 嘅 marketing / comms。我嘅來源係內部公司 blog（[平台]）。
 
 請：
-1. Cross-post 不同 platform，但 maintain brand voice consistency
-2. 自動 tag 公司 official account（IG @companyname、LinkedIn company page）
-3. Compliance check：post 之前 flag 任何 share confidential / non-public info
-4. Manual approval 必須：每個 platform 第一條 post 我 manual approve 先 publish
+1. 跨平台發佈，但保持品牌語氣一致
+2. 自動 tag 公司官方帳號（IG @companyname、LinkedIn company page）
+3. 合規檢查：發佈之前標示任何分享機密 / 非公開資訊嘅內容
+4. 必須人手批准：每個平台第一條貼文我要人手批准先發佈
 
-呢個 use case stake 大（reputation risk），保守 default。
+呢個用途風險大（聲譽風險），預設要保守。
 </PromptBlock>
 
-## 一個 framing
+## 一個思維框架
 
-Social distribution 嘅 mental cost 比想像高：
+社交分發嘅腦力消耗比想像中高：
 
-- 「我要切換 mental model 由 long form writer → IG caption writer」
+- 「我要切換思維模式由寫長文 → 寫 IG caption」
 - 「我要諗 hashtag」
-- 「我要 schedule timing」
-- 「我要 Buffer login」
+- 「我要排程時間」
+- 「我要登入 Buffer」
 
-每樣個別 small，但累積 lose 兩個鐘 + 一個 fresh weekend morning。
+每樣獨立睇好小事，但累積起上嚟會冇咗兩個鐘 + 一個清爽嘅週末朝早。
 
-Cowork 嘅 leverage 唔止係慳時間，係 **「我嘅 creative energy 留落 newsletter 本身」**——distribution 變 background process。
+Cowork 嘅槓桿唔止係慳時間，係 **「我嘅創作精力留返落 newsletter 本身」**——分發變成後台程序。
 
-最重要 reminder：**永遠唔好 Cowork 自動 publish**。 Auto-queue + Human review + Manual approval — 3 步永遠保持。
+最重要嘅提醒：**永遠唔好畀 Cowork 自動發佈**。自動排隊 + 人手檢視 + 人手批准 — 呢 3 步永遠要保持。
