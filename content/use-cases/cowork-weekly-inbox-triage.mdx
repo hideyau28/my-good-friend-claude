@@ -1,5 +1,5 @@
 ---
-title: "Cowork 每週一早 9am 自動 triage inbox：draft 你最重要 3-5 個 reply"
+title: "Cowork 每週一朝早 9am 自動分類 inbox：起草你最重要 3-5 個回覆"
 slug: "cowork-weekly-inbox-triage"
 issue: 32
 publishedAt: 2026-07-14
@@ -11,7 +11,7 @@ heroImage: "/hero/cowork-weekly-inbox-triage.webp"
 difficulty: 2
 timeMinutes: 40
 toolsNeeded: ["Claude Cowork", "Gmail / Outlook"]
-description: "Inbox 自動化：用 Claude Cowork 每週一早 9am 自動 triage Gmail，分類、識別 important，draft 3-5 個你應該即刻 reply 嘅 email。HK 打工仔星期一返工嘅 zero-anxiety setup。"
+description: "Inbox 自動化：用 Claude Cowork 每週一朝早 9am 自動分類 Gmail、識別重點，起草 3-5 個你應該即刻覆嘅 email。HK 打工仔星期一返工嘅零焦慮設定。"
 keywords: ["email 自動化", "inbox zero", "打工仔 ai", "gmail 工作流程", "週一 inbox"]
 related: ["cowork-order-automation", "claude-pdf-summary"]
 featured: true
@@ -19,195 +19,195 @@ featured: true
 
 ## 情境
 
-星期一早上 8:45。你坐返公司 / 開電腦 work from home。打開 Gmail：
+星期一朝早 8:45。你坐返公司 / 開電腦 work from home。打開 Gmail：
 
 > **247 unread, 35 from this weekend**
 
-你開始 scroll，但 brain 仲未 boot up。前 15 分鐘係 scroll、scroll、scroll，5 個 email 開咗冇覆、3 個 issue 你 register 唔到 priority。 9:30，meeting 開始，你還未真正 start 你嘅 day。
+你開始碌落去，但個腦仲未開機。頭 15 分鐘淨係碌、碌、碌，5 個 email 開咗冇覆、3 個問題你搞唔清優先次序。 9:30，開會開始，你都仲未真正開始你嘅一日。
 
-呢個 weekly pattern 每個禮拜 lose 30-45 分鐘。 一年 = 26 小時 = 3 個 work day。
+呢個每週循環每個禮拜浪費 30-45 分鐘。一年 = 26 個鐘 = 3 個工作日。
 
-呢篇 setup Cowork 每週一早 9am 自動 run：
+呢篇教你設定 Cowork 每週一朝早 9am 自動運行：
 
-- Triage 過去 3 日所有 email
-- 分類（actionable / FYI / spam / waiting on me / waiting on others）
-- Draft 3-5 個你應該即刻 reply 嘅 email
-- 寄一封 「Inbox Brief」email 落你個人 inbox
+- 分類過去 3 日所有 email
+- 歸類（要行動 / 純通知 / 垃圾信 / 等我覆 / 等人覆）
+- 起草 3-5 個你應該即刻覆嘅 email
+- 寄一封「Inbox 簡報」落你個人 inbox
 
-你 9am 開電腦，個 brief 已經 sitting there。 你睇 5 分鐘，撳 send 3-4 個 draft，9:15 你 inbox zero、 brain ready，準備 meeting。
+你 9am 開電腦，份簡報已經喺度。你睇 5 分鐘，撳 send 3-4 個草稿，9:15 你 inbox 清空、個腦準備好，可以去開會。
 
-> Caveat：Cowork 直接 read 你 Gmail，需要 OAuth permission。你 set 之前確認公司 policy，敏感行業（finance / healthcare / law）可能唔可以。**呢個 process 不可以 send email 自動——只可以 draft + 等你 review**。
+> 注意：Cowork 直接讀你 Gmail，需要 OAuth 權限。你設定之前要確認公司政策，敏感行業（金融 / 醫療 / 法律）可能唔得。**呢個工作流程絕對唔可以設定為自動 send email——只可以起草 + 等你檢視**。
 
 ## 跟住做
 
-### 1. 整理 Gmail label 結構
+### 1. 整理 Gmail 標籤結構
 
-Cowork 嘅 triage 質素 depend 你 label setup 嘅清晰度。 喺 setup 之前喺 Gmail 整：
+Cowork 嘅分類質素取決於你標籤設定有幾清晰。設定之前喺 Gmail 整好：
 
 ```
-01-Action          ← 我需要 reply / take action
-02-Awaiting        ← 我已 reply，等對方
-03-Reference       ← 唔需要 action，但要 keep
-04-Newsletter      ← Subscribe 嘢
-05-Calendar        ← Meeting invite
-99-Archive         ← Done, 可以 archive
+01-Action          ← 我需要覆 / 採取行動
+02-Awaiting        ← 我已覆，等對方
+03-Reference       ← 唔需要行動，但要保留
+04-Newsletter      ← 訂閱嘅資訊
+05-Calendar        ← 會議邀請
+99-Archive         ← 搞掂, 可以封存
 ```
 
-如果你已經有 Gmail label，用你自己嘅 schema。Cowork 識 learn 你嘅 system。
+如果你已經有 Gmail 標籤，用你自己嘅分類系統。Cowork 識得學習你套系統。
 
-### 2. 用呢個 prompt setup
+### 2. 用呢個 prompt 設定
 
-<PromptBlock label="完整 prompt — Setup 每週一早 inbox triage">
-我想 set up 一個每週一早 9am 自動執行嘅 inbox triage task。流程：
+<PromptBlock label="完整 prompt — Setup 每週一朝早 inbox 分類">
+我想設定一個每星期一朝早 9am 自動運行嘅 inbox 分類工作。流程：
 
-**Trigger time：** 每星期一 09:00（HKT）
+**觸發時間：** 每星期一 09:00（HKT）
 
-**Input source：**
-- 我嘅 Gmail（OAuth-connected）
-- 我自己 label structure：[paste your label list]
+**輸入來源：**
+- 我嘅 Gmail（OAuth 連接咗）
+- 我自己嘅標籤結構：[貼上你嘅標籤清單]
 
-**每次 run：**
+**每次運行：**
 
-**第一步：collect email**
-- Scan past 3 days（Friday 9am → Monday 9am）
+**第一步：收集 email**
+- 掃瞄過去 3 日（星期五 9am → 星期一 9am）
 - 排除：
-  - 已讀但 archived 嘅
-  - 我已經 reply 嘅 thread
-  - Marketing email（用 List-Unsubscribe header 識別）
-  - Calendar invite（separately handle）
+  - 已讀但封存咗嘅
+  - 我已經覆咗嘅對話串
+  - 推銷 email（用 List-Unsubscribe 標頭識別）
+  - 日曆邀請（分開處理）
 
-**第二步：classify**
-每封 email 分入以下 bucket：
+**第二步：歸類**
+將每封 email 分入以下類別：
 
-A. **Action — high priority**：要我 reply / decide 嘅，sender 係 senior 或 customer 或 deadline-sensitive
-B. **Action — normal**：要我 reply，但唔 urgent
-C. **FYI — keep informed**：唔需要 reply，但內容對我 future 有 implication
-D. **Awaiting me**：我之前承諾 follow-up 嘅 thread，對方等緊
-E. **Awaiting others**：我已 ball back to 對方，等對方
-F. **Noise**：marketing / newsletter / spam
-G. **Calendar**：meeting invite / reschedule request
+A. **行動 — 高優先**：要我覆 / 決定嘅，寄件人係高層或客，或者有死線
+B. **行動 — 普通**：要我覆，但唔急
+C. **純通知 — 了解情況**：唔需要覆，但內容對我將來有影響
+D. **等我覆**：我之前應承過跟進嘅對話，對方等緊
+E. **等人覆**：我已經交咗個波畀對方，等對方覆
+F. **雜訊**：推銷 / 通訊 / 垃圾信
+G. **日曆**：會議邀請 / 改期要求
 
-每封 email：「from + subject + 你嘅 classification + 1 句 rationale」
+每封 email 列出：「寄件人 + 主旨 + 你嘅歸類 + 1 句理據」
 
-**第三步：identify hidden importance**
-特別 flag 以下 「easy to miss」 嘅 email：
-- 我被 @ mention 但係 part of 大 thread
-- Subject line 唔搶眼但內容係 deadline 或 ask
-- 由 senior（VP+、CEO、important client）send 但短嘅 email
-- 任何 reply 喺一個我已經 「forgotten」 嘅舊 thread
+**第三步：識別隱藏重點**
+特別標示以下「容易睇漏」嘅 email：
+- 我被 @ 提及但隱藏喺長對話串入面
+- 主旨唔搶眼但內容有死線或要求
+- 由高層（VP 以上、CEO、重要客）寄出但好短嘅 email
+- 任何回覆落去一個我已經「遺忘咗」嘅舊對話串
 
-**第四步：draft replies for 3-5 emails**
+**第四步：起草 3-5 封回覆**
 
-揀 3-5 個最 critical 嘅 actionable email，draft reply。要求：
+揀 3-5 個最關鍵、需要行動嘅 email，起草回覆。要求：
 
-- Draft 唔好 verbose，2-3 句到位（保留我自己 tone preference）
-- 如果係 complex decision 唔可以一句答，draft holding pattern：「Received, will revert by [reasonable time]」
-- 如果係 ask 我提供 info 我 not yet have，draft「Acknowledging the ask, will follow up by [日期] with [specific deliverable]」
+- 草稿唔好長篇大論，2-3 句到位（保留我自己嘅語氣偏好）
+- 如果係複雜決定唔可以一句答，起草暫緩回覆：「收到，會喺 [合理時間] 覆你」
+- 如果係要求我提供我仲未有嘅資料，起草：「收到要求，會喺 [日期] 帶埋 [具體資料] 覆你」
 
-每個 draft：
-- Email recipient
-- Original email summary（1 句）
-- Draft reply text
-- 我可以 send as-is 嘅 indicator（「Send as-is」） vs 需要 edit（「Draft for your customization」）
+每個草稿要有：
+- 收件人
+- 原 email 總結（1 句）
+- 草稿內容
+- 我可以直接 send 嘅提示（「可直接發送」） vs 需要修改（「供你修改嘅草稿」）
 
-**第五步：寄 Inbox Brief 落我**
+**第五步：寄 Inbox 簡報畀我**
 
-Email 我 subject：「Monday Inbox Brief — X actionable, Y awaiting you」
+Email 畀我，主旨：「星期一 Inbox 簡報 — X 個需行動，Y 個等你覆」
 
-Body 結構：
-1. **Headline numbers**：total processed、A+B count、urgent flags
-2. **High priority action list**（按 priority 排）
-3. **Draft replies**（above）— 用 markdown code block format，方便我直接 copy paste 落 Gmail
-4. **Hidden importance flags**（容易 miss 嗰啲）
-5. **Awaiting others — overdue list**（我 ball-backed 但對方 > 5 日冇覆嘅，可能要 follow-up）
-6. **FYI digest**（5 個 most important FYI 嘅 1-句 summary）
-7. **Noise filtered out**：count + 任何 unusual marketing pattern
+內容結構：
+1. **重點數字**：總共處理咗幾多、A+B 數量、緊急標示
+2. **高優先行動清單**（按優先次序排）
+3. **回覆草稿**（如上）— 用 markdown 格式，方便我直接複製貼上落 Gmail
+4. **隱藏重點標示**（容易睇漏嗰啲）
+5. **等人覆 — 逾期清單**（我交咗波但對方超過 5 日冇覆嘅，可能要跟進）
+6. **通知摘要**（5 個最重要嘅通知，每行 1 句總結）
+7. **過濾咗嘅雜訊**：數量 + 任何唔尋常嘅推銷規律
 
-**重要 constraints：**
-- 唔好 send 任何 email 自動（all draft only）
-- 唔好 archive / delete / mark read 任何 email（只 read）
-- 如果 thread 比較 complex，stay safe，標 「Manual review needed」 唔好 draft
-- Privacy：唔好 forward 任何 personal email 內容俾我之外嘅人
+**重要限制：**
+- 絕對唔好自動 send 任何 email（全部只係草稿）
+- 唔好封存 / 刪除 / 標示已讀任何 email（只讀取）
+- 如果對話串比較複雜，穩陣起見，標示「需要人手檢視」，唔好起草
+- 私隱：唔好將任何私人 email 內容轉發畀我以外嘅人
 
-Setup 好之後 confirm，再 schedule 落每星期一 9am 行。
+設定好之後確認，再排程落每星期一 9am 運行。
 </PromptBlock>
 
-### 3. 第一週 dry run
+### 3. 第一個禮拜試運行
 
-第一次 set up 一定要 dry run：「即時跑一次（now，唔係下個星期一），showcase output，唔好真 send 個 brief」。
+第一次設定一定試運行 (dry run)：「即時跑一次（而家，唔係下個星期一），展示輸出，唔好真係 send 份簡報」。
 
-第一次見到 output 嗰陣 check：
-- Classification accuracy（A vs B vs C 嘅判斷準唔準）
-- Hidden importance：有冇 catch 到啲 subtle ask
-- Draft reply：tone 似唔似你
+第一次見到輸出嗰陣檢查：
+- 歸類準確度（A vs B vs C 嘅判斷準唔準）
+- 隱藏重點：有冇捉到啲唔顯眼嘅要求
+- 草稿回覆：語氣似唔似你
 
-執 fine-tune（你會發現某 sender 嘅 weighting 要調、某 keyword 嘅 false positive 等）。 通常頭兩個禮拜會 iterate，第三週開始 stable。
+微調（你會發現某個寄件人嘅比重要調校、某啲關鍵字會誤判等）。通常頭兩個禮拜會反覆修正，第三個禮拜開始穩定。
 
-### 4. 第三週開始嘅你
+### 4. 第三個禮拜開始嘅你
 
-每星期一 9am 開機，individual mental cost：
+每星期一 9am 開機，個人腦力消耗：
 
-- 開 Inbox Brief（5 分鐘 read）
-- Copy-paste 3 個 「Send as-is」 draft + 撳 send（3 分鐘）
-- 1-2 個 「Draft for customization」 fine-tune 同 send（5 分鐘）
-- Acknowledge `Hidden importance flag`（2 分鐘）
-- 9:15 done，inbox 處理咗 70%，brain ready 開 meeting
+- 開 Inbox 簡報（5 分鐘睇）
+- 複製貼上 3 個「可直接發送」草稿 + 撳 send（3 分鐘）
+- 1-2 個「供你修改嘅草稿」微調同 send（5 分鐘）
+- 確認 `隱藏重點標示`（2 分鐘）
+- 9:15 搞掂，inbox 處理咗 70%，個腦準備好開會
 
-呢個 leverage 唔係慳時間，係 **降低 anxiety**。 你唔再驚 「我可能 miss 咗一封重要 email」——Cowork 已經 review 過。
+呢個槓桿唔係慳時間，係 **降低焦慮**。你唔再驚「我可能睇漏咗一封重要 email」——Cowork 已經檢視過。
 
 ## 變化例子
 
-### 變化 1：每日早上 8:30 跑（vs 每週一）
+### 變化 1：每日朝早 8:30 跑（對比每週一）
 
-<PromptBlock label="變化 1 — 每日早上 8:30 run">
-我 email volume 高（200+/day），每週一 run 唔夠 frequent。
+<PromptBlock label="變化 1 — 每日朝早 8:30 跑">
+我 email 數量高（200+/日），每星期一跑一次唔夠頻密。
 
-請 modify 為：
-- Trigger：每日早上 08:30
-- Scope：past 24 hours email
-- Format simplified：1 段 summary + 3 個 draft（唔需要 elaborate sections）
-- Friday 嗰個 run 加 weekend coverage hint：「有冇 weekend 跟進預期？」
+請修改為：
+- 觸發：每日朝早 08:30
+- 範圍：過去 24 小時 email
+- 格式簡化：1 段總結 + 3 個草稿（唔需要詳細分類）
+- 星期五嗰次運行加週末覆蓋提示：「有冇週末跟進嘅預期？」
 
-呢個 cadence 適合 customer-facing role、客戶 expectation real-time。
+呢個節奏適合對客嘅職位、客戶期望即時回覆嘅情況。
 </PromptBlock>
 
-### 變化 2：加 task management integration
+### 變化 2：加入任務管理整合
 
 <PromptBlock label="變化 2 — Email → Todo">
-我用 [Todoist / Things / Asana] manage tasks。
+我用 [Todoist / Things / Asana] 管理任務。
 
-加 features：
-- Cowork triage 完之後，將「Action」bucket 嘅 email 自動 create 對應 task
-- Task title：「Reply: [email subject]」
-- Task due：reasonable timeline（urgent = today, normal = within 3 days）
-- 唔重覆 create task（用 email id 做 unique key）
+加功能：
+- Cowork 分類完之後，將「行動」類別嘅 email 自動建立對應任務
+- 任務標題：「回覆: [email 主旨]」
+- 任務死線：合理時間表（緊急 = 今日, 普通 = 3 日內）
+- 唔好重覆建立任務（用 email id 做唯一識別碼）
 
-如果 trade-off，呢個 process 比上面複雜啲，需要 third-party tool integration。
+取捨位：呢個工作流程比上面複雜啲，需要整合第三方工具。
 </PromptBlock>
 
-### 變化 3：你係 manager，要 monitor team email volume
+### 變化 3：你係經理，要監察團隊 email 數量
 
-<PromptBlock label="變化 3 — Manager dashboard">
-我 manage 一個 5-person team。
-我自己有 weekly inbox triage 已經做緊。
+<PromptBlock label="變化 3 — 經理層面 dashboard">
+我管理一個 5 人團隊。
+我自己每星期已經做緊 inbox 分類。
 
-加 feature：team-level pattern monitoring
-- 每週一 10am（你自己 brief 之後 1 小時）寄 team-level email：
-  - 每個 team member 收到嘅 email volume（趨勢）
-  - Flag：有冇 team member 收到大量 escalation
-  - Flag：有冇 external sender 對 multiple team member 嘅 outreach（potential conflict 信號）
+加功能：團隊層面規律監察
+- 每週一 10am（你自己簡報之後 1 個鐘）寄團隊層面 email：
+  - 每個團隊成員收到嘅 email 數量（趨勢）
+  - 標示：有冇團隊成員收到大量投訴 / 升級處理 (escalation)
+  - 標示：有冇外部寄件人對多個團隊成員發出主動接觸（潛在衝突信號）
 
-Privacy 嚴格：唔睇 individual email content，只睇 metadata（sender + 數量）。 任何 individual 嘅 detail 要 manager 自己問 team member。
+私隱嚴格要求：唔睇個別 email 內容，只睇中繼資料（寄件人 + 數量）。任何個人細節要經理自己問團隊成員。
 </PromptBlock>
 
-## 一個 framing
+## 一個思維框架
 
-Email triage 嘅問題唔係 「我 inbox 太多」——係 **「我 brain 用嚟掃 inbox 之後，已經 tired 喺真正 work」**。
+Email 分類嘅問題唔係「我 inbox 太多」——係 **「我個腦用嚟掃完 inbox 之後，已經攰到做唔到真正嘅工作」**。
 
-每個禮拜，你嘅 sharpest brain time（早上 9-11am）用嚟做 機械式 sorting。 呢個 根本係 resource misallocation。
+每個禮拜，你最精神嘅時間（朝早 9-11am）用嚟做機械式篩選。呢個根本係資源錯配。
 
-Cowork 嘅 leverage：**將 機械式 工 shift 落 9am 之前 + 自動，將你嘅 sharp time 留落 high-judgment work**。
+Cowork 嘅槓桿：**將機械式工作推前到 9am 之前 + 自動化，將你最精神嘅時間留畀高判斷力嘅工作**。
 
-呢個 setup 真正嘅 ROI 唔係慳嗰 45 分鐘——係**你 monday morning 嘅 1-on-1 / strategy meeting，可以 fresh、prepared、 thoughtful**，唔係 「我未睇 email 我都唔知乜事」。
+呢個設定真正嘅回報唔係慳嗰 45 分鐘——係**你星期一朝早嘅單對單會議 / 策略會議，可以精神爽利、有準備、有見地**，而唔係「我未睇 email 我都唔知乜事」。
 
-最重要嘅 reminder：**永遠唔好讓 Cowork 自動 send email**。Draft + Human review + Send，呢個三步永遠 keep human accountability。
+最重要嘅提醒：**永遠唔好畀 Cowork 自動 send email**。起草 + 人工檢視 + 發送，呢三個步驟永遠保留人類把關。
