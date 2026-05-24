@@ -11,7 +11,7 @@ heroImage: "/hero/english-email-polish-hk.webp"
 difficulty: 1
 timeMinutes: 5
 toolsNeeded: ["Claude Chat"]
-description: "英文 Email 修改教學：用 Claude 執 HK office 中英夾雜 email，保留你嘅 voice，唔會 over-correct 變死板翻譯機。教你個唔出 boilerplate 嘅 prompt。"
+description: "英文 Email 修改教學：用 Claude 執 HK office 中英夾雜 email，保留你嘅 voice，唔會改過龍變死板翻譯機。教你個唔出罐頭句嘅 prompt。"
 keywords: ["英文 email 修改", "office english", "hk 商業英文", "雙語 email", "email grammar check"]
 related: ["whatsapp-customer-reply-hk", "claude-content-repurpose"]
 featured: true
@@ -19,17 +19,17 @@ featured: true
 
 ## 情境
 
-你 draft 咗一封 email，給 supplier 跟進個 PO：
+你 draft 咗一封 email，畀 supplier 跟進個 PO：
 
 > Hi Tony, sorry for late reply. About the PO 我同 finance check 過, 佢哋話要 amend 個 PO number, 可唔可以再 send 多個 revised version 畀我哋？同埋如果方便嘅話, 可唔可以將個 invoice 都跟住改埋？Thanks!
 
-你知**呢封 email 個意思冇問題，但 grammar 有問題、又中英夾雜睇落唔 professional**。 但你又唔想丟畀 ChatGPT，因為佢通常會：
+你知**呢封 email 個意思冇問題，但文法有問題、又中英夾雜睇落唔專業**。 但你又唔想丟畀 ChatGPT，因為佢通常會：
 
 - 改到「Dear Mr. Tony, I hope this email finds you well」（HK 同事冇人咁講嘢）
-- 句句 over-formal，似律師信
-- 偷偷將你嘅 「sorry for late reply」改去「I sincerely apologize for the delay」，**完全唔似你**
+- 句句太正式，似律師信
+- 偷偷將你嘅 「sorry for late reply」改做「I sincerely apologize for the delay」，**完全唔似你**
 
-呢篇教你一個 **「執，但唔 over-correct」** 嘅 prompt——保留你個 tone，淨係執 grammar 同 awkward 嘅夾雜。
+呢篇教你一個 **「執，但唔會改過龍」** 嘅 prompt——保留你個 tone，淨係執文法同生硬嘅夾雜。
 
 ## 跟住做
 
@@ -38,31 +38,31 @@ featured: true
 <PromptBlock label="完整 prompt — 唔會把你 voice 整死">
 請幫我執以下呢封 email 嘅英文，但要跟以下 rule：
 
-1. **唔好變 formal 過頭**——呢個係 HK office 同事之間嘅 email，唔係律師信
+1. **唔好太正式**——呢個係 HK office 同事之間嘅 email，唔係律師信
 2. **保留我嘅語氣**：直接、簡潔、唔肉麻
-3. **唔好加 boilerplate**：唔好開頭加「I hope this email finds you well」、結尾加「Best regards,」（除非我原文有）
-4. **保留我嘅 informal 字眼**（例如 sorry, thanks, no worries），唔好改去「I apologize」、「Thank you」、「No problem」
-5. **中文部分原樣保留**——HK 同事識讀中英夾雜，唔好硬譯成英文（除非你覺得啱啲文意改用英文 phrasing 更通順）
+3. **唔好加罐頭句**：唔好開頭加「I hope this email finds you well」、結尾加「Best regards,」（除非我原文有）
+4. **保留我嘅口語字眼**（例如 sorry, thanks, no worries），唔好改做「I apologize」、「Thank you」、「No problem」
+5. **中文部分原樣保留**——HK 同事識讀中英夾雜，唔好硬譯成英文（除非你覺得某啲位改用英文寫法會更通順）
 6. **改完之後，列返你改咗乜**（兩三點 bullet 解釋邊度改、點解）
 
-如果有 ambiguous 嘅地方（你唔肯定我意思係 A 定 B），問我，唔好估。
+如果有模稜兩可嘅地方（你唔肯定我意思係 A 定 B），問我，唔好估。
 
 【原文】：
 （你貼你封 email）
 </PromptBlock>
 
-### 2. Read 改完版本，留意三樣嘢
+### 2. 睇改完版本，留意三樣嘢
 
-睇 output 嘅時候 check：
-- **個 opening 唔係 boilerplate**（唔應該出現「I am writing to」、「I would like to」）
-- **個 closing 唔係 boilerplate**（唔應該出現「Looking forward to your reply」如果你原文冇）
-- **個 vibe 仲係你自己**（讀出聲，係咪你會講嘅嘢？）
+睇出嚟嘅結果時 check 吓：
+- **個開頭唔係罐頭句**（唔應該出現「I am writing to」、「I would like to」）
+- **個結尾唔係罐頭句**（唔應該出現「Looking forward to your reply」如果你原文冇）
+- **個語氣仲係你自己**（讀出聲，係咪你會講嘅嘢？）
 
-如果出 boilerplate，**追加一個 follow-up prompt 改返**：「請刪走 opening 同 closing 嘅 boilerplate，直接由 main content 開始」。
+如果出咗罐頭句，**追加一個追問 prompt 改返**：「請刪走開頭同結尾嘅罐頭句，直接由正文開始」。
 
-### 3. Paste 返 email client
+### 3. Paste 返 email
 
-執完 paste 返去 Gmail / Outlook，**自己再 read 一次**——AI 有機會將你「同 finance check 過」改成「I verified with the finance team」呢類稍為僵啲嘅嘢，你覺得太硬可以改返。
+執完 paste 返去 Gmail / Outlook，**自己再睇一次**——AI 有機會將你「同 finance check 過」改成「I verified with the finance team」呢類稍為僵硬嘅寫法，你覺得太硬可以改返。
 
 ## 變化例子
 
@@ -72,15 +72,15 @@ featured: true
 幫我寫一封 email 畀 vendor，內容係：
 
 - 同佢哋之前傾過個 quote
-- 而家內部 finance 想睇下可唔可以做 6 個月 payment plan，唔係一次過 settle
-- 想問佢哋 OK 唔 OK，如果 OK 想睇下個 revised contract draft
-- Friendly tone，因為個 vendor 同我哋合作好耐
+- 而家內部 finance 想睇下可唔可以做 6 個月分期，唔係一次過找數
+- 想問佢哋 OK 唔 OK，如果 OK 想睇下個新嘅 contract draft
+- 語氣友善，因為個 vendor 同我哋合作好耐
 
 寫成兩個版本：
 1. 直接版（4–5 句）
-2. 帶 context 版（解釋下點解需要 payment plan，但唔好賣慘）
+2. 帶背景版（解釋下點解需要分期，但唔好賣慘）
 
-唔好 boilerplate 開頭結尾。
+唔好有罐頭開頭結尾。
 </PromptBlock>
 
 ### 變化 2：覆一封難覆嘅 email（客戶投訴／要 reject）
@@ -88,43 +88,43 @@ featured: true
 <PromptBlock label="變化 2 — 覆難覆嘅 email">
 以下係客戶 / 同事 send 嚟嘅 email（佢哋投訴 / 要求嘅嘢我 cannot 答應）。
 
-請幫我寫一個 reply：
-1. 先 acknowledge 對方嘅 concern（兩句，唔好假惺惺）
-2. 解釋我哋嘅 position（plain 啲，唔好賣慘亦唔好 defensive）
-3. 提議 alternative（如果有）／ explain next step
-4. Tone：尊重但企得硬，唔卑唔亢
+請幫我寫一個回覆：
+1. 先表示理解對方嘅疑慮（兩句，唔好假惺惺）
+2. 解釋我哋嘅立場（簡單直接啲，唔好賣慘亦唔好起鋼）
+3. 提議其他方案（如果有）／ 解釋下一步
+4. 語氣：尊重但企得硬，唔卑唔亢
 
 出兩個版本：
-- A：保持關係版（如果係 long-term partner）
-- B：清晰 close 版（如果係 one-off 或者已經想 part way）
+- A：保持關係版（如果係長期 partner）
+- B：乾脆了斷版（如果係單次合作或者已經唔打算再合作）
 
 【對方 email】：
 （貼對方 email）
 </PromptBlock>
 
-### 變化 3：將一條 long-winded 訊息 cut 短
+### 變化 3：將一條長篇大論嘅訊息 cut 短
 
 <PromptBlock label="變化 3 — Cut 短 email">
 以下呢封 email 太長，對方睇唔晒。
 請幫我 cut 到 100 字以內，保留：
 
-- 最 critical 個 ask（你要對方做乜）
+- 最關鍵個要求（你要對方做乜）
 - Deadline（如果有）
-- 最少 1 個 supporting context 點
+- 最少 1 個補充背景點
 
 刪走：
 - 鋪墊 / 寒喧
-- Background 講太多
+- 背景講太多
 - 任何「我覺得 / 我認為」呢類意見字眼
 
 【原文】：
 （貼）
 </PromptBlock>
 
-## 一個 mindset shift
+## 一個思維轉變
 
-唔好諗住「AI 幫我寫得好啲」——AI 嘅 default 寫法**比好多 HK 打工仔更僵化**，因為佢嘅 training data 偏向美式 corporate。
+唔好諗住「AI 幫我寫得好啲」——AI 嘅 default 寫法**比好多 HK 打工仔更死板**，因為佢嘅訓練數據偏向美式大企業。
 
-正確嘅諗法係：**AI 係 grammar checker + clarity reviewer**。 你嘅 voice 唔需要佢救——你嘅 voice 已經 OK，佢嘅角色淨係執你打錯字嘅 the 同 a。
+正確嘅諗法係：**AI 係文法檢查員 + 幫你執通順嘅 reviewer**。 你嘅 voice 唔需要佢救——你嘅 voice 已經 OK，佢嘅角色淨係執你打錯字嘅 the 同 a。
 
-呢個 prompt 嘅核心：**明確同 AI 講「呢 D 嘢唔好碰」**。 你越知自己唔想佢做乜，個 output 越接近你自己寫嘅版本。
+呢個 prompt 嘅核心：**明確同 AI 講「呢啲嘢唔好碰」**。 你越清楚自己唔想佢做乜，出嚟嘅版本就越接近你自己寫嘅。

@@ -7,10 +7,11 @@ audience: ["創作者", "打工仔"]
 category: "code"
 section: "科技"
 subcategory: "Claude Code 入門"
+heroImage: "/hero/claude-code-install-claude.webp"
 difficulty: 2
 timeMinutes: 30
 toolsNeeded: ["Terminal (Mac iTerm / Linux bash)", "Node.js 18+ installed", "Anthropic API key (console.anthropic.com)"]
-description: "你 read Twitter HN 講 Claude Code，但你 google 「install」 出咗 5 個 conflicting tutorial，唔知由邊度 start。呢篇 30 分鐘 systematic install — Mac / Linux setup、API key、第一個 project run、permission 設定、常見 install error 拆解。"
+description: "你睇 Twitter HN 講 Claude Code，但你 google 「install」 出咗 5 個矛盾嘅 tutorial，唔知由邊度開始。呢篇 30 分鐘有系統 install — Mac / Linux setup、API key、第一個 project run、permission 設定、常見 install error 拆解。"
 keywords: ["Claude Code install", "Claude CLI", "Anthropic CLI", "AI coding tool setup", "Claude Code Mac", "Claude Code Linux"]
 related: ["claude-code-slash-commands-claude", "claude-code-mcp-servers-claude", "claude-code-worktrees-claude"]
 featured: true
@@ -18,52 +19,52 @@ featured: true
 
 ## 情境
 
-你發現 Claude Code 一個禮拜前，read 過 Anthropic blog post + 兩個 dev Twitter thread。
+你發現 Claude Code 一個禮拜前，睇過 Anthropic blog post + 兩個 dev Twitter thread。
 
-你 try install:
+你試吓 install:
 
-1. Google「install claude code」 → 第 1 結果 一個 npm package 名 conflict
-2. 揾 official docs → install command 但你 unclear 邊個 directory run
+1. Google「install claude code」 → 第 1 結果一個 npm package 名撞咗
+2. 揾 official docs → install command 但你唔清楚邊個 directory run
 3. Run 完，error message：「ANTHROPIC_API_KEY not set」
-4. 揾 API key page → create key → unclear where to set env var
-5. Set 完，try run 第一個 command → permission error
-6. 1 小時 stuck，放棄
+4. 揾 API key page → create key → 唔清楚喺邊 set env var
+5. Set 完，試 run 第一個 command → permission error
+6. 卡住 1 小時，放棄
 
-呢個 install paradox：
+呢個 install 死結：
 
-- **Docs 寫對開發者「assumed knowledge」**: env var, shell config, npm permission, etc
-- **Stack Overflow 答案 outdated** (Claude Code 新 tool, evolving)
-- **第一 hour stuck = lifetime drop off** — 你 唔 retry
+- **Docs 預設咗對開發者嘅「基本認知」**: env var, shell config, npm permission, etc
+- **Stack Overflow 答案已經過時** (Claude Code 係新 tool, 仲 evolving)
+- **頭一個鐘卡住 = 永遠放棄** — 你唔會再試
 
-呢篇就 specifically prevent that：30 分鐘 systematic install，覆蓋 Mac + Linux，每 step 解釋「why」 同「if error」。完 成 後你 run 第一個 Claude Code session。
+呢篇就明確防止呢樣嘢：30 分鐘有系統 install，覆蓋 Mac + Linux，每 step 解釋「點解」同「如果出錯」。完成後你 run 第一個 Claude Code session。
 
-⚠️ Windows 用戶：建議用 WSL (Windows Subsystem for Linux)，然後 follow Linux instruction。Native Windows support exists 但 less stable。
+⚠️ Windows 用戶：建議用 WSL (Windows Subsystem for Linux)，然後跟 Linux 教學。Native Windows 雖然有但唔穩定。
 
 ## 跟住做
 
-### 1. Prerequisite check (5 分鐘)
+### 1. 事前準備 (5 分鐘)
 
 開 Terminal (Mac: iTerm or Terminal.app; Linux: 你 default shell):
 
 ```bash
 # Check Node.js
 node --version
-# 需 v18.0.0+. 如 唔 install 或 太舊 → install via nvm:
+# 需 v18.0.0+. 如果未 install 或者太舊 → install via nvm:
 # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 # nvm install 18
 
 # Check npm
 npm --version
-# 通常 跟 Node install
+# 通常跟 Node install
 
 # Check git
 git --version
-# 通常 default install。如冇:
+# 通常 default 會 install。如果冇:
 # Mac: xcode-select --install
 # Linux: sudo apt install git
 ```
 
-如 3 個 都 OK → 繼續。如 任何一個 fail → 先解決 嗰個。
+如果 3 個都 OK → 繼續。如果任何一個 fail → 先解決嗰個。
 
 ### 2. Install Claude Code CLI (5 分鐘)
 
@@ -71,12 +72,12 @@ git --version
 npm install -g @anthropic-ai/claude-code
 ```
 
-⚠️ `-g` 即 global install。需要 admin permission 喺部分 system。
+⚠️ `-g` 即 global install。部分 system 需要 admin permission。
 
 **常見 error**:
 
 ❌ `EACCES: permission denied`
-✅ Fix: use sudo OR (better) reconfigure npm prefix:
+✅ Fix: 用 sudo 或者 (最好) 重新配置 npm prefix:
 ```bash
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
@@ -102,21 +103,21 @@ source ~/.zshrc  # 或 .bashrc
 1. Sign in
 2. Settings → API Keys
 3. Create key → label「claude-code-local」
-4. **Copy key 即刻 save securely** (一次 visible)
+4. **Copy key 即刻儲存好** (只會見到一次)
 
 Set env var:
 
 ```bash
-# 編 你 shell config (Mac default zsh):
+# 編輯你 shell config (Mac default zsh):
 echo 'export ANTHROPIC_API_KEY="sk-ant-..."' >> ~/.zshrc
 source ~/.zshrc
 
 # 確認:
 echo $ANTHROPIC_API_KEY
-# 應該 出你 key
+# 應該出你 key
 ```
 
-⚠️ **Security**: 永遠 唔 commit API key 入 git。Add 入 `.gitignore`:
+⚠️ **Security**: 永遠唔好 commit API key 入 git。加落 `.gitignore`:
 ```
 .env
 .env.local
@@ -124,7 +125,7 @@ echo $ANTHROPIC_API_KEY
 
 ### 4. Run 第一個 Claude Code session (10 分鐘)
 
-開 一個 test project folder:
+開一個 test project folder:
 
 ```bash
 mkdir ~/claude-test
@@ -142,9 +143,9 @@ claude
 - Welcome message
 - 你 confirm 工作 directory
 - 顯示 default mode (interactive)
-- 等 你 第一個 prompt
+- 等你第一個 prompt
 
-第一個 試 prompt:
+試第一個 prompt:
 
 ```
 整個簡單 Python script print "Hello from Claude Code" 5 次
@@ -152,18 +153,18 @@ claude
 
 Claude:
 - Generate script
-- 問 你 permission 「create file `hello.py`?」 (Y/N)
+- 問你 permission 「create file `hello.py`?」 (Y/N)
 - 你答 Y
 - File created
 - 顯示 file content + path
 
-`ls` 確認 file 真實存在:
+`ls` 確認 file 確實存在:
 ```bash
 ls
 # hello.py
 ```
 
-Run 試:
+Run 試吓:
 ```bash
 python hello.py
 # Hello from Claude Code
@@ -171,27 +172,27 @@ python hello.py
 # ...
 ```
 
-🎉 **你 跑咗 第一個 Claude Code session**。
+🎉 **你跑咗第一個 Claude Code session**。
 
 ### 5. Understand permission model (5 分鐘)
 
-Claude Code 每 read / write / shell command 都 ask permission first:
+Claude Code 每 read / write / shell command 都會先問 permission:
 
 - **Allow once**: 即此 1 次 OK
-- **Allow always**: 呢類 action 後續 自動 allow
-- **Reject**: 拒絕，Claude 試 alternate approach
+- **Allow always**: 呢類 action 後續自動 allow
+- **Reject**: 拒絕，Claude 試另一個 approach
 
-新手建議: 開頭全部 manual approve，建立信心。1 個禮拜 後你 sense pattern, 用 「Allow always」 for safe action (read file / git status etc).
+新手建議: 開頭全部手動 approve，建立信心。1 個禮拜後你 sense 到個 pattern, 用 「Allow always」 for safe action (read file / git status etc).
 
-⚠️ 永遠 唔 「Allow always」 for `rm`, `git push --force`, `sudo`, 任何 destructive action。
+⚠️ 永遠唔好 「Allow always」 for `rm`, `git push --force`, `sudo`, 任何破壞性 action。
 
 ### 6. Exit + return
 
 `Ctrl+C` exit session。
 
-Folder 入面 state preserved (file you create persist). 下次 `cd` 入 同 folder + `claude` resume.
+Folder 入面 state 會保留 (你 create 嘅 file 仲喺度)。下次 `cd` 入同一個 folder + `claude` 繼續。
 
-Claude Code 對 1 個 folder 嘅 conversation history 自動 save 喺 `.claude/` subfolder (gitignore 之，唔 commit).
+Claude Code 對 1 個 folder 嘅 conversation history 自動儲存喺 `.claude/` subfolder (記得 gitignore 佢，唔好 commit)。
 
 ## 變化
 
@@ -205,10 +206,10 @@ code --install-extension anthropic.claude-code
 ```
 
 開 VS Code，sidebar 出現 Claude Code panel。可以:
-- Highlight code → ask Claude
-- Inline AI completion (similar 到 Copilot 但 model 唔同)
+- Highlight code → 問 Claude
+- Inline AI completion (類似 Copilot 但 model 唔同)
 
-JetBrains (IntelliJ / WebStorm etc) 有 similar plugin。
+JetBrains (IntelliJ / WebStorm etc) 有類似 plugin。
 
 ### 變化 2：Project-specific config (CLAUDE.md)
 
@@ -230,11 +231,11 @@ JetBrains (IntelliJ / WebStorm etc) 有 similar plugin。
 - `prisma/schema.prisma` — database schema
 ```
 
-呢個等如 project-specific system prompt。Claude 每次 session 入 呢 folder 自動 inject context。
+呢個等如 project-specific system prompt。Claude 每次 session 入呢個 folder 自動 inject context。
 
 ### 變化 3：Specific model selection
 
-Default Claude Code 用 latest Claude. 部分 case 你想 explicit model:
+Default Claude Code 用 latest Claude. 部分 case 你想明確指明 model:
 
 ```bash
 # 用 specific model
@@ -245,28 +246,28 @@ claude --model claude-opus-4-7
 ```
 
 Trade-off:
-- Opus = 最強 reasoning, 較 slow + expensive
-- Sonnet = balanced, 大部分 task default
-- Haiku = quick, 細 task / 大量 parallel
+- Opus = 最強推論, 較慢 + 貴
+- Sonnet = 平衡, 大部分 task default
+- Haiku = 快, 細 task / 大量 parallel
 
-Daily work: default 接受。研究 task: explicit Opus.
+日常 work: 接受 default。研究 task: 明確用 Opus。
 
 ## 一個 mindset
 
-Claude Code install 嘅 hidden insight: **CLI tools have a learning curve, but daily ROI compounds**.
+Claude Code install 嘅隱藏 insight: **CLI tools 都有學習曲線，但每日嘅 ROI 會利疊利**。
 
-第 1 day install + setup: 1 hour overhead
-第 2-7 day: 每日 30 分鐘 「I'm fumbling」 awkwardness
-第 8 day+: 每日 daily flow productive
+第 1 日 install + setup: 1 個鐘成本
+第 2-7 日: 每日 30 分鐘 「我仲摸索緊」 嘅不適應
+第 8 日+: 每日 daily flow 有效率
 
-第 30 day: 你 wonder 點解 之前 用 web GUI Claude.ai 咁慢。
+第 30 日: 你諗唔明點解之前用 web GUI Claude.ai 咁慢。
 
-呢個 mindset 嘅 reframe: install friction 唔係 「Claude Code 嘅 problem」 — 係 the universal cost of unlocking a new productivity layer. Stick through 1 week, productivity gain 對 「prompt engineer pasting in web UI」 顯 multiplier.
+呢個 mindset 嘅轉變: install 嘅阻力唔係 「Claude Code 嘅問題」 — 係解鎖一個新 productivity layer 嘅必經代價。撐過 1 個禮拜, productivity gain 對比 「prompt engineer 喺 web UI paste 嘢」 會呈倍數增長。
 
 最後 reminder：
 
-- ✅ **第 1 week 唔 quit**. Install awkward, day 8 fluid.
-- ⚠️ **API cost monitor**. Claude Code usage 透 Anthropic console track. Start with $50 monthly budget. 1 個禮拜後 你會 calibrate true cost.
-- 🎯 **`claude --help` 你最好朋友**. 唔記得 syntax → 直接問。
+- ✅ **第 1 個禮拜唔好放棄**. Install 唔熟手, 第 8 日就會流暢。
+- ⚠️ **API cost monitor**. Claude Code usage 透過 Anthropic console track. Start with $50 monthly budget. 1 個禮拜後你會 calibrate 到真實 cost。
+- 🎯 **`claude --help` 係你最好朋友**. 唔記得 syntax → 直接問。
 
-下個 hour 試 install + run 第一個 hello world. 1 個禮拜 後 你 daily workflow.
+下個鐘試吓 install + run 第一個 hello world. 1 個禮拜後變成你 daily workflow。

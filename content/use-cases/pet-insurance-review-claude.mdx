@@ -1,5 +1,5 @@
 ---
-title: "寵物保險 plan 揀邊間？用 Claude 拆 fine print + 計 5 年實際 cost"
+title: "寵物保險 plan 揀邊間？用 Claude 拆條款細則 + 計 5 年實際花費"
 slug: "pet-insurance-review-claude"
 issue: 53
 publishedAt: 2026-05-22
@@ -11,7 +11,7 @@ heroImage: "/hero/pet-insurance-review-claude.webp"
 difficulty: 2
 timeMinutes: 15
 toolsNeeded: ["Claude Chat", "broker quote / 保險公司 brochure（PDF 或 screenshot）"]
-description: "BB 8 歲，broker 推 3 間寵物保險 — 每年差 HK$1,500，但 exclusion / age limit / 賠付率完全唔同。用 Claude 拆 fine print + 計 5 年實際 cost + 簡化決定。"
+description: "主子 8 歲，broker 推 3 間寵物保險 — 每年差 HK$1,500，但唔保事項 / 年齡限制 / 賠付率完全唔同。用 Claude 拆條款細則 + 計 5 年實際開支 + 簡化決定。"
 keywords: ["寵物保險 香港", "pet insurance hk", "寵物醫療保險", "claude 保險 review", "ferplast", "spca insurance"]
 related: ["insurance-policy-review-claude", "vet-visit-prep-claude", "hong-kong-mortgage-comparison"]
 featured: true
@@ -19,283 +19,283 @@ featured: true
 
 ## 情境
 
-你 BB 8 歲，上次 vet visit 醫生說：「呢個 age 開始要考慮 senior screening，每年 ~$3,000 baseline，未計突發。」
+你 主子 8 歲，上次睇 vet 醫生話：「呢個年紀開始要考慮長者身體檢查，每年 ~$3,000 基本消費，未計突發嘢。」
 
-你之前唔 buy 寵物保險（覺得 BB 健康），宜家覺得應該 reassess。Broker 寄返 3 個 plan：
+你之前覺得唔需要買寵物保險（覺得 主子 健康），而家覺得應該重新考慮。Broker 寄返 3 個 plan：
 
-- **Plan A — 太平洋寵物**：年保費 HK$3,200，每次 claim deductible $500，賠付 80%，最高 $50,000 / 年。
-- **Plan B — 明珠寵物保**：年保費 HK$4,500，每次 deductible $0，賠付 70%，最高 $80,000 / 年。
-- **Plan C — 東方寵物**：年保費 HK$2,800，每次 deductible $1,000，賠付 90%，最高 $40,000 / 年。
+- **Plan A — 太平洋寵物**：年保費 HK$3,200，每次 claim 墊底費 $500，賠付 80%，最高 $50,000 / 年。
+- **Plan B — 明珠寵物保**：年保費 HK$4,500，每次墊底費 $0，賠付 70%，最高 $80,000 / 年。
+- **Plan C — 東方寵物**：年保費 HK$2,800，每次墊底費 $1,000，賠付 90%，最高 $40,000 / 年。
 
-3 個 plan 表面睇上去差唔多——年費差 HK$1,700。但點 evaluate？
+3 個 plan 表面睇落差唔多——年費差 HK$1,700。但點比較？
 
-你開 3 份 brochure，每份 12 頁。Exclusion list 寫到密密麻麻：
+你開 3 份 brochure，每份 12 頁。唔保事項寫到密密麻麻：
 
-- 「Pre-existing condition」嘅定義有 3 個版本
-- 「Hereditary disease」喺 Plan A 唔保但 Plan B 部分保
-- 「Behavioral therapy」全部唔保（你 BB 有 anxiety）
-- 「Age limit」一個寫 12，一個寫 15，一個寫 18（但 12 歲後 premium hike）
-- 「Waiting period」全部 30-90 日唔等
-- 「Annual cap」嘅 reset day 唔同（policy anniversary vs calendar year）
+- 「已存在病症」嘅定義有 3 個版本
+- 「遺傳病」喺 Plan A 唔保但 Plan B 部分保
+- 「行為治療」全部唔保（你 主子 有焦慮）
+- 「年齡上限」一個寫 12，一個寫 15，一個寫 18（但 12 歲後保費會加）
+- 「等候期」全部 30-90 日唔等
+- 「年度賠償額」嘅重新計算日子唔同（保單週年 vs 曆年）
 
-你開始用 Excel 整 comparison。半個鐘後你 Excel 入面剩 confusing matrix，未知揀邊個。
+你開始用 Excel 整比較表。半個鐘後你個 Excel 淨係得一堆睇唔明嘅 matrix，仲未諗到揀邊個。
 
 呢篇用 Claude **15 分鐘**：
-1. 拆 3 份 fine print 嘅 critical clause
-2. 估 5 年實際 expected cost（含 claim probability）
-3. 問返 broker 3 條 informed question
+1. 拆 3 份條款細則嘅關鍵條款
+2. 估算 5 年實際預期開支（連埋 claim 嘅機會率）
+3. 準備 3 條有針對性嘅問題問返 broker
 
-⚠️ Claude 唔係保險顧問。Specific quote 一定向有牌 broker confirm，呢篇係幫你 prep meeting 唔被 sales push。
+⚠️ Claude 唔係保險顧問。具體報價一定要向有牌 broker 確認，呢篇係幫你做足準備唔被 sales 㩒住搶。
 
 ## 跟住做
 
-### 1. Inventory 你 BB 嘅 risk profile
+### 1. 盤點你 主子 嘅風險狀況
 
-打開 Claude chat。**唔好直接問「邊個 plan 好」**——先 establish baseline：
+打開 Claude chat。**唔好直接問「邊個 plan 好」**——先定好個底線：
 
-> BB risk profile：
-> - Species / breed：[短毛家貓 / Golden Retriever / 等]
-> - Age：[填]
-> - Sex / neutered：[填]
-> - Body condition：[normal / overweight / underweight]
-> - Chronic 病：[冇 / CKD stage 2 / mild hyperthyroid 等]
-> - Pre-existing condition (前任 vet visit 嘅 finding)：[填]
-> - 過去 24 個月 vet spend：HK$[填]
-> - 主要 risk concern：[老年病 / 牙科 / 急性傷 / 等]
-> - 我每年 willing-to-pay budget：HK$[填]
+> 主子 風險狀況：
+> - 品種：[短毛家貓 / 金毛尋回犬 / 等]
+> - 年齡：[填]
+> - 性別 / 已絕育：[填]
+> - 身型狀況：[正常 / 過肥 / 過瘦]
+> - 慢性病：[冇 / 腎病第二期 / 輕微甲亢 等]
+> - 已存在病症 (前任 vet 發現嘅嘢)：[填]
+> - 過去 24 個月 vet 開支：HK$[填]
+> - 主要風險擔憂：[老人病 / 牙科 / 意外受傷 / 等]
+> - 我每年願意畀嘅 budget：HK$[填]
 
 ### 2. Paste 3 份 brochure 嘅 key spec + 用呢個 prompt
 
 <PromptBlock label="完整 prompt — 3 寵物保 plan 對比 + 5 年 cost simulation">
-我 BB risk profile：[paste 上面]
+我 主子 風險狀況：[paste 上面]
 
-我 broker 寄咗 3 個 plan，spec 如下：
+我 broker 畀咗 3 個 plan，詳情如下：
 
-**Plan A — [insurer 名]**
+**Plan A — [保險公司名]**
 - 年保費：HK$X
-- Deductible per claim：HK$X
-- Reimbursement rate：X%
-- Annual cap：HK$X
-- Age eligibility cap：X 歲（X 歲後 premium hike X%）
-- Waiting period：X 日（accident）/ X 日（illness）/ X 日（hereditary）
-- Pre-existing 定義：[paste exact wording 或描述]
-- Exclusion list（top 5 relevant to my BB）：[paste]
-- Hereditary disease：[fully cover / partial / 唔保]
-- Behavioral therapy：[cover / 唔保]
-- Dental：[cover / accident-only / 唔保]
-- Annual cap reset：[policy anniversary / calendar year]
+- 每次 claim 墊底費：HK$X
+- 賠償比率：X%
+- 年度上限：HK$X
+- 投保年齡上限：X 歲（X 歲後保費加 X%）
+- 等候期：X 日（意外）/ X 日（疾病）/ X 日（遺傳病）
+- 已存在病症定義：[paste 確實字眼或描述]
+- 唔保事項（頭 5 樣關我 主子 事嘅）：[paste]
+- 遺傳病：[全保 / 部分 / 唔保]
+- 行為治療：[有保 / 唔保]
+- 牙科：[有保 / 只保意外 / 唔保]
+- 年度上限重設：[保單週年 / 曆年]
 
-**Plan B — [insurer 名]**
-... [same fields]
+**Plan B — [保險公司名]**
+... [同上]
 
-**Plan C — [insurer 名]**
-... [same fields]
+**Plan C — [保險公司名]**
+... [同上]
 
-請整：
+請幫我整：
 
-**📊 Part 1：Side-by-side comparison table**
-畀我 markdown table — 12 行（field）× 3 column（plan）— 一眼睇晒。
+**📊 Part 1：並排比較表**
+畀我一個 markdown table — 12 行（項目）× 3 欄（plan）— 等我一眼睇晒。
 
-**🚨 Part 2：Critical clause flags**
-每個 plan 有冇 specific clause 對我 BB 風險 profile 特別 dangerous：
-- Plan A：[紅 flag / 黃 flag / 無問題]
+**🚨 Part 2：關鍵條款警號**
+每個 plan 有冇特別條款對我 主子 嘅風險狀況好危險：
+- Plan A：[紅燈 / 黃燈 / 無問題]
 - Plan B：...
 - Plan C：...
 
-例如：BB 8 歲，Plan A age cap 12 = 4 年後 force re-shop；Plan C deductible $1,000 = 細問題唔值 claim。
+例如：主子 8 歲，Plan A 年齡上限 12 歲 = 4 年後被迫重新搵保險；Plan C 墊底費 $1,000 = 細病細痛唔值得 claim。
 
-**💰 Part 3：5 年 expected cost simulation**
-用我 BB profile + industry baseline claim probability，simulate 每個 plan 嘅 5 年實際 cost：
+**💰 Part 3：5 年預期開支模擬**
+用我 主子 嘅狀況 + 行業標準 claim 嘅機會率，模擬每個 plan 5 年嘅實際開支：
 
-For each plan:
-- 5 年 total premium（含 age hike）
-- Expected claim count over 5 yrs（基於 species / age / chronic 病）
-- Expected total vet cost（reasonable point estimate）
-- Expected total reimbursement
-- **Net 5-year out-of-pocket**（premium + uncovered vet cost − reimbursement）
+每個 plan 要有:
+- 5 年總保費（計埋隨年齡加費）
+- 5 年內預期 claim 幾多次（基於品種 / 年齡 / 慢性病）
+- 預期總 vet 費用（合理估計）
+- 預期總賠償額
+- **5 年淨自費開支**（保費 + 唔保嘅 vet 費用 − 賠償額）
 
-排個 ranking — 邊個 plan net cheaper。
+排個名 — 邊個 plan 計落最平。
 
-**⚠️ Part 4：Scenario stress test**
-3 個 high-stake scenarios，每個 plan 表現點：
-- Scenario A：BB 突發 emergency surgery $30,000
-- Scenario B：BB 確診 CKD，每年 ongoing care $20,000 × 3 年
-- Scenario C：BB 小問題 frequent visits（每年 5 次 × $1,500）
+**⚠️ Part 4：情境壓力測試**
+3 個高風險情境，每個 plan 會點賠：
+- 情境 A：主子 突發需要緊急手術 $30,000
+- 情境 B：主子 確診腎病，每年覆診食藥 $20,000 × 3 年
+- 情境 C：主子 成日有小毛病要睇醫生（每年 5 次 × $1,500）
 
-每 scenario × plan：actual reimbursement，net out-of-pocket。
+每個情境 × plan：實際賠幾多，自己要補幾多錢。
 
-**🎯 Part 5：3 條問 broker 嘅 informed question**
-我下次同 broker meet，最值得問嘅 3 條（priority order）。例如：
-- 「Plan B 嘅 hereditary 條款，cover 邊類 specific condition？我 BB breed 高發 X，OK 嗎？」
-- 「Plan A 12 歲 cap 之後 renew 嘅 actual premium history？」
-- 「Pre-existing 嘅 definition gap — 如果 BB 上個月 vet visit 提過 mild 嘢，會唔會 forever excluded？」
+**🎯 Part 5：3 條問 broker 嘅針對性問題**
+我下次見 broker，最值得問嘅 3 條問題（按重要性排）。例如：
+- 「Plan B 關於遺傳病嘅條款，具體保啲咩？我 主子 呢個品種容易有 X 病，保唔保？」
+- 「Plan A 12 歲上限之後，續保嘅實際保費歷史記錄係點？」
+- 「已存在病症嘅定義漏洞 — 如果 主子 上個月睇 vet 提過有輕微問題，會唔會永遠都唔保？」
 
-**💡 Part 6：建議 + 唔買保險嘅 alternative**
-- 你 expected ranking：邊個 plan 啱我
-- 但**唔買 commercial insurance** 嘅 alternative：自設 emergency fund — 每月 set aside $X 入 high-yield savings = self-insurance pool
-- 對比 commercial：邊種人適合 self-insurance（high vet liquidity / 健康 pet / 計算過 net cost 低）
+**💡 Part 6：建議 + 唔買保險嘅替代方案**
+- 你預期排名：邊個 plan 最啱我
+- 但**唔買商業保險** 嘅選擇：自己設立備用金 — 每個月儲 $X 入高息戶口 = 自行擔保
+- 對比商業保險：邊種人適合自行擔保（手頭現金鬆動 / 寵物好健康 / 計過淨開支低）
 
-語氣：保險業朋友幫你 break down，唔係 sales。
+語氣：一個識保險嘅朋友幫我分析，唔好似 sales。
 </PromptBlock>
 
-### 3. Follow up — 拆你最 confused 嘅 clause
+### 3. Follow up — 拆你最睇唔明嘅條款
 
-收到 comparison 之後通常仲有 specific clause 你睇唔明：
+收到比較之後，通常仲有啲特別條款你睇唔明：
 
-> 「Plan B 條 hereditary 寫『congenital and breed-specific conditions are covered subject to schedule』— schedule 入面 list 咗 18 個 condition。我 BB short-hair cat，最常見問題（hyperthyroid / CKD / cardiomyopathy）有冇 cover？逐個 check 畀我。」
+> 「Plan B 條遺傳病寫『congenital and breed-specific conditions are covered subject to schedule』— 個列表入面有 18 種病。我 主子 短毛家貓，最常見嘅問題（甲亢 / 腎病 / 心臟病）有冇保？幫我逐個對吓。」
 
 或者：
 
-> 「Plan A 條 pre-existing 寫『any condition for which signs were observed before the policy effective date』。我 6 個月前 vet 提過 BB 有 mild dental tartar — 算唔算 pre-existing？將來 dental cleaning claim 會唔會 reject？」
+> 「Plan A 關於已存在病症寫『any condition for which signs were observed before the policy effective date』。我 6 個月前睇 vet 提過 主子 有輕微牙石 — 算唔算已存在病症？將來洗牙 claim 錢會唔會被拒絕？」
 
-呢類 specific question 係 Claude 比保險 broker 強嘅角度——broker 有 sales motivation，Claude 純 read fine print。
+呢類針對性問題係 Claude 比保險 broker 強嘅地方——broker 係為咗開單，Claude 純粹幫你睇清楚啲細字。
 
 ## 變化
 
-### 變化 1：已 buy 緊保險 → 年中 renewal review
+### 變化 1：已經買緊保險 → 年中續保檢討
 
-你 BB 用緊一個 plan 1-2 年，renewal 時 premium hike：
+你 主子 用緊一個 plan 1-2 年，續保時保費加咗：
 
 <PromptBlock label="變化 1 — Renewal premium hike 評估">
-我 BB 用緊 [Plan 名] 已經 [X] 年。
+我 主子 用緊 [Plan 名] 已經 [X] 年。
 
 過去 X 年：
-- Premium history：Y1 $X / Y2 $X / Y3 (renewal quoted) $X
-- Claim history：列出，每個 claim：date / 病種 / claim amount / reimbursement / 個人 out-of-pocket
-- BB 健康變化：[chronic 病 diagnosed / 老化 / surgery 過 / etc]
+- 保費歷史：Y1 $X / Y2 $X / Y3 (今年報價) $X
+- Claim 歷史：列出，每個 claim：日期 / 病種 / claim 金額 / 賠償 / 自己畀幾多
+- 主子 健康變化：[確診慢性病 / 老化 / 做過手術 / 等]
 
-Renewal quote：HK$X (hike of Y%)
+續保報價：HK$X (加幅 Y%)
 
-請：
+請幫我分析：
 
-**Part 1：Hike justified 嗎**
-- 對比 industry inflation baseline（HK 寵物保險 typical YoY +10-15%）
-- 你嘅 claim ratio（claim 收返 / premium 付）historic data
-- BB age + condition 變化對 risk 嘅 quantified impact
+**Part 1：加費合理嗎？**
+- 對比行業通脹基線（HK 寵物保險一般按年 +10-15%）
+- 你嘅理賠率（收返幾多 claim / 畀咗幾多保費）歷史數據
+- 主子 年齡 + 身體狀況變化對風險嘅實質影響
 
-**Part 2：點同 insurer 講價**
-- Loyalty discount（continuous policy 3+ years 有冇 quietly available）
-- Deductible / coverage 調整換取 premium 降
-- Multi-pet discount if applicable
-- 直接 quote「我 considering 轉去 [競爭對手 plan]」嘅 leverage
+**Part 2：點同保險公司講價**
+- 忠誠折扣（連續買 3 年以上有冇暗地裡嘅優惠）
+- 調整墊底費 / 保障範圍去換取保費減價
+- 如果適用，多隻寵物折扣
+- 直接拋句「我考慮緊轉去 [競爭對手 plan]」嚟增加談判籌碼
 
-**Part 3：轉 insurer 嘅 hidden cost**
-- 新 insurer 嘅 pre-existing 唔保 — BB 而家所有 condition 變 forever-excluded 嗎
-- Waiting period 重新計
-- 失去舊 insurer 嘅 multi-year loyalty benefits
+**Part 3：轉保險公司嘅隱藏成本**
+- 新保險公司唔保已存在病症 — 主子 而家有嘅病係咪變咗永遠唔保？
+- 等候期要重新計過
+- 冇咗舊保險公司嘅多年忠誠福利
 
-**Part 4：Stay vs leave decision**
-畀我 quantified recommendation（用 next 3 年 expected cost 比較）
+**Part 4：留定走嘅決定**
+畀我具體建議（用未來 3 年預期開支嚟比較）
 
-**Part 5：Self-insurance alternative**
-如果 renewal $X，等於 monthly $X / 月可以入 savings。
-- 3 年 compound：$X
-- 對比 expected 3 年 vet spend：surplus / deficit?
-- BB 老化 risk profile 點 affect 計算
+**Part 5：自行擔保嘅選擇**
+如果續保要 $X，等於每個月可以儲 $X。
+- 3 年複息：$X
+- 對比預期 3 年 vet 開支：有突定唔夠？
+- 主子 老化嘅風險狀況點樣影響個計算
 
-語氣：你保險 broker 朋友，無 commission incentive 推 product。
+語氣：你係我個做保險 broker 嘅朋友，冇佣金壓力，唔會 hard sell。
 </PromptBlock>
 
-### 變化 2：第一次買保險 — 邊個 age window 最值
+### 變化 2：第一次買保險 — 邊個年紀買最抵
 
-你 BB 仲後生（< 3 歲），考慮宜家 vs 5 年後先買：
+你 主子 仲後生（< 3 歲），考慮緊而家買定係 5 年後先買：
 
 <PromptBlock label="變化 2 — 後生 pet 而家買 vs 等 review">
-我 BB：[age, species, breed, current health all normal]。
+我 主子：[age, species, breed, current health all normal]。
 
-我有兩個 option：
-- A：宜家 (age X) 就 lock in pet insurance
-- B：等到 age 8-10 健康問題開始 surface 先 buy
+我有兩個選擇：
+- A：而家 (X 歲) 就買定寵物保險
+- B：等到 8-10 歲健康問題開始浮現先買
 
-請拆：
+請幫我拆解：
 
-**Part 1：宜家買嘅好處**
-- Pre-existing 寫板 — 未來 chronic 病 cover
-- 後生 premium 低（lock in or yearly hike？）
-- Lifetime cap vs annual cap insurer 嘅 long-term diff
+**Part 1：而家買嘅好處**
+- 已存在病症張紙仲係白紙 — 將來有慢性病都會保
+- 後生保費平（係咪鎖死咗，定每年照加？）
+- 終身保額 vs 年度保額嘅長遠分別
 
-**Part 2：而家買嘅 cost**
-- 5-10 年 cumulative premium 估算
-- Expected claim if BB 健康一帆風順（self-insurance pool 機會成本）
-- Insurer 嘅 cumulative profit on you
+**Part 2：而家買嘅成本**
+- 5-10 年累積保費估算
+- 如果 主子 健康無病無痛，預期嘅 claim（自行擔保嘅機會成本）
+- 保險公司喺你身上賺幾多
 
-**Part 3：等到 8 歲再 buy 嘅 realistic option**
-- 邊啲 insurer accept 8-10 歲 new policy（HK 不少 capped 8）
-- Pre-existing 對 8 歲 BB 影響有幾大（通常 8 歲 vet record 已有 mild flag）
-- Premium for 8 歲 new policy = 後生時嘅 ~2-3x
+**Part 3：等到 8 歲先買嘅現實情況**
+- 邊間保險公司會受 8-10 歲嘅新單（HK 唔少去到 8 歲就唔受）
+- 已存在病症對 8 歲 主子 影響有幾大（通常 8 歲嘅 vet 紀錄已經有啲小問題）
+- 8 歲新單嘅保費 = 後生時嘅 ~2-3 倍
 
-**Part 4：Hybrid strategy**
-- 而家 buy basic accident-only plan（cheap） + emergency self-fund
-- 8 歲時 upgrade comprehensive — pre-existing 可能仲 manageable
-- Pros / cons
+**Part 4：混合策略**
+- 而家買份最基本只保意外嘅 plan（平） + 自己儲急救金
+- 8 歲時升級做全面保障 — 已存在病症可能仲未係好嚴重
+- 呢個做法嘅利弊
 
-**Part 5：Decision matrix**
-基於我 BB profile，建議路徑（with 5-year + 10-year cost projection）
+**Part 5：決定矩陣**
+基於我 主子 嘅狀況，建議點做（連埋 5 年 + 10 年開支預測）
 
-語氣：long-term planner，唔係 sell 我即刻 buy。
+語氣：長遠規劃者，唔係叫我即刻簽單。
 </PromptBlock>
 
-### 變化 3：多隻寵物 multi-pet 保險策略
+### 變化 3：多隻寵物嘅保險策略
 
-你屋企 2+ 寵物，每隻獨立 buy 太貴：
+你屋企有兩隻或以上寵物，每隻分開買太貴：
 
 <PromptBlock label="變化 3 — Multi-pet 保險策略">
 我屋企：
-- BB cat 8 歲（vet visit 頻繁）
-- Coco dog 3 歲（健康 active）
-- Sunny rabbit 2 歲（exotic — 大部分 mainstream 保險 唔保）
+- 主子 貓 8 歲（vet visit 頻繁）
+- Coco 狗 3 歲（健康 active）
+- Sunny 兔 2 歲（珍禽異獸 — 大部分主流保險唔保）
 
-請：
+請幫我分析：
 
-**Part 1：Insurer 對 multi-pet 嘅政策**
-- 邊間 HK insurer 有 multi-pet discount（typical 5-15%）
-- 邊間連 exotic（rabbit, ferret, reptile）都 underwrite
-- Combine 嘅 admin / claim process 點 simplify
+**Part 1：保險公司對多寵物嘅政策**
+- HK 邊間保險公司有多寵物折扣（通常 5-15%）
+- 邊間連珍禽異獸（兔、雪貂、爬蟲類）都受保
+- 夾埋一齊買，行政同 claim 錢手續點樣簡化
 
-**Part 2：每隻 individual risk profile**
-- BB cat 8 歲：comprehensive plan 較值
-- Coco dog 3 歲：accident-only basic 已夠
-- Sunny rabbit 2 歲：可能要 specialist exotic insurer（NIM Pet 等）
+**Part 2：每隻寵物嘅獨立風險**
+- 主子 貓 8 歲：買全面保障會比較抵
+- Coco 狗 3 歲：基本意外保已經夠
+- Sunny 兔 2 歲：可能要搵專門保珍禽異獸嘅保險（例如 NIM Pet 等）
 
-**Part 3：每隻 plan tier 分配**
-畀我 recommend：
-- BB → Plan tier?
-- Coco → Plan tier?
-- Sunny → 純 self-fund / specialist insurer / 無保險?
+**Part 3：每隻寵物點揀 plan**
+畀啲建議：
+- 主子 → 買咩級別？
+- Coco → 買咩級別？
+- Sunny → 純粹自己儲錢 / 專門保險 / 唔買保險?
 
-**Part 4：Total household pet spend**
-- 3 隻 separate plans：年 $X
-- 1 insurer combo + discount：年 $Y
-- Hybrid (BB comp + Coco basic + Sunny self-fund)：年 $Z
+**Part 4：全家寵物總開支**
+- 3 隻分開買 plan：每年 $X
+- 1 間保險公司包晒 + 折扣：每年 $Y
+- 混合（主子 全面 + Coco 基本 + Sunny 自己儲）：每年 $Z
 
-排個 most cost-effective sequence。
+排個最符合成本效益嘅組合。
 
-**Part 5：Claim admin reality**
-- Multi-pet single insurer = 1 portal 1 reimbursement timeline = easier
-- Mix-and-match = 3 個 form 3 個 chase = more admin
-- 你 time / cognitive cost 點計入 decision
+**Part 5：Claim 錢嘅現實行政成本**
+- 幾隻寵物買同一間 = 同一個 portal，賠錢時間線一致 = 方便
+- 分開幾間買 = 要填 3 份表，追 3 條 team = 多嘢搞
+- 將你嘅時間同精神成本計埋入去個決定度
 
-語氣：multi-pet household 真實負擔感，唔好 idealize。
+語氣：講出養多隻寵物嘅真實負擔，唔好太過理想化。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維轉變
 
-寵物保險係**conditional probability problem**——你 pay sure cost (premium) 換 protect against uncertain cost (vet emergency)。
+寵物保險係一個**條件概率問題**——你畀一筆肯定嘅錢 (保費) 嚟換取對未知開支 (獸醫急症) 嘅保障。
 
-**Insurer 永遠 expected 賺錢**（佢個 claim ratio 通常 60-75%，留 25-40% admin + profit）。所以 expected value 上，**你 buy 寵物保險係輸**——但你 buy 嘅唔係 expected value，係**抵禦 tail risk**（一單 $80,000 surgery 唔會 destroy 你財政）。
+**保險公司預咗一定賺錢**（佢哋嘅理賠率通常得 60-75%，留返 25-40% 做行政費同利潤）。所以喺預期價值上，**你買寵物保險係輸梗嘅**——但你買嘅唔係預期價值，係**防範極端風險**（一單 $80,000 嘅手術唔會搞冧你嘅財政）。
 
-要唔要買嘅問題其實係：
-1. **你 vet liquidity 點**？$50,000 一晚拎得出嚟？拎得出 = 可以 self-insure。
-2. **你 BB risk profile**？Pure-breed 高遺傳病 risk = 保險 expected ROI 高。健康 mixed-breed 短毛貓 = 保險 expected ROI 低。
-3. **Emotional regulation**？有保險可以做 medical decision 唔被 cost 干擾——呢個 emotional value 唔出現喺 spreadsheet。
+應唔應該買嘅問題其實係：
+1. **你手頭現金鬆動嗎**？$50,000 一晚拎得出手？拎得出 = 可以自行擔保。
+2. **你 主子 嘅風險狀況**？純種貓狗高遺傳病風險 = 保險預期回報高。健康唐狗短毛貓 = 保險預期回報低。
+3. **情緒管理**？有保險可以做醫療決定時唔受金錢考慮影響——呢個情緒價值喺 Excel 表度睇唔到。
 
-Claude 嘅 role 唔係替你決定 buy 唔 buy，係**show 晒 trade-off**等你做嘅決定有 informed reasoning，唔係 broker push 出嚟。
+Claude 嘅角色唔係幫你決定買定唔買，係**攤晒啲利弊出嚟**等你可以做個有理有據嘅決定，而唔係被 broker 夾硬 push。
 
 最後 reminder：
 
-- ✅ 任何 plan signing 前，逐字 read pre-existing + exclusion 條款
-- ✅ Renewal 時 always re-evaluate，唔好 auto-renew 5 年
-- ❌ Trust「sales 同我 verbal 講」— claim 時只認 contract written
-- 💰 Alternative：每月 $500-1,000 入 high-yield savings = 自建 emergency fund，3 年 = $20-40k pool
+- ✅ 簽任何 plan 之前，逐字睇清楚已存在病症 + 唔保事項嘅條款
+- ✅ 續保時永遠要重新評估，唔好自動續 5 年
+- ❌ 唔好信「sales 口頭同我講」— claim 錢嗰陣只認合約白紙黑字
+- 💰 替代方案：每個月 $500-1,000 入高息戶口 = 自建急救備用金，3 年 = $20-40k 資金池
 
-BB 健康無 claim 最開心。
+主子 健健康康無 claim 過就最開心。

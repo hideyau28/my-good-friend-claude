@@ -7,6 +7,7 @@ audience: ["打工仔", "老闆", "創作者"]
 category: "cowork"
 section: "商家"
 subcategory: "Claude Projects"
+heroImage: "/hero/claude-projects-setup-claude.webp"
 difficulty: 2
 timeMinutes: 30
 toolsNeeded: ["Claude.ai 帳戶 (Pro / Team / Max plan)", "公司 / 個人嘅 reference 文件 (PDF / DOC / MD)"]
@@ -31,13 +32,13 @@ featured: true
 
 5 段 paste 完，先到正題。每次。每日 5 次。每星期 25 次。每年 1000+ 次 paste 同樣嘢。
 
-如果有客 ask「依個 deck 寫得 generic」，你 review 一次先發現 — 你 Claude 上次 chat 你 forgot paste brand voice，輸出已經漂咗。
+如果有客問「依個 deck 寫得好行貨」，你 review 一次先發現 — 你 Claude 上次 chat 唔記得 paste brand voice，輸出已經漂咗。
 
-呢個 universal problem 嘅 root cause:
+呢個普遍問題嘅 root cause:
 
 - Claude 每個 new chat = blank context
-- 你 brain 唔記得 paste 全部 background 一致
-- Context paste 5-10 段 = 起步成本高，frequency drop
+- 你個腦唔記得 paste 全部背景一致
+- Context paste 5-10 段 = 起步成本高，少咗用
 
 **Claude Projects 解決方法**：一個 project = 一個 context container。Attach reference file 一次，設定 system prompt 一次，往後 chat 入面自動帶住嗮全部。
 
@@ -53,7 +54,7 @@ featured: true
 
 填基本資料：
 
-- **Project name**：用容易識別嘅 name。例：「Bull Kicks Brand」/「個人寫作」/「客 X consulting」
+- **Project name**：用容易識別嘅名。例：「Bull Kicks Brand」/「個人寫作」/「客 X consulting」
 - **Description**：1 句寫呢個 project 用嚟做咩
 - **Privacy**：default 個人。如果係 Team plan + 想 share 同事就揀「Team」
 
@@ -61,9 +62,9 @@ featured: true
 
 ### 2. Set custom instructions (system prompt)
 
-呢個係 project 嘅 core。每次 chat 都會自動帶住呢段 instruction，等如 Claude 永遠記得你嘅背景。
+呢個係 project 嘅核心。每次 chat 都會自動帶住呢段 instruction，等如 Claude 永遠記得你嘅背景。
 
-撳 project 入面嘅「Custom instructions」 (or「Project knowledge」 嗰 panel)，paste 你嘅 standing context：
+撳 project 入面嘅「Custom instructions」 (or「Project knowledge」 嗰 panel)，paste 你嘅固定 context：
 
 ```
 你係幫我做 marketing copy 嘅 partner。
@@ -86,9 +87,9 @@ featured: true
 - 結尾 1 句 honest assessment (邊個 version 你 think 最 strong + why)
 ```
 
-呢段 system prompt 就係你 「每次 paste 5 段嘢」 嘅 永遠代替品。
+呢段 system prompt 就係你 「每次 paste 5 段嘢」 嘅永遠代替品。
 
-**Tip**: 第一次寫 system prompt 唔需要 perfect。用住先，第 2 個 week iterate — 你會 notice 邊樣 instruction 你成日要再 paste，嗰啲就加返入去。
+**Tip**: 第一次寫 system prompt 唔需要完美。用住先，第 2 個禮拜 iterate — 你會發現邊樣 instruction 你成日要再 paste，嗰啲就加返入去。
 
 ### 3. Upload reference files (Project knowledge)
 
@@ -96,13 +97,13 @@ featured: true
 
 **Marketing project 例子**：
 - `brand-guidelines.pdf` — 完整 visual + voice 規範
-- `past-campaigns.md` — 過去 6 個 campaign 嘅 copy + result
+- `past-campaigns.md` — 過去 6 個 campaign 嘅 copy + 成效
 - `competitor-snapshot.md` — 3 個競爭對手 brand voice 摘要
-- `target-persona.md` — 2 個 detailed persona document
+- `target-persona.md` — 2 個詳細 persona 文件
 
 **個人寫作 project 例子**：
-- 你過去 publish 過嘅 5 篇 article (paste 入一個 MD file)
-- 你 favorite writers 嘅 reference passage
+- 你過去 publish 過嘅 5 篇文章 (paste 入一個 MD file)
+- 你最鍾意嘅作者嘅參考段落
 - 你個人 「stop words / phrases」 list
 
 **Consulting project 例子**：
@@ -114,42 +115,42 @@ featured: true
 
 **最重要原則**：file 要 high-signal，唔好 dump 公司 wiki 全部入去。Claude 喺每次 conversation 嘅頭 inject 你 system prompt + reference file，太多 file = context window 食晒 + cost 上升。
 
-精選 5-10 file 真係 essential 嘅，其他 link 喺 system prompt 入面提一句「如需更詳細 reference 我可以 paste」。
+精選 5-10 file 真係必要嘅，其他 link 喺 system prompt 入面提一句「如需更詳細 reference 我可以 paste」。
 
 ### 4. 試第一個 conversation
 
 返 project 主頁，撳「+ New chat in [project name]」。
 
-你 first prompt 可以好短：
+你第一個 prompt 可以好短：
 
 ```
 幫我寫 IG carousel 5 slide，主題：8 月 promotion，舊鞋 50% off。
 ```
 
-你會 notice 兩樣：
+你會發現兩樣：
 - Claude **自動** 用 你 brand voice (因為 system prompt)
 - Claude **自動** reference 你 brand guidelines (因為 attached file)
-- 你冇 paste 任何 background
+- 你冇 paste 任何背景
 
-呢個就係 setup 嘅 value。Conversation 5 段對話 → 5 個 IG post。Pre-Project setup：30 分鐘 paste + 30 分鐘 conversation。Post-Project：5 分鐘 conversation 就出 result。
+呢個就係 setup 嘅價值。Conversation 5 段對話 → 5 個 IG post。Pre-Project setup：30 分鐘 paste + 30 分鐘 conversation。Post-Project：5 分鐘 conversation 就出結果。
 
 ### 5. Iterate weekly 提升 system prompt
 
-頭兩星期你會 notice gap — Claude output 某啲嘢仲未 match expectation。
+頭兩星期你會發現 gap — Claude output 某啲嘢仲未 match 到期望。
 
 每星期五 5 分鐘 ritual：
 
-1. Open project
+1. 打開 project
 2. Review 過去 5 chat
-3. 揾 邊 兩 三段 你 manual correct 多次
-4. Add 嗰啲 rules into system prompt
+3. 揾 邊 兩 三段 你手動改多次
+4. 加嗰啲 rules 入 system prompt
 
 例如：
-- Week 1 你 notice Claude 成日寫 emoji 過多 → 加「Emoji 1-2 個 max per post」
-- Week 2 你 notice 開頭 「I'd be happy to help!」 cringe → 加「直入 content，唔需要 helper intro」
-- Week 3 你 notice CTA 重複「shop now」 → 加 5 個 alternative CTA list
+- Week 1 你發現 Claude 成日寫 emoji 過多 → 加「Emoji 1-2 個 max per post」
+- Week 2 你發現開頭 「I'd be happy to help!」 cringe → 加「直入 content，唔需要 helper intro」
+- Week 3 你發現 CTA 重複「shop now」 → 加 5 個其他 CTA list
 
-3 個月後你 project system prompt 自動 evolved 到極 sharp。
+3 個月後你 project system prompt 自動進化到極準。
 
 ## 變化
 
@@ -157,15 +158,15 @@ featured: true
 
 你做 freelance consulting，5 個客同時 active：
 
-開 **5 個 separate Projects**，每個對應一個客：
+開 **5 個獨立 Projects**，每個對應一個客：
 
 - `Client A — Manufacturing` (industry context + 過去 deliverable)
 - `Client B — Restaurant chain` (brand voice + menu reference)
 - `Client C — Real estate` (regulation reference + market data)
 
-每次 work session 入啱個 project 開 chat。你 brain switch context 仲快 — project name 上面，你即時知 voice + reference 已啱。
+每次 work session 入啱個 project 開 chat。你個腦轉 context 仲快 — project name 上面，你即時知 voice + reference 已啱。
 
-**Anti-pattern**: 1 個「All clients」project + 每次 paste 「today is for Client X」 — context 容易 cross-contaminate，Claude 出錯 reference。
+**Anti-pattern**: 1 個「All clients」project + 每次 paste 「today is for Client X」 — context 容易撈亂，Claude 出錯 reference。
 
 ### 變化 2：Personal writing project (creator)
 
@@ -189,9 +190,9 @@ System prompt：
 - 結尾 1 個 macro question (「呢篇 main argument 你想 reader 帶走咩？」)
 ```
 
-Upload reference files：你過去最自豪嘅 5 篇 essay (各 paste 入 MD file) + 1 個 「我嘅 stop words list」。
+Upload reference files：你過去最自豪嘅 5 篇大文 (各 paste 入 MD file) + 1 個 「我嘅 stop words list」。
 
-新 essay draft → drop into project → Claude 用 你 voice 提 specific feedback。比 paste 入 generic ChatGPT 強 10 倍。
+新文章 draft → 丟入 project → Claude 用 你 voice 提具體 feedback。比 paste 入行貨 ChatGPT 強 10 倍。
 
 ### 變化 3：Team-shared project (Team / Enterprise plan)
 
@@ -199,26 +200,26 @@ Upload reference files：你過去最自豪嘅 5 篇 essay (各 paste 入 MD fil
 
 開 shared project「Marketing — All」：
 - Brand guideline file
-- Voice document
-- Past campaign reference
-- 5 人都可以 access + add knowledge
+- Voice 文件
+- 舊 campaign reference
+- 5 人都可以 access + 加 knowledge
 
-每個 team member 喺呢個 project 開 own chat — 但 reference 一致，output voice 一致。
+每個 team member 喺呢個 project 開自己嘅 chat — 但 reference 一致，output voice 一致。
 
-**注意**：shared project 嘅 system prompt 改動 affect 所有人。改之前 group chat 知會。
+**注意**：shared project 嘅 system prompt 改動影響所有人。改之前 group chat 知會。
 
 ## 一個 mindset
 
-Claude Projects 嘅 真正 value 唔係「saves prompt time」——係**externalize 你嘅 implicit knowledge 入 reusable container**。
+Claude Projects 嘅 真正價值唔係「慳 prompt 時間」——係**外化你嘅隱性知識入可重用嘅 container**。
 
-你 brain 入面有 5-10 樣 brand voice rule 自己都未 articulate 過。寫 system prompt 嘅 過程強迫你 articulate。Articulated knowledge = transferable to teammate / future self / Claude.
+你腦入面有 5-10 樣 brand voice 規則自己都未講清楚過。寫 system prompt 嘅過程強迫你講清楚。講清楚嘅 knowledge = 可傳承畀 teammate / 未來嘅自己 / Claude。
 
-3 個月後 你 system prompt 變成你 brand voice 嘅 1-page distilled version。新 hire 入 team → 直接讀 project system prompt = onboarded。呢個 side benefit 比 daily prompt saving 更 valuable。
+3 個月後 你 system prompt 變成你 brand voice 嘅 1-page 精華版。新人入 team → 直接讀 project system prompt = onboarded。呢個額外好處比每日慳嘅 prompt 時間更有價值。
 
 最後 reminder：
 
 - ✅ **Project ≠ chat archive**。Project 係 context container，唔係 conversation 集合。
-- ⚠️ **Upload file 唔好過 10 個**。Context window 食晒就 quality drop。
-- 🎯 **System prompt iterate weekly**。第 4 個禮拜你會 wonder 點解 setup 前你死撐 paste。
+- ⚠️ **Upload file 唔好過 10 個**。Context window 食晒質素會跌。
+- 🎯 **System prompt 每個禮拜 iterate**。第 4 個禮拜你會諗唔明點解 setup 前你死撐 paste。
 
-下個 chat 立即 set up first project。1 個禮拜後睇返呢篇文，你會明點解 setup 一次值。
+下個 chat 立即 set up 第一個 project。1 個禮拜後睇返呢篇文，你會明點解 setup 一次值。

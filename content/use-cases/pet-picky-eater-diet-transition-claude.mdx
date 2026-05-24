@@ -1,5 +1,5 @@
 ---
-title: "BB 突然唔肯食？用 Claude 拆原因 + 整 7 日轉糧 plan"
+title: "主子突然唔肯食？用 Claude 拆原因 + 整 7 日轉糧 plan"
 slug: "pet-picky-eater-diet-transition-claude"
 issue: 52
 publishedAt: 2026-05-22
@@ -11,7 +11,7 @@ heroImage: "/hero/pet-picky-eater-diet-transition-claude.webp"
 difficulty: 1
 timeMinutes: 10
 toolsNeeded: ["Claude Chat", "現有寵物糧食 brand + 食量記錄"]
-description: "BB 食得少／嘔／轉嗮糧／挑食？用 Claude 先 differential 係 medical 定 behavioural，再整 7 日 gradual transition plan（25% → 100%）+ 觀察 sign + emergency stop trigger。"
+description: "主子食得少／嘔／轉嗮糧／挑食？用 Claude 先分辨係醫療定行為問題，再整 7 日漸進轉糧 plan（25% → 100%）+ 觀察病徵 + 緊急停止指標。"
 keywords: ["寵物 挑食", "貓狗 唔食", "轉糧 ai", "pet diet transition", "claude 寵物"]
 related: ["vet-visit-prep-claude", "pet-sitter-handover-claude", "restaurant-menu-allergy-filter-claude"]
 featured: true
@@ -19,42 +19,42 @@ featured: true
 
 ## 情境
 
-你 BB（隻 8 歲短毛貓）平時食 80g Royal Canin Indoor，過去 5 年都係咁。
+你主子（隻 8 歲短毛貓）平時食 80g Royal Canin Indoor，過去 5 年都係咁。
 
 過去 4 日：
 
-- **Day 1**：碗仲剩 30g。你以為佢前一晚 snack 食得多。
-- **Day 2**：剩 50g。你 sniff 碗——食物正常，無變壞。
+- **Day 1**：碗仲剩 30g。你以為佢前一晚零食食得多。
+- **Day 2**：剩 50g。你聞吓隻碗——食物正常，無變壞。
 - **Day 3**：30g 都唔郁。你開罐 churu，佢秒食。
 - **Day 4**：朝早搵到一灘黃色嘔吐物，無毛球，半流質。佢匿喺床下底。
 
-你開始驚。Google 搜「貓 唔食 4 日」⋯⋯結果 95% 結果係「即刻送獸醫，可能腎衰」，5% 結果係「貓正常一日唔食」。完全 polarized。
+你開始驚。Google 搜「貓 唔食 4 日」⋯⋯結果 95% 結果係「即刻送獸醫，可能腎衰」，5% 結果係「貓正常一日唔食」。完全兩極化。
 
-呢類 ambiguous 情況最折磨——可能：
+呢類模稜兩可嘅情況最折磨——可能係：
 
-- **Medical**：牙痛 / 早期 CKD / pancreatitis / hairball / 感染
-- **Behavioural**：drama queen / 季節 appetite drop / 食物突然 reformulate / stress（新傢俬／搬屋／家中新人）
-- **Environment**：碗位變 / 旁邊新 scent / 食物擺太耐氧化
-- **Owner**：你 over-feed 上一星期，宜家 self-regulate
+- **醫療問題**：牙痛 / 早期 CKD / pancreatitis / hairball / 感染
+- **行為問題**：drama queen / 轉季胃口差 / 食物突然改配方 / 壓力（新傢俬／搬屋／家中新人）
+- **環境問題**：碗位變 / 旁邊有新氣味 / 食物擺太耐氧化
+- **主人問題**：你上一星期餵多咗，而家佢自己調節
 
-如果係 medical→ ASAP 獸醫
-如果係 behavioural → 7 日 transition 唔好暴力轉糧
-如果係 environment → 換碗位 / 換食物 timing 試
-如果係 owner → calm down，monitor
+如果係醫療 → 即刻去獸醫
+如果係行為 → 7 日轉糧，唔好暴力轉糧
+如果係環境 → 換碗位 / 換食物時間試吓
+如果係主人 → 冷靜，觀察
 
-呢篇用 Claude **10 分鐘**先 differentiate，再 design 一個 7 日轉糧 plan（如需要），減少「對 BB 暴力轉糧搞到嘔」嘅情況。
+呢篇用 Claude **10 分鐘**先分辨原因，再設計一個 7 日轉糧 plan（如需要），減少「對主子暴力轉糧搞到嘔」嘅情況。
 
-⚠️ Claude 唔係取代獸醫。如果有 red flag symptom（嘔血 / 完全唔飲水 / 不能站立 / 連續 48 小時零卡路里），**直接去獸醫**，呢篇 plan 唔適用。
+⚠️ Claude 唔係取代獸醫。如果有危險病徵（嘔血 / 完全唔飲水 / 不能站立 / 連續 48 小時零卡路里），**直接去獸醫**，呢篇 plan 唔適用。
 
 ## 跟住做
 
 ### 1. 寫低 baseline + 觀察
 
-打開 Claude chat。Dump 你 raw observation：
+打開 Claude chat。寫低你最 raw 嘅觀察：
 
-> BB（8 歲 male neutered cat, 4kg, indoor only, FIV-negative, 上次體檢 6 個月前 normal）。
+> 主子（8 歲 male neutered cat, 4kg, indoor only, FIV-negative, 上次體檢 6 個月前 normal）。
 > 
-> Baseline 食量：每日 80g Royal Canin Indoor Adult + 1 罐 Hill's i/d wet（傍晚）。每日 1.5 盤水。屎正常 hard formed 1 次 / 日，尿正常 2-3 次 / 日。
+> Baseline 食量：每日 80g Royal Canin Indoor Adult + 1 罐 Hill's i/d wet（傍晚）。每日 1.5 盤水。屎正常一條條實淨 1 次 / 日，尿正常 2-3 次 / 日。
 > 
 > 過去 4 日：
 > - Day -3：剩 30g 乾糧。濕糧食一半。
@@ -66,265 +66,265 @@ featured: true
 > 
 > 屋企變化：上週末買咗新地毯。其他 routine 一樣。
 
-### 2. 用呢個 prompt — 先 differentiate 原因
+### 2. 用呢個 prompt — 先分辨原因
 
 <PromptBlock label="完整 prompt — Picky eater / 食量異常 differential">
-我 BB（[填 species / age / weight / sex / neutered status / indoor or outdoor / chronic 病]）食量出現以下變化：
+我主子（[填 species / age / weight / sex / neutered status / indoor or outdoor / 慢性病]）食量出現以下變化：
 
 [paste 你嘅 timeline + baseline notes]
 
-我希望你幫我 systematic 拆原因：
+我希望你幫我有系統咁拆解原因：
 
-**🚨 Part 1：Red flag check（呢 5 樣有任何一樣 = 即去獸醫，唔好 follow 呢個 plan）**
+**🚨 Part 1：危險警號 check（呢 5 樣有任何一樣 = 即去獸醫，唔好 follow 呢個 plan）**
 - [ ] 連續 48 小時零卡路里（cat 尤其危險 — hepatic lipidosis）
 - [ ] 嘔吐含血 / 黑色（咖啡渣樣）
 - [ ] 完全唔飲水 24 小時
-- [ ] 黃疸（眼白 / 牙肉 / 耳內 yellow）
+- [ ] 黃疸（眼白 / 牙肉 / 耳內發黃）
 - [ ] 不能站立 / 不能跳
 
-如果以上有 ANY，stop here，直接去獸醫，唔好用呢個 plan。
+如果以上有任何一樣，停手，直接去獸醫，唔好用呢個 plan。
 
-**🩺 Part 2：Medical differential（3-5 個 likely cause）**
-基於我嘅 description，呢 D 係 vet 通常會 evaluate 嘅 cause（priority order）：
-- 病名 — 點 fit 我 BB 嘅 pattern + 1 個 home-observable sign confirm/rule out
+**🩺 Part 2：醫療可能性（3-5 個 likely cause）**
+基於我嘅 description，呢啲係 vet 通常會評估嘅原因（按可能性排）：
+- 病名 — 點 fit 我主子嘅 pattern + 1 個喺屋企觀察到嘅跡象去確認 / 排除
 - ...
 
-**🧠 Part 3：Behavioural / environmental differential**
-非 medical 嘅 reasonable cause：
-- Behavioural（drama / 食物 reformulate / 季節 appetite）
-- Environmental（新家具／搬屋／陌生人）
-- Owner-driven（over-feeding / treat 過量 / schedule shift）
+**🧠 Part 3：行為 / 環境可能性**
+非醫療嘅合理原因：
+- 行為（drama / 食物改配方 / 轉季胃口差）
+- 環境（新傢俬／搬屋／陌生人）
+- 主人引致（餵太多 / 零食過量 / 時間表變動）
 
-**🎯 Part 4：48-72 小時 home observation plan**
-（前提：red flag 都冇）
-- 觀察邊 3 個 sign + 點 quantify
-- 加 / 不加邊種 enticement food（warm wet food / fish broth / churu）
+**🎯 Part 4：48-72 小時在家觀察 plan**
+（前提：危險警號都冇）
+- 觀察邊 3 個跡象 + 點量化
+- 加 / 不加邊種引誘嘢食（溫水濕糧 / 魚湯 / churu）
 - 飲水量點 monitor
-- 屎尿 frequency check
+- 屎尿次數記錄
 
-**🚦 Part 5：Decision tree**
-- 如果觀察 24h：[條件] → action
-- 如果觀察 48h：[條件] → action
+**🚦 Part 5：判斷流程**
+- 如果觀察 24h：[條件] → 行動
+- 如果觀察 48h：[條件] → 行動
 - 如果觀察 72h：[條件] → 去獸醫
-- 如果 escalate：→ 即去獸醫
+- 如果惡化：→ 即去獸醫
 
-語氣：empathetic vet nurse + cat parent，唔好 lecture 我 over-feed，幫我 organize observation。
+語氣：empathetic vet nurse + cat parent，唔好對我餵太多講說教，幫我整理觀察。
 </PromptBlock>
 
-### 3. 如果係 behavioural / environmental → 7 日 transition plan
+### 3. 如果係行為 / 環境問題 → 7 日轉糧 plan
 
-如果 Part 2 medical risk 低 + 你想嘗試**轉糧 / 加水分**（vet 推薦 / 你 active decision）：
+如果 Part 2 醫療風險低 + 你想主動嘗試**轉糧 / 加水分**（vet 推薦 / 你主動決定）：
 
-<PromptBlock label="完整 prompt — 7 日 gradual diet transition plan">
-我 BB（[species / age / weight / current health]）需要由：
+<PromptBlock label="完整 prompt — 7 日漸進轉糧 plan">
+我主子（[species / age / weight / current health]）需要由：
 
 - **目前糧**：[brand / line / dry or wet]
-- **目標糧**：[brand / line / dry or wet / 點解轉，例：vet 推薦 prescription kidney diet / 我想 upgrade quality / current 出 reformulation issue]
+- **目標糧**：[brand / line / dry or wet / 點解轉，例：vet 推薦 prescription kidney diet / 我想升級質素 / current 糧改配方出事]
 
-請整 **7 日 gradual transition plan**：
+請整 **7 日漸進轉糧 plan**：
 
-**📅 Daily schedule**
-Day 1-2: 75% old + 25% new
-Day 3-4: 50% old + 50% new
-Day 5-6: 25% old + 75% new
-Day 7+: 100% new
+**📅 每日時間表**
+Day 1-2: 75% 舊 + 25% 新
+Day 3-4: 50% 舊 + 50% 新
+Day 5-6: 25% 舊 + 75% 新
+Day 7+: 100% 新
 
 每日：
-- AM portion (g / kcal)
-- PM portion
-- Mix 點 prepare（warm? 加 water? 混合 thoroughly?）
-- 點 measure 食量
+- 朝早份量 (g / kcal)
+- 夜晚份量
+- 兩溝點準備（加暖水？溝勻？）
+- 點量度食量
 
-**🎯 Success metric（observe 邊 3 樣）**
-- 食量（reach baseline 80%+ 嗎）
-- 屎 consistency（轉糧 normal 會略 loose 1-2 日）
-- Energy / behavior（playful as usual 嗎）
+**🎯 成功指標（觀察邊 3 樣）**
+- 食量（去得返 baseline 80%+ 嗎）
+- 屎狀態（轉糧正常會略爛 1-2 日）
+- 精神 / 行為（肯玩嗎）
 
-**🚦 Stop / slow down trigger**
-- 如果 Day 2 嘔 → stop，return to 100% old，wait 3 日再試 slower (10% increment)
+**🚦 停止 / 減慢指標**
+- 如果 Day 2 嘔 → 停，食返 100% 舊糧，等 3 日再試慢啲 (每次加 10%)
 - 如果 Day 3 完全唔食 → call vet
-- 如果屎連續 3 日 watery → stop new food
+- 如果屎連續 3 日水狀 → 停新糧
 
-**💡 Picky eater hacks**
-- Warm 食物到 body temp（38-39°C）— 唔好 microwave 太久
-- Mix 少少 wet food / churu / tuna brine 引誘
-- ⚠️ 避免：強行 syringe-feed（傷食道）/ 餓佢屈服（cat 真係會餓死自己）
+**💡 搞掂挑食小貼士**
+- 叮暖食物到體溫（38-39°C）— 唔好叮太耐
+- 溝少少濕糧 / churu / 吞拿魚水引誘
+- ⚠️ 避免：針筒強行灌食（傷食道）/ 餓佢屈服（cat 真係會餓死自己）
 
-**🍴 Long-term plan**
-轉糧成功之後 4 週 monitor：
-- 體重 stability
-- 屎 quality
-- Coat condition（cat 4 週可見）
-- Energy
+**🍴 長遠 plan**
+轉糧成功之後 4 星期 monitor：
+- 體重穩定度
+- 屎質素
+- 毛髮狀態（cat 4 星期可見）
+- 精神
 
-**🐱 vs 🐕 species 特異 reminder**
-（如果 BB 係 cat → 強調 hepatic lipidosis 風險、唔可以 fast）
-（如果 BB 係 dog → 強調 sudden GI upset 風險、可加 probiotic supplement）
+**🐱 vs 🐕 物種特異提醒**
+（如果主子係 cat → 強調 hepatic lipidosis 風險、唔可以斷食）
+（如果主子係 dog → 強調突發腸胃不適風險、可加益生菌補充品）
 
-語氣：耐心 cat / dog parent 朋友。
+語氣：有耐性嘅 cat / dog parent 朋友。
 </PromptBlock>
 
 ### 4. 7 日 daily check-in
 
-每日完餐之後 30 秒 paste 簡短：
+每日完餐之後用 30 秒打兩句：
 
-> 「Day 3。今朝 AM 食咗 75% portion，PM 食 50%。屎 normal，少少軟。Energy OK，跳上 sofa 主動。」
+> 「Day 3。今朝朝早食咗 75% 份量，夜晚食 50%。屎正常，少少軟。精神 OK，主動跳上梳化。」
 
-Claude 評估 → 「symptoms within expected range, continue plan as scheduled, observe poop tomorrow」
+Claude 評估 → 「症狀喺預期之內，繼續按計劃進行，聽日留意大便」
 
-如果出問題 → trigger Stop / slow down protocol。
+如果出問題 → 觸發停止 / 減慢機制。
 
 ## 變化
 
-### 變化 1：Prescription / 醫療 diet 嘅 strict adherence
+### 變化 1：處方 / 醫療糧嘅嚴格遵從
 
-如果 vet 處方 prescription diet（KD for kidney / HD for heart / DM for diabetes / IBD diet 等）：
+如果 vet 處方 prescription diet（KD 保腎 / HD 保心 / DM 糖尿 / IBD 等）：
 
 <PromptBlock label="變化 1 — Prescription diet adherence + treat 安全 list">
-我 BB（[chronic 病]）開始食 [prescription diet 名]。
+我主子（[慢性病]）開始食 [prescription diet 名]。
 
 獸醫指示：
-- Strict diet — 唔可以 mix 其他 food
-- Daily portion: [g / kcal]
-- Duration: [trial period / 終生]
+- 嚴格飲食 — 唔可以溝其他食物
+- 每日份量: [g / kcal]
+- 期限: [試驗期 / 終生]
 
 問題：
-- BB 唔肯食呢隻 prescription（味唔啱）
-- 屋企人成日想偷 feed treat
+- 主子唔肯食呢隻處方糧（味唔啱）
+- 屋企人成日想偷偷餵零食
 - 我自己心痛佢食得少
 
-請整：
+請幫我整：
 
-**Part 1：Compliance reality check**
-- 呢個 diet 嘅 mechanism 點解嚴格係必要（用我隻 BB 嘅病嚟解，唔好 generic）
-- 偷 feed treat 嘅實際 medical risk（quantify if possible）
+**Part 1：執行現實 check**
+- 呢個處方糧嘅原理點解一定要嚴格執行（用我隻主子嘅病嚟解，唔好行貨）
+- 偷偷餵零食嘅實際醫療風險（量化 if possible）
 
-**Part 2：點 transition 唔願食嘅 BB 食 prescription**
-- 推薦 transition 速度（vs 變化篇主篇嘅 7 日，prescription 可能需要 14-21 日）
-- Warming / texture variation tricks
-- 同一個 prescription line 嘅 wet vs dry vs paste 試錯
-- 如果完全 reject → 同 vet discuss alternative brand（同 mechanism 不同味）
+**Part 2：點樣令唔願食嘅主子食處方糧**
+- 推薦轉糧速度（對比普通 7 日，處方糧可能需要 14-21 日）
+- 溫度 / 改變質感技巧
+- 同一個處方系列嘅濕糧 vs 乾糧 vs 肉泥試錯
+- 如果完全拒絕 → 同 vet 傾其他牌子（同原理但唔同味）
 
-**Part 3：屋企人 alignment**
-我嘅伴侶 / 阿媽 / 工人姐姐成日偷 feed BB 嘢食（覺得我吓 BB 可憐）。請幫我：
-- 寫一段 short briefing 解釋 prescription diet 重要性，畀我畀屋企人睇
-- 3 條 acceptable boundary（e.g., 1 prescription treat / 日，brand specified）
-- ⚠️ 絕對唔可以畀 BB 食嘅 list（取決於病種）
+**Part 3：屋企人共識**
+我嘅伴侶 / 阿媽 / 工人姐姐成日偷偷餵主子嘢食（覺得餓親主子好可憐）。請幫我：
+- 寫一段簡短說明解釋處方糧重要性，畀我畀屋企人睇
+- 3 條可接受界線（例如：每日最多 1 粒處方零食，指定牌子）
+- ⚠️ 絕對唔可以畀主子食嘅名單（取決於病種）
 
-**Part 4：Trial period evaluation**
-獸醫通常 6-8 週 follow up evaluate。請整：
-- 期間我每日記錄邊 5 樣（appetite / energy / 體重 / 屎尿 / symptom-specific marker）
-- Trial 完之後同 vet 帶嘅 data summary 點 prep
+**Part 4：試驗期評估**
+獸醫通常 6-8 星期 follow up 評估。請整：
+- 期間我每日記錄邊 5 樣（胃口 / 精神 / 體重 / 屎尿 / 針對病徵嘅指標）
+- 試驗期完之後，帶去見 vet 嘅數據總結點準備
 
-語氣：empathetic — 我知強迫 BB 食佢唔鍾意嘅嘢心痛，但 medical 上必要。
+語氣：empathetic — 我知強迫主子食佢唔鍾意嘅嘢會心痛，但醫療上係必要。
 </PromptBlock>
 
-### 變化 2：自家煮飯 home-cooked diet planning
+### 變化 2：自家煮鮮食 diet planning
 
-你想 partially / fully home-cook 你 BB 嘅飯：
+你想幫主子半自煮 / 全自煮：
 
 <PromptBlock label="變化 2 — Home-cooked diet feasibility + recipe scaffolding">
-我考慮自家煮 BB 嘅飯，由：
+我考慮自家煮主子嘅飯，由：
 
-- [Cup / 罐 commercial food]
-- 轉去：[partial / full home-cooked]
+- [每日幾多杯 / 罐商業糧]
+- 轉去：[半自煮 / 全自煮]
 
-我嘅 motivation：[control quality / BB 過敏 / commercial recall scare / hobby / cost]
+我嘅動機：[控制質素 / 主子過敏 / 驚商業糧回收 / 興趣 / 成本]
 
-我嘅 cooking capacity：[每日 / 每週 batch cook / 每月]
+我煮飯嘅能力：[每日 / 每週煮定一堆 / 每月]
 
-請 reality check：
+請做現實評估：
 
-**Part 1：Honest feasibility**
-- Cat vs dog 嘅 home-cooked complexity difference（cat 對 taurine / arginine 完全 sensitive，dog 較 forgiving）
-- 你嘅 commitment level 配唔配 home-cooked（每日新鮮 vs 每週 batch 嘅 storage 風險）
+**Part 1：老實可行性評估**
+- Cat vs dog 嘅自煮複雜度差異（cat 對牛磺酸 / 精氨酸極度敏感，dog 寬容啲）
+- 你嘅投入程度配唔配自煮（每日新鮮 vs 每週煮定一堆嘅儲存風險）
 
-**Part 2：必須 supplement 嘅 micronutrient**
-- 唔加 = 點都會 deficient 嘅（taurine for cat / Vit D / calcium-phosphorus ratio for dog）
-- 推薦 brand 嘅 multivitamin / single-nutrient supplement（generic 講，唔做 brand promo）
+**Part 2：必須補充嘅微量營養素**
+- 唔加 = 點都會缺乏嘅（cat 嘅牛磺酸 / dog 嘅維他命 D / 鈣磷比例）
+- 推薦嘅綜合維他命 / 單一營養補充品（籠統講種類，唔推銷牌子）
 - 邊度買（HK 寵物店 / 海外網購）
 
-**Part 3：每週 base recipe scaffolding**
-- 蛋白質 source ratio（cat 60-70% / dog 40-50%）
-- 碳水 acceptable range
+**Part 3：每週基本食譜框架**
+- 蛋白質來源比例（cat 60-70% / dog 40-50%）
+- 碳水可接受範圍
 - 油脂 + 必需脂肪酸
-- Vegetable / fibre（cat 少 / dog OK）
+- 蔬菜 / 纖維（cat 少 / dog OK）
 
-**⚠️ Part 4：Absolute no-go**
-- 對 cat / dog 致命嘅食材（chocolate, onion, grape, xylitol, raw bone for cat 等）
-- Storage rule（fridge 3 日 / freezer 1 個月）
-- Cooking temperature（meat 一定全熟避免 sal/parasite）
+**⚠️ Part 4：絕對唔得**
+- 對 cat / dog 致命嘅食材（朱古力, 洋蔥, 提子, 木糖醇, cat 嘅生骨頭 等）
+- 儲存規則（雪櫃下格 3 日 / 冰格 1 個月）
+- 烹調溫度（肉類一定要全熟避免沙門氏菌 / 寄生蟲）
 
-**Part 5：6 週 trial protocol**
-- 起步 partial（25% home + 75% commercial）轉 2 週
-- 觀察 5 個 marker（屎 / 體重 / coat / energy / 食慾）
-- 6 週 vet check 嘅 blood panel 應該驗咩
+**Part 5：6 星期試驗計劃**
+- 起步 partial（25% 鮮食 + 75% 商業糧）轉 2 星期
+- 觀察 5 個指標（屎 / 體重 / 毛髮 / 精神 / 食慾）
+- 6 星期 vet check 嘅驗血應該驗咩
 
-**🚨 Part 6：When to abort**
-- 任何 nutrient deficient sign（cat heart issue / dog bone issue）→ 即返 commercial
-- 如果你 burnout cooking → DO NOT half-ass，要返 commercial（half-ass 比純 commercial 更危險）
+**🚨 Part 6：幾時要停**
+- 任何營養缺乏跡象（cat 心臟問題 / dog 骨骼問題）→ 即刻轉返商業糧
+- 如果你煮到 burnout → 千祈唔好求其，要轉返商業糧（求其煮比純商業糧更危險）
 
-語氣：support 你嘅 motivation 但 protect BB 嘅 health，唔好 evangelize home cooking 都唔好潑冷水。
+語氣：支持你嘅動機但保護主子嘅健康，唔好盲推鮮食亦唔好潑冷水。
 </PromptBlock>
 
-### 變化 3：多隻寵物 mixed diet（cat + dog 互偷 food）
+### 變化 3：多寵物混食問題（貓狗互偷嘢食）
 
-你屋企有 cat + dog（or 2 cats with different needs），佢哋成日偷食對方 food：
+你屋企有貓有狗（或者兩隻貓各有需求），佢哋成日偷食對方啲糧：
 
 <PromptBlock label="變化 3 — Multi-pet feeding logistics">
 我屋企：
-- BB cat — 食 [brand / 特殊需求 e.g. prescription kidney]
+- 主子 cat — 食 [brand / 特殊需求 e.g. prescription kidney]
 - Coco dog — 食 [brand / 特殊需求 e.g. weight management]
 
 問題：
-- 互偷 food（cat 食 dog food / dog 食 cat food）
-- 雙方 needs 唔同，但 feed time / location 難分
+- 互食（cat 食 dog food / dog 食 cat food）
+- 雙方需求唔同，但餵食時間 / 地點難分開
 
 請整：
 
-**Part 1：Mutual eating 嘅 health risk**
-- Cat 食 dog food → 長期 taurine / arginine 不足，cardiac risk
-- Dog 食 cat food → 蛋白質過高 → renal stress + 肥胖
-- Specific to 你哋 case：BB renal + Coco weight = even higher mismatch risk
+**Part 1：互食嘅健康風險**
+- Cat 食 dog food → 長期牛磺酸 / 精氨酸不足，心臟風險
+- Dog 食 cat food → 蛋白質過高 → 腎臟負擔 + 肥胖
+- 針對你哋 case：主子腎病 + Coco 減肥 = 錯配風險極高
 
-**Part 2：Physical separation strategy**
-- Feeder height / location（cat 可以跳，feed cat 喺高處 / dog 喺地下）
-- Time-staggered feeding（餵完一隻全部食完先放第二隻出嚟）
-- Microchip-activated feeder（HK 寵物店有 stock 嗎，brand recommendation, budget $）
-- Room separation（feed 不同房 + close door）
+**Part 2：物理分隔策略**
+- 飯碗高度 / 位置（cat 可以跳，喺高處餵 cat / dog 喺地下）
+- 錯開時間餵（餵完一隻全部食完先放第二隻出嚟）
+- 晶片感應餵食器（HK 寵物店有現貨嗎，推薦種類, budget $）
+- 分房（不同房餵 + 閂門）
 
-**Part 3：每隻 daily schedule（master timetable）**
-給我 1 個 7am-10pm timetable，列明：
+**Part 3：每隻日常時間表（總時間表）**
+畀我 1 個 7am-10pm 時間表，列明：
 - 邊個時間餵邊隻
 - 收碗時間
-- 邊隻可以 free-feed 邊隻 portion control
-- 監督邊個 time slot
+- 邊隻可以長擺長食，邊隻要控制份量
+- 監督邊個時段
 
-**Part 4：Pet sitter handover note**
-精簡 1 段 paragraph，sitter 入嚟睇得明 separation protocol（呼應 issue 051）
+**Part 4：Pet sitter 分隔指引**
+精簡 1 段 paragraph，sitter 入嚟睇得明個分隔指引（呼應 issue 051）
 
-**Part 5：⚠️ Common mistakes**
-- Free-feed 兩隻 = guarantee mutual eating
-- 太信「BB 識自己唔食 Coco 食物」（pets 唔識）
-- 用 height 分但 dog 學識爬
+**Part 5：⚠️ 常見錯誤**
+- 兩隻都長擺長食 = 包保互食
+- 太信「主子識自己唔食 Coco 啲嘢」（寵物唔識）
+- 用高度分但 dog 學識爬上去
 
-語氣：multi-pet household reality check，唔好 idealize。
+語氣：多寵物家庭現實考量，唔好理想化。
 </PromptBlock>
 
 ## 一個 mindset
 
-寵物嘅 appetite 係**最敏感嘅早期 signal**——比體重、活動量、屎尿都更早 detect 變化。一隻 cat 突然唔食可以 cascade 入 hepatic lipidosis 喺 48-72 小時；一隻 dog 突然嘔多日可能係 bloat（外科 emergency）。
+寵物嘅胃口係**最敏感嘅早期 signal**——比體重、活動量、屎尿都更早發現變化。一隻 cat 突然唔食可以急轉直下變成 hepatic lipidosis 喺 48-72 小時；一隻 dog 突然嘔多日可能係胃扭轉（外科急症）。
 
-但同時，**寵物 picky 都係日常 reality**——換 brand reformulate、季節 appetite shift、屋企新傢俬 stress——好多時觀察 48 小時就 reset。
+但同時，**寵物挑食都係日常現實**——換牌子改配方、轉季胃口變、屋企新傢俬壓力——好多時觀察 48 小時就會回復正常。
 
-Claude 嘅 role 唔係 diagnose，係**幫你 distinguish「值得驚」vs「值得 patiently observe」**。Red flag → 獸醫。No red flag → structured observation + gradual intervention。
+Claude 嘅角色唔係斷症，係**幫你分辨「值得驚」vs「耐心觀察」**。危險病徵 → 獸醫。冇危險病徵 → 有系統觀察 + 漸進介入。
 
 最後 reminder：
 
-- ✅ 任何嘔吐含血 / 黃疸 / 不能站立 / 48 小時零卡路里 = 直接送 emergency vet
-- ✅ 轉糧永遠 gradual（min 7 日，prescription 14-21 日）
-- ❌ 餓 BB 屈服佢食新糧 — cat 真係會餓死自己
-- ❌ 強行 syringe-feed 唔識 hold 嘅 cat — 傷食道
-- 🐾 BB picky 可能只係 drama queen — 但你嘅 calm > 你嘅 panic
+- ✅ 任何嘔吐含血 / 黃疸 / 不能站立 / 48 小時零卡路里 = 直接送急症獸醫
+- ✅ 轉糧永遠要漸進（最少 7 日，處方糧 14-21 日）
+- ❌ 餓主子屈服等佢食新糧 — cat 真係會餓死自己
+- ❌ 針筒強行灌食唔識吞嘅 cat — 傷食道
+- 🐾 主子挑食可能只係 drama queen — 但你嘅冷靜 > 你嘅慌亂
 
-BB 食得開心，你食得安樂。
+主子食得開心，你食得安樂。
