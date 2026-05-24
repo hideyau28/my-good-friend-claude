@@ -11,7 +11,7 @@ heroImage: "/hero/claude-code-chrome-extension.webp"
 difficulty: 3
 timeMinutes: 240
 toolsNeeded: ["Claude Code", "Chrome", "GitHub account"]
-description: "用 Claude Code 由零起一個 Chrome extension：唔識前端都做到。1 日內整一個 solve 你 daily 痛點嘅 personal tool（Gmail filter、IG download、Google Doc keyboard shortcut）。"
+description: "用 Claude Code 由零起一個 Chrome extension：唔識前端都做到。1 日內整一個解決你日常痛點嘅個人工具（Gmail filter、IG 下載、Google Doc 快捷鍵）。"
 keywords: ["chrome extension 教學", "自整工具", "claude code", "vibe coding 實戰", "personal automation"]
 related: ["claude-code-tutorial-website", "mac-shortcut-claude-prompt"]
 featured: true
@@ -19,36 +19,36 @@ featured: true
 
 ## 情境
 
-你 daily 用 Chrome 撞到一個小煩惱：
+你每日用 Chrome 撞到一個小煩惱：
 
-- Gmail 唔可以 filter 一個 specific 嘅 sender pattern 落 specific label
-- IG 唔可以 download 朋友 send 你嘅 photo（要截圖）
-- Google Doc / Notion 缺少一個你想要嘅 keyboard shortcut
-- LinkedIn 你想 mute 某類 post（但唔想 unfollow 個 person）
+- Gmail 唔可以將某個特定寄件人過濾落特定標籤
+- IG 唔可以下載朋友 send 畀你嘅相（要截圖）
+- Google Doc / Notion 缺少一個你想要嘅快捷鍵
+- LinkedIn 你想隱藏某類貼文（但唔想 unfollow 個用戶）
 
-呢類煩惱**個 product team 永遠唔會修**，因為對佢哋唔係 priority。 但對你個人，每日 cost 你 5 分鐘 = 一年 25 小時。
+呢類煩惱**產品團隊永遠唔會修補**，因為對佢哋嚟講唔係首要任務。但對你個人嚟講，每日花你 5 分鐘 = 一年 25 個鐘。
 
-呢類 「product 唔會修嘅小問題」，**Chrome extension 通常 30-60 分鐘可以整完**。 但你唔識 web dev，止步於「我都唔知由邊度開始」。
+呢類「產品唔會修補嘅小問題」，**Chrome extension 通常 30-60 分鐘可以整完**。但你唔識網頁開發，止步於「我都唔知由邊度開始」。
 
-呢篇用 Claude Code 由零教你起一個 Chrome extension，整個你自用嘅工具。**Solo project，1 日內 OK，唔需要 publish 落 Chrome Web Store**。
+呢篇用 Claude Code 由零教你起一個 Chrome extension，整個你自用嘅工具。**單人項目，1 日內搞掂，唔需要發佈落 Chrome Web Store**。
 
 ## 跟住做
 
-### 1. 揀啱個 first project（critical 嘅 step）
+### 1. 揀啱第一個項目（關鍵步驟）
 
-唔好 start ambitious project。**揀一個你 daily 撞 + 30 分鐘 fix 嘅小痛點**。 例子：
+唔好一開始就做大項目。**揀一個你每日遇到 + 30 分鐘搞掂嘅小痛點**。例子：
 
-- **Gmail unsubscribe button enhancement**：揀走 promotional email 嘅 「Unsubscribe」 link，1 click 自動 unsubscribe + archive
-- **Notion clipboard auto-format**：copy 一段 text 落 Notion 自動清埋 source formatting
-- **YouTube auto-skip intro**：list 你睇嘅 channel，自動 skip 頭 5 秒 sponsor 段
-- **Threads bookmark exporter**：揀 「Saved」 page 嘅所有 post export 落 CSV
+- **Gmail 取消訂閱按鈕強化**：揀走推銷電郵嘅「取消訂閱」連結，1 撳自動取消訂閱 + 封存
+- **Notion 剪貼簿自動排版**：複製一段文字落 Notion 自動清埋來源格式
+- **YouTube 自動跳過開場**：列出你睇嘅頻道，自動跳過頭 5 秒贊助片段
+- **Threads 收藏匯出工具**：揀「Saved」頁面嘅所有貼文匯出落 CSV
 
 唔好揀：
-- 任何 涉及 financial transaction 嘅嘢（risk 太高）
-- 任何 牽涉 third-party API 嘅嘢（first project complexity 太高）
-- 任何 你冇 personal stake 嘅嘢（你會 abandon project）
+- 任何涉及金融交易嘅嘢（風險太高）
+- 任何牽涉第三方 API 嘅嘢（第一個項目複雜度太高）
+- 任何你冇切身需要嘅嘢（你會半途而廢）
 
-### 2. 開 Claude Code，用呢個 prompt 起 project
+### 2. 開 Claude Code，用呢個 prompt 起項目
 
 開 Terminal：
 ```bash
@@ -59,60 +59,60 @@ claude
 
 入到 Claude Code prompt：
 
-<PromptBlock label="完整 prompt — 起 Chrome extension project">
-我想整一個 Chrome extension，自用，唔 publish。功能：
+<PromptBlock label="完整 prompt — 起 Chrome extension 項目">
+我想整一個 Chrome extension，自用，唔發佈。功能：
 
-[描述你嘅 specific 痛點 + 你想 extension 做乜]
-例：「我成日喺 Gmail 撳錯 Reply All 之後 panic。我想整 extension，撳 Send 之前如果係 Reply All 且 recipient > 5 人，pop up confirmation」
+[描述你嘅具體痛點 + 你想 extension 做乜]
+例：「我成日喺 Gmail 撳錯 Reply All 之後好驚。我想整 extension，撳 Send 之前如果係 Reply All 而且收件人多過 5 人，彈出確認視窗」
 
 要求：
-1. **Manifest V3**（最新 Chrome extension spec）
-2. **Permissions**：minimum needed only。如果只要 read DOM 唔 trigger network，唔好 ask additional permission
-3. **Folder structure**：keep simple，3-5 個 file max
-4. **No build step**：vanilla JS，唔用 React / Webpack（first project 唔需要 build complexity）
-5. **README**：點 install local（unpacked extension）
+1. **Manifest V3**（最新 Chrome extension 規格）
+2. **Permissions**：只需最基本。如果只要讀取 DOM 唔觸發網絡要求，唔好要求額外權限
+3. **資料夾結構**：保持簡單，最多 3-5 個檔案
+4. **無構建步驟**：原生 JS，唔用 React / Webpack（第一個項目唔需要構建複雜度）
+5. **README**：點樣喺本機安裝（未封裝嘅 extension）
 
 請：
-1. 由 manifest.json 開始
-2. 寫 content script（如果需要 inject 落 page）or background script
-3. 加 popup UI（如果需要 user interaction）
-4. 同我講點 install 同 test
+1. 由 `manifest.json` 開始
+2. 寫 content script（如果需要注入頁面）或 background script
+3. 加 popup UI（如果需要用戶互動）
+4. 教我點安裝同測試
 
-唔好 over-engineer。我係 first time，目標係 「end-of-day 我有 working 嘢喺我 Chrome」。
+唔好過度設計。我係第一次整，目標係「今日之內我有個用得嘅工具喺我 Chrome 度」。
 </PromptBlock>
 
-### 3. Claude Code 幫你寫 + 你 install 試
+### 3. Claude Code 幫你寫 + 你安裝試吓
 
-Claude Code 會逐個 file create。每個 file 你撳 enter approve。
+Claude Code 會逐個檔案建立。每個檔案你撳 enter 批准。
 
-之後你 install 個 extension：
+之後你安裝個 extension：
 
 1. Chrome → `chrome://extensions`
-2. 開「Developer mode」（右上角）
-3. 「Load unpacked」 → 揀你個 project folder
-4. 個 extension 就 active
+2. 開「開發人員模式」（右上角）
+3. 「載入未封裝項目」 → 揀你個項目資料夾
+4. 個 extension 就會啟動
 
-開你 target page（Gmail、IG、Notion，視乎你做乜），測試。
+開你目標網頁（Gmail、IG、Notion，視乎你做乜），測試吓。
 
-### 4. Iterate
+### 4. 反覆修正
 
-通常 first version 80% work，20% 唔 expected。 撞到嘅嘢直接同 Claude Code 講：
+通常第一個版本 80% 正常，20% 唔符合預期。撞到嘅問題直接同 Claude Code 講：
 
 <PromptBlock label="Debug prompt">
-我啱啱 install 個 extension，撞到呢個問題：
+我啱啱安裝完個 extension，撞到呢個問題：
 
-[描述：邊度唔 work、撳邊個掣會點、console error 係咩]
+[描述：邊度唔得、撳邊個掣會點、console 錯誤係咩]
 
 請：
-1. 估 root cause（可能性排序）
-2. 揀 most likely 嘅 hypothesis fix
-3. 解釋邊個 file / line 要改
-4. 改完之後我點 reload 個 extension 重新 test
+1. 估根本原因（可能性排序）
+2. 揀最有可能嘅假設去修補
+3. 解釋邊個檔案 / 邊行要改
+4. 改完之後我點樣重新載入個 extension 再測試
 </PromptBlock>
 
-5-10 次 iteration 落，個 extension 就會 reach you-actually-using-it stage。 通常一個下午做到。
+經過 5-10 次反覆修正，個 extension 就會達到「你真係用得著」嘅階段。通常一個下午就做到。
 
-### 5. （Optional）落 GitHub backup
+### 5. （可選）放上 GitHub 備份
 
 ```bash
 git init
@@ -122,61 +122,61 @@ gh repo create my-chrome-ext --private
 git push -u origin main
 ```
 
-私人 repo OK。**你係 owner、唔需要 share**。 呢個 backup 嘅 value 喺 future Mac 你想再 install。
+私人 repo OK。**你係擁有人、唔需要分享**。呢個備份嘅用處在於將來換 Mac 你想再安裝。
 
 ## 變化例子
 
-### 變化 1：Extension 加 simple UI（popup）
+### 變化 1：Extension 加簡單介面（彈出視窗）
 
 <PromptBlock label="變化 1 — 加 popup UI">
-我嘅 extension 而家係 content script only（auto-trigger）。我想加 popup：
+我嘅 extension 而家只有 content script（自動觸發）。我想加 popup：
 
-- 撳 toolbar icon 跳一個 200x300 px popup
-- Popup 入面有 [描述你嘅 feature：例 list、toggle、button]
-- 用簡單 HTML + 一啲 inline CSS（唔用 framework）
-- Popup state 保存喺 chrome.storage.local（refresh 唔 lose）
+- 撳工具列圖示彈出一個 200x300 px 視窗
+- 視窗入面有 [描述你嘅功能：例如列表、開關、按鈕]
+- 用簡單 HTML + 一啲行內 CSS（唔用框架）
+- 視窗狀態儲存喺 `chrome.storage.local`（重新整理唔會唔見）
 
-幫我 add 呢個 popup feature 落現有 extension。
+幫我將呢個 popup 功能加落現有 extension。
 </PromptBlock>
 
-### 變化 2：Cross-tab communication
+### 變化 2：跨分頁通訊
 
-<PromptBlock label="變化 2 — Cross-tab feature">
-我想 extension 喺 multiple tab 之間 share state：
+<PromptBlock label="變化 2 — 跨分頁功能">
+我想 extension 喺多個分頁之間共用狀態：
 
-例子：開 5 個 Gmail tab，我喺其中一個 mark 咗某類 email 做 「ignore」，其他 tab 都應該即時 reflect。
+例子：開咗 5 個 Gmail 分頁，我喺其中一個標示咗某類 email 做「忽略」，其他分頁都應該即時反映。
 
 請：
-1. 解釋 Chrome extension 邊個 mechanism 適合 cross-tab communication（chrome.runtime.sendMessage / chrome.storage.onChanged / etc.）
-2. Implement 喺我現有 extension
-3. 簡單 explain 你揀嘅 approach 嘅 trade-off
+1. 解釋 Chrome extension 邊個機制適合跨分頁通訊（`chrome.runtime.sendMessage` / `chrome.storage.onChanged` / 等等）
+2. 實作喺我現有 extension
+3. 簡單解釋你揀嘅方法嘅取捨
 </PromptBlock>
 
-### 變化 3：升級 manifest 用 third-party API
+### 變化 3：升級 manifest 用第三方 API
 
-<PromptBlock label="變化 3 — 加 API integration">
-我想我嘅 extension call 第三方 API（例：Claude API、Anthropic、某 dictionary、地圖 service）。
+<PromptBlock label="變化 3 — 加 API 整合">
+我想我嘅 extension 呼叫第三方 API（例：Claude API、Anthropic、字典、地圖服務）。
 
 請：
-1. Update manifest.json 加 host_permissions
-2. 解釋 CORS 喺 extension context 嘅 behavior（成日 differ from 一般 web page）
-3. 加 secure storage of API key（用 chrome.storage.local，唔 hardcode）
-4. 整一個 minimal example：撳 button，call API，display result
-5. Error handling：API 失敗 / quota exceeded 點顯示
+1. 更新 `manifest.json` 加入 `host_permissions`
+2. 解釋 CORS 喺 extension 環境下嘅行為（通常同一般網頁唔同）
+3. 安全儲存 API key（用 `chrome.storage.local`，唔好寫死）
+4. 整一個最基本例子：撳按鈕，呼叫 API，顯示結果
+5. 錯誤處理：API 失敗 / 超出配額點顯示
 
-呢個係 first 個 「medium complexity」 step，謹慎做。
+呢個係第一個「中等複雜度」嘅步驟，謹慎啲做。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-唔好 fall 落「我要 publish 落 Chrome Web Store」嘅 trap。
+唔好跌落「我要發佈落 Chrome Web Store」嘅陷阱。
 
-Publish 加 100 倍 complexity（review、screenshots、privacy policy、support、updates）。 你 first 個 extension 99% 嘅 value 喺 you 自己日日用得到。 私人安裝就 stop。
+發佈會增加 100 倍複雜度（審核、截圖、私隱條款、支援、更新）。你第一個 extension 99% 嘅價值在於你自己日日用得著。私人安裝就夠。
 
-**Solo dev / vibe coder 嘅 unique advantage**：你可以做 「audience size = 1」 嘅 product。
+**單人開發者 / vibe coder 嘅獨特優勢**：你可以做「受眾得 1 個人」嘅產品。
 
-呢類 「自己整嘢自己用」 嘅 build，最直接展示 Claude Code 嘅 leverage：**將「我都唔知由邊度開始」 嘅 distance，shrunk 到 「我下午就可以試一試」**。
+呢類「自己整嘢自己用」嘅專案，最直接展示 Claude Code 嘅槓桿：**將「我都唔知由邊度開始」嘅距離，縮短到「我晏晝就可以試一試」**。
 
-整完 first extension 之後，你會發現點解咁多 dev 同你講 「vibe coding 改變晒我」。 唔係因為個 framework 神奇，係因為你由 consumer of tools 變咗 maker of tools。
+整完第一個 extension 之後，你會發現點解咁多開發者同你講「vibe coding 改變晒我」。唔係因為個框架神奇，係因為你由工具嘅消費者變成工具嘅創造者。
 
-呢個 perspective shift，有第二次冇第二次。 而 Claude Code 嘅 mass-market value，就係 lower 呢個 perspective shift 嘅 barrier。
+呢種觀念嘅轉變，經歷過一次就返唔到轉頭。而 Claude Code 嘅大眾市場價值，就係降低呢種觀念轉變嘅門檻。
