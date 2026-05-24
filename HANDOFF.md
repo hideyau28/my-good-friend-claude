@@ -1,6 +1,6 @@
 # 📋 SESSION HANDOFF — my-good-friend-claude
 
-_Last session ended: 2026-05-24, 24 articles + 1 new section + 1 collab page shipped_
+_Last session ended: 2026-05-24, hero batch (84/84) + voice retone sweep (all sections)_
 
 ## 🌐 Live URLs
 
@@ -12,7 +12,7 @@ _Last session ended: 2026-05-24, 24 articles + 1 new section + 1 collab page shi
 
 ## 📊 Current state (top of main)
 
-- Top commit: `8b69c23` fix(content): trim MCP article description
+- Top commit: `7af55e1` content(voice): retone round 3 surgical SAT-word cleanup
 - **84 articles** (chat 61 / cowork 11 / code 12) — 42 featured
 - **12 sections** — 財經 · 職場 · 商家 · 親子 · 寵物 · 生活 · 健康 · 旅遊 · 文化 · 科技 · 遊戲 · 其他
 - Highest issue: **088**
@@ -58,9 +58,19 @@ _Last session ended: 2026-05-24, 24 articles + 1 new section + 1 collab page shi
 ## 🔓 Open backlog (priority order)
 
 ### 🔥 Quick wins
-1. ~~**Append 11 tutorial hero prompts** (issues 78-88) to HERO-PROMPTS-BATCH.md~~ ✅ done (entries 49-59 in Batch 3) — next step: user generates PNGs → batch import
-2. **Replace `/collaborate` email** placeholder (`hello@my-good-friend-claude.com`) — production launch-ready blocker
-3. **Pricing anchors** on `/collaborate` FAQ — after first paid quote
+1. ~~**Append 11 tutorial hero prompts** (issues 78-88) to HERO-PROMPTS-BATCH.md~~ ✅ done
+2. ~~**Import 36 new hero images**~~ ✅ done (2026-05-24, 84/84 coverage)
+3. ~~**Voice retone — clean gratuitous English across all 84 articles**~~ ✅ done (2026-05-24)
+4. **Replace `/collaborate` email** placeholder (`hello@my-good-friend-claude.com`) — production launch-ready blocker
+5. **Pricing anchors** on `/collaborate` FAQ — after first paid quote
+
+### 🎨 Voice retone calibration (for future articles)
+
+Established rules — apply when writing new content:
+- KEEP English: brand / tech / HK office natural codeswitch (Claude, deadline, vendor, email, fix, action, balance, tone, etc.)
+- CHANGE to Chinese: SAT-word adjective / adverb / verb where Cantonese has natural equivalent
+- HK-native gem: `行貨` (generic), `冇底氣` (weak), `飛機籠` (cage), `墊底費` (deductible), `唔保事項` (exclusion), `撈亂` (cross-contaminate), `死結` (paradox), `利疊利` (compounds), `拎啱個 balance` (strike balance), `諗唔明` (wonder), `搞冧` (destroy), `輸梗嘅` (sure loss), `唐狗` (mixed-breed dog), `珍禽異獸` (exotic pets), `心理位` (psychological trap), `見過個樣` (cringe-worthy), `白紙黑字` (written contract), `機械式` (mechanical)
+- Pet section: BB → **主子** (unified per user preference, applied 2026-05-24)
 
 ### ✍️ More articles (if you want to keep writing)
 - **職場 deepen** — interview prep / salary negotiation / 同事 conflict / promotion 點 ask
