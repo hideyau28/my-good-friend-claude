@@ -1,5 +1,5 @@
 ---
-title: "LinkedIn cold message 教學：用 Claude 寫 outreach 唔似 spam"
+title: "LinkedIn 陌生訊息教學：用 Claude 寫 outreach 唔似 spam"
 slug: "linkedin-cold-outreach-claude"
 issue: 11
 publishedAt: 2026-02-17
@@ -11,7 +11,7 @@ heroImage: "/hero/linkedin-cold-outreach-claude.webp"
 difficulty: 2
 timeMinutes: 15
 toolsNeeded: ["Claude Chat", "LinkedIn"]
-description: "LinkedIn cold message 教學：用 Claude 寫一個唔似 spam、有 reply rate 嘅 outreach。HK 打工仔／創作者搵新工、搵 connection、搵 mentor 嘅 prompt 範本。"
+description: "LinkedIn 陌生訊息教學：用 Claude 寫一個唔似 spam、有回覆率嘅主動接觸。HK 打工仔／創作者搵新工、搵 connection、搵 mentor 嘅 prompt 範本。"
 keywords: ["linkedin cold message", "linkedin outreach", "linkedin 搵工", "claude 寫訊息", "networking"]
 related: ["english-email-polish-hk", "claude-content-repurpose"]
 featured: false
@@ -19,137 +19,138 @@ featured: false
 
 ## 情境
 
-你想 reach out 落 LinkedIn 上某個人：
+你想主動聯絡 LinkedIn 上某個人：
 
-- 你想轉工，呢個人喺你目標公司做緊類似 role，想問下實況
-- 你想 freelance，想 connect 落 potential client
-- 你想揾 mentor 或 advisor
+- 你想轉工，呢個人喺你目標公司做緊類似職位，想問下實況
+- 你想做 freelance，想 connect 潛在客戶
+- 你想搵 mentor 或顧問
 
 你打開個 LinkedIn message box，寫 draft：
 
 > 「Hi [Name], I came across your profile and was very impressed by your background. I would love to connect and learn more about your work...」
 
-⚠️ 呢個你會自己 delete。99% 嘅 LinkedIn cold message 用緊呢個 template，所以 reply rate 5% 都唔到。
+⚠️ 呢個你會自己 delete。99% 嘅 LinkedIn 陌生訊息用緊呢個 template，所以回覆率 5% 都唔到。
 
-呢篇用 Claude 寫一個 **唔似 spam、有 angle、reply rate 真係 work** 嘅 cold message。
+呢篇用 Claude 寫一個 **唔似 spam、有角度、回覆率真係 work** 嘅陌生訊息。
 
 ## 跟住做
 
-### 1. Research 對方先
+### 1. 先研究對方
 
-唔係深度 stalk，係 5 分鐘 LinkedIn scan：
+唔係深度起底，係 5 分鐘 LinkedIn 快速掃瞄：
+
 - 佢最近 post 過咩
-- 佢嘅 background trajectory（之前邊間公司 → 而家邊度）
+- 佢嘅背景軌跡（之前邊間公司 → 而家邊度）
 - 佢有冇寫 blog / 上過 podcast / 出 talk
 
 呢 5 分鐘係關鍵。冇呢個 input，AI 出嘅 message 永遠係行貨。
 
 ### 2. 用呢個 prompt
 
-<PromptBlock label="完整 prompt — 寫一條唔似 spam 嘅 LinkedIn cold message">
-我想 LinkedIn message 一個 stranger。資料：
+<PromptBlock label="完整 prompt — 寫一條唔似 spam 嘅 LinkedIn 陌生訊息">
+我想 LinkedIn message 一個陌生人。資料：
 
 對方資料：
 - 姓名 + 職位 + 公司：[填]
-- 我點知佢嘅：[從 LinkedIn / podcast / mutual connection / 一條 post]
-- 佢最近 publicly 講過嘅嘢（一條 specific 觀察）：[填]
+- 我點知佢嘅：[從 LinkedIn / podcast / 共同朋友 / 一條 post]
+- 佢最近公開講過嘅嘢（一條具體觀察）：[填]
 
-我嘅 ask：
-- 想要嘅 outcome：[20 分鐘 video chat / 一條 specific question 嘅 reply / 引介 / 純 connect]
-- 我 offer 緊乜返畀對方：[我嘅 background / 我有興趣做返乜畀佢 / 純 curiosity]
+我嘅要求：
+- 想要嘅結果：[20 分鐘 video chat / 一條具體問題嘅回覆 / 引介 / 純 connect]
+- 我可以提供返啲咩畀對方：[我嘅背景 / 我有興趣幫佢做啲咩 / 純粹好奇]
 
-我嘅 context：
+我嘅背景：
 - 我嘅職位 + 公司：[填]
-- 點解我覺得 reach out 呢個人 specifically：[填，要 specific 唔係「impressed」]
+- 點解我覺得特別要聯絡呢個人：[填，要具體，唔係得句「impressed」]
 
 請寫一條 LinkedIn message，要做到：
 
-1. **長度**：150 字內。LinkedIn message preview 只 show 頭 100 字
-2. **第一句**：specific to 對方——唔係行貨「I admire your work」，係「I read your post about [topic] and [specific reaction]」
-3. **中段**：一句講你 context（who you are，one sentence）+ 一句講 ask（specific、time-bound、low-friction）
-4. **結尾**：低 commitment 嘅 close——「if open to it」「if you have 15 min sometime」，唔係「Looking forward to your reply」
+1. **長度**：150 字內。LinkedIn 訊息預覽只顯示頭 100 字
+2. **第一句**：針對對方度身訂造——唔係行貨「I admire your work」，係「I read your post about [topic] and [specific reaction]」
+3. **中段**：一句講你嘅背景（who you are，一句起兩句止）+ 一句講要求（具體、有時限、低阻力）
+4. **結尾**：低承諾嘅結語——「if open to it」「if you have 15 min sometime」，唔好寫「Looking forward to your reply」
 
 避免：
 - 「I came across your profile」（每個 spam 都用）
-- 「I'm impressed by your」（generic）
-- 自我介紹太長（佢可以 click 你 profile）
+- 「I'm impressed by your」（太行貨）
+- 自我介紹太長（佢可以 click 你 profile 睇）
 - 「Pick your brain」（聽到都唔想覆）
-- Question 太 open-ended（「How did you get to where you are?」）
+- 問題太空泛（「How did you get to where you are?」）
 
-語氣：respectful、specific、唔焦急。
+語氣：尊重、具體、唔焦急。
 </PromptBlock>
 
 ### 3. Check 三樣嘢
 
 寫完睇下：
-- **第一句點吸引** —— 由 specific observation 開頭，唔係 fluff
-- **個 ask 易答唔易答** —— 對方要 20 分鐘 video call 同 5 分鐘 typed reply，friction level 差好遠
-- **你 offer 咗咩** —— 唔係要錢，但 reciprocity 重要（即使係「I'll share my own experience back if helpful」都好）
+- **第一句點吸引** —— 由具體觀察開頭，唔係廢話
+- **個要求易唔易答** —— 對方要畀 20 分鐘 video call 同畀 5 分鐘打字覆你，阻力程度差好遠
+- **你提供咗咩價值** —— 唔係要錢，但互惠好重要（即使係「I'll share my own experience back if helpful」都好）
 
-### 4. Send 完，唔好 chase
+### 4. Send 完，唔好追
 
-72 小時內冇 reply，唔好再 message。Cold outreach reply rate 真實期望係 10-20%（即係 80% 唔覆），呢個 numbers game。**唔好 take it personally**。
+72 小時內冇回覆，唔好再 message。主動接觸嘅真實回覆率期望係 10-20%（即係 80% 唔覆），呢個係數字遊戲。**唔好放喺心上**。
 
 ## 變化例子
 
-### 變化 1：問轉工嘅 informational interview
+### 變化 1：問轉工嘅資訊型面試
 
-<PromptBlock label="變化 1 — Informational interview ask">
-我想 reach out 落一個喺我 target 公司 / industry 做 [職位] 嘅人。
-目的：唔係搵工，係想了解嗰個 role 嘅 reality（佢真實做乜、開心 / 唔開心嘅地方、入行需要乜）。
+<PromptBlock label="變化 1 — 資訊型面試要求">
+我想聯絡一個喺我目標公司 / industry 做 [職位] 嘅人。
+目的：唔係搵工，係想了解嗰個職位嘅現實（佢真實做乜、開心 / 唔開心嘅地方、入行需要乜）。
 
 請寫一條 message，要做到：
-1. 明確表示**唔係搵工**——對方會 relax
-2. 問 specific question：「我有 3 條 specific 問題，可唔可以麻煩你 15 分鐘 video chat 解答」
-3. Offer 配合對方時間（「any time that works for you in the next 2 weeks」）
-4. 開頭由佢 publicly 講過嘅嘢入手（mention 一個 specific reference）
+1. 明確表示**唔係搵工**——對方會放鬆啲
+2. 問具體問題：「我有 3 條具體問題，可唔可以麻煩你 15 分鐘 video chat 解答」
+3. 主動配合對方時間（「any time that works for you in the next 2 weeks」）
+4. 開頭由佢公開講過嘅嘢入手（提及一個具體參考）
 
-語氣：好奇學嘢嘅人，唔係 desperate jobseeker。
+語氣：好奇學嘢嘅人，唔係絕望搵工嘅人。
 </PromptBlock>
 
-### 變化 2：搵 mentor / advisor
+### 變化 2：搵 mentor / 顧問
 
-<PromptBlock label="變化 2 — Mentor outreach">
-我想 reach out 一個我深 admire 嘅人，希望佢做我嘅 informal mentor。
+<PromptBlock label="變化 2 — Mentor 聯絡">
+我想聯絡一個我深深敬佩嘅人，希望佢做我嘅非正式 mentor。
 
-要 fair warning：呢個 reply rate 通常低（大忙人）。
-請幫我寫一條 message，acknowledge 呢個 reality 但保留 dignity：
+要有心理準備：呢個回覆率通常低（大忙人）。
+請幫我寫一條 message，承認呢個現實但保留尊嚴：
 
-1. 開頭——specific 講你係點認識佢嘅工作（一個具體 reference）
-2. 中段——一句 context about you（具體成就 / 進展，唔係 vague「我做緊好多嘢」）
-3. Ask——明確但小 commitment：「我想每 quarter 同你 30 分鐘 video chat，問 specific question」（唔好開口要每月）
-4. Reciprocity——你 offer 返乜？想清楚先寫（即使係「我會 follow your work + 寫 reflection 寄返」都好過冇 offer）
-5. Close——畀對方易 say no 嘅空間（「completely understand if your schedule doesn't allow」）
+1. 開頭——具體講你係點認識佢嘅工作（一個具體參考）
+2. 中段——一句關於你嘅背景（具體成就 / 進展，唔係空泛嘅「我做緊好多嘢」）
+3. 要求——明確但低承諾：「我想每季同你 30 分鐘 video chat，問具體問題」（唔好一開口就要每個月）
+4. 互惠——你提供返啲咩？想清楚先寫（即使係「我會 follow your work + 寫 reflection 寄返」都好過冇）
+5. 結尾——畀對方易 say no 嘅空間（「completely understand if your schedule doesn't allow」）
 
 避免：
-- 「I would love to learn from you」（太 vague + 一邊倒）
-- 假 reciprocity（「I'll help you with your social media」如果你冇能力做到）
+- 「I would love to learn from you」（太空泛 + 一面倒）
+- 假互惠（「I'll help you with your social media」如果你冇能力做到）
 </PromptBlock>
 
-### 變化 3：Reply 一條別人 send 嚟嘅 cold message
+### 變化 3：覆別人 send 嚟嘅陌生訊息
 
-<PromptBlock label="變化 3 — 覆別人嘅 cold message">
-有人 LinkedIn message 我（內容 below），我想覆。決定咗嘅嘢：
+<PromptBlock label="變化 3 — 覆別人嘅陌生訊息">
+有人 LinkedIn message 我（內容如下），我想覆。決定咗嘅嘢：
 
-我嘅 decision：[揀 — 接受佢個 ask / decline politely / 提反提議]
+我嘅決定：[揀 — 接受佢個要求 / 禮貌拒絕 / 提出反建議]
 
 【對方嘅 message】：
 （貼）
 
 請幫我覆，要做到：
 1. 簡短——3 句之內
-2. 唔好 over-explain decision
-3. 如果係 decline，畀個 face-saving 理由（busy quarter / not the right fit），但唔好假裝會 follow up
-4. 如果 accept，confirm next step + timeline
-5. 如果反提議，clearly 講你願意做乜 vs 唔做乜
+2. 唔好過度解釋決定
+3. 如果係拒絕，畀個落台階理由（busy quarter / not the right fit），但唔好假裝會跟進
+4. 如果接受，確認下一步 + 時間表
+5. 如果反建議，清楚講你願意做乜 vs 唔做乜
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維轉變
 
-LinkedIn cold message 失敗率高，**唔係因為你寫得差，係因為對方好忙**。
+LinkedIn 陌生訊息失敗率高，**唔係因為你寫得差，係因為對方好忙**。
 
-但呢個亦係 leverage——**寫得好嘅 message 喺 noise 入面 stand out**。 你嘅 reply rate 由 5% 升到 25%，就係你 career 嘅 unfair advantage。
+但呢個亦係優勢——**寫得好嘅訊息喺雜訊入面會突圍而出**。你嘅回覆率由 5% 升到 25%，就係你職業生涯嘅不公平優勢。
 
-寫得好嘅本質：**對方 5 秒內可以 process 你係邊個、你想要乜、答覆 cost 幾多**。 三樣都 clear，reply rate 自然上。
+寫得好嘅本質：**對方 5 秒內可以消化你係邊個、你想要乜、答覆成本幾多**。三樣都清楚，回覆率自然上。
 
-Claude 嘅 leverage：幫你 strip 走 verbose 同行貨，剩低呢三樣必要。
+Claude 嘅用處：幫你清走累贅同行貨字眼，淨返呢三樣必要元素。

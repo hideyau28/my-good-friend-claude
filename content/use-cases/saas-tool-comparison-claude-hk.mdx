@@ -1,5 +1,5 @@
 ---
-title: "用 Claude 比較 SaaS subscription：Notion / Asana / Linear 揀啱兼 cut 重覆開支"
+title: "用 Claude 比較 SaaS 訂閱：Notion / Asana / Linear 揀啱兼 cut 重覆開支"
 slug: "saas-tool-comparison-claude-hk"
 issue: 29
 publishedAt: 2026-06-23
@@ -11,7 +11,7 @@ heroImage: "/hero/saas-tool-comparison-claude-hk.webp"
 difficulty: 1
 timeMinutes: 20
 toolsNeeded: ["Claude Chat"]
-description: "用 Claude 對比 SaaS subscription（Notion / Asana / Linear / Monday）：揀啱嘅工具同時 cut 重覆 subscription。HK solo / 細 team 月 burn $300 嘅 fix。"
+description: "用 Claude 對比 SaaS 訂閱（Notion / Asana / Linear / Monday）：揀啱嘅工具同時 cut 重覆訂閱。HK solo / 細 team 月 burn $300 嘅解決方案。"
 keywords: ["notion vs asana", "團隊工具比較", "saas subscription", "task management 工具", "小團隊 ai 工具"]
 related: ["claude-pdf-summary", "cowork-sales-pipeline-automation"]
 featured: false
@@ -19,39 +19,40 @@ featured: false
 
 ## 情境
 
-你 manage 緊一個 5 人 startup / 創意工作室。 你 subscribe 緊：
+你管緊一個 5 人 startup / 創意工作室。你訂閱緊：
 
 - Notion ($10/月/人)
 - Asana ($15/月/人)
 - Linear ($10/月/人 — 工程師專用)
 - Figma ($15/月/人)
 - Slack ($8/月/人)
-- + 各 individual subscription（ChatGPT、Claude Pro、Canva⋯⋯）
+- 各人自己嘅訂閱（ChatGPT、Claude Pro、Canva⋯⋯）
 
-5 人 × 6 個 SaaS = 月 burn $300+。 而且**功能 overlap**（Notion 部分 cover Asana、Asana 部分 cover Linear）。
+5 人 × 6 個 SaaS = 每月 burn $300+。而且**功能重疊**（Notion 部分 cover 到 Asana、Asana 部分 cover 到 Linear）。
 
-呢篇用 Claude 幫你做 strategic comparison + simplify stack。
+呢篇用 Claude 幫你做策略性對比 + 簡化工具組合。
 
 ## 跟住做
 
-### 1. List 你而家用緊 + 每個 tool 嘅 actual usage
+### 1. 列出你而家用緊 + 每個 tool 嘅實際用途
 
 每個 tool：
-- 月 cost（per seat × seats）
-- 主要 use case（你哋實際用嚟做乜，唔係 feature list）
+- 每月開支（每人收費 × 人數）
+- 主要用途（你哋實際用嚟做乜，唔係功能清單）
 - 邊個 team 用、邊個 team 唔用
-- Adoption rate（80% daily users? 30%?）
+- 接受度（80% 每日用？30%？）
 
-冇呢個 honest assessment，AI 嘅 output 變行貨「呢個 tool 強 X、嗰個強 Y」嘅 marketing analysis。
+冇呢個老實評估，AI 出嘅結果會變行貨「呢個 tool 強 X、嗰個強 Y」嘅 marketing 分析。
 
 ### 2. 用呢個 prompt
 
-<PromptBlock label="完整 prompt — SaaS stack audit">
-我哋有 [N 人] team，subscribe 緊以下 SaaS：
+<PromptBlock label="完整 prompt — SaaS 工具組合 audit">
+我哋有 [N 人] team，訂閱緊以下 SaaS：
 
 [List 每個 tool + cost + actual use case + adoption]
 
 我哋嘅 priority（排優先次序）：
+
 1. [例：team alignment + project visibility]
 2. [例：個別 task 跟蹤]
 3. [例：document / knowledge base]
@@ -61,7 +62,7 @@ featured: false
 
 **Part 1：功能 overlap audit**
 邊兩個 tool 我哋 use case 上 overlap？specific：
-- 我哋 而家 use Notion for X，Asana for Y——其實 [tool] 一個 cover 兩樣
+- 我哋而家 use Notion for X，Asana for Y——其實 [tool] 一個 cover 兩樣
 - Migration cost: 由 [Tool A] 走去 [Tool B] 邊樣難（template / data export / team retrain）
 
 **Part 2：Recommend simplification**
@@ -80,27 +81,27 @@ ROI period（含 migration time cost）
 - Feature gap：drop tool 之後缺嘅 specific function 點 work around
 - Migration timeline：建議 phased approach（唔好 big-bang 一日 change all）
 
-語氣：opinionated（畀 recommendation，唔好 「it depends」 fence-sit）。
+語氣：opinionated（畀 recommendation，唔好「it depends」fence-sit）。
 </PromptBlock>
 
-### 3. 同 team 傾 + small-scale pilot
+### 3. 同 team 傾 + 小規模試用
 
-唔好 unilateral decision。 Bring AI output 落 team weekly：
+唔好單方面決定。將 AI 嘅建議帶落 team weekly：
 
-- Acknowledge 個 cost concern
-- 討論 simplification proposal
-- Pilot：揀一個 sub-team 試 2 週新 stack
-- Evaluate adoption + friction
+- 提出成本考量
+- 討論簡化方案
+- 試用：揀一個 sub-team 試 2 個禮拜新工具組合
+- 評估接受度 + 阻力
 
-呢類 stack consolidation 通常需要 6-8 週完成。 唔好 rush。
+呢類工具整合通常需要 6-8 個禮拜完成。唔好急。
 
 ## 變化例子
 
 ### 變化 1：你係 solo dev / freelancer
 
-<PromptBlock label="變化 1 — Solo stack audit">
+<PromptBlock label="變化 1 — Solo 工具組合 audit">
 我係 solo（[freelance / dev / creator]）。
-我嘅 SaaS subscription：[列出]
+我嘅 SaaS 訂閱：[列出]
 
 我嘅 needs：
 1. [例：客戶 project management]
@@ -111,7 +112,7 @@ Solo 情況唔同 team——個 friction 低 / decision speed 快 / adoption 100
 
 請：
 1. Recommend 一個 minimum viable stack（2-3 個 tool max）
-2. 一個 「all-in-one」 嘅 single tool 選擇（Notion / Obsidian / 純 .md file in iCloud / Capacities）
+2. 一個「all-in-one」嘅 single tool 選擇（Notion / Obsidian / 純 .md file in iCloud / Capacities）
 3. 為 solo context 推薦邊種 approach（minimum viable vs all-in-one）
 4. 月 cost 對比
 </PromptBlock>
@@ -119,7 +120,7 @@ Solo 情況唔同 team——個 friction 低 / decision speed 快 / adoption 100
 ### 變化 2：用 Claude 取代某個 SaaS
 
 <PromptBlock label="變化 2 — Claude 直接取代 SaaS">
-我考慮 用 Claude Chat / Project 取代 [某個 SaaS]。
+我考慮用 Claude Chat / Project 取代 [某個 SaaS]。
 
 例如：
 - Notion AI → Claude Chat 直接寫 / brainstorm
@@ -133,8 +134,8 @@ Solo 情況唔同 team——個 friction 低 / decision speed 快 / adoption 100
 4. Recommend：drop 邊個 SaaS 最 obvious win，邊個 marginal save 唔值得 disruption
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維轉變
 
-每年做一次 SaaS stack audit。 唔需要徹底 revamp——目標係**catch 重覆 + drop 已 abandoned 嘅 subscription**。
+每年做一次 SaaS 工具組合審視。唔需要徹底大改造——目標係**搵出重疊 + 取消已經冇用嘅訂閱**。
 
-平均 case：HK solo / 細 team 每年慳 $1,500-3,000 嘅 monthly burn。 呢個係 「invisible salary increase」——同樣 productivity，少 fixed cost。
+平均情況：HK solo / 細 team 每年慳 $1,500-3,000 嘅 monthly burn。呢個係「隱形加薪」——同樣生產力，少咗固定開支。

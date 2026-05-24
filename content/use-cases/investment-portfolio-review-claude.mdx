@@ -1,5 +1,5 @@
 ---
-title: "投資組合 5 年無 rebalance？用 Claude 做 DIY portfolio review + 識別 concentration risk"
+title: "投資組合 5 年冇再平衡？用 Claude 做 DIY 檢視 + 識別過度集中風險"
 slug: "investment-portfolio-review-claude"
 issue: 77
 publishedAt: 2026-05-24
@@ -10,657 +10,656 @@ subcategory: "投資"
 heroImage: "/hero/investment-portfolio-review-claude.webp"
 difficulty: 2
 timeMinutes: 30
-toolsNeeded: ["Claude Chat", "broker statement (Interactive Brokers / 富 途 / HSBC etc)", "上次 review notes if any"]
-description: "5 年前 set 30/30/30/10 portfolio，今日 review 變咗 51% US / 20% HK / 23% bond / 6% cash。Concentration risk 累積，rebalance 拖咗 5 年。用 Claude 做 DIY review，identify 真 risk + actionable rebalance plan。"
+toolsNeeded: ["Claude Chat", "經紀月結單 (Interactive Brokers / 富途 / HSBC 等)", "上次檢視嘅 notes 如有"]
+description: "5 年前定好 30/30/30/10 投資組合，今日睇返變咗 51% 美股 / 20% 港股 / 23% 債券 / 6% 現金。集中風險累積，再平衡拖咗 5 年。用 Claude 做 DIY 檢視，揾出真正風險 + 可行嘅再平衡方案。"
 keywords: ["投資組合 review", "portfolio rebalance", "concentration risk", "DIY 投資 HK", "asset allocation", "Interactive Brokers HK"]
 related: ["mpf-review-claude", "emergency-fund-claude", "monthly-budget-hk-claude"]
 featured: false
 ---
 
-> Claude 唔係 licensed investment adviser. 文中 framework 係 self-review 工具，目的係 prep 你做 informed rebalance decision OR 同 IFA / private banker 對話. 大 amount 重 rebalance 適合 professional consult.
+> Claude 唔係持牌投資顧問。文中嘅 framework 係自我檢視工具，目的係幫你做出有根據嘅再平衡決定，或者係去同 IFA / private banker 傾偈前嘅準備。大額嘅再平衡建議搵專業顧問傾。
 
 ## 情境
 
-5 月 24 日 8:14pm. 你 sit down review investment portfolio.
+5 月 24 日 8:14pm。你坐低檢視投資組合。
 
-5 年前 (May 2021) 你 set portfolio:
-- US stock (VOO + QQQ): HK$300k (30%)
-- HK stock (HSI ETF + 個 別 港 股): HK$300k (30%)
-- Bond (US Treasury bond ETF + HK government bond): HK$300k (30%)
-- Cash (HKD saving + USD saving): HK$100k (10%)
-- Total HK$1m initial
+5 年前 (May 2021) 你定咗組合:
+- 美股 (VOO + QQQ): HK$300k (30%)
+- 港股 (HSI ETF + 個別港股): HK$300k (30%)
+- 債券 (美國長債 ETF + 港府債券): HK$300k (30%)
+- 現金 (HKD 儲蓄 + USD 儲蓄): HK$100k (10%)
+- 起步本金 HK$1m
 
-5 年 later, today review broker statement:
-- US stock: **HK$720k (51%)** (S&P 500 ran up 20-25% annually 過去 5 年, 加 contributions)
-- HK stock: **HK$280k (20%)** (HSI flat 5 年, slight loss)
-- Bond: **HK$320k (23%)** (slight growth)
-- Cash: **HK$80k (6%)** (drift down from spending)
-- **Total: HK$1.4m**
+5 年之後，今日睇返經紀月結單:
+- 美股: **HK$720k (51%)** (S&P 500 過去 5 年每年升 20-25%，加上每月供款累積)
+- 港股: **HK$280k (20%)** (恒指 5 年走平，輕微蝕)
+- 債券: **HK$320k (23%)** (輕微增長)
+- 現金: **HK$80k (6%)** (用咗少少)
+- **總值: HK$1.4m**
 
-你 brain immediate observation:
-- **US weighting up to 51%** (target 30%): concentration risk
-- **HK stock down to 20%** (target 30%): underweight
-- **Bond at 23%** (target 30%): slightly underweight
-- **Cash 6%** (target 10%): below target
+你即時心諗:
+- **美股升到 51%**（目標 30%）：過度集中
+- **港股跌返 20%**（目標 30%）：偏低
+- **債券 23%**（目標 30%）：略低
+- **現金 6%**（目標 10%）：低於目標
 
-你 mental check:
-- 5 年無 rebalance 累積 51% US 「concentration」 — if US correct 30%, your portfolio drop 15%
-- HK stock under-allocation: missing potential rebound
-- Bond under: less defensive cushion
-- Cash thin: emergency fund / dry powder limited
+你心入面再 check:
+- 5 年冇再平衡，累積到 51% 美股「過度集中」— 如果美股調整 30%，你個組合會跌 15%
+- 港股分配不足：可能錯失反彈
+- 債券不足：防守緩衝薄咗
+- 現金太薄：應急錢／後備子彈有限
 
-呢個 portfolio drift 普 universal:
+呢類組合「漂移」好普遍：
 
-- **「Buy + hold」 winning mantra 真實** — but 5 年 nothing pricing change reactive
-- **Volatility = 「opportunity」 OR 「risk」** depending position
-- **Tax / fee impact rebalance** — 顯 著 但 frequently ignored
-- **Emotional bias hold winners** — 不 sell 「if it keeps running」
+- **「買咗就揸住」嘅道理係啱**——但 5 年完全冇對價格變化作反應
+- **波動 = 機會還是風險**，視乎你身處嘅倉位
+- **稅務 / 手續費影響再平衡**——明顯但好多人忽略
+- **情緒上偏向揸住贏家** ——「佢仲會升」嘅心理捨唔得放
 
-呢篇用 Claude **有系統嘅 portfolio review + concentration risk identification + actionable rebalance plan**.
+呢篇用 Claude **有系統咁做投資組合檢視 + 識別過度集中風險 + 列出可執行嘅再平衡方案**。
 
-⚠️ **Disclaimer 重複**: Claude 唔係 licensed adviser. Substantial amount / complex situation: licensed IFA consult.
+⚠️ **再講一次**：Claude 唔係持牌顧問。金額大 / 情況複雜：搵持牌 IFA。
 
 ## 跟住做
 
-### 1. Dump portfolio + 5 年 contribution history 入 Claude
+### 1. Dump 投資組合 + 5 年供款歷史入 Claude
 
-> **Portfolio (today)**
-> - **US stock**:
->   - VOO (S&P 500 ETF): HK$420k (50 個 shares × HK$8,400)
->   - QQQ (Nasdaq 100 ETF): HK$200k (25 個 shares × HK$8,000)
->   - 個 別 (Apple): HK$80k (15 個 shares × HK$5,300)
->   - Subtotal: HK$700k
+> **投資組合 (今日)**
+> - **美股**:
+>   - VOO (S&P 500 ETF): HK$420k (50 股 × HK$8,400)
+>   - QQQ (Nasdaq 100 ETF): HK$200k (25 股 × HK$8,000)
+>   - 個別股票 (Apple): HK$80k (15 股 × HK$5,300)
+>   - 小計: HK$700k
 >
-> - **HK stock**:
->   - 2800 (HSI ETF): HK$140k (8,000 個 units × HK$17.5)
->   - 個別 港 股 (Tencent, Meituan, BYD, HKEx, AIA): HK$140k
->   - Subtotal: HK$280k
+> - **港股**:
+>   - 2800 (盈富): HK$140k (8,000 股 × HK$17.5)
+>   - 個別港股 (騰訊、美團、比亞迪、港交所、友邦): HK$140k
+>   - 小計: HK$280k
 >
-> - **Bond**:
->   - TLT (20+ year US Treasury): HK$120k
->   - IEF (7-10 year US Treasury): HK$80k
->   - HK govt iBond: HK$60k
->   - SHY (1-3 year US Treasury): HK$60k
->   - Subtotal: HK$320k
+> - **債券**:
+>   - TLT (20+ 年美國國債): HK$120k
+>   - IEF (7-10 年美國國債): HK$80k
+>   - 港府 iBond: HK$60k
+>   - SHY (1-3 年美國國債): HK$60k
+>   - 小計: HK$320k
 >
-> - **Cash**:
->   - HKD saving: HK$50k
->   - USD saving: HK$30k
->   - Subtotal: HK$80k
+> - **現金**:
+>   - HKD 儲蓄: HK$50k
+>   - USD 儲蓄: HK$30k
+>   - 小計: HK$80k
 >
-> **Total: HK$1.4m**
+> **總值: HK$1.4m**
 >
-> **Contribution history (5 years)**:
-> - 月 contribution to broker: HK$5k consistent
-> - 5 年 × 60 個月 × HK$5k = HK$300k contributed
-> - Initial HK$1m + HK$300k contribution = HK$1.3m capital invested
-> - Total now HK$1.4m → gain HK$100k = 7.7% total gain on capital + contribution
-> - Quite low for 5 years (suggesting drag from HK + 低 bond)
+> **5 年供款歷史**:
+> - 每月供入經紀戶口: HK$5k 持續
+> - 5 年 × 60 個月 × HK$5k = HK$300k 累積供款
+> - 起步 HK$1m + HK$300k 供款 = 投入本金 HK$1.3m
+> - 今日總值 HK$1.4m → 賺咗 HK$100k = 對本金 + 供款嘅 7.7% 總回報
+> - 5 年計算偏低（拖累係港股 + 低債券回報）
 >
-> **Time horizon**:
-> - 我 36 歲, retire 65 (29 年)
-> - 投資 not for short term spending
-> - 「Buy and hold + occasionally rebalance」 mindset
+> **時間框架**:
+> - 我 36 歲，65 歲退休（仲有 29 年）
+> - 投資唔係短期使
+> - 「買咗揸住，偶爾再平衡」嘅心態
 >
-> **Risk tolerance honest**:
-> - 30% drop in 大 market: would not sell, would still worry
-> - 50% drop: questionable
-> - Sleep test: comfortable with 60-70% equity overall (combined HK + US + emerging)
+> **真實風險承受能力**:
+> - 大市跌 30%：唔會沽，但會擔心
+> - 跌 50%：未必揸得住
+> - 瞓得著 test：60-70% 整體股票（港股 + 美股 + 新興市場合計）OK
 >
-> **Goals**:
-> - 退休: 29 年, target HK$10m+
-> - 細路 大學 fund: 15 年, target HK$1m
-> - Property upgrade (3-5 yr): consider
+> **目標**:
+> - 退休: 29 年，目標 HK$10m+
+> - 細路大學基金: 15 年，目標 HK$1m
+> - 換樓 (3-5 年): 考慮緊
 >
-> **What 我 wonder**:
-> - 51% US concentration: how much risk added?
-> - 細 HK stock individual position: still worth holding?
-> - Bond allocation: should increase given age (start de-risking)?
-> - Tax / fee impact full rebalance?
-> - Should diversify currency more?
+> **我想知**:
+> - 51% 美股集中度：增加咗幾多風險？
+> - 個別港股小倉位：仲值唔值得揸？
+> - 債券比例：應唔應該按年齡增加（開始去風險）？
+> - 全部再平衡嘅稅務／手續費影響？
+> - 應唔應該再多元化貨幣？
 
-### 2. 用呢個 prompt 做 concentration + risk analysis
+### 2. 用呢個 prompt 做集中度 + 風險分析
 
-<PromptBlock label="完整 prompt — Portfolio concentration + risk analysis">
-[paste 你 portfolio dump]
+<PromptBlock label="完整 prompt — 投資組合集中度 + 風險分析">
+[paste 你嘅組合 dump]
 
-請有系統 review:
+請有系統咁檢視:
 
-📊 **Section 1: Allocation drift analysis**
+📊 **第 1 部分：分配漂移分析**
 
-Compare current vs original target:
+對比目前 vs 原本目標:
 
-| Asset class | Target | Current | Drift |
+| 資產類別 | 目標 | 目前 | 漂移 |
 |------------|--------|---------|-------|
-| US stock | 30% | 50% | +20% |
-| HK stock | 30% | 20% | -10% |
-| Bond | 30% | 23% | -7% |
-| Cash | 10% | 6% | -4% |
+| 美股 | 30% | 50% | +20% |
+| 港股 | 30% | 20% | -10% |
+| 債券 | 30% | 23% | -7% |
+| 現金 | 10% | 6% | -4% |
 
-- 大 drift 顯 著
-- 5 年無 rebalance: predictable concentration
+- 漂移顯著
+- 5 年冇再平衡：可以預期會出現嘅集中
 
-📊 **Section 2: Concentration risk**
+📊 **第 2 部分：集中風險**
 
-🚨 **US over-weight 51% 風險**:
-- S&P 500 已 strong 12-year run (+15% / yr 顯 著 above historical 10%)
-- 「Reversion to mean」 statistical likely 未 來 5-10 年
-- 30% portfolio drop scenario: 你 lose HK$210k
-- Recovery time: 1-3 年 typical, but uncertain
+🚨 **美股偏重 51% 嘅風險**:
+- S&P 500 已經連續 12 年強勢上升（+15%/年，明顯高過歷史 10%）
+- 統計上未來 5-10 年「均值回歸」嘅可能高
+- 組合下跌 30% 嘅情境：你蝕 HK$210k
+- 回復時間：通常 1-3 年，但唔確定
 
-🚨 **Individual concentration**:
-- VOO + QQQ overlap (top US holdings same)
-- QQQ technology-heavy (Apple, MSFT, GOOGL)
-- 加 individual Apple: triple-exposure to tech
-- Total tech exposure: estimated 60-70% within US
+🚨 **個別股票集中**:
+- VOO + QQQ 重疊（頭幾大美股相同）
+- QQQ 偏重科技股 (Apple、MSFT、GOOGL)
+- 再加埋個別 Apple：科技股三重 exposure
+- 估計美股入面總科技 exposure：60-70%
 
-🚨 **Currency concentration**:
-- 70%+ portfolio USD-denominated (US stock + US bond)
-- HKD-USD peg minimize short-term currency risk
-- BUT: HKD depeg or US dollar weakness scenario: 影響 顯 著
-- 不 EUR / JPY / 加 currency diversification
+🚨 **貨幣集中**:
+- 70%+ 組合用美元計價 (美股 + 美債)
+- 港美元掛鈎令短期貨幣風險降到最低
+- 但：港美元脫鈎 或 美元疲弱嘅情境，影響顯著
+- 冇歐元 / 日圓 / 其他貨幣分散
 
-🚨 **Geography concentration**:
-- 90%+ stock in US + HK
-- 不 Europe / Japan / emerging markets exposure
-- 對 Asia-specific events: HK only 20% (cushion thin)
-- 對 US events: 50% (concentrated)
+🚨 **地域集中**:
+- 90%+ 股票喺美國 + 香港
+- 冇歐洲 / 日本 / 新興市場
+- 對亞洲特定事件：港股只佔 20%（緩衝薄）
+- 對美國事件：50%（過度集中）
 
-📊 **Section 3: Return analysis 5 yr**
+📊 **第 3 部分：5 年回報分析**
 
-- HK$1.3m capital → HK$1.4m
-- Gain HK$100k / 5 yr = 7.7% total = 1.5% / yr annualized
-- 對 S&P 500 5-yr return ~12% / yr: 你 dragged by:
-  - HK stock 5-yr flat / slight loss
-  - Bond decent but limited returns
-  - Currency cost (USD-HKD stable, neutral)
+- 本金 HK$1.3m → 今日 HK$1.4m
+- 5 年總回報 HK$100k = 7.7% 總計 = 每年 1.5% 年化
+- 對比 S&P 500 5 年每年 ~12%：你被以下因素拖低咗:
+  - 港股 5 年走平 / 輕微蝕
+  - 債券回報有但有限
+  - 貨幣成本（港美元穩定，中性）
 
-**Return breakdown estimate**:
-- US stock alone: ~13% / yr annualized
-- HK stock alone: ~-2% / yr annualized
-- Bond alone: ~3% / yr annualized
-- Combined weighted: ~5-7% / yr (matches return)
+**回報拆分估算**:
+- 純美股：~每年 13%
+- 純港股：~每年 -2%
+- 純債券：~每年 3%
+- 加權合計：~每年 5-7%（同實際回報吻合）
 
-📊 **Section 4: Risk-adjusted analysis**
+📊 **第 4 部分：風險調整後分析**
 
-- Sharpe ratio estimate: 0.5-0.6 (acceptable but not exceptional)
-- Sortino ratio (downside risk): below average
-- Max drawdown 5 yr (estimate): ~25%
-- Recovery time: 8-12 個月 typical
+- Sharpe ratio 估算：0.5-0.6（可接受但唔出色）
+- Sortino ratio（下行風險）：低於平均
+- 5 年最大跌幅（估算）：~25%
+- 回復時間：通常 8-12 個月
 
-📊 **Section 5: Re-evaluation framework**
+📊 **第 5 部分：重新檢視框架**
 
-考慮 你 36 歲, 29 yr horizon, medium risk tolerance:
+考慮你 36 歲，29 年時間框架，中等風險承受能力:
 
-**Original 30/30/30/10 split**: somewhat conservative for age
-- Modern advice: 100 - age = % stock = 64% stock
-- Or even higher (70-80%) given long horizon
+**原本 30/30/30/10 分配**：對你年齡而言偏保守
+- 現代建議：100 - 年齡 = 股票 % = 64% 股票
+- 或者更高 (70-80%)，因為時間框架長
 
-**Recommended re-target**:
+**建議重新定目標**:
 
-**Option A: Conservative (close to original)**
-- 25% US stock
-- 25% HK stock  
-- 15% International (Europe + Japan + EM)
-- 25% Bond
-- 10% Cash
-- 60% equity / 40% defensive
+**方案 A：保守（接近原本）**
+- 25% 美股
+- 25% 港股
+- 15% 國際（歐洲 + 日本 + 新興市場）
+- 25% 債券
+- 10% 現金
+- 60% 股票 / 40% 防守
 
-**Option B: Balanced (age-appropriate)**
-- 35% US stock
-- 20% HK stock
-- 15% International
-- 20% Bond
-- 10% Cash
-- 70% equity / 30% defensive
+**方案 B：均衡（按年齡）**
+- 35% 美股
+- 20% 港股
+- 15% 國際
+- 20% 債券
+- 10% 現金
+- 70% 股票 / 30% 防守
 
-**Option C: Growth-oriented (long horizon)**
-- 40% US stock
-- 15% HK stock
-- 15% International
-- 20% Bond
-- 10% Cash
-- 70% equity / 30% defensive (但 more US weighting)
+**方案 C：增長為主（時間長）**
+- 40% 美股
+- 15% 港股
+- 15% 國際
+- 20% 債券
+- 10% 現金
+- 70% 股票 / 30% 防守（但更重美股）
 
-📋 **Recommend Option B for your profile**:
-- Age-appropriate equity exposure
-- More international diversification
-- Maintain meaningful defensive
-- HK exposure reduced (under-performance trend) but retained
+📋 **你嘅 profile 建議揀方案 B**:
+- 按年齡合適嘅股票 exposure
+- 加多啲國際分散
+- 維持有意義嘅防守
+- 港股減少（表現偏差嘅趨勢）但保留
 
-🎯 **Section 6: Tax / fee considerations**
+🎯 **第 6 部分：稅務 / 手續費考慮**
 
-- HK 沒 capital gains tax: rebalance freely (good!)
-- Broker fee: each trade HK$30-200 (depending broker)
-- Brokerage commission on sell: minimal % typically
-- ETF expense ratio drag: 0.05% per ETF
-- Recommend Interactive Brokers / 富 途 for cheap execution
+- 香港冇資本增值稅：再平衡自由（好處！）
+- 經紀手續費：每單買賣 HK$30-200（視乎經紀）
+- 賣出嘅佣金：通常細
+- ETF 費用率拖累：每隻 ETF 0.05%
+- 建議用 Interactive Brokers / 富途，執行平
 
-🚨 **Tax pitfall**:
-- 個別 美 股 dividends: subject 30% US withholding (W-8BEN reduce to 15-30%)
-- HK govt iBond + corporate bond: HK source no withholding
+🚨 **稅務陷阱**:
+- 個別美股股息：要扣 30% 美國預扣稅（W-8BEN 可以減到 15-30%）
+- 港府 iBond + 公司債券：香港來源唔扣稅
 
-⚠️ **Foreign stock estate tax** (if 大 amount):
-- US estate tax exemption non-US person: HK$60,000 USD only
-- 大 個 US stock holding: estate tax exposure
-- Consider ETF (Irish-domiciled) vs individual US stock for very wealthy
+⚠️ **海外股票遺產稅**（如金額大）:
+- 美國對非美國人嘅遺產稅免稅額只有 USD 60,000
+- 個別美股大倉位：有遺產稅風險
+- 大額嘅人可以考慮愛爾蘭註冊嘅 ETF 取代個別美股
 
-📋 **Implementation**
+📋 **執行**
 
-If choose Option B re-target:
+如果揀方案 B 重新分配:
 
-**Sell**:
-- VOO from HK$420k → HK$280k (sell HK$140k)
-- QQQ from HK$200k → HK$140k (sell HK$60k)
-- Apple individual: HK$80k → consider sell down to HK$0 (reduce concentration)
+**沽出**:
+- VOO 由 HK$420k → HK$280k（賣 HK$140k）
+- QQQ 由 HK$200k → HK$140k（賣 HK$60k）
+- 個別 Apple：HK$80k → 考慮減到 HK$0（降低集中度）
 
-**Buy**:
-- International ETF: VXUS (or HKEX 3035) HK$210k
-- Bond: bring up HK$320k → HK$280k → no, actually reduce slightly
-- Cash: top up to HK$140k
+**買入**:
+- 國際 ETF：VXUS（或港交所 3035）HK$210k
+- 債券：HK$320k → 略減
+- 現金：增加到 HK$140k
 
-**Net change**:
-- US sell HK$280k
-- International buy HK$210k
-- Cash buy HK$70k
+**淨變動**:
+- 美股賣 HK$280k
+- 國際買 HK$210k
+- 現金加 HK$70k
 
-📅 **Execution timing**:
-- Don't 1-day execute (market timing risk)
-- Spread sell over 2-4 weeks
-- Buy concurrently spread
-- 不 panic if market wobbles
+📅 **執行時機**:
+- 唔好一日全部執行（捕捉市場時機嘅風險）
+- 賣分 2-4 個禮拜
+- 同時分批買入
+- 唔好喺市場波動時恐慌
 
-語氣：data-driven, options-based, respect 你 final decision.
+語氣：基於 data，列出多個方案，尊重你最終決定。
 </PromptBlock>
 
-Claude detailed analysis. **唔 immediate execute** — sleep on it. Cross-verify (Vanguard / 富 途 calculator / financial blog reading).
+Claude 出嘅深入分析。**唔好即刻執行**——瞓一晚先。再交叉核實（Vanguard / 富途 calculator / 投資 blog 閱讀）。
 
-### 3. 鼓勵 use Claude help structure DIY rebalance OR IFA consultation
+### 3. 用 Claude 幫手準備 DIY 再平衡或者搵 IFA 傾偈
 
-唔 self-execute large rebalance — IFA consult reasonable:
+大額再平衡唔好自己諗——搵 IFA 傾偈合理:
 
-<PromptBlock label="完整 prompt — IFA / private banker pre-consultation prep">
-我 want consult IFA / private banker re: re-target portfolio.
+<PromptBlock label="完整 prompt — IFA / private banker 見面前準備">
+我想搵 IFA / private banker 傾偈重新分配投資組合。
 
-📋 **Pre-meeting prep**
+📋 **見面前準備**
 
-✅ **Documents**
-- Current broker statement
-- 5-year contribution history (estimated)
-- 38 退休 timeline
-- Risk tolerance honest disclosure
-- 你 own analysis (Claude analysis paste)
+✅ **文件**
+- 目前經紀月結單
+- 5 年供款歷史（估算）
+- 38 退休時間表
+- 真實風險承受能力披露
+- 你自己嘅分析（Claude 分析貼出嚟）
 
-🗣 **Question to ask**
+🗣 **要問嘅問題**
 
-1. 「我 self-analysis suggests Option B re-target. 你 confirm / modify reasoning?」
-2. 「Tax-efficient sequencing for execution?」
-3. 「Currency hedging worth additional cost?」
-4. 「Estate tax exposure (US stock for non-US person)?」
-5. 「Insurance product alternative consider?」
-6. 「Your fee structure + commission disclosure?」
+1. 「我自己分析建議方案 B 重新分配。你同意 / 修改個理由係咩？」
+2. 「執行時稅務上有冇更好嘅次序？」
+3. 「對沖貨幣值唔值額外成本？」
+4. 「遺產稅 exposure（非美國人持美股）？」
+5. 「保險產品有冇其他選擇值得考慮？」
+6. 「你嘅收費結構 + 佣金披露？」
 
-🚨 **Red flag during IFA meeting**:
-- Recommend specific saving plan / IUL / structured product (often high commission)
-- 「Same-time-sensitive」 pressure
-- Refuses commission disclosure
-- 「Guaranteed return」 anywhere
-- Ignores 你 own analysis assumptions
+🚨 **IFA 會面紅燈**:
+- 推薦特定儲蓄計劃 / IUL / 結構性產品（通常佣金高）
+- 「呢個機會限時」嘅壓力推銷
+- 拒絕披露佣金
+- 任何地方講「保證回報」
+- 唔理你自己分析嘅假設
 
-✅ **Good IFA signal**:
-- 你 questions answered without deflection
-- 提 alternative perspectives (not 1 product hammer)
-- Discuss long-term plan
-- Acknowledge 你 own knowledge (not patronize)
-- 願意 work with low-cost ETF (not push proprietary)
+✅ **好嘅 IFA 訊號**:
+- 你嘅問題佢答到，唔閃
+- 提出其他角度（唔係單一產品猛推）
+- 願意傾長遠 plan
+- 認可你自己嘅知識（唔當你白癡）
+- 願意用低成本 ETF（唔硬推自家產品）
 
-💰 **Fee expectation**:
-- Fee-based: HK$2k-5k 1-time consult
-- Asset-under-management (AUM) %: typically 0.5-1.5% / yr
-- Commission-only: free but conflict
-- 我 recommend: fee-based for 1-time consult on rebalance specifically
+💰 **收費預期**:
+- 收費為本：1 次性傾偈 HK$2k-5k
+- 管理資產（AUM）%：通常每年 0.5-1.5%
+- 純佣金：免費但有利益衝突
+- 我建議：1 次性 specifically 傾再平衡，收費為本
 
-📋 **Post-meeting**
-- Get written recommendation
-- 24-48 hr review
-- Cross-verify with own analysis
-- 不 rush execute
-- Discuss with partner if applicable
+📋 **見面之後**
+- 攞返書面建議
+- 24-48 小時 review
+- 同自己嘅分析交叉核實
+- 唔好心急執行
+- 如有伴侶，同伴侶傾
 
-🎯 **Decision framework**
-- 你 own analysis 1 input
-- IFA 1 input
-- Online research 1 input
-- 你 personal context final weighting
+🎯 **決定框架**
+- 你自己分析：1 個輸入
+- IFA：1 個輸入
+- 網上研究：1 個輸入
+- 你個人情況：最終加權
 
-語氣：consumer-empowered consultation, 不 dependent.
+語氣：消費者主導嘅 consultation，唔係依賴。
 </PromptBlock>
 
-### 4. Execute rebalance + ongoing monitoring
+### 4. 執行再平衡 + 持續監察
 
-Decision made, 有系統咁 execute:
+決定好之後，有系統咁執行:
 
-<PromptBlock label="完整 prompt — Portfolio rebalance execution + ongoing monitoring">
-我 decided Option B re-target. Execute:
+<PromptBlock label="完整 prompt — 投資組合再平衡執行 + 持續監察">
+我決定咗用方案 B 重新分配。執行:
 
-📋 **Execution timeline (4 weeks)**
+📋 **執行時間表（4 個禮拜）**
 
-**Week 1: Sell US**
-- Sell VOO HK$70k
-- Sell QQQ HK$30k
-- 不 monitor minute-by-minute
-- 1 sell order morning (HK time evening US close)
+**第 1 週：沽美股**
+- 沽 VOO HK$70k
+- 沽 QQQ HK$30k
+- 唔好分鐘級監察
+- 1 個沽出指令，朝早做（即美股收市後嘅香港夜晚）
 
-**Week 2: Sell US continued**
-- Sell VOO HK$70k more
-- Sell QQQ HK$30k more
-- Sell Apple HK$40k (half position)
-- Total US reduction: HK$240k
+**第 2 週：繼續沽美股**
+- 再沽 VOO HK$70k
+- 再沽 QQQ HK$30k
+- 沽 Apple HK$40k（半倉）
+- 美股總共減少 HK$240k
 
-**Week 3: Buy International**
-- Buy VXUS or 3035 (Asia / Europe / Japan ETF) HK$210k
-- Spread 2-3 trade across week
+**第 3 週：買國際**
+- 買 VXUS 或者 3035（亞洲 / 歐洲 / 日本 ETF）HK$210k
+- 分 2-3 次落單，攤喺一個禮拜入面
 
-**Week 4: Cash + monitoring**
-- Move HK$30k surplus to cash
-- Confirm all rebalance complete
-- Review allocations: should match Option B target
+**第 4 週：現金 + 監察**
+- 將 HK$30k 餘額放入現金
+- 確認所有再平衡完成
+- 檢視分配：應該符合方案 B 目標
 
-📊 **Post-rebalance check**
+📊 **再平衡後 check**
 
-✅ **Target allocations**:
-- US stock 35%: HK$490k ✓
-- HK stock 20%: HK$280k ✓
-- International 15%: HK$210k ✓
-- Bond 20%: HK$280k ✓
-- Cash 10%: HK$140k ✓
-- Total HK$1.4m
+✅ **目標分配**:
+- 美股 35%：HK$490k ✓
+- 港股 20%：HK$280k ✓
+- 國際 15%：HK$210k ✓
+- 債券 20%：HK$280k ✓
+- 現金 10%：HK$140k ✓
+- 總值 HK$1.4m
 
-📅 **Ongoing monitoring**
+📅 **持續監察**
 
-✅ **Annual review (March)**
-- Allocation drift % check
-- If drift > 5% any category: consider rebalance
-- 1 yr return vs benchmark
-- Goal progress
+✅ **每年檢視（3 月）**
+- 檢查分配漂移 %
+- 任何類別漂移 > 5%：考慮再平衡
+- 1 年回報對比基準
+- 目標進度
 
-✅ **Quarterly check**
-- 1 hour Q1, Q2, Q3, Q4
-- Major position price change
-- News / event impact assess (mostly ignore)
-- 不 react daily
+✅ **季度 check**
+- 第 1、2、3、4 季每次 1 個鐘
+- 主要倉位價格變動
+- 新聞 / 事件影響評估（大部分都唔理）
+- 唔好每日反應
 
-🚨 **Drift threshold trigger**
-- Single asset class >5% off target → rebalance candidate
-- Single individual stock >10% portfolio → reduce
-- Cash 低於 5% → top up from saving
-- Or annual fixed rebalance regardless drift (simpler discipline)
+🚨 **漂移觸發條件**
+- 單一資產類別偏離目標 > 5% → 考慮再平衡
+- 單一個別股 > 組合 10% → 減持
+- 現金低於 5% → 由儲蓄補返
+- 又或者每年固定再平衡，唔理漂移（紀律更簡單）
 
-💰 **Tax-efficient operation**
+💰 **稅務上有效嘅做法**
 
-- HK 沒 cap gains tax → rebalance freely
-- 不 dividend dividend reinvest at expensive moment unless cash-strapped
-- 美 stock withholding 30% on dividend (W-8BEN reduces to 30% generic, no further reduction for HK person specifically)
-- Consider Irish-domiciled UCITS ETF (e.g., CSPX = Irish S&P 500) — 15% withholding instead of 30%
+- 香港冇資本增值稅 → 再平衡自由
+- 唔好喺貴嘅時刻再投資股息，除非缺現金
+- 美股股息扣 30% 預扣稅（W-8BEN 對香港人冇進一步減免）
+- 考慮愛爾蘭註冊嘅 UCITS ETF（例如 CSPX = 愛爾蘭版 S&P 500）— 預扣 15% 而唔係 30%
 
-🛒 **Future contribution allocation**
+🛒 **將來嘅供款分配**
 
-Monthly HK$5k contribution going forward:
-- Spread proportional to target:
-  - US: HK$1,750
-  - HK: HK$1,000
-  - International: HK$750
-  - Bond: HK$1,000
-  - Cash: HK$500
-- Or 1 ETF / 月 rotation (simpler)
-- Or use dividends + new money rebalance to underweight bucket
+每月 HK$5k 供款，按目標比例分:
+- 美股：HK$1,750
+- 港股：HK$1,000
+- 國際：HK$750
+- 債券：HK$1,000
+- 現金：HK$500
+- 又或者每月買 1 隻 ETF 輪住買（更簡單）
+- 又或者用股息 + 新錢買返低 weighting 嗰類
 
-🎯 **Long-term mindset**
+🎯 **長期心態**
 
-✅ **Stop-loss philosophy**
-- 設 30% drop max 你 plan still hold
-- 50% drop: review fundamentals
-- Specific company drop 50%: review individual
+✅ **止蝕哲學**
+- 預設 30% 跌幅，你嘅 plan 仍然揸住
+- 50% 跌幅：檢視基本面
+- 個別公司跌 50%：檢視該公司
 
-✅ **Recovery time real**
-- 大 market 30% drop: 1-3 yr recovery
-- 個 別 company: variable, sometimes never
-- 持 emergency fund separate (don't sell investment for emergency)
+✅ **回復時間係真實**
+- 大市跌 30%：1-3 年回復
+- 個別公司：有變化，有時永遠唔返
+- 應急錢分開揸（唔好為咗應急沽投資）
 
-📋 **Year-end review**
+📋 **年底檢視**
 
-December each year:
-- Review 1 yr return
-- Allocation drift
-- Re-evaluate life goals
-- 1 written letter to future self about year's investment learning
+每年 12 月:
+- 檢視 1 年回報
+- 分配漂移
+- 重新評估人生目標
+- 寫 1 封信畀未來嘅自己，講今年嘅投資學到啲咩
 
-🚨 **Anti-pattern**
-- Daily watch price
-- React to news headline
-- Rebalance 5+ times / year (over-trading)
-- Add 「hot tip」 stock without research
-- Margin / borrow to invest
-- Concentrate single stock > 10% portfolio
+🚨 **反面教材**
+- 每日睇價
+- 跟住新聞標題反應
+- 1 年再平衡 5+ 次（過度交易）
+- 冇研究就買「熱門 tip」股票
+- 借錢做孖展投資
+- 單一股票集中 > 組合 10%
 
-語氣：long-term sustainable monitoring, 不 anxious daily.
+語氣：長期可持續嘅監察，唔好每日焦慮。
 </PromptBlock>
 
 ## 變化
 
-### 變化 1：個 別 stock (single stock) 重 position
+### 變化 1：個別股票大倉位
 
-如 你 有 個別 stock 大 weighting:
+如果你有個別股票大 weighting:
 
-<PromptBlock label="變化 1 — 個別 stock 大 position management">
-我 individual stock [Apple / Tesla / Tencent / etc.] 大 position (>10% portfolio).
+<PromptBlock label="變化 1 — 個別股票大倉位管理">
+我有個別股票 [Apple / Tesla / 騰訊 / 等] 大倉位（> 組合 10%）。
 
-📐 **Single stock concentration risk**
+📐 **單一股票集中風險**
 
-🚨 **Inherent risk**
-- 1 company specific: bankruptcy / fraud / disruption / 規 change
-- Different from index (which diversifies away single-stock risk)
-- Famous historical: GM, Enron, AIG (mighty fall)
+🚨 **本身嘅風險**
+- 單一公司：破產 / 詐騙 / 行業顛覆 / 規管改變
+- 同指數唔同（指數會分散單一公司風險）
+- 歷史名例：GM、Enron、AIG（大公司都會倒）
 
-🎯 **Position size guidance**
-- < 5% portfolio: low risk
-- 5-10%: moderate, watch for life event
-- > 10%: concentration risk emerging
-- > 20%: 大 risk, immediate review
-- > 30%: 警 must reduce
+🎯 **倉位大小指引**
+- < 組合 5%：低風險
+- 5-10%：中等，留意人生事件
+- > 10%：開始有集中風險
+- > 20%：大風險，即刻檢視
+- > 30%：警號，必須減持
 
-📊 **Review framework**
+📊 **檢視框架**
 
-✅ **Each large position**:
-- Why originally bought?
-- 持 holding period (cost basis)
-- Current valuation vs reasonable target
-- Concentration risk acceptable?
-- Tax implication sale (HK 沒 tax)
+✅ **每個大倉位**:
+- 當初點解買？
+- 揸住幾耐（成本基準）
+- 目前估值對比合理目標
+- 集中風險可接受？
+- 沽出嘅稅務影響（香港冇）
 
-✅ **Trim 部分 vs hold all**:
-- Trim 50% if concentration > 10%: 雙重 benefit (still upside + reduced risk)
-- Sell 100% if conviction lost
-- Stay full position only if conviction strong + 不 over portfolio %
+✅ **減持部分 vs 全部揸住**:
+- 集中 > 10% 就減 50%：雙重好處（仲有上升空間 + 減咗風險）
+- 信心冇咗就 100% 沽
+- 信心強 + 唔過組合 % 先揸足
 
-📋 **Trim plan**:
-- Don't 1-day all-out (market timing risk)
-- Sell 10-25% portion at a time
-- Spread over 2-4 weeks
-- Tax-efficient sequencing (HK 沒 cap gains, simpler)
+📋 **減持 plan**:
+- 唔好一日全沽（捕捉市場時機嘅風險）
+- 每次 10-25%
+- 攤 2-4 個禮拜
+- 稅務排序（香港冇增值稅，更簡單）
 
-🎯 **Reinvest sale proceeds**:
-- ETF / index (broader diversification)
-- 同 sector ETF (XLK if Apple sale, etc.)
-- International exposure
-- Bond for stability if portfolio too 重 equity
+🎯 **沽出後嘅再投資**:
+- ETF / 指數（更廣分散）
+- 同 sector 嘅 ETF（賣 Apple 買 XLK 等）
+- 國際 exposure
+- 債券，如果組合過重股票
 
-🚨 **Don'ts**:
-- Hold concentrated 「I know this company best」 (familiarity bias)
-- Sell entire position on news headline
-- Average down on losing position (catching falling knife)
-- Pyramid up on winners (compound concentration)
+🚨 **唔好做**:
+- 因為「我最熟呢間公司」而過度集中（熟悉度偏見）
+- 跟新聞標題沽全倉
+- 蝕緊嘅倉再平均成本（接落下嘅刀）
+- 升緊嘅倉加碼（疊高集中度）
 
-語氣：respect individual investor conviction + risk management.
+語氣：尊重個人投資者嘅信念，但同時做風險管理。
 </PromptBlock>
 
-### 變化 2：Retirement-stage 投資 (50+ yr)
+### 變化 2：退休前期投資（50 歲以上）
 
-50+ 退休 approach 不同 dynamics:
+50+ 退休前期方法唔同:
 
-<PromptBlock label="變化 2 — 50+ retirement-stage portfolio">
-我 56 歲, 9 yr to retire.
+<PromptBlock label="變化 2 — 50+ 退休前期投資組合">
+我 56 歲，9 年退休。
 
-📐 **50+ considerations**
+📐 **50+ 考慮**
 
-🎯 **De-risking glide path**
+🎯 **逐步去風險嘅路徑**
 
-- 從 70% equity / 30% bond (age 50)
-- 到 50% equity / 50% bond (age 65)
-- 持續 to 30% equity / 70% bond (age 75)
-- 持續 to 20% equity / 80% bond (age 85)
+- 由 70% 股票 / 30% 債券（50 歲）
+- 到 50% 股票 / 50% 債券（65 歲）
+- 持續 30% 股票 / 70% 債券（75 歲）
+- 持續 20% 股票 / 80% 債券（85 歲）
 
-每 5 年 evaluate gradual shift.
+每 5 年評估逐漸轉移。
 
-📊 **Spending-phase prep**
+📊 **支取階段準備**
 
-- 5-10 個 yr drawdown buffer in bond / cash
-- 不 全 equity (vulnerable to 大 drop right before retirement)
-- 「Bucket strategy」: short-term cash + medium-term bond + long-term equity
+- 5-10 年支取緩衝放喺債券 / 現金
+- 唔好全股票（退休前夕大跌會好傷）
+- 「桶策略」：短期現金 + 中期債券 + 長期股票
 
-💰 **Income generation**
+💰 **收入產生**
 
-- Dividend equity (mature companies)
-- Bond yield
-- Real estate (rental income or REIT)
-- Annuity (HKMC, etc.)
-- MPF withdrawal phase
+- 派息股（成熟公司）
+- 債券孳息
+- 物業（租金或者 REIT）
+- 年金（HKMC 等）
+- 強積金支取階段
 
-⏰ **Sequence of returns risk**
+⏰ **回報順序風險**
 
-- 大 drop early retirement: ravages retirement savings
-- 大 drop late retirement: less material
-- Buffer + sustainable withdrawal rate (4% rule baseline)
+- 退休早期大跌：對退休儲蓄影響嚴重
+- 退休後期大跌：影響細啲
+- 緩衝 + 可持續嘅提款率（4% 規則作為基線）
 
-🎯 **Estate planning**
-- Beneficiary designation update
-- Will + 信託 if 大 estate
-- 信託 to manage post-mortality
-- HK 沒 inheritance tax (good)
+🎯 **遺產規劃**
+- 受益人更新
+- 遺囑 + 信託（如果遺產大）
+- 信託管理身後事
+- 香港冇遺產稅（好處）
 
-🚨 **50+ pitfall**:
-- 過 aggressive late (no recovery time)
-- 過 conservative (don't grow enough for 30-year retirement)
-- 不 plan withdrawal phase
-- 大 single stock bet (concentration disaster)
-- 退休 too early without sustainable plan
+🚨 **50+ 陷阱**:
+- 太進取（冇時間追返）
+- 太保守（30 年退休唔夠錢用）
+- 唔規劃支取階段
+- 單一股票大注（集中災難）
+- 太早退休但冇可持續 plan
 
-🏥 **Healthcare considerations**
-- Healthcare inflation HK 顯著
-- 私 health insurance even post-retirement
-- Long-term care insurance consider
-- 緊急 medical reserve
+🏥 **醫療考慮**
+- 香港醫療通脹明顯
+- 退休後都要私家醫療保險
+- 考慮長期護理保險
+- 緊急醫療備用金
 
-語氣：de-risk gradual, growth still needed for 30-yr retirement.
+語氣：逐漸去風險，但 30 年退休仍然要增長。
 </PromptBlock>
 
-### 變化 3：早 stage / 細 portfolio (HK$50k-200k)
+### 變化 3：起步階段 / 細組合（HK$50k-200k）
 
-開始 investor 細 portfolio specifics:
+開始投資者嘅小組合特點:
 
-<PromptBlock label="變化 3 — 早 stage 細 portfolio (HK$50k-200k)">
-我 早 stage investor, portfolio HK$50k-200k. Asset 不 大.
+<PromptBlock label="變化 3 — 起步階段細組合（HK$50k-200k）">
+我係起步投資者，組合 HK$50k-200k。資產唔多。
 
-📐 **早 stage strategy**
+📐 **起步策略**
 
-🎯 **Simplicity over sophistication**
+🎯 **簡單先於複雜**
 
-- 1-3 ETF only
-- 不 individual stock yet (capital too small to diversify single companies)
-- 不 thematic / sector ETF (concentrated risk)
+- 1-3 隻 ETF 就夠
+- 唔好個別股票（資金太少，分散唔到單一公司）
+- 唔好主題 / sector ETF（集中風險）
 
-📋 **Recommended starter portfolio**:
+📋 **建議起步組合**:
 
-✅ **Simple 60/40**
-- 60% global equity ETF (VWRL / iShares MSCI World)
-- 40% global bond ETF (BND / similar)
-- 1 trade rebalance
+✅ **簡單 60/40**
+- 60% 全球股票 ETF（VWRL / iShares MSCI World）
+- 40% 全球債券 ETF（BND / 類似）
+- 1 次落單再平衡
 
-✅ **Simple 80/20**
-- 80% global equity (long horizon, more growth)
-- 20% bond
-- 不 「all equity」 (volatility hard to stomach early in journey)
+✅ **簡單 80/20**
+- 80% 全球股票（時間長，增長為主）
+- 20% 債券
+- 唔好「全股票」（波動性早期難承受）
 
-✅ **3-fund (Bogleheads style)**
-- US stock 40%
-- International stock 30%
-- Bond 30%
-- Simpler than country-by-country
-- Low fee (~0.1%)
+✅ **3 基金（Bogleheads 風格）**
+- 美股 40%
+- 國際股 30%
+- 債券 30%
+- 比逐個國家簡單
+- 收費低（~0.1%）
 
-💰 **Monthly contribution (DCA)**
-- HK$2-5k / month consistent
-- 不 timing market
-- 「Buy on schedule」 mentality
-- Each contribution buy slightly different price = average cost
+💰 **每月供款（DCA）**
+- 每月 HK$2-5k 持續
+- 唔好捕捉市場時機
+- 「按時間表買」嘅心態
+- 每次供款都喺唔同價格買 = 平均成本
 
-📊 **Tax-efficient**
+📊 **稅務上有效**
 
-- 開 Interactive Brokers / 富 途 (low fee)
-- HK 沒 cap gains tax
-- 美 stock dividend 30% withholding (consider Irish UCITS ETF for 15% rate)
+- 開 Interactive Brokers / 富途（手續費低）
+- 香港冇資本增值稅
+- 美股股息扣 30%（考慮愛爾蘭 UCITS ETF 攞 15% 稅率）
 
-⏰ **Time horizon emphasize**
+⏰ **強調時間框架**
 
-- 5+ 年 horizon required for equity allocation
-- 不 invest 1 yr cash 你 need
-- Emergency fund separate from invest
+- 股票 allocation 要 5+ 年時間框架
+- 唔好用 1 年內要用嘅錢投資
+- 應急錢同投資錢分開
 
-🎯 **Common 早 stage mistakes**
+🎯 **起步常見錯誤**
 
-🛑 **Don't**:
-- 個別 stock 「hot tip」 friend recommend
-- 「Get rich quick」 cryptocurrency / NFT trading
-- Leverage / borrow to invest
-- Margin / option / derivative
-- 太 active trading (fee + tax + emotional toll)
+🛑 **唔好做**:
+- 朋友推介嘅「熱門 tip」個別股票
+- 「快速致富」加密貨幣 / NFT 炒賣
+- 借錢 / 做孖展投資
+- 期權 / 衍生工具
+- 太頻繁交易（手續費 + 稅 + 情緒成本）
 
-✅ **Do**:
-- Read 1 book before invest (「Bogleheads guide」 / 「Common Sense Investing」)
-- Simulate paper-trade first if uncertain
-- Set + forget approach
-- Re-balance annually only
+✅ **要做**:
+- 投資前讀 1 本書（《Bogleheads guide》/《Common Sense Investing》）
+- 唔肯定就先用紙上模擬交易
+- 「set and forget」方法
+- 每年只再平衡 1 次
 
-📋 **Growth as portfolio expand**
+📋 **組合擴張嘅進展**
 
-- HK$0-50k: 1 ETF (VWRL or similar)
-- HK$50-200k: 2-3 ETF
-- HK$200k-1m: 3-5 ETF + diversification
-- HK$1m+: consider IFA / private banker for tax + estate planning
+- HK$0-50k：1 隻 ETF (VWRL 或類似)
+- HK$50-200k：2-3 隻 ETF
+- HK$200k-1m：3-5 隻 ETF + 多元分散
+- HK$1m+：考慮搵 IFA / private banker 做稅務 + 遺產規劃
 
-🎯 **Sustainable habit**
-- Monthly contribution non-negotiable
-- 不 stop investing during downturn (DCA advantage)
-- Recovery 上 contribution = winning
-- 5-10 yr compound visible
+🎯 **可持續嘅習慣**
+- 每月供款不能商量
+- 跌市都唔好停（DCA 嘅優勢）
+- 跌市仲供款 = 贏家
+- 5-10 年複利會見效
 
-語氣：empower 早 investor without overwhelm.
+語氣：賦能起步投資者，唔好淹沒佢哋。
 </PromptBlock>
 
 ## 一個 mindset
 
-Portfolio rebalance 嘅 paradox: **「Set and forget」 is conventional advice — but 5 年 set + forget = drift to concentration**.
+投資組合再平衡嘅 paradox：**「set and forget」係傳統建議——但 5 年 set + forget = 漂移到過度集中**。
 
-呢個 paradox resolution: 「Set」 = original allocation. 「Forget」 = ignore daily noise. 「Rebalance」 = annual 有系統嘅 check, not abandonment. 「Forget」 ≠ 「permanently ignore」.
+呢個 paradox 嘅解決：「Set」= 原本嘅分配。「Forget」= 唔理每日嘅雜訊。「Rebalance」= 每年有系統咁 check，唔係放棄。「Forget」 ≠ 「永遠唔理」。
 
-呢個 mindset 嘅 reframe: Portfolio review 不 「constant tweaking」 嘅 anxiety, 唔 「complete abandonment」 嘅 negligence. Annual structured 1 hour review = sweet spot.
+呢個 mindset 嘅 reframe：投資組合檢視唔係「不斷修補」嘅焦慮，亦唔係「完全放棄」嘅疏忽。每年一次有結構嘅 1 小時檢視 = 最理想嘅位。
 
-Claude 嘅 role 喺 portfolio: 你 alone reading market news + opinion piece 容易 emotional react. Claude container 提供 data-driven distance — 你 dump portfolio + concerns, Claude structure analysis + option. Decision 後續 你 own (IFA potentially involve large amount).
+Claude 喺投資組合嘅角色：你自己讀市場新聞 + 觀點容易情緒反應。Claude 提供基於 data 嘅距離 — 你 dump 組合 + 顧慮，Claude 整理分析 + 選項。決定後續由你自己（大金額可能要搵 IFA）。
 
 最後 reminder：
 
-- ✅ **不 perfect portfolio = better than no review**. Year 1 some change > 5 year drift compound.
-- ⚠️ **HK 沒 cap gains tax**: rebalance freely 比 大部分 markets 容易. Use this advantage.
-- 🆘 **大 portfolio (HK$1m+) + complex situation**: IFA consult reasonable. Claude 1 input, 不 sole basis.
+- ✅ **唔完美嘅組合都好過唔檢視**。第 1 年改少少 > 5 年漂移複利。
+- ⚠️ **香港冇資本增值稅**：再平衡比大部分市場容易，用呢個優勢。
+- 🆘 **大組合（HK$1m+）+ 情況複雜**：搵 IFA 傾偈合理。Claude 係 1 個輸入，唔係唯一基礎。
 
-明日 weekend, 1 hour portfolio review. 5 年 drift 識別. 4 week rebalance execute. 持續 yearly cycle from here.
+聽日週末，1 個鐘做投資組合檢視。識別 5 年漂移。4 個禮拜執行再平衡。然後持續每年循環。

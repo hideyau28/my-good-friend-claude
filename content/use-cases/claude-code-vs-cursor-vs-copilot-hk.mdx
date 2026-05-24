@@ -11,7 +11,7 @@ heroImage: "/hero/claude-code-vs-cursor-vs-copilot-hk.webp"
 difficulty: 2
 timeMinutes: 20
 toolsNeeded: ["Claude Code", "Cursor", "GitHub Copilot"]
-description: "Claude Code vs Cursor vs Copilot 點揀：HK solo dev 用過三個工具嘅實戰比較，唔係 marketing comparison，係邊個適合邊類項目。"
+description: "Claude Code vs Cursor vs Copilot 點揀：HK solo dev 用過三個工具嘅實戰比較，唔係宣傳比較，係邊個適合邊類項目。"
 keywords: ["claude code vs cursor", "ai coding 工具比較", "github copilot 教學", "vibe coding 工具", "ai pair programming"]
 related: ["claude-code-tutorial-website", "hong-kong-mortgage-comparison"]
 featured: false
@@ -19,157 +19,157 @@ featured: false
 
 ## 情境
 
-你寫 code（或者開始 vibe coding）。市場上 3 個主要 AI coding tool：
+你寫 code（或者開始 vibe coding）。市場上 3 個主要 AI coding 工具：
 
-- **Claude Code** — Anthropic 嘅 CLI / desktop tool
-- **Cursor** — VS Code 嘅 AI fork
-- **GitHub Copilot** — Microsoft、JetBrains / VS Code 嘅 plugin
+- **Claude Code** — Anthropic 出嘅 CLI / desktop app
+- **Cursor** — 以 VS Code 為基礎嘅 AI 分支 (fork)
+- **GitHub Copilot** — Microsoft、JetBrains / VS Code 嘅外掛 (plugin)
 
-每個 marketing page 都話自己 superior，**但真實 workflow 入面三個有唔同 sweet spot**。 揀錯一個你寫嘢慢一倍。
+每個宣傳頁都話自己最強，**但真實工作流程入面，三個都有唔同嘅最佳用處**。揀錯一個，你寫嘢會慢一倍。
 
-呢篇唔係 abstract comparison，係由一個 solo dev 過去 6 個月用三個工具嘅 takeaway——邊個工具適合邊類 project、邊個適合邊類人。
+呢篇唔係紙上談兵，係由一個 solo dev 過去 6 個月用三個工具嘅實戰心得——邊個工具適合邊類 project、邊個適合邊類人。
 
-> Caveat：呢三個 product evolve 得好快，呢篇喺 2026-01 寫嘅。3 個月後個 feature gap 可能變晒。但 architecture / philosophy 嘅 difference 比較 stable，呢個係 review 嘅 focus。
+> 注意：呢三個產品進化得好快，呢篇文係 2026-01 寫嘅。3 個月後啲功能差距可能已經唔同晒。但架構同設計理念嘅分別比較穩定，呢個亦係呢篇評測嘅重點。
 
-## 三個工具嘅 architecture 分別
+## 三個工具嘅架構分別
 
-呢個係最重要嘅 framing。
+呢個係最重要嘅比較框架。
 
 ### Claude Code
 
-- **Interface**：CLI（命令行）為主，有 IDE plugin、新出嘅 Desktop GUI
-- **Mental model**：你描述任務 → Claude plan → 你 approve → Claude execute file changes / shell commands
-- **Strength**：long context（成個 codebase 入面 thinking）、multi-file refactor、新 project setup、跨檔案邏輯改動
-- **Weakness**：唔啱「即時 inline autocomplete」嘅 style（你打嘢，AI 跟住 suggest），呢個 Cursor / Copilot 強
+- **介面**：主要用 CLI（命令列），有 IDE 外掛、新出嘅 Desktop GUI
+- **操作思維**：你描述任務 → Claude 計劃 → 你批准 → Claude 執行檔案修改 / shell 指令
+- **強項**：處理長篇上文下理（喺成個 codebase 入面思考）、跨檔案重構 (refactor)、開新 project 設定、跨檔案邏輯改動
+- **弱項**：唔啱「即時行內自動完成」嗰種風格（你打緊字，AI 跟住提議），呢方面 Cursor / Copilot 強啲
 
 ### Cursor
 
-- **Interface**：VS Code fork（即係 VS Code + 內建 AI feature）
-- **Mental model**：你打 code、`cmd+K` 開 AI sidebar、`tab` 接受 AI 嘅 suggestion
-- **Strength**：seamless inline editing、AI 跟你個 cursor 一齊行、用 keyboard shortcut 控制
-- **Weakness**：long-context multi-file changes 唔及 Claude Code、需要你 IDE workflow 穩定
+- **介面**：VS Code 嘅分支（即係 VS Code + 內建 AI 功能）
+- **操作思維**：你寫 code、撳 `cmd+K` 開 AI 側邊欄、撳 `tab` 接受 AI 嘅提議
+- **強項**：無縫嘅行內編輯、AI 跟你個游標一齊行、用快捷鍵控制
+- **弱項**：要處理長篇上文下理嘅跨檔案改動，唔及 Claude Code；需要你有穩定嘅 IDE 工作流程
 
 ### GitHub Copilot
 
-- **Interface**：VS Code / JetBrains / Vim plugin
-- **Mental model**：autocomplete on steroids。你打嘢，佢 suggest 下一行 / 段
-- **Strength**：抽 boilerplate、寫 unit test、補 doc string；最 lightweight；MS 整合 GitHub Issues / Pull Request
-- **Weakness**：唔做 planning / multi-file reasoning；長 context 比較 weak
+- **介面**：VS Code / JetBrains / Vim 嘅外掛
+- **操作思維**：強化版自動完成。你打緊字，佢提議下一行 / 下一段
+- **強項**：抽走重覆代碼、寫單元測試、補文件字串；最輕量；Microsoft 整合埋 GitHub Issues / Pull Request
+- **弱項**：唔做計劃 / 跨檔案推理；處理長篇上文下理比較弱
 
-## 你應該揀邊個：3 個 scenario
+## 你應該揀邊個：3 個情境
 
-### Scenario 1：你係 solo dev / vibe coder，項目 from-scratch
+### 情境 1：你係 solo dev / vibe coder，項目由零開始
 
 **揀 Claude Code**。
 
 理由：
 
-- New project setup 要做嘅嘢多（scaffold、folder 結構、config、dependency） — Claude Code 可以 chat-driven 起晒成個 project
-- 你冇 IDE habit 嘅包袱 — 學 Claude Code 嘅 mental model（描述任務 → approve → execute）比學 Cursor keyboard shortcut 直接
-- Single-developer 唔需要 Cursor 嘅多人 collaboration feature
+- 開新 project 要做嘅設定多（搭棚、資料夾結構、設定檔、依賴套件） — Claude Code 可以用傾偈方式起晒成個 project
+- 你冇用開 IDE 嘅習慣包袱 — 學 Claude Code 嘅操作思維（描述任務 → 批准 → 執行）比學 Cursor 啲快捷鍵直接
+- 單人開發唔需要 Cursor 嘅多人協作功能
 
-我嘅實際 workflow：用 Claude Code 喺 Terminal 一條條 prompt 落，由 `mkdir new-project` 到 `vercel deploy` 全部 chat 完成。
+我嘅實際工作流程：用 Claude Code 喺 Terminal 一條條指令落，由 `mkdir new-project` 到 `vercel deploy` 全部用 chat 搞掂。
 
-### Scenario 2：你已經 daily-driver VS Code，做緊大 codebase 嘅 maintenance
+### 情境 2：你已經日日對住 VS Code，維護緊大 codebase
 
 **揀 Cursor**。
 
 理由：
 
-- 你已經有 VS Code muscle memory（keybind、extension），Cursor 係 superset，唔需要 switch
-- Codebase 大，你需要 IDE 嘅 find-usage、go-to-definition、git diff sidebar etc.
-- Cursor 嘅 inline edit 配合 cursor position（你 highlight 一段、`cmd+K`、tell it what to change）— 對 incremental maintenance 最快
+- 你已經熟晒 VS Code 嘅操作習慣（快捷鍵、外掛），Cursor 包含晒呢啲，唔需要重新適應
+- Codebase 大，你需要 IDE 嘅功能，例如搵邊度用過、跳去定義、git 差異側邊欄等等
+- Cursor 嘅行內編輯配合游標位置（你 highlight 一段、撳 `cmd+K`、同佢講想點改）— 對於逐步維護最快
 
-我嘅實際 workflow：daily 對住 VS Code，Cursor 90% 時間嗰個「打字 + tab accept」嘅 flow 慳到我超多時間。Big refactor 落 Claude Code，小修小補 inline 解決。
+我嘅實際工作流程：日日對住 VS Code，Cursor 90% 時間嗰個「打字 + tab 接受」嘅流程慳到我超多時間。大重構交畀 Claude Code，小修小補就行內解決。
 
-### Scenario 3：你寫 code 唔多（一週幾個鐘），focus 喺 productivity gain
+### 情境 3：你寫 code 唔多（一禮拜幾個鐘），只求提升效率
 
 **揀 Copilot**。
 
 理由：
 
-- $10/month 比 Cursor Pro / Claude Pro cheap
-- 唔需要 plan、唔需要 multi-file reasoning—— Copilot 嘅 autocomplete 已經 cover 80% 嘅 casual coding gain
-- Plugin model = 你 IDE 唔變
+- $10/month 比起 Cursor Pro / Claude Pro 平
+- 唔需要計劃、唔需要跨檔案推理—— Copilot 嘅自動完成已經包辦咗 80% 日常寫 code 帶來嘅效率提升
+- 外掛模式 = 你個 IDE 唔使換
 
-我嘅實際 workflow：以前用 Copilot 寫 personal script、小 automation；而家呢類嘢直接落 Claude Code，因為 Claude Code 可以連 plan 都同我傾。
+我嘅實際工作流程：以前用 Copilot 寫個人腳本、細微嘅自動化工作；而家呢類嘢直接交畀 Claude Code，因為 Claude Code 可以連計劃都同我傾埋。
 
 ## 同時用幾多個？
 
-**最 practical 嘅 stack 我覺得係 2 個**：
+**最實際嘅組合我覺得係 2 個**：
 
-- **Claude Code**（CLI / Desktop）做 planning + new project + big refactor
-- **Cursor**（VS Code fork）做 daily 寫 code
+- **Claude Code**（CLI / Desktop）做計劃 + 開新 project + 大重構
+- **Cursor**（VS Code 分支）做日常寫 code
 
-唔需要 Copilot，因為 Cursor 已經 cover 佢嘅 autocomplete feature。
+唔需要 Copilot，因為 Cursor 已經包埋佢嘅自動完成功能。
 
-如果你係 Vim / Emacs 死硬派，揀 Copilot（Vim plugin 成熟）+ Claude Code 嘅 combo。
+如果你係 Vim / Emacs 死硬派，揀 Copilot（Vim 外掛成熟）+ Claude Code 呢個組合。
 
 ## 用 Claude 幫你決定
 
-如果你睇完仲 unsure，可以同 Claude 傾傾你嘅 specific situation：
+如果你睇完仲未定到，可以同 Claude 傾吓你嘅具體情況：
 
-<PromptBlock label="完整 prompt — 揀啱嘅 AI coding tool">
-我想揀一個 AI coding tool。資料：
+<PromptBlock label="完整 prompt — 揀啱嘅 AI coding 工具">
+我想揀一個 AI coding 工具。資料：
 
-- 我嘅 coding background：[新手 / 中級 / senior dev]
-- 主要寫嘅嘢：[語言 + project type，例如 「web frontend，Next.js」、「Python data science」、「Swift mobile」]
-- 而家用嘅 IDE / editor：[VS Code / Vim / JetBrains / 冇 / 等]
-- Project 嘅 size：[幾百行 / 幾千行 / 幾萬行 codebase]
-- 我嘅 budget：[$10–20/月 / $50/月 / 揀最 powerful 唔理錢]
-- 我嘅 main use case：[揀一個： (a) 由零起 new project / (b) 維護 existing codebase / (c) 寫 personal script / (d) 學習新 framework / (e) 其他]
+- 我嘅 coding 背景：[新手 / 中級 / 高級開發者]
+- 主要寫嘅嘢：[語言 + 項目類型，例如「web 前端，Next.js」、「Python 數據科學」、「Swift 手機 app」]
+- 而家用緊嘅 IDE / 編輯器：[VS Code / Vim / JetBrains / 冇 / 等]
+- Project 嘅規模：[幾百行 / 幾千行 / 幾萬行 codebase]
+- 我嘅預算：[$10–20/月 / $50/月 / 揀最強大唔理錢]
+- 我嘅主要用途：[揀一個：(a) 由零起新 project / (b) 維護現有 codebase / (c) 寫個人腳本 / (d) 學習新框架 / (e) 其他]
 
 請：
-1. 推薦 1-2 個 tool combination（如果 1 個 suffice 就 1 個）
-2. 解釋揀法（連 trade-off）
-3. Suggest workflow：邊個 task 用邊個 tool
-4. Mention 1-2 個 caveat（呢個 setup 有冇 known limitation）
+1. 推薦 1-2 個工具組合（如果 1 個夠用就 1 個）
+2. 解釋揀嘅原因（連同優缺點取捨）
+3. 建議工作流程：邊個任務用邊個工具
+4. 講低 1-2 個注意位（呢個設定有冇已知嘅限制）
 
-唔好 sit on the fence —— 推薦要 specific。
+唔好模稜兩可 —— 推薦要明確。
 </PromptBlock>
 
 ## 變化例子
 
-### 變化 1：對比一個你已經知嘅 tool vs alternative
+### 變化 1：對比一個你已經識嘅工具 vs 替代方案
 
-<PromptBlock label="變化 1 — Tool A vs Tool B compare">
-我而家用 [Tool A]，朋友介紹 [Tool B]。請：
+<PromptBlock label="變化 1 — 工具 A vs 工具 B 比較">
+我而家用 [工具 A]，朋友介紹 [工具 B]。請：
 
-1. 邊度 Tool B 比 Tool A 強
-2. 邊度 Tool B 比 Tool A 弱
-3. 我嘅 workflow 係 [描述 daily coding 點做嘅]，呢個 workflow 入面，switching 會 net positive 定 negative
-4. Switching cost（用 Tool B 嘅 learning curve、要 setup 嘅嘢）
-5. 你嘅 recommend：stay / switch / 兩個 parallel run 一個月先 decide
+1. 邊方面 [工具 B] 比 [工具 A] 強
+2. 邊方面 [工具 B] 比 [工具 A] 弱
+3. 我嘅工作流程係 [描述日常編程點做]，喺呢個流程入面，轉用新工具會係利多於弊定弊多於利
+4. 轉換成本（用 [工具 B] 嘅學習曲線、要設定嘅嘢）
+5. 你嘅建議：留低 / 轉用 / 兩個並行一個月先決定
 </PromptBlock>
 
-### 變化 2：「我可以唔可以淨係用一個」
+### 變化 2：「我可唔可以淨係用一個？」
 
-<PromptBlock label="變化 2 — 一個 tool 夠唔夠">
-我想 simplify，淨係用一個 AI coding tool。 我嘅 needs：
+<PromptBlock label="變化 2 — 一個工具夠唔夠">
+我想簡化，淨係用一個 AI coding 工具。我嘅需要：
 
-- [列 3-5 個 use case，例如：autocomplete / multi-file refactor / 新 project setup / debug]
+- [列出 3-5 個用途，例如：自動完成 / 跨檔案重構 / 新 project 設定 / 除錯]
 
-如果硬要揀一個，邊個 best fit？
-畀 trade-off：你揀咗呢個之後，會 sacrifice 邊啲 use case，可以點 workaround。
+如果硬要揀一個，邊個最適合？
+畀啲取捨分析：你揀咗呢個之後，會犧牲邊啲用途，可以點樣變通解決。
 </PromptBlock>
 
-### 變化 3：團隊嘅 standardization 決定
+### 變化 3：團隊嘅統一決定
 
 <PromptBlock label="變化 3 — 團隊揀工具">
-我哋係一個 [幾人] 嘅 dev team，主要寫 [stack]。
-我哋想 standardize 一個 AI coding tool（為咗：sharing prompt、code style consistency、bulk license）。
+我哋係一個 [幾人] 嘅開發團隊，主要寫 [stack]。
+我哋想統一一個 AI coding 工具（為咗：分享 prompt、代碼風格一致、團體授權）。
 
 請畀我：
-1. 推薦 tool（連 reasoning）
-2. Pricing structure：team license vs individual
-3. Migration plan：team 個個用緊唔同 tool 嘅話，點過渡
-4. 我哋應該 keep 喺 individual 揀，定夾硬 standardize？trade-off 各方面
+1. 推薦工具（連同背後原因）
+2. 定價結構：團隊授權 vs 個人
+3. 遷移計劃：如果團隊每個人用緊唔同工具，點樣過渡
+4. 我哋應該維持畀個人自己揀，定係夾硬統一？分析各方面嘅取捨
 </PromptBlock>
 
-## 最後一個 take
+## 最後一個建議
 
-呢三個 tool **唔互斥**。
+呢三個工具**唔互斥**。
 
-最有經驗嘅 dev 通常**兩三個都用**——每個揀啱 task。 唔好為咗「一個就 enough」嘅 simplicity 而 lose 出 leverage。
+最有經驗嘅開發者通常**兩三個都會用**——每個揀啱最適合嘅任務。唔好為咗「一個就夠」嘅簡單，而失去咗更高嘅效率槓桿。
 
-我嘅 final framing：**Tool 揀一次，但 workflow 進化幾次**。 你嘅 stack 三個月後一定會變。Stay flexible，唔好太 attached 落某個 product。
+我最終嘅框架：**工具揀一次，但工作流程會進化幾次**。你嘅技術組合三個月後一定會變。保持靈活，唔好太執著於某一個產品。
