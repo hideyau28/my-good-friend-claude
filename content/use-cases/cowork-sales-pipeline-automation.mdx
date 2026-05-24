@@ -11,7 +11,7 @@ heroImage: "/hero/cowork-sales-pipeline-automation.webp"
 difficulty: 3
 timeMinutes: 60
 toolsNeeded: ["Claude Cowork", "HubSpot 或 Salesforce export", "Google Slides 或 Keynote"]
-description: "Sales pipeline 自動化：用 Claude Cowork 每月由 HubSpot / Salesforce export 出 pipeline summary + key risk + suggested next action，連 deck draft。BD / sales lead 嘅 monthly review prep 由 4 小時變 30 分鐘。"
+description: "銷售管道自動化：用 Claude Cowork 每月由 HubSpot / Salesforce 匯出 pipeline 摘要 + 關鍵風險 + 建議下一步，連埋簡報草稿。BD / sales lead 嘅每月檢視準備由 4 個鐘變 30 分鐘。"
 keywords: ["sales pipeline 自動化", "crm ai", "hubspot 摘要", "monthly business review", "sales ops"]
 related: ["cowork-order-automation", "cowork-expense-automation"]
 featured: false
@@ -19,203 +19,203 @@ featured: false
 
 ## 情境
 
-你係 BD / sales lead，每月底要 prep 一個 pipeline review meeting：
+你係 BD / sales lead，每個月尾要準備一個銷售管道檢視會議：
 
-- Review 過去一個月 deal movement
-- Identify 邊啲 deal at risk
-- 計 forecast for next quarter
-- 整理一份 deck send 上 management
+- 檢視過去一個月交易進度
+- 搵出邊啲交易有危機
+- 計算下季預測
+- 整理一份簡報 send 上管理層
 
-呢個 prep 老實講大部分時間係 機械式：
+老實講，呢個準備功夫大部分時間係機械式操作：
 
-- HubSpot / Salesforce export pipeline data
-- Pivot table 整理
-- 圈出 deal at risk（stage 太耐冇 movement）
-- 寫 narrative summary
-- 整 deck
+- 由 HubSpot / Salesforce 匯出 pipeline 數據
+- 用樞紐分析表整理
+- 圈出有危機嘅交易（停留同一個階段太耐冇進度）
+- 寫敘述總結
+- 整簡報
 
-熟手都要 4 小時。 呢一份「summary」一年做 12 次 = 48 小時 = 一個禮拜嘅 work。 而且 30% 嘅內容（boilerplate 部分）每月一樣。
+熟手都要做 4 個鐘。呢一份「總結」一年做 12 次 = 48 個鐘 = 一個禮拜嘅工作量。而且 30% 嘅內容（例如固定開頭結尾）每個月都一樣。
 
-呢篇用 Claude Cowork 將 60% 嘅 機械式 work 自動化，你 final review + storytelling 嘅 30 分鐘做 last 40%。
+呢篇教你用 Claude Cowork 將 60% 嘅機械式工作自動化，你做最後檢視 + 講故事嘅 30 分鐘，完成最後 40% 嘅工作。
 
-> Caveat：Cowork 仲係 research preview。CRM data 係 sensitive 嘅 business data——setup 之前 confirm 你公司 data policy 准許 AI tool 連 CRM。 個 minimum data：你嘅 personal CRM access 同 your own pipeline。Org-wide pipeline data 可能需要 IT approval。
+> 利益申報：Cowork 仲係研究預覽版。CRM 數據係敏感嘅商業資料——設定之前，請確認你公司嘅數據政策准許 AI 工具讀取 CRM 數據。最基本要求：你有個人 CRM 存取權限，只用你負責嘅 pipeline。全公司嘅 pipeline 數據可能需要 IT 批准。
 
 ## 跟住做
 
-### 1. CRM export 嘅 format prep
+### 1. 準備 CRM 匯出格式
 
-HubSpot / Salesforce 嘅 default export 包太多 column（50+）。 第一次 setup 前，drill 落 「我每月真正要睇嘅 column」：
+HubSpot / Salesforce 預設匯出包太多欄位 (50+)。第一次設定前，要篩選出「我每個月真正要睇嘅欄位」：
 
-最 minimum：
-- Deal name
-- Account name
-- Stage
-- Amount
-- Expected close date
-- Last activity date
-- Deal owner（如果你 manage team）
-- 任何 custom field（例：deal source、product line）
+最基本要有：
+- `Deal name`
+- `Account name`
+- `Stage`
+- `Amount`
+- `Expected close date`
+- `Last activity date`
+- `Deal owner`（如果你管條 team）
+- 任何自訂欄位（例：客源、產品線）
 
-Save 一個 export view，命名「Monthly Review」。
+儲存一個匯出視圖，命名為「每月檢視」。
 
-### 2. 建立 dedicated folder
+### 2. 建立專用資料夾
 
 ```
 ~/Documents/sales-review/
 ├── 2026-06/                   ← 呢個月嘅
-│   ├── pipeline-export.csv    ← 你 manually export 落嚟
-│   └── (Cowork 生成 draft)
-├── templates/                 ← deck template
+│   ├── pipeline-export.csv    ← 你手動匯出落嚟
+│   └── (Cowork 生成嘅草稿)
+├── templates/                 ← 簡報範本
 │   └── monthly-review.pptx
 └── archive/                   ← 過往幾個月
 ```
 
-### 3. 用呢個 prompt setup 流程
+### 3. 用呢個 prompt 設定流程
 
-<PromptBlock label="完整 prompt — Setup 每月 sales pipeline automation">
-我想 set up 一個每月底自動執行嘅 sales pipeline review task。流程：
+<PromptBlock label="完整 prompt — 設定每月 sales pipeline 自動化">
+我想設定一個每月底自動執行嘅銷售管道檢視任務。流程：
 
-**Input sources：**
-1. ~/Documents/sales-review/2026-XX/pipeline-export.csv（我每月底手動由 HubSpot export 落嚟）
-2. 上個月嘅 draft（archive/ 入面 latest version，用嚟做 month-over-month comparison）
-3. ~/Documents/sales-review/templates/monthly-review.pptx（template）
+**輸入來源：**
+1. `~/Documents/sales-review/2026-XX/pipeline-export.csv`（我每個月尾手動由 HubSpot 匯出落嚟）
+2. 上個月嘅草稿（`archive/` 入面最新版本，用嚟做按月比較）
+3. `~/Documents/sales-review/templates/monthly-review.pptx`（範本）
 
-**每月最後一日晚上 8 點自動行：**
+**每月最後一日晚上 8 點自動運行：**
 
-第一步：read pipeline CSV
-- Validate data quality：邊啲 column 缺、邊個 deal info 唔齊
-- 標 flag：data hygiene issue（例如：某 deal 嘅 close date 已過但仲喺 active stage）
+第一步：讀取 pipeline CSV
+- 驗證數據質素：邊啲欄位缺漏、邊個交易資料唔齊
+- 標示問題：數據衛生問題（例如：某交易嘅預計成交日已過，但仲喺活躍階段）
 
-第二步：calc key metrics
-- Total pipeline value（by stage）
-- Weighted pipeline（用 stage default probability）
-- Forecast for next 90 days
-- Win rate（如果有 closed deal 數據）
-- Average deal size
-- Average sales cycle length
+第二步：計算關鍵指標
+- 總銷售管道價值（按階段劃分）
+- 加權銷售管道（用階段預設概率）
+- 未來 90 日預測
+- 贏單率（如果有已結案交易數據）
+- 平均交易額
+- 平均銷售週期長度
 
-第三步：deal-level analysis
-- **At-risk deals**：last_activity > 30 日、stage 唔變 > 60 日、amount 異常大或細
-- **Hot deals**：close_date 落喺下個月內、stage 係 final 2 stages
-- **Anomalies**：上個月仲喺 early stage、今個月跳到 closing（worth 確認 data accuracy）
+第三步：交易層面分析
+- **有危機交易**：`last_activity` > 30 日、階段唔變 > 60 日、金額異常大或細
+- **大熱交易**：`close_date` 落喺下個月內、階段係最後兩個階段
+- **異常值**：上個月仲喺早期階段、今個月跳到就嚟成交（值得確認數據準確性）
 
-第四步：month-over-month comparison
-- Pipeline value change（total + by stage）
-- 邊啲 deal 喺 stage 之間 moved（progressed vs slipped）
-- New deals added 同 lost deals 嘅 net effect
+第四步：按月比較
+- 銷售管道價值變化（總計 + 按階段）
+- 邊啲交易喺階段之間移動（有進展 vs 倒退）
+- 新增交易同流失交易嘅淨影響
 
-第五步：narrative draft
-寫 4 段 summary（用嚟 paste 落 deck）：
-1. **Headline**：one-liner capture 今個月最重要嘅 movement
-2. **Pipeline health**：total value vs target、coverage ratio、any concerning trend
-3. **Key wins / loses**：揀 2-3 個 specific deal 講
-4. **Next month focus**：3-5 個 specific action 老闆 / team 應該 prioritize
+第五步：敘述草稿
+寫 4 段總結（用嚟貼落簡報）：
+1. **主題**：一句話總結今個月最重要嘅變化
+2. **銷售管道健康度**：總價值 vs 目標、覆蓋比率、任何值得關注嘅趨勢
+3. **主要得失**：揀 2-3 個具體交易講
+4. **下個月重點**：3-5 個老闆 / team 應該優先處理嘅具體行動
 
-第六步：生成 deck
-- Open monthly-review.pptx template
-- Update 每個 slide 嘅 data point（charts、numbers、bullet points）
-- Save as「2026-XX-pipeline-review.pptx」
+第六步：生成簡報
+- 開啟 `monthly-review.pptx` 範本
+- 更新每個 slide 嘅數據點（圖表、數字、要點）
+- 另存新檔為「`2026-XX-pipeline-review.pptx`」
 
-第七步：email 我
-- Subject：「[月份] Pipeline Review Draft Ready — X% pipeline coverage」
-- Body：上面第五步嘅 narrative summary + 個 file 嘅 path + 任何 data hygiene issue
+第七步：email 畀我
+- 標題：「[月份] Pipeline Review 草稿備妥 — X% 覆蓋比率」
+- 內容：上面第五步嘅敘述總結 + 個檔案嘅路徑 + 任何數據衛生問題
 
-**重要 constraints：**
-- 唔好 send deck 出去 ANY EXTERNAL recipient
-- 唔好 modify 原 CRM data
-- 任何 「至於某 deal」 specific commentary，要 source quote 出原 row
-- Forecast 嘅 confidence level 一定要 standby（「±15% 視乎 X 兩個 deal close timing」）
+**重要限制：**
+- 絕對唔好 send 簡報畀任何外部收件人
+- 唔好修改原 CRM 數據
+- 任何「至於某交易」嘅具體評論，要引述原資料列
+- 預測嘅信心水平一定要有後備方案（「±15% 視乎 X 兩個交易成交時間」）
 
-Setup 好之後 confirm，再 schedule 落每月最後一日 8pm 行。
+設定好之後確認，再排程落每月最後一日 8pm 運行。
 </PromptBlock>
 
-### 4. 第一次 dry run
+### 4. 第一次試運行
 
-第一次跑唔好 schedule，先 dry run：「即場跑一次，showcase output，唔好 write file 落 disk」。
+第一次跑唔好排程，先試運行：「即場跑一次，展示輸出，唔好寫入檔案」。
 
-睇下：
-- Metrics calc 啱唔啱（cross-check 一個 deal）
-- At-risk filter 嘅 threshold 適唔適合你 industry
-- Narrative draft 嘅 framing 啱唔啱 your style（你可以 fine-tune）
-- Deck slide 嘅 layout 唔係太 generic
+睇吓：
+- 指標計算啱唔啱（交叉核對一個交易）
+- 有危機交易嘅過濾門檻適唔適合你個行業
+- 敘述草稿嘅寫法啱唔啱你風格（你可以微調）
+- 簡報 slide 嘅排版唔會太過籠統
 
-### 5. 每月 30 分鐘 final touch
+### 5. 每月 30 分鐘最後潤飾
 
-Cowork 出 draft 之後，你做 last 40%：
+Cowork 出咗草稿之後，你做最後 40%：
 
-- Open deck，讀 narrative，加 你 inside knowledge（為咩某 deal slow down、context 點解 win 咗）
-- Review at-risk list，識別邊啲係 真 risk vs 純係 stage hygiene issue
-- 加 storytelling element：1-2 個 client quote、anecdote、market context
+- 打開簡報，讀段敘述，加你嘅內部知識（點解某個交易慢咗落嚟、贏單背後嘅脈絡）
+- 檢視有危機交易名單，識別邊啲係真危機 vs 純粹係數據冇更新嘅問題
+- 加講故事元素：1-2 個客嘅引述、小插曲、市場背景
 
-呢個 30 分鐘係**你嘅 sales judgment** 嘅 unique contribution，AI 唔取代到。 但 機械式 嘅 60% 自動化之後，你個 brain 留 fresh 落呢度。
+呢個 30 分鐘係你作為 sales 嘅判斷力所帶嚟嘅獨特價值，AI 唔會取代到。但將機械式嘅 60% 工作自動化之後，你就可以留返個清晰嘅腦袋嚟做呢步。
 
 ## 變化例子
 
-### 變化 1：你係 frontline sales rep，自己出 weekly own pipeline review
+### 變化 1：你係前線 sales，自己出每週銷售管道檢視
 
-<PromptBlock label="變化 1 — Solo sales rep 每週版">
-我係 sales rep，唔 manage team，只 own my own pipeline。
+<PromptBlock label="變化 1 — 個人每週版">
+我係 sales，唔管 team，只負責自己嘅 pipeline。
 
-請 modify 呢個 process：
-- 每週日晚 8pm run（唔係月底）
-- Pipeline scope 只 own deals（filter by owner = me）
-- Output：1 頁 PDF（唔需要 deck），有：
-  - Pipeline snapshot
-  - 5 條我下週要 follow-up 嘅 deal（連 specific action）
-  - 1 個 hidden gem（你 noticed but I might have missed）
-- 寄落我 email，唔需要 attach file，inline body 已 OK
+請修改呢個流程：
+- 每週日晚 8pm 運行（唔係月尾）
+- Pipeline 範圍只限自己嘅交易（篩選 `owner = me`）
+- 輸出：1 頁 PDF（唔需要簡報），有：
+  - Pipeline 概覽
+  - 5 條我下週要跟進嘅交易（連具體行動）
+  - 1 個隱藏機會（你留意到但我可能錯過咗嘅）
+- 寄落我 email，唔需要附加檔案，寫喺電郵內容就得
 
-呢個 process 為 sales prep weekly 1-on-1 with manager。
+呢個流程係幫 sales 準備每週同經理嘅單對單會議。
 </PromptBlock>
 
-### 變化 2：B2B SaaS 嘅 ARR / churn 跟蹤
+### 變化 2：B2B SaaS 嘅 ARR / 流失率跟蹤
 
-<PromptBlock label="變化 2 — SaaS ARR review">
-我哋係 B2B SaaS，唔係 one-off deal。
-請 adapt 呢個 process：
+<PromptBlock label="變化 2 — SaaS ARR 檢視">
+我哋係 B2B SaaS，唔係一次性交易。
+請改造呢個流程：
 
-Metrics 換做：
-- ARR / MRR by segment
-- New ARR added / Lost ARR
-- Net revenue retention (NRR)
-- Churn rate by cohort
-- Expansion revenue from existing accounts
+指標換成：
+- ARR / MRR 按客群劃分
+- 新增 ARR / 流失 ARR
+- 淨收入保留率 (NRR)
+- 按群組劃分嘅流失率
+- 現有客戶嘅擴張收入
 
-At-risk identification：
-- Account engagement score drop
-- Renewal coming up in 90 日 + 仲未 expansion conversation
-- Support ticket spike
+識別危機：
+- 客戶參與度評分下降
+- 90 日內續約 + 仲未有擴張對話
+- 支援工單急增
 
-Forecast：
-- Next quarter renewal ARR + risk-adjusted
-- Expansion pipeline coverage
+預測：
+- 下季續約 ARR + 風險調整
+- 擴張銷售管道覆蓋率
 </PromptBlock>
 
-### 變化 3：你 manage team，要做 team comparison
+### 變化 3：你管團隊，要做團隊比較
 
-<PromptBlock label="變化 3 — Team-level dashboard">
-我 manage 5 個 sales rep team。
-每月底要做 team-level review：
+<PromptBlock label="變化 3 — 團隊層面儀表板">
+我管 5 個 sales team。
+每月底要做團隊層面檢視：
 
-加 features：
-- Per-rep pipeline value、conversion rate、average deal size
-- Identify outlier：邊個 rep performance 特別高 / 低、邊個 deal cycle 特別長 / 短
-- 公平 framing：用 multi-dimensional metric，唔好用 single revenue 排 rep
-- 整 anonymized version 嘅 dashboard 用嚟 share with team（避免 explicit ranking）
-- 我自己 read 嘅 version 有 named breakdown
+加功能：
+- 每名 sales 嘅銷售管道價值、轉化率、平均交易額
+- 找出異常值：邊個 sales 表現特別高 / 低、邊個交易週期特別長 / 短
+- 公平表達：用多維度指標，唔好單用收入嚟排 sales
+- 整匿名版本嘅儀表板用嚟同團隊分享（避免直接排名）
+- 我自己睇嘅版本要有具名細項
 
-Privacy reminder：呢個 process 處理員工 performance data，唔好 leak 個別 rep 嘅 detail 畀錯人。
+私隱提醒：呢個流程處理員工表現數據，唔好將個別 sales 嘅細節洩漏畀錯嘅人。
 </PromptBlock>
 
-## 點解 sales review 啱 Cowork
+## 點解銷售檢視啱 Cowork 做
 
-呢個 task 嘅特性：
-- ✓ 重覆：12 次/年同樣 process
-- ✓ Mechanical：60% 係 data manipulation
-- ✓ 多 source：CRM + 上月 file + template
-- ✓ 有明確 output（deck）
-- ✓ Failure tolerant：draft 你 final review
+呢個任務嘅特性：
+- ✓ 重覆：每年 12 次同樣流程
+- ✓ 機械式：60% 係數據處理
+- ✓ 多來源：CRM + 上月檔案 + 範本
+- ✓ 有明確輸出（簡報）
+- ✓ 容錯率高：出草稿畀你做最後檢視
 
-Cowork 唔取代你嘅 sales judgment——**佢 free you to think about narrative + strategy**，而唔係搞 pivot table。
+Cowork 唔會取代你嘅銷售判斷——佢讓你可以集中思考故事同策略，而唔係搞樞紐分析表。
 
-最後一個 reminder：**呢個 process 嘅 value 唔喺慳 4 小時**，而喺你 mental energy 留落 do 嗰 30 分鐘嘅 storytelling。 用 fresh brain 寫 narrative，比起 tired brain 寫 sloppy narrative，呢個質素差距會 trickle up management 嘅 perception。
+最後一個提醒：呢個流程嘅價值唔係慳 4 個鐘，而係將你嘅精神留返去做嗰 30 分鐘嘅講故事環節。用清醒嘅腦袋寫敘述，比起做到個人散晒先求其寫出嚟，呢個質素差距會反映喺管理層對你嘅觀感上面。
