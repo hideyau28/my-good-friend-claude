@@ -20,7 +20,7 @@ _Last session ended: 2026-05-24, deep voice retone round 4 — strict bar <0.30 
 
 ## ⚠️ Voice retone IN PROGRESS (resume here)
 
-**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。Round 4 commit `7e0b65d` 完成 7 篇深 retone。**剩 45 篇 ratio ≥0.35 要做**。
+**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。Round 4 完成 8 篇深 retone（commit `7e0b65d` + `05e2f12`）。**剩 44 篇 ratio ≥0.35 要做**。
 
 ### Workflow（Gemini 協作）
 
@@ -54,7 +54,6 @@ OUTPUT：純 MDX，由 `---` 開始到文末。<PromptBlock> tag 保留。Code b
 ### 剩低嘅 45 篇（issue order）
 
 ```
-#030 0.50 cowork-sales-pipeline-automation    (pasted to Gemini, waiting return)
 #031 0.45 cowork-auto-backup-files-photos
 #032 0.43 cowork-weekly-inbox-triage
 #033 0.51 cowork-social-media-scheduler
@@ -170,7 +169,7 @@ OUTPUT：純 MDX，由 `---` 開始到文末。<PromptBlock> tag 保留。Code b
 
 下個 session：
 
-- 「繼續 retone — 由 #030 開始」 — 我會 paste #030 落嚟，你 paste 落 Gemini，循環
+- 「繼續 retone — 由 #031 開始」 — 我會 paste #031 落嚟，你 paste 落 Gemini，循環
 - 「改 /collaborate email 做 [real-email]」
 - 「我想 deepen [section name]」
 - 「Preview server start」（會跑 next-dev port 4321）
