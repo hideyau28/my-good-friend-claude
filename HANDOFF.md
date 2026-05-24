@@ -1,6 +1,6 @@
 # 📋 SESSION HANDOFF — my-good-friend-claude
 
-_Last session ended: 2026-05-24, hero batch (84/84) + voice retone sweep (all sections)_
+_Last session ended: 2026-05-24, deep voice retone round 4 — strict bar <0.30 established_
 
 ## 🌐 Live URLs
 
@@ -12,28 +12,136 @@ _Last session ended: 2026-05-24, hero batch (84/84) + voice retone sweep (all se
 
 ## 📊 Current state (top of main)
 
-- Top commit: `7af55e1` content(voice): retone round 3 surgical SAT-word cleanup
+- Top commit: `7e0b65d` content(voice): deep retone round 4 — 7 articles to strict bar
 - **84 articles** (chat 61 / cowork 11 / code 12) — 42 featured
 - **12 sections** — 財經 · 職場 · 商家 · 親子 · 寵物 · 生活 · 健康 · 旅遊 · 文化 · 科技 · 遊戲 · 其他
-- Highest issue: **088**
-- Next issue: **089**
+- Highest issue: **088** / Next issue: **089**
+- ✅ 84/84 articles have hero illustrations (100% coverage)
 
-### Section counts (per .velite/useCases.json)
+## ⚠️ Voice retone IN PROGRESS (resume here)
 
-| Section | Articles | Subtitle |
-|---|---|---|
-| 商家 | 13 | 小店 · 自動化 · 出單 |
-| 科技 | 12 | Code · 工具 · 設定 |
-| 親子 | 9 | 功課 · 學校 · 教養 |
-| 遊戲 | 9 | 攻略 · 抽卡 · 玩 game 輔助 |
-| 寵物 | 8 | 獸醫 · 飲食 · 行為 |
-| 職場 | 7 | 搵工 · 合約 · 寫嘢 |
-| 財經 | 7 | 報稅 · 保險 · 投資 |
-| 生活 | 6 | 醫健 · 飲食 · 行程 |
-| 健康 | 4 | 睡眠 · 運動 · 心理 _(NEW this session)_ |
-| 文化 | 4 | 寫作 · 創作 · 翻譯 |
-| 旅遊 | 4 | 簽證 · 行程 · packing |
-| 其他 | 1 | 冇得分類嘅冷門 use case |
+**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。Round 4 commit `7e0b65d` 完成 7 篇深 retone。**剩 45 篇 ratio ≥0.35 要做**。
+
+### Workflow（Gemini 協作）
+
+1. I paste 一篇 article + reminder 畀你
+2. 你 copy 落 Gemini（佢識用 native HK 字眼）
+3. Gemini 出 retoned 版本
+4. 你 paste 返畀我，我 restore `<PromptBlock>` 結構 + frontmatter `---` + apply
+
+**畀 Gemini 嘅 system prompt**（每 session 開頭 paste 一次）：
+
+```
+你係幫一個香港 Claude 教學 newsletter 做語氣 retone 嘅 editor。
+
+STRICT 新標準：除咗以下保留，其他全部廣東話。
+✅ 保留英文：
+- Brand / product / ticker (Claude, IG, Notion, VOO, S&P 500, MPF, ETF, IFA 等)
+- Code literal / file path / API endpoint (`.gitignore`, `~/.claude/`, `cmd+K`)
+- Quoted English sample（信入面真實字眼 e.g.「Dear Mr. Tony」、合約條款 quote）
+- 縮寫 (HR, BD, CRM, KPI, etc.)
+- $ 金額 (HK$、$10/月)
+❌ 全部轉中文：
+- workflow → 工作流程 / fix → 修補 / review → 檢視 / draft → 草稿 / framework → 框架
+- 所有 SAT-word adjective、adverb、verb
+- 連 HK office 偶爾講嘅 (deadline, email, vendor, output, input, value, context, trigger, leverage, feedback, etc.) 都轉中文
+
+Target ratio < 0.30。Pet 文：BB → 主子。
+
+OUTPUT：純 MDX，由 `---` 開始到文末。<PromptBlock> tag 保留。Code block 100% 唔郁。
+```
+
+### 剩低嘅 45 篇（issue order）
+
+```
+#030 0.50 cowork-sales-pipeline-automation    (pasted to Gemini, waiting return)
+#031 0.45 cowork-auto-backup-files-photos
+#032 0.43 cowork-weekly-inbox-triage
+#033 0.51 cowork-social-media-scheduler
+#034 0.40 claude-code-chrome-extension
+#035 0.52 run-local-llm-mac-claude-ollama
+#036 0.54 claude-code-legacy-codebase-onboarding
+#039 0.48 claude-fiction-writing-partner
+#040 0.47 newsletter-editorial-calendar-claude
+#041 0.49 travel-itinerary-claude-day-by-day
+#043 0.37 hong-kong-tax-prep-claude
+#044 0.39 doctor-visit-prep-claude
+#048 0.37 youtube-game-guide-extract-claude
+#049 0.38 trpg-gm-prep-claude
+#056 0.39 pet-grooming-routine-claude
+#057 0.44 pet-puppy-kitten-first-month-claude
+#058 0.49 mmo-guild-recruit-post-claude
+#059 0.53 game-review-write-claude
+#060 0.65 new-game-prep-claude
+#061 0.76 trpg-world-building-claude
+#062 0.63 visa-application-claude
+#063 0.71 family-trip-itinerary-claude
+#064 0.71 packing-list-claude
+#065 0.66 tax-refund-claude
+#066 0.54 mental-health-journaling-claude
+#067 0.71 home-exercise-plan-hk-claude
+#068 0.73 sleep-insomnia-tracker-claude
+#069 0.70 chronic-condition-management-claude
+#070 0.65 dse-prep-mental-claude
+#071 0.79 summer-camp-application-letter-claude
+#072 0.76 primary-school-makeup-request-claude
+#073 0.75 sibling-conflict-mediation-claude
+#074 0.81 mpf-review-claude
+#075 0.76 emergency-fund-claude
+#076 0.80 monthly-budget-hk-claude
+#079 0.37 claude-skills-build-claude
+#080 0.46 claude-google-sheets-integration-claude
+#081 0.47 claude-artifacts-deep-dive-claude
+#082 0.46 claude-long-conversation-management-claude
+#083 0.39 claude-code-install-claude
+#084 0.56 claude-code-slash-commands-claude
+#085 0.65 claude-code-mcp-servers-claude
+#086 0.52 claude-code-subagents-claude
+#087 0.53 claude-code-hooks-claude
+#088 0.60 claude-code-worktrees-claude
+```
+
+### Voice reference articles（已達 <0.30 標準，可參考揀字）
+
+最 native：
+- #053 pet-insurance-review-claude (0.09)
+- #027 insurance-policy-review-claude (0.06)
+- #077 investment-portfolio-review-claude (0.09)
+- #028 employment-contract-review-claude (0.09)
+- #018 english-email-polish-hk (0.14)
+
+### HK-native vocabulary bank（已 calibrate）
+
+| 英文 | 廣東話 |
+|---|---|
+| generic / boilerplate | 行貨 |
+| weak / no backbone | 冇底氣 |
+| Garden leave | 冷河期 |
+| Constructive dismissal | 推定解僱 |
+| labour tribunal | 勞資審裁處 |
+| information asymmetry | 資訊不對等 |
+| face-saving | 落台階 |
+| take it personally | 放喺心上 |
+| abstract comparison | 紙上談兵 |
+| scaffold | 搭棚 |
+| net positive/negative | 利多於弊 / 弊多於利 |
+| friction | 阻力 |
+| working memory | 短暫記憶 |
+| mental model | 操作思維 |
+| context switching | 切換情境 |
+| cross-contaminate | 撈亂 |
+| paradox | 死結 |
+| compounds | 利疊利 |
+| cage (寵物) | 飛機籠 |
+| deductible | 墊底費 |
+| exclusion (保險) | 唔保事項 / 不保項目 |
+| mixed-breed dog | 唐狗 |
+| exotic pets | 珍禽異獸 |
+| destroy financials | 搞冧 |
+| sure loss | 輸梗嘅 |
+| stand out | 突圍而出 |
+| Disclaimer | 利益申報 |
+| Pet (in pet section): BB | **主子** |
 
 ## 🛠 Key infra files
 
@@ -41,64 +149,31 @@ _Last session ended: 2026-05-24, hero batch (84/84) + voice retone sweep (all se
 |---|---|
 | `velite.config.ts` | Content schema + SECTION enum |
 | `src/lib/content.ts` | SECTIONS / CATEGORY_BADGES / SECTION_DESCRIPTIONS / TIER_CURRICULUM / pickFirstRead |
-| `src/components/design/Masthead.tsx` | 報頭 — nav 「關於 · 合作 · 訂閱」 |
-| `src/components/design/SubNav.tsx` | 'use client' — section nav with active-state |
-| `src/app/collaborate/page.tsx` | `/collaborate` page — TSX, ⚠️ CONTACT_EMAIL placeholder still active |
-| `scripts/import-hero.mjs` | Single hero PNG → webp + frontmatter |
-| `scripts/batch-import-heroes.mjs` | Batch import with fuzzy slug match |
-| `HERO-PROMPTS-BATCH.md` | 48 hero prompt ready to copy (issues 50-77) |
+| `src/app/collaborate/page.tsx` | ⚠️ CONTACT_EMAIL placeholder still active |
+| `scripts/import-hero.mjs` / `batch-import-heroes.mjs` | Hero pipeline |
+| `HERO-PROMPTS-BATCH.md` | 59 hero prompt completed |
 
 ## 🎨 Hero illustration status
 
+- ✅ **84 / 84 articles have heroes** (100% coverage as of 2026-05-24)
 - **Master style**: 16:9 cream paper / 4-color (#FBF7EA #F7F2E2 #C42424 #0F0B05) / ink hatching / no faces / vermillion 朱紅 印章 corner
-- **Done**: ✅ **84 / 84 articles have heroes** (100% coverage as of 2026-05-24)
-- **Tooling**: `node scripts/batch-import-heroes.mjs` (drop PNGs in `/Volumes/PSSD/Downloads/` with filename pattern `N. {section} [#issue] — {slug-stem}.png`)
-- **Note**: filename stem 要 match MDX slug — `pet-` 等 prefix 要 explicit（曾出現 `picky-eater-...` 唔 match `pet-picky-eater-...` 個 case）
 
-## 🔓 Open backlog (priority order)
+## 🔓 Remaining backlog
 
-### 🔥 Quick wins
-1. ~~**Append 11 tutorial hero prompts** (issues 78-88) to HERO-PROMPTS-BATCH.md~~ ✅ done
-2. ~~**Import 36 new hero images**~~ ✅ done (2026-05-24, 84/84 coverage)
-3. ~~**Voice retone — clean gratuitous English across all 84 articles**~~ ✅ done (2026-05-24)
-4. **Replace `/collaborate` email** placeholder (`hello@my-good-friend-claude.com`) — production launch-ready blocker
-5. **Pricing anchors** on `/collaborate` FAQ — after first paid quote
-
-### 🎨 Voice retone calibration (for future articles)
-
-Established rules — apply when writing new content:
-- KEEP English: brand / tech / HK office natural codeswitch (Claude, deadline, vendor, email, fix, action, balance, tone, etc.)
-- CHANGE to Chinese: SAT-word adjective / adverb / verb where Cantonese has natural equivalent
-- HK-native gem: `行貨` (generic), `冇底氣` (weak), `飛機籠` (cage), `墊底費` (deductible), `唔保事項` (exclusion), `撈亂` (cross-contaminate), `死結` (paradox), `利疊利` (compounds), `拎啱個 balance` (strike balance), `諗唔明` (wonder), `搞冧` (destroy), `輸梗嘅` (sure loss), `唐狗` (mixed-breed dog), `珍禽異獸` (exotic pets), `心理位` (psychological trap), `見過個樣` (cringe-worthy), `白紙黑字` (written contract), `機械式` (mechanical)
-- Pet section: BB → **主子** (unified per user preference, applied 2026-05-24)
-
-### ✍️ More articles (if you want to keep writing)
-- **職場 deepen** — interview prep / salary negotiation / 同事 conflict / promotion 點 ask
-- **文化 deepen** — 自家 substack 起步 / 中譯英 polish / book club 帶讀 / 海外 conference 投稿
-- **旅遊 deepen** — 老人家 trip / 蜜月 trip / business trip prep / 海外 medical emergency
-- **生活 deepen** — HK 細空間 home setup / 搬屋 logistics / 同 partner 同住 first time
-- **健康 deepen** (just launched) — 經期管理 / 男士 prostate check / 大病 second opinion / 老人家 護理
-
-### 🎨 Hero illustrations
-- ~~11 tutorial heroes (78-88)~~ ✅ done (2026-05-24) — 全 84 篇 100% coverage
-
-### 🔧 Polish
-- ~~Homepage `/` — add tutorial section / CTA pointing to `/learn/cowork` + `/learn/code`~~ ✅ done — EntryCards now show article counts (61/11/12) + topic tags (Projects/Skills/MCP/Subagents/Hooks etc.)
-- ~~`/learn/cowork` + `/learn/code` — verify new tutorials surface correctly~~ ✅ verified — cowork=11, code=12; "Claude Code 由零安裝" auto-picked as code first-read (lowest difficulty)
-- OG image gen — Velite occasionally times out fetching Google Fonts (handoff 1 note)
-- Custom domain (currently `my-good-friend-claude.vercel.app`)
-- `/collaborate` Calendly / Tally form upgrade later
+1. **Voice retone — 45 articles remaining** (see list above)
+2. **Replace `/collaborate` email** placeholder (`hello@my-good-friend-claude.com`) — production launch blocker
+3. **Pricing anchors** on `/collaborate` FAQ — after first paid quote
+4. Custom domain (currently `my-good-friend-claude.vercel.app`)
+5. `/collaborate` Calendly / Tally form upgrade later
 
 ## 🚀 How to resume
 
-下個 session 揀任一句直接 ping：
+下個 session：
 
-- 「開 my-good-friend-claude，繼續寫文章 + 出 hero — 睇 HANDOFF」
-- 「Append 11 個 tutorial hero prompts」
+- 「繼續 retone — 由 #030 開始」 — 我會 paste #030 落嚟，你 paste 落 Gemini，循環
 - 「改 /collaborate email 做 [real-email]」
-- 「Preview server start」（會跑 next-dev port 4321）
-- 「我出咗 hero 圖喺 /Volumes/PSSD/Downloads/，import 全部」
 - 「我想 deepen [section name]」
+- 「Preview server start」（會跑 next-dev port 4321）
 
 ## 🔑 Conventions to keep
 
@@ -107,46 +182,32 @@ Established rules — apply when writing new content:
 - **Cantonese voice**, HK detail (街名、銀行、店名、政府部門)
 - **Article structure**: 情境 → 跟住做 (4 steps) → 變化 (3) → 一個 mindset
 - **PromptBlock label**: `完整 prompt — XXX` 或 `變化 N — XXX`
-- **Featured = true** 嗰啲先做 hero illustration
 - **印章 字** = subcategory 嘅 representative 中文字 (e.g., 寵 / 食 / 衡 / 償)
 
-### Velite lint (學到嘅 gotchas)
+### Voice (NEW strict bar 2026-05-24)
+- Target ratio <0.30（每篇 prose 英文比例）
+- Quick check: `node -e "const t=require('fs').readFileSync('content/use-cases/SLUG.mdx','utf8').split(/^---$/m).slice(2).join(''); const cn=(t.match(/[一-鿿]/g)||[]).length; const codeEn=((t.match(/\`\`\`[\s\S]*?\`\`\`/g)||[]).join('').match(/[a-zA-Z]+/g)||[]).length; const en=(t.match(/[a-zA-Z]+/g)||[]).length-codeEn; console.log((en/(cn+en)).toFixed(2))"`
+
+### Velite lint
 - `title` max 80 chars
 - `description` max 200 chars
-- 避開 `<digit` 字面（MDX 當 JSX tag 解析）— 用「少於 N」 / 「低於 N」 / 「&lt;N」
-- 中文 char = JS string length 1（按 code unit count）
-
-### Voice tuning (session 3 user feedback)
-- HK Cantonese + 必要 English（technical terms / brand / 真 HK habit）
-- **避免** gratuitous mid-sentence English（「acceptable」/「sustainable」/「baseline」 改 中）
-- 代碼 block 全 English（natural）
-- 早期 articles 如 `pet-sitter-handover-claude` 係 voice reference
+- 避開 `<digit` 字面（MDX 當 JSX tag 解析）
 
 ### Git
 - Commit format: `type(scope): description` HEREDOC
 - 唔包 co-author footer (per project preference)
 - Build + push → Vercel auto-deploy 2-3 min
 
-## 📦 Session 3 commits (for reference)
+## 📦 Recent commits
 
 ```
-8b69c23 fix(content): trim MCP article description under 200 char
-5b0479a content: 11 Claude tool tutorials (issues 078-088)
-9fe345f content: deepen 財經 section with 4 new articles (issues 074-077)
-85936d6 content: deepen 親子 section with 4 new articles (issues 070-073)
-008be2d feat(taxonomy): add 健康 section + 4 launch articles (issues 066-069)
+7e0b65d content(voice): deep retone round 4 — 7 articles to strict bar (<0.30)
+25cd34c docs: HANDOFF — voice retone done, calibration rules captured
+7af55e1 content(voice): retone round 3 surgical SAT-word cleanup
+37fcc73 content(voice): retone round 2 — cowork tutorials + code tutorials + 職場
+3c9d1bb content(voice): retone 12 articles to HK Cantonese natural codeswitch
+b6b0bd3 content(hero): batch import — 84/84 articles now have heroes
 ```
-
-## 🎯 Session 2 + 3 combined achievement
-
-| Metric | Session 1 end | Session 3 end |
-|---|---|---|
-| Articles | 49 | 84 (+35) |
-| Sections | 10 | 12 (+2: 旅遊 + 健康) |
-| Pages | masthead + about | + /collaborate |
-| Heroes done | 24 (session 1) | 48 |
-| Featured count | ~15 | 42 |
-| Tutorial coverage | 0 | 12 code + 11 cowork |
 
 ---
 
