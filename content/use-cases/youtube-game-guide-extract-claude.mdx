@@ -1,5 +1,5 @@
 ---
-title: "Boss 打唔過？YouTube 攻略片用 Claude 抽 timing + steps 變 1 頁筆記"
+title: "Boss 打唔過？YouTube 攻略片用 Claude 抽時機 + 步驟變 1 頁筆記"
 slug: "youtube-game-guide-extract-claude"
 issue: 48
 publishedAt: 2026-05-22
@@ -10,8 +10,8 @@ subcategory: "玩 game 輔助"
 heroImage: "/hero/youtube-game-guide-extract-claude.webp"
 difficulty: 1
 timeMinutes: 10
-toolsNeeded: ["Claude Chat", "YouTube transcript 工具 (browser extension 或 Apple Notes shortcut)"]
-description: "Boss / 速通 / collectibles 攻略片 15 分鐘睇唔完？將 YouTube transcript paste 入 Claude，抽出 timing、attack phase、build setup，整成 1 頁可 print / phone 開住打嘅 cheat sheet。"
+toolsNeeded: ["Claude Chat", "YouTube 逐字稿工具 (瀏覽器外掛或 Apple Notes 捷徑)"]
+description: "Boss / 速通 / 收集品攻略片 15 分鐘睇唔完？將 YouTube 逐字稿放入 Claude，抽出時機、攻擊階段、裝備配搭，整成 1 頁可列印 / 用電話開住打嘅筆記。"
 keywords: ["youtube 攻略", "boss 攻略", "game guide", "speedrun", "claude transcript", "遊戲攻略筆記"]
 related: ["jp-rpg-translation-claude", "youtube-transcript-summary-claude", "steam-game-similar-recommendation-claude"]
 featured: true
@@ -19,35 +19,35 @@ featured: true
 
 ## 情境
 
-你 stuck 喺 Elden Ring 嘅 Malenia。或者 Hollow Knight 嘅 Path of Pain。或者 Persona 5 嘅 Velvet Room boss。
+你卡關喺 Elden Ring 嘅 Malenia。或者 Hollow Knight 嘅 Path of Pain。或者 Persona 5 嘅 Velvet Room boss。
 
-你打開 YouTube，揾到一條「Malenia EASY KILL GUIDE — No Mimic Tear Required」。15 分鐘。
+你打開 YouTube，搵到一條「Malenia EASY KILL GUIDE — No Mimic Tear Required」。15 分鐘長。
 
-你開始睇——3 分鐘背景，2 分鐘 build setup，5 分鐘 phase 1 講解，5 分鐘 phase 2。
+你開始睇——3 分鐘背景介紹，2 分鐘裝備配搭，5 分鐘第一階段講解，5 分鐘第二階段。
 
-打 boss 中途，你只想知**「依家應該 dodge 邊個方向」**——但你要返去 video 由頭 scrub 揾返條 timing。死又再睇，再死又再睇，半個鐘只玩到 2 場 attempt。
+打 boss 中途，你只想知**「而家應該避去邊個方向」**——但你要返去段片度拉時間軸搵返嗰個時機 (timing)。死完又再睇，再死又再睇，半個鐘淨係玩到兩場。
 
-問題：**Video 係 linear medium，但你需要嘅係 random-access 嘅 reference。**
+問題在於：**影片係線性媒體，但你需要嘅係隨機存取嘅參考資料。**
 
-呢篇用 Claude **10 分鐘**將 15 分鐘 video 變成**1 頁 cheat sheet**——按 phase 排好 timing、attack pattern、counter，print 出嚟或者 phone 開住，唔使再 scrub video。
+呢篇教你用 Claude 花 **10 分鐘**，將 15 分鐘嘅片變成**1 頁打機筆記 (cheat sheet)**——按階段排好時機、攻擊模式、應對方法。印出嚟或者用電話開住，唔使再喺段片度拉來拉去。
 
 ## 跟住做
 
-### 1. 攞 YouTube transcript
+### 1. 攞 YouTube 逐字稿 (Transcript)
 
-YouTube 大部分 video 都有 auto-generated transcript（包括非英文）。攞法：
+YouTube 大部分片都有自動生成嘅逐字稿（包括非英文）。攞法：
 
-**桌面 browser**：
-1. 開條 video
-2. 撳 `...` (more) → `Show transcript`
-3. 整段 copy（包含 timestamp）
+**桌面瀏覽器**：
+1. 開條片
+2. 撳 `...` (更多) → `Show transcript`
+3. 將成段複製（包含時間戳記）
 
 **iPhone / Android**：
-- 用 Apple Notes 嘅 shortcut「Get YouTube Transcript」（一搜 shortcuts gallery 就揾到）
-- 或者用 browser extension「YouTube Transcript & Summary」
-- 或者去 `youtubetranscript.com`，paste URL
+- 用 Apple Notes 嘅捷徑「Get YouTube Transcript」（一搜尋 shortcuts gallery 就搵到）
+- 或者用瀏覽器外掛「YouTube Transcript & Summary」
+- 或者去 `youtubetranscript.com`，貼上網址
 
-你會收到 ~500-1500 字嘅 transcript，每段帶 timestamp 例如：
+你會收到 ~500-1500 字嘅逐字稿，每段帶有時間戳記，例如：
 
 ```
 0:23
@@ -58,171 +58,171 @@ you can get a riposte safely
 What you wanna do is...
 ```
 
-### 2. Paste 入 Claude，用呢個 prompt
+### 2. 貼入 Claude，用呢個 prompt
 
-<PromptBlock label="完整 prompt — Video transcript → 1 頁 cheat sheet">
-以下係一條 YouTube 攻略 video 嘅 transcript：
+<PromptBlock label="完整 prompt — 逐字稿 → 1 頁打機筆記">
+以下係一條 YouTube 攻略片嘅逐字稿：
 
-遊戲：[遊戲名 + boss / area / quest 名]
-我嘅 build / class：[簡單描述]
-我宜家 stuck 嘅 phase：[死過邊段，或者「全部」]
+遊戲：[遊戲名 + boss / 區域 / 任務名]
+我嘅裝備 / 職業：[簡單描述]
+我而家卡住嘅階段：[死過邊段，或者「全部」]
 
-Transcript:
-[paste 整段]
+逐字稿:
+[貼上成段]
 
-請整成**1 頁 cheat sheet**，phone 開住打可以即 reference。Structure 如下：
+請整成**1 頁打機筆記 (cheat sheet)**，方便我用電話開住打機時即時參考。結構如下：
 
-**🎯 Pre-fight setup（3-5 條 bullet）**
-- 推薦 build / equipment（攻略片入面提到嘅）
-- 推薦 buff / consumable
-- Map / arena setup（如有）
+**🎯 戰前準備（3-5 點）**
+- 推薦裝備 / 配置（攻略片入面提到嘅）
+- 推薦增益狀態 (buff) / 消耗品
+- 地圖 / 場地設定（如有）
 
-**⚔️ Phase 1（同每個之後 phase）**
-Trigger: [HP %, scripted event, 或 timer]
-每個 attack pattern：
-- 名 / 視覺 tell（敵人點動或燈光點變）
-- Timing 數字（hit window in seconds / iframes / 步）
-- 你應該做：dodge 方向 / parry timing / heal opening
+**⚔️ 第一階段（同每個之後嘅階段）**
+觸發條件: [HP %、預設劇情事件、或計時器]
+每個攻擊模式：
+- 名稱 / 視覺提示（敵人點郁或者燈光點變）
+- 時機數字（無敵時間 window 有幾耐 / 步數）
+- 你應該做：閃避方向 / 擋格時機 / 補血空檔
 
-**🚨 Death triggers（最易死嘅 3 樣嘢）**
-攻略片入面 video creator 講過「new players always die here」嘅 specific moments，列出 + 1 句 counter。
+**🚨 死亡陷阱（最易死嘅 3 樣嘢）**
+攻略片入面創作者講過「新手永遠死喺度」嘅具體時刻，列出 + 1 句應對方法。
 
-**💡 Optional：speedrun / cheese tactic（如片有提）**
-有冇 exploit / shortcut，講風險 + 適唔適合我 build。
+**💡 選擇性：速通 / 逃課打法（如片有提）**
+有冇漏洞 / 捷徑，講明風險 + 適唔適合我嘅配置。
 
-**⏱ Timestamp index**
-最後一個 mini-list：邊個 timestamp 講邊個 phase，等我想 verify 一下可以快速跳返去 video。
+**⏱ 時間戳記索引**
+最後一個小清單：邊個時間戳記講邊個階段，等我想核對一下可以快速跳返去段片。
 
-語氣：好似你係 raid leader 寫俾 first-time clear 隊員嘅 brief，唔好 dump 全部 transcript。
+語氣：好似你係副本隊長寫畀第一次打嘅隊員嘅簡報，唔好將成篇逐字稿倒晒出嚟。
 </PromptBlock>
 
-### 3. Print / save phone 開住打
+### 3. 印出嚟 / 儲存喺電話開住打
 
-Output 通常 1-2 頁 A4。我嘅做法：
+輸出通常 1-2 頁 A4。我嘅做法：
 
-- **桌機玩 game**：另一個 monitor 開住 Claude chat
-- **手機 / iPad 玩 game**：將 cheat sheet share 落 Apple Notes 同 Notion，full-screen 喺另一部 device
-- **主機**：print A5 size 撕埋 controller 隔離
+- **電腦打機**：另一個螢幕開住 Claude 視窗
+- **手機 / iPad 打機**：將筆記分享落 Apple Notes 同 Notion，全螢幕喺另一部裝置打開
+- **主機**：印 A5 size 擺喺手掣隔籬
 
-### 4. Update 你嘅 cheat sheet（重要）
+### 4. 更新你嘅筆記（重要）
 
-打 5-10 attempt 之後，你發覺 cheat sheet 入面**有幾條根本冇用嘅 info**（例如 video 主推 spell build 但你 melee）。 follow up：
+打咗 5-10 場之後，你發覺筆記入面**有幾項資訊根本冇用**（例如片主推介法術流但你玩近戰）。追問：
 
-> 「我已經打咗 10 次。Phase 2 我可以 consistently 過，但 Phase 3 嘅 `XX attack` 我永遠 dodge 唔到。我宜家用 melee + light shield，唔係攻略片個 mage build。請 rewrite 個 Phase 3 section 配合我嘅 build。」
+> 「我已經打咗 10 次。第二階段我可以穩定過，但第三階段嘅 `XX 攻擊` 我永遠避唔到。我而家用近戰 + 輕盾，唔係攻略片個法師配置。請重寫第三階段部分去配合我嘅配置。」
 
-呢個 customize 通常令 cheat sheet 由 90% useful 變 100% useful。
+呢個度身訂造通常令筆記由 90% 有用變成 100% 啱用。
 
-## 變化
+## 變化例子
 
-### 變化 1：Speedrun route extraction
+### 變化 1：速通 (Speedrun) 路線提取
 
-如果你想學 speedrun（any%, 100%, 無傷等），speedrun video 通常極長（1-3 小時 full playthrough）：
+如果你想學速通（any%、100%、無傷等），速通片通常極長（1-3 個鐘全通關）：
 
-<PromptBlock label="變化 1 — Speedrun route → checkpoint plan">
-以下係 [遊戲] 嘅 [類別，例：any% no major glitch] world record speedrun video transcript（[長度]）。
+<PromptBlock label="變化 1 — 速通路線 → 檢查點計劃">
+以下係 [遊戲] 嘅 [類別，例：any% no major glitch] 世界紀錄速通片嘅逐字稿（[長度]）。
 
-我嘅 goal：[個人 PB 目標 / sub-2-hour / 純學 route]
-我嘅 current 水平：[新手 / 完晒 normal / 試過 1-2 次 speedrun]
+我嘅目標：[個人最佳紀錄 / 2 個鐘內 / 純粹學路線]
+我嘅現時水平：[新手 / 打爆過一次 / 試過 1-2 次速通]
 
 請整：
 
-**Route overview**
-- 全程拆 [N] 個 segment（每個 5-15 分鐘）
-- 每個 segment 個 elevator pitch（去邊 + 做乜）
+**路線概覽**
+- 全程拆做 [N] 個段落（每個 5-15 分鐘）
+- 每個段落嘅簡介（去邊 + 做乜）
 
-**每個 segment 詳細**
-For each segment:
-- Start / end checkpoint
-- 必做 actions（順序）
-- 推薦 tech / glitch（連 difficulty rating）
-- Common death / reset trigger
-- Time-save tips
+**每個段落詳細資料**
+每個段落：
+- 開始 / 結束檢查點
+- 必做動作（順序）
+- 推薦技巧 / 漏洞（連難度評級）
+- 常見死亡 / 重置觸發點
+- 慳時間提示
 
-**Tech 詞彙表**
-攻略片用嘅 community jargon（zips, OOB, RBA 等），每個 1 句解
+**技巧詞彙表**
+攻略片用嘅社群行話（zips, OOB, RBA 等），每個用 1 句解釋
 
-**Practice priority**
-邊個 segment 你應該 isolate practice，邊個係 RNG 控唔到
+**練習優先次序**
+邊個段落你應該抽出來獨立練習，邊個係靠運氣 (RNG) 控制唔到嘅
 
-**唔做嘅嘢**
-WR runner 用嘅 frame-perfect / TAS-only tech，唔好試（會 frustrate）
+**唔好做嘅嘢**
+世界紀錄保持者用嘅極限技巧 (frame-perfect / TAS-only)，唔好試（會令你好氣餒）
 
-語氣：speedrun coach，唔係 wiki dump。
+語氣：速通教練，唔係維基百科。
 </PromptBlock>
 
-### 變化 2：Collectibles checklist
+### 變化 2：收集品清單
 
-100% playthrough 嘅人，攻略片通常係 area-by-area collectible guide：
+玩 100% 收集嘅人，攻略片通常係逐個區域嘅收集指南：
 
-<PromptBlock label="變化 2 — Collectible 全收集 master list">
-以下係 [遊戲] [area / chapter / DLC] 嘅 collectibles guide video transcript。
+<PromptBlock label="變化 2 — 全收集總清單">
+以下係 [遊戲] [區域 / 章節 / DLC] 嘅收集品指南片逐字稿。
 
-我宜家進度：[第 X chapter / 已收 Y%]
-我而家可以 access 嘅 zone：[列出]
+我而家進度：[第 X 章 / 已收集 Y%]
+我而家去到嘅區域：[列出]
 
 請整：
 
-**Master checklist by area**
-每個 area / room：
-- Collectible 1 — 描述 + grid coord（如片有）+ access requirement
-- Collectible 2 — ...
+**按區域分類嘅總清單**
+每個區域 / 房間：
+- 收集品 1 — 描述 + 座標（如片有提）+ 獲取要求
+- 收集品 2 — ...
 
-**Missable list**
-如果我推進主線過咗某 chapter，會 lock 唔到嘅 collectibles，紅 flag highlight。
+**會錯過嘅清單**
+如果我推進主線過咗某章節，會返唔到轉頭攞嘅收集品，用紅色標示。
 
-**Order optimisation**
-建議我下一個 session 點 route，最少 backtrack 收最多嘢
+**最佳化次序**
+建議我下次玩點樣行，用最少回頭路攞最多嘢
 
-**Tool requirement**
-邊啲 collectible 要先解鎖某 ability / item，列出 dependency
+**工具要求**
+邊啲收集品要先解鎖某個能力 / 道具，列出依賴關係
 
-**Save warning**
-有冇 collectible 需要 specific dialogue choice / second playthrough 嘅 ending fork
+**存檔警告**
+有冇收集品需要特定對話選擇 / 第二次通關嘅分歧結局
 
-語氣：completionist tour guide。
+語氣：全收集導遊。
 </PromptBlock>
 
-### 變化 3：Build guide → 我嘅 specific build
+### 變化 3：裝備指南 → 我嘅專屬配置
 
-最常見嘅 RPG/RPG-lite 攻略片就係「Best XXX Build For YYY」：
+最常見嘅 RPG / 類 RPG 攻略片就係「最強 XXX 配置」：
 
-<PromptBlock label="變化 3 — Build guide adapt to my character">
-以下係 [遊戲] 嘅「Best [class / weapon / spec] build」 video transcript。
+<PromptBlock label="變化 3 — 裝備指南調整做我嘅角色">
+以下係 [遊戲] 嘅「最強 [職業 / 武器 / 專精] 配置」攻略片逐字稿。
 
-我嘅角色 current state:
-- Class / level: [填]
-- 主武器 / weapon: [填]
-- 已 unlock 嘅 skill / passive: [列出]
-- 我玩嘅 content：[main story / endgame raid / PvP / co-op]
+我嘅角色現時狀態:
+- 職業 / 等級: [填]
+- 主武器: [填]
+- 已解鎖嘅技能 / 被動技: [列出]
+- 我玩嘅內容：[主線故事 / 終局副本 / PvP / 合作]
 
 請：
 
-**Adapt 個 build 為我**
-- 我可以馬上做嘅嘢（用我宜家有嘅）
-- 我下一個 milestone 應該 farm 乜（item / level / skill）
-- 我宜家用嘅嘢有冇要 reset / re-roll
+**將配置調整畀我用**
+- 我可以即刻做嘅嘢（用我而家有嘅）
+- 我下一個里程碑應該去刷 (farm) 乜嘢（道具 / 等級 / 技能）
+- 我而家用緊嘅嘢有冇需要重置 / 重新洗牌
 
 **唔好用嘅嘢**
-攻略片推薦但對我嚟講 trap 嘅 item / passive，講原因
+攻略片推薦但對我嚟講係陷阱嘅道具 / 被動技，講明原因
 
-**Long-term path**
-我 character 由宜家到攻略片個 final build 需要：
+**長遠路線**
+我個角色由而家去到攻略片個最終配置需要：
 - 預估時數
-- 必須做嘅 main path activity
-- 可以 skip 嘅 side content
+- 必須做嘅主線活動
+- 可以跳過嘅支線內容
 
-**對比現有 build 嘅 DPS / survivability**
-換之後 expected 提升幾多 %（有 number 就好）
+**對比現有配置嘅傷害 / 生存力**
+換裝之後預計提升幾多 %（有數字最好）
 
-語氣：副本老手畀朋友嘅 build 意見。
+語氣：副本老手畀朋友嘅配置意見。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-YouTube 攻略片嘅 information density 其實好低——我哋 90% 時間係等 creator 講開場白、show off 自己嘅 PR、處理 sponsor、講 conclusion。**真正 actionable 嘅 info 通常剩返 video 嘅 20-30%。**
+YouTube 攻略片嘅資訊密度其實好低——我哋 90% 時間係等創作者講開場白、炫耀自己嘅紀錄、賣廣告、講結語。**真正有得落手做嘅資訊通常只佔影片嘅 20-30%。**
 
-Claude 嘅 value 唔係取代 video creator——你應該繼續 sub 同 like 你 enjoy 嘅 channel。Claude 嘅 value 係 **將 linear video media 變成 random-access reference**——你打 boss 嘅時候要嘅唔係故事，係 split-second 嘅 dodge timing。
+Claude 嘅價值唔係取代影片創作者——你應該繼續訂閱同讚好你欣賞嘅頻道。Claude 嘅價值係 **將線性影片媒體變成隨機存取嘅參考資料**——你打 boss 嘅時候要嘅唔係故事，係千鈞一髮間嘅閃避時機。
 
-最後 reminder：**第一次睇 video 仲係值得睇晒**。睇晒先 transcript → cheat sheet。原因：creator 嘅 voice acting / pacing / personality 係 video format 嘅 emotional value，cheat sheet 抽走唔到——但 cheat sheet 嘅 functional value 又係 video 比唔上嘅。**兩個並存，唔係取代。**
+最後提醒：**第一次睇條片仲係值得睇晒**。睇晒先至用逐字稿 → 變筆記。原因：創作者嘅語氣 / 節奏 / 性格係影片格式嘅情緒價值，筆記抽走唔到——但筆記嘅實用價值又係影片比唔上嘅。**兩者並存，唔係互相取代。**
 
-GG，clear boss 之後返去 like + comment 條 video，creator 應得嘅。
+GG，打贏 boss 之後返去 like + comment 條片，創作者應得嘅。
