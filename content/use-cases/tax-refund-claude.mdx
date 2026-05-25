@@ -1,5 +1,5 @@
 ---
-title: "日本買嘢退稅 / 歐洲 VAT refund：用 Claude 整 receipt tracking + 機場 claim 流程"
+title: "日本買嘢退稅 / 歐洲 VAT 退稅：用 Claude 整收據追蹤 + 機場索償流程"
 slug: "tax-refund-claude"
 issue: 65
 publishedAt: 2026-05-23
@@ -10,8 +10,8 @@ subcategory: "退稅"
 heroImage: "/hero/tax-refund-claude.webp"
 difficulty: 2
 timeMinutes: 20
-toolsNeeded: ["Claude Chat", "Passport + boarding pass", "trip 期間嘅 receipt + 購物 list"]
-description: "你日本 trip 買 HK$15,000 嘢，退稅 8-10% 拎返 HK$1,200。但 Day 5 機場 stuck customs 30 分鐘揾唔到 receipt。用 Claude trip 前整 tracker、daily log、機場 sequence + reject 風險 avoid，連歐洲 VAT refund 都齊。"
+toolsNeeded: ["Claude Chat", "護照 + 登機證", "trip 期間嘅收據 + 購物清單"]
+description: "你日本 trip 買 HK$15,000 嘢，退稅 8-10% 拎返 HK$1,200。但 Day 5 機場卡海關 30 分鐘揾唔到收據。用 Claude trip 前整追蹤器、每日紀錄、機場次序 + 拒絕風險避免，連歐洲 VAT 退稅都齊。"
 keywords: ["日本退稅", "歐洲 VAT refund", "tax-free shopping", "Tourist Tax Free", "airport tax claim", "Global Blue"]
 related: ["family-trip-itinerary-claude", "visa-application-claude", "packing-list-claude"]
 featured: false
@@ -19,705 +19,705 @@ featured: false
 
 ## 情境
 
-12 月 20 日，你最後一日 Tokyo trip。
+12 月 20 日，你最後一日東京 trip。
 
 成 trip 你買咗：
 
-- Day 1：Don Quijote 化妝品 + skincare ¥18,500
-- Day 2：UNIQLO + GU 衣 ¥12,000
+- Day 1：Don Quijote 化妝品 + 護膚 ¥18,500
+- Day 2：UNIQLO + GU 衫 ¥12,000
 - Day 3：Bic Camera 電子產品 ¥45,000
-- Day 4：百貨公司 LV passport holder ¥38,000
-- Day 5：朝早 Akihabara 漫畫 + 玩具 ¥8,500
+- Day 4：百貨公司 LV 護照套 ¥38,000
+- Day 5：朝早秋葉原漫畫 + 玩具 ¥8,500
 
-Total ¥122,000，HK$ 約 6,200。
+總共 ¥122,000，HK$ 約 6,200。
 
 退稅 10% 大約 ¥12,200 = HK$620。**值得拎**。
 
-你 11am 朝早抵 Haneda 機場，13:00 飛 HK。
+你 11am 朝早到羽田機場，13:00 飛 HK。
 
-11:15am: check-in 前過 customs tax-refund counter。
+11:15am：check-in 前過海關退稅櫃位。
 
-你拎出張包好嘅 LV passport holder。Customs officer:
+你拎出張包好嘅 LV 護照套。海關員：
 
 > 「Receipt please」
 
-你 paper bag 裏面有 4-5 張 receipt mixed 喺 luggage。你 dig 出嚟。
+你紙袋裏面有 4-5 張收據混喺行李度。你揾出嚟。
 
-> 「Bic Camera 電子 receipt please」
+> 「Bic Camera 電子收據 please」
 
 你揾。
 
-> 「Don Quijote receipt 請出示」
+> 「Don Quijote 收據請出示」
 
 你揾。
 
 15 分鐘過去。
 
-> 「Don Quijote 嘅 tax-free 程序 你 already 喺 store 入面 done sales tax exemption — 呢張 receipt 有 stamp。你唔需要喺 機場再 process。」
+> 「Don Quijote 嘅 tax-free 程序你已經喺 store 入面 done sales tax exemption — 呢張收據有 stamp。你唔需要喺機場再 process。」
 
-你：「等等⋯ 即係 Don Quijote 化妝品 ¥18,500 嘅 8% tax exemption already discounted at store?」
+你：「等等⋯⋯即係 Don Quijote 化妝品 ¥18,500 嘅 8% tax exemption already discounted at store？」
 
 > 「Yes」
 
 OK。你 confused 一陣。
 
-> 「LV 嘅 receipt please」
+> 「LV 嘅收據 please」
 
-你拎出 LV receipt 同 passport holder.
+你拎出 LV 收據同護照套。
 
 > 「呢個 case 已經 stamp by 百貨店 — 你已經 paid tax-included price，呢度 refund counter 唔處理。」
 
-更 confused 你。「咁⋯⋯邊啲 我可以 refund?」
+更 confused 你。「咁⋯⋯邊啲我可以 refund？」
 
-> 「Bic Camera 嘅 electronics 同百貨店 outside-the-counter purchase。但 ⋯⋯ where's the receipt?」
+> 「Bic Camera 嘅 electronics 同百貨店 outside-the-counter purchase。但⋯⋯where's the receipt？」
 
-你 dig 5 分鐘 揾唔到 Bic Camera receipt（已掉去 trash 喺 hotel?）。
+你揾 5 分鐘揾唔到 Bic Camera 收據（已掉去酒店垃圾桶？）。
 
 > 「No receipt = no refund. Sorry.」
 
-你 boarding 12:30. 你企喺 counter，意識到：
+你 boarding 12:30。你企喺櫃位，意識到：
 
-- Don Quijote ¥18,500 tax: ALREADY exempt at store (你以為要再 refund — actually 已 saved)
-- LV ¥38,000 tax: ALREADY discounted on receipt
-- Bic Camera ¥45,000 tax = ¥4,500: LOST because no receipt
-- UNIQLO / GU + Akihabara: small purchase, threshold below ¥5,000 minimum probably
+- Don Quijote ¥18,500 稅：已經喺店 exempt（你以為要再 refund — 其實已 saved）
+- LV ¥38,000 稅：已經喺收據打折
+- Bic Camera ¥45,000 稅 = ¥4,500：LOST 因為冇收據
+- UNIQLO / GU + 秋葉原：細件購買，門檻可能低於 ¥5,000 最低
 
-呢個 retail-tourist-tax confusion 嘅 root cause:
+呢個遊客退稅混亂嘅根本原因：
 
-- **日本 tax-free system 有 2 種 process**（store-level immediate vs airport later — 你以為要 always airport）
-- **Receipt management 冇有系統嘅 plan**（hotel inbox / luggage / pocket scatter）
-- **Item type qualifies 唔同**（liquid / consumable vs general goods 分類）
-- **Threshold rules 複雜**（每店 ¥5,000+ general goods OR ¥5,000+ consumables; consumables 要 sealed unopened）
+- **日本退稅系統有 2 種流程**（店內即時 vs 機場後續 — 你以為要永遠機場處理）
+- **收據管理冇有系統嘅計劃**（酒店收件箱 / 行李 / 袋散落）
+- **物品類型資格唔同**（液體 / 消耗品 vs 一般商品分類）
+- **門檻規則複雜**（每店 ¥5,000+ 一般商品 OR ¥5,000+ 消耗品；消耗品要密封未開）
 
-呢篇用 Claude **trip 前 set up tracker**，**trip 中 daily log**，**機場最後 claim sequence** — 唔再 panic stuck @ counter。
+呢篇用 Claude **trip 前整追蹤器**、**trip 中每日紀錄**、**機場最後索償次序** — 唔再喺櫃位 panic 卡住。
 
 ## 跟住做
 
-### 1. Trip 前 understand tax refund 基本
+### 1. Trip 前理解退稅基本
 
-開 Claude，先 understand 你 trip 嗰個地方嘅 tax system：
+開 Claude，先了解你 trip 嗰個地方嘅稅務系統：
 
-<PromptBlock label="完整 prompt — 日本 tax-free system 大致 understanding">
-我即將去日本 [N 日] trip，預算購物 [HK$ amount]。我從未做過 tax refund。
+<PromptBlock label="完整 prompt — 日本退稅系統大致理解">
+我即將去日本 [N 日] trip，預算購物 [HK$ 金額]。我從未做過退稅。
 
-請整 **日本 tax-free system overview** for HK 遊客：
+請整 **日本退稅系統概覽** for HK 遊客：
 
-🇯🇵 **日本 consumption tax (消費稅)**
-- Rate: 10% 標準 / 8% on 食物 + drinks
-- Tourists 持非 日本 passport stay < 6 個月 = qualified for tax exemption
+🇯🇵 **日本消費稅**
+- 稅率：10% 標準 / 8% 食物 + 飲品
+- 持非日本護照停留少於 6 個月嘅遊客 = 合資格免稅
 
-📋 **2 種 process** (重要 distinguish):
+📋 **2 種流程**（重要區分）：
 
-**Type A: Store-level immediate exemption** (大部分 case)
-- Don Quijote / Bic Camera / 大型 chain store
-- 你 出示 passport 喺 cashier
-- 即時 deduct tax = 你 pay tax-exempt price
-- Receipt + passport stamped at store
-- **完成 — 唔需要再 機場 process**
-- 你 拎走 嘅 「consumable」 sealed 唔可以開 (chocolate / 化妝品 / health products)
+**Type A：店內即時免稅**（大部分個案）
+- Don Quijote / Bic Camera / 大型連鎖店
+- 你喺收銀出示護照
+- 即時扣稅 = 你 pay 免稅價
+- 收據 + 護照喺店蓋章
+- **完成 — 唔需要再機場 process**
+- 你拎走嘅「消耗品」密封唔可以開（朱古力 / 化妝品 / 健康產品）
 
-**Type B: Airport-level refund** (少數 case)
-- 你 喺 store 已 pay tax-included price
-- Receipt 留低
-- 機場 customs counter present receipt + item
-- Tax refund as cash / credit card credit
+**Type B：機場退稅**（少數個案）
+- 你喺店已 pay 含稅價
+- 收據留低
+- 機場海關櫃位出示收據 + 物品
+- 退稅做現金 / 信用卡 credit
 
-**Most stores 而家 use Type A**, so 你 trip 中 99% 唔用機場 refund process。
+**大部分店家而家用 Type A**，所以你 trip 中 99% 唔用機場退稅流程。
 
-📏 **Threshold + restrictions**
+📏 **門檻 + 限制**
 
-✅ **General goods (一般商品)** - 電子 / 衣服 / 包 / 飾物
-- Minimum: 同一日同一店 ¥5,000+
-- Maximum: 無 limit
-- 可以開 / 立即用
+✅ **一般商品** - 電子 / 衫 / 包 / 飾物
+- 最低：同一日同一店 ¥5,000+
+- 最高：冇限
+- 可以開 / 即時用
 
-✅ **Consumables (消耗品)** - 化妝品 / 食物 / 飲品 / 健康用品
-- Minimum: 同一日同一店 ¥5,000+
-- Maximum: 同一日同一店 ¥500,000
-- **必須 sealed 不開** until depart 日本
-- Customs 可能 抽查 — 唔可以 use / consume 喺 日本
+✅ **消耗品** - 化妝品 / 食物 / 飲品 / 健康用品
+- 最低：同一日同一店 ¥5,000+
+- 最高：同一日同一店 ¥500,000
+- **必須密封不開**直到離開日本
+- 海關可能抽查 — 唔可以用 / 食喺日本
 
-❌ **Mix 唔可以**:
-- 同一 receipt 嘅 general + consumable 唔可以一齊算 threshold
-- e.g., ¥3,000 衣服 + ¥3,000 化妝品 = 唔 qualify 任何一邊 ¥5,000 threshold
+❌ **混合唔可以**：
+- 同一張收據嘅一般商品 + 消耗品唔可以一齊算門檻
+- 例：¥3,000 衫 + ¥3,000 化妝品 = 唔合資格任何一邊 ¥5,000 門檻
 
-📝 **必要 documents**
-- 護照 original (NOT copy)
-- 你 wear 「同名 passport」 嘅 fact 對 cashier
-- Customs declaration form (在某店要填) — store 提供
-- Receipt: 不可丟，亦不可 fold (機場可能 verify)
+📝 **必要文件**
+- 護照原本（NOT 副本）
+- 你「同名護照」嘅事實對收銀
+- 海關申報表（喺某店要填） — 店提供
+- 收據：不可掉，亦不可摺（機場可能驗證）
 
-🏷 **Items NOT qualified for tax exemption**
-- 食 / 喝 飲品 in store immediately
-- Travel-related expense (酒店 / transport / restaurant meal)
-- 二手 / 古董 (部分案例)
-- 已 ship to HK 嘅 (you must take with you)
+🏷 **唔合資格免稅項目**
+- 喺店即時食 / 飲嘅飲品
+- 旅行相關開支（酒店 / 交通 / 餐廳餐）
+- 二手 / 古董（部分個案）
+- 已運去 HK 嘅（你必須親身帶走）
 
-🏬 **常見 chain store + their process**:
-- Don Quijote: Type A (store-level, fast)
-- Bic Camera / Yamada Denki: Type A
-- UNIQLO: Type A (NOT 全部店, 只 select branches handle tax-free)
-- 高 end 百貨 (Mitsukoshi, Isetan, Takashimaya): Type B (上 4F customer service 處理)
-- Sezon / Daimaru: mostly Type B
-- 小 boutique / 街市 / vending machine: 不 handle tax-free (你 pay tax-include)
+🏬 **常見連鎖店 + 佢哋嘅流程**：
+- Don Quijote：Type A（店內，快）
+- Bic Camera / Yamada Denki：Type A
+- UNIQLO：Type A（NOT 全部店，只有特定分店處理免稅）
+- 高端百貨（Mitsukoshi、Isetan、Takashimaya）：Type B（上 4F 客戶服務處理）
+- Sezon / Daimaru：大部分 Type B
+- 細 boutique / 街市 / 自動售賣機：唔處理免稅（你 pay 含稅價）
 
 💰 **預期 saving**
-- 10% on general goods (你 pay 90.9% of 標 price)
-- 8% on consumables (你 pay 92.6% of 標 price)
+- 10% on 一般商品（你 pay 90.9% of 標價）
+- 8% on 消耗品（你 pay 92.6% of 標價）
 - HK$10,000 spending = ~HK$1,000 saved
-- Worth time investment
+- 值得時間投資
 
-語氣：clear distinction between 2 process types。
+語氣：清晰區分 2 個流程類型。
 </PromptBlock>
 
-Claude clear 度，你最 important takeaway：**大部分 case 已 store-level 處理 — 唔需要 airport stress**。
+Claude 清楚之後，你最重要嘅收穫：**大部分個案已店內處理 — 唔需要機場壓力**。
 
-### 2. Trip 中 daily receipt log
+### 2. Trip 中每日收據紀錄
 
-每日結束前 5 分鐘 fill 嘅 log，避免 機場 panic：
+每日結束前 5 分鐘填嘅紀錄，避免機場 panic：
 
-<PromptBlock label="完整 prompt — Daily receipt tracker template">
-我要 trip 期間每晚 fill receipt log。請整 simple template：
+<PromptBlock label="完整 prompt — 每日收據追蹤範本">
+我要 trip 期間每晚填收據紀錄。請整簡單範本：
 
-📋 **Daily receipt log template**
+📋 **每日收據紀錄範本**
 
 ```
-DATE: ___________
-LOCATION: __________
+日期：___________
+地點：__________
 
-✅ Tax-free 成功 (store-level Type A)
-店名 | 物品 | 金額 ¥ | Receipt stamped? | Sealed?
-1. 
-2. 
-3. 
+✅ 免稅成功（店內 Type A）
+店名 | 物品 | 金額 ¥ | 收據有 stamp？ | 密封？
+1.
+2.
+3.
 
-🟡 Pay tax-include (Type B refund pending)
-店名 | 物品 | 金額 ¥ | Receipt safe?
-1. 
-2. 
+🟡 已 pay 含稅（Type B 退稅待定）
+店名 | 物品 | 金額 ¥ | 收據安全？
+1.
+2.
 
-❌ No tax-free attempted / Not qualified
-店名 | 物品 | 金額 ¥ | Reason
-1. 
-2. 
+❌ 冇嘗試免稅 / 唔合資格
+店名 | 物品 | 金額 ¥ | 原因
+1.
+2.
 
-💰 Daily total spent: ¥ _______
-💰 Estimated tax saved (Type A done): ¥ _______
-💰 Pending refund (Type B claim 機場): ¥ _______
+💰 每日總共消費：¥ _______
+💰 預計稅 saved（Type A 完）：¥ _______
+💰 待退稅（Type B 機場索償）：¥ _______
 
-📋 Receipts stored: [location — 1 envelope / 1 zip bag]
+📋 收據儲存：[位置 — 1 個信封 / 1 個拉鏈袋]
 ```
 
-⚙️ **每晚 5 分鐘 workflow**
+⚙️ **每晚 5 分鐘工作流程**
 
-**Step 1**: Empty bag pockets, collect all 收 today
-**Step 2**: 1 receipt 1 row template
-**Step 3**: Visually verify:
-- Tax-free stamped clear?
-- Item sealed if consumable?
-- Receipt 唔 fold？
-**Step 4**: Store all in 1 envelope:
-- 「Tax-free Type A」 envelope: stamped receipts (低 priority — 已 saved)
-- 「Type B refund」 envelope: pending refund receipts (高 priority — 機場 claim)
-- 「General receipts」 envelope: 唔 qualify ones (keep for memory only)
-**Step 5**: 3 envelope keep in 1 zip bag in carry-on
+**步驟 1**：清空袋袋袋袋，收集今日所有收據
+**步驟 2**：1 張收據 1 行範本
+**步驟 3**：視覺驗證：
+- 免稅 stamp 清楚？
+- 物品密封如消耗品？
+- 收據冇摺？
+**步驟 4**：全部入 1 個信封：
+- 「免稅 Type A」信封：已 stamp 收據（低優先 — 已 saved）
+- 「Type B 退稅」信封：待退稅收據（高優先 — 機場索償）
+- 「一般收據」信封：唔合資格嘅（淨係留作回憶）
+**步驟 5**：3 個信封入 1 個拉鏈袋喺手提
 
-🎯 **Daily ritual**:
-- 7pm 起飯後 5 分鐘
-- 或睡前最後 task
-- 唔好 leave for trip 結束 (累積 chaos)
+🎯 **每日儀式**：
+- 7pm 食晚飯後 5 分鐘
+- 或瞓覺前最後任務
+- 唔好留到 trip 結束（累積混亂）
 
-📝 **Bonus log entries**
-- Specific item description (for insurance claim 萬一 lost luggage)
-- Photo of major item (purchase + receipt 一齊)
-- Note 哪家 店 specific instruction (e.g., 「Mitsukoshi LV: claim 上 4F customer service before 6pm」)
+📝 **Bonus 紀錄項目**
+- 具體物品描述（保險索償萬一行李遺失）
+- 大件物品相（購買 + 收據一齊）
+- 紀錄邊個店具體指示（例：「Mitsukoshi LV：上 4F 客戶服務索償喺 6pm 前」）
 
-🔍 **Day 4 / Day 5 review**:
-- Tally daily total → estimate total Tax-free done + Pending
-- 計 boarding 前需要 claim Time
-- 「I have ¥XXX 待 refund pending → need YY 分鐘 機場 process」
+🔍 **Day 4 / Day 5 檢視**：
+- 計每日總共 → 估計總共免稅完成 + 待定
+- 計 boarding 前所需索償時間
+- 「我有 ¥XXX 待退稅 → 機場 process 要 YY 分鐘」
 
 語氣：有系統 + 輕便。
 </PromptBlock>
 
-呢個 log 嘅 secret value：**Day 5 機場前你 already know 確切數字 + receipt location**。No frantic search at customs counter。
+呢個紀錄嘅秘密價值：**Day 5 機場前你已知確切數字 + 收據位置**。冇喺海關櫃位狂揾。
 
-### 3. 機場 final claim sequence (Type B refund items)
+### 3. 機場最後索償次序（Type B 退稅項目）
 
-最後一日 機場 prep，避免 boarding-rush panic：
+最後一日機場準備，避免登機慌張：
 
-<PromptBlock label="完整 prompt — 機場 tax refund claim final sequence">
-我 Day 5 飛 HK，13:00 boarding。我有 [N 張 Type B refund receipt = pending ¥XXX]。
+<PromptBlock label="完整 prompt — 機場退稅索償最後次序">
+我 Day 5 飛 HK，13:00 boarding。我有 [N 張 Type B 退稅收據 = 待 ¥XXX]。
 
-請整 **機場 final claim sequence**：
+請整 **機場最後索償次序**：
 
-⏰ **Timing strategy**
+⏰ **時機策略**
 
-**Arrive 機場**: 預 11:00 (boarding 13:00, 2 hour buffer)
-- 1 hour for tax refund process
-- 30 min check-in + security
-- 30 min boarding + walk to gate
+**到達機場**：預 11:00（boarding 13:00，2 小時緩衝）
+- 1 小時退稅 process
+- 30 分鐘 check-in + 安檢
+- 30 分鐘登機 + 行去 gate
 
-**Sequence**:
-1. **Step 1: 到達 機場 (11:00)**
-   - 揾 「Tax Refund」 sign / customs counter
-   - 通常 international departure 之前 (after check-in)
-   - 在 Tokyo 機場: Haneda T2 / T3, Narita T1 / T2 都有
+**次序**：
+1. **步驟 1：到達機場（11:00）**
+   - 揾「Tax Refund」牌 / 海關櫃位
+   - 通常喺國際出境 check-in 後
+   - 喺東京機場：羽田 T2 / T3、成田 T1 / T2 都有
 
-2. **Step 2: Queue at customs counter (11:00 - 11:30)**
-   - Peak hour avoid (early morning / late evening 通常 quicker)
-   - 大旺 季節 (春節 / 黃金週) 排 1+ hr 可能
+2. **步驟 2：海關櫃位排隊（11:00 - 11:30）**
+   - 旺時避免（朝早 / 夜晚通常較快）
+   - 大旺季節（春節 / 黃金週）排 1+ 小時可能
 
-3. **Step 3: Document check (11:30 - 11:45)**
-   - Officer ask:
-     - Passport
-     - Boarding pass
-     - Receipts (organized by store)
-     - Items (must show some)
-   - Officer stamp receipts after verify
-   - **Critical**: items must be unopened (esp consumables)
+3. **步驟 3：文件檢查（11:30 - 11:45）**
+   - 海關員問：
+     - 護照
+     - 登機證
+     - 收據（按店分類）
+     - 物品（必須出示部分）
+   - 海關員 stamp 收據後驗證
+   - **關鍵**：物品必須未開（特別消耗品）
 
-4. **Step 4: Cash refund or credit (11:45 - 12:00)**
-   - 揀 cash refund (¥ 即收) 或 credit card refund (slower, 2-6 週)
-   - Cash 通常 marginally less ($1-2 service charge per transaction)
-   - Credit card refund original card
+4. **步驟 4：現金退稅或 credit（11:45 - 12:00）**
+   - 揀現金退稅（¥ 即收）或信用卡退稅（較慢，2-6 週）
+   - 現金通常稍少（每宗 $1-2 服務費）
+   - 信用卡退原本卡
 
-5. **Step 5: Check-in + security + boarding (12:00 - 12:45)**
+5. **步驟 5：Check-in + 安檢 + 登機（12:00 - 12:45）**
 
-📋 **必要 prep before 機場**
+📋 **機場前必要準備**
 
-- [ ] All receipts collected + sorted (Type B priority)
-- [ ] Consumable items sealed (in carry-on or luggage)
-- [ ] Passport handy
-- [ ] Boarding pass print / phone
-- [ ] Calculator / notes app ready (verify refund amount)
+- [ ] 全部收據收齊 + 分類（Type B 優先）
+- [ ] 消耗品物品密封（手提或寄艙）
+- [ ] 護照手邊
+- [ ] 登機證 print / 電話
+- [ ] 計數機 / notes app ready（驗證退稅金額）
 
-🎒 **Pack strategy**
+🎒 **收納策略**
 
-Consumable items (化妝品 / chocolate / health food) sealed:
-- 留 carry-on if 收 size （customs 多數要求 show item）
-- 在 check-in luggage 都 OK 如 declared properly
-- Best: 30% in carry-on (sample for show) + 70% in check-in
+消耗品物品（化妝品 / 朱古力 / 健康食品）密封：
+- 留手提如收細（海關多數要求出示物品）
+- 喺 check-in 行李都 OK 如妥善申報
+- 最好：30% 喺手提（樣本畀睇）+ 70% 喺寄艙
 
-General goods (電子 / 包 / 衣):
-- 不 mandatory show, but 有時 officer ask
-- Both carry-on + check-in OK
+一般商品（電子 / 包 / 衫）：
+- 唔強制出示，但有時海關員會問
+- 兩邊手提 + 寄艙都 OK
 
-🚨 **Common reject reason** (你要 avoid)
+🚨 **常見拒絕原因**（你要避免）
 
-- ❌ Receipt 不全 / 丟 — irrecoverable
-- ❌ Consumable opened / used in Japan
-- ❌ Item not present (already used)
-- ❌ Passport 沒帶 (officer cannot verify)
-- ❌ Boarding pass for connecting flight 不 sufficient (must show 直接出 日本 嘅 flight)
-- ❌ Over 6 個月 stay = NOT qualified tourist (not your case)
+- ❌ 收據不齊 / 掉 — 不可恢復
+- ❌ 消耗品開咗 / 用咗喺日本
+- ❌ 物品不在（已用咗）
+- ❌ 護照冇帶（海關員無法驗證）
+- ❌ 轉機航班嘅登機證不足夠（必須出示直接出日本嘅航班）
+- ❌ 超過 6 個月停留 = 不合資格遊客（不是你個案）
 
-⏰ **If queue long + boarding tight**
+⏰ **如排隊長 + boarding 緊**
 
-- Skip refund if amount < HK$200 + < 30 min boarding time
-- Math: HK$200 refund vs missed flight HK$1000+ rebook
-- 嘅 trade-off 唔 worth
+- Skip 退稅如金額少於 HK$200 + 少於 30 分鐘 boarding 時間
+- 計數：HK$200 退稅 vs missed 機 HK$1000+ 重 book
+- 嘅取捨唔值
 
-🆘 **Backup if 拎唔到 refund**
+🆘 **後備如拎唔到退稅**
 
-- 部分 refund 可以 post-trip claim via Global Blue website (歐洲 case)
-- 日本 case: typically 機場 only, post-trip rare
-- 部分 store 有 「Mail-in refund」 program — check store-level
+- 部分退稅可以 post-trip 申索 via Global Blue 網站（歐洲個案）
+- 日本個案：通常只機場，post-trip 罕有
+- 部分店有「郵寄退稅」程式 — check 店內
 
-💰 **Refund expectation**
+💰 **退稅預期**
 
-- Cash refund: 即攞 ¥ instant
-- Credit card refund: appears 2-6 週後
-- 唔 expect refund 全 saved ¥ (handling fee ¥ 50-200 typical)
+- 現金退稅：即攞 ¥ instant
+- 信用卡退稅：appears 2-6 週後
+- 唔好預期退稅全 saved ¥（手續費 ¥ 50-200 typical）
 
-📞 **If issue**:
-- Customs officer 唔肯 stamp → ask supervisor calmly
-- 完全 refund refused → ask written 拒簽 reason
-- Receipt error → return to original store if time (within 24 hr 通常 OK)
+📞 **如有問題**：
+- 海關員唔肯 stamp → 冷靜問主管
+- 完全退稅拒絕 → 要求書面拒簽原因
+- 收據錯誤 → 返原本店如時間（24 小時內通常 OK）
 
-語氣：efficient + buffered for queue uncertainty。
+語氣：有效率 + 緩衝排隊不確定性。
 </PromptBlock>
 
-呢個 sequence 嘅 hidden lesson：**Tax refund 嘅 expected value 通常細過你 panic-rushing 嘅 cost**。¥500 refund 唔值 missed flight。Trip prep 充分 = stress-free claim。
+呢個次序嘅隱藏教訓：**退稅嘅預期價值通常細過你 panic-rushing 嘅成本**。¥500 退稅唔值 missed 機。Trip 準備充分 = 壓力歸零索償。
 
-### 4. 用呢個 prompt 整 specific item buy strategy (避免 wasted tax)
+### 4. 用呢個 prompt 整具體物品買嘅策略（避免 wasted 稅）
 
-部分 strategic decision：邊樣 worth 喺日本 buy + tax-free:
+部分策略性決定：邊樣值得喺日本買 + 免稅：
 
-<PromptBlock label="完整 prompt — Tax-strategic shopping plan">
-我去日本 trip [N 日]，預算 HK$ [amount]. 請整 strategic shopping plan：
+<PromptBlock label="完整 prompt — 稅策略性購物計劃">
+我去日本 trip [N 日]，預算 HK$ [金額]。請整策略性購物計劃：
 
-🎯 **What's worth buying in Japan for HK tourist?**
+🎯 **HK 遊客喺日本買咩值得？**
 
-✅ **High savings ratio (Japan cheap + tax-free)**
-- 化妝品 (SKII / Shiseido / 国产) - 30-50% cheaper than HK + tax-free 8%
-- 電子 (Bic Camera / Yodobashi) - 部分 model HK 唔 賣，價廉
-- 高端 fountain pen / 文具 - quality + cheaper
-- Specific snack / 茶 / 工藝 - HK 唔 available
-- Brand cosmetics + skincare bulk pack
+✅ **高 saving 比例（日本平 + 免稅）**
+- 化妝品（SK-II / 資生堂 / 國產） - 比 HK 平 30-50% + 免稅 8%
+- 電子（Bic Camera / Yodobashi） - 部分型號 HK 唔賣，平
+- 高端鋼筆 / 文具 - 質素 + 平
+- 特定零食 / 茶 / 工藝 - HK 唔有
+- 牌子化妝品 + 護膚批量裝
 
-🟡 **Marginal savings**
-- 一般 fashion (UNIQLO / GU) - 香港 都有 + similar price
-- 名牌 (LV / Hermès / Gucci) - 偶爾 sale 有 deal，但通常 Hong Kong 都 OK
-- Apple products - HK pricing competitive
-- General groceries
+🟡 **邊際 saving**
+- 一般時裝（UNIQLO / GU） - 香港都有 + 同價
+- 名牌（LV / Hermès / Gucci） - 偶爾減價有 deal，但通常香港都 OK
+- Apple 產品 - HK 定價競爭力
+- 一般雜貨
 
-❌ **Not worth tax-free hassle**
-- Bottled water / drinks
-- Daily food / restaurant (NOT tax-free anyway)
-- Cheap accessories
-- Gifts under ¥5,000 single store (below threshold)
+❌ **唔值得免稅麻煩**
+- 樽裝水 / 飲品
+- 每日食 / 餐廳（NOT 免稅 anyway）
+- 平配件
+- 禮物少於 ¥5,000 單店（低於門檻）
 
-📊 **Strategic spending principle**
+📊 **策略性消費原則**
 
-To maximize tax-free benefit:
-1. Concentrate purchases at fewer large stores (hit ¥5,000 threshold)
-2. Choose stores with Type A (store-level) immediate exemption — easier
-3. Avoid splitting purchases across multiple stores for same item type
-4. Pre-research large item pricing (e.g., specific camera HK vs Japan)
+要最大化免稅好處：
+1. 集中購買喺少數大店（達 ¥5,000 門檻）
+2. 揀店有 Type A（店內）即時免稅 — 容易
+3. 避免將同類物品分散喺多店
+4. 預先研究大件物品定價（例：特定相機 HK vs 日本）
 
-🛒 **Shopping pattern recommendation**
+🛒 **購物模式建議**
 
-**Day 1-2: 較大 ticket items**
-- Bic Camera / Yodobashi (electronics)
-- Don Quijote (化妝品 + 雜貨)
-- 大型 chain efficient tax-free
+**Day 1-2：較大金額物品**
+- Bic Camera / Yodobashi（電子）
+- Don Quijote（化妝品 + 雜貨）
+- 大型連鎖有效率免稅
 
-**Day 3-4: Specialty + boutique**
-- 百貨店 LV / 高端 (4F customer service tax-free)
-- Specialty 茶 / chocolate / 文具
-- 小規模 boutique 唔做 tax-free, 只買 if HK 唔 available
+**Day 3-4：專門 + boutique**
+- 百貨店 LV / 高端（4F 客戶服務免稅）
+- 專門茶 / 朱古力 / 文具
+- 細規模 boutique 唔做免稅，只買如 HK 唔有
 
-**Day 5 (last day): Souvenirs + skip tax-free**
-- 機場 / 車站 gift shop 通常 NOT tax-free
-- Snack / souvenir for office
-- Last-minute small purchase
+**Day 5（最後日）：手信 + skip 免稅**
+- 機場 / 車站手信舖通常 NOT 免稅
+- 零食 / 手信畀公司
+- 最後一刻細件購買
 
-💰 **Budget allocation example for HK$15k 預算**
-- High-savings item (化妝品 + 電子): HK$8,000 (tax saved ~HK$640-800)
-- Medium savings (fashion + 包): HK$5,000 (tax saved ~HK$400-500)
-- Souvenir + small: HK$2,000 (no tax-free)
-- **Total tax savings**: ~HK$1,000-1,300
+💰 **HK$15k 預算嘅預算分配例子**
+- 高 saving 物品（化妝品 + 電子）：HK$8,000（saved ~HK$640-800）
+- 中等 saving（時裝 + 包）：HK$5,000（saved ~HK$400-500）
+- 手信 + 細件：HK$2,000（無免稅）
+- **總共稅 savings**：~HK$1,000-1,300
 
-🎒 **Logistics consideration**
+🎒 **後勤考慮**
 
-- 行李 weight limit affects 大件 buy
-- 8kg carry-on + 23kg check-in = ~30kg total
-- 大件 electronics weight check
-- Fragile items care (camera / 玻璃)
+- 行李重量限制影響大件買
+- 8kg 手提 + 23kg 寄艙 = ~30kg 總共
+- 大件電子重量檢查
+- 易碎物品照顧（相機 / 玻璃）
 
-🚫 **Tax refund 唔值 嘅 hassle**
-- Single item < ¥5,000 (below threshold)
-- Item 你 plan use 喺 trip (consumable 唔 sealed)
-- Last-day rush purchase
-- Heavy / fragile items 唔 worth 加 luggage
+🚫 **退稅唔值得嘅麻煩**
+- 單件少於 ¥5,000（低於門檻）
+- 物品你 plan 用喺 trip（消耗品唔密封）
+- 最後一日衝動買
+- 重 / 易碎物品唔值得加行李
 
-✅ **Smart buy timing**
-- Buy big-ticket Day 1-2 (more time to tax-free process + 預 customs check buffer)
-- Avoid Day 5 morning impulse buy (likely missed tax-free window)
-- 5pm cutoff: 百貨店 customer service tax-free counter close 6-7pm
+✅ **聰明買時機**
+- Day 1-2 買大件（更多時間免稅 process + 預海關檢查緩衝）
+- 避免 Day 5 朝早衝動買（可能 missed 免稅窗）
+- 5pm cutoff：百貨店客戶服務免稅櫃位 6-7pm 收
 
-📋 **Pre-purchase checklist** (at store, before paying)
-- [ ] Store does tax-free? (sign + ask cashier)
-- [ ] Threshold met? (¥5,000+ same store same day)
-- [ ] General good or consumable category clear?
-- [ ] Passport + 你 wear in person
-- [ ] Receipt 個 stamp + understand process type (A vs B)
+📋 **購買前清單**（喺店，付錢前）
+- [ ] 店做免稅？（牌 + 問收銀）
+- [ ] 門檻達？（¥5,000+ 同店同日）
+- [ ] 一般商品或消耗品類別清晰？
+- [ ] 護照 + 你親身在
+- [ ] 收據個 stamp + 理解流程類型（A vs B）
 
-語氣：strategic + budget-savvy。
+語氣：策略性 + 預算精明。
 </PromptBlock>
 
-## 變化
+## 變化例子
 
-### 變化 1：歐洲 VAT refund (Schengen + UK)
+### 變化 1：歐洲 VAT 退稅（Schengen + UK）
 
 歐洲 VAT 同日本完全唔同 system：
 
-<PromptBlock label="變化 1 — 歐洲 VAT refund (Schengen) 流程">
-我去歐洲 [N 國 trip] [N 日]. Schengen + 可能 UK。請整 VAT refund framework：
+<PromptBlock label="變化 1 — 歐洲 VAT 退稅（Schengen）流程">
+我去歐洲 [N 國 trip] [N 日]。Schengen + 可能 UK。請整 VAT 退稅框架：
 
-🇪🇺 **歐洲 VAT (Value Added Tax) overview**
+🇪🇺 **歐洲 VAT（Value Added Tax）概覽**
 
-- Rate: 各國 different (Germany 19%, France 20%, Italy 22%, UK 20% etc)
-- Tourists 持非 EU passport = qualified
-- Refund typically 8-15% of purchase (after handling fee)
+- 稅率：各國唔同（Germany 19%，France 20%，Italy 22%，UK 20% 等）
+- 持非歐盟護照嘅遊客 = 合資格
+- 退稅通常購買 8-15%（手續費後）
 
-📋 **Process: ALL airport-level refund** (vs 日本 mostly store-level)
+📋 **流程：全部機場級退稅**（vs 日本主要店內）
 
-**Step 1 — At store**:
-- 出示 passport (must be original, not copy)
-- 入錢 ≥ EU country minimum threshold (typically €50-175 depending country)
-- Store fills "Tax Free Form" (Global Blue / Planet / 部分 store proprietary)
-- 你 拎走 form + receipt + 商品
+**步驟 1 — 喺店**：
+- 出示護照（必須原本，唔係副本）
+- 入錢 ≥ EU 國家最低門檻（通常 €50-175 視國家）
+- 店填寫「Tax Free Form」（Global Blue / Planet / 部分店自家）
+- 你拎走 form + 收據 + 商品
 
-**Step 2 — Departure airport (last EU country before leaving Schengen)**:
-- Customs counter 印 stamp on tax free form
-- May verify item (esp high-value)
-- Items must be unused (esp luxury / electronics)
-- 之後 mail form to operator (Global Blue / Planet)
+**步驟 2 — 出境機場（離開 Schengen / 歐盟最後一個歐盟國家）**：
+- 海關櫃位印 stamp 喺退稅 form
+- 可能驗證物品（特別高價）
+- 物品必須未用（特別 luxury / 電子）
+- 之後寄 form 去經營者（Global Blue / Planet）
 
-**Step 3 — Refund processed**:
-- Credit card refund: 2-6 週後 appear on card
-- Cash refund: at airport refund counter (after customs stamp)
-- Service fee: ~3-5% deducted
+**步驟 3 — 退稅處理**：
+- 信用卡退稅：2-6 週後出現喺卡
+- 現金退稅：喺機場退稅櫃位（海關 stamp 後）
+- 服務費：~3-5% 扣
 
-⚠️ **重要 distinction**
+⚠️ **重要區分**
 
-對於 multi-country trip:
-- Customs stamp 喺 **last EU country before leaving Schengen / EU**
-- e.g., 意大利 → 法國 → 西班牙 → 飛 HK: customs stamp 喺 西班牙 (last)
-- e.g., 法國 → UK → 飛 HK: 喺法國 stamp before UK; UK 另計
-- 唔可以 stamp 喺 intermediate stop
+對於多國 trip：
+- 海關 stamp 喺 **離開 Schengen / EU 最後一個 EU 國家**
+- 例：意大利 → 法國 → 西班牙 → 飛 HK：海關 stamp 喺西班牙（最後）
+- 例：法國 → UK → 飛 HK：喺法國 stamp before UK；UK 另計
+- 唔可以 stamp 喺中途轉機
 
-🏬 **常見 stores tax-free**:
-- Hermès / LV / Chanel / 高 luxury brands
-- 大型 department stores (Galeries Lafayette, KaDeWe)
-- Some restaurants (高端) - 部分餐廳 / wine 可 tax-free
-- Most chain stores opt-in
+🏬 **常見店免稅**：
+- Hermès / LV / Chanel / 高級 luxury 牌子
+- 大型百貨店（Galeries Lafayette、KaDeWe）
+- 部分餐廳（高端） - 部分餐廳 / 紅酒可免稅
+- 大部分連鎖店 opt-in
 
-🚨 **Common reject reason**:
-- Threshold not met (< €175 in France e.g.)
-- Form filled wrong / signature missing
-- Item shows usage (luxury bag 用過 visible wear)
-- Receipt + form 不 match
-- Passport 過期 / lost during trip
+🚨 **常見拒絕原因**：
+- 門檻未達（少於 €175 喺法國例）
+- Form 填錯 / 簽名漏
+- 物品見有用過（奢侈包用過 visible wear）
+- 收據 + form 唔 match
+- 護照過期 / trip 期間遺失
 
-⏰ **Timing strategy at airport**
+⏰ **機場時機策略**
 
-歐洲 customs queue 通常 比日本 longer:
-- Peak times: 黃金週 / 暑假 / Christmas
-- Allow 2-3 hour airport buffer
-- Same-day refund cash counter close earlier than customs
+歐洲海關排隊通常比日本長：
+- 高峰時段：黃金週 / 暑假 / 聖誕
+- 預 2-3 小時機場緩衝
+- 同日退稅現金櫃位早過海關關門
 
-💰 **Refund expectation**:
-- Buy €1,000 in 法國 (VAT 20%): refund €166 typical (€1000 / 1.2 × 0.2 = €166.67, minus 3-5% fee = €130-150 net)
-- Net refund: 13-15% of purchase
+💰 **退稅預期**：
+- 法國買 €1,000（VAT 20%）：退典型 €166（€1000 / 1.2 × 0.2 = €166.67，減 3-5% 費 = €130-150 淨）
+- 淨退：購買 13-15%
 
-🏛 **Specific country quirks**:
-- **France**: PABLO machine (faster than counter, available 24/7)
-- **Germany**: customs stamp first, separate refund counter
-- **Italy**: longest queue, prep buffer
-- **UK** (post-Brexit): no longer Schengen, separate tax-free system, more restrictive
+🏛 **特定國家奇癖**：
+- **France**：PABLO 機（比櫃位快，24/7 有）
+- **Germany**：海關 stamp 先，分開退稅櫃位
+- **Italy**：最長排隊，預緩衝
+- **UK**（脫歐後）：不再 Schengen，分開免稅系統，更嚴
 
-📦 **High-value purchase (>€1,000)**
+📦 **高價購買（超過 €1,000）**
 
-Recommend:
-- 用 credit card (insurance covers）
-- Take photo at purchase
-- Keep box + tag + dust bag
-- 不 ship to HK (must take with you)
-- Air-mail later costs more than tax-free saved
+建議：
+- 用信用卡（保險 cover）
+- 購買時影相
+- 留盒 + 標籤 + 防塵袋
+- 唔好運去 HK（必須親身帶）
+- 空郵之後成本多過免稅 saved
 
-🛍 **Most-bought tax-free items by HK tourist**:
-- Luxury handbags (LV / Chanel / Hermès)
-- High-end watches (Rolex / Patek)
-- Designer clothing (Burberry / Gucci)
-- Wine + champagne (限 personal use carry-on)
-- Perfume / cosmetics (注意 liquid carry-on limit)
+🛍 **HK 遊客最買嘅免稅物品**：
+- 奢侈手袋（LV / Chanel / Hermès）
+- 高端錶（Rolex / Patek）
+- 設計師服裝（Burberry / Gucci）
+- 紅酒 + 香檳（限個人用手提）
+- 香水 / 化妝品（注意液體手提限制）
 
-語氣：detailed + caution about queue + handling fee。
+語氣：詳細 + 對排隊 + 手續費小心。
 </PromptBlock>
 
-### 變化 2：細路 一齊 trip (多 receipt 怎管理 + minor purchases)
+### 變化 2：細路一齊 trip（多收據點管理 + 細件購買）
 
-帶 細路 trip 唔 idea 細路 receipt management：
+帶細路 trip 唔似細路收據管理：
 
-<PromptBlock label="變化 2 — Family trip tax refund 處理">
-我帶 [我 + partner + N 細路] 一齊 trip，每個 family member 都 buy 嘢。請整 family-mode 退稅 strategy：
+<PromptBlock label="變化 2 — 家庭 trip 退稅處理">
+我帶 [我 + 伴侶 + N 細路] 一齊 trip，每個家庭成員都買嘢。請整家庭模式退稅策略：
 
-🎯 **Family trip tax 特性**
+🎯 **家庭 trip 稅特性**
 
-- 細路 嘅 purchase: 屬於 parent 名嗎? 視乎 country rule
-- 多 individual purchase 累計
-- Risk: receipt 散落 多 bags
-- Heavy 大件 luggage with stroller logistics
+- 細路嘅購買：屬於 parent 名嗎？視乎國家規則
+- 多個個人購買累積
+- 風險：收據散落多個袋
+- 重大件行李加 BB 車後勤
 
-🇯🇵 **日本 family rule**:
-- Each tourist 持有 passport = each can claim tax-free
-- 細路 own passport (HK 6+ 月 issue passport) — 都計入 family claim
-- Minor 's 衣 / toy / candy 可 use 父母 passport (細路 同行 declare)
-- 同 parent 嘅 passport 用 — 不要 multiple split for same store
+🇯🇵 **日本家庭規則**：
+- 每個遊客持護照 = 每個都可以索免稅
+- 細路自己護照（HK 6+ 個月發放護照） — 都計入家庭索償
+- 細路嘅衫 / 玩具 / 糖可以用父母護照（細路同行申報）
+- 同 parent 嘅護照用 — 唔好同店多 split
 
-📋 **Family receipt log enhancement**
+📋 **家庭收據紀錄加強**
 
 ```
-DATE: ___
-FAMILY MEMBER USED: [Mom / Dad / 8 歲女 own / 5 歲仔 (under Mom name)]
-STORE: ___
-ITEM: ___
-AMOUNT: ¥___
-PROCESS TYPE: A / B / NA
-RECEIPT STORED: 1 collective envelope
+日期：___
+家庭成員用咗：[媽 / 爸 / 8 歲女自己 / 5 歲仔（媽名下）]
+店：___
+物品：___
+金額：¥___
+流程類型：A / B / NA
+收據儲存：1 個集體信封
 ```
 
-🎒 **Centralized receipt management**
+🎒 **集中收據管理**
 
-**1 person designated "tax officer"** for trip:
-- All receipts 入 1 envelope at end of day
-- 唔好 split per-person bag
-- Wallet check + ask 細路 returned receipt
+**1 個人指定「稅務官」**畀 trip：
+- 全部收據入 1 個信封每日結束
+- 唔好分人 / 袋分散
+- 銀包檢查 + 問細路歸還收據
 
-📍 **Specific kid-shopping note**:
-- 玩具 / toy: 較容易 below ¥5,000 threshold = 不 qualify
-- Strategy: combine multiple items same store same day to reach ¥5,000
-- e.g., 5 歲仔玩具 ¥2,000 + 8 歲女 K-pop ¥3,500 = ¥5,500 (Mom passport) — qualified
+📍 **細路 shopping 具體紀錄**：
+- 玩具：較容易低於 ¥5,000 門檻 = 唔合資格
+- 策略：合併多件同店同日達 ¥5,000
+- 例：5 歲仔玩具 ¥2,000 + 8 歲女 K-pop ¥3,500 = ¥5,500（媽護照） — 合資格
 
-🛒 **Family-mode buy**:
-- Concentrate at fewer large stores (Don Quijote / Bic Camera) for threshold
-- Specialty 玩具 boutique (小店) - 唔 quibble tax-free, just 接受 tax included
-- Don Quijote: 1-stop family shop (tax-free Type A immediate)
+🛒 **家庭模式買**：
+- 集中喺較少大店（Don Quijote / Bic Camera）達門檻
+- 專門玩具 boutique（細店） - 唔嘥免稅，只接受含稅
+- Don Quijote：1 站家庭購物（免稅 Type A 即時）
 
-🎒 **Luggage allocation**
+🎒 **行李分配**
 
-- Each parent claims share for weight balance
-- 細路 luggage usually under-weight
-- Distribute tax-free items across luggage if possible
+- 每個 parent 索取自己份額均衡重量
+- 細路行李通常未夠重
+- 將免稅物品分散喺行李如可能
 
-🚨 **Risk specific family**
+🚨 **特定家庭風險**
 
-- 細路 hold a receipt → 揾唔到 / drop
-- 細路 open consumable (zaiya - opened sweet) → that 1 item lose tax-free status
-- Family stroll across many stores small purchase = below threshold each store
-- Tired parent rush past tax-free counter
+- 細路拎收據 → 揾唔到 / 掉
+- 細路開消耗品（zaiya - 開咗糖） → 該 1 件失去免稅地位
+- 家庭散步多店細件購買 = 每店低於門檻
+- 攰 parent 衝過免稅櫃位
 
-✅ **Family-mode shopping rhythm**
+✅ **家庭模式 shopping 節奏**
 
-- Day 1 大型 family shopping (Don Quijote 1 hr concentrated)
-- Day 2-3 個別 shopping (各 family member own preference, smaller stores)
-- Day 4 last-day big-ticket (camera / 包 / 大件)
-- Day 5 機場 buffer 2 hour (queue + family logistics)
+- Day 1 大型家庭 shopping（Don Quijote 1 個鐘集中）
+- Day 2-3 個別 shopping（各家庭成員自己偏好，細店）
+- Day 4 最後日大金額（相機 / 包 / 大件）
+- Day 5 機場緩衝 2 小時（排隊 + 家庭後勤）
 
-🛂 **Customs check family adjustment**
+🛂 **海關檢查家庭調整**
 
-- Customs officer may ask family member which item
-- 父母 declare "for my 細路" no problem
-- Officer 抽查 細路 ' s 玩具 unopened (rare but possible)
-- 預 5 min extra per family member at customs
+- 海關員可能問家庭成員邊件物品
+- 父母申報「為我細路」冇問題
+- 海關員抽查細路玩具未開（罕但可能）
+- 預 5 分鐘額外每家庭成員喺海關
 
-🆘 **Lost receipt protocol**
-- 細路 lose 1 receipt → that purchase lose tax-free
-- Store cannot reissue (unless < 24 hr from purchase + you return original store)
-- Build 「lost 1-2 receipts」 buffer in mental tax saving calc
+🆘 **遺失收據協議**
+- 細路 lose 1 張收據 → 該購買失去免稅
+- 店無法重發（除非少於 24 小時 from 購買 + 你返原本店）
+- 心入面建立「lose 1-2 收據」緩衝喺稅 saving 計算
 
-語氣：family-realistic, 父母管理 capacity 有限。
+語氣：家庭現實，父母管理能力有限。
 </PromptBlock>
 
-### 變化 3：高 value 單一 item (LV / watch / jewelry)
+### 變化 3：高價單一物品（LV / 錶 / 珠寶）
 
-買 1 件高價 item 嘅 specific strategy:
+買 1 件高價物品嘅具體策略：
 
-<PromptBlock label="變化 3 — 高 value 單一 item tax-free strategy">
-我計劃 trip 期間 buy 1 件高 value item: [LV bag HK$30,000 / watch HK$50,000 / jewelry HK$80,000].
+<PromptBlock label="變化 3 — 高價單一物品免稅策略">
+我計劃 trip 期間買 1 件高價物品：[LV 包 HK$30,000 / 錶 HK$50,000 / 珠寶 HK$80,000]。
 
-請整 high-value purchase tax strategy:
+請整高價購買稅策略：
 
-💎 **High-value item considerations**
+💎 **高價物品考慮**
 
-- 退稅 saving significant (HK$50,000 × 8-15% = HK$4,000-7,500)
-- 但 risk + scrutiny much higher
-- 機場 customs likely physical check
-- Luggage / carry-on logistics complex
-- 保險 重要 (item 走失 = 大 loss)
+- 退稅 saving 顯著（HK$50,000 × 8-15% = HK$4,000-7,500）
+- 但風險 + 審查更高
+- 機場海關可能體檢
+- 行李 / 手提後勤複雜
+- 保險重要（物品走失 = 大損失）
 
-🏬 **Pre-purchase research**
+🏬 **購買前研究**
 
-對於 luxury item:
-- Pre-check HK pricing same model
-- Pre-check 國 vs Country pricing (LV bag in Paris vs HK)
-- Compare with secondary market (Vestiaire / 二手)
-- Confirm authenticity certification
-- VIP appointment 大型 boutique (avoid queue)
+對於 luxury 物品：
+- 預先 check HK 同型號定價
+- 預先 check 國 vs 國定價（LV 包巴黎 vs HK）
+- 比較二手市場（Vestiaire / 二手）
+- 確認認證
+- VIP 預約大型 boutique（避免排隊）
 
-📋 **At purchase**
+📋 **喺購買**
 
-- Bring passport visible (cashier confirm)
-- Pay with credit card (not cash — insurance + record)
-- Verify receipt 名稱 match passport
-- Item box + dust bag + authenticity card 一齊 keep
-- Take photo of item + receipt + your face in store (verification trail)
+- 帶護照可見（收銀確認）
+- 用信用卡付（不現金 — 保險 + 紀錄）
+- 驗證收據名 match 護照
+- 物品盒 + 防塵袋 + 認證咭一齊留
+- 影物品 + 收據 + 你個樣喺店相（驗證 trail）
 
-🎒 **Logistics: carry-on vs check-in**
+🎒 **後勤：手提 vs 寄艙**
 
-For HK$50,000+ item:
-- ALWAYS carry-on (check-in luggage 走失 = catastrophic)
-- 機場 customs OK to declare carry-on
-- Take photo at hotel before check-out (proof of state)
+對於 HK$50,000+ 物品：
+- 永遠手提（寄艙行李走失 = 災難）
+- 機場海關 OK 申報手提
+- 喺酒店退房前影狀態相（狀態證明）
 
-⏰ **Departure airport process**
+⏰ **出境機場流程**
 
-- Allow 3-4 hr buffer (high-value items extra check)
-- Customs officer:
-  - Verify item present + unused
-  - Match receipt + tax free form
-  - High-value sometimes ask for 「reason for buying」
-- 預 photo proof of item state at HK arrival (insurance evidence)
+- 預 3-4 小時緩衝（高價物品額外檢查）
+- 海關員：
+  - 驗證物品在 + 未用
+  - Match 收據 + 退稅 form
+  - 高價有時問「買嘅原因」
+- 預影物品狀態相喺 HK 抵步（保險證據）
 
-🛡 **Insurance coverage**
+🛡 **保險覆蓋**
 
-對於 HK$30,000+ item:
-- Confirm travel insurance covers (policy 細閱)
-- Some policy excludes 高 value individual items
-- Consider separate item insurance
-- Receipt + photo essential for any claim
+對於 HK$30,000+ 物品：
+- 確認旅遊保險 cover（保單細閱）
+- 部分保單除外高價單件
+- 考慮分開物品保險
+- 收據 + 相對任何索償必要
 
-🚨 **Customs declaration at HK arrival**
+🚨 **HK 抵步海關申報**
 
-- HK customs: 個人 personal use items normally OK
-- 但 商業 quantity / 高 high value pattern (3+ luxury items) 可能 question
-- HK 不 charge tax on personal souvenir
-- Declare honestly if asked
+- HK 海關：個人個人用物品通常 OK
+- 但商業數量 / 高價模式（3+ 件 luxury 物品）可能問
+- HK 不收手信稅
+- 老實申報如被問
 
-💼 **Resale / commercial use concern**
+💼 **轉售 / 商業用考慮**
 
-- Tax-free benefit explicitly for "personal use"
-- 你 immediately re-sell on 二手 = potential fraud accusation
-- Country-specific rule may invalidate refund if discover re-sale
-- 唔好 帶多 件 same model
+- 免稅好處明確為「個人用」
+- 你即時喺二手轉售 = 潛在欺詐指控
+- 國家特定規則可能無效退稅如發現轉售
+- 唔好帶多件同型號
 
-🆘 **Lost / damaged en route**
+🆘 **途中遺失 / 損壞**
 
-- 走失 item: file police report 即時 + insurance claim
-- Damage: photo 即時 + 保留 包 + report to store + insurance
-- Receipt 至關重要 — backup digital copy email to self
+- 走失物品：報警即時 + 保險索償
+- 損壞：即時影相 + 保留盒 + 報店 + 保險
+- 收據至關重要 — 後備電子副本 email 畀自己
 
-📞 **Post-trip considerations**
+📞 **Trip 後考慮**
 
-- Credit card statement check (refund amount appear?)
-- Authenticity issue post-trip → return to original store complicated
-- Future-trip benefit: 你 store member 等 future preference
+- 信用卡月結單檢查（退稅金額出現？）
+- 認證問題 trip 後 → 返原本店複雜
+- 將來 trip 好處：你店會員等將來偏好
 
-💰 **Worth calculation**
+💰 **值得計算**
 
-- HK$50,000 watch in Japan vs HK $48,000 same model
-- Tax-free save additional ~HK$4,000
-- Total save vs Japan trip cost HK$15,000?
-- Often "good deal" 但 not "primary purpose 嘅 trip" justification
+- HK$50,000 錶喺日本 vs HK $48,000 同型號
+- 免稅額外 saved ~HK$4,000
+- 總共 saved vs 日本 trip 成本 HK$15,000？
+- 通常「好 deal」但唔係「trip 嘅主要目的」嘅 justify
 
-語氣：sober analysis for high-value, not impulse。
+語氣：清醒分析高價，唔衝動。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-Tourist tax refund 嘅 expected value 通常 over-estimated。
+遊客退稅嘅預期價值通常被高估。
 
-普通遊客嘅 spending pattern 之下：
+普通遊客嘅消費模式之下：
 
-- 5 日 trip 平均 spending: HK$3,000-5,000
-- Tax refund 8-12% = HK$240-600
-- 機場 process time 30-60 min queue
-- 機 stress: 1 missed flight 因 refund queue = HK$1,000+ rebook + 1 day delay
-- **Net value: HK$200-500 per trip**
+- 5 日 trip 平均消費：HK$3,000-5,000
+- 退稅 8-12% = HK$240-600
+- 機場 process 時間 30-60 分鐘排隊
+- 機壓力：1 次 missed 機因退稅排隊 = HK$1,000+ 重 book + 1 日延誤
+- **淨價值：每 trip HK$200-500**
 
-呢個 value 唔細，但唔 worth panic-rushing 或 mess up 你 trip 嘅 rhythm。
+呢個價值唔細，但唔值得 panic-rushing 或者攪亂你 trip 嘅節奏。
 
-呢個 mindset 嘅 reframe：tax refund 唔係 「extra revenue maximize」——係 **有系統嘅 ritual that pays small dividend without stress**。Daily 5 分鐘 receipt log + 清楚 2 process types + 30 分鐘 airport buffer = ~HK$500 saved with zero anxiety。
+呢個思維嘅轉變：退稅唔係「額外收入最大化」——係 **有系統嘅儀式 that pays small dividend without stress**。每日 5 分鐘收據紀錄 + 清楚 2 個流程類型 + 30 分鐘機場緩衝 = ~HK$500 saved with zero anxiety。
 
-Claude 嘅 role 喺 tax refund process: 你 trip 期間 brain 喺 enjoyment mode，唔 want allocate cognitive load 去 tax bureaucracy。Claude help you structure the ritual once before trip, then trip 期間你 effortlessly execute。
+Claude 嘅角色喺退稅流程：你 trip 期間個腦喺享受模式，唔想分配認知負擔去稅務官僚。Claude 幫你結構化呢個儀式一次 before trip，然後 trip 期間你輕鬆執行。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **大部分日本 store Type A (store-level immediate)**。你以為要 always airport processing 係 misconception。
-- ⚠️ **Receipt management 比 understanding system 更重要**。Daily envelope + zip bag = 90% of success。
-- 🎯 **¥500 refund 唔值 missed flight**。Airport refund queue 過 boarding cutoff = walk away calmly。
+- ✅ **大部分日本店 Type A（店內即時）**。你以為要永遠機場處理係誤解。
+- ⚠️ **收據管理比理解系統更重要**。每日信封 + 拉鏈袋 = 90% 成功。
+- 🎯 **¥500 退稅唔值 missed 機**。機場退稅排隊過 boarding cutoff = 冷靜行開。
 
-Trip 享受 first，refund as bonus。
+Trip 享受先，退稅做 bonus。
