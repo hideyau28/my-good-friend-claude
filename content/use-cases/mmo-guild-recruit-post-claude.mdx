@@ -1,5 +1,5 @@
 ---
-title: "公會招人 / event 公告寫到吸引：用 Claude 出 5 個 tone version（FFXIV / WoW / 原神 / 崩鐵 / 香港中坑團）"
+title: "公會招人 / 活動公告寫到吸引：用 Claude 出 5 個語氣版本（FFXIV / WoW / 原神 / 崩鐵 / 香港中坑團）"
 slug: "mmo-guild-recruit-post-claude"
 issue: 58
 publishedAt: 2026-05-23
@@ -10,8 +10,8 @@ subcategory: "公會管理"
 heroImage: "/hero/mmo-guild-recruit-post-claude.webp"
 difficulty: 1
 timeMinutes: 15
-toolsNeeded: ["Claude Chat", "公會 info（人數 / 時區 / 主玩遊戲 / 招人 criteria）"]
-description: "你做緊公會 organizer，要寫招人 post / raid event 公告 / 公會 anniversary。每次寫得 either 太 corporate or cringe。用 Claude dump 公會 info，一次出 5 個 tone version（serious raid / casual social / 港式講笑 / 文藝向 / 短 hook 版），自己揀。"
+toolsNeeded: ["Claude Chat", "公會資料（人數 / 時區 / 主玩遊戲 / 招人條件）"]
+description: "你做緊公會搞手，要寫招人 post / raid 活動公告 / 公會週年。每次寫得太正經又太肉麻。用 Claude 將公會資料寫晒落去，一次出 5 個語氣版本（正經 raid / 休閒社交 / 港式講笑 / 文藝向 / 短鈎版），自己揀。"
 keywords: ["MMO 公會 招人", "guild recruitment post", "FFXIV 公會 香港", "raid 召集", "WoW 公會", "公會 公告", "原神 公會"]
 related: ["trpg-gm-prep-claude", "whatsapp-customer-reply-hk", "draft-announcement-claude"]
 featured: true
@@ -19,420 +19,420 @@ featured: true
 
 ## 情境
 
-你做 MMO 公會嘅 organizer / GM / officer 幾年。
+你做 MMO 公會嘅搞手 / 會長 / 軍官幾年。
 
-上個 week，公會嘅 raid lead 離隊去咗外國。你哋人數由 36 跌到 28，下個 patch 出新 raid，你要喺呢個 weekend 之前 post 一份招人 post。
+上個禮拜，公會嘅 raid lead 離隊去咗外國。你哋人數由 36 跌到 28，下個更新出新 raid，你要喺呢個週末之前出招人 post。
 
-你打開 Discord 公會 channel，#announcement 撳「+ message」。
+你打開 Discord 公會頻道，#announcement 撳「+ message」。
 
-你 type 第一句：
+你打第一句：
 
 > 「[公會名] 招新人，有興趣 DM」
 
-你停低。Cringe。
+你停低。肉麻。
 
-你 delete 重 type：
+你刪除重打：
 
-> 「Hello everyone! 我哋係 [公會名]，一個 active 嘅公會 ⋯⋯」
+> 「Hello everyone! 我哋係 [公會名]，一個活躍嘅公會 ⋯⋯」
 
-更 cringe。
+更肉麻。
 
-你想寫 serious 啲：
+你想寫正經啲：
 
 > 「[公會名] is recruiting for Savage progression. Required: 4-day attendance, BIS-ready, voice on. DM for trial.」
 
-讀完自己覺得似 LinkedIn job posting。
+讀完自己覺得似 LinkedIn 招聘廣告。
 
-你想試 funny 啲：
+你想試搞笑啲：
 
-> 「想揾班朋友一齊 carry 你？我哋唔得 carry 但歡迎 wipe 一齊」
+> 「想揾班朋友一齊 carry 你？我哋唔得 carry 但歡迎一齊 wipe」
 
-讀完覺得似 Reddit cringe post。
+讀完覺得似 Reddit 肉麻 post。
 
-公會招人 post 嘅 paradox：
+公會招人 post 嘅死結：
 
-- **太 serious** → 嚇走 casual player
-- **太 funny** → serious player 覺得唔 commitment
-- **太短** → 冇 info, 冇人 DM
+- **太正經** → 嚇走休閒玩家
+- **太搞笑** → 認真玩家覺得唔投入
+- **太短** → 冇資料，冇人 DM
 - **太長** → 冇人讀完
-- **照搬 template** → 公會 personality 出唔到
+- **照抄範本** → 公會個性出唔到
 
-呢篇用 Claude 一次過 dump 你公會 info，**Claude 出 5 個唔同 tone version**，你揀最 fit 嗰個（或者 mix 兩個 version 嘅 element）。
+呢篇用 Claude 一次過將你公會資料寫晒落去，**Claude 出 5 個唔同語氣版本**，你揀最啱嗰個（或者撈兩個版本嘅元素）。
 
 ## 跟住做
 
-### 1. Dump 公會 raw info 入 Claude
+### 1. 將公會原始資料話畀 Claude 知
 
-寫之前唔好 ask Claude 「寫一個公會招人 post」，太行貨。先 dump 真實 info：
+寫之前唔好叫 Claude 「寫一個公會招人 post」，太行貨。先將真實資料寫晒：
 
 > 公會名：青城派 (Qing Cheng Pai)
-> 
-> 主玩遊戲：FFXIV (NA Aether server)，部分 member 同時玩 WoW Retail + Genshin
-> 
-> 公會 size：28 active member（peak 36，2 個月前 raid lead 走）
-> 
-> 公會 type：semi-hardcore raid + social casual。Savage progression 集中喺 Tue/Thu 9-11pm EST。Weekend social event optional。
-> 
-> 我哋 culture：港人 majority but English-friendly。Voice on 喺 raid，casual 唔 force。Drama-free policy（過去 5 年趕過 2 個 toxic member）。年齡 25-40 working adult，半數有屋企人。
-> 
-> 我哋 招緊：
-> - 1 個 Healer (preferably WHM or AST) for Savage core
-> - 2-3 個 casual member（任何 role）
-> - 唔 hard requirement，但 prefer：>1 年 FFXIV 經驗 / 識基本 raid mechanic / 21+ 年齡
-> 
-> 我哋 唔招：
-> - 純 carry-seeker（你要付出，但唔追 ranking）
-> - Cross-server jumper（join 一兩個 raid tier 就走嘅人）
-> - 喺其他公會 同時 raid commit（conflict scheduling）
-> 
-> Discord：[link]，trial process 係 1 個月 probationary 包括 join 2-3 個 raid 試 fit + 公會 vote。
-> 
-> 之前 招人 post 嘅問題：
-> - 我寫過 4 個 version，都 either 太 corporate or 太 cringe
-> - 上次 post 嘅 conversion rate ~1% (post 100 views, 1 DM)
+>
+> 主玩遊戲：FFXIV (NA Aether server)，部分成員同時玩 WoW Retail + 原神
+>
+> 公會人數：28 個活躍成員（高峰 36，2 個月前 raid lead 走）
+>
+> 公會類型：半硬核 raid + 休閒社交。Savage progression 集中喺 Tue/Thu 9-11pm EST。週末社交活動可選。
+>
+> 我哋文化：港人為主但 English-friendly。Raid 開咪，休閒唔強求。零 drama 政策（過去 5 年趕過 2 個 toxic 成員）。年齡 25-40 在職成年人，半數有屋企人。
+>
+> 我哋招緊：
+> - 1 個 Healer（最好 WHM 或 AST）做 Savage 核心
+> - 2-3 個休閒成員（任何角色）
+> - 唔係硬性要求，但偏好：超過 1 年 FFXIV 經驗 / 識基本 raid 機制 / 21 歲以上
+>
+> 我哋唔招：
+> - 純 carry-seeker（你要付出，但唔追排名）
+> - 跳服仔（join 一兩個 raid tier 就走嘅人）
+> - 喺其他公會同時 raid 嘅人（時間表衝突）
+>
+> Discord：[link]，試會流程係 1 個月觀察期，包括 join 2-3 個 raid 試吓夾 + 公會投票。
+>
+> 之前招人 post 嘅問題：
+> - 我寫過 4 個版本，全部要麼太行貨要麼太肉麻
+> - 上次 post 嘅轉化率約 1%（post 100 個 view，1 個 DM）
 
-呢類 dump 出嚟，Claude 有 enough 嘢 work with。
+呢類資料寫晒出嚟，Claude 先有嘢可以用。
 
-### 2. 用呢個 prompt 出 5 個 tone version
+### 2. 用呢個 prompt 出 5 個語氣版本
 
-<PromptBlock label="完整 prompt — 5 個 tone version 公會招人 post">
-[paste 你上面公會 raw info]
+<PromptBlock label="完整 prompt — 5 個語氣版本公會招人 post">
+[貼上你上面嘅公會原始資料]
 
-請出 **5 個 tone version** 嘅招人 post，每個版本：
+請出 **5 個語氣版本** 嘅招人 post，每個版本：
 
-- 標明 tone（e.g., 「Serious raid」 / 「Casual social」 / 「港式講笑」 / 「文藝向」 / 「短 hook」）
-- Target 邊類 reader（serious raider 定 social player 定純好奇）
-- Strengths + risks 嘅 quick note
+- 標明語氣（例如：「正經 raid」/「休閒社交」/「港式講笑」/「文藝向」/「短鈎」）
+- 對應邊類讀者（認真 raider 定休閒玩家定純好奇）
+- 強項 + 風險嘅簡短備註
 
-5 個版本 specs：
+5 個版本規格：
 
-**Version 1 — Serious raid（吸 hardcore）**
-- 開頭直入 progression status + 招緊嘅 role
-- Bullet point hard requirement
-- 結尾 trial process + apply link
+**版本 1 — 正經 raid（吸硬核）**
+- 開頭直入 progression 狀態 + 招緊嘅角色
+- Bullet point 硬性要求
+- 結尾試會流程 + 申請 link
 - 長度：200-300 字 中英混合
-- 避免：emoji 過多、joke、self-deprecation
+- 避免：太多 emoji、笑話、貶低自己
 
-**Version 2 — Casual social（吸 working adult）**
-- 開頭強調公會 vibe + drama-free
-- 提及 working adult life balance（唔 raid 都 welcome）
-- 短句多，唔 lecture
-- 結尾 inviting tone「過嚟 hang out 試下」
+**版本 2 — 休閒社交（吸在職成年人）**
+- 開頭強調公會氣氛 + 零 drama
+- 提及在職人士生活平衡（唔 raid 都歡迎）
+- 短句多，唔講教
+- 結尾邀請語氣「過嚟 hang out 試下」
 - 長度：200-300 字
 - Emoji 適度
 
-**Version 3 — 港式講笑（吸 港人 community）**
-- 廣東話 voice 多啲（「過嚟一齊 wipe 啦」「唔識可以教」）
-- Self-deprecation OK 但唔 weak
-- 港人 in-joke OK（「茶記時段唔 raid」/「老婆 OK 就 raid」）
+**版本 3 — 港式講笑（吸港人社群）**
+- 廣東話聲音多啲（「過嚟一齊 wipe 啦」「唔識可以教」）
+- 自嘲 OK 但唔軟弱
+- 港人內部笑話 OK（「茶記時段唔 raid」/「老婆 OK 就 raid」）
 - 長度：150-250 字
-- 唔 over-cringe — 笑點要 grounded
+- 唔好過度肉麻 — 笑點要落地
 
-**Version 4 — 文藝向（吸 narrative-driven player）**
-- 開頭一個 anchor moment（「上個 raid tier last boss，全公會 wipe 50 次先 clear，wipe 49 我哋 group call 笑到喊」）
-- 公會作為一個「持續 story」嘅 metaphor
-- Recruitment 嘅 ask 隱喻入個 story
+**版本 4 — 文藝向（吸故事主導玩家）**
+- 開頭一個錨點時刻（「上個 raid tier 最後 boss，全公會 wipe 50 次先 clear，wipe 49 我哋 group call 笑到喊」）
+- 公會作為一個「持續故事」嘅比喻
+- 招人嘅請求隱喻入個故事
 - 長度：250-350 字
-- 風險：太 pretentious — 提醒「voice 唔好太 grand」
+- 風險：太裝模作樣 — 提醒「聲音唔好太宏大」
 
-**Version 5 — 短 hook 版（discord short message format）**
+**版本 5 — 短鈎版（discord 短訊息格式）**
 - 1-2 句吸 attention
-- 1 句公會 basic + 招人 role
-- 1 句 CTA + link
-- 適合 cross-post 去其他 discord
-- 長度：50-100 字 max
+- 1 句公會基本 + 招人角色
+- 1 句行動呼籲 + link
+- 適合跨 post 去其他 discord
+- 長度：50-100 字最多
 
-每個版本完成後，加 **「適合嘅 channel」** suggestion：
+每個版本完成後，加 **「適合嘅頻道」** 建議：
 - Reddit r/[game] LFG
-- Game's official discord LFG
-- Game's 香港 FB group
-- 公會自己 discord 嘅 ally network
-- Cross-post 去其他 friendly 公會
+- 遊戲官方 discord LFG
+- 遊戲嘅香港 FB group
+- 公會自己 discord 嘅盟友網絡
+- 跨 post 去其他友好公會
 
-語氣 reminder：
-- 唔好 over-promise（「我哋係最 chill 公會」 → 第一場 raid wipe 5 次就會 reveal）
-- 唔好 over-disclaim（「我哋唔係 hardcore 但 ⋯⋯」 → 顯得 insecure）
-- Drama-free claim 要 specific（「過去 5 年 zero drama incident」 而唔係「我哋 drama-free」）
+語氣提醒：
+- 唔好過度承諾（「我哋係最 chill 公會」 → 第一場 raid wipe 5 次就會穿煲）
+- 唔好過度澄清（「我哋唔係硬核但 ⋯⋯」 → 顯得冇底氣）
+- 零 drama 聲明要具體（「過去 5 年零 drama incident」而唔係「我哋零 drama」）
 </PromptBlock>
 
-Claude 出 5 個 version，你會見到：
+Claude 出 5 個版本，你會見到：
 
-- Version 1 適合 cross-post 去 r/ffxiv recruitment thread
-- Version 2 適合公會自己 discord ally network share
-- Version 3 適合 HK FFXIV FB group
-- Version 4 適合 if 你想吸 long-term retention member（read 過呢類 post 而 DM 嘅人通常 commit 長）
-- Version 5 適合 short Discord cross-post
+- 版本 1 適合跨 post 去 r/ffxiv recruitment thread
+- 版本 2 適合公會自己 discord 盟友網絡分享
+- 版本 3 適合 HK FFXIV FB group
+- 版本 4 適合如果你想吸長期留低嘅成員（讀過呢類 post 而 DM 嘅人通常承諾長）
+- 版本 5 適合短 Discord 跨 post
 
-**唔需要 always 用一個 version**。MMO 公會招人通常 multi-channel — 唔同 channel 用唔同 version。
+**唔需要永遠用一個版本**。MMO 公會招人通常多頻道 — 唔同頻道用唔同版本。
 
-### 3. Polish + 加埋 specifics 唔好交 Claude generate
+### 3. 修飾 + 加埋具體細節，唔好交 Claude 生
 
-Claude 出嘅 post **80% draft**，**20% 你嘅 specific 細節**唔可以靠 AI generate：
+Claude 出嘅 post **80% 草稿**，**20% 你嘅具體細節**唔可以靠 AI 生：
 
-<PromptBlock label="完整 prompt — Polish layer 加 specifics">
-[paste Claude 之前出嘅 version 你最鍾意嗰個]
+<PromptBlock label="完整 prompt — 修飾層加具體細節">
+[貼上 Claude 之前出嘅版本你最鍾意嗰個]
 
-請 polish layer，加 **specifics 嚟 boost authenticity**：
+請修飾一層，加 **具體細節嚟提升真實感**：
 
-🎯 **公會 inside reference（建議 sprinkle 1-2 個）**
-- 公會 long-running joke（e.g., 「我哋成日笑 [member名] last raid 拿少 dot timer 影響全 group」）
-- 上個 raid clear 嘅 anecdote
-- 公會 anniversary / milestone 數字（「我哋 5 年 community」/「過去 8 個 raid tier 全 clear」）
-- 公會 share 嘅 in-joke text（「Healer 要會 sing GBOY」「DPS 要識 backseat tank」）
+🎯 **公會內部 reference（建議散下 1-2 個）**
+- 公會長期笑話（例如：「我哋成日笑 [成員名] last raid 拿少 dot timer 影響全 group」）
+- 上個 raid clear 嘅小故事
+- 公會週年 / 里程碑數字（「我哋 5 年 community」/「過去 8 個 raid tier 全 clear」）
+- 公會共同嘅內部笑話文字（「Healer 要會 sing GBOY」「DPS 要識 backseat tank」）
 
-🎮 **遊戲 community in-joke**（適度）
-- FFXIV：positioning meme / Yoshi-P quote / job 流派 in-joke
-- WoW：retail vs classic war / faction 戰 reference
-- Genshin / HSR：抽卡保底 reference / 角色組合
-- General MMO：raid lead 嘅 catchphrase parody
+🎮 **遊戲社群內部笑話**（適度）
+- FFXIV：positioning meme / Yoshi-P quote / job 流派內部笑話
+- WoW：retail vs classic 之爭 / 陣營戰 reference
+- 原神 / 崩鐵：抽卡保底 reference / 角色組合
+- 通用 MMO：raid lead 嘅口頭禪 parody
 
-⏱ **Concrete time / commitment numbers**
+⏱ **具體時間 / 投入數字**
 - 「Tue/Thu 9-11pm EST」（唔係「week night」）
-- 「30-40 分鐘 trial chat before raid invite」（唔係「lengthy trial」）
-- 「3-6 個月先 fully integrated」（管理 expectation）
+- 「30-40 分鐘試會傾偈先 raid invite」（唔係「lengthy trial」）
+- 「3-6 個月先完全融入」（管理期望）
 
-📊 **Stats / proof points**
+📊 **數據 / 證明點**
 - 「Last tier clear week 4 (out of 12)」
 - 「8/10 BIS in roster」
-- 「Discord 250 messages/week average」
+- 「Discord 每週平均 250 條訊息」
 
-⚠️ **唔 polish 嘅 部分（保留 default）**
-- Trial process steps（要清楚）
-- Hard requirement（唔好模糊）
-- 招人 role + spec（precise）
+⚠️ **唔修飾嘅部分（保留預設）**
+- 試會流程步驟（要清楚）
+- 硬性要求（唔好模糊）
+- 招人角色 + 規格（精確）
 
-🚫 **絕對唔加 嘅 嘢**
-- 公會 internal drama（current member dispute）
-- Specific naming + shaming ex-member
-- Claim 你哋 「best server」 / 「top % raider」（如非 verifiable）
-- 過度 emoji（每行 1-2 max）
+🚫 **絕對唔加嘅嘢**
+- 公會內部 drama（現有成員爭執）
+- 點名 + 出醜現任 / 前成員
+- 聲稱你哋「best server」/「top % raider」（如冇辦法核實）
+- 過度 emoji（每行最多 1-2 個）
 
-完成後 final QA：
-- Read aloud — 自然嗎？
-- Show 公會 senior member preview — 佢哋 認得 個 voice？
-- 字數最終：300-500 字 raid recruitment / 100-150 字 casual / 50 字 short hook
+完成後最後檢查：
+- 讀出嚟 — 自然嗎？
+- 畀公會資深成員預覽 — 佢哋認得個聲音？
+- 字數最終：300-500 字 raid 招人 / 100-150 字 休閒 / 50 字短鈎
 
-語氣：authentic over polished。
+語氣：真實過修飾。
 </PromptBlock>
 
-呢個 polish step 比 initial 5 versions 更 critical。**AI 出嘅嘢點 distinguish from another AI 嘅嘢？你公會嘅 specific texture**。
+呢個修飾步驟比初步 5 個版本更關鍵。**AI 出嘅嘢點同另一個 AI 出嘅嘢分辨？你公會嘅具體質感**。
 
-### 4. Deploy strategy — 唔同 channel 唔同 version
+### 4. 部署策略 — 唔同頻道唔同版本
 
-5 個 version + 多 channel + 1 個 timing strategy = 真正 conversion：
+5 個版本 + 多頻道 + 1 個時機策略 = 真正轉化：
 
-<PromptBlock label="完整 prompt — Multi-channel deploy plan">
-我而家有 5 個 version 嘅公會招人 post（serious / casual / 港式 / 文藝 / short hook）。
+<PromptBlock label="完整 prompt — 多頻道部署計劃">
+我而家有 5 個版本嘅公會招人 post（正經 / 休閒 / 港式 / 文藝 / 短鈎）。
 
-請整 **deploy plan**：
+請整 **部署計劃**：
 
-📅 **Week 1 — 高 traffic channel deploy**
-- Reddit r/[game] LFG thread（用 Version 1 — serious raid）
-- Game's official discord LFG channel（用 Version 5 — short hook + link to Version 1 full post）
-- 公會自己 social media（IG / Twitter — 用 Version 2 + 公會 gallery photo）
+📅 **第 1 週 — 高流量頻道部署**
+- Reddit r/[game] LFG thread（用版本 1 — 正經 raid）
+- 遊戲官方 discord LFG channel（用版本 5 — 短鈎 + link 到版本 1 完整 post）
+- 公會自己社交媒體（IG / Twitter — 用版本 2 + 公會相簿圖）
 
-📅 **Week 2 — Niche channel deploy**
-- HK FB group「香港 FFXIV / 香港 WoW 公會」（用 Version 3 — 港式）
-- Game's narrative-focused subreddit / forum（用 Version 4 — 文藝向）
-- Cross-post 去 friendly ally 公會 Discord（用 Version 5 — short hook）
+📅 **第 2 週 — 小眾頻道部署**
+- HK FB group「香港 FFXIV / 香港 WoW 公會」（用版本 3 — 港式）
+- 遊戲嘅故事向 subreddit / forum（用版本 4 — 文藝向）
+- 跨 post 去友好盟友公會 Discord（用版本 5 — 短鈎）
 
-📅 **Week 3-4 — Follow-up + iterate**
-- Reddit re-post adjusted version（base on Week 1-2 feedback）
-- Update Discord pinned message
-- Personal outreach DM 已知 dormant member（return invite + Version 2 personalized）
+📅 **第 3-4 週 — 跟進 + 改良**
+- Reddit 重 post 調整版本（基於第 1-2 週意見）
+- 更新 Discord pinned 訊息
+- 個人接觸 DM 已知休眠成員（回歸邀請 + 版本 2 個人化）
 
-📊 **Tracking simple metric**
-- DM count per channel（write down）
-- Trial join count（per channel）
-- Final retention to full member（per channel）
-- 3 個月後 audit — 邊個 channel ROI 最好，下次 focus
+📊 **追蹤簡單指標**
+- 每頻道 DM 數量（寫低）
+- 試會 join 數量（每頻道）
+- 最後留低成正式成員（每頻道）
+- 3 個月後審視 — 邊個頻道回報最好，下次集中
 
-🎯 **Conversion optimization tips**
-- Post timing：raid time + 1 hour（player 仲 online）
-- 每星期 maintenance：edit post bump（reddit bump rule, FB group restrict）
-- Post 完唔 ghost — comment 任何 question 24 hr 內
-- DM enquiry response timeline：< 12 hr 否則 candidate 已 move on
+🎯 **轉化優化貼士**
+- Post 時機：raid 時間 + 1 個鐘（玩家仲在線）
+- 每星期維護：編輯 post 推上去（reddit bump 規則，FB group 限制）
+- Post 完唔好失蹤 — 任何問題 24 小時內回覆
+- DM 查詢回覆時間：少於 12 小時，否則對方已經 move on
 
-🚫 **唔 deploy 嘅 anti-pattern**
-- Cross-post identical version 到所有 channel（reader 一眼睇穿）
-- 「招人 spam」每日 post — 1-2 個 channel 每週一次 cap
-- Negative comparison 同其他公會（「我哋唔似 [其他公會] 咁 hardcore」）= petty
-- Hard sell pressure DM —「join 我哋啦」連續 follow-up = stalker vibe
+🚫 **唔部署嘅反面模式**
+- 跨 post 一模一樣版本到所有頻道（讀者一眼睇穿）
+- 「招人 spam」每日 post — 1-2 個頻道每週一次封頂
+- 同其他公會負面比較（「我哋唔似 [其他公會] 咁硬核」）= 小家
+- 硬銷壓力 DM —「join 我哋啦」連續跟進 = 跟蹤狂感覺
 
-請每個 channel 加備註：**這個 channel 嘅 reader profile + Why this version fit**。
+請每個頻道加備註：**呢個頻道嘅讀者特徵 + 點解呢個版本啱**。
 
-語氣：strategic but not desperate。Recruiting 唔係 emergency，係 ongoing curate 過程。
+語氣：策略性但唔絕望。招人唔係緊急狀況，係持續策展嘅過程。
 </PromptBlock>
 
-呢個 deploy plan 隱含一個 mindset：**招人唔係 single event，係 multi-month process**。一個 post 唔會解決公會缺人 — 但 5 個 version × 多 channel × 一致 follow-up = 6 個月內 stabilize。
+呢個部署計劃隱含一個思維：**招人唔係單一事件，係多月過程**。一個 post 唔會解決公會缺人 — 但 5 個版本 × 多頻道 × 一致跟進 = 6 個月內穩定。
 
-## 變化
+## 變化例子
 
-### 變化 1：Raid event 公告（同招人公告唔同）
+### 變化 1：Raid 活動公告（同招人公告唔同）
 
-Event 公告 focus on rallying existing member，唔係 recruiting：
+活動公告焦點係 rally 現有成員，唔係招新人：
 
-<PromptBlock label="變化 1 — Raid event 公告 5 個 tone">
-我哋公會下個月開新 raid tier。需要寫一個 event 公告，rally 現有 member 全程參與。
+<PromptBlock label="變化 1 — Raid 活動公告 5 個語氣">
+我哋公會下個月開新 raid tier。需要寫一個活動公告，rally 現有成員全程參與。
 
-Event details：
+活動細節：
 - Tier 名：[]
-- 預期 progression timeline：[6-12 週 typical]
-- Schedule：[Tue/Thu 9-11pm EST]
-- Roster ask：[full attendance 期望 / acceptable absent rate]
-- Reward expectation：[BIS gear / glamour / mount / title]
+- 預期 progression 時間表：[6-12 週典型]
+- 時間：[Tue/Thu 9-11pm EST]
+- 人手要求：[全程出席期望 / 可接受缺席率]
+- 獎勵期望：[BIS gear / glamour / mount / title]
 
-請出 **5 個 tone version**：
+請出 **5 個語氣版本**：
 
-**Version 1 — Serious raid kickoff**
-- 開頭 progression goal（「Clear by week 6」/「Top 5% server」）
-- Member commitment ask
-- Logistical reminder
-- 結尾 hype line
+**版本 1 — 正經 raid kickoff**
+- 開頭 progression 目標（「Clear by week 6」/「Top 5% server」）
+- 成員承諾要求
+- 後勤提醒
+- 結尾 hype 句
 
-**Version 2 — Casual rally**
-- 開頭 community moment（「half of us cleared last tier together」）
-- Soft commitment ask（「if you can make it」）
-- 結尾 inclusion line（「even if you can only join few weeks, welcome」）
+**版本 2 — 休閒 rally**
+- 開頭社群時刻（「half of us cleared last tier together」）
+- 軟性承諾要求（「if you can make it」）
+- 結尾包容句（「even if you can only join few weeks, welcome」）
 
-**Version 3 — Hype-energy short**
-- 1-2 個 hype line
-- Date + time
-- 1 line CTA
+**版本 3 — Hype 短文**
+- 1-2 個 hype 句
+- 日期 + 時間
+- 1 個行動呼籲
 - 適合 Discord pin
 
-**Version 4 — Narrative storytelling**
-- Frame raid as a 「next chapter in our guild journey」
-- Reference past raid memory
-- Open invitation to write next chapter together
+**版本 4 — 故事敘述**
+- Frame raid 做「公會旅程嘅下一章」
+- Reference 過去 raid 回憶
+- 開放邀請一齊寫下一章
 
-**Version 5 — 港式 banter**
+**版本 5 — 港式講笑**
 - 「下個月又開 raid，唔好做 Healer 唔夠人個個」
-- 廣東話 self-deprecation
-- HK player 文化 in-joke
+- 廣東話自嘲
+- HK 玩家文化內部笑話
 
-每個 version 之後加：
-- Schedule reminder format（誰要 confirm by 邊時）
-- Pre-raid prep checklist（gear / consumable / homework — VOD watch / strategy doc）
-- 第一場 wipe expectation manage（「first 3 weeks 預期 only learning, no clear yet」）
+每個版本之後加：
+- 時間表提醒格式（誰要確認到幾時）
+- Raid 前準備清單（裝備 / 消耗品 / 功課 — VOD 睇 / 攻略 doc）
+- 第一場 wipe 期望管理（「first 3 weeks 預期只係學嘢，未 clear」）
 
-語氣：rally over scolding。Member 唔係 employee。
+語氣：rally 過責罵。成員唔係員工。
 </PromptBlock>
 
-### 變化 2：退會公告 / drama defuse 公告
+### 變化 2：退會公告 / drama 平息公告
 
 呢類 post 最難寫，最易激化問題：
 
-<PromptBlock label="變化 2 — 退會 / drama defuse 公告 tone management">
-我哋公會 just 發生：
-- [一個 senior member 突然退會 + 帶走 2-3 個 follower]
-- 或：[公會 internal dispute spilled to public 例如 Reddit / FB 公開 attack]
-- 或：[member 個人問題影響公會 vibe]
+<PromptBlock label="變化 2 — 退會 / drama 平息公告語氣管理">
+我哋公會啱啱發生：
+- [一個資深成員突然退會 + 帶走 2-3 個跟隨者]
+- 或：[公會內部爭議公開化，例如 Reddit / FB 公開攻擊]
+- 或：[成員個人問題影響公會氣氛]
 
-我需要寫公告，**defuse but not enable drama**。
+我需要寫公告，**平息但唔助長 drama**。
 
-請整 **3 個唔同 severity 嘅 response template**：
+請整 **3 個唔同嚴重程度嘅回應範本**：
 
-🟢 **Mild — Member 自然 retire / 移民 / 唔玩**
-- Tone：warm goodbye + 維持 door open
-- 唔 disclose 私事
-- 結尾「公會繼續歡迎你 hang out 唔 raid」
-- 避免 over-emotional drama post
+🟢 **輕微 — 成員自然退休 / 移民 / 唔玩**
+- 語氣：溫暖告別 + 維持門口開
+- 唔披露私事
+- 結尾「公會繼續歡迎你過嚟唔 raid」
+- 避免過度情緒化 drama post
 
-🟡 **Medium — Member 因 disagreement 走 + 部分 noise**
-- Tone：neutral acknowledge + 唔 escalate
-- 「[Member] decide to focus on other guild. We wish them well」
-- Refuse engage 任何 public dispute detail
-- 強調 公會 forward focus
+🟡 **中等 — 成員因分歧走 + 部分嘈雜**
+- 語氣：中性承認 + 唔升級
+- 「[成員] decide to focus on other guild. We wish them well」
+- 拒絕參與任何公開爭議細節
+- 強調公會向前發展
 
-🔴 **Severe — Public Reddit / FB attack + 公會 reputation 受影響**
-- Tone：firm but not defensive
-- 對 unfounded claim factually counter（「我哋 raid attendance log 公開喺 Discord，任何人 verify」）
-- 唔 personal attack 對手
-- 「If you have concern，DM me，我哋 transparent」
-- 結尾「我哋繼續 focus 公會發展 + raid progression」
+🔴 **嚴重 — 公開 Reddit / FB 攻擊 + 公會名聲受影響**
+- 語氣：堅定但唔防衛
+- 對不實聲稱事實上反駁（「我哋 raid 出席紀錄公開喺 Discord，任何人核實」）
+- 唔人身攻擊對手
+- 「If you have concern，DM me，我哋透明」
+- 結尾「我哋繼續集中公會發展 + raid progression」
 
 ⚠️ **絕對唔好做**
-- Name and shame ex-member（即使佢 attack 你哋）
-- 公開 air private grievance
-- 召喚 member 對其他公會 attack
-- 「victim」narrative 過度（even if 你係 victim）
-- 公告之後 24 小時內 add follow-up（high emotion 期 prone to mistake）
+- 點名出醜前成員（即使佢攻擊你哋）
+- 公開講私人不滿
+- 召喚成員對其他公會攻擊
+- 「受害者」敘事過度（even if 你係受害者）
+- 公告之後 24 小時內加跟進（高情緒期容易出錯）
 
-✅ **完成 公告 後**
-- Read by 2 senior officer before post
-- Wait 24 hr after 寫 first draft — 修改機會
-- Post 之後 lock comment / restrict public reply（drama defuse 唔等於 invite more）
-- Member 1-on-1 conversation 解釋細節（公告係 public version，detail in private）
+✅ **完成公告後**
+- 由 2 個資深軍官先睇先 post
+- 寫第一稿後等 24 小時 — 修改機會
+- Post 之後鎖留言 / 限制公開回覆（平息 drama 唔等於邀請更多）
+- 成員一對一傾偈解釋細節（公告係公開版本，細節私下講）
 
-語氣：dignity over revenge。公會 long-term reputation > 短期勝利。
+語氣：尊嚴過報復。公會長期聲譽 > 短期勝利。
 </PromptBlock>
 
-### 變化 3：公會 anniversary / milestone 公告
+### 變化 3：公會週年 / 里程碑公告
 
-慶祝向嘅 post，比 recruit / event 更易寫，但有 trap：
+慶祝向嘅 post，比招人 / 活動更易寫，但有陷阱：
 
-<PromptBlock label="變化 3 — Anniversary / milestone celebration post">
-我哋公會 anniversary 5 年 / 完成 100 個 raid clear / member 滿 50 人 milestone。
+<PromptBlock label="變化 3 — 週年 / 里程碑慶祝 post">
+我哋公會週年 5 年 / 完成 100 個 raid clear / 成員滿 50 人里程碑。
 
-請出 anniversary post 5 個 version + warning trap：
+請出週年 post 5 個版本 + 警告陷阱：
 
-**Version 1 — Sincere thanks（默認 default）**
-- Open with milestone fact
-- 5-7 個 specific moment / member highlight（with permission）
-- 公會嘅 unique trait
-- 結尾 forward looking
+**版本 1 — 真誠感謝（預設）**
+- 開頭里程碑事實
+- 5-7 個具體時刻 / 成員 highlight（要授權）
+- 公會嘅獨特特質
+- 結尾向前望
 
-**Version 2 — Numbers + stats**
-- 5 年 stat dump（raid cleared / total play hour / discord message / member retention rate）
-- 「最 fun 數字」/ 「最 surprising 數字」
-- 視覺：infographic post if 有 designer
+**版本 2 — 數字 + 統計**
+- 5 年數據總結（raid cleared / 總玩耍小時 / discord 訊息 / 成員留存率）
+- 「最有趣數字」/「最驚奇數字」
+- 視覺：infographic post 如有設計師
 
-**Version 3 — Member highlight reel**
-- 每個 long-term member 一句（with consent）
-- 短句快 pace
-- 加埋 inside joke
+**版本 3 — 成員 highlight reel**
+- 每個長期成員一句（要授權）
+- 短句快節奏
+- 加埋內部笑話
 
-**Version 4 — Future-looking manifesto**
-- 用 milestone 做 launchpad 講 future direction
-- 「Next 5 year ambition」
-- 招新人 implicit subtext
+**版本 4 — 望向未來宣言**
+- 用里程碑做跳板講未來方向
+- 「下個 5 年抱負」
+- 招新人隱含意思
 
-**Version 5 — 純 fun 短 post**
-- 1-2 個 anecdote
-- 5 年 cringe 公會 moment
-- 結尾 emoji parade
+**版本 5 — 純好玩短 post**
+- 1-2 個小故事
+- 5 年肉麻公會時刻
+- 結尾 emoji 巡遊
 
-⚠️ **Trap to avoid**
-- 公開 mention member 冇 ask permission（私人 anecdote shared without consent）
-- 過度 self-congratulation tone
-- Implicit critique of departed member（「Some have come and gone but the real ones stayed」 = pettish）
-- Date / number 錯（公會 anniversary 唔該你 5 年但實際 4 年 = embarrassing）
+⚠️ **要避免嘅陷阱**
+- 公開提及成員冇徵求同意（私人小故事未經同意分享）
+- 過度自我恭賀語氣
+- 隱晦批評離開嘅成員（「Some have come and gone but the real ones stayed」= 小家）
+- 日期 / 數字錯（公會週年講 5 年但實際 4 年 = 尷尬）
 
-🎁 **建議搭配**
-- 公會 5 年 photo album（screenshot / fan art）
-- Member shoutout video（30-second clip per long-term member, optional）
-- Anniversary in-game event（同 raid 完冚個 boss）
+🎁 **建議配搭**
+- 公會 5 年相簿（截圖 / 同人圖）
+- 成員 shoutout video（30 秒片段每個長期成員，可選）
+- 週年遊戲內活動（同 raid 完冚個 boss）
 
-語氣：celebratory not self-aggrandizing。
+語氣：慶祝但唔自我吹噓。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-MMO 公會 organizer 嘅 unspoken 工作：你係**公會 voice 嘅 author**。
+MMO 公會搞手嘅潛在工作：你係**公會聲音嘅作者**。
 
-每一個 announcement、招人 post、event 公告、退會 message——讀者建立 image 嘅 source 就係呢啲 written word。20 個 member 嘅 internal voice chemistry 加上 你 publicly post 嘅 voice，**呢個 voice 直接 attract / repel 邊類 future member**。
+每一個公告、招人 post、活動公告、退會訊息——讀者建立印象嘅來源就係呢啲文字。20 個成員嘅內部開咪化學反應加上你公開 post 嘅聲音，**呢個聲音直接吸引 / 趕走邊類未來成員**。
 
-呢個 mindset 嘅 reframe：你寫公告唔係 「marketing」（你唔賣嘢），唔係 「announcement」（單方向通知）——你 **curate 公會 culture 嘅 long-term shape**。
+呢個思維嘅轉變：你寫公告唔係「marketing」（你唔賣嘢），唔係「announcement」（單向通知）——你**策展公會文化嘅長期形狀**。
 
-5 年公會嘅 announcement archive，本質係呢個 community 嘅 living record。3 年後新 member join，佢可能 read 你 5 年前嘅 raid kickoff post，先決定 commit。
+5 年公會嘅公告 archive，本質係呢個社群嘅活生生紀錄。3 年後新成員加入，佢可能睇你 5 年前嘅 raid kickoff post，先決定承諾。
 
-Claude 嘅 role 唔係取代你嘅 voice——係幫你 efficiently iterate 5 個唔同 framing，等你 pick the one that's most authentically you。
+Claude 嘅角色唔係取代你嘅聲音——係幫你有效率咁迭代 5 個唔同框架，等你揀最真實做你自己嗰個。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **5 個 version 出晒，pick 一個 + polish 20% specifics**。完全 AI generate 嘅 post 讀者 sense 到。
-- ⚠️ **唔好 post-and-ghost**。Post 出去要 maintain comment / DM response 24-72 hr peak window。
-- 🎯 **長期 organizer 嘅 secret：個 voice 自己會 evolve**。Year 1 你 cringe 嘅 post，Year 3 你會 fond memory。Let it happen。
+- ✅ **5 個版本出晒，揀一個 + 修飾 20% 具體細節**。完全 AI 生嘅 post 讀者感覺到。
+- ⚠️ **唔好 post 完失蹤**。Post 出去要維持留言 / DM 回覆 24-72 小時高峰期。
+- 🎯 **長期搞手嘅秘密：個聲音自己會進化**。Year 1 你肉麻嘅 post，Year 3 你會懷念。Let it happen。
 
 Happy recruiting，下個 raid tier wipe 少啲。
