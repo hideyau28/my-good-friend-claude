@@ -1,5 +1,5 @@
 ---
-title: "通關 70 hr 想 write review？用 Claude 整 structure，唔係 IGN copy-paste"
+title: "通關 70 個鐘想寫評論？用 Claude 整結構，唔係抄 IGN"
 slug: "game-review-write-claude"
 issue: 59
 publishedAt: 2026-05-23
@@ -10,8 +10,8 @@ subcategory: "玩家社群"
 heroImage: "/hero/game-review-write-claude.webp"
 difficulty: 1
 timeMinutes: 20
-toolsNeeded: ["Claude Chat", "你 70 hr 通關嗰個 game 嘅 rough notes / screenshots"]
-description: "你 70 hr 通關 Elden Ring DLC，想 Steam / FB / 巴哈 share 心得。寫到一半變「good game lol 9/10」。用 Claude 4-axis framework（mechanics / narrative / vibe / value）+ 3 個 length 版本（Steam 短評 / FB 長 post / 深度文）。"
+toolsNeeded: ["Claude Chat", "你 70 個鐘通關嗰個遊戲嘅初步筆記 / 截圖"]
+description: "你 70 個鐘通關 Elden Ring DLC，想喺 Steam / FB / 巴哈分享心得。寫到一半變「good game lol 9/10」。用 Claude 4 軸框架（機制 / 敘事 / 氣氛 / 性價比）+ 3 個長度版本（Steam 短評 / FB 長文 / 深度文）。"
 keywords: ["遊戲 review 寫法", "game review structure", "Steam 短評", "巴哈 遊戲心得", "玩家心得 模板", "Elden Ring review"]
 related: ["youtube-game-guide-extract-claude", "steam-game-similar-recommendation-claude", "claude-fiction-writing-partner"]
 featured: true
@@ -19,454 +19,454 @@ featured: true
 
 ## 情境
 
-你打 Elden Ring DLC Shadow of the Erdtree 70 hr，完 ending。
+你打 Elden Ring DLC Shadow of the Erdtree 70 個鐘，完結局。
 
-你 Steam 開 review window。打字：
+你 Steam 開評論視窗。打字：
 
 > 「Good DLC, definitely worth it. Some bosses are unfair but overall 9/10 ⋯⋯」
 
 你停低。
 
-呢段 review 嘅問題：
+呢段評論嘅問題：
 
-- **生成式 generic**：「good」「definitely worth it」「9/10」——10000 個 Steam review 都用嘅 word。讀者 5 秒 skip。
-- **冇 framework**：你心入面 actually 有 200 hr 跨 vanilla + DLC 嘅累積 thought，但寫出嚟只係 surface noise。
-- **冇 distinguish**：你嘅 review 同 IGN review 同 Reddit top comment 一樣 voice。
+- **生成式行貨**：「good」「definitely worth it」「9/10」——10000 個 Steam 評論都用嘅字眼。讀者 5 秒滑走。
+- **冇框架**：你心入面其實有 200 個鐘跨原作 + DLC 嘅累積諗法，但寫出嚟只係表面噪音。
+- **冇分別**：你嘅評論同 IGN 評論同 Reddit 最 top 嘅留言一樣口吻。
 
-你 delete，再 try：
+你刪除，再試：
 
 > 「The Shadow of the Erdtree DLC offers a robust expansion to the base game's already impressive open world ⋯⋯」
 
-你讀完想嘔。**完全 IGN voice**。冇你 own personality。
+你讀完想嘔。**完全 IGN 口吻**。冇你個人個性。
 
-第 3 次 try：
+第 3 次試：
 
-> 「呢個 DLC 我玩咗 70 hr，最後 boss 30 try 先打到。值得買，因為 ⋯⋯」
+> 「呢個 DLC 我玩咗 70 個鐘，最後 boss 30 try 先打到。值得買，因為 ⋯⋯」
 
-停。你 actually 唔知「因為」乜。你只係知道 你 enjoyed it 但 articulate 唔到 why。
+停。你其實唔知「因為」乜。你只係知道你 enjoyed it 但講唔出點解。
 
-呢個 paradox 係**寫遊戲 review 嘅 universal pain**：
+呢個死結係**寫遊戲評論嘅通病**：
 
-- 你 *experience* 個 game 嘅 nuance 極深
-- 但 *translate* 嗰個 experience 為文字嗰一刻，default fall back 去行貨 vocabulary
-- 結果你 publish 嘅 review = 你 actual opinion 嘅 10% lossy compression
+- 你 *體驗* 個遊戲嘅細微之處極深
+- 但 *轉化* 嗰個體驗為文字嗰一刻，預設跌返去行貨字眼
+- 結果你發表嘅評論 = 你實際意見嘅 10% 有損壓縮
 
-呢篇用 Claude **4-axis review framework**，幫你由 70 hr 體驗 extract 出 specific opinion。出 3 個唔同 length version（Steam 短 / FB 中 / 巴哈 深度文）。
+呢篇用 Claude **4 軸評論框架**，幫你由 70 個鐘體驗抽出具體意見。出 3 個唔同長度版本（Steam 短 / FB 中 / 巴哈深度文）。
 
 ## 跟住做
 
-### 1. 用 4-axis framework dump 你嘅 raw thought
+### 1. 用 4 軸框架將你嘅原始諗法寫晒落去
 
-開 Claude 之前唔好直接 ask「幫我寫 review」。先 brain dump 跟 4-axis 結構：
+開 Claude 之前唔好直接問「幫我寫評論」。先跟 4 軸結構將諗法寫晒：
 
-> **Game**：Elden Ring DLC Shadow of the Erdtree
-> 
-> **我嘅 playtime**：70 hr (DLC only) + 250 hr vanilla
-> 
-> **我嘅 player profile**：FromSoft veteran (clear DS1-3, Sekiro, Bloodborne)，主玩 melee + 偶爾 magic build
-> 
-> --- 4-axis dump ---
-> 
-> **🎮 Axis 1: Mechanics（戰鬥 + system）**
-> - Scadutree Fragment system: 我覺得 OK design（DLC 自己 leveling 唔依賴 vanilla level），但 distribution 太散，逼你 explore every cave
-> - New weapon class (light greatsword) 我玩咗 30 hr 後 swap，moveset 唔夠 distinctive
-> - Boss design：Messmer 我 think 係 top-3 FromSoft boss ever。Promised Consort Radahn 我打 30 try，hit-box 一致性問題 obvious - 唔似 Messmer 嗰種「difficult-but-fair」
-> - Stance break system 改善咗 ranged build viability，但 melee 仲係 dominant
-> 
-> **📖 Axis 2: Narrative（story + lore）**
-> - Miquella as main figure: 我覺得 ambiguous antagonist treatment 出色
-> - Item description writing 仲係 top-tier（業界冇人能比）
-> - 但 main story 喺 Shadow Realm 嘅 progression feel disconnected - 你唔需要見 Miquella 都 trigger 到 final boss
-> - Sidequest interaction 多咗（Hornsent Ymir, Ansbach）— 比 vanilla DLC pattern 進步
-> 
-> **🎨 Axis 3: Vibe（atmosphere + art）**
-> - Shadow Keep area 嘅 vertical level design = career highlight，類似 Sekiro Mibu Village energy
-> - Color palette 比 vanilla bolder（red / gold focus 過 base game subdued tone）
-> - Soundtrack：Messmer fight 我循環聽 50 次
-> - 但 some areas feel reused（Cerulean Coast 嘅 emptiness 設計 intentional 但讓人 frustrated）
-> 
-> **💰 Axis 4: Value（HK$ vs experience）**
-> - HK$ 320 for 70 hr = great value
-> - 比同期 Star Wars Outlaws 嘅 HK$ 500 for 30 hr = much better value
-> - 但要 require base game = barrier for new player
-> 
-> **我嘅 overall verdict**：85/100。Messmer 同 Shadow Keep level design 救回 final boss + Scadutree system 嘅 friction。我 recommend，但 caveat：你需要 FromSoft tolerance for difficulty learning curve。
+> **遊戲**：Elden Ring DLC Shadow of the Erdtree
+>
+> **我嘅遊玩時間**：70 個鐘（DLC only）+ 250 個鐘原作
+>
+> **我嘅玩家定位**：FromSoft 老手（通關 DS1-3、Sekiro、Bloodborne），主玩近戰 + 偶爾魔法 build
+>
+> --- 4 軸記錄 ---
+>
+> **🎮 軸 1：機制（戰鬥 + 系統）**
+> - Scadutree Fragment 系統：我覺得設計 OK（DLC 自己升級唔依賴原作等級），但分佈太散，逼你探索每個洞
+> - 新武器類別（light greatsword）我玩咗 30 個鐘後換走，招式唔夠突出
+> - Boss 設計：Messmer 我認為係 top-3 FromSoft boss ever。Promised Consort Radahn 我打 30 try，hit-box 一致性問題明顯 — 唔似 Messmer 嗰種「難但公平」
+> - Stance break 系統改善咗遠程 build 嘅可行性，但近戰仲係主導
+>
+> **📖 軸 2：敘事（故事 + 世界觀）**
+> - Miquella 做主要人物：我覺得曖昧反派處理出色
+> - 道具描述寫法仲係頂級（業界冇人能比）
+> - 但主線喺 Shadow Realm 嘅推進感覺鬆散 — 你唔需要見 Miquella 都觸發到最終 boss
+> - 支線互動多咗（Hornsent Ymir, Ansbach）— 比原作 DLC 模式進步
+>
+> **🎨 軸 3：氣氛（畫面 + 美術）**
+> - Shadow Keep 區域嘅垂直關卡設計 = 生涯亮點，類似 Sekiro Mibu Village 嘅 energy
+> - 色調比原作大膽（紅 / 金色為主對比 base game 收斂色調）
+> - 配樂：Messmer 戰我循環聽 50 次
+> - 但部分區域感覺重用（Cerulean Coast 嘅空虛係刻意設計但令人沮喪）
+>
+> **💰 軸 4：性價比（HK$ vs 體驗）**
+> - HK$ 320 換 70 個鐘 = 抵
+> - 比起同期 Star Wars Outlaws 嘅 HK$ 500 換 30 個鐘 = 抵好多
+> - 但要原作 = 對新玩家係門檻
+>
+> **我嘅總結判斷**：85/100。Messmer 同 Shadow Keep 關卡設計救返最終 boss + Scadutree 系統嘅阻力。我推薦，但保留：你需要 FromSoft 對學習曲線難度嘅容忍。
 
-呢個 dump 係 specific 到 individual element 嘅 strength + weakness——Claude 之後 organize 呢類 raw material 出嚟，**就係你 review 嘅 backbone**。
+呢個 dump 係具體到單個元素嘅強項 + 弱項——Claude 之後整理呢類原料出嚟，**就係你評論嘅骨架**。
 
 ### 2. 用呢個 prompt 出 Steam 短評版本
 
-<PromptBlock label="完整 prompt — Steam 短評 (under 300 字)">
-[paste 你上面嘅 4-axis dump]
+<PromptBlock label="完整 prompt — Steam 短評（300 字內）">
+[貼上你上面嘅 4 軸 dump]
 
-請幫我整 **Steam 短評** version（300 字 max，中英混合 HK player 寫法）：
+請幫我整 **Steam 短評** 版本（300 字最多，中英混合 HK 玩家寫法）：
 
-🎯 **Steam reader profile 想 know**
+🎯 **Steam 讀者想知**
 - 1 秒：值唔值得買？
-- 5 秒：你 play 咗幾耐 + 你 player profile？
-- 30 秒：top 2 strength + top 2 weakness（specifics, no fluff）
-- 結尾：specific reader recommend（「適合 X 唔適合 Y」）
+- 5 秒：你玩咗幾耐 + 你玩家定位？
+- 30 秒：top 2 強項 + top 2 弱項（具體，唔好廢話）
+- 結尾：具體推薦對象（「適合 X 唔適合 Y」）
 
-📐 **Structure**
+📐 **結構**
 
-**第 1 句：Hook + verdict**
-- 直接 verdict 唔 lead-up
-- 例：「70 hr 通關，唔該 FromSoft 救返我 base game 嘅 disappointment」
+**第 1 句：Hook + 結論**
+- 直接結論唔鋪墊
+- 例：「70 個鐘通關，唔該 FromSoft 救返我原作嘅失望」
 - 唔好：「This DLC was great」
 
-**第 2-3 句：Strength specifics**
-- 名一個 specific moment / mechanic / area
-- 唔講「good combat」— 講「Messmer fight 嘅 phase 2 hit-stagger window 係 series best」
+**第 2-3 句：強項具體**
+- 點名一個具體時刻 / 機制 / 區域
+- 唔講「good combat」— 講「Messmer 戰 phase 2 嘅 stagger window 係 series 史上最好」
 
-**第 4-5 句：Weakness specifics**
-- 同樣 specific
-- 唔講「some bosses unfair」— 講「Promised Consort Radahn 嘅 lock-on camera 喺 phase 2 strafe 失效，dodge timing 變猜謎」
+**第 4-5 句：弱項具體**
+- 一樣具體
+- 唔講「some bosses unfair」— 講「Promised Consort Radahn 嘅 lock-on 鏡頭喺 phase 2 strafe 失效，dodge 時機變猜謎」
 
-**第 6-7 句：Reader recommend**
-- 「如果你 [profile A]：買」/「如果你 [profile B]：考慮」/「如果你 [profile C]：唔好」
-- 具體 player profile，唔好抽象
+**第 6-7 句：讀者推薦**
+- 「如果你 [類型 A]：買」/「如果你 [類型 B]：考慮」/「如果你 [類型 C]：唔好」
+- 具體玩家定位，唔好抽象
 
 **結尾：Steam 推 / 唔推 + 1 句**
-- Bottom line：thumb up / down + 1 line conclusion
+- 結論：thumb up / down + 1 句結語
 
-📋 **Constraint**
-- Total 250-300 字
-- 廣東話 + 英文遊戲術語 混合（HK Steam 用戶 default 寫法）
-- 唔用「definitely」「robust」「offers」 — IGN-speak 即時 spotted
-- Emoji 0-2 個（Steam 中文短評 sparingly）
-- 唔 spoil ending / late-game reveal — 用 spoiler tag 如必要
+📋 **約束**
+- 總共 250-300 字
+- 廣東話 + 英文遊戲術語混合（HK Steam 用戶預設寫法）
+- 唔用「definitely」「robust」「offers」 — IGN-speak 即時穿煲
+- Emoji 0-2 個（Steam 中文短評適度）
+- 唔劇透結局 / 後期 reveal — 必要時用劇透標籤
 
 🚫 **絕對唔寫**
-- 「9/10」「8/10」嘅行貨 scoring（讀者唔關心你個 number, 關心你 reasoning）
-- Compare 同 vanilla 嘅 wall-of-text（簡單一句 OK）
-- Auto-attack「best game ever」/「worst FromSoft」 hyperbole
+- 「9/10」「8/10」嘅行貨評分（讀者唔關心你個數字，關心你嘅理由）
+- 同原作比較嘅長段落（簡單一句 OK）
+- 反射式「best game ever」/「worst FromSoft」誇張用語
 
-請列出 final draft + 標明每句對應 4-axis 邊個。
+請列出最終稿 + 標明每句對應 4 軸邊個。
 </PromptBlock>
 
-Claude 出嘅 Steam 短評，你 read 一次自己 final tweak（**注：唔好直接 paste — 加 1-2 個 sentence-level personal voice）。
+Claude 出嘅 Steam 短評，你讀一次自己最後微調（**注：唔好直接貼 — 加 1-2 個句子級嘅個人聲音**）。
 
 例如 Claude 出：
 
-> 「70 hr 通關，Messmer fight 一個 boss 救返 base game 嘅 disappointment ⋯⋯」
+> 「70 個鐘通關，Messmer 戰一個 boss 救返原作嘅失望 ⋯⋯」
 
-你 personal layer:
+你加個人層：
 
-> 「70 hr 通關，Messmer fight 一個 boss 救返 base game 嘅 disappointment。我打 30 try 嗰個 phase 2，到第 25 試突然 click — 嗰種 click 嘅 feeling 係 FromSoft series 一直賣嘅 core ⋯⋯」
+> 「70 個鐘通關，Messmer 戰一個 boss 救返原作嘅失望。我打 30 try 嗰個 phase 2，到第 25 試突然 click — 嗰種 click 嘅感覺係 FromSoft series 一直賣嘅核心 ⋯⋯」
 
-「嗰種 click 嘅 feeling」就係 AI 寫唔到嘅 personal moment。
+「嗰種 click 嘅感覺」就係 AI 寫唔到嘅個人時刻。
 
 ### 3. 用呢個 prompt 出 FB / Threads 長 post 版本
 
-<PromptBlock label="完整 prompt — FB / Threads 長 post (800 字)">
-[paste 你 4-axis dump]
+<PromptBlock label="完整 prompt — FB / Threads 長 post（800 字）">
+[貼上你 4 軸 dump]
 
-請出 **FB / Threads 長 post** version（700-900 字，HK player community share format）：
+請出 **FB / Threads 長 post** 版本（700-900 字，HK 玩家社群分享格式）：
 
-🎯 **FB post reader profile**
-- 朋友 + 你 follower 中嘅 game enthusiast
-- 大部分讀 30 秒，部分 deep reader 讀 5 分鐘
-- 互動期望：comment 互動高過 Steam 短評
-- 平台 norm：emoji + 段落分隔 + 個人 anecdote welcome
+🎯 **FB post 讀者**
+- 朋友 + 你 follower 中嘅遊戲愛好者
+- 大部分讀 30 秒，部分深度讀者讀 5 分鐘
+- 互動期望：留言互動高過 Steam 短評
+- 平台習慣：emoji + 段落分隔 + 個人小故事歡迎
 
-📐 **Structure**
+📐 **結構**
 
-**🎮 Hook 段（100 字）**
-- Open with 一個 vivid moment（「打到 Messmer phase 2 嘅 fire burst，我同時 dodge + 心臟跳到喉嚨」）
-- 唔好 spoil — moment 嘅 vivid 度，唔係事件 detail
-- 結尾自然轉去 review 主體（「70 hr 之後我嘅 thought：」）
+**🎮 開頭段（100 字）**
+- 用一個生動時刻開（「打到 Messmer phase 2 嘅 fire burst，我同時 dodge + 心臟跳到喉嚨」）
+- 唔好劇透 — 時刻嘅生動度，唔係事件細節
+- 結尾自然轉去評論主體（「70 個鐘之後我嘅諗法：」）
 
-**📊 Verdict + frame（100 字）**
-- 1 sentence verdict（specific score 可以省略）
-- Frame 你嘅 review angle（「我作為 FromSoft veteran」/「我作為 lapsed Souls fan returning」）
-- Frame 影響 weight reader 點 read 你後面 opinion
+**📊 結論 + 框架（100 字）**
+- 1 句結論（具體分數可以慳）
+- Frame 你嘅評論角度（「我作為 FromSoft 老手」/「我作為回歸嘅 Souls 迷」）
+- Frame 影響讀者點讀你後面意見嘅權重
 
-**💪 Strength deep dive（200-250 字）**
-- 揀 2-3 個 axis 嘅 specific point
-- 每點：一個 concrete moment / example + 你 felt 點解 strong
-- 用 「Messmer phase 2 嘅 stagger window 係 series best」 vs 「combat is great」
+**💪 強項深入（200-250 字）**
+- 揀 2-3 個軸嘅具體點
+- 每點：一個具體時刻 / 例子 + 你覺得點解強
+- 用「Messmer phase 2 嘅 stagger window 係 series 史上最好」 vs「combat is great」
 
-**⚠️ Weakness deep dive（200-250 字）**
-- 同樣 specific
-- 唔 over-criticize（FB community sensitive to negative content）
-- Frame as「我 wish」/「if I could change one thing」
+**⚠️ 弱項深入（200-250 字）**
+- 一樣具體
+- 唔好過度批評（FB 社群對負面內容敏感）
+- Frame 做「我希望」/「if I could change one thing」
 
-**🎯 Recommend（100 字）**
-- 三個 reader profile：適合 / 中間 / 唔適合
-- 短句快 pace
+**🎯 推薦（100 字）**
+- 三個讀者類型：適合 / 中間 / 唔適合
+- 短句快節奏
 
-**結尾 hook（50 字）**
-- 一個 open question invite comment（「你哋打到 Promised Consort 點 build？」）
-- 唔強迫 comment — 真心 want know
+**結尾鈎（50 字）**
+- 一個開放問題邀請留言（「你哋打到 Promised Consort 點 build？」）
+- 唔強迫留言 — 真心想知
 
-📋 **HK FB style constraint**
-- 廣東話 voice 多啲
+📋 **HK FB 風格約束**
+- 廣東話聲音多啲
 - Emoji 4-8 個（FB 比 Steam 多）
-- 段落分隔（每 100 字一個 line break，FB reader skim friendly）
-- 中英 game name 混（FB 港人習慣）
-- 唔 hashtag overload — 2-3 個 specific（#EldenRing #FromSoftware）
+- 段落分隔（每 100 字一個換行，FB 讀者滑友善）
+- 中英遊戲名混（FB 港人習慣）
+- 唔好 hashtag 過載 — 2-3 個具體（#EldenRing #FromSoftware）
 
 🚫 **絕對唔寫**
-- Generic「值得買」結論 + emoji parade（lazy post pattern）
-- 「我又通關 X 喇～」 humble brag 開頭（讀者 cringe）
-- 自吹「30 hr clear no death」未必相關 unless ties to verdict
-- Spoiler without warning
+- 行貨「值得買」結論 + emoji 巡遊（懶 post 模式）
+- 「我又通關 X 喇～」自誇開頭（讀者肉麻）
+- 自吹「30 hr clear no death」未必相關（除非連到結論）
+- 冇警告嘅劇透
 
-最後加 **「適合 cross-post HK FB group」suggestion**：
+最後加 **「適合跨 post 嘅 HK FB group」建議**：
 - 香港遊戲玩家 group
 - FromSoftware 香港 fan group
-- 個人 friend list（personal anecdote 多啲）
+- 個人朋友清單（個人小故事多啲）
 </PromptBlock>
 
-### 4. 用呢個 prompt 出 巴哈 / 知乎 / Medium 深度文版本
+### 4. 用呢個 prompt 出巴哈 / 知乎 / Medium 深度文版本
 
-<PromptBlock label="完整 prompt — 巴哈 / Medium 深度文 (2000+ 字)">
-[paste 你 4-axis dump]
+<PromptBlock label="完整 prompt — 巴哈 / Medium 深度文（2000+ 字）">
+[貼上你 4 軸 dump]
 
-請出 **深度文 review** version（2000-3000 字，巴哈姆特 / 知乎 / Medium / personal blog format）：
+請出 **深度文評論** 版本（2000-3000 字，巴哈姆特 / 知乎 / Medium / 個人 blog 格式）：
 
-🎯 **深度文 reader profile**
-- Game enthusiast 主動 search「Elden Ring DLC review」
-- 願 spend 10-15 分鐘 read
-- Expect：specific analysis + cultural context + writer's voice
-- Compare against：IGN written review、Polygon、Rock Paper Shotgun
+🎯 **深度文讀者**
+- 遊戲愛好者主動搜尋「Elden Ring DLC review」
+- 願意花 10-15 分鐘讀
+- 期望：具體分析 + 文化背景 + 作者聲音
+- 比較對象：IGN 文字評論、Polygon、Rock Paper Shotgun
 
-📐 **Structure**
+📐 **結構**
 
-**📜 第 1 部分：Frame + verdict（300 字）**
-- 你個 review angle 嘅 manifest（「呢個唔係行貨 review，係 FromSoft veteran 嘅 perspective」）
-- 你嘅 review philosophy（「我唔信 numeric score。但如果要 1 個 word: …」）
-- Spoiler policy（「以下會 light spoiler 機制 + 區域，唔 spoil narrative reveal」）
+**📜 第 1 部分：框架 + 結論（300 字）**
+- 你嘅評論角度宣言（「呢個唔係行貨評論，係 FromSoft 老手嘅角度」）
+- 你嘅評論哲學（「我唔信數字評分。但如果要 1 個字：…」）
+- 劇透政策（「以下會輕劇透機制 + 區域，唔劇透敘事 reveal」）
 
-**🎮 第 2 部分：Mechanics deep analysis（500-700 字）**
-- 不單 list mechanic，分析 design intent
-- Scadutree Fragment system：why FromSoft introduce it? what problem does it solve? where it fails?
-- Boss design philosophy: difficulty curve evolution series-wide context
-- Compare to: vanilla Elden Ring + Sekiro + DS3 同 mechanic 嘅 evolution
+**🎮 第 2 部分：機制深度分析（500-700 字）**
+- 唔淨係列機制，分析設計意圖
+- Scadutree Fragment 系統：點解 FromSoft 引入？解決咩問題？喺邊度失敗？
+- Boss 設計哲學：難度曲線喺 series-wide 嘅演化
+- 比較：原作 Elden Ring + Sekiro + DS3 同機制嘅演化
 
-**📖 第 3 部分：Narrative + lore reading（500-700 字）**
-- Item description 嘅 storytelling craft - 為何 FromSoft 嘅 narrative tool 如此 unique
-- Miquella 嘅 character arc - 你嘅 reading（多 interpretation possible — 你嘅 是 你嘅）
-- DLC 對 vanilla 嘅 retroactive impact - 重 frame 咗 vanilla 嘅 哪些 character?
+**📖 第 3 部分：敘事 + 世界觀解讀（500-700 字）**
+- 道具描述嘅敘事工藝 — 點解 FromSoft 嘅敘事工具如此獨特
+- Miquella 嘅角色弧 — 你嘅解讀（多解釋可能 — 你嘅就係你嘅）
+- DLC 對原作嘅追溯影響 — 重新 frame 咗原作嘅哪些角色？
 
-**🎨 第 4 部分：Vibe + design language（300-500 字）**
-- Shadow Keep level design 嘅 architectural reading
-- Color palette shift 嘅 thematic意 義
-- Soundtrack composition analysis（如你有音樂 background）
-- 你 felt 嘅 moment — vivid prose 寫低（review 唯一 place 你可以 indulge a bit）
+**🎨 第 4 部分：氣氛 + 設計語言（300-500 字）**
+- Shadow Keep 關卡設計嘅建築解讀
+- 色調轉變嘅主題意義
+- 配樂作曲分析（如你有音樂背景）
+- 你感受嘅時刻 — 用生動文字寫低（評論唯一一個地方你可以放縱少少）
 
-**💰 第 5 部分：Value + market context（200-300 字）**
-- HK$ 320 喺 2026 game market 嘅 position
-- DLC pricing trend industry-wide
-- 你 recommend 點 framing（「if you've played vanilla and bounced, this DLC's not the comeback. If you finished vanilla wanting more, this is exactly the more」）
+**💰 第 5 部分：性價比 + 市場背景（200-300 字）**
+- HK$ 320 喺 2026 遊戲市場嘅定位
+- DLC 定價趨勢業界整體
+- 你推薦點 frame（「if you've played vanilla and bounced, this DLC's not the comeback. If you finished vanilla wanting more, this is exactly the more」）
 
-**🎯 第 6 部分：Conclusion + reader recommend（200 字）**
-- 三個 reader profile recommend
-- 你最終 verdict（specific framing — 唔係 9/10，係 「if I could 重玩 series chronologically, this DLC's place would be...」）
-- Final paragraph: a moment, an image, a feeling that lingers post-credits
+**🎯 第 6 部分：結論 + 讀者推薦（200 字）**
+- 三個讀者類型推薦
+- 你最終判斷（具體 framing — 唔係 9/10，係「if I could 重玩 series chronologically, this DLC's place would be...」）
+- 最後段落：一個時刻、一個畫面、一個結局後仍然縈繞嘅感覺
 
-📋 **深度文 style**
-- Paragraph 長 OK（300-500 字 paragraph normal）
-- 中英文 混合 high-context（assume reader 識遊戲）
-- 引用其他 review / 開發者 interview / 設計 history 加 depth
-- 1-2 個 personal anecdote 入文（你 30 試 phase 2 嘅 moment）
-- Voice：authentic + 自信 — 你係 70 hr veteran，你 own your take
+📋 **深度文風格**
+- 段落長 OK（300-500 字段落正常）
+- 中英文混合高背景（假設讀者識遊戲）
+- 引用其他評論 / 開發者訪問 / 設計歷史加深度
+- 1-2 個個人小故事入文（你 30 試 phase 2 嘅時刻）
+- 聲音：真實 + 自信 — 你係 70 個鐘老手，你 own your take
 
 🚫 **絕對唔寫**
-- IGN 風格「This DLC delivers an experience that ⋯⋯」passive boring opener
-- 同其他 reviewer 「我覺得 vs 佢覺得」鬥嘴
-- 過度 hedging（「Some might say ⋯⋯」每 paragraph 就 hedge = 怯懦）
-- 無 verdict 嘅「balanced takes both sides」hands-off review
-- Plot summary chapter by chapter （reader 已玩咗）
+- IGN 風格「This DLC delivers an experience that ⋯⋯」被動沉悶開頭
+- 同其他評論者「我覺得 vs 佢覺得」鬥嘴
+- 過度模稜兩可（「Some might say ⋯⋯」每段都 hedge = 怯懦）
+- 冇結論嘅「balanced takes both sides」hands-off 評論
+- 逐章劇情總結（讀者已玩咗）
 
-🎁 **Bonus elements**
-- Section break：用 game 入面 quote / item description as section divider
-- Pull quote：highlight 你最 strong 嘅一句
-- Tags：具體而唔係行貨（「FromSoftware」OK，「video game review」 唔需要）
-- Linked further reading：if you reference 其他 review / article
+🎁 **Bonus 元素**
+- 分段：用遊戲入面 quote / 道具描述做分段
+- 重點 quote：highlight 你最強嘅一句
+- Tags：具體而唔係行貨（「FromSoftware」OK，「video game review」唔需要）
+- 連結延伸閱讀：if you reference 其他評論 / 文章
 
-語氣：confident, specific, voice-y。深度文係你 stake claim — 唔係 hedge your bets。
+語氣：自信、具體、有聲音。深度文係你 stake claim — 唔係 hedge your bets。
 </PromptBlock>
 
-3 個 version 完成。**每個 version 對應唔同平台 + 唔同 reader profile**。
+3 個版本完成。**每個版本對應唔同平台 + 唔同讀者類型**。
 
-⏰ 寫完之後 sit 1 日 再 read。第 2 日 fresh eye spot 邊度仲 AI-voice 邊度真係你 voice。
+⏰ 寫完之後放一日再讀。第 2 日新鮮眼睛 spot 邊度仲係 AI 口吻、邊度真係你聲音。
 
-## 變化
+## 變化例子
 
-### 變化 1：Indie 細 game review（25 hr 通關，個人作品 vibe）
+### 變化 1：Indie 細遊戲評論（25 個鐘通關，個人作品氣氛）
 
-Indie game review 嘅 dynamics 完全唔同：
+Indie 遊戲評論嘅動態完全唔同：
 
-<PromptBlock label="變化 1 — Indie 細 game review">
-我啱啱通關一個 indie 細 game（[name + 開發者 + budget / team size if known]）。25 hr 通關。
+<PromptBlock label="變化 1 — Indie 細遊戲評論">
+我啱啱通關一個 indie 細遊戲（[名 + 開發者 + budget / team size if known]）。25 個鐘通關。
 
-請幫我寫 review，**indie-specific framing**：
+請幫我寫評論，**indie 專屬框架**：
 
-🎯 **Indie review 唔同 AAA review 點**
+🎯 **Indie 評論唔同 AAA 評論嘅地方**
 - AAA 評：performance / production polish / value-for-money
-- Indie 評：vision execution / craft over polish / 1 個 idea explored deeply
-- 你 critique standard 應該 adjust：indie 一個 polish bug ≠ AAA 同個 bug 嘅 weight
+- Indie 評：vision 執行 / 工藝過拋光 / 1 個 idea 深入探索
+- 你批評標準應該調整：indie 一個拋光 bug ≠ AAA 同個 bug 嘅 weight
 
-📐 **Indie review structure**
+📐 **Indie 評論結構**
 
-**第 1 段 — 個 creator's heart**
-- 呢個 game 嘅 creator 想 explore 咩 idea? You read it as: ⋯
-- Indie game 嘅 magic 嚟自 designer single vision，唔係 committee consensus
+**第 1 段 — 創作者嘅心**
+- 呢個遊戲嘅創作者想探索咩 idea？You read it as：⋯
+- Indie 遊戲嘅 magic 嚟自設計師單一 vision，唔係 committee consensus
 
-**第 2 段 — Mechanics serve idea**
-- 唔 evaluate mechanic in vacuum
-- Evaluate: do the mechanic serve the central idea?
-- 例：narrative-focused walking sim 嘅「combat 缺乏」唔係 weakness, 係 by design
+**第 2 段 — 機制服務 idea**
+- 唔好喺真空評機制
+- 評估：機制有冇服務中心 idea？
+- 例：敘事為主嘅 walking sim 嘅「缺乏戰鬥」唔係弱項，係 by design
 
-**第 3 段 — Polish trade-off**
-- Indie 通常 polish 唔到 AAA level
+**第 3 段 — 拋光取捨**
+- Indie 通常拋光去唔到 AAA level
 - 你 forgive 邊啲 / 唔 forgive 邊啲？
-- 解釋你 standard，唔 ambush reader
+- 解釋你標準，唔好突襲讀者
 
-**第 4 段 — Discovery value**
-- Indie review 嘅 service 喺：introducing reader to a game they wouldn't find
+**第 4 段 — 發現價值**
+- Indie 評論嘅服務在於：introducing reader to a game they wouldn't find
 - 強調：why this matters in current gaming landscape
-- 連 reader 去更 widely 嘅 indie ecosystem reference
+- 連讀者去更廣闊嘅 indie 生態 reference
 
-**第 5 段 — Support creator angle**
-- 唔 corporate 嘅 indie 開發者 = your buy 直接 support 個人 / 小 team
-- 提供 buy link（itch.io / Steam / Bandcamp 部分 indie OST）
-- 提供 creator 嘅 social / next project info if know
+**第 5 段 — 支持創作者角度**
+- 唔係 corporate 嘅 indie 開發者 = your buy 直接支持個人 / 細 team
+- 提供購買連結（itch.io / Steam / Bandcamp 部分 indie OST）
+- 提供創作者嘅社交 / 下個 project info if know
 
-📋 **Length**
-- Steam 短評：200-300 字（focus on idea + craft）
+📋 **長度**
+- Steam 短評：200-300 字（focus on idea + 工藝）
 - FB / blog post：500-800 字
-- 深度文 less common — except 你有 strong angle 例 indie 啟發 industry 嘅 thesis
+- 深度文較少見 — 除非你有強角度，例 indie 啟發業界嘅論點
 
-語氣：generous but honest。Indie deserve real critique 唔係 charity review。
+語氣：慷慨但老實。Indie 應得真實批評，唔係慈善評論。
 </PromptBlock>
 
-### 變化 2：Live-service / 抽卡 game review（不可 finish，點寫?）
+### 變化 2：Live-service / 抽卡遊戲評論（無法 finish，點寫？）
 
-Live-service game 冇「通關」moment：
+Live-service 遊戲冇「通關」時刻：
 
-<PromptBlock label="變化 2 — Live-service / 抽卡 game review">
-我玩 [game — Genshin / HSR / Wuthering Waves / 持續更新 RPG] [X 個月 / Y hr]。請幫我 review 一個 ongoing game。
+<PromptBlock label="變化 2 — Live-service / 抽卡遊戲評論">
+我玩 [game — Genshin / HSR / Wuthering Waves / 持續更新 RPG] [X 個月 / Y 個鐘]。請幫我評論一個 ongoing 遊戲。
 
-📐 **Live-service review 嘅 unique challenge**
-- 冇 「通關 verdict」moment
-- Game state 改變 — 你 6 個月前 review 唔再 apply
-- 評 monetization 比 mechanic 更 critical 嘅 trade-off
+📐 **Live-service 評論嘅獨特挑戰**
+- 冇「通關結論」時刻
+- 遊戲狀態改變 — 你 6 個月前評論唔再啱
+- 評 monetization 比機制更關鍵嘅取捨
 
-📐 **Structure**
+📐 **結構**
 
-**🕐 第 1 段 — Time anchor + version**
+**🕐 第 1 段 — 時間錨點 + 版本**
 - 「Review at version X.X, after Y month / Z hour playtime」
-- Acknowledge：game evolves，呢個 review 係 snapshot
+- 承認：遊戲會演化，呢個評論係 snapshot
 
-**🎮 第 2 段 — Core loop quality**
-- 你每日 / 每週 play 嘅 actual moment-to-moment loop
-- Fun? Grindy? Skinner box?
-- 你 self-aware：你 retain 因為 enjoyment 定 sunk cost / FOMO?
+**🎮 第 2 段 — 核心循環質素**
+- 你每日 / 每週玩嘅實際 moment-to-moment 循環
+- Fun？Grindy？Skinner box？
+- 你自覺：你留低因為 enjoyment 定 sunk cost / FOMO？
 
-**💰 第 3 段 — Monetization honesty**
-- F2P viable 嗎？specific stat:「我 5 個月 free spent，roster X 個 5-star」
+**💰 第 3 段 — Monetization 老實**
+- F2P 可行嗎？具體數據：「我 5 個月免費玩，roster X 個 5-star」
 - P2W vs cosmetic-only — your actual experience
-- Pity / gacha rate transparent or shady？
-- 你 personal spent + 你 推薦 reader spend threshold
+- 保底 / gacha rate 透明定 shady？
+- 你個人花費 + 你推薦讀者花費門檻
 
-**📜 第 4 段 — Long-term content quality trend**
-- Patch 過去 6 個月嘅 trajectory
-- 開發者 transparency / community communication record
-- 同 patch X.X 比，game 而家 better or worse?
+**📜 第 4 段 — 長期內容質素趨勢**
+- 過去 6 個月嘅更新軌跡
+- 開發者透明度 / 社群溝通紀錄
+- 同更新 X.X 比，遊戲而家好 or 差？
 
-**🚪 第 5 段 — Reader recommendation**
-- F2P player: should join 而家?
-- Returning player: anything new worth?
-- New player: 入門 friction 點?
-- $ spender: budget reasonable expectation?
+**🚪 第 5 段 — 讀者推薦**
+- F2P 玩家：應該而家加入？
+- 回歸玩家：有冇新嘢值得？
+- 新玩家：入門阻力點？
+- $ 花錢者：合理預算期望？
 
-**⚠️ Disclaimers**
-- 「我 review 嘅唔係 1 年後嘅遊戲」
-- 「Monetization 可能 patch by patch 改」
+**⚠️ 免責聲明**
+- 「我評嘅唔係 1 年後嘅遊戲」
+- 「Monetization 可能更新就改」
 - Link to current /r/[game] thread for updated community sentiment
 
-🚫 **Live-service review 常犯錯**
-- Frozen-time 評（review based on 6 個月前 state）
-- 抽卡 luck 影響 review judgment（你 lucky/unlucky 唔代表 average player experience）
-- 純 hate post（「P2W 唔好玩」 — okay 但 too tribal）
-- 純 fan post（避開 monetization critique）
+🚫 **Live-service 評論常犯錯**
+- 凝固時間評（評論基於 6 個月前狀態）
+- 抽卡運氣影響評論判斷（你 lucky/unlucky 唔代表平均玩家體驗）
+- 純 hate post（「P2W 唔好玩」 — okay 但太部落主義）
+- 純 fan post（避開 monetization 批評）
 
-語氣：current snapshot + transparent about your bias。
+語氣：當前 snapshot + 對你嘅偏見透明。
 </PromptBlock>
 
-### 變化 3：IP-tied game review（你係 IP fan，識唔識 separate game quality）
+### 變化 3：IP 連動遊戲評論（你係 IP fan，識唔識分離遊戲質素）
 
-當你係 fan 入面再 review:
+當你係 fan 入面再評論：
 
-<PromptBlock label="變化 3 — IP-tied game review (fan disclosure)">
-我啱啱玩 [game tied to IP I love - 例 Star Wars Outlaws / Dragon Ball Sparking Zero / Harry Potter Hogwarts Legacy]。我係呢個 IP 嘅 long-time fan。
+<PromptBlock label="變化 3 — IP 連動遊戲評論（fan 披露）">
+我啱啱玩 [game tied to IP I love - 例 Star Wars Outlaws / Dragon Ball Sparking Zero / Harry Potter Hogwarts Legacy]。我係呢個 IP 嘅長期 fan。
 
-請幫我寫 review，**fan-disclosure framing**：
+請幫我寫評論，**fan 披露框架**：
 
-🎯 **IP fan reviewer 嘅 unique problem**
-- 你 already invested in IP → bias toward forgive game weakness
-- 你 already invested in IP → also harder to disappoint（faithful to source = automatic plus 點處理?）
-- Reader 唔知你 calibrate 標準 — 你需 disclose
+🎯 **IP fan 評論者嘅獨特問題**
+- 你已經投入 IP → 偏向原諒遊戲弱點
+- 你已經投入 IP → 亦更易失望（忠於原作 = 自動加分點處理？）
+- 讀者唔知你標準點校準 — 你要披露
 
-📐 **Structure**
+📐 **結構**
 
-**第 1 段 — Fan disclosure**
-- Open with「Disclosure: I'm [IP] fan since [year/event]. Read this with that in mind」
-- 你嘅 relationship 同 IP（casual / hardcore / paid into all media tie-in）
+**第 1 段 — Fan 披露**
+- 用「Disclosure: I'm [IP] fan since [year/event]. Read this with that in mind」開頭
+- 你同 IP 嘅關係（休閒 / 硬核 / 全部聯動媒體都付錢）
 
-**第 2 段 — IP faithfulness**
-- 對 source material 嘅 character / world / tone accuracy
-- 喺 game 入面有冇 capture 個 magic feeling fan 揾緊？
-- Specific moment: 一個 fan-only catch 嘅 reference / Easter egg / characterization
+**第 2 段 — IP 忠誠度**
+- 對原作嘅角色 / 世界 / 語氣準確度
+- 喺遊戲入面有冇捕捉到 fan 揾緊嗰種 magic feeling？
+- 具體時刻：一個 fan-only catch 嘅 reference / Easter egg / 角色塑造
 
-**第 3 段 — As-a-game evaluation**
-- Pretend IP doesn't exist — game 本身 mechanic / writing / pacing 點?
-- Tricky 但 critical exercise
-- 如果有人從未接觸過 IP，呢個 game 仲 worth 玩？
+**第 3 段 — 純遊戲評估**
+- 假設 IP 不存在 — 遊戲本身機制 / 文字 / 節奏點？
+- 棘手但關鍵練習
+- 如果有人從未接觸過 IP，呢個遊戲仲值得玩？
 
-**第 4 段 — IP vs game tension**
-- 有冇 moment 你 IP fan brain disagree with game design choice?
-- 開發者 license restrict 邊啲 freedom?
-- Game design 邊 area 為咗 broad audience 而 thin source material?
+**第 4 段 — IP vs 遊戲張力**
+- 有冇時刻你 IP fan 腦袋唔同意遊戲設計選擇？
+- 開發者授權限制邊啲自由？
+- 遊戲設計邊個範圍為咗廣大觀眾而削薄原作？
 
-**第 5 段 — Recommend specifics**
+**第 5 段 — 推薦具體**
 - For IP fan：buy / 條件 buy / 唔好
 - For non-fan：buy / 條件 buy / 唔好
-- 兩個 audience 答案可能完全唔同
+- 兩個受眾答案可能完全唔同
 
-⚠️ **Trap fan reviewer 常踩**
-- Auto-defend game weakness because of IP love（「OK la 因為佢哋 capture 個 tone」）
-- Auto-attack game because purist (「呢 part 偏離原作所以一切都唔得」)
-- 假裝 neutral 而 hide your fan identity（reader 5 段後 sense 到 → trust 崩）
+⚠️ **Fan 評論者常踩陷阱**
+- 自動辯護遊戲弱點因為 IP 愛（「OK la 因為佢哋捕捉到個 tone」）
+- 自動攻擊遊戲因為原作派（「呢 part 偏離原作所以一切都唔得」）
+- 假裝中立而隱藏你 fan 身份（讀者 5 段後感覺到 → 信任崩）
 
-✅ **Honest fan review**
-- 「呢個 game 對 fan 7/10，對 non-fan 5/10」型 framing
-- Specific moment review 而唔好行貨「captures spirit」
-- Acknowledge 你嘅 emotional discount on IP
+✅ **老實 fan 評論**
+- 「呢個遊戲對 fan 7/10，對 non-fan 5/10」型 framing
+- 具體時刻評論而唔好行貨「captures spirit」
+- 承認你對 IP 嘅情感折扣
 
-語氣：transparent over neutral。
+語氣：透明過中立。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-70 hr 通關一個 game，你嘅 brain 入面有極豐富 specific moment：
+70 個鐘通關一個遊戲，你嘅腦袋入面有極豐富具體時刻：
 
-- Messmer phase 2 第 25 try 嗰個 dodge timing click 嘅 instant
-- Shadow Keep elevator hidden room 嘅 「點解我冇 immediate 揾到」之後 sigh
-- 結局 cutscene 嗰個 Miquella reveal moment 你 paused 10 秒 process
+- Messmer phase 2 第 25 試嗰個 dodge timing click 嘅瞬間
+- Shadow Keep 升降機隱藏房間嘅「點解我冇即時揾到」之後嘅 sigh
+- 結局過場嗰個 Miquella reveal 時刻你 paused 10 秒消化
 
-呢類 specific moment **就係你 review 嘅 raw material**。但 default writing 模式 throw 你去行貨 vocabulary：「good combat」「great atmosphere」「definitely worth it」。
+呢類具體時刻**就係你評論嘅原料**。但預設寫作模式 throw 你去行貨字眼：「good combat」「great atmosphere」「definitely worth it」。
 
-呢個 mindset 嘅 reframe：**寫 review 嘅 craft，就係 *拒絕* default vocabulary 而 specifically 描述你 actual experienced moment 嘅 skill**。
+呢個思維嘅轉變：**寫評論嘅工藝，就係 *拒絕* 預設字眼而具體描述你實際經歷時刻嘅技巧**。
 
-Claude 嘅 role 喺呢度：4-axis framework 強迫你 dump specifically，而唔係 default mode 行貨 writing。Claude 幫你 organize 嘅嘢，係**你已經有但 articulate 唔到嘅 specific opinion**。
+Claude 嘅角色喺呢度：4 軸框架強迫你具體寫晒，而唔係預設模式嘅行貨寫法。Claude 幫你整理嘅嘢，係**你已經有但講唔出嘅具體意見**。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **你寫嘅 review，目標 reader 唔係 IGN editor。係另一個未買 game 嘅 player**。佢哋 want specifics, not 9/10。
-- ⚠️ **Read 完 Claude 出嘅 draft，加 1-2 個 sentence 嘅 personal moment** — 嗰個 30 try click 嘅 instant、嗰個 elevator hidden room 嘅 sigh。Personal moment 係 AI 寫唔到 嘅 signature。
-- 🎯 **唔好 ghost post**。Steam 評論回 comment 24 hr 內、FB post 互動 follow-up — 你 reader 留 comment 想 dialogue，唔係 single broadcast。
+- ✅ **你寫嘅評論，目標讀者唔係 IGN 編輯。係另一個未買遊戲嘅玩家**。佢哋想要具體嘢，唔係 9/10。
+- ⚠️ **讀完 Claude 出嘅初稿，加 1-2 個句子嘅個人時刻** — 嗰個 30 試 click 嘅瞬間、嗰個升降機隱藏房間嘅 sigh。個人時刻係 AI 寫唔到嘅簽名。
+- 🎯 **唔好 post 完失蹤**。Steam 評論回 comment 24 小時內、FB post 互動跟進 — 你嘅讀者留 comment 想對話，唔係單向廣播。
 
-70 hr 嘅 experience，值得 200 字 嘅 specific articulation，唔係 50 字嘅行貨 praise。
+70 個鐘嘅體驗，值得 200 字嘅具體表達，唔係 50 字嘅行貨讚美。
