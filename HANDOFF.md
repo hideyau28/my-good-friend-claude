@@ -1,6 +1,6 @@
 # 📋 SESSION HANDOFF — my-good-friend-claude
 
-_Last session ended: 2026-05-25, voice retone batch session — 27/45 done via direct Claude retone (no Gemini)_
+_Last session ended: 2026-05-26, voice retone batch session — 34/45 done via direct Claude retone_
 
 ## 🌐 Live URLs
 
@@ -12,7 +12,7 @@ _Last session ended: 2026-05-25, voice retone batch session — 27/45 done via d
 
 ## 📊 Current state (top of main)
 
-- Top commit: `33144c8` content(voice): retone #069 chronic-condition-management-claude (0.70 → 0.05)
+- Top commit: `df4f4ce` content(voice): retone #076 monthly-budget-hk-claude (0.80 → 0.10)
 - **84 articles** (chat 61 / cowork 11 / code 12) — 42 featured
 - **12 sections** — 財經 · 職場 · 商家 · 親子 · 寵物 · 生活 · 健康 · 旅遊 · 文化 · 科技 · 遊戲 · 其他
 - Highest issue: **088** / Next issue: **089**
@@ -20,7 +20,7 @@ _Last session ended: 2026-05-25, voice retone batch session — 27/45 done via d
 
 ## ⚠️ Voice retone IN PROGRESS (resume here)
 
-**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。**呢個 session 完成 27 篇 (#031-#069)，剩 18 篇要做**。
+**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。**累計完成 34 篇，剩 11 篇要做（全部係 #079-#088 嘅 code 教學）**。
 
 ### Workflow（直接 Claude retone — 取代咗 Gemini 協作）
 
@@ -92,18 +92,20 @@ OUTPUT：純 MDX，由 `---` 開始到文末。<PromptBlock> tag 保留。Code b
 ✅ #067 home-exercise-plan-hk-claude          (0.71 → 0.10) commit 01b1923
 ✅ #068 sleep-insomnia-tracker-claude         (0.73 → 0.05) commit b30e38b
 ✅ #069 chronic-condition-management-claude   (0.70 → 0.05) commit 33144c8
+✅ #070 dse-prep-mental-claude                (0.65 → 0.08) commit aa69971
+✅ #071 summer-camp-application-letter-claude (0.79 → 0.08) commit c0aa107
+✅ #072 primary-school-makeup-request-claude  (0.76 → 0.07) commit 5d251c5
+✅ #073 sibling-conflict-mediation-claude     (0.75 → 0.05) commit 18a22b2
+✅ #074 mpf-review-claude                     (0.81 → 0.13) commit d324139
+✅ #075 emergency-fund-claude                 (0.76 → 0.12) commit 6b715f3
+✅ #076 monthly-budget-hk-claude              (0.80 → 0.10) commit df4f4ce
 ```
 
-### 剩低嘅 18 篇（issue order）— 下個 session 由 #070 開始
+### 剩低嘅 11 篇（issue order）— 下個 session 由 #079 開始
+
+全部係 code 教學，ratio 較低（0.37-0.65），但 code literal 多要留意。
 
 ```
-#070 0.65 dse-prep-mental-claude
-#071 0.79 summer-camp-application-letter-claude
-#072 0.76 primary-school-makeup-request-claude
-#073 0.75 sibling-conflict-mediation-claude
-#074 0.81 mpf-review-claude
-#075 0.76 emergency-fund-claude
-#076 0.80 monthly-budget-hk-claude
 #079 0.37 claude-skills-build-claude
 #080 0.46 claude-google-sheets-integration-claude
 #081 0.47 claude-artifacts-deep-dive-claude
