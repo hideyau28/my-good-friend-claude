@@ -1,5 +1,5 @@
 ---
-title: "第一次申請 Schengen / 美國 ESTA / 日本 eVisa：用 Claude 30 分鐘 prep checklist"
+title: "第一次申請 Schengen / 美國 ESTA / 日本 eVisa：用 Claude 30 分鐘準備清單"
 slug: "visa-application-claude"
 issue: 62
 publishedAt: 2026-05-23
@@ -10,8 +10,8 @@ subcategory: "簽證申請"
 heroImage: "/hero/visa-application-claude.webp"
 difficulty: 2
 timeMinutes: 30
-toolsNeeded: ["Claude Chat", "HKSAR passport scan", "trip itinerary + 酒店 booking confirmation"]
-description: "你 first time 申請 Schengen visa / 美國 ESTA / 日本 eVisa。官網 25 頁 PDF 你睇到一半放棄。用 Claude 30 分鐘整 personalized prep checklist + 文件清單 + 常見 reject 原因 + 預約 timing。HK 護照 持有人版本。"
+toolsNeeded: ["Claude Chat", "HKSAR 護照掃描", "行程 + 酒店預訂確認"]
+description: "你第一次申請 Schengen 簽證 / 美國 ESTA / 日本 eVisa。官網 25 頁 PDF 你睇到一半放棄。用 Claude 30 分鐘整個人化準備清單 + 文件清單 + 常見拒簽原因 + 預約時機。HK 護照持有人版本。"
 keywords: ["Schengen 簽證 香港", "美國 ESTA 申請", "日本 eVisa", "HKSAR 簽證 申請", "visa application HK", "旅遊簽證"]
 related: ["family-trip-itinerary-claude", "packing-list-claude", "tax-refund-claude"]
 featured: true
@@ -19,542 +19,542 @@ featured: true
 
 ## 情境
 
-你 6 月 plan 同朋友去歐洲 trip 3 個禮拜——意大利 + 法國 + 西班牙。
+你 6 月計劃同朋友去歐洲 3 個禮拜——意大利 + 法國 + 西班牙。
 
-10 月 trip。9 月 mid 你諗：「Schengen 簽證早啲搞」。
+10 月出發。9 月中你諗：「Schengen 簽證早啲搞」。
 
-你 Google「Schengen visa Hong Kong」，揾到法國領事館嘅 official website。連入去：
+你 Google「Schengen visa Hong Kong」，揾到法國領事館嘅官方網。連入去：
 
-- 25 頁 PDF guideline（only English / French）
-- 8 條 prerequisite list
-- 4 種 application form
-- VFS Global outsourcing centre 喺尖沙咀（要 book appointment）
+- 25 頁 PDF 指引（只係英文 / 法文）
+- 8 條前置條件清單
+- 4 種申請表
+- VFS Global 外判中心喺尖沙咀（要預約）
 - 「Bank statement past 3 months」 + 「proof of accommodation」 + 「return ticket」 + ⋯⋯
 
-你 read 到第 5 頁 lost。Bank statement 要 stamp 嗎？Return ticket 要 confirmed 定 reservation OK？Travel insurance minimum coverage 幾錢？應該 apply 法國 or 西班牙 領事館？
+你讀到第 5 頁 lost。銀行月結單要 stamp 嗎？回程機票要 confirmed 定 reservation OK？旅遊保險最低保額幾錢？應該 apply 法國定西班牙領事館？
 
-你 close tab，諗「下星期再搞」。
+你閂 tab，諗「下星期再搞」。
 
-下星期變兩星期。10 月 trip 變 panic — Schengen 處理時間 typically 15 working days，部分 case 30+ 日，9 月 mid 已經 cutting it close。
+下星期變兩星期。10 月出發變 panic — Schengen 處理時間通常 15 個工作日，部分個案 30+ 日，9 月中已經 cutting it close。
 
-呢個 visa application paralysis 嘅 root cause:
+呢個簽證申請癱瘓嘅根本原因：
 
-- **Official 文件結構 made for 律師讀**（25 頁 PDF + cross-reference each section）
-- **HK 申請人 specific need 唔 highlight**（HKSAR 護照同 BNO 嘅 process 唔同，但官網 default 寫行貨）
-- **HK 申請場景 hidden cost** 唔講（VFS appointment 你以為 free 但 service fee HK$300+）
-- **Reject reason 唔透明**（你 submit 你以為 done，2 週後拒簽你 don't 知 why）
+- **官方文件結構係畀律師讀**（25 頁 PDF + 每節交叉參照）
+- **HK 申請人專屬需要冇 highlight**（HKSAR 護照同 BNO 嘅流程唔同，但官網預設寫行貨）
+- **HK 申請場景隱藏成本**冇講（VFS 預約你以為免費但服務費 HK$300+）
+- **拒簽原因唔透明**（你 submit 你以為搞掂，2 週後拒簽你唔知點解）
 
-呢篇用 Claude **30 分鐘 dump 你 trip details，出 personalized prep checklist** — HKSAR 持照人視角，連 application timing、文件 spec、reject 風險、appointment booking sequence 都有。
+呢篇用 Claude **30 分鐘將你嘅行程寫晒，出個人化準備清單** — HKSAR 持照人視角，連申請時機、文件規格、拒簽風險、預約次序都有。
 
 ## 跟住做
 
-### 1. Dump trip + 你 personal context 入 Claude
+### 1. 將行程 + 你個人背景寫晒入 Claude
 
-唔好 ask Claude「點申請 Schengen」 — 行貨答案冇用。先 dump specifics：
+唔好問 Claude「點申請 Schengen」 — 行貨答案冇用。先將具體細節寫晒：
 
-> **Trip details**
-> - 目的地：意大利（7 日）→ 法國（10 日）→ 西班牙（4 日）= 21 日 total
+> **行程細節**
+> - 目的地：意大利（7 日）→ 法國（10 日）→ 西班牙（4 日）= 21 日總共
 > - 日期：2026 年 10 月 1-22 日
-> - 住宿：Booking.com 全部 book 咗（confirmation email 有）
-> - 機票：HK ↔ Rome 來回，Skyscanner 平 ticket，但係 「pending payment」未 confirm
+> - 住宿：Booking.com 全部訂咗（確認 email 有）
+> - 機票：HK ↔ Rome 來回，Skyscanner 平 ticket，但係「pending payment」未 confirm
 > - 同行：我 + 朋友 1 個（佢自己另外 apply 自己 visa）
-> 
-> **我嘅 background**
-> - HKSAR passport，有效期 2030
+>
+> **我嘅背景**
+> - HKSAR 護照，有效期 2030
 > - 36 歲，香港僱員（會計師樓 senior associate），月薪 HK$60k
-> - 過去 5 年去過：日本 ×3、台灣 ×2、泰國 ×1、新加坡 ×1（全部 visa-free）
+> - 過去 5 年去過：日本 ×3、台灣 ×2、泰國 ×1、新加坡 ×1（全部免簽）
 > - 從未申請過 Schengen / ESTA / 任何 visa
-> - 銀行：滙豐 + Citibank current account，存款合共 HK$300k
-> - 信用卡：4 張，總 limit HK$500k
-> - 公司會發 leave approval letter
-> 
-> **我嘅 concern**
-> - Apply 邊個 consulate？（意大利 first entry 定 法國 longest stay）
-> - 處理時間？我 trip 10 月，宜家 9 月初
-> - VFS appointment 點 book 點 fast track
-> - 文件清單具體 spec
-> - Reject 主要原因
-> - 如果機票仲未 confirm，係咪 problem
-> 
-> **我嘅 budget**
-> - Visa fee + insurance + 雜費 預 HK$2,000
+> - 銀行：滙豐 + Citibank 往來戶口，存款合共 HK$300k
+> - 信用卡：4 張，總額度 HK$500k
+> - 公司會發放假 letter
+>
+> **我嘅擔憂**
+> - Apply 邊個領事館？（意大利第一入境 vs 法國停留最長）
+> - 處理時間？我 10 月出發，宜家 9 月初
+> - VFS 預約點 book 點 fast track
+> - 文件清單具體規格
+> - 拒簽主要原因
+> - 如果機票仲未 confirm，係咪問題
+>
+> **我嘅預算**
+> - 簽證費 + 保險 + 雜費預 HK$2,000
 
-呢類 dump 入 Claude，係出真正 actionable plan 嘅 raw material。
+呢類詳細資料入 Claude，係出真正可行動計劃嘅原料。
 
-### 2. 用呢個 prompt 出 personalized prep checklist
+### 2. 用呢個 prompt 出個人化準備清單
 
-<PromptBlock label="完整 prompt — Schengen visa personalized prep">
-[paste 你 trip + background dump]
+<PromptBlock label="完整 prompt — Schengen 簽證個人化準備">
+[貼上你嘅行程 + 背景]
 
-我 HKSAR passport，第一次申請 Schengen visa。請整 **personalized prep checklist**：
+我 HKSAR 護照，第一次申請 Schengen 簽證。請整 **個人化準備清單**：
 
-📋 **Section 1: 揀邊個 consulate**
+📋 **第 1 部分：揀邊個領事館**
 
-Schengen rule 一般：
-- **Single entry**：揀第一個入境國
-- **Multi-entry**：揀停留最長嘅國家
+Schengen 一般規則：
+- **單次入境**：揀第一個入境國
+- **多次入境**：揀停留最長嘅國家
 - 例外情況？我嘅 case 點？
 
-我嘅 itinerary：意大利 7 日 → 法國 10 日 → 西班牙 4 日。建議 apply 邊個？
+我嘅行程：意大利 7 日 → 法國 10 日 → 西班牙 4 日。建議 apply 邊個？
 
-⏰ **Section 2: Application timing**
+⏰ **第 2 部分：申請時機**
 
-請對我 specifically calculate：
-- 我 trip：2026 年 10 月 1 日
-- 申請最早可以：trip 前 6 個月（即 4 月 1 日起）
-- 申請最遲建議：trip 前 30 日（即 9 月 1 日）— **我宜家 9 月初，timing 緊張，要點 prioritize?**
-- VFS appointment book：通常排到幾耐後？
-- Processing time：standard 15 working days，但 peak season（夏天 / 聖誕）可長至 30 日
-- 我嘅 risk 評估：appointment + processing 兩部分時間 add up
+請對我具體計算：
+- 我出發：2026 年 10 月 1 日
+- 申請最早可以：出發前 6 個月（即 4 月 1 日起）
+- 申請最遲建議：出發前 30 日（即 9 月 1 日）— **我宜家 9 月初，時機緊張，要點 prioritize？**
+- VFS 預約 book：通常排到幾耐後？
+- 處理時間：標準 15 個工作日，但旺季（夏天 / 聖誕）可長至 30 日
+- 我嘅風險評估：預約 + 處理兩部分時間加埋
 
-📑 **Section 3: 文件清單（HKSAR 申請人具體 spec）**
+📑 **第 3 部分：文件清單（HKSAR 申請人具體規格）**
 
-每樣文件具體要求 + 我嘅 status：
+每樣文件具體要求 + 我嘅狀態：
 
-✅ **Application form (Schengen short stay)**
+✅ **申請表（Schengen 短期停留）**
 - 邊度 download / 點填 online
 - 簽名要求
 
-✅ **2 張 passport photo**
-- Spec: 35x45mm, white background, last 6 months
-- HK 邊度影：（建議 photo studio + 大約價錢）
+✅ **2 張護照相**
+- 規格：35x45mm，白底，過去 6 個月內
+- HK 邊度影：（建議影樓 + 大約價錢）
 
-✅ **HKSAR Passport**
-- Validity：trip 後 minimum 3 個月
-- Blank pages：minimum 2
-- 我嘅 passport 2030 expiry — OK
+✅ **HKSAR 護照**
+- 有效期：出發後最少 3 個月
+- 空白頁：最少 2 頁
+- 我嘅護照 2030 到期 — OK
 
-✅ **Cover letter** (recommended even if not mandatory)
-- 1 頁，A4，print signed
-- Content：why visit, itinerary summary, 你 return guarantee
-- 用咩 tone（formal but personal）
+✅ **附信** (recommended 即使非強制)
+- 1 頁，A4，print 簽名
+- 內容：探訪原因、行程總結、你嘅回程保證
+- 用咩語氣（正式但個人化）
 
-✅ **Trip itinerary**
-- Day-by-day rough plan
-- 主要 city + 住宿 + transport between cities
-- 唔需要 minute-by-minute
+✅ **行程**
+- 逐日初步計劃
+- 主要城市 + 住宿 + 城市之間交通
+- 唔需要分鐘級
 
-✅ **Accommodation proof**
-- Booking.com confirmation 全部 print 出嚟
-- Each hotel 顯示 you as guest name (match passport)
-- 我嘅 case：already booked - OK
+✅ **住宿證明**
+- Booking.com 確認全部 print 出嚟
+- 每間酒店顯示你做客名（match 護照）
+- 我嘅 case：已訂 - OK
 
-✅ **Return flight**
-- 此係 critical — pending payment 嘅機票 NOT acceptable
-- Option A：confirm 機票 before visa apply (most secure but $$ if reject)
-- Option B：用 flight reservation service (HK$200, hold reservation 1-2 weeks)
-- Option C：refundable ticket（貴啲但可退）
-- 我建議：Option B (請推薦 HK reliable reservation service)
+✅ **回程機票**
+- 呢個關鍵 — pending payment 嘅機票 NOT acceptable
+- 選擇 A：confirm 機票 before 簽證申請（最穩陣但 $$ 如拒簽）
+- 選擇 B：用機票預約服務（HK$200，持有預約 1-2 週）
+- 選擇 C：可退票（貴啲但可退）
+- 我建議：選擇 B（請推薦 HK 可靠預約服務）
 
-✅ **Travel insurance**
-- Minimum coverage: €30,000 medical + repatriation
-- HK provider 推薦（Bupa / AXA / Zurich / 保泰 / Bowtie）— 各自 Schengen-stamp policy?
-- Print policy document
-- 我嘅 budget 區間 + recommend tier
+✅ **旅遊保險**
+- 最低保額：€30,000 醫療 + 遣返
+- HK 供應商推薦（Bupa / AXA / Zurich / 保泰 / Bowtie）— 各自有 Schengen-stamp policy？
+- Print 保單文件
+- 我嘅預算範圍 + 推薦級別
 
-✅ **Bank statement (past 3 months)**
-- 滙豐 + Citibank 兩份都要 stamped (bank chop) 定 e-statement 都得?
-- 入面要顯示 minimum balance? (typically €100/day x days suggested)
-- 我月薪 HK$60k + 存款 HK$300k - 充足 OK?
+✅ **銀行月結單（過去 3 個月）**
+- 滙豐 + Citibank 兩份都要 stamped（銀行印）定 e-statement 都得？
+- 入面要顯示最低結餘？（通常 €100/日 × 建議日數）
+- 我月薪 HK$60k + 存款 HK$300k - 充足 OK？
 
-✅ **Employer letter**
-- Required content：position + salary + tenure + leave approval + 公司會 cover 你 return
-- HK office HR 通常出 1 個 week 出到
-- Sample format request from HR
+✅ **僱主信**
+- 必要內容：職位 + 薪金 + 任職年期 + 放假批准 + 公司會 cover 你回程
+- HK office HR 通常出 1 個禮拜出到
+- 同 HR 攞範本格式
 
-✅ **Cover note 申請 file 嘅 organize**
-- Order matters? VFS 偏好 specific sequence?
-- Document inside transparent file vs plastic envelope
+✅ **附 note 申請 file 嘅整理**
+- 次序有關係？VFS 偏好特定 sequence？
+- 文件入透明 file vs 膠 envelope
 
-📌 **Section 4: VFS appointment**
+📌 **第 4 部分：VFS 預約**
 
-VFS Global 喺 HK 處理 most Schengen visa：
-- Location：[address]
-- 點 book online appointment：[step-by-step]
-- Appointment availability：通常 1-2 週 排到
-- 收費（base + service charge）總計：
-- 預期 in-person time：30-60 分鐘 submit
-- Document missing 嘅 backup：on-site copy service available?
-- Biometric (fingerprint + photo)：on-site free
+VFS Global 喺 HK 處理大部分 Schengen 簽證：
+- 地址：[address]
+- 點 book 線上預約：[step-by-step]
+- 預約供應：通常 1-2 週排到
+- 收費（基本 + 服務費）總計：
+- 預期親身時間：30-60 分鐘 submit
+- 文件唔齊嘅後備：on-site copy service available？
+- 生物特徵（指紋 + 相）：on-site 免費
 
-🚨 **Section 5: 常見 reject 原因 + 我嘅 risk 評估**
+🚨 **第 5 部分：常見拒簽原因 + 我嘅風險評估**
 
-Top 5 Schengen reject reason for HK applicant:
-1. Insufficient financial proof (your case OK)
-2. Vague / inconsistent itinerary
-3. No clear return tie (employment + family + property) — my case：employment strong
-4. Past visa overstay (你 record clean)
-5. Suspect dummy booking - confirmed booking minimize this
+HK 申請人 top 5 Schengen 拒簽原因：
+1. 財務證明不足（你嘅 case OK）
+2. 行程模糊 / 唔一致
+3. 冇明確回程聯繫（就業 + 家庭 + 物業）— 我嘅 case：就業強
+4. 過去簽證逾期（你紀錄乾淨）
+5. 懷疑 dummy booking - 已確認預訂減少呢個
 
-📊 **我嘅 case overall reject risk**: low / medium / high — 理由
+📊 **我嘅 case 整體拒簽風險**：低 / 中 / 高 — 理由
 
-⏳ **Section 6: Action sequence (next 7 days)**
+⏳ **第 6 部分：行動次序（未來 7 日）**
 
-Day 1 (today)：
-- [ ] Confirm Schengen consulate 揀邊個
-- [ ] Book VFS appointment online
-- [ ] Request employer letter from HR (~1 week turnaround)
-- [ ] Request bank stamp on statements
+Day 1（今日）：
+- [ ] 確認 Schengen 領事館揀邊個
+- [ ] Book VFS 線上預約
+- [ ] 同 HR 要僱主信（~1 週交付）
+- [ ] 要銀行月結單蓋章
 
 Day 2-3：
-- [ ] Buy travel insurance (Schengen-compliant)
-- [ ] 取 employer letter (if ready)
-- [ ] Take passport photo
-- [ ] Print all Booking.com confirmation
+- [ ] 買旅遊保險（Schengen 合規）
+- [ ] 攞僱主信（如 ready）
+- [ ] 影護照相
+- [ ] Print 所有 Booking.com 確認
 
 Day 4-5：
-- [ ] Flight reservation service (or confirm flight ticket)
-- [ ] Print itinerary doc + cover letter (use Claude draft)
-- [ ] Bank statement collected with stamp
+- [ ] 機票預約服務（或 confirm 機票）
+- [ ] Print 行程文件 + 附信（用 Claude 草擬）
+- [ ] 銀行月結單已收集連蓋章
 
 Day 6-7：
-- [ ] Document review + organize
-- [ ] Print 2 sets (original + backup)
-- [ ] VFS appointment 確認 reminder
+- [ ] 文件檢視 + 整理
+- [ ] Print 2 套（原本 + 後備）
+- [ ] VFS 預約確認提醒
 
-📋 **Section 7: VFS appointment day prep**
+📋 **第 7 部分：VFS 預約日準備**
 - 提早 30 分鐘到
-- 帶 passport + appointment confirmation print
-- 全部文件按 VFS suggested order
-- 帶 backup HK$ + credit card (pay fee)
+- 帶護照 + 預約確認 print
+- 全部文件按 VFS 建議次序
+- 帶後備 HK$ + 信用卡（畀費）
 
-語氣：specific, time-aware, HK-context literate。
+語氣：具體、有時間感、識 HK 背景。
 </PromptBlock>
 
-Claude 出嘅 checklist 你可以 print 出嚟貼喺枱邊，每一 item check off。**唔好 mental track** — visa application 嘅 item 太多 + 平行 timeline, mental tracking 100% lead to missed item。
+Claude 出嘅清單你可以 print 出嚟貼喺枱邊，每一項剔走。**唔好用心 track** — 簽證申請項目太多 + 平行時間表，用心 track 100% 漏項。
 
-### 3. 用呢個 prompt 出 cover letter draft
+### 3. 用呢個 prompt 出附信草稿
 
-Cover letter 唔 mandatory 但 strongly recommend，特別係 HKSAR first-time applicant：
+附信非強制但強烈建議，特別係 HKSAR 第一次申請：
 
-<PromptBlock label="完整 prompt — Schengen visa cover letter">
-[paste 你 trip + background dump]
+<PromptBlock label="完整 prompt — Schengen 簽證附信">
+[貼上你嘅行程 + 背景]
 
-請幫我寫 **Schengen visa cover letter** (1 頁 A4)：
+請幫我寫 **Schengen 簽證附信**（1 頁 A4）：
 
-📝 **Structure**
+📝 **結構**
 
-**Header (top right)**
-- 你 full name (match passport)
-- HKSAR Passport No.
-- Date (today's date)
+**Header（右上）**
+- 你全名（match 護照）
+- HKSAR 護照號碼
+- 日期（今日）
 
-**Recipient (left aligned)**
+**Recipient（左對齊）**
 - "To: The Visa Officer"
-- "[Consulate name + address]"
-- "Re: Schengen Visa Application — [Your name]"
+- "[領事館名 + 地址]"
+- "Re: Schengen Visa Application — [你嘅名]"
 
-**Paragraph 1 — Purpose of visit (3-4 sentences)**
-- Clear visit purpose (tourism + duration)
-- Specific country itinerary
+**段落 1 — 探訪目的（3-4 句）**
+- 清晰探訪目的（旅遊 + 期間）
+- 具體國家行程
 - "I am applying for a Schengen visa to visit Italy, France, and Spain from 1-22 October 2026 for tourism purposes."
 
-**Paragraph 2 — Your ties to HK (4-5 sentences)**
-- Current employment (position + tenure + employer)
-- Approved leave from employer
-- Financial stability (banking + property/family if relevant)
+**段落 2 — 你同 HK 嘅聯繫（4-5 句）**
+- 當前就業（職位 + 任職年期 + 僱主）
+- 僱主批准放假
+- 財務穩定性（銀行 + 物業 / 家庭如相關）
 - "I have been employed at [Company] as Senior Associate since [year]. My employer has approved my leave and I will resume work on [date]."
 
-**Paragraph 3 — Trip detail (3-4 sentences)**
-- Brief day-distribution
-- Mention specific landmarks (NOT exhaustive — 2-3 highlights)
-- Travel companion (if any)
+**段落 3 — 行程細節（3-4 句）**
+- 簡短日數分配
+- 提及具體地標（NOT 詳盡 — 2-3 個 highlights）
+- 旅伴（如有）
 - "I plan to spend 7 days in Italy (visiting Rome, Florence), 10 days in France (Paris, Loire Valley), and 4 days in Spain (Barcelona). I will be travelling with [friend's name], who is applying separately."
 
-**Paragraph 4 — Financial readiness (2-3 sentences)**
-- Self-funded vs sponsor
-- Reference attached bank statements
+**段落 4 — 財務準備（2-3 句）**
+- 自費 vs 贊助
+- 引用附上嘅銀行月結單
 - "This trip is self-funded. Attached please find my bank statements demonstrating sufficient funds."
 
-**Closing**
-- Thank reviewer
+**結尾**
+- 多謝審核員
 - "Should you require additional information, please do not hesitate to contact me at [phone] or [email]."
 - "Yours sincerely,"
-- Sign + Print name
+- 簽名 + Print 名
 
-⚠️ **Tone calibration**
-- Formal but not stiff
-- Confident in your right to apply
-- 唔 over-apologize / 唔 over-grateful
-- Avoid "thank you for your kind consideration" overdose
+⚠️ **語氣校準**
+- 正式但唔生硬
+- 對你申請權利有信心
+- 唔好過度道歉 / 唔好過度感激
+- 避免「thank you for your kind consideration」過度
 
 🚫 **唔寫**
-- 「I will definitely return」(officer 知道你會 say it, 無 weight)
-- Long-winded family history
-- Religious / political content
-- Hyperbole（「once-in-a-lifetime」）
+- 「I will definitely return」（officer 知道你會講，冇 weight）
+- 長篇家庭歷史
+- 宗教 / 政治內容
+- 誇張用語（「once-in-a-lifetime」）
 
 📋 **Print**
-- A4, single page
-- Sign 後 print scan keep digital + physical copy
-- 唔好 staple - VFS prefer paperclip
+- A4，單頁
+- 簽完 print scan 保留電子 + 實體副本
+- 唔好釘針 - VFS 偏好萬字夾
 
-請幫我 draft，我 customize specifics 之後 use。
+請幫我草擬，我之後 customize 細節用。
 </PromptBlock>
 
-呢封 cover letter 喺申請 file 入面 placeholder 上面，**讀者 first 印象 anchor**。Spend 30 分鐘 polish 比草草 submit 更值。
+呢封附信喺申請 file 入面 placeholder 上面，**讀者第一印象錨點**。Spend 30 分鐘修飾比草草 submit 更值得。
 
-### 4. Pre-VFS appointment final QA
+### 4. VFS 預約前最後 QA
 
-去 VFS 之前一晚做最後 check：
+去 VFS 之前一晚做最後檢查：
 
-<PromptBlock label="完整 prompt — Pre-VFS final QA checklist">
-我聽日去 VFS appointment 交 Schengen visa application。請整一份 **final QA checklist**：
+<PromptBlock label="完整 prompt — VFS 預約前最後 QA 清單">
+我聽日去 VFS 預約交 Schengen 簽證申請。請整一份 **最後 QA 清單**：
 
-✅ **文件 final review** (排序 sequence)
-- [ ] VFS appointment confirmation (print)
-- [ ] HKSAR Passport (original + 1 photocopy of bio page)
-- [ ] 2 photos (35x45mm, white bg) - extra 2 backup
-- [ ] Visa application form (completed, signed)
-- [ ] Cover letter (signed)
-- [ ] Trip itinerary doc
-- [ ] Flight reservation
-- [ ] Booking.com hotel confirmation (each city)
-- [ ] Travel insurance policy (full document)
-- [ ] Bank statement 3 months (stamped) - 2 banks separate
-- [ ] Employer letter (signed by HR)
-- [ ] Tax return (if applicable)
-- [ ] Salary slip past 3 months
-- [ ] Existing visa scan (前面去過嘅 visa-required country if any)
+✅ **文件最後檢視**（排序次序）
+- [ ] VFS 預約確認（print）
+- [ ] HKSAR 護照（原本 + 1 份個人資料頁影印）
+- [ ] 2 張相（35x45mm，白底） - 額外 2 張後備
+- [ ] 簽證申請表（完成，簽名）
+- [ ] 附信（簽名）
+- [ ] 行程文件
+- [ ] 機票預約
+- [ ] Booking.com 酒店確認（每個城市）
+- [ ] 旅遊保險保單（完整文件）
+- [ ] 銀行月結單 3 個月（蓋章） - 2 間銀行分開
+- [ ] 僱主信（HR 簽名）
+- [ ] 報稅表（如適用）
+- [ ] 過去 3 個月糧單
+- [ ] 現有簽證掃描（之前去過嘅需要簽證國家如有）
 
-📋 **Application form double check**
-- All section filled (no blank field)
-- Date format correct (DD/MM/YYYY)
-- Sign + date 兩個位
-- Passport number match exactly
+📋 **申請表雙重檢查**
+- 所有部分填咗（冇空白欄）
+- 日期格式正確（DD/MM/YYYY）
+- 簽名 + 日期兩個位
+- 護照號碼完全匹配
 
-💰 **Payment prep**
-- Visa fee: €80 (HK$ equivalent) - bring cash + credit card
-- VFS service fee: HK$300+ - 唔 surprise
-- Optional courier: HK$100+ - decide 預 collect
+💰 **付款準備**
+- 簽證費：€80（HK$ 等值） - 帶現金 + 信用卡
+- VFS 服務費：HK$300+ - 唔好驚訝
+- 可選快遞：HK$100+ - 決定預先 collect
 
-⏰ **Logistics**
-- VFS address: [confirm]
-- Arrive 30 分鐘 early
-- Wear smart casual (officer 第一印象)
-- Phone 帶住 (但 silent mode)
-- Wallet + HK ID
+⏰ **後勤**
+- VFS 地址：[確認]
+- 提早 30 分鐘到
+- 著 smart casual（officer 第一印象）
+- 電話帶住（但靜音）
+- 銀包 + HK 身份證
 
-🎒 **Bag content** (帶嚟 prep)
-- Folder for documents (transparent file binder ideal)
-- Pen (sign on-site if needed)
-- Water (queue can be 1+ hour)
-- Backup snack
-- Phone charger (in case wait long)
+🎒 **袋入面**（帶嚟準備）
+- 文件夾（透明 file binder 理想）
+- 筆（如需要 on-site 簽）
+- 水（排隊可能 1+ 個鐘）
+- 後備零食
+- 電話充電器（如等耐）
 
-❓ **常見 on-site question prep**
-- 「Why this 3 countries?」 → 1 sentence answer
+❓ **常見 on-site 問題準備**
+- 「Why this 3 countries?」 → 1 句答
 - 「How long have you been with current employer?」
 - 「What's the budget for trip?」
 - 「Anyone meeting you in Europe?」
 - 「Have you visa-rejected before?」
 
-🚨 **Day-of red flag**
-- 文件 incomplete → ask VFS to reschedule (better than incomplete submit)
-- 比 expected 嘈 nervous → take 5 deep breath outside before enter
-- Document discrepancy spot last minute → flag honestly, don't hide
+🚨 **當日紅燈**
+- 文件不齊 → 同 VFS 要求改期（好過不齊 submit）
+- 比預期緊張 → 入去之前喺外面深呼吸 5 次
+- 最後一刻發現文件矛盾 → 老實提，唔好收埋
 
-語氣：calm, prepared, ready.
+語氣：冷靜、有準備、ready。
 </PromptBlock>
 
-呢個 final QA 嘅 step 嘅 hidden value：**rest peacefully the night before**。你已經有系統咁 check 過，明日 just execute。
+呢個最後 QA 步驟嘅隱藏價值：**前一晚安心瞓**。你已經有系統檢查過，明日只需執行。
 
-## 變化
+## 變化例子
 
 ### 變化 1：美國 ESTA（簡單但易出錯）
 
-ESTA 嘅 form 容易但 reject 後果 嚴重：
+ESTA 嘅表格容易但拒簽後果嚴重：
 
-<PromptBlock label="變化 1 — 美國 ESTA prep（visa waiver program）">
-我 HKSAR passport，諗 apply 美國 ESTA 去 NYC 1 個禮拜 tourism。
+<PromptBlock label="變化 1 — 美國 ESTA 準備（免簽計劃）">
+我 HKSAR 護照，諗 apply 美國 ESTA 去紐約 1 個禮拜旅遊。
 
-請幫我 prep ESTA application：
+請幫我準備 ESTA 申請：
 
-🎯 **ESTA = Visa Waiver Program (簡單版 但唔輕視)**
-- 用 official site: esta.cbp.dhs.gov（**只 用 official — 3rd party paid sites scam**）
-- Cost: US$21 total（fee $4 + processing $17）
-- Processing: most case 「approved」即時，部分 case 72 hour
-- Validity: 2 年（multi-entry, each stay max 90 日）
+🎯 **ESTA = 免簽計劃（簡單版但唔輕視）**
+- 用官方網站：esta.cbp.dhs.gov（**只用官方 — 第三方付費網站係呃人**）
+- 收費：US$21 總共（fee $4 + 處理 $17）
+- 處理：大部分個案「approved」即時，部分個案 72 小時
+- 有效期：2 年（多次入境，每次最多 90 日）
 
-📋 **Application form filling guide**
+📋 **申請表填寫指引**
 
-⚠️ **Critical accuracy** — ESTA 拒簽通常因為 form 錯誤：
+⚠️ **關鍵準確性** — ESTA 拒簽通常因為表格錯誤：
 
-1. **Personal info** - exactly match passport
-2. **Address** - HK address with proper Chinese-to-English convention
-3. **Employer** - even「retired / student」要寫
-4. **Email** - 接收 approval 嘅 email，唔好用 burner address
-5. **Phone** - 802 開頭 HK number 格式 +852
-6. **Eligibility questions** - 9 條 yes/no question:
+1. **個人資料** - 完全匹配護照
+2. **地址** - HK 地址加上適當中譯英規格
+3. **僱主** - 即使「退休 / 學生」都要寫
+4. **電郵** - 收 approval 嘅電郵，唔好用 burner 地址
+5. **電話** - 802 開頭 HK 號碼格式 +852
+6. **資格問題** - 9 條 yes/no 問題：
    - 「Do you have a physical or mental disorder?」
    - 「Are you a drug abuser?」
    - 「Have you ever been arrested?」
    - 「Have you ever been involved in espionage?」
    - 等等
-   - **答 honestly** — false statement = lifetime US ban
-   - 部分 question 嘅 「borderline」case 需 consult 律師 before answer
+   - **答老實** — 虛假陳述 = 終生 US ban
+   - 部分問題嘅「邊緣」個案需要喺答之前 consult 律師
 
-⚠️ **常見 ESTA reject reason for HK applicant**:
-- Past US visa denial (要 disclose)
-- Arrest record (任何 country)
-- Overstay in any country (Schengen / Japan etc)
-- Inconsistent employment history
+⚠️ **HK 申請人常見 ESTA 拒簽原因**：
+- 過去 US 簽證拒簽（要披露）
+- 任何國家被捕紀錄
+- 喺任何國家逾期（Schengen / 日本等）
+- 不一致就業歷史
 
-⏰ **Apply timing**
-- ESTA approve typically 即時，但建議 trip 前 minimum 72 小時 apply
-- Rejected 嘅話：唔可以 re-apply ESTA - 要 apply 真 B1/B2 visa（complicated + interview）
+⏰ **申請時機**
+- ESTA 批准通常即時，但建議出發前最少 72 小時 apply
+- 拒簽嘅話：唔可以重新 apply ESTA - 要 apply 真 B1/B2 簽證（複雜 + 面試）
 
-🛂 **At airport**
-- ESTA 唔需要印 - electronically linked to passport
-- Airline 會 check ESTA status before boarding
-- US immigration 仍會 question - prep visit purpose + return ticket
+🛂 **喺機場**
+- ESTA 唔需要 print - 電子連結到護照
+- 航空公司會 check ESTA 狀態前登機
+- 美國入境仍會問 - 準備探訪目的 + 回程機票
 
-🚫 **唔可以 ESTA 嘅 case**
-- 唔曾 visited 過 Iran / Iraq / Syria / Libya / Yemen / Somalia / Sudan / North Korea (post-2011)
-- 曾被 US visa rejected
-- 曾 overstay 在 US
-- Dual citizenship with 部分 country
+🚫 **唔可以 ESTA 嘅情況**
+- 曾探訪 Iran / Iraq / Syria / Libya / Yemen / Somalia / Sudan / 北韓（2011 年後）
+- 曾被 US 簽證拒簽
+- 曾喺美國逾期
+- 同部分國家有雙重國籍
 
-語氣：simple but precision-critical。
+語氣：簡單但精確關鍵。
 </PromptBlock>
 
-### 變化 2：日本 eVisa（multi-entry / short visa-free 改變）
+### 變化 2：日本 eVisa（多次入境 / 免簽改變）
 
-日本 visa 規則最近 changed：
+日本簽證規則最近改變：
 
-<PromptBlock label="變化 2 — 日本 eVisa / visa-free overview for HK">
-我 HKSAR passport，想去日本 2 週。請 update 我日本 visa rule (HK 持照人最新 status)。
+<PromptBlock label="變化 2 — 日本 eVisa / 免簽 HK 持照人概覽">
+我 HKSAR 護照，想去日本 2 週。請 update 我日本簽證規則（HK 持照人最新狀態）。
 
-🇯🇵 **日本 visa for HKSAR passport (2026 status)**
+🇯🇵 **HKSAR 護照入日本（2026 狀態）**
 
-⚠️ **Note**: HK 護照 traditionally 90-day visa-free 入日本，但 2024-2025 出現 eVisa 推廣 / 政策 fluctuation — verify with official 日本 領事館 official site before assuming.
+⚠️ **注意**：HK 護照傳統上 90 日免簽入日本，但 2024-2025 出現 eVisa 推廣 / 政策波動 — 喺假設前驗證日本領事館官方網。
 
-📋 **General visa-free 條件** (verify current)
-- HKSAR passport (not 工作旅遊 visa case)
-- Stay ≤ 90 日
-- Tourism / 短期 business 目的
-- Return ticket
-- Sufficient funds proof if questioned at immigration
+📋 **一般免簽條件**（驗證最新）
+- HKSAR 護照（非工作旅遊簽證個案）
+- 停留 ≤ 90 日
+- 旅遊 / 短期商務目的
+- 回程機票
+- 入境如被問足夠資金證明
 
-🆕 **eVisa programs (recent rollout)**
-- 部分 country 推出 「digital visa」 program for tourism
-- HK applicable? 視乎 latest 日本 政府 announcement
-- Process: online apply, no embassy visit
-- Use case: 多次 visit Japan 嘅 frequent tourist convenience
+🆕 **eVisa 計劃（最近推出）**
+- 部分國家推出「電子簽證」計劃畀旅遊
+- HK 適用？視乎最新日本政府公布
+- 流程：線上 apply，唔需要去領事館
+- 用途：多次探訪日本嘅頻密遊客方便
 
-🎒 **Visa-free 入境注意**
-即使 visa-free，仍需要:
-- Return ticket
-- 住宿 proof (booking confirmation)
-- Sufficient funds (cash + card)
-- Itinerary basic
+🎒 **免簽入境注意**
+即使免簽，仍需要：
+- 回程機票
+- 住宿證明（預訂確認）
+- 足夠資金（現金 + 卡）
+- 行程基本
 
-🚨 **常見 visa-free 入境問題**
-- 過去頻繁短期入境 (officer 問 「working illegally?」)
-- 90 日 stay 接近 max → re-entry 同年內 risk denial
-- Onward travel non-HK (e.g., Japan → 韓國 → HK) - officer 可能 question
+🚨 **常見免簽入境問題**
+- 過去頻繁短期入境（officer 問「非法工作？」）
+- 90 日停留接近 max → 同年內重新入境風險拒絕
+- Onward travel 非 HK（例：日本 → 韓國 → HK） - officer 可能問
 
-📞 **Verify current rule before trip**
-- 日本 在港領事館 official website
-- 「Consulate-General of Japan in Hong Kong」 - 官方 announcement
-- 唔好 rely on Reddit / FB 「I went last month no problem」 - rule can change
+📞 **出發前驗證最新規則**
+- 日本在港領事館官方網
+- 「Consulate-General of Japan in Hong Kong」 - 官方公布
+- 唔好靠 Reddit / FB「我上個月去過冇問題」 - 規則可改
 
-語氣：cautious about citing exact rule (易 outdated), 建議 verify。
+語氣：對引用確切規則保留（易過時），建議驗證。
 </PromptBlock>
 
-### 變化 3：學生簽證 / 工作 visa（long-stay 複雜版）
+### 變化 3：學生簽證 / 工作簽證（長期停留複雜版）
 
-長期 visa 同 tourism visa 完全唔同 category：
+長期簽證同旅遊簽證完全唔同 category：
 
-<PromptBlock label="變化 3 — Student / work visa long-stay prep">
-我 HKSAR passport，準備申請：[英國 student visa / 加拿大 work permit / 美國 H-1B / 澳洲 student visa]。Long-stay (>6 month) 完全唔同 short visa。
+<PromptBlock label="變化 3 — 學生 / 工作簽證長期停留準備">
+我 HKSAR 護照，準備申請：[英國學生簽證 / 加拿大工作許可 / 美國 H-1B / 澳洲學生簽證]。長期停留（超過 6 個月）完全唔同短簽。
 
-請整 long-stay visa 嘅 framework：
+請整長期簽證嘅框架：
 
-📐 **Long-stay vs tourism visa 差異**
+📐 **長期 vs 旅遊簽證差異**
 
-| Dimension | Tourism | Student / Work |
+| 維度 | 旅遊 | 學生 / 工作 |
 |-----------|---------|----------------|
-| Duration | < 90 日 | 1-5 年 |
-| Sponsor | 自己 | University / Employer |
-| Document | ~10 個 | ~30+ 個 |
-| Process time | 2-4 週 | 2-6 個月 |
-| Reject impact | Re-apply OK | 影響 future visa for 5+ 年 |
-| Fee | $80-200 | $500-3000+ |
-| Interview | rare | usually required |
+| 期間 | < 90 日 | 1-5 年 |
+| 擔保人 | 自己 | 大學 / 僱主 |
+| 文件 | ~10 個 | ~30+ 個 |
+| 處理時間 | 2-4 週 | 2-6 個月 |
+| 拒簽影響 | 重申 OK | 影響將來 5+ 年簽證 |
+| 收費 | $80-200 | $500-3000+ |
+| 面試 | 罕有 | 通常要 |
 
-📋 **Generic long-stay visa prep**
+📋 **通用長期簽證準備**
 
-🎓 **Pre-application 階段 (3-6 個月 before)**
-- Sponsor 文件 collect (admission letter / job offer / CAS)
-- English test if required (IELTS / TOEFL)
-- Medical examination (TB test usually)
-- Financial proof (significantly more than tourism — 1-2 years cost)
-- Background check certificate (HK Police certificate of no criminal conviction)
+🎓 **申請前階段（出發前 3-6 個月）**
+- 擔保人文件收集（取錄信 / job offer / CAS）
+- 英文測試如要求（IELTS / TOEFL）
+- 體檢（通常 TB 測試）
+- 財務證明（顯著高於旅遊 — 1-2 年成本）
+- 背景審查證書（HK 警方無犯罪紀錄證明書）
 
-📑 **Sponsor's role**
-- University：CAS (Confirmation of Acceptance for Studies) for UK / I-20 for US
-- Employer：LMIA for Canada / I-129 for US / Sponsorship letter
-- 你需要 follow sponsor 嘅 timeline + paperwork
+📑 **擔保人角色**
+- 大學：UK CAS（Confirmation of Acceptance for Studies）/ US I-20
+- 僱主：Canada LMIA / US I-129 / 擔保信
+- 你需要跟擔保人嘅時間表 + 文件
 
-🏥 **Health requirement**
-- TB test (HK 認可診所)
-- Vaccination records
-- For some country: HIV / hepatitis screening
-- Medical insurance from approved provider
+🏥 **健康要求**
+- TB 測試（HK 認可診所）
+- 疫苗紀錄
+- 部分國家：HIV / 肝炎篩查
+- 認可供應商嘅醫療保險
 
-💰 **Financial threshold**
-- Significantly higher than tourism
-- UK student：£X for 1 year living + tuition deposit
-- US student：I-20 cost + sponsor financial proof
-- Canada：CAD$10,000+ living + tuition
-- Need 28 days continuous balance proof typically
+💰 **財務門檻**
+- 顯著高於旅遊
+- UK 學生：£X 1 年生活 + 學費按金
+- US 學生：I-20 成本 + 擔保人財務證明
+- Canada：CAD$10,000+ 生活 + 學費
+- 通常需要 28 日連續結餘證明
 
-🛂 **Visa interview prep (typically required)**
-- 預期 question:
+🛂 **簽證面試準備（通常要求）**
+- 預期問題：
   - "Why this country?"
   - "Why this specific university / employer?"
   - "Your plan after visa expires?"
   - "Family ties in HK?"
   - "Financial sources?"
-- Practice answer concise + confident
-- Body language matters
+- 練習答案簡潔 + 自信
+- 身體語言重要
 
-📅 **Critical timeline**
-- 太早 apply：visa might 過早 issue 而 trip 未開始
-- 太遲 apply：miss enrollment / start date
-- Sweet spot：visa issue date ~3 個月 before start date
+📅 **關鍵時間表**
+- 太早 apply：簽證可能太早發放但出發未開始
+- 太遲 apply：miss 入學 / 開始日期
+- Sweet spot：簽證發放日期約 3 個月 before 開始日期
 
-⏰ **HK-specific complications**
-- HKSAR vs BNO 同時持：揀 use 邊個 visa (consistency 重要)
-- Past BNO + HKSAR mixed history: declare both
-- Past mainland China stay: 部分 country requires declare
+⏰ **HK 專屬複雜性**
+- HKSAR vs BNO 同時持有：揀用邊個簽證（一致性重要）
+- 過去 BNO + HKSAR 混合歷史：兩個都申報
+- 過去中國大陸停留：部分國家要求申報
 
-🚨 **Reject impact (long-stay specific)**
-- 5-year impact on future visa applications
-- 部分 country 永久 disclosure obligation
-- Career impact (job offer might withdraw if visa fail)
+🚨 **拒簽影響（長期專屬）**
+- 5 年影響將來簽證申請
+- 部分國家永久披露義務
+- 職業影響（job offer 可能撤回如簽證失敗）
 
-📞 **Professional help worth considering**
-- Long-stay visa worth $500-1500 immigration lawyer consult
-- 特別 if past visa issue / complex case
-- DIY OK if straightforward case + native speaker
+📞 **專業協助值得考慮**
+- 長期簽證值得 $500-1500 移民律師諮詢
+- 特別如過去簽證有問題 / 個案複雜
+- 直接做 OK 如直接個案 + 母語者
 
-語氣：long-stay = serious commitment, prep accordingly.
+語氣：長期 = 認真承諾，跟住準備。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-第一次申請 visa 嘅 paralysis 唔係 individual deficit——係 **bureaucratic system design 嘅 user-hostile signal**。
+第一次申請簽證嘅癱瘓唔係個人不足——係 **官僚系統設計嘅 user-hostile 訊號**。
 
-官方 25 頁 PDF 嘅 reader 唔係你（HKSAR first-time applicant）——係 immigration officer 同 visa lawyer。佢哋 read 嘅 fluency，係 累積咗 100 個 application 嘅 pattern recognition。你 read 同一份 PDF feel overwhelm 係正常，唔係你 stupid。
+官方 25 頁 PDF 嘅讀者唔係你（HKSAR 第一次申請人）——係入境官員同簽證律師。佢哋讀嘅流暢度，係累積咗 100 個申請嘅模式識別。你讀同一份 PDF 覺得吃力係正常，唔係你蠢。
 
-呢個 mindset 嘅 reframe：visa application 嘅 craft 唔係 「learn the system」——係 **translate 官方 system 為 your specific case 嘅 actionable steps**。Claude 嘅 role 喺呢度 critical：你 dump 你 specific situation，Claude 將行貨 guideline filter 變 your personalized sequence。
+呢個思維嘅轉變：簽證申請嘅技巧唔係「learn the system」——係**將官方系統翻譯為你具體個案嘅可行動步驟**。Claude 嘅角色喺呢度關鍵：你將具體情況寫晒，Claude 將行貨指引篩選變你嘅個人化次序。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **Apply 早 + apply with margin**。Standard processing time 15 working days 嘅意思係「if everything smooth」 — 加 buffer 預 30 日 安全。
-- ⚠️ **Reject 唔等於 you faulty**。Schengen reject rate for HKSAR ≈3% — 多數 reject 因 trivial document issue 可以 re-apply 修正。
-- 🆘 **唔好 lie on visa application**。Even small inconsistency = 5-10 年 future visa impact。Honest about every section, even uncomfortable question.
+- ✅ **早 apply + 預留空間 apply**。標準處理時間 15 個工作日嘅意思係「if everything smooth」 — 加 buffer 預 30 日安全。
+- ⚠️ **拒簽唔等於你有問題**。HKSAR Schengen 拒簽率約 3% — 大多數拒簽因小文件問題可以重新 apply 修正。
+- 🆘 **唔好喺簽證申請講大話**。即使小不一致 = 5-10 年將來簽證影響。每節老實，即使尷尬問題。
 
-10 月 trip，prep 從今日開始仲 just enough。Bon voyage。
+10 月出發，準備由今日開始仲啱啱夠。一路平安。
