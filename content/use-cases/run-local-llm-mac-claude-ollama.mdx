@@ -1,17 +1,17 @@
 ---
-title: "喺 Mac local 跑 Llama / Mistral：唔上 cloud 嘅 privacy setup"
+title: "喺 Mac 本地跑 Llama / Mistral：唔上雲端嘅私隱設定"
 slug: "run-local-llm-mac-claude-ollama"
 issue: 35
 publishedAt: 2026-08-04
 audience: ["打工仔", "創作者"]
 category: "code"
 section: "科技"
-subcategory: "Workflow 設定"
+subcategory: "工作流程設定"
 heroImage: "/hero/run-local-llm-mac-claude-ollama.webp"
 difficulty: 3
 timeMinutes: 60
 toolsNeeded: ["macOS Sonoma+", "Ollama", "Mac M1/M2/M3 8GB+"]
-description: "Mac local LLM setup：用 Ollama 喺 Mac 跑 Llama 3.1 8B / Mistral，敏感 doc 唔上 cloud 嘅 privacy setup。HK 法律 / 醫療 / 金融行業適用。"
+description: "Mac 本地大型語言模型設定：用 Ollama 喺 Mac 跑 Llama 3.1 8B / Mistral，敏感文件唔上雲端嘅私隱設定。香港法律 / 醫療 / 金融行業適用。"
 keywords: ["local llm mac", "ollama 教學", "本地 ai", "privacy ai", "llama 3.1 香港"]
 related: ["claude-code-tutorial-website", "mac-shortcut-claude-prompt"]
 featured: false
@@ -20,93 +20,93 @@ featured: false
 ## 情境
 
 你係：
-- **律師 / paralegal**：客戶 doc 法律上唔可以 upload 落 cloud
-- **醫療 / clinic admin**：patient record 受 PDPO 規管
-- **金融 / compliance**：internal model / risk doc 唔可以 leave 公司 network
-- **政府 / NGO**：受 specific data governance 限制
+- **律師 / 法律助理**：客戶文件喺法律上唔可以上傳落雲端
+- **醫療 / 診所行政**：病人紀錄受《個人資料（私隱）條例》（PDPO）規管
+- **金融 / 合規審查**：內部模型 / 風險文件唔可以離開公司網絡
+- **政府 / 非政府組織**：受特定數據治理限制
 
-但你想用 AI workflow：summarize、translate、polish writing。 Cloud Claude / ChatGPT 唔可以。
+但你想用 AI 工作流程：做摘要、翻譯、修飾文字。雲端嘅 Claude / ChatGPT 唔可以用。
 
-呢篇 setup **local LLM 喺 Mac**——open-source model（Llama / Mistral）跑喺你部機，零 cloud transmission。
+呢篇教你設定**本地大型語言模型 (Local LLM) 喺 Mac 運行**——開源模型（Llama / Mistral）跑喺你部機度，零雲端傳輸。
 
-> ⚠️ Caveat：Local model 嘅 quality 同 latest Claude / GPT-4 有 gap（特別係 reasoning + multilingual）。 但 routine task 已 enough。Setup 之前 align expectation：呢個係 「privacy first，quality second」。
+> ⚠️ 注意：本地模型嘅質素同最新嘅 Claude / GPT-4 有差距（特別係推理論證同多語言能力）。但處理日常任務已經夠用。設定之前要調整期望：呢個係「私隱第一，質素第二」。
 
 ## 跟住做
 
-### 1. Hardware check
+### 1. 硬件檢查
 
 最低要求：
-- Mac M1 / M2 / M3（intel Mac 跑得超慢，唔 recommend）
-- 8GB RAM minimum，16GB 跑 7B 模型 OK，32GB+ 跑 70B 模型
-- 30GB free disk（每個 model 4-8GB）
+- Mac M1 / M2 / M3（Intel 晶片嘅 Mac 跑得超慢，唔推薦）
+- 最少 8GB 記憶體 (RAM)，16GB 跑 7B 模型 OK，32GB 以上跑 70B 模型
+- 30GB 空餘硬碟空間（每個模型大約 4-8GB）
 
-如果你 Mac 唔 meet，呢個 setup 唔啱你。 Stay cloud + 加 enterprise data agreement。
+如果你部 Mac 唔符合要求，呢個設定唔啱你。請留在雲端並加簽企業數據協議。
 
-### 2. 裝 Ollama
+### 2. 安裝 Ollama
 
-[Ollama](https://ollama.com) 係 macOS 嘅 local LLM runner，最簡易嘅 setup。
+[Ollama](https://ollama.com) 係 macOS 嘅本地模型運行工具，係最簡單嘅設定方式。
 
 ```bash
-# Install via Homebrew
+# 透過 Homebrew 安裝
 brew install ollama
 
-# Start service
+# 啟動服務
 ollama serve
 
-# 第二個 terminal：download Llama 3.1 8B
+# 開第二個 terminal：下載 Llama 3.1 8B
 ollama pull llama3.1:8b
 
-# Test
+# 測試
 ollama run llama3.1:8b
 > 你好
 ```
 
-5-10 分鐘 setup time。
+大約 5-10 分鐘設定時間。
 
-### 3. Compare model 揀啱
+### 3. 模型對比與選擇
 
 ```bash
 # 中文友善
-ollama pull qwen2.5:7b    # Alibaba's Qwen, strong 中文
-ollama pull yi:6b         # Strong reasoning
+ollama pull qwen2.5:7b    # 阿里嘅 Qwen，中文強
+ollama pull yi:6b         # 推理能力強
 
 # 通用
 ollama pull llama3.1:8b
 ollama pull mistral:7b
 
-# 大 model（需 32GB+ RAM）
+# 大模型（需要 32GB 以上 RAM）
 ollama pull llama3.1:70b
 ```
 
-每個 model 我嘅實際 benchmark（subjective）：
-- **Qwen 2.5 7B**：中文最強，廣東話書面語 reasonable。 文檔 summary 啱
-- **Llama 3.1 8B**：英文最強，code 不錯。 中文 reasonable 但唔 idiomatic
-- **Mistral 7B**：兩者之間，size 最細
+每個模型我嘅實際評測（主觀）：
+- **Qwen 2.5 7B**：中文最強，廣東話書面語算通順。做文件摘要好啱用
+- **Llama 3.1 8B**：英文最強，寫 code 唔錯。中文還可以，但未夠地道
+- **Mistral 7B**：兩者之間，容量最細
 
-### 4. 用呢個 setup workflow
+### 4. 用呢個提示詞設定工作流程
 
-<PromptBlock label="完整 prompt — Help me set up local LLM workflow">
-我裝咗 Ollama，pull 咗以下 models：[列]。 我嘅 use case：
+<PromptBlock label="完整 prompt — 設定本地 LLM 工作流程">
+我裝咗 Ollama，拉咗以下模型：[列出]。我嘅用途：
 
-[填具體：例如 「summarize 法律文件」、「polish 醫療 patient notes」、「translate internal compliance doc」]
+[填寫具體用途：例如「摘要法律文件」、「修飾醫療病人筆記」、「翻譯內部合規文件」]
 
 請：
-1. Recommend 邊個 model best fit 我 use case（基於 size / language / reasoning capability）
-2. 整一個 simple terminal workflow：
-   - 我有一份 .txt 或 .md doc
-   - 我 want pipe 入 model 出 summary / polish / 翻譯
-   - 唔需要 build UI，pure command line OK
-3. 寫一個 bash function 簡化呢個 workflow（add 落 ~/.zshrc）
-4. Caveat：local LLM 嘅 typical limitation（context length、accuracy on niche topic）
-5. When to fall back to cloud：邊種 task local 顯然唔夠強，要 cloud（同公司 compliance team confirm）
+1. 推薦邊個模型最適合我嘅用途（基於容量 / 語言 / 推理能力）
+2. 整一個簡單嘅 terminal 工作流程：
+   - 我有一份 .txt 或 .md 文件
+   - 我想將檔案內容傳入模型，輸出摘要 / 修飾 / 翻譯
+   - 唔需要整介面，純命令列 (command line) 就可以
+3. 寫一個 bash 函式去簡化呢個工作流程（加入到 `~/.zshrc`）
+4. 注意位：本地模型嘅典型限制（上文下理長度、冷門主題嘅準確度）
+5. 幾時應該轉返用雲端：邊種任務本地模型明顯唔夠強，需要雲端（我會同公司合規團隊確認）
 
-我嘅 mac：[M1 / M2 / M3，RAM size]
+我嘅 Mac 配置：[M1 / M2 / M3，記憶體大小]
 </PromptBlock>
 
-### 5. Build simple bash function
+### 5. 建立簡單嘅 bash 函式
 
 ```bash
-# Add to ~/.zshrc
+# 加入到 ~/.zshrc
 function ask-local() {
   local prompt="$1"
   local file="$2"
@@ -118,69 +118,69 @@ function ask-local() {
   fi
 }
 
-# Usage:
-ask-local "用廣東話書面語做 3 句 summary：" my-doc.txt
+# 使用方法：
+ask-local "用廣東話書面語做 3 句摘要：" my-doc.txt
 ask-local "Translate to English keeping legal precision:" contract.txt
 ```
 
-呢個 minimum workflow，5 分鐘 setup 完。
+呢個係最精簡嘅工作流程，5 分鐘搞掂。
 
 ## 變化例子
 
-### 變化 1：Privacy-first 嘅 inbox triage
+### 變化 1：私隱第一嘅收件箱分類
 
-<PromptBlock label="變化 1 — Local inbox triage">
-我要 local triage email（敏感行業，client info 唔可以 cloud）。
-
-請：
-1. Recommend Ollama model
-2. Setup：由 Mail.app 或 Outlook export 之後 pipe 入 local model
-3. Bash script triage 過去 1 日 email
-4. Output format 同 Cowork 嘅 cloud workflow 類似（5 sections）
-
-Trade-off acknowledge：local model 嘅 nuance lower、speed slower。 但 privacy gain 對我 case 重要。
-</PromptBlock>
-
-### 變化 2：Local code review（cloud 禁 code upload）
-
-<PromptBlock label="變化 2 — Local code review">
-我公司禁止 source code upload cloud LLM。 我想用 local model 做 code review。
+<PromptBlock label="變化 1 — 本地電郵分類">
+我要本地分類電郵（敏感行業，客戶資料唔可以上雲端）。
 
 請：
-1. Pick 啱 local model（code-tuned 嘅，例：CodeLlama、DeepSeek Coder）
-2. Setup workflow：cd 入 project，跑命令 review 啱啱 commit 嘅 diff
-3. Output：bug pattern、style concern、refactor suggestion
-4. Caveat：local model 對 nuanced code understanding 不及 Claude / GPT-4，唔可能完全 replace senior dev review
+1. 推薦 Ollama 模型
+2. 設定：由 Mail.app 或 Outlook 匯出之後，將資料傳入本地模型
+3. Bash 腳本分類過去 1 日嘅電郵
+4. 輸出格式同 Cowork 嘅雲端工作流程類似（分 5 個部分）
+
+承認取捨：本地模型嘅細緻度較低、速度較慢。但私隱保障對我個情況好重要。
 </PromptBlock>
 
-### 變化 3：Local + Claude 兩階段 workflow
+### 變化 2：本地代碼審查（公司禁止上傳代碼）
 
-<PromptBlock label="變化 3 — Local + Cloud 結合">
-我大部分 work 用 cloud Claude，但 occasional 撞 sensitive doc。 想設計：
-
-- Default：cloud（速度 + quality）
-- Trigger 落 local：當文檔 contains [keyword list — 例：client name patterns、specific case ID format、internal jargon]
+<PromptBlock label="變化 2 — 本地代碼審查">
+我公司禁止將原始碼上載落雲端 LLM。我想用本地模型做代碼審查。
 
 請：
-1. Bash function 自動 detect sensitive content
-2. Route 落 local / cloud 對應
-3. Logging：哪 doc routed where（auditability）
+1. 揀啱本地模型（針對代碼優化嘅，例如：CodeLlama、DeepSeek Coder）
+2. 設定工作流程：進入項目資料夾，行命令審查啱啱提交 (commit) 嘅差異 (diff)
+3. 輸出：錯誤模式、風格問題、重構建議
+4. 注意位：本地模型對複雜代碼嘅理解能力不及 Claude / GPT-4，唔可能完全取代高級開發者嘅審查
 </PromptBlock>
 
-## 一個 trade-off framework
+### 變化 3：本地 + Claude 兩階段工作流程
 
-Local LLM ≠ cloud Claude嘅 replacement。 兩者根本上係唔同 trade-off：
+<PromptBlock label="變化 3 — 本地 + 雲端結合">
+我大部分工作用雲端 Claude，但偶爾撞到敏感文件。想設計：
 
-| Dimension | Cloud Claude | Local Llama |
-|---|---|---|
-| Quality | ★★★★★ | ★★★ |
-| Speed | ★★★★★ | ★★ |
-| Privacy | ★ | ★★★★★ |
-| Cost | $20-50/月 | One-time setup |
-| Setup friction | Low | Medium |
+- 預設：雲端（速度 + 質素）
+- 觸發轉去本地：當文件包含 [關鍵字清單 — 例如：客嘅名、特定案件 ID 格式、內部行話]
 
-決策：**任何 「if leak, real consequence」 嘅 task → local**。 Routine task → cloud。
+請：
+1. 寫個 bash 函式自動偵測敏感內容
+2. 分流到本地 / 雲端對應處理
+3. 記錄：邊份文件去咗邊度（方便核度審查）
+</PromptBlock>
 
-呢個 division 唔需要 black-or-white。 90% 嘅 HK 打工仔 work，cloud 完全 OK。 5% sensitive case 用 local。
+## 一個取捨框架
 
-最後 mindset：local LLM 嘅 magic 唔係取代 Claude，係 unlock 「之前因 privacy ban AI use」 嘅 segment。 對 HK 法律 / 醫療 / 金融行業，呢個 unlock 真實。
+本地模型唔等於雲端 Claude 嘅替代品。兩者根本上係唔同嘅取捨：
+
+| 維度 | 雲端 Claude | 本地 Llama |
+| --- | --- | --- |
+| 質素 | ★★★★★ | ★★★ |
+| 速度 | ★★★★★ | ★★ |
+| 私隱 | ★ | ★★★★★ |
+| 成本 | $20-50/月 | 一次性硬件投入 |
+| 設定阻力 | 低 | 中 |
+
+決策原則：**任何「如果洩漏，會有嚴重後果」嘅任務 → 用本地**。日常任務 → 用雲端。
+
+呢個劃分唔需要非黑即白。90% 嘅香港打工仔工作，用雲端完全無問題。5% 敏感個案用本地。
+
+最後嘅核心思維：本地模型嘅魔力唔係取代 Claude，係解鎖「之前因為私隱問題而禁止使用 AI」嘅領域。對香港法律 / 醫療 / 金融行業嚟講，呢個解鎖實實在在。
