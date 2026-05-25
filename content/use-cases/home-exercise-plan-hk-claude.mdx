@@ -1,5 +1,5 @@
 ---
-title: "HK 350 sqft 屋企 1 張 yoga mat：用 Claude 整 8 週運動 plan（唔使去 gym）"
+title: "HK 350 呎屋企 1 張瑜伽墊：用 Claude 整 8 週運動計劃（唔使去 gym）"
 slug: "home-exercise-plan-hk-claude"
 issue: 67
 publishedAt: 2026-05-24
@@ -10,8 +10,8 @@ subcategory: "運動"
 heroImage: "/hero/home-exercise-plan-hk-claude.webp"
 difficulty: 1
 timeMinutes: 15
-toolsNeeded: ["Claude Chat", "1 張 yoga mat (HK$60-120)", "（可選）1 對 dumbbell 3-5kg"]
-description: "你住 HK 350 sqft 1-bedroom，gym 月費 HK$800 但你去過 4 次就放棄。用 Claude dump 屋企空間 + 你 baseline + 目標，出 8 週 progressive routine — 每日 15-25 分鐘、設備 minimum、avoid 鄰居投訴嘅低衝擊動作。Day 30 你會 noticeable progress。"
+toolsNeeded: ["Claude Chat", "1 張瑜伽墊 (HK$60-120)", "（可選）1 對 dumbbell 3-5kg"]
+description: "你住 HK 350 呎一房，gym 月費 HK$800 但你去過 4 次就放棄。用 Claude 將屋企空間 + 你基線 + 目標寫晒，出 8 週漸進式routine — 每日 15-25 分鐘、設備最少、避免鄰居投訴嘅低衝擊動作。Day 30 你會見到明顯進步。"
 keywords: ["HK home exercise", "細空間運動", "屋企運動 plan", "8 week routine", "瑜伽 mat 運動", "唔使 gym"]
 related: ["mental-health-journaling-claude", "sleep-insomnia-tracker-claude", "chronic-condition-management-claude"]
 featured: true
@@ -19,474 +19,474 @@ featured: true
 
 ## 情境
 
-1 月 1 日 12:30am 你 set 咗 New Year resolution：「2026 開始 regular exercise」。
+1 月 1 日 12:30am，你定咗新年願望：「2026 開始定期運動」。
 
-1 月 5 日你 sign 咗 gym 月費 HK$800（24-hr，3 個 location，walk-in showers）。
+1 月 5 日你簽咗 gym 月費 HK$800（24 小時，3 個分店，行入去就有花灑）。
 
 1 月 7-15 日你去咗 5 次。
 
-1 月 16 日 起 你 skip。
+1 月 16 日起你 skip。
 
-1 月 31 日你 review：1 個月 used 5 次 gym = HK$160 per session。
+1 月 31 日你檢視：1 個月用咗 5 次 gym = HK$160 每次。
 
-2 月你 cancel gym membership。3 月 5 月你 each setup re-attempt（自己整 routine、download 7 個 app、買 elastic band）。Each 持續 < 1 週。
+2 月你取消 gym 會籍。3 月 5 月你各 setup 重試（自己整 routine、download 7 個 app、買橡筋帶）。每次持續少於 1 週。
 
-而家 5 月底，你 feel：
+而家 5 月底，你感覺：
 
-- Body baseline 持續 decline（樓梯 4 層喘）
-- 工時 long sit 8-10 hr/day
-- Weekend 想活動但唔 know where to start
-- 屋企 350 sqft，cleared 一張 yoga mat 空間 max
-- 鄰居 sensitive to noise（last time burpee 跳完，hour later 樓下投訴）
-- 你預算可以 HK$200/month max for fitness equipment
+- 身體基線持續下跌（樓梯 4 層喘）
+- 工時長坐 8-10 個鐘每日
+- 週末想活動但唔知由邊開始
+- 屋企 350 呎，清出 1 張瑜伽墊空間最多
+- 鄰居對聲音敏感（上次 burpee 跳完，1 個鐘後樓下投訴）
+- 你預算可以 HK$200/月最多畀 fitness 設備
 
-呢個 home exercise paradox：
+呢個屋企運動嘅死結：
 
-- **Gym membership 動 力 高 / 摩擦 低（去咗就 做）**——但 commute + cost = recurring decision fatigue
-- **屋企 routine 摩擦 高（schedule、設備、空間）/ 動 力 低（無 social pressure）**——但 zero commute + free
+- **Gym 會籍動力高 / 摩擦低（去咗就做）**——但通勤 + 成本 = 重複決定疲勞
+- **屋企 routine 摩擦高（時間、設備、空間）/ 動力低（冇社交壓力）**——但零通勤 + 免費
 
-**Bridge 中間嘅 missing piece**：一個 specifically design for **HK 屋企 reality** 嘅 progressive routine。
-- 350 sqft 1 張 mat
-- 鄰居 sensitivity (低衝擊)
-- 8 週 progressive (build, 唔係 plateau)
-- 15-25 min daily (busy schedule 接受)
-- Minimum equipment (1 mat + 1 對 dumbbell)
+**橋住中間嘅缺塊**：一個專為 **HK 屋企現實** 設計嘅漸進式 routine。
+- 350 呎 1 張墊
+- 鄰居敏感（低衝擊）
+- 8 週漸進（建構，唔係 plateau）
+- 每日 15-25 分鐘（繁忙時間表接受）
+- 最少設備（1 張墊 + 1 對 dumbbell）
 
-呢篇用 Claude **dump 你 baseline + 目標 + 屋企空間**，出 personalised 8 週 plan。
+呢篇用 Claude **將你基線 + 目標 + 屋企空間寫晒**，出個人化 8 週計劃。
 
 ## 跟住做
 
-### 1. Dump 你 baseline + 屋企空間 入 Claude
+### 1. 將你基線 + 屋企空間寫晒入 Claude
 
-唔好 ask Claude「整 home workout plan」——你會收到行貨 YouTube-tier advice。先 dump 真實 specifics：
+唔好問 Claude「整 home workout plan」——你會收到行貨 YouTube 級建議。先將真實具體寫晒：
 
-> **我嘅 baseline (honest)**
+> **我嘅基線（老實）**
 > - 年齡：38
-> - Height / weight: 175cm / 78kg
-> - Body comp goal: lose 5kg fat + maintain muscle
-> - Current activity level: 工作 久坐 8-10 hr / 日，每週步行 (commute + lunch walk) ~5km cumulative
-> - 上次 regular exercise: 大學 (15 年前)
-> - 健康 condition: 健康 OK，輕 微 lower back stiffness (從 office sit)，無 medical issue
-> - 醫生 OK exercise: yes (last 健康 check pass)
-> 
-> **屋企 setup**
-> - 350 sqft 1-bedroom HK 高層 apartment
-> - Cleared 空間: yoga mat size (180cm × 60cm 鋪開 OK)
-> - 樓底: 2.8m (normal — jumping high 仲 OK)
-> - 鄰居: sensitive (last burpee complain). 低 sound / 低 vibration 為主
-> - 時間: weekday 7am-7:30am 起身前 OR 9pm-9:30pm 飯後. Weekend flexible.
-> 
-> **設備 budget**
-> - Already have: 1 yoga mat (HK$80, 持有 6 個月 unused)
-> - 預算 buy: HK$200/month max for first 2 個月
-> - 唔買 gym membership, 唔買 home cardio machine, 唔買 large equipment
-> 
-> **Goal**
-> - Realistic: 8 週後 (mid-July)
->   - 樓梯 4 層 唔 喘
->   - Plank 60 sec hold
->   - Body composition 第 1 個改善 visible
-> - 唔現實 但 motivating: 體型 改善 by year end
-> 
-> **Anti-pattern from past attempts**
-> - 我 quit because 「ambitious 60-min daily routine」 unsustainable
-> - 我 quit because 用 7 個 fitness app 一週後 abandoned
-> - 我 quit because Day 5 sore + 唔 know if 「good sore」 vs injury
-> - 我 quit because no daily visual progress (week 2 frustrated)
+> - 高 / 重：175cm / 78kg
+> - 體型目標：減 5kg 脂肪 + 維持肌肉
+> - 當前活動水平：工作久坐 8-10 個鐘每日，每週步行（通勤 + 午餐散步）約 5km 累積
+> - 上次定期運動：大學（15 年前）
+> - 健康狀況：健康 OK，輕微下背僵硬（由 office 久坐），無醫療問題
+> - 醫生 OK 運動：yes（上次健康檢查通過）
+>
+> **屋企設定**
+> - 350 呎 1 房 HK 高層樓宇
+> - 清出空間：瑜伽墊大小（180cm × 60cm 鋪開 OK）
+> - 樓底：2.8m（正常 — 跳高仲 OK）
+> - 鄰居：敏感（上次 burpee 投訴）。低聲音 / 低震動為主
+> - 時間：weekday 7am-7:30am 起身前 OR 9pm-9:30pm 飯後。Weekend 彈性。
+>
+> **設備預算**
+> - 已有：1 張瑜伽墊（HK$80，持有 6 個月未用）
+> - 預算買：HK$200/月最多畀頭 2 個月
+> - 唔買 gym 會籍，唔買屋企 cardio 機，唔買大設備
+>
+> **目標**
+> - 現實：8 週後（7 月中）
+>   - 樓梯 4 層唔喘
+>   - Plank hold 60 秒
+>   - 體型第 1 個改善 visible
+> - 唔現實但有動力：體型改善 by 年尾
+>
+> **過去失敗嘅反面規律**
+> - 我退出因為「進取 60 分鐘每日 routine」唔可持續
+> - 我退出因為用 7 個 fitness app 一週後放棄
+> - 我退出因為 Day 5 痠痛 + 唔知係「好痠」vs 受傷
+> - 我退出因為冇每日視覺進步（第 2 週沮喪）
 
-呢類 dump 入 Claude，係出真 personalized plan 嘅 raw material。
+呢類資料入 Claude，係出真個人化計劃嘅原料。
 
-### 2. 用呢個 prompt 出 8 週 plan
+### 2. 用呢個 prompt 出 8 週計劃
 
-<PromptBlock label="完整 prompt — 8 week progressive home routine">
-[paste 你 baseline dump]
+<PromptBlock label="完整 prompt — 8 週漸進式屋企 routine">
+[貼上你嘅基線]
 
-請整 **8 週 progressive home exercise plan**，每週 5 日（休息 2 日），每日 15-25 分鐘：
+請整 **8 週漸進式屋企運動計劃**，每週 5 日（休息 2 日），每日 15-25 分鐘：
 
-📐 **Design principles** (你 必 follow):
-- 低衝擊 (鄰居 friendly — no burpees, no jump squats. Modified bodyweight + dumbbell-based)
-- Progressive (Week 1 simple → Week 8 challenging)
-- Equipment minimum (mat + 1 對 dumbbell 3-5kg if added Week 3)
-- 多元 (strength + mobility + light cardio - not single-modality plateau)
-- Sustainable schedule (15-25 min cap)
+📐 **設計原則**（你必跟）：
+- 低衝擊（鄰居友善 — 冇 burpees，冇 jump squats。改良版徒手 + dumbbell 為主）
+- 漸進（第 1 週簡單 → 第 8 週挑戰）
+- 設備最少（墊 + 1 對 dumbbell 3-5kg 如第 3 週加）
+- 多元（力量 + 柔軟 + 輕 cardio - 唔單一模式 plateau）
+- 可持續時間表（15-25 分鐘封頂）
 
-🗓 **每週 structure**
+🗓 **每週結構**
 
-**Mon - Strength upper + core (20 min)**
-**Tue - Mobility + light cardio (15 min)**
-**Wed - Strength lower + glute (20 min)**
-**Thu - 休息 OR active recovery (walk only)**
-**Fri - Full body circuit (25 min)**
-**Sat - 長 mobility flow (15-20 min) + 戶外 walk separate 30 min**
-**Sun - 休息**
+**一 - 上身 + 核心力量（20 分鐘）**
+**二 - 柔軟 + 輕 cardio（15 分鐘）**
+**三 - 下身 + 臀力量（20 分鐘）**
+**四 - 休息 OR 主動恢復（只行路）**
+**五 - 全身循環（25 分鐘）**
+**六 - 長柔軟流動（15-20 分鐘）+ 戶外行 30 分鐘另計**
+**日 - 休息**
 
-📅 **Week 1-2: Foundation (no equipment)**
+📅 **第 1-2 週：根基（冇設備）**
 
-Goal: 建立 habit + identify 弱 area + form check
+目標：建立習慣 + 識別弱點 + 動作檢查
 
-每日 15-min routine:
-- 1 min mobility warm-up (neck, shoulder, hip circle)
-- 12 min 主 workout
-- 2 min cooldown (stretch)
+每日 15 分鐘 routine：
+- 1 分鐘柔軟熱身（頸、膊、髖圈）
+- 12 分鐘主 workout
+- 2 分鐘 cooldown（拉筋）
 
-主 workout examples:
-- Mon: bodyweight squat × 10 × 3, wall push-up × 8 × 3, plank 20 sec × 3
-- Wed: glute bridge × 12 × 3, side plank 15 sec each × 2, dead bug × 8 × 3
+主 workout 例子：
+- 一：徒手 squat × 10 × 3，牆 push-up × 8 × 3，plank 20 秒 × 3
+- 三：臀橋 × 12 × 3，側 plank 每邊 15 秒 × 2，dead bug × 8 × 3
 - 等等
 
-📊 **Week 3-4: Add load + complexity**
+📊 **第 3-4 週：加負重 + 複雜度**
 
-Buy: 1 對 3kg dumbbell (HK$150-200 at Decathlon)
+買：1 對 3kg dumbbell（HK$150-200 喺 Decathlon）
 
-Add to routine:
-- Goblet squat with dumbbell (load)
-- Dumbbell row (back)
-- Dumbbell shoulder press
-- Increase rep range 12-15
+加入 routine：
+- Goblet squat with dumbbell（負重）
+- Dumbbell row（背）
+- Dumbbell 肩 press
+- 增加 rep 範圍 12-15
 
-時間：20 min
+時間：20 分鐘
 
-📈 **Week 5-6: Progressive overload**
+📈 **第 5-6 週：漸進負荷**
 
-If 3kg too easy: upgrade to 5kg (or add reps)
+如 3kg 太易：升到 5kg（或加 rep）
 
-Add:
-- Bulgarian split squat (single leg, balance)
-- Push-up progression (from wall → incline → flat → modified)
-- Plank progression (longer holds)
-- Add 1 short cardio session (15 min jump rope replacement — high knee march if jumping noise)
+加：
+- Bulgarian split squat（單腳，平衡）
+- Push-up 漸進（牆 → 斜 → 平 → 改良）
+- Plank 漸進（hold 耐啲）
+- 加 1 個短 cardio session（15 分鐘跳繩替代 — 高膝原地行如跳聲音）
 
-時間：20 min
+時間：20 分鐘
 
-🎯 **Week 7-8: Consolidate + assess**
+🎯 **第 7-8 週：鞏固 + 評估**
 
-- 全部 movements proficient
-- Final week: max-effort test (compare to Day 1)
-- Plank time
-- Push-up count
-- Squat depth video record
-- 樓梯 4 層 test
-- Body composition photo (front / side / back)
+- 全部動作純熟
+- 最後一週：最大努力測試（對比 Day 1）
+- Plank 時間
+- Push-up 數量
+- Squat 深度錄影
+- 樓梯 4 層測試
+- 體型相（前 / 側 / 後）
 
-📋 **Daily checklist (during plan):**
-- [ ] Sleep 7+ hr previous night
-- [ ] Hydrated (1 cup water before exercise)
-- [ ] Form check (slower > more reps with bad form)
-- [ ] 1-10 effort rating (target 6-8 for 主 session)
-- [ ] Pain (sharp) vs discomfort (sustained burn) — sharp = STOP
+📋 **每日清單（計劃期間）**：
+- [ ] 前一晚瞓 7+ 個鐘
+- [ ] 補水（運動前 1 杯水）
+- [ ] 動作檢查（慢 > 多 rep 但姿勢差）
+- [ ] 1-10 努力評分（目標 6-8 畀主 session）
+- [ ] 痛（尖銳）vs 不適（持續灼熱） — 尖銳 = STOP
 
-🚨 **Red flag signal**
-- Sharp pain joint / lower back > 1 day post-workout: STOP that exercise, consult physio
-- Cardiovascular: chest pain / dizziness / disproportionate breathlessness during exercise → STOP + medical
-- 持續 fatigue >1 週: under-recovery, reduce volume
+🚨 **紅燈信號**
+- 尖銳痛 關節 / 下背超過 1 日 post-workout：STOP 嗰個動作，諮詢物理治療師
+- 心血管：胸痛 / 暈 / 不成比例呼吸困難運動期間 → STOP + 醫療
+- 持續疲勞超過 1 週：恢復不足，減量
 
-🎒 **Equipment to buy (in order)**
+🎒 **設備買（按次序）**
 
-Week 0:
-- 1 mat (already have)
+第 0 週：
+- 1 張墊（已有）
 
-Week 3:
-- 1 對 dumbbell 3kg or 5kg (HK$150-200 Decathlon)
+第 3 週：
+- 1 對 dumbbell 3kg 或 5kg（HK$150-200 Decathlon）
 
-Week 5 (optional):
-- 1 mini resistance band (HK$60)
-- 1 jump rope (HK$80) - or sub with high-knee march
+第 5 週（可選）：
+- 1 條迷你橡筋帶（HK$60）
+- 1 條跳繩（HK$80） - 或用高膝原地替代
 
-DO NOT buy:
-- Home cardio machine (HK 350 sqft 無位)
-- Multiple dumbbell sizes (3kg or 5kg only)
-- Smart-fit tracker (your phone time + manual log enough)
+唔好買：
+- 屋企 cardio 機（HK 350 呎冇位）
+- 多 size dumbbell（3kg 或 5kg 只）
+- 智能 fit tracker（你電話時間 + 手動 log 夠）
 
-📝 **Daily log format (5 min after workout)**
+📝 **每日 log 格式（workout 後 5 分鐘）**
 
 ```
 WEEK X DAY Y
-完成 routine: Y/N
-Modifications: [if any]
-Effort 1-10: 
-Notable: [pain, energy, mood]
-Next day adjust: 
+完成 routine：Y/N
+修改：[if any]
+努力 1-10：
+顯著：[痛、精力、心情]
+下日調整：
 ```
 
-🏋 **Mistake to avoid (HK home exercise specific)**
-- 過早 jump training (鄰居 + injury)
-- Treating Day 1 like personal best (build slow)
-- Compare with social media 「6-week transformation」 (lighting + angle)
-- Skip cooldown / stretch (mobility 同樣 重要)
-- Quit Day 4 because 「沒 progress」 (visible change Week 3+)
+🏋 **要避免嘅錯誤（HK 屋企運動專屬）**
+- 過早 jump training（鄰居 + 受傷）
+- 將 Day 1 當個人最佳（build 慢）
+- 同社交媒體「6 週變身」比（光線 + 角度）
+- Skip cooldown / 拉筋（柔軟同樣重要）
+- 第 4 日退出因為「冇 progress」（visible 改變第 3 週+）
 
-🎯 **Realistic expectation**
-- Week 1: 認識動作 + 揾 form
-- Week 2: 體力 baseline 提升輕微 (sleep 改善是早 sign)
-- Week 4: clothes fit slightly differently
-- Week 6: photo comparable change
-- Week 8: 樓梯 4 層 唔喘 + plank 60 sec
+🎯 **現實期望**
+- 第 1 週：認識動作 + 揾姿勢
+- 第 2 週：體力基線提升輕微（睡眠改善係早期信號）
+- 第 4 週：衫貼合稍唔同
+- 第 6 週：相比較得到改變
+- 第 8 週：樓梯 4 層唔喘 + plank 60 秒
 
-⏰ **每日 schedule advice for HK busy schedule**
-- AM (7am - 7:30am): 適合 strength session (cortisol natural elevation)
-- PM (9pm - 9:30pm): 適合 mobility / light session (winds down for sleep)
-- 唔 mid-day (lunch break 太短 + 唔 shower 接客)
-- 唔 right before bed (3 hr cap between exercise + sleep)
+⏰ **每日時間表建議畀 HK 繁忙時間表**
+- AM（7am - 7:30am）：適合力量 session（皮質醇自然提升）
+- PM（9pm - 9:30pm）：適合柔軟 / 輕 session（為瞓覺收線）
+- 唔好中午（午餐時間太短 + 唔沖涼接客）
+- 唔好瞓前（運動同瞓覺之間 3 個鐘封頂）
 
-語氣：specific + permission to modify + realistic timeline.
+語氣：具體 + 容許調整 + 現實時間表。
 </PromptBlock>
 
-Claude 出嘅 plan 你 print 出嚟貼 yoga mat 隔籬。**Week 1 strict follow** — Don't customize Day 1。Day 8 你 noticed 邊個動作 wrong fit，再 prompt Claude adjust。
+Claude 出嘅計劃你 print 出嚟貼瑜伽墊隔籬。**第 1 週嚴格跟** — 唔好 Day 1 customize。Day 8 你發現邊個動作唔啱，再 prompt Claude 調整。
 
-### 3. 揾 form reference (YouTube curated list)
+### 3. 揾動作參考（YouTube 精選清單）
 
-Claude 出 8-week plan 但 **動作 form 要 visual** — 你 prompt 出 a curated YouTube list：
+Claude 出 8 週計劃但**動作姿勢要視覺** — 你 prompt 出一份精選 YouTube 清單：
 
-<PromptBlock label="完整 prompt — Form reference YouTube curation">
-我 following 8-week home plan (我 paste 過 你). 我 need 1 YouTube channel per movement 嘅 reliable form demo (短 video, no fluff).
+<PromptBlock label="完整 prompt — 動作參考 YouTube 精選">
+我跟住 8 週屋企計劃（我貼過畀你）。我需要每個動作 1 個 YouTube 頻道嘅可靠姿勢示範（短片，冇廢話）。
 
 請推薦：
-- 1 reliable YouTube channel for bodyweight basics (e.g., FitnessBlender, Athlean-X, Renaissance Periodization, etc.)
-- 唔 推 dropshipping influencer channels (sell supplement)
-- 唔 推 「30 day transformation」 dramatic channels
-- 推 grounded form-focused
+- 1 個可靠 YouTube 頻道 for 徒手基本（例：FitnessBlender、Athlean-X、Renaissance Periodization 等）
+- 唔推賣補充劑 dropshipping 影響者頻道
+- 唔推「30 日變身」誇張頻道
+- 推落地姿勢為主嘅
 
-For each movement in my plan (squat, push-up, plank, hip hinge, row, glute bridge, dead bug, etc.):
-- 1 form video link (rough description, 我自己 search)
-- Top 3 form cue (你寫 textual cue 也 OK)
-- Top 3 common mistake
+For 我計劃入面每個動作（squat、push-up、plank、hip hinge、row、glute bridge、dead bug 等）：
+- 1 條姿勢片 link（大致描述，我自己搜尋）
+- Top 3 姿勢提示（你寫文字提示都 OK）
+- Top 3 常見錯誤
 
-🎯 **My 認證 criteria for form video**:
-- Under 5 minutes
-- Form demonstration > philosophy
-- 1 angle minimum 2 (side + front)
-- No supplement plug
-- 多次 view counts (suggesting community 驗證)
+🎯 **我嘅姿勢片認可條件**：
+- 5 分鐘內
+- 姿勢示範 > 哲學
+- 1 個角度最少 2 個（側 + 前）
+- 冇補充劑廣告
+- 多 view（社群驗證）
 
-語氣：curated, no fluff.
+語氣：精選，冇廢話。
 </PromptBlock>
 
-呢個 step 唔可 skip — form 錯 = injury risk increase 10x。Spend 30 min Day 1 watching form video before Day 1 workout。
+呢步唔可 skip — 姿勢錯 = 受傷風險增加 10 倍。Day 1 花 30 分鐘睇姿勢片 before Day 1 workout。
 
-### 4. Adjust schedule for sick / travel / stress week
+### 4. 為病 / 旅行 / 壓力週調整時間表
 
-8 週 plan 唔 holiday-proof — 預備 disruption protocol：
+8 週計劃唔可放假防 — 預備中斷協議：
 
-<PromptBlock label="完整 prompt — Disruption adjustment protocol">
-我 7-week mark (or whenever), encountering disruption:
-- [Sick (cold / flu) 3-7 days]
-- [Work crunch — 80 hr week]
-- [Travel 4 days]
-- [Family emergency requiring 重 ​mental load]
+<PromptBlock label="完整 prompt — 中斷調整協議">
+我第 7 週標記（或隨時），遇到中斷：
+- [生病（感冒 / 流感）3-7 日]
+- [工作緊迫 — 80 個鐘週]
+- [旅行 4 日]
+- [家庭緊急要重精神負擔]
 
-請 adjust：
+請調整：
 
-🤒 **Sick disruption (cold / flu / 重 病)**
-- Mild cold (no fever): light walk OK, skip strength
-- Fever / severe: NO exercise, prioritize sleep + hydrate
-- Recovery rule: 24 hr after fever break → light walk OK, 48 hr → resume strength
-- Don't「make up」missed days. Continue from where you 左
+🤒 **生病中斷（感冒 / 流感 / 重病）**
+- 輕感冒（冇發燒）：輕行 OK，skip 力量
+- 發燒 / 嚴重：NO 運動，優先瞓 + 補水
+- 恢復規則：發燒退 24 小時 → 輕行 OK，48 小時 → 恢復力量
+- 唔好「補番」missed 日。由你停嘅地方繼續
 
-💼 **Work crunch week**
-- Reduce to 2 sessions/week (Tues + Sat)
-- 10 min each (shorter, maintain habit)
-- Skip cardio session, retain core movements
-- Sleep 同 nutrition more critical than workout
-- Resume normal schedule next week
+💼 **工作緊迫週**
+- 減到每週 2 session（二 + 六）
+- 每次 10 分鐘（短，維持習慣）
+- Skip cardio session，保留核心動作
+- 瞓眠同營養比 workout 更關鍵
+- 下週恢復正常時間表
 
-✈️ **Travel disruption (3-7 days)**
-- Pack 1 resistance band (lighter than dumbbell)
-- 10-min hotel room routine: bodyweight only
-- 1 daily 20-min walk outdoor (different environment 鞏 mood)
-- Travel ≠ excuse skip entire week. Travel = lighter modality.
+✈️ **旅行中斷（3-7 日）**
+- 包 1 條橡筋帶（比 dumbbell 輕）
+- 10 分鐘酒店房 routine：只徒手
+- 1 日 20 分鐘戶外行（唔同環境鞏固心情）
+- 旅行 ≠ 藉口 skip 成週。旅行 = 較輕模式。
 
-🧠 **Mental load week (家庭 crisis / break-up / job stress)**
-- Don't quit, but reduce intensity
-- Replace strength with mobility-only sessions (15-20 min)
-- Skip workout sessions when emotionally exhausted
-- Walks count (low cognitive load, mood-supporting)
-- 同 mental health journal (separate prompt) 一齊 use
+🧠 **精神負擔週（家庭危機 / 分手 / 工作壓力）**
+- 唔退出，但減強度
+- 用只柔軟 session 替代力量（15-20 分鐘）
+- Skip workout session 當情緒筋疲力盡
+- 行路算（低認知負擔，支持心情）
+- 同心理健康日記（另一個 prompt）一齊用
 
-📅 **Re-entry after pause >1 week**
-- Don't pick up where you 左 — drop 1-2 week back
-- Re-introduce gradually:
-  - Day 1: 10 min light session
-  - Day 2: rest
-  - Day 3: 15 min
-  - Day 4: rest
-  - Day 5: back to normal cadence
-- Form check critical first 2 sessions back
+📅 **重新進入超過 1 週暫停後**
+- 唔好由你停嘅地方繼續 — 退返 1-2 週
+- 漸進重新引入：
+  - Day 1：10 分鐘輕 session
+  - Day 2：休息
+  - Day 3：15 分鐘
+  - Day 4：休息
+  - Day 5：返正常節奏
+- 姿勢檢查首 2 個 session 後關鍵
 
-🔄 **Restart protocol if multi-week pause**
-- Restart from Week 1 of plan, but 加速:
-  - Compress Week 1-2 → 5 days
-  - Compress Week 3-4 → 7 days
-  - Resume normal cadence Week 5
+🔄 **多週暫停重啟協議**
+- 由計劃第 1 週重啟，但加速：
+  - 壓縮第 1-2 週 → 5 日
+  - 壓縮第 3-4 週 → 7 日
+  - 第 5 週恢復正常節奏
 
-語氣：grace + non-judgmental. Disruption is normal, quit-from-disruption is the actual risk.
+語氣：寬容 + 不評判。中斷正常，由中斷退出先係真風險。
 </PromptBlock>
 
-呢個 step 通常 plan 之 後 才 諗 — 但係 actual 80% 嘅 quit reason。Pre-empt disruption response = 8-week plan 真 complete.
+呢步通常計劃之後先諗 — 但係實際 80% 嘅退出原因。先預期中斷反應 = 8 週計劃真完整。
 
-## 變化
+## 變化例子
 
-### 變化 1：HK 細空間 cardio replacement（無 jump rope）
+### 變化 1：HK 細空間 cardio 替代（冇跳繩）
 
-無 jumping rope（鄰居）嘅 cardio：
+冇跳繩（鄰居）嘅 cardio：
 
 <PromptBlock label="變化 1 — 低衝擊 HK 屋企 cardio">
-我 8-week plan 加 light cardio (Week 5-6+). 鄰居敏感, 無 jump rope. 請推薦 alternative：
+我 8 週計劃加輕 cardio（第 5-6 週+）。鄰居敏感，冇跳繩。請推薦替代：
 
-🚶 **低衝擊 indoor cardio options**
+🚶 **低衝擊室內 cardio 選擇**
 
-- **High-knee march in place** (knee waist height, no jump): 10 min
-- **Mountain climber (slow controlled)**: 30 sec × 3
-- **Step-up on sturdy chair** (low chair only): 10 min
-- **Boxing shadow combo** (no jump): 12 min
-- **Dance freestyle** (low-impact, no jump): 15 min
-- **Walking lunges in place** (length of mat): 12 min
+- **高膝原地行**（膝到腰高，冇跳）：10 分鐘
+- **登山者（慢控制）**：30 秒 × 3
+- **Step-up 喺穩陣椅**（只低椅）：10 分鐘
+- **拳擊影子組合**（冇跳）：12 分鐘
+- **自由跳舞**（低衝擊，冇跳）：15 分鐘
+- **行路 lunge 原地**（墊長度）：12 分鐘
 
-🎵 **App / playlist for low-impact**
-- Apple Fitness+ (kickboxing / dance, low-impact filter)
-- YouTube: Heather Robertson, MadFit (apartment-friendly tag)
-- Spotify playlist: 「low-impact cardio」 search
+🎵 **App / playlist 畀低衝擊**
+- Apple Fitness+（kickboxing / 跳舞，低衝擊 filter）
+- YouTube：Heather Robertson、MadFit（apartment-friendly tag）
+- Spotify playlist：「low-impact cardio」搜尋
 
-⏰ **HR target zone**
-- Light cardio: 60-70% max HR
-- 你 max HR ≈ 220 - 年齡 (estimate)
-- E.g., 38 歲: max ≈ 182, target zone 109-127 bpm
-- Apple Watch / Fitbit useful but optional
+⏰ **HR 目標區間**
+- 輕 cardio：60-70% 最大 HR
+- 你最大 HR ≈ 220 - 年齡（估計）
+- 例：38 歲：最大 ≈ 182，目標區 109-127 bpm
+- Apple Watch / Fitbit 有用但可選
 
-📊 **不 cardio replacement**
-- 唔 worth: heart-pounding burpee (鄰居 + 心臟 stress)
-- 唔 worth: high-impact aerobic
-- 唔 worth: ultra-low-impact (yoga only = not cardio)
+📊 **唔值 cardio 替代**
+- 唔值：心跳爆 burpee（鄰居 + 心臟壓力）
+- 唔值：高衝擊有氧
+- 唔值：超低衝擊（只瑜伽 = 唔係 cardio）
 
-🚪 **戶外 alternative**
-- 屋邨 樓梯 (10 floor 一輪, 3 輪)
+🚪 **戶外替代**
+- 屋苑樓梯（10 樓一輪，3 輪）
 - 維園 / 城門 trail 行 30 分鐘
-- 沙灘 hard sand walk
-- 街道 brisk 步行 with timer
+- 沙灘硬沙行
+- 街道快步行 with timer
 
-語氣：specific HK 屋企 friendly options.
+語氣：具體 HK 屋企友善選擇。
 </PromptBlock>
 
-### 變化 2：女性月經週期 + exercise plan
+### 變化 2：女性月經週期 + 運動計劃
 
-如 你係 female applicant，月經 cycle 影響 exercise capacity 顯著:
+如你係女性，月經週期顯著影響運動能力：
 
-<PromptBlock label="變化 2 — Female-specific cycle-adjusted plan">
-我係女性, 月經 cycle ~28 日. 我想 cycle-sync 我 8-week plan.
+<PromptBlock label="變化 2 — 女性專屬週期調整計劃">
+我係女性，月經週期約 28 日。我想週期同步我 8 週計劃。
 
-📊 **Cycle phases + exercise impact**
+📊 **週期階段 + 運動影響**
 
-**Phase 1: Menstrual (Day 1-7)**
-- 普遍 low energy, cramping, mood low
-- Heavy lift / HIIT 困難
-- Best: gentle yoga, walking, stretching, low-impact cardio
-- 唔 skip exercise but lighter modality
-- 「Power phase」 myth — actually most rest needed
+**階段 1：月經（Day 1-7）**
+- 普遍低精力，痛經，心情低
+- 重 lift / HIIT 困難
+- 最佳：溫和瑜伽、行路、拉筋、低衝擊 cardio
+- 唔 skip 運動但較輕模式
+- 「Power phase」迷思 — 實際最需要休息
 
-**Phase 2: Follicular (Day 7-14)**
-- 高 energy, mood lift, recovery 快
-- BEST for strength training, intensity progression
-- New PR window
-- Plan 你 hardest workout 喺 呢 phase
+**階段 2：濾泡期（Day 7-14）**
+- 高精力，心情升，恢復快
+- BEST 畀力量訓練，強度漸進
+- 新個人最佳 window
+- 計劃你最辛苦 workout 喺呢個階段
 
-**Phase 3: Ovulation (Day 14-16)**
-- Peak energy
-- Injury risk slightly higher (ligament laxity 由 estrogen)
-- Cardio + strength combo OK
-- 注意 form not push max load
+**階段 3：排卵期（Day 14-16）**
+- 高峰精力
+- 受傷風險稍高（韌帶鬆由 estrogen）
+- Cardio + 力量結合 OK
+- 注意姿勢唔好推最大負重
 
-**Phase 4: Luteal (Day 16-28)**
-- Mid-luteal: still OK exercise
-- Pre-menstrual (Day 24-28): energy 低, mood swing
-- Reduce intensity, increase recovery
-- Cramping start: anticipate
+**階段 4：黃體期（Day 16-28）**
+- 中黃體：仍 OK 運動
+- 月經前（Day 24-28）：精力低，心情搖擺
+- 減強度，增恢復
+- 痛經開始：預期
 
-📅 **Cycle-sync the 8-week plan**
+📅 **週期同步 8 週計劃**
 
-If aware of own cycle:
-- Schedule heaviest week (Week 5-6) in follicular phase
-- Plan deload week in menstrual phase
-- 唔 force PR attempt in luteal phase
+如知道自己週期：
+- 排最重週（第 5-6 週）喺濾泡期
+- 計劃 deload 週喺月經期
+- 唔強迫個人最佳嘗試喺黃體期
 
-📋 **Track**
+📋 **追蹤**
 Apple Health / Clue / Flo app
-Daily energy 1-10 rating
-Note overlap with cycle phase
+每日精力 1-10 評分
+記重疊週期階段
 
-🚨 **Red flag**
-- 持續 amenorrhea (3+ months no period) without medical 解釋: GP visit (under-eating + over-exercising warning)
-- 異常 heavy / painful menstruation impacting daily life: GP
+🚨 **紅燈**
+- 持續閉經（3+ 個月冇月經）冇醫療解釋：GP 探訪（食不足 + 過度運動警告）
+- 異常重 / 痛月經影響日常生活：GP
 
-語氣：respect cycle as data, don't force unnatural consistency.
+語氣：尊重週期做數據，唔強迫不自然一致性。
 </PromptBlock>
 
-### 變化 3：Senior (50+) 屋企運動
+### 變化 3：長者（50+）屋企運動
 
-50+ 歲 modify approach:
+50+ 歲調整取向：
 
-<PromptBlock label="變化 3 — Senior (50+) home routine adjust">
-我 [50/60/70+] 歲, 想 home routine. 過去 30 年 sedentary. 醫生 OK light exercise.
+<PromptBlock label="變化 3 — 長者（50+）屋企 routine 調整">
+我 [50/60/70+] 歲，想屋企 routine。過去 30 年久坐。醫生 OK 輕運動。
 
-請 adjust:
+請調整：
 
-⏰ **Senior-specific consideration**
-- 心血管 baseline check first (GP visit > 5 年 since last)
-- Bone density 重要 (post-menopausal female + 男性 60+)
-- 骨關節 osteoarthritis common, 不 high-impact
-- Balance + fall prevention critical
-- Recovery 慢, 1-2 day post-workout
-- Hydration easier 缺
+⏰ **長者專屬考慮**
+- 心血管基線先 check（GP 探訪超過 5 年自上次）
+- 骨密度重要（停經後女性 + 男性 60+）
+- 骨關節炎常見，唔好高衝擊
+- 平衡 + 跌倒預防關鍵
+- 恢復慢，1-2 日 post-workout
+- 補水更易缺
 
-📐 **Plan adjust**
+📐 **計劃調整**
 
-Week 1-2 (foundation, slower start):
-- Chair-based exercise 主導
-- Standing balance practice (10 sec on 1 leg)
-- Wall push-up
-- Sit-to-stand from chair
-- Walking 15-20 min daily
+第 1-2 週（根基，較慢開始）：
+- 椅基運動為主
+- 站立平衡練習（10 秒 1 腳）
+- 牆 push-up
+- 由椅 sit-to-stand
+- 行路 15-20 分鐘每日
 
-Week 3-4:
-- Add light dumbbell (1-2 kg)
-- Bodyweight squat with support
-- Hip bridge
-- Cat-cow stretch
+第 3-4 週：
+- 加輕 dumbbell（1-2 kg）
+- 徒手 squat with 支撐
+- 髖橋
+- 貓牛拉筋
 
-Week 5-8:
-- Progressive (but slower)
-- Hold poses longer (don't increase weight as fast)
-- Stretching 比 重要 比 strength alone
-- 每週 1 outdoor walking 1 hr
+第 5-8 週：
+- 漸進（但較慢）
+- Hold 姿勢耐啲（唔好咁快加重）
+- 拉筋比單獨力量更重要
+- 每週 1 次戶外行 1 個鐘
 
-🦴 **Bone health specific**
-- Weight-bearing exercise needed (squat, lunge)
-- Vibration plate (if accessible)
-- Vitamin D + 蛋白質 nutrition critical
+🦴 **骨健康專屬**
+- 需要承重運動（squat、lunge）
+- 震動板（如可達）
+- 維他命 D + 蛋白質營養關鍵
 
-⚠️ **Senior red flag**
-- Dizziness during / post exercise → STOP + GP
-- Chest pain → STOP + emergency
-- Joint pain >2 days → adjust exercise
+⚠️ **長者紅燈**
+- 暈喺運動期間 / 後 → STOP + GP
+- 胸痛 → STOP + 緊急
+- 關節痛超過 2 日 → 調整運動
 
-📋 **GP visit Pre-plan**
-建議 before start: 1 GP visit「我想 8-week home exercise plan, no past serious illness. Any specific consideration?」
+📋 **GP 探訪預先計劃**
+建議 before 開始：1 個 GP 探訪「我想 8 週屋企運動計劃，冇過去嚴重病。任何特定考慮？」
 
-語氣：respect 50+ years body 經驗 但 also opportunity to rebuild.
+語氣：尊重 50+ 年身體經驗但都係重建機會。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-Home exercise 嘅 paradox：你期 望 sustainable habit，但 progress visible 需要 weeks。
+屋企運動嘅死結：你期望可持續習慣，但 visible 進步要幾週。
 
-呢個 paradox 嘅 root: **default expectation 由 「7-day transformation」 social media 設定 - 但 actual physiology timeline 唔同。Body composition 8 週 才 visible change. Cardiovascular fitness 4 週 first measurable. Strength gain 6-8 週 noticeable.** 
+呢個死結嘅根本：**預設期望由「7 日變身」社交媒體設定 - 但實際生理時間表唔同。體型 8 週先 visible 改變。心肺體能 4 週首次可量度。力量增長 6-8 週可察覺**。
 
-呢個 mindset 嘅 reframe: **8 週 home plan 嘅 ROI 唔係 8 週後 你變另一個人**——係 8 週後 你 hold 一個 sustainable habit + 你 brain 嘅 「exercise habit pathway」 從 「frictional decision」 過渡到「automatic」。
+呢個思維嘅轉變：**8 週屋企計劃嘅回報唔係 8 週後你變另一個人**——係 8 週後你維持一個可持續習慣 + 你個腦嘅「運動習慣神經通路」由「摩擦決定」過渡到「自動」。
 
-Claude 嘅 role 喺 home exercise: 你 alone 設計 plan 嘅 problem 係行貨「3-week plan」model 嘅 thinking — Claude 強迫 你 dump specifics 然後 build personalized progressive。Plan 一旦 set 你 brain freed up to just execute。
+Claude 嘅角色喺屋企運動：你獨自設計計劃嘅問題係行貨「3 週計劃」模型嘅思維 — Claude 強迫你將具體寫晒然後建漸進個人化計劃。計劃一旦設好，你個腦釋放出嚟只係執行。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **15-20 min daily 比 1 hr weekly 更 effective**。Habit formation + adaptation 都係 daily-frequency rewarded。
-- ⚠️ **Sore ≠ injury 但 sharp ≠ DOMS**。Day 1 muscle soreness normal。Day 3+ 持續，sharp joint pain，唔 fix by rest 24 hr = physio / GP consultation。
-- 🎯 **8 週後 你 真 progress = 你 仲 maintain habit, 唔係 metric improvement**。Metric improvement automatic happens。
+- ✅ **每日 15-20 分鐘比每週 1 個鐘更有效**。習慣形成 + 適應都係每日頻率獎勵。
+- ⚠️ **痠 ≠ 受傷但尖銳 ≠ DOMS**。Day 1 肌肉痠正常。Day 3+ 持續，尖銳關節痛，唔由 24 小時休息修復 = 物理治療師 / GP 諮詢。
+- 🎯 **8 週後你真進步 = 你仲維持習慣，唔係指標改善**。指標改善自動發生。
 
-從今晚開始。yoga mat 鋪開，3 分鐘 mobility，唔 set perfect 第一日。
+由今晚開始。瑜伽墊鋪開，3 分鐘柔軟，唔設完美第一日。
