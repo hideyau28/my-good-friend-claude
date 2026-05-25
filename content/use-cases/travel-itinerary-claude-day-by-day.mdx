@@ -1,5 +1,5 @@
 ---
-title: "旅行 itinerary planning：用 Claude 整 day-by-day 行程（連 Google Maps link）"
+title: "旅行行程規劃：用 Claude 整逐日行程（連 Google Maps 連結）"
 slug: "travel-itinerary-claude-day-by-day"
 issue: 41
 publishedAt: 2026-09-15
@@ -10,8 +10,8 @@ subcategory: "決策同研究"
 heroImage: "/hero/travel-itinerary-claude-day-by-day.webp"
 difficulty: 2
 timeMinutes: 45
-toolsNeeded: ["Claude Chat", "Google Maps（用嚟 verify location）"]
-description: "旅行行程 ai：用 Claude 由你嘅 vibe、pace、budget 出 day-by-day 旅遊 itinerary。日本、韓國、東南亞、歐洲 7-14 日 trip 嘅 prompt 範本。"
+toolsNeeded: ["Claude Chat", "Google Maps（用嚟驗證地點）"]
+description: "旅行行程 AI：用 Claude 由你嘅旅行風格、節奏、預算去度身訂造逐日 (day-by-day) 旅遊行程。日本、韓國、東南亞、歐洲 7-14 日旅行嘅 prompt 範本。"
 keywords: ["旅遊行程 ai", "travel itinerary planner", "日本旅行 行程", "自助遊 規劃", "claude 旅遊"]
 related: ["youtube-transcript-summary-claude", "hong-kong-tax-prep-claude"]
 featured: true
@@ -19,159 +19,159 @@ featured: true
 
 ## 情境
 
-你哋 couple / family / friend group plan 緊去日本 / 韓國 / 東南亞 / 歐洲 7-14 日。 你已經買 機票 + 訂酒店，剩低 「每日去邊」 嘅 itinerary 未整。
+你哋情侶 / 一家大細 / 一班朋友 plan 緊去日本 / 韓國 / 東南亞 / 歐洲 7-14 日。你已經買好機票 + 訂好酒店，淨低「每日去邊」嘅行程未排。
 
-你打開 Google Sheet，準備 list 每日 plan。睇下 Klook 推介、blog post、Instagram saved——
+你打開 Google Sheet，準備列出每日計劃。睇吓 Klook 推介、blog 文章、Instagram 收藏——
 
-**4 個鐘之後，你 still 喺 day 1。** 因為：
+**4 個鐘之後，你仲係留喺第一日。** 因為：
 
-- 唔知 day 1 應該 jet-lag-friendly（去近啲、唔多 walking）定 ambitious（趁 fresh）
-- 每個地方喺 Google Maps 距離唔同，但你冇 spatial sense
-- Klook 推介 25 個地方，但 7 日邊個 fit
-- Travel blog 寫得詳細，但 「我嘅 group」 唔知 fit 邊幾個 stop
+- 唔知第一日應該預留時間適應時差（去近啲、唔好行太多路）定係進取啲（趁精神去玩）
+- 每個地方喺 Google Maps 距離唔同，但你冇方向感
+- Klook 推介 25 個地方，但 7 日入面邊個最適合
+- 旅遊 blog 寫得好詳細，但「我呢一班人」唔知啱去邊幾個景點
 
-呢篇用 Claude **由你嘅 vibe、pace、budget、group**，**出一個你可以 directly act on** 嘅 day-by-day 行程——連 Google Maps verification 同 「rainy day backup plan」。
+呢篇教你用 Claude **由你嘅風格、節奏、預算、同行組合**，**出一個你可以直接跟住行**嘅逐日行程——連埋 Google Maps 驗證同「落雨後備方案」。
 
 ## 跟住做
 
-### 1. 先 honest assessment 你嘅 「travel philosophy」
+### 1. 先誠實評估你嘅「旅行哲學」
 
-呢個 step 90% 嘅人 skip，但係出 useful itinerary 嘅 critical input。
+呢一步 90% 嘅人會跳過，但佢係度出實用行程嘅關鍵輸入。
 
-問自己：
+問吓自己：
 
-- **Pace**：每日 3-4 stops（chill）vs 6-8 stops（packed）vs 純休息 + 1 main attraction
-- **Vibe**：tourist must-see vs local hidden gem vs 純 food + cafe
-- **Time of day energy**：早起 type vs sleep-in type
-- **Group dynamic**：solo / couple / family with kids / 4-friend pack（每個 affect 多）
-- **Budget level**：daily budget per person（食 + activity + transport，唔包酒店）
-- **Walking tolerance**：4+ hours/day walking OK vs 想 max 2 hours
-- **Weather contingency**：1-2 日 rainy day 嘅 backup activity
+- **節奏 (Pace)**：每日 3-4 個景點（chill）vs 6-8 個景點（行程緊湊）vs 純休息 + 1 個主要景點
+- **風格 (Vibe)**：遊客必去 vs 地道隱世景點 vs 純粹為食 + 行 cafe
+- **每日活躍時間**：早起型 vs 瞓到自然醒型
+- **同行組合**：單獨 / 情侶 / 有小朋友嘅家庭 / 4 個朋友一齊去（每種組合影響好大）
+- **預算級別**：每人每日預算（食 + 活動 + 交通，唔包酒店）
+- **行路耐力**：每日行 4 個鐘以上都 OK vs 想最多行 2 個鐘
+- **天氣應變**：1-2 日落雨嘅後備活動
 
 ### 2. 用呢個 prompt
 
-<PromptBlock label="完整 prompt — 7-14 日 day-by-day itinerary">
-我哋 [人數 + group type，例：couple / family with 2 kids age 8 和 12 / 3 friends] 去 [destination] [天數] 日。
+<PromptBlock label="完整 prompt — 7-14 日逐日行程">
+我哋 [人數 + 同行組合，例：情侶 / 一家四口 2 個小朋友 8 同 12 歲 / 3 個朋友] 去 [目的地] [天數] 日。
 
-Logistics：
-- 機票：[arrival airport + time]、[departure airport + time]
-- 酒店：[city + neighborhood + check-in/check-out date]
-- 已 book 嘅 activity：[列任何 firm-booked 嘢，例：USJ Tickets Day 4 / Universal Studios Day 5]
+物流安排：
+- 機票：[到達機場 + 時間]、[離開機場 + 時間]
+- 酒店：[城市 + 邊區 + check-in/check-out 日期]
+- 已 book 嘅活動：[列出任何確實 book 咗嘅嘢，例：USJ 門票 Day 4 / 環球影城 Day 5]
 
-Travel philosophy：
-- Pace：[3-4 stops/day / 6-8 stops/day]
-- Vibe：[Tourist / Local / Food-focused / Mixed]
-- Time of day energy：[早起 / Sleep-in / 8am 起]
-- Walking tolerance：[OK 6+ km/day / 4 km max / 越少越好]
-- Daily budget per person（食+activity+transport，唔包酒店）：HKD [數字]
-- Weather contingency：[Backup 想 indoor activity-heavy / Outdoor backup OK]
+旅行哲學：
+- 節奏：[每日 3-4 個景點 / 每日 6-8 個景點]
+- 風格：[遊客路線 / 地道 / 搵食為主 / 混合]
+- 每日活躍時間：[早起 / 瞓到自然醒 / 朝早 8 點起]
+- 行路耐力：[每日行 6 公里以上 OK / 最多 4 公里 / 越少越好]
+- 每人每日預算（食+活動+交通，唔包酒店）：HKD [數字]
+- 天氣應變：[後備方案想多啲室內活動 / 戶外後備方案都 OK]
 
-特別 preference / aversion：
-- 我哋鐘意：[列 3 樣]
-- 我哋唔鐘意：[列 3 樣，例：「唔鐘意大型 outlet shopping」]
+特別偏好 / 避忌：
+- 我哋鍾意：[列 3 樣]
+- 我哋唔鍾意：[列 3 樣，例：「唔鍾意行大型 outlet」]
 
-請整 day-by-day itinerary，每日結構：
+請整逐日 (day-by-day) 行程，每日結構：
 
-**Day X：[Theme 一句]**
-- **Morning**（XX:XX–XX:XX）：[Activity + Google Maps name + walking distance from 起點]
-- **Lunch**（XX:XX）：[Restaurant + cuisine + cost estimate + booking required?]
-- **Afternoon**（XX:XX–XX:XX）：[Activity + how to get there from lunch + travel time]
-- **Dinner**（XX:XX）：[Restaurant + cuisine + cost]
-- **Evening**（XX:XX–XX:XX，optional）：[Light activity]
-- **Total walking distance for the day**：~X km
-- **Estimated total cost per person**：HKD ~XXX
-- **Rainy day backup**：[替代 indoor activity]
+**Day X：[一句話總結主題]**
+- **朝早**（XX:XX–XX:XX）：[活動 + Google Maps 地名 + 距離起點幾遠]
+- **午餐**（XX:XX）：[餐廳 + 菜式 + 預計花費 + 需要預約嗎？]
+- **晏晝**（XX:XX–XX:XX）：[活動 + 由食飯地方點去 + 交通時間]
+- **晚餐**（XX:XX）：[餐廳 + 菜式 + 花費]
+- **夜晚**（XX:XX–XX:XX，可選）：[輕鬆活動]
+- **全日大約步行距離**：~X 公里
+- **預計每人總花費**：HKD ~XXX
+- **落雨後備方案**：[替代嘅室內活動]
 
-**Theme connection**：解釋點解呢日呢個 theme（jet-lag adjustment / local exploration / day trip / 等）
+**主題關聯**：解釋點解呢日係呢個主題（適應時差 / 地道探索 / 一日遊 / 等等）
 
-**附 final summary：**
+**附上最後總結：**
 
-- Total cost estimate（per person）
-- Day-by-day walking + transit total
-- 提示我可以 pre-book 嘅 activity（佔位 popular 嘅）
-- 3 個 「我可能 want to swap out」 嘅 stop（畀 alternative）
+- 預計總花費（每人）
+- 每日行路 + 搭車總時間
+- 提我可以預先 book 嘅活動（熱門要霸位嗰啲）
+- 3 個「我可能想換走」嘅景點（提供替代方案）
 
-語氣：具體、actionable、唔 over-promise（唔好 「最 instagram-able」 呢類 marketing 字）。
+語氣：具體、可採取行動、唔好誇大（唔好用「最適合打卡」呢類行銷字眼）。
 </PromptBlock>
 
-### 3. Verify Google Maps
+### 3. 用 Google Maps 驗證
 
-Claude 嘅 output 90-95% 啱，但 specific location accuracy 偶爾會 hallucinate。
-**critical verify**：
+Claude 嘅輸出 90-95% 啱，但具體地點嘅準確度偶爾會出錯（無中生有）。
+**關鍵驗證**：
 
-- 每個 venue 喺 Google Maps search 一次，confirm exists + 地址啱
-- Distance / travel time 用 Google Maps 「Directions」 verify
-- 餐廳 booking required 一定 verify（Tabelog / OpenTable / 餐廳官方）
+- 每個地點喺 Google Maps 搜尋一次，確認真係存在 + 地址啱
+- 距離 / 交通時間用 Google Maps 嘅「路線」驗證
+- 餐廳如果需要預約，一定要查證（Tabelog / OpenTable / 餐廳官網）
 
-15 分鐘 verify 工作可以避免你到埋當地先發現 「呢間餐廳 closed last year」。
+15 分鐘嘅驗證工作可以避免你到咗當地先發現「呢間餐廳上年執咗」。
 
-### 4. 適度 「leave room」
+### 4. 適度「留白」
 
-完美塞滿嘅 itinerary 永遠 fail。 留 「unplanned time」：
+完美塞滿嘅行程永遠都會出事。預留「無計劃時間」：
 
-- 每日 morning / afternoon 1 block 「open」 等你 spontaneous
-- 中間 1 日完全 unscheduled 嘅 「rest + wander」
-- 機 / 火車 delay buffer：唔好 schedule 落機後立即 main attraction
+- 每日朝早 / 晏晝留一節「空檔」等你隨心發揮
+- 中間 1 日完全唔排行程，純粹「休息 + 亂行」
+- 飛機 / 火車延誤緩衝：落機後唔好即刻排主要景點
 
-呢類 「room」 唔係 lazy，係 retain travel 嘅 joy。
+呢類「留白」唔係偷懶，係為咗保留旅行嘅樂趣。
 
 ## 變化例子
 
-### 變化 1：Family with kids 嘅 itinerary
+### 變化 1：有小朋友家庭嘅行程
 
-<PromptBlock label="變化 1 — Family with kids">
-（同上面 prompt 一樣，但 emphasize 以下）
+<PromptBlock label="變化 1 — 有小朋友家庭">
+（同上面 prompt 一樣，但重點放喺以下）
 
-Family context：
-- Kids age：[填，每個小朋友]
-- Kids attention span：每個 stop max [X] 分鐘
-- Activity 要包 kid-friendly element（playground / interactive museum / 自然空間）
+家庭背景：
+- 小朋友年齡：[填寫每個小朋友年歲]
+- 小朋友專注力：每個景點最多留 [X] 分鐘
+- 活動要包含適合小朋友嘅元素（遊樂場 / 互動博物館 / 自然空間）
 - 飲食限制：邊個小朋友食邊樣
-- Stroller? Yes/No
-- 午睡 needed?
-- Pace adjustment：vs adult itinerary 大概 60-70%
+- 會帶 BB 車？Yes/No
+- 需要午睡？
+- 節奏調整：對比成人行程大約減至 60-70%
 
-特別 add：每日 ad-hoc kid stress level adjustment 嘅 alternative（如果小朋友 meltdown，邊個 nearby stop 可以 retreat）
+特別加入：每日應對小朋友情緒壓力嘅即興替代方案（如果小朋友爆發，附近有咩景點可以撤退）
 </PromptBlock>
 
-### 變化 2：短 trip 嘅 ROI 最大化（3-4 日）
+### 變化 2：短線遊回報最大化（3-4 日）
 
-<PromptBlock label="變化 2 — 短 trip max ROI">
-我哋只有 3-4 日嘅 short trip 去 [destination]。
-時間有限，要 max single 「representative experience」。
+<PromptBlock label="變化 2 — 短線遊回報最大化">
+我哋只有 3-4 日嘅短線旅行去 [目的地]。
+時間有限，要將單一「代表性體驗」最大化。
 
 請：
-1. 揀 ONE city / region focus，唔好分散
-2. Day 1 jet-lag friendly + iconic must-see
-3. Day 2-3 深入 探索 你揀嘅 niche（揀一個 — food / nature / culture / 等）
-4. Last day：light + airport-flexible
+1. 揀一個城市 / 地區集中玩，唔好分散
+2. Day 1 安排適應時差 + 標誌性必去景點
+3. Day 2-3 深入探索你揀嘅小眾主題（揀一個 — 飲食 / 自然 / 文化 / 等等）
+4. 最後一日：輕鬆 + 配合去機場嘅彈性
 
-唔好 「3 日 4 個城市」嘅 itinerary——太 stressful，去咗一場 photo 都唔太記得。
+唔好畀「3 日去 4 個城市」嘅行程——壓力太大，去完得幾張相但無乜印象。
 </PromptBlock>
 
-### 變化 3：Honeymoon / 浪漫 trip 嘅 mood-driven itinerary
+### 變化 3：度蜜月 / 浪漫之旅嘅氣氛主導行程
 
-<PromptBlock label="變化 3 — Honeymoon trip">
-我哋 honeymoon 去 [destination] [天數] 日。 唔同 regular trip：
+<PromptBlock label="變化 3 — 蜜月之旅">
+我哋去 [目的地] [天數] 日蜜月。同一般旅行唔同：
 
-- Pace：偏 slow，唔趕 stops
-- 多 「together moment」 嘅 activity（avoid 純 photo tourist trap）
-- 餐廳 emphasis（quiet、scenic、唔太 noisy）
-- 1-2 個 「special memory」 moments（specific reservation：sunset cruise、private dinner、unique experience）
-- Hotel base camp 之後嘅 dayoff（half-day relax in / at hotel）
+- 節奏：偏慢，唔趕景點
+- 多「二人世界」嘅活動（避免純為打卡嘅遊客區陷阱）
+- 重視餐廳（寧靜、風景靚、唔太嘈）
+- 1-2 個「特別回憶」時刻（特別預約：日落遊船、私人晚餐、獨特體驗）
+- 酒店大本營後嘅休息日（半日喺酒店放鬆）
 
-Budget：[ honeymoon-level，可以 stretch]
-Vibe：[romantic / adventure-pair / quiet retreat]
+預算：[蜜月級別，可以鬆手啲]
+風格：[浪漫 / 雙人探險 / 寧靜避世]
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維轉變
 
-旅行 itinerary 最大嘅 myth：「完美 plan 等於完美 trip」。
+旅行行程最大嘅迷思：「完美計劃等於完美旅程」。
 
-事實係：**最記得嘅 trip moment 通常係 plan 外嘅嘢**——unexpected detour、local conversation、隨意揾到嘅 cafe、突然下雨改去 museum。
+事實係：**最記得嘅旅行時刻通常係計劃之外嘅嘢**——意想不到嘅繞道、同當地人傾偈、隨意搵到嘅 cafe、突然落雨改去博物館。
 
-Claude 嘅 leverage 唔係幫你 「plan 死晒」，係 **「我有一個 reasonable plan，所以我可以 confident 地 deviate」**。
+Claude 嘅用處唔係幫你「編死晒」，係令你有個底：**「我有一個合理嘅計劃，所以我可以充滿自信咁偏離原本路線」**。
 
-冇 plan vs 有 plan 又改：兩個都 final 改變，但**後者你冇 anxiety**，亦 retain 改 plan 嘅 awareness（每天 plan 改之前你知 trade-off）。
+冇計劃 vs 有計劃再改：兩個最終都會改變路線，但**後者你唔會有焦慮**，亦保留咗改計劃嘅自覺（每日改計劃前你知道有咩取捨）。
 
-最後 reminder：**輸入嘅質素決定輸出**。 你 honest 描述你嘅 group dynamic（包括 trade-off：你 partner 鐘意 shopping 但你 hate），個 itinerary 會啱晒你 group。 你 「standard typical tourist」 描述自己，個 output 就會行貨。 呢個唔係 AI 嘅 limitation，係輸入嘅 limitation。
+最後提醒：**輸入嘅質素決定輸出**。你誠實描述你哋班人嘅互動情況（包括取捨：你伴侶鍾意 shopping 但你好討厭），出嚟嘅行程就會啱晒你哋。你用「標準典型遊客」嚟形容自己，個輸出就會係行貨。呢個唔係 AI 嘅限制，係輸入嘅限制。
