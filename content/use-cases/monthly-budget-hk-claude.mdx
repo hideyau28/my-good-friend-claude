@@ -1,5 +1,5 @@
 ---
-title: "HK 月入 4 萬，月底 always 剩 HK$200？用 Claude 拆 monthly budget + 揾 6 個 silent leak"
+title: "HK 月入 4 萬，月底永遠剩 HK$200？用 Claude 拆每月 budget + 揾出 6 個隱形漏洞"
 slug: "monthly-budget-hk-claude"
 issue: 76
 publishedAt: 2026-05-24
@@ -10,660 +10,660 @@ subcategory: "個人 budget"
 heroImage: "/hero/monthly-budget-hk-claude.webp"
 difficulty: 1
 timeMinutes: 25
-toolsNeeded: ["Claude Chat", "近 3 個月 銀行 + credit card statement", "Octopus / 支付 app history"]
-description: "月入 HK$42k 每月底剩 HK$200，saving rate 0%。你以為過度 lifestyle 但其實係 6 個 silent leak（subscription / 食 / take-out / Grab）食晒。用 Claude dump 3 個月 transaction，揾真實 leak + setup auto system。"
-keywords: ["HK 月入 預算", "monthly budget", "HK saving rate", "personal finance HK", "spending tracking", "subscription audit"]
+toolsNeeded: ["Claude Chat", "近 3 個月銀行 + 信用卡結單", "Octopus / 支付 app 紀錄"]
+description: "月入 HK$42k 每月底剩 HK$200，儲蓄率 0%。你以為過度生活但其實係 6 個隱形漏洞（訂閱 / 食 / 外賣 / Grab）食晒。用 Claude dump 3 個月交易，揾真實漏洞 + 設自動系統。"
+keywords: ["HK 月入預算", "monthly budget", "HK 儲蓄率", "個人理財 HK", "支出追蹤", "訂閱審計"]
 related: ["emergency-fund-claude", "mpf-review-claude", "investment-portfolio-review-claude"]
 featured: false
 ---
 
 ## 情境
 
-5 月 28 日 11:47pm，你 review HSBC online banking.
+5 月 28 日 11:47pm，你 review HSBC 網上銀行。
 
-Last month (April):
-- Income: HK$42,150 (after-tax salary)
-- Mortgage: HK$15,500
-- 家用 (公婆 monthly): HK$5,000
-- Utilities (electric, water, internet, phone): HK$1,400
-- 食 (groceries + dining out): HK$8,800
-- Transport (Octopus + 偶 taxi): HK$1,200
-- Misc (一般 daily): HK$5,500
-- Subscription (estimate): HK$1,500
-- Travel saving auto-pull: HK$3,000
-- Total tracked spending: HK$41,900
-- **Surplus**: HK$250
+上個月（4 月）：
+- 收入：HK$42,150（稅後人工）
+- 按揭：HK$15,500
+- 家用（公婆每月）：HK$5,000
+- 水電（電、水、上網、電話）：HK$1,400
+- 食（雜貨 + 出街食飯）：HK$8,800
+- 交通（Octopus + 偶然 taxi）：HK$1,200
+- 雜項（一般日常）：HK$5,500
+- 訂閱（估算）：HK$1,500
+- 旅遊儲蓄自動扣：HK$3,000
+- 追蹤到嘅總開支：HK$41,900
+- **盈餘**：HK$250
 
-呢個 your monthly pattern 8 年了:
-- 月初: 「呢個月 plan save HK$5k」
-- 月末: 「why HK$250 again?」
+呢個你每月 pattern 8 年喇：
+- 月初：「呢個月計劃儲 HK$5k」
+- 月尾：「點解又係 HK$250？」
 
-你 try「budget app」 6 個月前, abandoned 因 mental overhead 高. 你 try 「envelope method」 4 個月前, abandoned because 太 prescriptive.
+你 6 個月前試「budget app」，放棄因為心理負擔重。4 個月前試「信封法」，放棄因為太死板。
 
-你 lunch 同 colleague Steve (同 income HK$40k):
-- Steve: 「I save HK$8k / month consistent.」
-- 你: 「點 manage??」
-- Steve: 「Just 不 4-5 個 thing 大量你會發現 sneaks.」
-- 你: 「乜 thing?」
-- Steve: 「Daily HK$30 lunch coffee. Monthly subscription drift. 一週 1 個 Foodpanda. 不 reflect tracked monthly. Compound HK$5-8k / month sneaks.」
+你 lunch 同同事 Steve 傾（同收入 HK$40k）：
+- Steve：「我每月儲 HK$8k，穩定。」
+- 你：「點 manage？」
+- Steve：「不過唔好畀 4-5 樣大量你會發覺嘅嘢偷偷溜走。」
+- 你：「邊啲嘢？」
+- Steve：「日日 HK$30 lunch 咖啡。每月訂閱漂移。每星期 1 個 Foodpanda。冇反映喺追蹤嘅每月 budget。累加 HK$5-8k / 月偷偷溜走。」
 
-你 internal: 「I work 8 yr accumulate cash HK$80k. Steve 4 yr accumulated HK$280k. We earn 同 amount.」
+你內心：「我做咗 8 年累積 HK$80k 現金。Steve 做 4 年累積 HK$280k。我哋人工一樣。」
 
-呢個 budget paradox:
+呢個 budget 嘅悖論：
 
-- **「Monthly budget OK」** — top-line look right
-- **「但 saving 0」** — 必有 sneaks
-- **「Budget app overhead」** — categorize each transaction 太 painful
-- **「Estimate is OK」** — but estimate 不 catch hidden category
-- **「lifestyle reasonable」** — but 真 compare similar income → 你 spend differently
+- **「每月 budget OK」** —— 表面 OK
+- **「但儲蓄 0」** —— 必有偷偷溜走
+- **「Budget app 心理負擔」** —— 為每筆交易分類太痛苦
+- **「估算就 OK」** —— 但估算唔捕捉到隱藏類別
+- **「生活方式合理」** —— 但真正同同收入比較 → 你支出方式唔同
 
-What 你 actually need: **3-month historical scan from real transaction + identify 6 silent leak + 1 sustainable system going forward**.
+你真正需要：**3 個月歷史掃描，由真實交易出發 + 識別 6 個隱形漏洞 + 1 個向前可持續嘅系統**。
 
-呢篇用 Claude **dump 3 個月 raw bank statement + spot leak + setup automatic system**.
+呢篇用 Claude **dump 3 個月銀行結單 + 揾出漏洞 + 設自動系統**。
 
 ## 跟住做
 
-### 1. Pull 3 個月 raw transaction + dump 入 Claude
+### 1. 攞 3 個月原始交易 + dump 落 Claude
 
-開始之前 prep:
+開始之前 prep：
 
-> **Data preparation**
-> 1. 銀行 statement March-May (3 個月)
-> 2. Credit card statement same months
-> 3. Octopus history (3 個月)
-> 4. AlipayHK / WeChat Pay history if used
-> 5. Cash withdrawn (mental tally 一週 1 次?)
+> **數據準備**
+> 1. 銀行結單 3-5 月（3 個月）
+> 2. 同期信用卡結單
+> 3. Octopus 紀錄（3 個月）
+> 4. AlipayHK / WeChat Pay 紀錄若有用
+> 5. 提取現金（心算每星期 1 次？）
 >
-> **Setup raw dump file**
-> Excel / Google Sheet:
-> - Column A: Date
-> - Column B: Amount
-> - Column C: Merchant / description
-> - Column D: Source (HSBC / Citi credit / Octopus / Alipay)
+> **設原始 dump file**
+> Excel / Google Sheet：
+> - A 欄：日期
+> - B 欄：金額
+> - C 欄：商戶 / 描述
+> - D 欄：來源（HSBC / Citi 信用 / Octopus / Alipay）
 >
-> 3 個月 ≈ 90 days × 5-10 transaction / day = 450-900 line items
+> 3 個月 ≈ 90 日 × 5-10 筆 / 日 = 450-900 行
 >
-> Sounds 多 but: spreadsheet manageable. 1 hour to compile if no app.
+> 聽落多但：spreadsheet 處理到。冇 app 嘅話 1 個鐘可以拼起。
 
-如 你 用 budget app (e.g., 金 mouse / Money Pro / OneMoney): export CSV directly.
+若你用 budget app（例如金鼠 / Money Pro / OneMoney）：直接 export CSV。
 
-<PromptBlock label="完整 prompt — 3-month transaction analysis">
-我 paste 3 個月 raw transaction data:
+<PromptBlock label="完整 prompt — 3 個月交易分析">
+我貼 3 個月原始交易數據：
 
-[paste your spreadsheet — full 90 day list]
+[貼你嘅 spreadsheet —— 完整 90 日清單]
 
-Categories OUR concern:
-- 食 (everything related to food: groceries, dining out, snack, drink, lunch box)
-- 衣 (clothing, footwear, accessories)
-- 住 (mortgage, utilities, repair, household supplies)
-- 行 (transport: Octopus, taxi, 高鐵, petrol)
-- 教 (學費, course, book, education)
-- 娛 (entertainment: movie, concert, hobby supplies, subscription)
-- 商務 (work-related: tools, training, subscription work-only)
-- 家庭 (family obligation: 公婆, 親朋, gifts)
-- 醫療 (medical, dental, supplement, vitamin)
-- 旅遊 (travel, vacation)
-- 其他 (miscellaneous)
+我哋關心嘅類別：
+- 食（所有同食物相關：雜貨、出街食、零食、飲品、午餐盒）
+- 衣（衫、鞋、配飾）
+- 住（按揭、水電、維修、家居用品）
+- 行（交通：Octopus、taxi、高鐵、油）
+- 教（學費、課程、書、教育）
+- 娛（娛樂：電影、演唱會、嗜好用品、訂閱）
+- 商務（工作相關：工具、培訓、純工作訂閱）
+- 家庭（家庭義務：公婆、親朋、禮物）
+- 醫療（醫療、牙醫、保健品、維他命）
+- 旅遊（旅行、假期）
+- 其他
 
-Please analyze:
+請分析：
 
-📊 **Section 1: Category breakdown**
+📊 **Section 1：類別分解**
 
-For each category over 3 月 average:
-- Total spent
-- % of total income
-- Monthly average
-- Variation across months (consistent or spiky?)
+每個類別 3 個月平均：
+- 總支出
+- 佔總收入 %
+- 每月平均
+- 月份間變化（穩定定突起？）
 
-📊 **Section 2: Identify top 10 highest-amount transactions**
+📊 **Section 2：識別頭 10 個最高金額交易**
 
-- 邊 1 個 「OMG I forgot about that」 likely?
-- Pattern across months?
-- 計劃 / 突發?
+- 邊個係「天呀我唔記得」？
+- 月份間有 pattern？
+- 計劃 / 突發？
 
-📊 **Section 3: Identify 6 silent leak categories**
+📊 **Section 3：識別 6 個隱形漏洞類別**
 
-Top suspects:
-1. **Subscription drift**: monthly Netflix / Spotify / 點 review periodically? Some 你 stop using?
-2. **Food sneak**: between groceries + dining 二 dining, snacking, drinking
-3. **Convenience tax**: Foodpanda / Deliveroo vs groceries
-4. **Transport convenience**: Grab / Uber vs MTR
-5. **Coffee + breakfast HK shops**: HK$30-50 each, daily, monthly HK$1.5k
-6. **「Small」 purchase impulse**: HK$20-100 各種 stuff Daily Mart / Donki / 7-11
+頭號嫌疑：
+1. **訂閱漂移**：每月 Netflix / Spotify / 點定期 review？有冇你已經停用？
+2. **食物偷溜**：雜貨 + 出街食之間 —— 第二次出街、零食、飲品
+3. **方便稅**：Foodpanda / Deliveroo vs 雜貨
+4. **交通方便**：Grab / Uber vs 港鐵
+5. **咖啡 + 早餐 HK 鋪**：HK$30-50 一杯，每日，每月 HK$1.5k
+6. **「細」購買衝動**：HK$20-100 各種嘢喺 Daily Mart / Donki / 7-11
 
-For each suspected leak:
-- 3-month total amount  
-- Monthly average
-- Is the amount conscious or surprising?
+每個懷疑漏洞：
+- 3 個月總金額
+- 每月平均
+- 金額有意識定意外？
 
-📊 **Section 4: Surplus vs spend reality**
+📊 **Section 4：盈餘 vs 真實支出**
 
-Computed monthly:
-- Income: HK$42k
-- Documented spending: HK$41.9k (your initial number)
-- 但 from raw data analysis真 amount: HK$_____ (Claude calculate)
-- Likely 「missing 知 expenditure」 explanation
+每月計算：
+- 收入：HK$42k
+- 記錄支出：HK$41.9k（你初步數）
+- 但原始數據分析真實金額：HK$_____（Claude 計算）
+- 可能「missing 知開支」解釋
 
-📋 **Section 5: 不 「too late」 actions**
+📋 **Section 5：「未太遲」行動**
 
-- Top 2-3 leak immediately addressable
-- 1 leak each month focus
-- 不 全部 cut at once (sustainable)
+- 頭 2-3 個漏洞即時可處理
+- 每月 1 個漏洞集中
+- 唔好全部一次過 cut（可持續）
 
-🚨 **Section 6: 「Spending mood」 mapping**
+🚨 **Section 6：「支出情緒」mapping**
 
-- 同 1 day 1 week pattern (Friday night spike?)
-- 同 stress timing (work crunch month higher?)
-- 同 emotional state (lonely / 累 spend more?)
+- 同 1 日 1 星期 pattern（星期五晚高峰？）
+- 同壓力時機（工作 crunch 月份較高？）
+- 同情緒狀態（孤獨 / 攰會洗多啲？）
 
-✅ **Section 7: Recommend 1 system going forward**
+✅ **Section 7：建議 1 個向前嘅系統**
 
-- Single dashboard (manual 1 page weekly review > daily app)
-- Auto-pull saving immediately after paycheck
-- 1 category 「fun」 budget HK$2-3k / month (permission to spend, 不 guilt)
-- 1 「freeze 30 days」 rule big purchase
-- 月 end 15-minute review
+- 單一儀表板（手動 1 頁每週 review > 每日 app）
+- 自動扣儲蓄即喺出糧後
+- 1 類「fun」budget HK$2-3k / 月（允許洗，唔內疚）
+- 1 條「凍 30 日」規則大額購買
+- 月尾 15 分鐘 review
 
-語氣：data-driven detective work, 不 judgmental.
+語氣：以數據為本嘅偵探工作，唔批判。
 </PromptBlock>
 
-Claude analyze 3 個月 transaction, output specific leak numbers. **「OMG that subscription?」** moments common.
+Claude 分析 3 個月交易，輸出具體漏洞數字。**「我嘅天，呢個訂閱？」**嘅時刻好常見。
 
-### 2. Set automatic system going forward
+### 2. 設向前嘅自動系統
 
-System > willpower。Claude help design simple sustainable system:
+系統 > 意志力。Claude 幫設計簡單可持續嘅系統：
 
-<PromptBlock label="完整 prompt — Automatic budget system design">
-[paste 你 leak analysis result]
+<PromptBlock label="完整 prompt — 自動 budget 系統設計">
+[貼你嘅漏洞分析結果]
 
-我 want 1 simple sustainable budget system. 不 budget app heavy. 不 manual log every transaction.
+我想要 1 個簡單可持續嘅 budget 系統。唔好 budget app 重型。唔好手動記每筆交易。
 
-📐 **Design principles**
+📐 **設計原則**
 
-✅ **Pay yourself first**
-- Salary HK$42k → split immediately:
-  - Saving auto-transfer: HK$8k
-  - Emergency fund: HK$3k
-  - MPF VC if doing: HK$1k
-  - 留 spending account: HK$30k
+✅ **先 pay yourself**
+- 人工 HK$42k → 即刻 split：
+  - 儲蓄自動轉：HK$8k
+  - 應急基金：HK$3k
+  - MPF VC 若做：HK$1k
+  - 留 spending 戶口：HK$30k
 
-✅ **3-account structure**
-- **Account 1 (Main)**: salary lands, immediate auto-split
-- **Account 2 (Saving)**: 不 ATM card, online-only transfer view-only
-- **Account 3 (Spending)**: HK$30k monthly, all daily expense from here
+✅ **3 戶口結構**
+- **戶口 1（主）**：人工到，即刻自動 split
+- **戶口 2（儲蓄）**：冇 ATM 卡，只係網上轉、view-only
+- **戶口 3（支出）**：HK$30k 每月，所有日常開支由呢度出
 
-If Account 3 empties before month-end = you overspent (visible early warning)
-If Account 3 has 剩 = small reward
+若戶口 3 月尾前清晒 = 你過洗（早期可見警號）
+若戶口 3 有剩 = 細獎勵
 
-✅ **Auto-transfer setup**
-- Salary land Day 1 month
-- Day 2 auto-pull saving + emergency + MPF VC
-- Day 3 onwards: spending from Account 3
+✅ **自動轉設置**
+- 人工到月初第 1 日
+- 第 2 日自動扣儲蓄 + 應急 + MPF VC
+- 第 3 日起：由戶口 3 支出
 
-📋 **Weekly 5-min review (NOT daily logging)**
+📋 **每週 5 分鐘 review（唔係每日記錄）**
 
-Saturday morning, 5 minute:
-1. Account 3 balance check
-2. 1 week spend vs 1/4 month target
-3. 任何 「OMG that purchase?」 review
-4. 1 next-week adjust if drifting
+星期六朝早，5 分鐘：
+1. 戶口 3 餘額 check
+2. 1 星期支出 vs 1/4 月目標
+3. 任何「我嘅天呢筆？」review
+4. 若漂移，下星期 1 個調整
 
-🎯 **Category mental model**
+🎯 **類別心理模型**
 
-不 need detailed categorize. Just keep 3 mental buckets:
-- **Fixed**: mortgage, 家用, insurance, subscription — auto-deduct
-- **Variable necessity**: 食, transport, utilities — predictable range
-- **Discretionary**: 娛, fun, impulse — 真 budget
+唔需要詳細分類。心入面留 3 個 bucket 就得：
+- **固定**：按揭、家用、保險、訂閱 —— 自動扣
+- **必要變動**：食、交通、水電 —— 可預測範圍
+- **可調整**：娛、fun、衝動 —— 真實 budget
 
-預: variable + discretionary ≈ HK$25k / month max
+預算：變動 + 可調整 ≈ 每月 HK$25k 上限
 
-📅 **Monthly 30-min review (1st of month)**
+📅 **每月 30 分鐘 review（月初第 1 日）**
 
-End of previous month, sit with 1 cup tea:
-1. Account 3 spent total
-2. Saving target hit?
-3. Top 3 spending vs plan
-4. 1 leak addressed?
-5. 1 leak next month focus
+上個月尾，坐低 1 杯茶：
+1. 戶口 3 總支出
+2. 儲蓄目標達到？
+3. 頭 3 個支出 vs 計劃
+4. 1 個漏洞處理咗？
+5. 下個月 1 個漏洞集中
 
-📋 **Tools (kept minimal)**
+📋 **工具（保持最少）**
 
-✅ **What 你 need**
-- 1 spreadsheet 1 page (monthly summary)
-- 銀行 alerts (large transaction trigger)
-- 1 calendar reminder Saturday + month-end
+✅ **你需要**
+- 1 頁 spreadsheet（每月摘要）
+- 銀行 alerts（大額交易觸發）
+- 1 個 calendar 提醒：星期六 + 月尾
 
-🛑 **What 你 不 need**
-- Full budget app (overhead)
-- Categorize every transaction
-- Net worth tracker (overkill for budget)
-- Investment tracker (separate from spending)
+🛑 **你唔需要**
+- 完整 budget app（負擔重）
+- 為每筆交易分類
+- 淨資產追蹤器（對 budget 嚟講過度）
+- 投資追蹤器（同支出分開）
 
-💡 **Common HK-specific tip**
+💡 **HK 專屬 tip**
 
-- **公 八達通**: 自動 add value visible, easy spot
-- **HK Octopus 加 value scheme** (auto-load): visibility increase awareness
-- **Subscription HK 普遍**: Spotify / Netflix / YouTube Premium / 各種 newspaper / 雜 fitness app — easy lose track
-- **Credit card 多 cards**: each card own bill, easy lose track
-  - Consolidate 1-2 cards primary use
-- **AlipayHK promotion**: cashback / coupon temptation increase impulse
-- **「Buy now pay later」 (Klarna, Atome)**: hidden debt building
+- **公八達通**：自動增值可見，易發現
+- **HK Octopus 增值 scheme**（自動加值）：可見性增加意識
+- **訂閱 HK 普遍**：Spotify / Netflix / YouTube Premium / 各種報紙 / 雜誌 fitness app —— 易失追蹤
+- **多張信用卡**：每張自己 bill，易失追蹤
+  - 主用整合 1-2 張
+- **AlipayHK 推廣**：cashback / 優惠誘惑增加衝動
+- **「先買後付」（Klarna、Atome）**：隱藏債務累積
 
-🎯 **Long-term win**
+🎯 **長遠勝利**
 
-Year 1: build saving rate 20% (HK$8k+ / month) consistent
-Year 2: surplus available for investment
-Year 3: emergency fund + investment + travel + retirement multi-stream
+第 1 年：建立儲蓄率 20%（HK$8k+ / 月）穩定
+第 2 年：盈餘可作投資
+第 3 年：應急基金 + 投資 + 旅遊 + 退休多源並進
 
-語氣：simple, sustainable, 不 overengineering.
+語氣：簡單、可持續、唔過度設計。
 </PromptBlock>
 
-### 3. Audit 6 个 specific silent leak
+### 3. 審計 6 個具體隱形漏洞
 
-Each leak deserves specific attack plan:
+每個漏洞值得具體攻擊計劃：
 
-<PromptBlock label="完整 prompt — Silent leak elimination">
-我 confirmed 6 silent leak from 3-month analysis. Develop specific plan each:
+<PromptBlock label="完整 prompt — 隱形漏洞消除">
+我從 3 個月分析確認咗 6 個隱形漏洞。為每個發展具體計劃：
 
-🧯 **Leak 1: Subscription drift**
+🧯 **漏洞 1：訂閱漂移**
 
-✅ **Audit (right now)**
-- 1 sit-down 25 分鐘
-- Open 銀 statement 12 月
-- List每 recurring charge
-- 取 amount + frequency + 你 use it 過去 90 日?
+✅ **審計（而家）**
+- 1 次坐低 25 分鐘
+- 開 12 個月銀行結單
+- 列出每筆 recurring charge
+- 取得金額 + 頻率 + 你過去 90 日有用？
 
-Likely findings:
-- Netflix HK$94 / mo: USE 經常
-- Spotify HK$58 / mo: 用 daily
-- YouTube Premium HK$48 / mo: USE 偶爾
-- Gym membership HK$1200 / yr: 用 0 次 過去 3 個月 🚨
-- Apple iCloud HK$78 / mo: 用 daily
-- Storage 公雲: HK$30 / mo: 用 occasionally
-- 新聞 paywall HK$40 / mo: 用 0 次
-- 大學 校友 software access HK$60 / mo: 用 0 次
-- Fitness app HK$80 / mo: 用 first month then abandoned
+可能發現：
+- Netflix HK$94 / 月：用得多
+- Spotify HK$58 / 月：每日用
+- YouTube Premium HK$48 / 月：偶爾用
+- Gym membership HK$1,200 / 年：過去 3 個月用 0 次 🚨
+- Apple iCloud HK$78 / 月：每日用
+- 雲端儲存：HK$30 / 月：偶爾用
+- 新聞 paywall HK$40 / 月：用 0 次
+- 大學校友軟件 access HK$60 / 月：用 0 次
+- Fitness app HK$80 / 月：第 1 個月用，之後棄
 
-**Action**: cut subscriptions you 不 use last 60 day. Saving estimate: HK$200-500 / month immediate
+**行動**：剪走過去 60 日冇用嘅訂閱。即時節省估算：HK$200-500 / 月
 
-📅 **Recurring**
-- Quarterly subscription audit (15 分鐘)
-- 不 reflexive renew yearly without question
-- 「Pause for 1 month」 trial — many service won't beg back
+📅 **持續**
+- 每季訂閱審計（15 分鐘）
+- 唔好反射式每年 renew 唔問
+- 「暫停 1 個月」試 —— 好多服務唔會求你返
 
-🍱 **Leak 2: Food sneak**
+🍱 **漏洞 2：食物偷溜**
 
-✅ **Audit**
-- Separate「groceries」 from「dining」 separately
-- Identify「between meal snacking」: convenience store grab daily, $30-50 spend
-- 「Coffee shop visit」 daily: $40-60 spend
-- 「Lazy lunch HK$80-120」 5 days / week = HK$400-600 / week = HK$1,600-2,400 / month
-- Grocery prep ratio vs dining ratio
-- Aim grocery preparation 70%, dining 30%
+✅ **審計**
+- 「雜貨」分開「出街食」
+- 識別「餐間零食」：便利店日日攞，$30-50 洗
+- 「咖啡店訪問」每日：$40-60 洗
+- 「懶 lunch HK$80-120」每星期 5 日 = HK$400-600 / 星期 = HK$1,600-2,400 / 月
+- 雜貨備餐比例 vs 出街比例
+- 目標：雜貨備餐 70%，出街 30%
 
-✅ **Tactics**
-- 公 cook morning coffee thermos = HK$300 / week savings
-- 公 prep lunch 3 days = HK$300 / week savings
-- 1 dining「treat」 / week — anticipation enjoyable
-- Avoid mid-morning「snack」 — eat breakfast adequate
+✅ **戰術**
+- 朝早煮咖啡 thermos 帶 = 每星期慳 HK$300
+- 朝早 prep lunch 3 日 = 每星期慳 HK$300
+- 1 個出街「treat」/ 星期 —— 期待會享受
+- 避免上晝「零食」—— 食足早餐
 
-🚖 **Leak 3: Transport convenience**
+🚖 **漏洞 3：交通方便**
 
-✅ **Audit**
-- Octopus monthly: usually MTR / bus
+✅ **審計**
+- Octopus 每月：通常港鐵 / 巴士
 - 同 Grab / Uber / taxi from app
-- Compare $$ / month MTR vs ride-share
+- 比較 $$ / 月港鐵 vs ride-share
 
-✅ **Tactics**
-- Reserve ride-share for: 早 5am MTR closed, 大件物 carry, time-sensitive
-- 不 default convenience
-- Monthly limit (e.g., HK$300 / month ride-share OK)
+✅ **戰術**
+- Ride-share 留畀：朝 5am 港鐵未開、大件物搬、時間敏感
+- 唔好預設方便
+- 每月 ride-share 上限（例如 HK$300 / 月 OK）
 
-🛍 **Leak 4: 「Small」 impulse**
+🛍 **漏洞 4：「細」衝動**
 
-✅ **Audit**
-- Daily Mart, Donki, 7-11 small purchase < HK$100 each
-- Monthly tally surprising (3 個月 sum unusual)
-- 1 「small」 daily = HK$30 × 30 = HK$900 / month
-- 2 「smalls」 = HK$1,800
+✅ **審計**
+- Daily Mart、Donki、7-11 細購買 < HK$100 每次
+- 每月總和驚人（3 個月加埋不尋常）
+- 1 個「細」每日 = HK$30 × 30 = HK$900 / 月
+- 2 個「細」= HK$1,800
 
-✅ **Tactics**
-- 「30-day decision rule」: 想 purchase 非必要嘢, wait 30 days
-- 80% impulse 自然 fade
-- Pocket money allowance (HK$1,000 / month, anything goes)
-- 不 carry credit card 上街 (limit damage)
+✅ **戰術**
+- 「30 日決定規則」：想買非必要嘢，等 30 日
+- 80% 衝動自然消退
+- 零用錢津貼（HK$1,000 / 月，任你洗）
+- 唔帶信用卡出街（限制傷害）
 
-📱 **Leak 5: HK take-out / delivery**
+📱 **漏洞 5：HK 外賣 / delivery**
 
-✅ **Audit**
-- Foodpanda / Deliveroo monthly tally
-- Premium delivery fee + 加 tip
-- Comparison home cook same meal
+✅ **審計**
+- Foodpanda / Deliveroo 每月總和
+- Premium delivery 費 + tip
+- 比較家煮同樣餐
 
-✅ **Tactics**
-- Delivery 不 daily default
-- 1 delivery / week budget
-- Meal plan 1 week → fresh grocery → cook
-- 不 grocery shop 餓 (impulse trap)
+✅ **戰術**
+- Delivery 唔好做日常 default
+- 1 次 delivery / 星期 budget
+- 餐單計劃 1 星期 → 新鮮雜貨 → 煮
+- 唔好餓住買餸（衝動陷阱）
 
-🚖 **Leak 6: Service over-purchase**
+🚖 **漏洞 6：服務過度購買**
 
-Common HK examples:
-- 美容 / massage 多 sessions
-- Personal trainer expensive vs budget gym
-- 私 medical for minor things (公 cheaper)
-- 補習 over-shot (細路 multiple subjects)
+常見 HK 例子：
+- 美容 / massage 多 session
+- Personal trainer 貴 vs budget gym
+- 私家醫療為細問題（公院平）
+- 補習 over-shot（細路多科）
 
-✅ **Audit each**
-- Frequency vs need
-- Alternative cheaper option
-- Cumulative cost annual
+✅ **每個審計**
+- 頻率 vs 需要
+- 替代較平 option
+- 累積每年成本
 
-🎯 **Address one leak / month**
-- Month 1: Subscriptions (immediate Sat audit)
-- Month 2: Food sneak
-- Month 3: Transport
-- Month 4: Impulse
-- Month 5: Take-out
-- Month 6: Service over-purchase
+🎯 **每月處理 1 個漏洞**
+- 第 1 個月：訂閱（即刻星期六審計）
+- 第 2 個月：食物偷溜
+- 第 3 個月：交通
+- 第 4 個月：衝動
+- 第 5 個月：外賣
+- 第 6 個月：服務過度購買
 
-6 個 month address all → HK$5-8k saving / month consistently
+6 個月處理全部 → HK$5-8k 儲蓄 / 月，穩定
 
-語氣：specific addressable, 不 lifestyle deprivation.
+語氣：具體可處理，唔係生活方式剝奪。
 </PromptBlock>
 
-### 4. Long-term goal alignment
+### 4. 長遠目標對齊
 
-Budget 唔係 deprivation — 係 alignment with goal:
+Budget 唔係剝奪 —— 係同目標對齊：
 
-<PromptBlock label="完整 prompt — Budget alignment with life goal">
-我 want budget aligned with goal 不 deprivation.
+<PromptBlock label="完整 prompt — Budget 對齊人生目標">
+我想 budget 對齊目標，唔係剝奪。
 
-🎯 **Define life goals** (write down):
+🎯 **定義人生目標**（寫低）：
 
-**Short-term (1-3 yr)**:
-- Wedding savings
-- Down payment (property)
-- Specific trip
-- Buy car
-- 細路 specific need
+**短期（1-3 年）**：
+- 婚禮儲蓄
+- 首期（物業）
+- 特定旅行
+- 買車
+- 細路具體需要
 
-**Medium-term (3-7 yr)**:
-- Property purchase / upgrade
-- Higher degree / overseas study
-- Career change / startup capital
-- 細路 大學 fund
+**中期（3-7 年）**：
+- 物業購買 / 升級
+- 進修 / 海外升學
+- 轉行 / startup 資本
+- 細路大學基金
 
-**Long-term (10+ yr)**:
-- Retirement
-- 細路 大學 abroad
-- 1 大 lifetime trip / experience
-- 父母 elderly care
+**長期（10+ 年）**：
+- 退休
+- 細路出國升學
+- 1 次大型一生旅程 / 體驗
+- 父母年老照顧
 
-📐 **Goal-based budget structure**
+📐 **目標為本 budget 結構**
 
-✅ **Saving allocations**:
+✅ **儲蓄分配**：
 
-For each goal:
-- Amount needed total
-- Timeline
-- Monthly contribution required
-- Auto-pull from salary
+每個目標：
+- 需要嘅總額
+- 時間
+- 需要嘅每月供款
+- 從人工自動扣
 
-Example:
-- Wedding HK$200k in 18 months: HK$11k / month
-- Down payment HK$1m in 7 years: HK$12k / month
-- Retirement HK$5m in 30 years: HK$5-8k / month with growth
-- 大學 細路 HK$1.5m in 15 years: HK$8k / month with growth
+例：
+- 婚禮 HK$200k 喺 18 個月：HK$11k / 月
+- 首期 HK$1m 喺 7 年：HK$12k / 月
+- 退休 HK$5m 喺 30 年：HK$5-8k / 月（連增長）
+- 大學細路 HK$1.5m 喺 15 年：HK$8k / 月（連增長）
 
-Total saving requirement: 看似 大 — but: 
-- 隨 income increase: 比例 maintain
-- 持續性 compound critical
+儲蓄要求總額：看似大 —— 但：
+- 隨收入增加：比例維持
+- 持續性複利關鍵
 
-🌳 **Reframe spending vs saving**
+🌳 **重塑支出 vs 儲蓄**
 
-- Every HK$1 you spend「未必 goal」 = HK$0.X未來 you wanting goal
-- 不 lecture self「don't spend」
-- Visualize specific:「呢個 HK$80 Foodpanda → 1 day shy of saving target」
+- 每 HK$1 你花喺「唔啱目標」= 未來 HK$0.X 你想要嘅目標
+- 唔好對自己講道理「唔好洗」
+- 視覺化具體：「呢 HK$80 Foodpanda → 距儲蓄目標 1 日」
 
-🎁 **Permission to enjoy**
+🎁 **允許享受**
 
-Allocate「Fun」 budget officially:
-- HK$2k-3k / month
-- 沒 guilt
-- 沒 「we save more」 push back
-- 你 enjoy life NOW + save future
+正式分配「Fun」budget：
+- HK$2k-3k / 月
+- 冇內疚
+- 冇「我哋多儲啲」嘅推阻
+- 你而家享受人生 + 為將來儲
 
-📊 **Track progress visually**
+📊 **視覺追蹤進度**
 
-- 1 spreadsheet 1 line each goal
-- Monthly progress %
-- Visible to partner / accountable
-- Adjust annually with income change
+- 1 個 spreadsheet 每個目標 1 行
+- 每月進度 %
+- 對伴侶可見 / 互相負責
+- 隨收入變化每年調整
 
-🎯 **Adjust by life stage**
+🎯 **按人生階段調整**
 
-- Single 20s: aggressive saving, low fixed cost
-- Couple 30s: balance saving + lifestyle
-- Family 40s: 細路 cost period, lower saving rate OK
-- Empty nester 50s: aggressive catch-up saving
-- Pre-retire 60s: capital preservation focus
+- 單身 20s：積極儲蓄，低固定成本
+- 情侶 30s：平衡儲蓄 + 生活
+- 家庭 40s：細路成本期，較低儲蓄率 OK
+- 空巢 50s：積極追儲蓄
+- 退休前 60s：本金保留重點
 
-📋 **Annual review**
-- Goal progress
-- Adjust amount
-- New goal emerge
-- Discard 不 valid goal
+📋 **每年 review**
+- 目標進度
+- 調整金額
+- 新目標浮現
+- 廢除唔再 valid 嘅目標
 
-🚨 **Anti-pattern**
-- Goal too vague (「retire comfortably」)
-- 不 visualize specifically
-- 「Saving = deprivation」 framing
-- 對 partner未 align goals
-- 比 too many goals (focus 2-3 active)
+🚨 **反面 pattern**
+- 目標太含糊（「舒適退休」）
+- 唔具體視覺化
+- 「儲蓄 = 剝奪」嘅框架
+- 同伴侶未對齊目標
+- 比較太多目標（focus 2-3 個 active）
 
-🎯 **The 1 question**
+🎯 **1 個問題**
 
-Each spending decision, internal question:
-「Does this advance my goal, or distract from it?」
+每個支出決定，內心問：
+「呢樣推進我目標，定 distract 緊？」
 
-不 black-white. 平衡 advancement + life enjoyment.
+唔係黑白。平衡推進 + 人生享受。
 
-語氣：goal-aligned, 不 deprivation framing.
+語氣：目標對齊，唔係剝奪框架。
 </PromptBlock>
 
 ## 變化
 
-### 變化 1：細家庭 (新婚 / DINK / 細路 0-3)
+### 變化 1：細家庭（新婚 / DINK / 細路 0-3）
 
-特殊 financial life phase:
+特殊財務人生階段：
 
 <PromptBlock label="變化 1 — 新婚 / DINK / 細家庭 budget">
-我 [新婚 / DINK / 細路 0-3 歲].
+我[新婚 / DINK / 細路 0-3 歲]。
 
-📐 **Life stage specifics**
+📐 **人生階段專項**
 
 🎯 **新婚**
-- Combined finance learning
-- 「Yours」 / 「Mine」 / 「Ours」 split common
-- 婚禮 / 蜜月 saving end → re-allocate
-- Joint goals emerging (property, family planning)
+- 合併財務學習
+- 「你嘅」/「我嘅」/「我哋嘅」嘅 split 常見
+- 婚禮 / 蜜月儲蓄完結 → 重新分配
+- 共同目標浮現（物業、家庭計劃）
 
-💑 **DINK (Dual Income No Kid)**
-- Highest peak saving capacity life-stage
-- 「Save now」 critical (細路 期 saving rate drops)
-- Lifestyle inflation trap (income up = lifestyle up)
-- Maintain saving rate even income increase
+💑 **DINK（雙收入冇細路）**
+- 人生階段最高儲蓄能力高峰
+- 「而家儲」關鍵（細路期儲蓄率下跌）
+- 生活方式通脹陷阱（收入升 = 生活方式升）
+- 即使收入增加都維持儲蓄率
 
 👶 **細路 0-3 歲**
-- Massive 額 expense: hospital, formula, diaper, equipment
-- Time poverty: deliver / convenience tax common
-- 1 income decrease (maternity / paternity)
-- Career trajectory adjustment
+- 大額開支：醫院、奶粉、尿片、設備
+- 時間貧乏：delivery / 方便稅常見
+- 1 份收入減少（產假 / 侍產假）
+- Career 軌跡調整
 
-🎯 **Strategy**
+🎯 **策略**
 
-✅ **新婚 first year**
-- Sit-down financial 對話 4 個月 1 次
-- 自動 共 expense from joint account
-- 個人 「discretionary」 each spouse — sanity
-- 「Big decision」 threshold (e.g., > HK$3,000)
+✅ **新婚第 1 年**
+- 每 4 個月坐低財務對話 1 次
+- 共同戶口自動共開支
+- 個人「可調整」每人 —— 心理空間
+- 「大決定」門檻（例如 > HK$3,000）
 
-✅ **DINK 期 maximizing**
-- 2 個 emergency fund (1 each)
-- Aggressive retirement saving
-- Property fund accelerate
-- 「Travel + experience」 fund (DINK 期 sweet spot)
-- Career investment (course, training, equipment)
+✅ **DINK 期最大化**
+- 2 個應急基金（每人 1 個）
+- 積極退休儲蓄
+- 物業基金加速
+- 「旅遊 + 體驗」基金（DINK 期甜蜜點）
+- Career 投資（課程、培訓、設備）
 
-✅ **細路 0-3 期 surviving**
-- 「Survive mode」 OK temporarily
-- Saving rate may drop 5-10%
-- 不 panic 短期 reduction
-- Long-term resume with kid older
+✅ **細路 0-3 期捱過**
+- 「捱過模式」短期 OK
+- 儲蓄率可能跌 5-10%
+- 短期減少唔好 panic
+- 長遠細路大啲再恢復
 
-📋 **Common pitfall**
-- Bonus / promotion → spending up
-- 公 / 親 朋 「help」 → 你 take on family debt
-- 1 person manage finance other passive (vulnerable)
-- 大 single purchase (car) without saving impact assessment
+📋 **常見陷阱**
+- 花紅 / 升職 → 支出升
+- 公婆 / 親朋「幫」→ 你扛家庭債
+- 1 個人管財務、另一個被動（脆弱）
+- 大單一購買（車）冇評估儲蓄影響
 
-語氣：phase-aware, 不 1-size-fit-all.
+語氣：認知階段，唔係一刀切。
 </PromptBlock>
 
-### 變化 2：Sandwich generation
+### 變化 2：三文治世代
 
-中年家庭 dual dependency:
+中年家庭雙重依賴：
 
-<PromptBlock label="變化 2 — Sandwich generation budget">
-我 sandwich: 細路 + 公婆 elderly + 我 working.
+<PromptBlock label="變化 2 — 三文治世代 budget">
+我三文治：細路 + 公婆年老 + 我返緊工。
 
-📐 **Sandwich considerations**
+📐 **三文治考慮**
 
-⚖️ **Dual dependency**
-- 細路: 學費, activity, 大學 prep
-- 公婆: 醫療, daily support, occasional crisis
-- 我: career peak earnings, retirement prep myself
+⚖️ **雙重依賴**
+- 細路：學費、活動、大學 prep
+- 公婆：醫療、日常支援、偶爾危機
+- 我：career 高峰賺錢、自己退休 prep
 
-🎯 **Resource scarcity reality**
-- Cannot fully fund 3 priorities
-- 自己 retirement 不 ignore (你 老 自己 不 burden 細路 future)
-- 細路 college fund 平衡 (其 future)
-- 公婆 immediate need vs long-term plan
+🎯 **資源稀缺現實**
+- 不能完全 fund 3 個優先
+- 自己退休唔好忽視（你老咗唔好成為細路負擔）
+- 細路大學基金平衡（佢哋未來）
+- 公婆即時需要 vs 長遠計劃
 
-📊 **Budget structure**
+📊 **Budget 結構**
 
-If income HK$50k / month:
-- Mortgage / shelter: HK$15-20k
-- 細路 expense: HK$8-10k
-- 公婆 support: HK$3-5k
-- Emergency / 公婆 contingency: HK$2-3k
-- 我 retirement: HK$5k (no excuse)
-- Family travel / experience: HK$2-3k
-- Discretionary: HK$3-4k
+若收入 HK$50k / 月：
+- 按揭 / 居住：HK$15-20k
+- 細路開支：HK$8-10k
+- 公婆支援：HK$3-5k
+- 應急 / 公婆 contingency：HK$2-3k
+- 我退休：HK$5k（冇藉口）
+- 家庭旅遊 / 體驗：HK$2-3k
+- 可調整：HK$3-4k
 
-🚨 **Don't**
-- Empty own retirement to fund 公婆
-- Compromise 細路 fund all goes 公婆
-- Hide financial strain from 公婆 (transparent helps)
-- 一手 handle finance without sibling discussion (公婆 cost-share)
+🚨 **唔好**
+- 抽乾自己退休 fund 公婆
+- 全為公婆而犧牲細路基金
+- 隱瞞財務壓力唔畀公婆知（透明有幫助）
+- 一個人處理財務，唔同兄弟姊妹傾（公婆成本分擔）
 
-🤝 **Family financial 對話**
-- Sibling: 「How can we cost-share 公婆 support?」
-- 公婆: 「What's your retirement provision?」
-- 細路: 「Saving for university, contribute when you working」
+🤝 **家庭財務對話**
+- 兄弟姊妹：「我哋點分擔公婆支援？」
+- 公婆：「你退休準備係點？」
+- 細路：「儲緊大學基金，你返工時供款」
 
-💰 **Resource maximization**
-- 公婆 own assets / pension use first
-- Government social benefits if eligible
-- 公 medical / 公屋 if applicable
-- 唔 私 medical for 細 issue (公 cheaper)
-- 細路 公 school if not 強  pursue 私
+💰 **資源最大化**
+- 公婆自己資產 / 養老金先用
+- 政府社會福利若合資格
+- 公家醫療 / 公屋若適用
+- 細問題唔好用私家醫療（公平啲）
+- 細路公校若唔強求私校
 
-語氣：respect 多 dependent, financial reality clear.
+語氣：尊重多依賴，財務現實清晰。
 </PromptBlock>
 
-### 變化 3：High earner / 大 bonus
+### 變化 3：高收入 / 大花紅
 
-高收入 specific challenge:
+高收入專項挑戰：
 
-<PromptBlock label="變化 3 — High earner / 大 bonus budget">
-我 high earner HK$100k+ / mo with significant year-end bonus.
+<PromptBlock label="變化 3 — 高收入 / 大花紅 budget">
+我高收入 HK$100k+ / 月，年尾花紅顯著。
 
-📐 **High earner specifics**
+📐 **高收入專項**
 
-🎯 **Lifestyle inflation 重 risk**
-- Income up = expense scale 自然 up
-- 大 house / nice car / private school / 高 travel
-- 5 年 income double, saving 量 same as low earner
+🎯 **生活方式通脹重風險**
+- 收入升 = 開支自然 scale 升
+- 大屋 / 靚車 / 私校 / 高消費旅行
+- 5 年收入翻倍，儲蓄量同低收入一樣
 
-📊 **Hidden 高 income financial trap**
+📊 **隱藏高收入財務陷阱**
 
-- 「Mortgage 我 afford anything」 → over-leverage
-- 「Tax shelter ineffective」 → ad-hoc product
-- 「Insurance over-buy」 → high commission saving plan
-- 「Investment over-confident」 → big single position
-- 「No real budget」 → 不 track HK$500k / year easy
+- 「按揭我點都應付到」→ 過度槓桿
+- 「稅務 shelter 冇用」→ 隨意產品
+- 「保險過度買」→ 高佣金儲蓄計劃
+- 「投資過度自信」→ 大單一倉位
+- 「冇真實 budget」→ 唔追蹤 HK$500k / 年好易
 
-🎯 **High earner specific strategy**
+🎯 **高收入專項策略**
 
-✅ **Aggressive saving rate**
-- 30-40% saving rate doable
-- Lifestyle 不 grow with income
-- 「Force the saving first」 mentality
+✅ **積極儲蓄率**
+- 30-40% 儲蓄率可行
+- 生活方式唔隨收入增長
+- 「強迫先儲蓄」心態
 
-✅ **Tax planning**
-- IFA / tax adviser consult 必要
-- 完 MPF VC (tax deductible)
-- Property tax optimization
-- 高 income bracket above 17%: planning real
+✅ **稅務規劃**
+- 諮詢 IFA / 稅務顧問必要
+- 完 MPF VC（可扣稅）
+- 物業稅務優化
+- 17% 以上高稅率：規劃真實
 
-✅ **Investment diversification**
-- 不 concentrate 1 stock / 1 industry
+✅ **投資多元化**
+- 唔好集中 1 隻股 / 1 個行業
 - 國際 exposure
-- 持有 cash 為 emergencies
+- 持現金為應急
 
-✅ **High income job risk**
-- Career-stake industries (finance, tech): sudden layoff
-- High earner emergency fund = 12-18 個月 cushion
-- Disability / income protection insurance critical
+✅ **高收入工作風險**
+- Career-stake 行業（金融、科技）：突發裁員
+- 高收入應急基金 = 12-18 個月緩衝
+- 傷殘 / 收入保障保險關鍵
 
-💰 **Bonus deployment**
+💰 **花紅部署**
 
-If HK$300k year-end bonus:
-- 30% emergency / saving immediate: HK$90k
-- 30% investment: HK$90k
-- 20% goal saving (property, etc): HK$60k
-- 20% discretionary / lifestyle 享受: HK$60k
+若 HK$300k 年尾花紅：
+- 30% 應急 / 儲蓄即刻：HK$90k
+- 30% 投資：HK$90k
+- 20% 目標儲蓄（物業等）：HK$60k
+- 20% 可調整 / 生活方式享受：HK$60k
 
-✅ **Don't**
-- Spend full bonus immediately
-- 1 bonus = 1 大 purchase (car, watch)
-- Loan-fund lifestyle ahead of bonus
-- 唔 review tax impact bonus timing
+✅ **唔好**
+- 即刻洗晒花紅
+- 1 個花紅 = 1 個大購買（車、錶）
+- 借錢 fund 花紅前嘅生活
+- 唔 review 花紅時機嘅稅務影響
 
-🎯 **Long-term**
-- High income window 限制 (60+ approach typically slow)
-- Capitalize peak earning years
-- 後 retirement income 不 sustain peak-time lifestyle
+🎯 **長遠**
+- 高收入窗口有限（60+ 通常放慢）
+- 把握高峰賺錢年
+- 退休後收入唔支撐高峰期生活方式
 
-語氣：high earner own discipline 重要.
+語氣：高收入自己嘅紀律重要。
 </PromptBlock>
 
 ## 一個 mindset
 
-Personal budget 嘅 paradox: **越 detailed track, less likely sustain. 越 simple, more likely persist long-term.**
+個人 budget 嘅悖論：**追蹤越詳細，越難維持。越簡單，越易長期堅持。**
 
-呢個 paradox 嘅 reason: budget app 100 category overhead high — most user abandon < 3 個月. Simple 1-page weekly review sustains 5+ 年.
+呢個悖論嘅原因：budget app 100 個類別負擔重 —— 大部分用戶 3 個月內放棄。簡單 1 頁每週 review 可以維持 5+ 年。
 
-呢個 mindset 嘅 reframe: Budget 唔係 「prove discipline」. Budget 係 **「automated system reduce decision fatigue」**. 你 don't 「budget every meal」 — 你 setup auto-saving, then spend remaining freely.
+呢個 mindset 嘅 reframe：Budget 唔係「證明紀律」。Budget 係**「自動系統減少決策疲勞」**。你唔係「為每餐 budget」—— 你設自動儲蓄，餘下嘅自由咁洗。
 
-Claude 嘅 role 喺 budget: 你 alone analyze 3 個月 transaction 嘢 overwhelming. Claude container categorize + identify pattern + suggest specific leak. Insight emerged + action planned.
+Claude 喺 budget 入面嘅角色：你一個人分析 3 個月交易好 overwhelming。Claude 容你分類 + 識別 pattern + 提出具體漏洞。洞察浮現 + 行動計劃。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **不 monthly budget perfect** = save HK$5-8k consistently. Compound 30 yr 顯著.
-- ⚠️ **Subscription audit alone** = HK$200-500 immediate saving (most people). Low-hanging.
-- 🎯 **Spending 不 「moral failure」**. 1 category 你 enjoy = OK. 6 leak categories 不 conscious = not OK.
+- ✅ **唔需要 monthly budget 完美** = 穩定儲 HK$5-8k。30 年複利顯著。
+- ⚠️ **單係訂閱審計** = 即時節省 HK$200-500（大部分人）。低處果實。
+- 🎯 **洗錢唔係「道德失敗」**。1 類你享受 = OK。6 類漏洞無意識 = 唔 OK。
 
-下個 paycheck land Day 1, auto-transfer immediately. 你嘅「remaining 不 spending account」 = 真實 disposable. 1 個月 try, 自動 system holds.
+下次出糧到第 1 日，即刻自動轉。你嘅「剩低嗰個支出戶口」= 真實可花。1 個月試，自動系統幫你 hold 住。
