@@ -1,5 +1,5 @@
 ---
-title: "報稅季用 Claude 對賬：HK 個人入息稅 prep 教學（連扣稅項 checklist）"
+title: "報稅季用 Claude 對帳：HK 個人入息稅準備教學（連扣稅項清單）"
 slug: "hong-kong-tax-prep-claude"
 issue: 43
 publishedAt: 2026-09-29
@@ -10,8 +10,8 @@ subcategory: "決策同研究"
 heroImage: "/hero/hong-kong-tax-prep-claude.webp"
 difficulty: 2
 timeMinutes: 45
-toolsNeeded: ["Claude Chat", "Payslip / IR56B PDF", "扣稅單據 PDF"]
-description: "報稅 香港：用 Claude 一次過對賬 payslip、IR56B、MPF、保險、進修扣稅、慈善捐款。確認 IRD form 填啱 + 揾返你 forgot 嘅 deduction，平均慳幾千蚊。"
+toolsNeeded: ["Claude Chat", "糧單 / IR56B PDF", "扣稅單據 PDF"]
+description: "報稅 香港：用 Claude 一次過對帳糧單、IR56B、MPF、保險、進修扣稅、慈善捐款。確認 IRD 表格填啱 + 搵返你唔記得咗嘅扣稅額，平均慳幾千蚊。"
 keywords: ["報稅 香港", "ird 個人入息稅", "扣稅 mpf", "扣稅項 香港", "claude 對賬"]
 related: ["hong-kong-mortgage-comparison", "hong-kong-tenancy-agreement-claude"]
 featured: true
@@ -19,205 +19,205 @@ featured: true
 
 ## 情境
 
-每年 5 月，IRD 寄個人入息稅報表（俗稱「綠色 form」）落你 letterbox。
+每年 5 月，稅務局 (IRD) 寄個人入息稅報表（俗稱「綠色表」）落你信箱。
 
 你打開：
 
-- 你年薪、bonus、stock vesting
-- 強積金扣除、自願性 MPF top-up
-- 進修開支、慈善捐款、長者父母供養
-- 房屋利息 / 強積金、自願醫保
+- 你年薪、花紅 (bonus)、股票歸屬 (stock vesting)
+- 強積金扣除、自願性 MPF 供款
+- 進修開支、慈善捐款、供養長者父母
+- 居所貸款利息 / 強積金、自願醫保
 
-正常人睇到呢度頭暈。 IRD 嘅 form 又 dense、又用 1989 年嘅 layout。 你 hope 唔好填錯：
+正常人睇到呢度就頭暈。IRD 份表又密麻麻、又用緊 1989 年嘅排版。你唯有希望唔好填錯：
 
-- **填漏 deduction**——typical HK middle-class 平均漏 $5-10K worth of deduction
-- **填錯 amount**——bonus 唔記得 stock vesting 嘅 cash value
-- **Miss 老人 / 兄弟姊妹供養**——一個 forgotten deduction
-- **唔識點 claim 進修費 / mortgage interest**——條款細
+- **填漏扣稅額 (deduction)**——典型嘅香港中產平均漏報 $5-10K 價值嘅扣稅額
+- **填錯金額**——花紅唔記得計埋股票歸屬嘅現金價值
+- **漏報供養老人 / 兄弟姊妹**——最常被遺忘嘅扣稅額
+- **唔識點樣申索進修費 / 居所貸款利息**——條款細節太多
 
-呢篇用 Claude 一次過讀曬你嘅 payslip、IR56B、扣稅單據，**cross-check + flag 你 forgot 嘅 deduction**，準備你填 form 嘅 ready-to-input data。
+呢篇教你用 Claude 一次過讀晒你嘅糧單 (payslip)、IR56B、扣稅單據，**交叉核對 + 標示出你唔記得咗嘅扣稅額**，準備好一份可以直接填表嘅數據。
 
-> Disclaimer：呢個唔係 tax advice。Claude 嘅 output 係幫你**識得 organize + 識得問**，唔取代 tax accountant。涉及 complex situation（trust、海外收入、business owner），請 hire 會計師。
+> 利益申報：呢個唔係稅務建議。Claude 嘅輸出係幫你**識得整理 + 識得問**，唔可以取代稅務會計師。涉及複雜情況（信託、海外收入、做生意），請聘請會計師。
 
 ## 跟住做
 
 ### 1. 收齊文件
 
-至少：
+最少要有：
 
-- **僱主畀你嘅 IR56B 或 employer's return**（每年 4-5 月由 HR 寄你）
-- **過去 12 個月嘅 payslip**（4 月底前嘅 payslip + 5 月初）
-- **MPF account statement**——主動 contribution 嘅 record
-- **進修費 receipt**（如有；只 認可 course）
-- **慈善捐款 receipt**（accumulated total > $100）
-- **自願醫保 / 強積金 自願性 contribution 嘅 statement**
-- **Mortgage interest statement**（如有）
+- **僱主畀你嘅 IR56B 或 employer's return**（每年 4-5 月由 HR 畀你）
+- **過去 12 個月嘅糧單**（4 月底前嘅糧單 + 5 月初嗰張）
+- **MPF 帳戶結單**——主動供款嘅紀錄
+- **進修費收據**（如有；只認可指定課程）
+- **慈善捐款收據**（累積總額多過 $100）
+- **自願醫保 / 強積金自願性供款嘅結單**
+- **居所貸款利息結單**（如有）
 
-文件齊就 upload 落 Claude。
+文件齊就上傳落 Claude。
 
 ### 2. 用呢個 prompt
 
-<PromptBlock label="完整 prompt — 報稅 prep + deduction audit">
-我準備填 HK 個人入息稅報表（IRD 表 BIR60）。我嘅 documents 已 upload。我嘅 context：
+<PromptBlock label="完整 prompt — 報稅準備 + 扣稅額審視">
+我準備填香港個人入息稅報表（IRD BIR60 表）。我嘅文件已上傳。我嘅背景：
 
 - 課稅年度：[填，例：2025/26]
 - 婚姻狀況：[單身 / 已婚 - 個別評稅 / 已婚 - 合併評稅]
-- 配偶有冇 自己嘅 income：[填]
-- 撫養 dependants：[列：配偶、子女（年齡）、父母（年齡及是否同住）、兄弟姊妹（如撫養）]
-- 香港 tax residence 全年：[Yes / No - 如果 partial 請 detail 海外日數]
+- 配偶有冇自己嘅收入：[填]
+- 撫養家屬：[列：配偶、子女（年齡）、父母（年齡及是否同住）、兄弟姊妹（如撫養）]
+- 全年符合香港稅務居民身份：[Yes / No - 如果部分時間符合，請詳細說明海外日數]
 
-請幫我整以下 5 個 section：
+請幫我整以下 5 個部分：
 
-**Part 1：Income 確認**
+**Part 1：收入確認**
 
-由 IR56B + 12 個月 payslip cross-check：
+由 IR56B + 12 個月糧單交叉核對：
 
-- **Total assessable income**：base salary + bonus + commission + other（要 add up，亦核對 IR56B 個 total figure）
-- **股票 / option 嘅 cash value**：vest 嗰陣嘅 market value（IR56B 通常有 capture，但 verify）
-- **Sign-on / retention bonus 嘅 declaration**：應該 included in IR56B
-- **任何 「benefits in kind」**：employer-provided housing、car、education subsidy、etc.（如有，IR56B 會 separately list）
+- **總應評稅入息**：底薪 + 花紅 + 佣金 + 其他（要加埋，亦核對 IR56B 個總數）
+- **股票 / 期權嘅現金價值**：歸屬 (vest) 嗰陣嘅市值（IR56B 通常有紀錄，但要驗證）
+- **迎新 / 留任花紅嘅申報**：應該包埋喺 IR56B
+- **任何「實物利益」**：僱主提供嘅房屋、汽車、教育津貼等（如有，IR56B 會分開列出）
 
-如果 number mismatch IR56B vs my payslip total，flag 出嚟 + 估邊度有 issue。
+如果總數同 IR56B 或者我嘅糧單總數唔夾，標示出嚟 + 估計邊度出錯。
 
-**Part 2：Compulsory deduction 確認**
+**Part 2：強制性扣除確認**
 
-- **MPF mandatory contribution**：max HKD 18,000/年。確認 IR56B 個 figure 啱
-- **Other compulsory contribution**：例如 some 公務員 contribution
-- **Outgoings 喺 employment**：通常 0，除非有 specific employment expense
+- **MPF 強制性供款**：每年最高 HKD 18,000。確認 IR56B 個數字啱
+- **其他強制性供款**：例如某啲公務員供款
+- **受僱工作支出**：通常係 0，除非有特定嘅受僱開支
 
-**Part 3：⚠️ Voluntary deduction（最易漏嘅一段）**
+**Part 3：⚠️ 自願性扣除（最易漏嘅一段）**
 
-詳細 walk through 每個 potential deduction：
+詳細檢視每個潛在嘅扣稅額：
 
-1. **MPF voluntary contribution（TVC）**：annual max HKD 60,000，扣稅
-2. **VHIS（自願醫保）premium**：annual max HKD 8,000 per insured，扣稅 — 包屋企人嘅 plan
-3. **Mortgage interest**：home loan interest，annual max HKD 100,000，up to 20 年
-4. **Approved 進修費**：認可 course，annual max HKD 100,000（每位納稅人）
-5. **Charitable donations**：受認可 charity，accumulated > HKD 100/年才扣（max 35% of income）
-6. **撫養 父母 / 祖父母 / 外祖父母**：每位老人扣減
-   - Aged 55-59：$25K
-   - Aged 60+：$50K
-   - 同住 additional：$50K
-7. **撫養 兄弟姊妹**：每位扣減 $15K（如 unmarried、不能自給）
-8. **撫養 子女**：每個 child $130K（出世年增 $130K）
-9. **單親 deduction**：$132K（如符合）
-10. **長者住宿照顧 開支**：每位老人 max $100K
+1. **MPF 可扣稅自願性供款（TVC）**：每年最高 HKD 60,000，扣稅
+2. **VHIS（自願醫保）保費**：每名受保人每年最高 HKD 8,000，扣稅 — 包埋屋企人嘅 plan
+3. **居所貸款利息**：每年最高 HKD 100,000，最長 20 年
+4. **認可進修開支**：認可課程，每年最高 HKD 100,000（每位納稅人）
+5. **慈善捐款**：受認可嘅慈善機構，累積多過 HKD 100/年先可以扣（最高為入息嘅 35%）
+6. **供養父母 / 祖父母 / 外祖父母**：每位長者免稅額
+   - 55-59 歲：$25K
+   - 60 歲或以上：$50K
+   - 同住額外加：$50K
+7. **供養兄弟姊妹**：每位免稅額 $15K（如未婚、不能自給）
+8. **供養子女**：每個小朋友 $130K（出世嗰年加 $130K）
+9. **單親免稅額**：$132K（如符合）
+10. **長者住宿照顧開支**：每位長者最高 $100K
 
-逐項：
-- 我嘅 documents 有冇 evidence
-- 我潛在可扣但 forgot 嘅（例如 mother turned 60 last year 你未 update）
-- Specific amount + claim 嘅 line number on BIR60
-- Caveat / common pitfall
+逐項列出：
+- 我嘅文件有冇證據
+- 我潛在可扣但忘記咗嘅（例如阿媽上年夠 60 歲但你未更新）
+- 具體金額 + 申索填落 BIR60 第幾行
+- 注意位 / 常見陷阱
 
-**Part 4：Tax calc estimate**
+**Part 4：稅款估算**
 
 基於 Part 1 - 3，畀我：
 
-- Taxable income（after deductions）
-- Tax due（用 progressive or standard rate，揀 lower）
-- Effective tax rate
-- 對比上年 indication（如果有 last year 數據）
+- 應課稅入息（扣除後）
+- 應繳稅款（用累進稅率或標準稅率，揀較低者）
+- 實際稅率
+- 對比上年指標（如果有上年數據）
 
-⚠️ 呢個 estimate 用嚟 sanity check，唔取代 IRD 官方 calc。
+⚠️ 呢個估算用嚟做初步核對，唔可以取代 IRD 官方嘅計算。
 
-**Part 5：Action items + 5 條問會計師嘅 question**
+**Part 5：行動清單 + 5 條問會計師嘅問題**
 
-- 我要 follow up collect 嘅 missing document（如 Part 3 入面 forgot deduction）
-- 5 條 如果不肯定，應該揾 tax accountant 問嘅 sharp question
-- 提示 next year 應該 keep 嘅 documentation
+- 我要跟進收集嘅缺失文件（例如 Part 3 入面忘記咗嘅扣稅額）
+- 5 條如果唔肯定，應該搵稅務會計師問嘅尖銳問題
+- 提示下年應該保留嘅文件紀錄
 </PromptBlock>
 
-### 3. Cross-check Part 1 嘅數字
+### 3. 交叉核對 Part 1 嘅數字
 
-Claude 對 income 嘅 cross-check 通常 99% 啱，但每年都有 1 個 case bonus / commission 計法不一。 至少 verify：
+Claude 對收入嘅交叉核對通常 99% 啱，但每年都有 1 個個案花紅 / 佣金計法唔同。最少要驗證：
 
-- IR56B 嘅 「Income from employment」 total
-- 你 self-calculated payslip total（12 個月 base + variable comp）
-- 如果差 5% 以上，揾 HR confirm
+- IR56B 嘅「入息」總額
+- 你自己計嘅糧單總額（12 個月底薪 + 浮動薪酬）
+- 如果相差 5% 以上，搵 HR 確認
 
-### 4. 由 Part 3 list 出 missing document，去 follow up
+### 4. 由 Part 3 列出缺失文件，去跟進
 
-呢個係呢個 process 最高 ROI 嘅 part。 大部分 HK 打工仔每年漏 deduction：
+呢個係成個流程回報最高嘅部分。大部分香港打工仔每年都漏報扣稅額：
 
-- 父母 60 歲生日嗰年 forget update
-- 進修費 receipt 收咗放冇對應嘅 line
-- 一年捐 monthly 捐款合計 > $1K，但 forgot list
+- 父母 60 歲生日嗰年唔記得更新
+- 進修費收據收埋咗但搵唔到對應嘅欄位
+- 一年入面每月定期捐款合計多過 $1K，但唔記得填
 
-收齊 missing document，填 form 多扣 $5-10K typical。
+收齊缺失文件，填表時多扣 $5-10K 係好常見嘅事。
 
-### 5. 填完 form，再用 Claude check 一次
+### 5. 填完表，再用 Claude 檢查一次
 
-填完 form（紙質 / e-Tax）之前 take screenshot，再用 Claude verify：
+填完表（紙質 / 報稅易）之前截圖，再用 Claude 驗證：
 
-<PromptBlock label="Final form check prompt">
-我填完 IRD BIR60。Screenshot / scan 喺下面（連附頁）。
+<PromptBlock label="最後表格檢查 prompt">
+我填完 IRD BIR60。截圖 / 掃描喺下面（連附頁）。
 
 請：
-1. 對比我之前 share 嘅 documents + 你之前嘅 analysis
-2. Flag 任何 number 同上次 analysis 唔同嘅地方
-3. Flag 任何 form 入面看似 inconsistent 嘅地方（例：partner 有 income 但你 ticked 「沒有」）
-4. 我有冇 forget 填某 page / section
+1. 對比我之前分享嘅文件 + 你之前嘅分析
+2. 標示任何數字同上次分析唔同嘅地方
+3. 標示任何表格入面看似矛盾嘅地方（例：配偶有收入但你 tick 咗「沒有」）
+4. 我有冇漏填某頁 / 某部分
 
-呢個係 final 安全網。送 IRD 之前最後一查。
+呢個係最後安全網。交畀 IRD 之前最後一查。
 </PromptBlock>
 
 ## 變化例子
 
-### 變化 1：你係 freelance / 自僱
+### 變化 1：你係自由工作者 / 自僱人士
 
 <PromptBlock label="變化 1 — 自僱報稅">
-我係 freelance / self-employed。需要填 BIR60 嘅 「Profits Tax」 section（同 employee 嘅 「Salaries Tax」 唔同）。
+我係自由工作者 / 自僱人士。需要填 BIR60 嘅「利得稅」部分（同僱員嘅「薪俸稅」唔同）。
 
 請：
-1. 計算我嘅 revenue（由 invoice 數據）
-2. List 我可以扣嘅 business expenses（rent、equipment、professional fees、travel for client、etc）
-3. 計 assessable profit
-4. 強調我需要保留 7 年 嘅 documentation
-5. Flag：自僱有冇額外 deduction（例：自己 MPF self-contribution）
-6. 如果我預計 next year revenue 大幅 changes，提示 provisional tax 嘅 implication
+1. 計算我嘅營業額（由發票數據得出）
+2. 列出我可以扣減嘅業務開支（租金、設備、專業費用、見客交通費等）
+3. 計出應評稅利潤
+4. 強調我需要保留 7 年嘅文件紀錄
+5. 標示：自僱人士有冇額外扣稅額（例如：自己嘅 MPF 自願性供款）
+6. 如果我預計下年營業額大幅改變，提示暫繳稅嘅影響
 </PromptBlock>
 
 ### 變化 2：你有海外收入 / 海外資產
 
 <PromptBlock label="變化 2 — 海外收入處理">
-我有 partial year overseas income（例：[年 / 月] 喺 [country]，剩低喺 HK）。
-or
-我有海外資產（rental property、海外股息）。
+我有部分年度嘅海外收入（例：[年 / 月] 喺 [國家]，剩低喺香港）。
+或者
+我有海外資產（出租物業、海外股息）。
 
 請：
-1. **明確 caveat**：呢類情況 highly recommend 揾 tax accountant，因為 double taxation treaty + jurisdiction issue 複雜
-2. 但 prep work 我可以 do 嘅：document organize、計每個 income stream、識返 IRD 要 disclosure 嘅嘢
-3. Flag：HK 嘅 「territorial source」 tax principle 對我 case 嘅意義
-4. 整一份 「我會問會計師嘅 question list」（5-7 條）
+1. **明確警告**：呢類情況強烈建議搵稅務會計師，因為避免雙重課稅協定 + 司法管轄區問題好複雜
+2. 但準備工夫我可以做嘅：整理文件、計算每項收入來源、認清 IRD 要求申報嘅嘢
+3. 標示：香港嘅「地域來源原則」對我個案嘅意義
+4. 整一份「我會問會計師嘅問題清單」（5-7 條）
 
-呢個 case 唔好嘗試 DIY filing。Prep 完直接 hire 專家。
+呢個情況唔好嘗試自己搞報稅。準備好資料之後直接請專家。
 </PromptBlock>
 
-### 變化 3：你係 small business owner / 公司 founder
+### 變化 3：你係小生意老闆 / 公司創辦人
 
-<PromptBlock label="變化 3 — 公司 founder 報稅">
-我有自己嘅 Limited Company（HK incorporated）。我嘅 personal tax 涉及：
-- Salary from my company
-- Dividend from my company
-- 任何 director loan
-- 任何 share appreciation
+<PromptBlock label="變化 3 — 公司創辦人報稅">
+我有自己嘅有限公司（香港註冊）。我嘅個人稅務涉及：
+- 從我公司收嘅薪金
+- 從我公司收嘅股息
+- 任何董事貸款
+- 任何股份增值
 
 請：
-1. 強調：personal tax + corporate tax 分開 process。呢個 prompt 只 cover personal side
-2. Personal tax filings 角度：dividend 從 HK company 收 = 唔扣 personal salaries tax（因為已扣 profits tax 喺 corporate level）
-3. Director loan 嘅 implication
-4. Stock-based compensation from my own company：tax treatment
-5. 預警 5 個 common founder pitfall
+1. 強調：個人稅務 + 公司稅務分開處理。呢個 prompt 只涵蓋個人方面
+2. 個人報稅角度：從香港公司收嘅股息 = 唔扣個人薪俸稅（因為已經喺公司層面扣咗利得稅）
+3. 董事貸款嘅影響
+4. 嚟自我自己公司嘅股份薪酬：稅務處理
+5. 預警 5 個常見嘅老闆報稅陷阱
 
-⚠️ 呢類 case 強烈建議揾 CPA。我畀 prep 用，唔取代 professional advice。
+⚠️ 呢類情況強烈建議搵執業會計師 (CPA)。我畀呢啲資料係為咗準備用，唔可以取代專業建議。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-報稅 嘅 emotional pain 唔在 「畀錢」——係 **「我可能填漏 + 麻煩 IRD 寫信問」 嘅 anxiety**。
+報稅嘅心理負擔唔在於「畀錢」——係 **「我可能填漏 + 麻煩稅務局寫信嚟問」嘅焦慮**。
 
-Claude 嘅 leverage 喺**將 「我覺得我 might forget」 嘅 doubt，變成 「我已經 cross-check 過、annotated 過、知道 trade-off」 嘅 confidence**。
+Claude 嘅槓桿在於 **將「我覺得我可能會忘記」嘅疑慮，變成「我已經交叉核對過、有標註、知道有咩取捨」嘅自信**。
 
-呢個轉化 worth 45 分鐘嘅 effort。
+呢個轉化值得花 45 分鐘嘅功夫。
 
-最後 reminder：**呢個 prompt 嘅 output 唔係 tax advice**。 IRD 嘅 final determination 永遠係 IRD。 你責任係 best-faith filing。 如果 unsure，會計師嘅 $1-2K 永遠係 worth 嘅 investment——保你免被 audit、保你睡得好。
+最後提醒：**呢個 prompt 嘅輸出唔係稅務建議**。稅務局嘅最終決定永遠係以稅務局為準。你嘅責任係盡最大誠意去申報。如果你唔肯定，畀 $1-2K 搵會計師永遠係值得嘅投資——保你免被查數、保你晚晚有覺好瞓。
