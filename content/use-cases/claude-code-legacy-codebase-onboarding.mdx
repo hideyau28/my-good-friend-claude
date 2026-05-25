@@ -1,5 +1,5 @@
 ---
-title: "Claude Code 處理 legacy codebase：點 onboard 一個 5 年舊 project"
+title: "Claude Code 處理舊 codebase：點樣接手一個 5 年舊項目"
 slug: "claude-code-legacy-codebase-onboarding"
 issue: 36
 publishedAt: 2026-08-11
@@ -11,7 +11,7 @@ heroImage: "/hero/claude-code-legacy-codebase-onboarding.webp"
 difficulty: 3
 timeMinutes: 180
 toolsNeeded: ["Claude Code", "Git", "VS Code"]
-description: "Claude Code legacy codebase onboarding：senior dev inherited 一個 5 年舊嘅 project。教你用 Claude Code 自動 map architecture、揾 dead code、寫 onboarding doc。"
+description: "Claude Code 舊 codebase 接手指南：資深開發者接手一個 5 年舊項目。教你用 Claude Code 自動梳理架構、搵無用代碼 (dead code)、寫接手指南。"
 keywords: ["legacy code 維護", "claude code refactor", "新入職 codebase", "code archaeology", "tech debt"]
 related: ["claude-code-tutorial-website", "claude-code-vs-cursor-vs-copilot-hk"]
 featured: false
@@ -19,27 +19,27 @@ featured: false
 
 ## 情境
 
-你新入職 / 接手一個 project。 開 repo：
+你新入職 / 接手一個項目。開 repo：
 
 - **5 年舊 codebase**
-- **150 files、20K+ lines**
-- **無 README**（或 only 「How to set up」 嘅 outdated draft）
-- **無 architecture doc**
-- **3 個原作者已 left company**
-- **CI 跑得過，但無人解釋 dep 之間嘅 relationship**
+- **150 個檔案、2 萬幾行代碼**
+- **無 README**（或者得返啲寫住「How to set up」嘅過時草稿）
+- **無架構文件**
+- **3 個原作者已離職**
+- **CI 跑得過，但無人解釋依賴 (dependencies) 之間嘅關係**
 
-你第一週要 「make sense of」 呢個 codebase 先 ship 任何 feature。 Senior dev 嘅 default workflow：
+你第一個禮拜要搞清楚呢個 codebase 點運作，先可以推出新功能。資深開發者嘅預設工作流程：
 
-1. Open random files、scroll、try-to-pattern-match（dazed）
-2. Run `grep` 揾類似 keyword
-3. 問 ex-colleague 喺 Slack（response 慢 / 已 离职）
-4. 1 個禮拜後仲係 confused
+1. 隨機開檔案、係咁碌、嘗試搵規律（一頭霧水）
+2. 跑 `grep` 搵類似關鍵字
+3. 喺 Slack 問前同事（覆得慢 / 已離職）
+4. 1 個禮拜後仲係一頭霧水
 
-呢篇用 Claude Code **自動 map 個 codebase**，2 個鐘出一份 onboarding doc，比起 1 週嘅 stumble-around 快好多。
+呢篇用 Claude Code **自動梳理個 codebase**，2 個鐘出一份接手指南，比起盲摸摸搞足一個禮拜快好多。
 
 ## 跟住做
 
-### 1. Codebase initial scan
+### 1. Codebase 首次掃瞄
 
 ```bash
 cd legacy-project
@@ -48,133 +48,133 @@ claude
 
 入 Claude Code 之後：
 
-<PromptBlock label="第一步 — Codebase architectural mapping">
-我啱啱 inherit 呢個 codebase。冇 README 同 architecture doc。我要 1-2 hour 內 understand 個 project。
+<PromptBlock label="第一步 — Codebase 架構梳理">
+我啱啱接手呢個 codebase。冇 README 同架構文件。我要喺 1-2 個鐘內理解個項目。
 
 請：
 
-1. **Scan repo structure**：top-level folder + 主要 sub-folder，2-3 sentence 描述每個負責乜
-2. **Identify entry points**：main、index、server start file、test runner
-3. **Map main data flow**：由 entry 開始，揾 1-2 個 most important code path（user request → business logic → response）
-4. **Tech stack inventory**：language、framework、major library、build tool、test framework
-5. **Project age signals**：package.json / pyproject.toml 嘅 dependency 是否 outdated、是否有 lock file inconsistency、CI 文件嘅 latest update
+1. **掃瞄 repo 結構**：最頂層資料夾 + 主要子資料夾，用 2-3 句話描述每個負責乜
+2. **搵出進入點**：main、index、server start file、test runner
+3. **梳理主要數據流**：由進入點開始，搵 1-2 條最重要嘅代碼路徑（用戶請求 → 業務邏輯 → 回應）
+4. **技術棧清單**：語言、框架、主要 library、構建工具、測試框架
+5. **項目老化信號**：package.json / pyproject.toml 嘅依賴是否過時、是否有 lock file 唔一致、CI 文件嘅最新更新日期
 
-Output 一份 「Onboarding doc v0」（markdown），約 1-2 頁。 寫成新 dev 嘅 day 1 read。
+輸出一份「Onboarding doc v0」（markdown），約 1-2 頁。寫成新開發者第一日必讀嘅文件。
 
-唔好 hallucinate——任何唔肯定嘅嘢標 「⚠️ Needs verification」。
+唔好幻想——任何唔肯定嘅嘢標示「⚠️ Needs verification」。
 </PromptBlock>
 
-Claude Code 會花 5-10 分鐘 scan，出 initial doc。
+Claude Code 會花 5-10 分鐘掃瞄，出初步文件。
 
-### 2. Identify hotspots
+### 2. 搵出熱點 (hotspots)
 
-<PromptBlock label="第二步 — 揾出 hotspots">
-基於 Part 1 嘅 mapping，幫我揾 5 個 「hotspot」——即係：
+<PromptBlock label="第二步 — 搵出熱點">
+基於第一步嘅梳理，幫我搵 5 個「熱點」——即係：
 
-- **最複雜 file**（最多 line / 最多 function / 最 nested logic）
-- **最 frequently changed file**（用 git log 揾 recent 1 年 commit 最多嘅）
-- **最 critical 嘅 business logic**（如 payment / auth / data layer）
-- **最 fragile 嘅 file**（無 test cover、或 test cover 但 fail rate 高）
-- **最 「smells legacy」 嘅 file**（commented-out code 大量、TODO 5+ 個、known anti-pattern）
+- **最複雜檔案**（最多行數 / 最多 function / 最多層層疊邏輯）
+- **最頻繁改動嘅檔案**（用 git log 搵近 1 年 commit 最多嘅）
+- **最關鍵嘅業務邏輯**（例如 payment / auth / data layer）
+- **最脆弱嘅檔案**（無測試覆蓋、或有測試但失敗率高）
+- **最「有陣舊除」嘅檔案**（大量被 comment 咗嘅代碼、5 個以上 TODO、已知嘅反面模式）
 
-每個 hotspot：file path、reason、estimated complexity（1-5 star）、recommended first action（read / refactor / test / leave alone）。
+每個 hotspot 畀返：檔案路徑、原因、估計複雜度（1-5 星）、建議嘅第一步行動（閱讀 / 重構 / 測試 / 唔好搞住）。
 </PromptBlock>
 
-### 3. 揾 dead code
+### 3. 搵無用代碼 (dead code)
 
-<PromptBlock label="第三步 — Dead code detection">
-請幫我 identify potential dead code：
+<PromptBlock label="第三步 — 偵測無用代碼">
+請幫我識別潛在嘅無用代碼：
 
-- Exported function 從未被 referenced
-- Branch / case 入面 unreachable code
-- Commented-out code 超過 1 年未 touch
-- Environment variable 喺 .env.example 但 codebase 從未讀
+- Export 咗嘅 function 從未被引用
+- Branch / case 入面永遠行唔到嘅代碼
+- 被 comment 咗而且超過 1 年未掂過嘅代碼
+- 喺 .env.example 有但 codebase 從來冇讀取過嘅環境變數
 
-Output 一份 「dead code candidates」 list。 每個附：
-- File + line
-- Confidence（high / medium / low）
-- 建議 next action：delete / migrate to deprecated folder / 留 + add TODO
+輸出一份「dead code candidates」清單。每個附上：
+- 檔案 + 行數
+- 確定程度（高 / 中 / 低）
+- 建議下一步行動：刪除 / 搬去廢棄資料夾 / 留低 + 加 TODO
 
-Caveat：呢類 detection 永遠有 false positive（reflection-based reference、external API contract 等）。 行動之前 manual verify 每個 high-confidence candidate。
+注意：呢類偵測永遠有誤判（例如透過 reflection 引用、外部 API 合約等）。行動之前要人手驗證每個高確定性嘅候選項目。
 </PromptBlock>
 
-### 4. Generate onboarding doc 落 repo
+### 4. 生成接手指南落 repo
 
-<PromptBlock label="第四步 — Generate final onboarding doc">
-基於 Part 1-3 嘅 findings，整一份完整嘅 onboarding doc 寫落 `docs/ONBOARDING.md`：
+<PromptBlock label="第四步 — 生成最終接手指南">
+基於第 1-3 步嘅發現，整一份完整嘅接手指南寫落 `docs/ONBOARDING.md`：
 
-Structure：
-1. **Project at a glance**（1 段 + tech stack table）
-2. **Architecture diagram**（用 ASCII / Mermaid）
-3. **Setup instructions**（refer 現有 setup script，加 caveat 我發現嘅 known issue）
-4. **Main code paths**（2-3 個 walk-through）
-5. **Hotspots to know**（point new dev to critical files）
-6. **Known tech debt**（list dead code、deprecated pattern、需要 refactor 嘅地方）
-7. **Onboarding checklist**（new dev day 1-7 要做嘅嘢）
+結構：
+1. **項目一覽**（1 段 + 技術棧圖表）
+2. **架構圖**（用 ASCII / Mermaid）
+3. **設定教學**（參考現有設定腳本，加返我發現嘅已知問題做備註）
+4. **主要代碼路徑**（2-3 個流程拆解）
+5. **必知熱點**（指出關鍵檔案畀新開發者睇）
+6. **已知技術債**（列出無用代碼、廢棄寫法、需要重構嘅地方）
+7. **接手清單**（新開發者頭 1-7 日要做嘅嘢）
 
-寫成 new senior dev day 1 嘅 reference。 Tone：直接、honest about complexity（唔扮 「easy onboarding」）。
+寫成新資深開發者第一日嘅參考資料。語氣：直接、對複雜度坦白（唔好扮「輕鬆上手」）。
 </PromptBlock>
 
-### 5. Iterate as you learn
+### 5. 邊學邊更新
 
-Onboarding doc v0 唔係 perfect。 接住 2-4 週你做 feature work 嘅時候，**每次 reveal 新 understanding 就 update doc**。 
+接手指南 v0 唔會係完美。接住 2-4 個禮拜你做新功能嘅時候，**每次有新理解就更新份文件**。
 
-呢個 living document 嘅 ROI：3 個月後下個 new dev 入嚟，佢有你嘅 documented learning，唔需要由零開始。
+呢份持續更新嘅文件嘅回報：3 個月後下個新開發者入嚟，佢有你記錄低嘅學習成果，唔需要由零開始。
 
 ## 變化例子
 
-### 變化 1：Specific debugging exploration
+### 變化 1：針對特定除錯摸索
 
-<PromptBlock label="變化 1 — 揾 specific bug 嘅 root cause">
-我撞到一個 bug：[描述 symptom]。
+<PromptBlock label="變化 1 — 搵特定 bug 嘅根本原因">
+我撞到一個 bug：[描述病徵]。
 
 請幫我：
-1. 由 symptom 倒推 likely root cause（list 3-5 個 hypothesis 按 likelihood 排）
-2. 對每個 hypothesis，指引我 verify 嘅 file / function
-3. 由 most likely 開始 walk through code
+1. 由病徵倒推最有可能嘅根本原因（列出 3-5 個假設，按可能性排）
+2. 對每個假設，指引我去驗證邊個檔案 / function
+3. 由最有可能嗰個開始帶我睇代碼
 
-呢個係「fishing expedition」唔係機械式 fix——你係我嘅 senior dev pair。
+呢個係「摸石過河」唔係機械式修補——你係我嘅資深開發者拍檔。
 </PromptBlock>
 
-### 變化 2：Test coverage audit
+### 變化 2：測試覆蓋率檢視
 
-<PromptBlock label="變化 2 — Test gap analysis">
-請 audit 我 test coverage：
+<PromptBlock label="變化 2 — 測試缺口分析">
+請審視我嘅測試覆蓋率：
 
-1. List test framework + 而家 coverage %
-2. Identify 5 個 critical business logic file but 缺 test
-3. 對每個建議 minimum test case（happy path + 2 edge cases）
-4. Recommend test priority：邊個寫先（risk-weighted）
-5. Estimate effort for catch-up to 60% coverage（baseline target）
+1. 列出測試框架 + 而家覆蓋率 %
+2. 搵出 5 個關鍵業務邏輯檔案但缺測試
+3. 對每個建議最基本嘅測試案例（順利流程 + 2 個邊緣情況）
+4. 建議測試優先次序：邊個寫先（按風險權重）
+5. 估計追返到 60% 覆蓋率（基本目標）所需要嘅功夫
 </PromptBlock>
 
-### 變化 3：Modernization roadmap
+### 變化 3：現代化路線圖
 
-<PromptBlock label="變化 3 — Tech upgrade roadmap">
-我想 modernize 個 codebase（upgrade dependency、refactor legacy pattern）。
+<PromptBlock label="變化 3 — 技術升級路線圖">
+我想將個 codebase 現代化（升級依賴、重構舊寫法）。
 
 請：
-1. Inventory deps + 標 outdated（major version behind）
-2. Identify breaking changes（upgrade 邊個 dep 會 cascade）
-3. Suggest sequencing：邊個 upgrade 先做（low-risk）、邊個 wait（high-risk）
-4. Estimate effort + risk
-5. 建議 「strangler pattern」 嘅 refactor approach（incremental，唔 big-bang）
+1. 盤點依賴清單 + 標示過時（落後咗主要版本）
+2. 搵出破壞性改動（升級邊個依賴會引起連鎖反應）
+3. 建議次序：邊個升級先做（低風險）、邊個等吓先（高風險）
+4. 估計功夫 + 風險
+5. 建議用「絞殺者模式 (strangler pattern)」嘅重構方法（漸進式，唔好一次過大換血）
 
-呢個係 3-6 個月 roadmap，唔係 1 週做完。
+呢個係 3-6 個月嘅路線圖，唔係 1 個禮拜做完。
 </PromptBlock>
 
-## 一個 mental discipline
+## 一個思維紀律
 
-接手 legacy codebase 嘅最大 trap：**「呢個 code 寫得好差，我要 全部 rewrite」**。
+接手舊 codebase 嘅最大陷阱：**「呢啲代碼寫得好差，我要全部重寫」**。
 
-幾乎永遠錯。 原因：
+幾乎永遠都係錯。原因：
 
-- 你睇唔到 original 寫者面對嘅 constraint（time、tool、team context）
-- Existing code 有 5 年嘅 production-tested bug fix you don't see
-- Rewrite 嘅 cost 永遠超 estimate 2-3 倍
+- 你睇唔到原作者面對嘅限制（時間、工具、團隊背景）
+- 現有代碼有 5 年經過生產環境測試嘅 bug fix 係你睇唔到嘅
+- 重寫嘅成本永遠超估算 2-3 倍
 
-正確 mindset：**respect inherited code as if it's earnest first attempt; 用 understanding 之後嘅 strategic improvement, 唔好 ego-driven rewrite**。
+正確心態：**尊重接手嘅代碼，當佢係原作者盡心盡力嘅初步嘗試；了解清楚之後先做策略性改善，唔好為咗滿足自我而盲目重寫**。
 
-Claude Code 嘅 leverage 喺呢個 understanding stage——將 「我要 1 個月 read code」 嘅 friction，降到 「2 個鐘 mapping + 持續 update」。
+Claude Code 嘅用處喺呢個理解階段——將「我要 1 個月睇代碼」嘅阻力，降到「2 個鐘梳理 + 持續更新」。
 
-呢個 unlock 嘅唔係 「rewrite」，係**有 informed perspective 嘅 incremental improvement**。 senior dev 嘅真實 value，係 know what to keep + what to change。 Claude Code 幫你 reach 嗰個 informed state，剩低個 judgment 仍然係 you。
+呢個解鎖嘅唔係「重寫」，係**有充足資訊下嘅漸進式改善**。資深開發者嘅真實價值，係知道保留乜嘢同改變乜嘢。Claude Code 幫你達到嗰個有知情權嘅狀態，剩低嘅判斷仍然喺你手。
