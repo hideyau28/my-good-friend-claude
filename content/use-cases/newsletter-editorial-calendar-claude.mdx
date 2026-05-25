@@ -1,5 +1,5 @@
 ---
-title: "用 Claude 整 newsletter editorial calendar：由 idea backlog 排 12 週 publishing"
+title: "用 Claude 整 newsletter editorial calendar：由 idea backlog 排 12 週排程"
 slug: "newsletter-editorial-calendar-claude"
 issue: 40
 publishedAt: 2026-09-08
@@ -11,7 +11,7 @@ heroImage: "/hero/newsletter-editorial-calendar-claude.webp"
 difficulty: 2
 timeMinutes: 30
 toolsNeeded: ["Claude Chat", "Notes app / Notion"]
-description: "用 Claude 整 newsletter editorial calendar：由你 50 個 idea backlog 排 12 週嘅 publishing schedule，配 audience interest + seasonality。Solo creator newsletter 退治 「想唔到下期寫乜」 嘅 setup。"
+description: "用 Claude 整 newsletter editorial calendar：由你 50 個 idea backlog 排 12 週嘅發佈排程，配合讀者興趣 + 季節性。Solo 創作者 newsletter 解決「諗唔到下期寫乜」嘅設定。"
 keywords: ["newsletter calendar", "content planning ai", "editorial calendar", "newsletter 規劃", "創作者 排 schedule"]
 related: ["claude-content-repurpose", "claude-fiction-writing-partner"]
 featured: false
@@ -19,149 +19,149 @@ featured: false
 
 ## 情境
 
-你 solo 寫 newsletter 已 N 個月。 累積咗 50 個 「我想寫嘅 idea」 落 Apple Notes：
+你 solo 寫 newsletter 已經 N 個月。累積咗 50 個「我想寫嘅 idea」落 Apple Notes：
 
-- 「Claude 用嚟教細路嘅 5 個 use」
+- 「Claude 用嚟教細路嘅 5 個用途」
 - 「點解我 unfollow 咗大部分 newsletter」
-- 「我哋 family monthly review 嘅 framework」
+- 「我哋家庭每月檢討嘅框架」
 - 「⋯」 50 條
 
-但每星期六 panic：「下個禮拜寫乜?」 你開 Notes：50 條 idea 望落都 「都 OK 但都唔特別」。
+但每星期六都會 panic：「下個禮拜寫乜？」 你開 Notes：50 條 idea 望落都「都 OK 但都唔特別」。
 
-呢個 phenomenon 叫 **「abundance paralysis」** —— 太多 option 反而 paralyze decision。
+呢個現象叫 **「abundance paralysis（選擇癱瘓）」** —— 太多選擇反而癱瘓咗決定。
 
-呢篇用 Claude 將 backlog 整成 **12 週 editorial calendar**，每週 idea 已 pre-assigned + thematically grouped。
+呢篇用 Claude 將 backlog 整成 **12 週 editorial calendar**，每週 idea 已經預先編排好 + 按主題分類。
 
 ## 跟住做
 
-### 1. Dump 你嘅 idea backlog
+### 1. 倒出你嘅 idea backlog
 
-開 Apple Notes，list 你所有 「I want to write about」 ideas。 每個 idea：
+開 Apple Notes，列出你所有「我想寫」嘅 ideas。每個 idea：
 
-- 一句描述（dont over-elaborate）
-- 一個 tag（optional：subject area、target audience、estimated effort）
-- Date 你 capture 個 idea（reveal seasonality clue）
+- 一句描述（唔好長篇大論）
+- 一個 tag（可選：主題分類、目標讀者、預計所需功夫）
+- 你記錄個 idea 嘅日期（透露季節性線索）
 
-唔需要 polish。 越 raw 越好，你嘅 honest backlog。
+唔需要修飾。越 raw 越好，係你最真實嘅 backlog。
 
 ### 2. 用呢個 prompt
 
-<PromptBlock label="完整 prompt — Editorial calendar planning">
+<PromptBlock label="完整 prompt — Editorial calendar 規劃">
 我寫緊一個 newsletter：
 
-- **主題 / niche**：[填]
-- **Audience size + composition**：[例：2,400 subscribers，主要係 HK 打工仔 / 創作者]
-- **Cadence**：[每星期 / 每兩星期]
-- **Format style**：[填，例：一篇 deep dive 一個 topic / multi-section newsletter]
-- **Long-term goal**：[填，例：build authority、growth、retention]
+- **主題 / 定位**：[填]
+- **讀者群大小 + 組合**：[例：2,400 訂閱者，主要係 HK 打工仔 / 創作者]
+- **發佈頻率**：[每星期 / 每兩星期]
+- **格式風格**：[填，例：一篇 deep dive 一個話題 / 多章節 newsletter]
+- **長遠目標**：[填，例：建立權威、增長、留存率]
 
 呢度係我嘅 idea backlog（每行一個 idea）：
-[paste 50 個 idea]
+[貼上 50 個 idea]
 
 請整 12 週 editorial calendar，要做到：
 
-**Part 1：Thematic grouping**
-將 50 個 idea group 入 3-5 個 thematic cluster（基於 underlying theme，唔係 topic）。 例如：「Mental discipline of AI use」、「HK-specific practical use」、「Personal reflection on creator life」。
+**Part 1：按主題分類**
+將 50 個 idea 歸入 3-5 個主題組別（基於背後嘅主題，唔係表面話題）。例如：「使用 AI 嘅心智紀律」、「HK 實用案例」、「創作者生活嘅個人反思」。
 
-**Part 2：Week-by-week schedule**
+**Part 2：每週排程**
 
 整 Week 1 至 Week 12，每週：
 - **Week N · [日期]：[揀邊個 idea]**
-- **Theme cluster**：呢期屬邊個 group
-- **Predicted engagement**（low / medium / high，by audience profile）
-- **Effort estimate**：light（800 字）vs heavy（1500+ 字，需要 research）
-- **連接到之前 / 之後嘅 week**：narrative arc，週同週之間有冇 thematic build
+- **主題組別**：呢期屬邊個 group
+- **預期互動率**（低 / 中 / 高，基於讀者特徵）
+- **預計所需功夫**：輕量（800 字）vs 繁重（1500+ 字，需要做 research）
+- **連接到之前 / 之後嘅禮拜**：故事線，週同週之間有冇主題鋪排
 
-**Part 3：Cadence balance**
+**Part 3：節奏平衡**
 
-Check 12 週 mix：
-- Heavy vs light 比例（recommend 1:3）
-- Theme cluster 嘅 spread（唔好連續 3 週同 cluster）
-- High-stake 「milestone post」 嘅 spacing（每 4-6 週一個 「big idea」 post 為 anchor）
+檢查 12 週嘅組合：
+- 繁重 vs 輕量比例（建議 1:3）
+- 主題組別嘅分佈（唔好連續 3 週同一個組別）
+- 高風險「重頭戲文章」嘅間隔（每 4-6 週一個「大 idea」做重心）
 
-**Part 4：Seasonality alignment**
+**Part 4：配合季節性**
 
-睇 12 週 嘅 calendar period：
-- 哪 idea 應該配合 specific date（例：HK 5 月報稅、12 月 年終、9 月開學）
-- 哪 idea 季節獨立可以 flex
-- 任何 「miss the window」 嘅 risk（你嘅 idea 已 capture 個 timely topic，但未寫 timely）
+睇 12 週嘅日曆週期：
+- 邊啲 idea 應該配合特定日子（例：HK 5 月報稅、12 月年終、9 月開學）
+- 邊啲 idea 唔受季節影響可以彈性處理
+- 任何「過咗最佳時機」嘅風險（你嘅 idea 已經捕捉到應節話題，但未及時寫）
 
-**Part 5：Backlog future planning**
+**Part 5：Backlog 未來規劃**
 
 剩低 (50 - 12) = 38 個 idea：
-- 推薦 reload backlog 嘅 cadence（每 4-6 週 review）
-- 哪幾個 idea 「likely outgrow itself」（topic 變 outdated，建議盡快寫 or kill）
-- 哪幾個 idea need 「ferment more」（concept 仲未 sharp，等多陣）
+- 建議補充 backlog 嘅頻率（每 4-6 週檢視）
+- 哪幾個 idea「好快會過時」（話題變舊，建議盡快寫或者刪除）
+- 哪幾個 idea 需要「發酵多陣」（概念仲未清晰，等多陣）
 
-語氣：opinionated。 唔好 「all ideas equally valid」 嘅 fence-sit。
+語氣：有立場。唔好「所有 idea 都一樣好」咁模稜兩可。
 </PromptBlock>
 
-### 3. Review + adjust
+### 3. 檢視 + 調整
 
-Claude 嘅 output 70% 啱、30% 你會 disagree。 你自己 know audience，所以：
+Claude 嘅輸出 70% 啱、30% 你會唔同意。你自己了解讀者，所以：
 
-- **Swap idea**：邊兩個 week 你 instinct 想 swap
-- **Compress**：邊兩個 idea 其實一篇 cover 得到（merge）
-- **Expand**：邊個 idea 你而家 sees 變 1 篇 + sequel
-- **Kill**：邊個 idea 你 read 返已經唔 invested
+- **對調 idea**：邊兩個禮拜你直覺想對調
+- **壓縮**：邊兩個 idea 其實一篇涵蓋到（合併）
+- **擴充**：邊個 idea 你而家覺得可以變 1 篇 + 下集
+- **刪除**：邊個 idea 你睇返已經冇熱情
 
-Adjust 完，個 calendar 變 yours。 唔再係 「Claude generated」。
+調整完，個 calendar 就變成你嘅。唔再係「Claude 生成」。
 
-### 4. Save 落 system + commit
+### 4. 儲存落系統 + 執行
 
 Calendar 寫落：
-- **Notion / Apple Notes / Google Calendar**（總之你 daily check 嘅地方）
-- 每週 publish 之後，update status + add post-mortem note：subscriber growth、engagement、reader reply quality
+- **Notion / Apple Notes / Google Calendar**（總之你日日 check 嘅地方）
+- 每週發佈之後，更新狀態 + 加賽後檢討筆記：訂閱增長、互動率、讀者回覆質素
 
-第 4 週左右，你會 develop a sense「哪 cluster 真係 work、哪 cluster lukewarm」—— iterate 落 next 12 weeks。
+第 4 個禮拜左右，你會培養到觸覺「邊個組別真係 work、邊個反應平平」—— 迭代落接住嘅 12 個禮拜。
 
 ## 變化例子
 
-### 變化 1：Seasonal campaign planning
+### 變化 1：季節性企劃規劃
 
-<PromptBlock label="變化 1 — Campaign 季節整理">
-我有一個 「[Specific campaign，例：年終 reflection、產品 launch、跨年 thinking]」 campaign，跨 8 週。
+<PromptBlock label="變化 1 — 企劃季節整理">
+我有一個「[具體企劃，例：年終回顧、產品發佈、跨年思考]」企劃，跨 8 個禮拜。
 
 請：
-1. 由我 backlog identify 8 篇 fit campaign theme 嘅 idea
-2. 排序 narrative arc：opener、build-up、midpoint pivot、climax、resolution、coda
-3. 每週 angle：唔好重覆 angle、有 progression
-4. 在 campaign 中段 inject 一個 「reader engagement loop」 idea（survey、Q&A、reader story call）
+1. 由我 backlog 搵出 8 篇配合企劃主題嘅 idea
+2. 排列故事線：開場、鋪排、中段轉折、高潮、結尾、餘波
+3. 每週角度：唔好重覆角度、要有推進
+4. 在企劃中段注入一個「讀者互動循環」idea（問卷、Q&A、徵集讀者故事）
 </PromptBlock>
 
-### 變化 2：Multi-niche newsletter
+### 變化 2：多領域 newsletter 平衡
 
-<PromptBlock label="變化 2 — Multi-niche balance">
-我 newsletter 覆蓋多個 niche：[列 niche]。 我擔心 audience 期待 specific niche，但太單一又 lose 我 broad interest。
+<PromptBlock label="變化 2 — 多領域平衡">
+我嘅 newsletter 覆蓋多個領域：[列出領域]。我擔心讀者期待某個特定領域，但太單一又會犧牲我廣泛嘅興趣。
 
 請睇我 idea backlog：
-1. Audit niche representation（邊個 niche 多 idea、邊個少）
-2. Recommend 12 週 嘅 niche rotation：邊週寫邊 niche
-3. 預警 risk：某 niche 連續 3 週寫，可能 alienate 其他 niche 嘅 subscriber
-4. 提議 「cross-niche bridge」 idea（一個 topic 對多個 niche 都 relevant）
+1. 審視領域分佈（邊個領域多 idea、邊個少）
+2. 建議 12 週嘅領域輪替：邊週寫邊個領域
+3. 預警風險：某領域連續 3 週寫，可能會趕客 / 疏遠其他領域嘅訂閱者
+4. 提議「跨領域橋樑」idea（一個話題對多個領域都相關）
 </PromptBlock>
 
-### 變化 3：Series planning（多 part deep dive）
+### 變化 3：系列規劃（多部分深入探討）
 
-<PromptBlock label="變化 3 — Multi-part series">
-我想做一個 4-part deep dive series：[topic]
+<PromptBlock label="變化 3 — 多部分系列">
+我想做一個 4 部分嘅深入系列：[話題]
 
 請：
-1. Outline 每 part：title、main argument、key example
-2. 4 part 嘅 narrative arc + thematic build
-3. Recommend 每 part 嘅 publish gap（連 4 週 vs 隔週 vs 月一）
-4. 預警：series 嘅 retention risk —— audience tire of one topic
-5. Suggest 「side story」 落 series 之間 break monotony
+1. 規劃每一部分：標題、主要論點、關鍵例子
+2. 4 部分嘅故事線 + 主題鋪排
+3. 建議每部分嘅發佈間隔（連載 4 週 vs 隔週 vs 每月一次）
+4. 預警：系列嘅留存風險 —— 讀者對單一話題生厭
+5. 建議喺系列之間加入「支線故事」去打破單調
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-Newsletter 嘅最大 hidden trap：**每週要寫嗰個 「inspiration anxiety」**。
+Newsletter 嘅最大隱藏陷阱：**每週要寫嗰個「靈感焦慮」**。
 
-50 個 idea 已係 indicator 你嘅 creative wells 不錯。 problem 唔係 「冇 ideas」，係 「揀邊個 + 點 sequence」。
+50 個 idea 已經係指標，證明你嘅創意泉源唔錯。問題唔係「冇 ideas」，係「揀邊個 + 點樣排列」。
 
-Editorial calendar 嘅 leverage：**將每週嘅 decision 同 panic shift 落 quarterly 嘅 strategic exercise**。 你 weekly Saturday 唔再 panic—— calendar 已 tell 你下週寫乜。
+Editorial calendar 嘅用處：**將每週嘅決定同 panic 轉移落季度嘅策略規劃度**。你每逢星期六唔再 panic——calendar 已經話你知下週寫乜。
 
-呢類 system thinking 嘅 mental gift：**creative energy 留落寫 newsletter 本身，唔嘥喺 「揀寫乜」 嘅 anxiety**。
+呢類系統性思維嘅精神回報：**創作精力留返落寫 newsletter 本身，唔好嘥喺「揀寫乜」嘅焦慮度**。
 
-Claude 嘅 role：將你 messy idea list 變 coherent forward plan。 但 calendar 嘅 ownership 永遠係 you——你 know audience，你 know your voice，你 make final call。
+Claude 嘅角色：將你亂糟糟嘅 idea 清單變成連貫嘅前瞻計劃。但 calendar 嘅擁有權永遠係你——你了解讀者，你清楚自己嘅風格，由你做最終決定。
