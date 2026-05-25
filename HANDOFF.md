@@ -1,6 +1,6 @@
 # 📋 SESSION HANDOFF — my-good-friend-claude
 
-_Last session ended: 2026-05-25, voice retone batch session — 23/45 done via direct Claude retone (no Gemini)_
+_Last session ended: 2026-05-25, voice retone batch session — 25/45 done via direct Claude retone (no Gemini)_
 
 ## 🌐 Live URLs
 
@@ -12,7 +12,7 @@ _Last session ended: 2026-05-25, voice retone batch session — 23/45 done via d
 
 ## 📊 Current state (top of main)
 
-- Top commit: `b28b010` content(voice): retone #065 tax-refund-claude (0.66 → 0.11)
+- Top commit: `01b1923` content(voice): retone #067 home-exercise-plan-hk-claude (0.71 → 0.10)
 - **84 articles** (chat 61 / cowork 11 / code 12) — 42 featured
 - **12 sections** — 財經 · 職場 · 商家 · 親子 · 寵物 · 生活 · 健康 · 旅遊 · 文化 · 科技 · 遊戲 · 其他
 - Highest issue: **088** / Next issue: **089**
@@ -20,7 +20,7 @@ _Last session ended: 2026-05-25, voice retone batch session — 23/45 done via d
 
 ## ⚠️ Voice retone IN PROGRESS (resume here)
 
-**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。**呢個 session 完成 23 篇 (#031-#065)，剩 22 篇要做**。
+**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。**呢個 session 完成 25 篇 (#031-#067)，剩 20 篇要做**。
 
 ### Workflow（直接 Claude retone — 取代咗 Gemini 協作）
 
@@ -62,7 +62,7 @@ Target ratio < 0.30。Pet 文：BB → 主子。
 OUTPUT：純 MDX，由 `---` 開始到文末。<PromptBlock> tag 保留。Code block 100% 唔郁。
 ```
 
-### 已完成（2026-05-25 batch）— 23 篇
+### 已完成（2026-05-25 batch）— 25 篇
 
 ```
 ✅ #031 cowork-auto-backup-files-photos       (0.45 → 0.06) commit 50c9157
@@ -88,13 +88,13 @@ OUTPUT：純 MDX，由 `---` 開始到文末。<PromptBlock> tag 保留。Code b
 ✅ #063 family-trip-itinerary-claude          (0.71 → 0.09) commit 19abeb4
 ✅ #064 packing-list-claude                   (0.71 → 0.10) commit 28c00ee
 ✅ #065 tax-refund-claude                     (0.66 → 0.11) commit b28b010
+✅ #066 mental-health-journaling-claude       (0.54 → 0.06) commit 0d3f105
+✅ #067 home-exercise-plan-hk-claude          (0.71 → 0.10) commit 01b1923
 ```
 
-### 剩低嘅 22 篇（issue order）— 下個 session 由 #066 開始
+### 剩低嘅 20 篇（issue order）— 下個 session 由 #068 開始
 
 ```
-#066 0.54 mental-health-journaling-claude
-#067 0.71 home-exercise-plan-hk-claude
 #068 0.73 sleep-insomnia-tracker-claude
 #069 0.70 chronic-condition-management-claude
 #070 0.65 dse-prep-mental-claude
