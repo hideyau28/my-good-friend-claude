@@ -1,5 +1,5 @@
 ---
-title: "強積金 fund 揀錯 10 年蝕咗 20 萬？用 Claude 做 MPF review + switch fund decision"
+title: "強積金 fund 揀錯 10 年蝕咗 20 萬？用 Claude 做 MPF review + 轉 fund 決定"
 slug: "mpf-review-claude"
 issue: 74
 publishedAt: 2026-05-24
@@ -10,514 +10,514 @@ subcategory: "退休 / MPF"
 heroImage: "/hero/mpf-review-claude.webp"
 difficulty: 2
 timeMinutes: 30
-toolsNeeded: ["Claude Chat", "MPF account statement (eMPF / scheme website)", "fund fact sheet PDF"]
-description: "你 36 歲，MPF 開 10 年仲 default fund。Balanced Fund HK$420k vs 朋友 Equity Fund 同期 HK$680k。差 26 萬就係 didn't review。用 Claude 拆 fund performance vs benchmark + fee impact + age-appropriate allocation。"
-keywords: ["MPF review", "強積金 fund 揀", "MPF switch fund", "退休 計劃 HK", "eMPF", "default investment strategy"]
+toolsNeeded: ["Claude Chat", "MPF 結單（eMPF / 計劃網頁）", "Fund fact sheet PDF"]
+description: "你 36 歲，MPF 開咗 10 年仍然係 default fund。Balanced Fund HK$420k vs 朋友 Equity Fund 同期 HK$680k。差 26 萬就係冇做 review。用 Claude 拆 fund 表現 vs benchmark + 收費影響 + 按年齡嘅 allocation。"
+keywords: ["MPF review", "強積金揀 fund", "MPF 轉 fund", "退休計劃 HK", "eMPF", "預設投資策略"]
 related: ["emergency-fund-claude", "monthly-budget-hk-claude", "investment-portfolio-review-claude"]
 featured: true
 ---
 
-> Claude 唔係 licensed financial adviser. 文中 framework 是 self-review 工具，目的係 prep 你做 informed decision OR 同 IFA / MPF intermediary 對話。大金額 switch 決定 = consider professional consult.
+> Claude 唔係持牌理財顧問。文中嘅框架係自我 review 工具，目的係幫你做 informed decision，或者同 IFA / MPF 中介傾。大金額轉 fund 嘅決定，建議揾專業諮詢。
 
 ## 情境
 
-5 月 23 日 8:47pm，你 receive MPF Q1 statement.
+5 月 23 日 8:47pm，你收到 MPF Q1 結單。
 
-你打 開 PDF:
+你打開 PDF：
 - **HSBC Mandatory Provident Fund — SuperTrust Plus**
-- Member: 你
-- Account opened: April 2016 (10 年)
-- Current portfolio value: **HK$420,358**
-- Year-to-date return: -2.3%
-- 1-year return: 5.8%
-- 5-year annualized: 4.1%
+- 成員：你
+- 戶口開立：2016 年 4 月（10 年）
+- 目前 portfolio：**HK$420,358**
+- 年初至今回報：-2.3%
+- 1 年回報：5.8%
+- 5 年年化：4.1%
 
-你 default 反應: 「OK 啦, growing.」
+你 default 反應：「OK 啦，有增長。」
 
-但你想起 lunch break 同事 Stephen (同 age, 同 industry, 同 employer 10 年):
-- Stephen MPF portfolio value: **HK$680k**
-- Same 月份 contribute amount
+但你想起 lunch 時同事 Stephen（同年齡、同行業、同公司 10 年）：
+- Stephen MPF：**HK$680k**
+- 同月份供款
 - 同 employer match
-- 同 starting date
+- 同開戶日期
 
-你 internal: 「點解 26 萬 difference?」
+你內心：「點解差 26 萬？」
 
-你 ask Stephen lunch:
-- 「邊個 fund?」
-- Stephen: 「我 開頭 default fund 1 年, 然後 switch 全 equity. 30 歲 high risk OK.」
-- 你: 「⋯」 (沒 ever switched)
-- Stephen: 「Default fund return 4% / yr. Equity return 8-9% / yr historical. 10 yr compound difference: big.」
-- 你: 「Claude, please help me.」
+你 lunch 時問 Stephen：
+- 「揀邊個 fund？」
+- Stephen：「我頭一年 default fund，跟住轉曬去全 equity。30 歲做高風險 OK。」
+- 你：「⋯」（從未轉過）
+- Stephen：「Default fund 每年 4%。Equity 歷史 8-9% / 年。10 年複利差距：大。」
+- 你：「Claude，幫我。」
 
-呢個 MPF mistake universal HK pattern:
+呢個 MPF 失誤係 HK 普世 pattern：
 
-- **78% MPF account holders 從 未 switched fund** (data MPFA 2024)
-- **Default fund 通常 「DIS」 Default Investment Strategy** — 60/40 mixed but high fee
-- **「Set and forget」 mentality** — 10 年 unchanged
-- **「我 唔識 投資」 fear** — Claude 容易 help education
-- **Compound effect** — 1% fee difference over 30 年 = 25% retirement gap
+- **78% MPF 戶口從未轉過 fund**（MPFA 2024 數據）
+- **Default fund 通常係「DIS」預設投資策略** —— 60/40 mixed 但高收費
+- **「Set and forget」心態** —— 10 年不變
+- **「我唔識投資」嘅恐懼** —— Claude 容易幫教育
+- **複利效應** —— 1% 收費差距 30 年 = 25% 退休 gap
 
-呢篇用 Claude 30 分鐘 **有系統 MPF review** — 拆 fund performance、 fee impact、age-appropriate strategy、actionable 下個月 switch decision.
+呢篇用 Claude 30 分鐘做**有系統嘅 MPF review** —— 拆 fund 表現、收費影響、按年齡策略、下個月可執行嘅轉 fund 決定。
 
-⚠️ **Disclaimer 重複**: Claude 唔係 IFA. 大 amount switch decision 適合 IFA / MPF intermediary 同行.
+⚠️ **再重提**：Claude 唔係 IFA。大金額轉 fund 適合揾 IFA / MPF 中介一齊處理。
 
 ## 跟住做
 
-### 1. Pull 你 MPF data + dump 入 Claude
+### 1. 攞你嘅 MPF 數據 + dump 落 Claude
 
-開始之前 collect 過去 5 年 statement + 1 fund fact sheet:
+開始之前，收齊過去 5 年結單 + 1 份 fund fact sheet：
 
-> **My MPF profile**
-> - 年齡: 36
-> - 在港 working: 10 年
-> - 預計 retirement age: 65 (29 年 余)
-> - Current employer: same since 2018
-> - Earlier employer (2014-2018): 4 年, MPF transferred to current scheme
+> **我嘅 MPF profile**
+> - 年齡：36
+> - 喺港工作：10 年
+> - 預計退休年齡：65（仲有 29 年）
+> - 現任 employer：2018 起
+> - 之前 employer（2014-2018）：4 年，MPF 已轉去現時計劃
 >
-> **Current portfolio (HSBC SuperTrust Plus)**
-> - 100% 「HSBC MPF Balanced Fund」 (default since open)
-> - Asset allocation: 60% global equity / 35% global fixed income / 5% cash
-> - Account value: HK$420,358
-> - Monthly contribution: HK$3,000 employee + HK$3,000 employer = HK$6,000 / month
-> - YTD return 2026: -2.3%
-> - 1-year return: 5.8%
-> - 3-year annualized: 3.5%
-> - 5-year annualized: 4.1%
-> - Fund fee (management + admin): 1.8% (typical HK MPF)
+> **目前 portfolio（HSBC SuperTrust Plus）**
+> - 100%「HSBC MPF Balanced Fund」（自開戶起 default）
+> - 資產分配：60% 環球股票 / 35% 環球固定收益 / 5% 現金
+> - 戶口價值：HK$420,358
+> - 每月供款：HK$3,000 員工 + HK$3,000 僱主 = HK$6,000 / 月
+> - 2026 年初至今回報：-2.3%
+> - 1 年回報：5.8%
+> - 3 年年化：3.5%
+> - 5 年年化：4.1%
+> - 基金收費（管理 + 行政）：1.8%（HK MPF 典型）
 >
-> **Comparison fund (same scheme)**
-> - HSBC MPF Global Equity Fund: 5-year annualized 7.8%
-> - HSBC MPF Asia Equity Fund: 5-year annualized 6.2%
-> - HSBC MPF Hong Kong Equity Fund: 5-year annualized 4.5%
-> - HSBC MPF Fixed Income Fund: 5-year annualized 1.8%
+> **比較基金（同一計劃）**
+> - HSBC MPF 環球股票基金：5 年年化 7.8%
+> - HSBC MPF 亞洲股票基金：5 年年化 6.2%
+> - HSBC MPF 香港股票基金：5 年年化 4.5%
+> - HSBC MPF 固定收益基金：5 年年化 1.8%
 >
-> **My situation**
-> - Income: HK$60k / month (stable, professional)
-> - Other savings: HK$200k in fixed deposit + HK$80k cash
-> - Mortgage: 15 年 余 monthly HK$18k payment
-> - Family: married, 2 細路 (8 + 5 歲)
-> - Risk tolerance: medium — would not panic in 30% drop, but would worry
-> - Time horizon: 29 years to retirement
+> **我嘅情況**
+> - 收入：HK$60k / 月（穩定，專業人員）
+> - 其他儲蓄：HK$200k 定期 + HK$80k 現金
+> - 按揭：仲有 15 年，每月 HK$18k
+> - 家庭：已婚，2 個細路（8 + 5 歲）
+> - 風險承受度：中等 —— 30% 跌唔會 panic，但會擔心
+> - 時間：29 年至退休
 >
-> **What 我 NOT know**
-> - 點 evaluate fund performance vs benchmark (alpha)?
-> - 點 calc fee impact long-term?
-> - Age-appropriate allocation 36 歲 應 邊?
-> - 點 switch fund — process + 時 right?
-> - Tax / 限制 implications?
+> **我唔識嘅嘢**
+> - 點評估 fund 表現 vs benchmark（alpha）？
+> - 點計收費長遠影響？
+> - 36 歲應該邊個 allocation？
+> - 點轉 fund —— 程序 + 時機？
+> - 稅 / 限制有冇影響？
 
-呢類 honest dump 入 Claude — 出 personalized review 嘅 starting point.
+呢類老實 dump 落 Claude —— 出個人化 review 嘅起點。
 
-### 2. 用呢個 prompt 做 fund performance + fee impact analysis
+### 2. 用呢個 prompt 做 fund 表現 + 收費影響分析
 
-<PromptBlock label="完整 prompt — MPF fund performance + fee impact analysis">
-[paste 你 MPF profile dump]
+<PromptBlock label="完整 prompt — MPF fund 表現 + 收費影響分析">
+[貼你嘅 MPF profile dump]
 
-請 系統 review 我嘅 MPF:
+請系統 review 我嘅 MPF：
 
-📊 **Section 1: Current fund performance vs benchmark**
+📊 **Section 1：目前 fund 表現 vs benchmark**
 
-我嘅 Balanced Fund 5-year annualized: 4.1%
-請 evaluate:
-- 同 typical 60/40 balanced index benchmark: 我 fund matched? Outperform? Underperform?
-- Fee adjusted: 1.8% deducted, real net return = 2.3%? (or shown after fee?)
-- 「Balanced」 fund 1.8% fee 對 4.1% gross 比例: 44% return eaten by fee
-- Benchmark comparison: 60/40 ETF DIY equivalent  fee ~0.05-0.1% — saving 1.7% / yr
+我嘅 Balanced Fund 5 年年化：4.1%
+請評估：
+- 同典型 60/40 balanced index benchmark 比：我 fund 配合？跑贏？跑輸？
+- 扣費後：1.8% 扣咗，真實淨回報 = 2.3%？（或者顯示已扣費後？）
+- 「Balanced」fund 1.8% 收費對 4.1% gross 嘅比例：44% 回報畀收費食咗
+- Benchmark 比較：60/40 ETF DIY 同等收費 ~0.05-0.1% —— 每年慳 1.7%
 
-📊 **Section 2: Fee impact 10 yr / 30 yr projection**
+📊 **Section 2：收費 10 年 / 30 年複利影響**
 
-Compound fee impact calculation:
-- 假設 average gross return 6% (typical 60/40 long-run)
-- 我 fund 1.8% fee: net 4.2%
-- DIY ETF 0.1% fee: net 5.9%
+複利收費影響計算：
+- 假設平均 gross 回報 6%（典型 60/40 長期）
+- 我 fund 1.8% 收費：淨 4.2%
+- DIY ETF 0.1% 收費：淨 5.9%
 
-10 年 projection (current HK$420k + 月 HK$6k contribution):
-- 我 fund: end value approximately HK$_______
-- Lower-fee alternative: end value approximately HK$_______
-- Difference: HK$_______
+10 年預測（目前 HK$420k + 月 HK$6k 供款）：
+- 我 fund：終值約 HK$_______
+- 較低收費替代：終值約 HK$_______
+- 差距：HK$_______
 
-30 年 projection (current HK$420k + 月 HK$6k contribution):
-- Difference: HK$_______ over career
+30 年預測（目前 HK$420k + 月 HK$6k 供款）：
+- 一生差距：HK$_______
 
-📊 **Section 3: Risk-adjusted analysis**
+📊 **Section 3：風險調整分析**
 
-- Sharpe ratio (return per unit risk): typical 60/40 ~0.6
-- 我 fund vs benchmark: above / below?
-- Volatility (standard deviation): 我 fund vs benchmark
-- Worst 12-month return historical (drawdown risk):
+- Sharpe ratio（每單位風險嘅回報）：典型 60/40 ~0.6
+- 我 fund vs benchmark：高定低？
+- 波動率（標準差）：我 fund vs benchmark
+- 歷史最差 12 個月回報（drawdown 風險）：
 
-📊 **Section 4: Age-appropriate allocation review**
+📊 **Section 4：按年齡 allocation review**
 
-對 36 歲, 29 年 to retirement:
-- Conventional wisdom: 100 - age = % equity = 64% equity recommended
-- Modern wisdom: 65 yr horizon supports higher equity even at 36
-- 我 current allocation: 60% equity = mild conservative for my age
-- Recommend allocation 36 歲 standard risk tolerance: 70-80% equity
+對 36 歲，距退休 29 年：
+- 傳統智慧：100 - 年齡 = % 股票 = 64% 股票建議
+- 現代智慧：65 年時間表支持較高股票比例，即使 36 歲
+- 我目前 allocation：60% 股票 = 對我年齡偏保守
+- 36 歲標準風險建議 allocation：70-80% 股票
 
-🎯 **Section 5: Switch recommendation**
+🎯 **Section 5：轉 fund 建議**
 
-Based on analysis:
-- 我 fund underperforms vs equity-heavy alternative
-- Fee burden ~1.7% above lower-cost alternative
-- Age-appropriate allocation suggests more equity exposure
-- 我 risk tolerance "medium" tolerable for higher equity allocation
+基於分析：
+- 我 fund 表現遜於股票為主嘅替代
+- 收費負擔比較低成本選擇高 ~1.7%
+- 按年齡 allocation 建議更多股票
+- 我「中等」風險承受度可容納較高股票比例
 
-**Recommended switch options** (within HSBC scheme):
-- Option 1: 100% Global Equity Fund (aggressive)
-- Option 2: 80% Global Equity + 20% Fixed Income (balanced-aggressive)
-- Option 3: Mix multiple equity funds (diversification within equity)
+**建議轉 fund 選擇**（HSBC 計劃內）：
+- 選擇 1：100% 環球股票基金（積極）
+- 選擇 2：80% 環球股票 + 20% 固定收益（balanced-aggressive）
+- 選擇 3：混合多隻股票基金（股票內多元化）
 
 🚨 **Disclaimer 提醒**
-- 上述非 IFA advice
-- 大 amount switch consider professional consult
-- Past performance not indicative future
-- HK$420k 影響 顯著, due diligence proper
+- 以上非 IFA 建議
+- 大金額轉 fund 建議揾專業
+- 過往表現唔代表未來
+- HK$420k 影響顯著，應 due diligence
 
-請對 上 analysis output:
-1. Number-specific projection
-2. 我 specific situation 邊 option 適合
-3. Sequenced action plan (next 2 weeks)
-4. Watchlist for monitoring post-switch
+請對上述分析輸出：
+1. 具體數字預測
+2. 我具體情況邊個 option 啱
+3. 順序行動計劃（下 2 星期）
+4. 轉 fund 後嘅監察 watchlist
 
-語氣：data-driven, conservative reasonable, respect 我 risk tolerance.
+語氣：data-driven、合理保守、尊重我嘅風險承受度。
 </PromptBlock>
 
-Claude 出 detailed analysis. **唔 immediate switch** — sleep on it, read 1-2 公 review article (e.g., MPFA website, IFA blog) cross-verify.
+Claude 出詳細分析。**唔好即刻轉** —— 過一晚，讀 1-2 篇公正 review 文章（例如 MPFA 網站、IFA blog）交叉驗證。
 
-### 3. Use Claude help integrate with IFA / MPF intermediary consultation
+### 3. 用 Claude 幫整合 IFA / MPF 中介諮詢
 
-唔 self-switch 大 amount — IFA consultation reasonable:
+唔好自己轉大金額 —— IFA 諮詢合理：
 
-<PromptBlock label="完整 prompt — Pre-IFA consultation prep">
-我 want consult IFA / MPF intermediary before switch. 請 prep:
+<PromptBlock label="完整 prompt — IFA 諮詢前 prep">
+我想喺轉 fund 前諮詢 IFA / MPF 中介。請 prep：
 
-📋 **Find qualified IFA in HK**
+📋 **HK 揀合資格 IFA**
 
-✅ **Source**
-- Insurance broker 你 trust (some sell MPF advice)
+✅ **來源**
+- 你信任嘅保險經紀（部分賣 MPF 建議）
 - HKICA / SFC 認可 IFA
-- 朋友推薦 personal experience
-- Avoid: aggressive cold-call IFA, commission-heavy
+- 朋友推薦個人經驗
+- 避免：強推 cold-call、佣金重嘅 IFA
 
-💰 **Fee structure understand**
-- 「Free」 IFA: typically commission-paid (potential conflict)
-- Fee-based IFA: charge directly (clearer alignment)
-- Hybrid: small fee + small commission
-- 預: HK$2000-5000 1-2 hr consult fee-based
+💰 **收費結構理解**
+- 「免費」IFA：通常靠佣金（潛在利益衝突）
+- 收費 IFA：直接收費（更清晰對齊）
+- 混合：細費 + 細佣
+- 預算：HK$2,000-5,000 1-2 個鐘收費 IFA
 
-🗣 **Pre-meeting prep**
+🗣 **會面前 prep**
 
-✅ **Bring**
-- 過去 3 年 MPF statement
-- Current employer scheme summary
-- Personal financial snapshot (income, savings, debt)
-- 28 年 retirement timeline
-- 退休 lifestyle expectation (60% income? 80%?)
-- Risk tolerance honest
+✅ **帶**
+- 過去 3 年 MPF 結單
+- 現任公司計劃概要
+- 個人財務 snapshot（收入、儲蓄、債務）
+- 28 年退休時間表
+- 退休生活方式預期（60% 收入？80%？）
+- 老實風險承受度
 
-✅ **Question to ask**
-1. 「我 current fund underperform 嗎? Compare what benchmark?」
-2. 「Recommended re-allocation 對 我 specific age + risk tolerance?」
-3. 「Within current scheme switch 同 transfer to alternate scheme — 邊 better?」
-4. 「Tax-efficient vs MPF MPF rebalance?」
-5. 「你 fee structure + 你 commission disclosure?」
-6. 「Frequency rebalance recommend?」
+✅ **要問嘅問題**
+1. 「我目前 fund 跑輸？比邊個 benchmark？」
+2. 「對我具體年齡 + 風險承受度建議嘅再分配？」
+3. 「現有計劃內轉 vs 轉去其他計劃 —— 邊個好？」
+4. 「稅務有效 vs MPF 內重新平衡？」
+5. 「你嘅收費結構 + 你嘅佣金披露？」
+6. 「建議幾耐重新平衡一次？」
 
-✅ **Red flag during consult**
-- 強推 specific product 唔 alternative
-- 「Same time-sensitive」 pressure
-- Refuses commission disclosure
-- 不 ask about 你 risk tolerance / goal
-- 「Guaranteed return」 anywhere
+✅ **諮詢過程紅燈**
+- 強推某產品冇替代
+- 「時間敏感」嘅壓力
+- 拒絕披露佣金
+- 唔問你嘅風險承受度 / 目標
+- 任何「保證回報」
 
-⏰ **Post-consultation**
+⏰ **諮詢後**
 
-✅ **Action**
-- Receive written recommendation
-- 24-48 hr think before action
-- Cross-verify with MPFA website
-- Discuss with partner if joint financial planning
-- 不 rush — switch 不 emergency
+✅ **行動**
+- 收書面建議
+- 24-48 小時諗清楚先行動
+- 同 MPFA 網站交叉核對
+- 若係夫婦理財，同伴侶傾
+- 唔好趕 —— 轉 fund 唔急
 
-🛑 **Don't**
-- Switch entirely based on cold-call advice
-- Switch base on online forum recommendation single source
-- Move all 1 fund (concentration risk)
-- Withdraw MPF early (penalty + tax)
+🛑 **唔好**
+- 完全憑 cold-call 建議轉
+- 單一網上論壇推薦就轉
+- 全部去 1 個 fund（集中風險）
+- 提早提取 MPF（罰款 + 稅）
 
-🎯 **Decision framework**
-- 你 知 own risk tolerance > IFA assume
-- IFA recommendation 1 input, 不 sole basis
-- 你 own research + IFA + maybe Claude review = informed choice
+🎯 **決策框架**
+- 你知自己風險承受度 > IFA 假設
+- IFA 建議係 1 個輸入，唔係唯一基礎
+- 你自己 research + IFA + 可能 Claude review = informed choice
 
-語氣：prepared consumer, 不 dependent.
+語氣：有準備嘅消費者，唔依賴。
 </PromptBlock>
 
-### 4. Execute switch + ongoing monitoring
+### 4. 執行轉 fund + 持續監察
 
-Decision made, 有系統咁 execute:
+決定咗，有系統咁執行：
 
-<PromptBlock label="完整 prompt — MPF switch execution + ongoing monitoring">
-我 decided switch to [80% Global Equity / 20% Fixed Income]. Execute step-by-step + ongoing monitoring:
+<PromptBlock label="完整 prompt — MPF 轉 fund 執行 + 持續監察">
+我決定咗轉去 [80% 環球股票 / 20% 固定收益]。Step-by-step 執行 + 持續監察：
 
-📋 **Execution step**
+📋 **執行步驟**
 
-**Step 1: Confirm switch process**
-- HSBC MPF online portal OR paper form
-- eMPF platform (centralized 2024+)
-- Processing time: 5-10 working days typical
-- Effective date: usually next month contribution + portfolio rebalance
+**Step 1：確認轉 fund 程序**
+- HSBC MPF 網上 portal 或紙本表格
+- eMPF 平台（2024+ 中央化）
+- 處理時間：5-10 個工作日
+- 生效日期：通常係下個月供款 + portfolio 重新平衡
 
-**Step 2: 1-time portfolio rebalance**
-- Existing HK$420k: switch to new allocation (proportional sale + buy)
-- Tax-free in MPF (no realized gain tax)
-- 但 market timing: avoid switch during volatile week if possible
-- Spread switch over 2-3 batch if anxious about timing
+**Step 2：一次性 portfolio 重新平衡**
+- 現有 HK$420k：轉去新 allocation（按比例賣 + 買）
+- 喺 MPF 內免稅（冇實現收益稅）
+- 但市場時機：盡量避免喺波動週轉
+- 若擔心時機，分 2-3 批轉
 
-**Step 3: Monthly contribution allocation**
-- Future monthly HK$6k 自動 allocate to new selection
-- 不 forget update contribution split
+**Step 3：每月供款分配**
+- 將來每月 HK$6k 自動分配到新選擇
+- 唔好忘記更新供款分配
 
-**Step 4: 確認 effective**
-- 2-4 週後 check statement
-- Allocations match intention
-- No errors in rebalance
+**Step 4：確認生效**
+- 2-4 星期後 check 結單
+- 分配符合意圖
+- 重新平衡冇出錯
 
-📊 **Ongoing monitoring**
+📊 **持續監察**
 
-✅ **Annual review (each Q1)**
-- Performance vs benchmark
-- Fee comparison
-- Allocation drift (rebalance to target?)
-- Life event change (job switch, family event)
+✅ **每年 review（每 Q1）**
+- 表現 vs benchmark
+- 收費比較
+- Allocation 漂移（重新平衡返目標？）
+- 人生事件變化（轉工、家庭事件）
 
-✅ **Specific year benchmarks**
-- Year 1: Performance match expectations? 不 panic if 1-yr 「different」 (year variance high)
-- Year 3: Pattern emerging
-- Year 5: Strategic review
+✅ **特定年份 benchmark**
+- 第 1 年：表現符合預期？1 年「唔同」唔好 panic（年變異高）
+- 第 3 年：pattern 浮現
+- 第 5 年：策略 review
 
-✅ **Rebalance trigger**
-- Allocation drift >10% (e.g., equity grew to 90% instead 80%)
-- Age milestone (40, 50, 60)
-- Major life change
+✅ **重新平衡 trigger**
+- Allocation 漂移 >10%（例如股票升到 90% 而唔係 80%）
+- 年齡里程碑（40、50、60）
+- 重大人生轉變
 
-🛑 **Don't react to**
-- Daily / monthly market movement
-- News headline panic
-- 同事 portfolio jealousy
-- "Hot tip" rebalance
+🛑 **唔好對以下作出反應**
+- 每日 / 每月市場波動
+- 新聞標題恐慌
+- 同事 portfolio 嘅羨慕
+- 「貼士」式重新平衡
 
-✅ **Long-term mindset**
-- 29 年 to retirement = long horizon
-- Equity outperform historical despite volatility
-- 「Time in market > timing market」
-- 不 sell during downturn
+✅ **長遠 mindset**
+- 距退休 29 年 = 長時間
+- 歷史上股票跑贏，儘管有波動
+- 「時間喺市場 > 揀市場時機」
+- 跌市時唔好賣
 
-📝 **Record-keeping**
-- 1 folder MPF documents
-- Annual statement archive
-- Switch dates + rationale notes
-- 5 年 later look back: clear decision trail
+📝 **存檔**
+- 1 個 folder 放 MPF 文件
+- 每年結單存檔
+- 轉 fund 日期 + 理由筆記
+- 5 年後回望：決策軌跡清晰
 
-🚨 **Red flag** (consider re-review IFA):
-- 3+ years underperform benchmark by >2%
-- Life event major (divorce, illness, 大 inheritance)
-- Approach 60 歲 = de-risk consideration starts
+🚨 **紅燈**（考慮 re-review IFA）：
+- 3+ 年跑輸 benchmark 超過 2%
+- 重大人生事件（離婚、病、大筆遺產）
+- 接近 60 歲 = de-risk 考慮開始
 
-🎯 **Long-term goal**
-- 65 歲 portfolio value sufficient for retirement
-- Spending phase: shift to capital preservation
-- Estate planning: MPF inheritance arrangement
+🎯 **長遠目標**
+- 65 歲 portfolio 價值足夠退休
+- 消費階段：轉去本金保留
+- 遺產規劃：MPF 繼承安排
 
-語氣：long-term sustainable monitoring, not anxious.
+語氣：長遠可持續監察，唔焦慮。
 </PromptBlock>
 
 ## 變化
 
-### 變化 1：早 career (20s, MPF 開 < 5 年)
+### 變化 1：早期 career（20s，MPF 開 < 5 年）
 
-20s applicant 不同 considerations:
+20s 申請人嘅唔同考慮：
 
-<PromptBlock label="變化 1 — 20s MPF early career strategy">
-我 25 歲, MPF 開 2 年, 余額 HK$50k.
+<PromptBlock label="變化 1 — 20s MPF 早期 career 策略">
+我 25 歲，MPF 開 2 年，餘額 HK$50k。
 
-📐 **20s MPF special considerations**
+📐 **20s MPF 特別考慮**
 
-🎯 **Aggressive allocation appropriate**
-- 40 年 horizon to retirement
-- Equity exposure 100% reasonable
-- 「Recovery time」 even if 30% drop
-- Time on side maximally
+🎯 **積極 allocation 啱**
+- 距退休 40 年
+- 100% 股票合理
+- 即使 30% 跌都有「恢復時間」
+- 時間最大化喺你嗰邊
 
-📊 **Fund selection**
-- 100% global equity index OR diversified equity mix
-- Lower fee priority (you're paying 30+ years)
-- Avoid balanced fund default — too conservative for age
+📊 **基金揀法**
+- 100% 環球股票指數，或者多元化股票組合
+- 較低收費優先（你會供 30+ 年）
+- 避免 balanced 默認 —— 對你年齡太保守
 
-💰 **Contribution maximize**
-- 公司 match 100% even if minimum 5%
-- Voluntary contribution (VC) consider if affordable
-- Tax-deductible portion VC HK$60k / year (HK$8k tax savings 高 tax bracket)
+💰 **供款最大化**
+- 公司 match 100%，即使最低 5%
+- 自願性供款（VC），若負擔得起就考慮
+- 可扣稅 VC HK$60k / 年（高稅率有 HK$8k 稅務節省）
 
-⏰ **Job switch consideration**
-- 月 transfer to current employer scheme OR keep at prior
-- Transferring consolidate (easier tracking)
-- 個別 personal account 5+ 個 scheme accumulated不 ideal
+⏰ **轉工考慮**
+- 轉去現任 employer 計劃，或者保留喺前任
+- 整合（更易追蹤）
+- 個別個人戶口累積 5+ 個計劃唔理想
 
-🎯 **30 年 projection**
-HK$50k current + HK$5k monthly contribution + 7% real return:
-- Year 30: ~HK$6m
-- Year 40: ~HK$12m
-- 不 accounting inflation
+🎯 **30 年預測**
+HK$50k 目前 + 每月 HK$5k 供款 + 7% 實質回報：
+- 第 30 年：~HK$6m
+- 第 40 年：~HK$12m
+- 唔計通脹
 
-⚠️ **20s pitfall**
-- Withdraw at job switch (大 mistake — 10% penalty + tax)
-- Set + forget 過 conservative default
-- Ignore VC opportunity for tax saving
-- 不 consolidate scattered accounts
+⚠️ **20s 陷阱**
+- 轉工時提取（大失誤 —— 10% 罰 + 稅）
+- 設定後忘記過度保守 default
+- 忽視 VC 嘅稅務節省機會
+- 唔整合散落嘅戶口
 
-📋 **Quarterly check 5 分鐘**
-- Allocation match aggressive intent?
-- Voluntary contribution toggled?
-- 任何 employer match opportunity unused?
+📋 **每季 check 5 分鐘**
+- Allocation 符合積極意圖？
+- 自願性供款 toggled？
+- 任何 employer match 機會未用？
 
-語氣：empower 早 career compound advantage.
+語氣：賦予早期 career 複利優勢。
 </PromptBlock>
 
-### 變化 2：接近退休 (55+)
+### 變化 2：接近退休（55+）
 
-接近 retirement de-risk strategy:
+接近退休嘅 de-risk 策略：
 
-<PromptBlock label="變化 2 — Approaching retirement (55+) MPF strategy">
-我 56 歲, 9 年 to retire. 余額 HK$1.5m. 想 de-risk.
+<PromptBlock label="變化 2 — 接近退休（55+）MPF 策略">
+我 56 歲，9 年退休。餘額 HK$1.5m。想 de-risk。
 
-📐 **55+ considerations**
+📐 **55+ 考慮**
 
 🎯 **Glide path de-risk**
-- 「Lifecycle fund」 (DIS or scheme-specific): 自動 de-risk by age
-- 自己 rebalance:
-  - 55 歲: 60% equity / 40% bond
-  - 60 歲: 40% equity / 60% bond
-  - 65 歲 onwards: 30% equity / 70% bond (still some growth)
+- 「Lifecycle fund」（DIS 或計劃特定）：按年齡自動 de-risk
+- 自己重新平衡：
+  - 55 歲：60% 股票 / 40% 債券
+  - 60 歲：40% 股票 / 60% 債券
+  - 65 歲後：30% 股票 / 70% 債券（仍有少量增長）
 
-💰 **Withdrawal planning**
-- 65 歲: lump sum or annuity option
-- Lump sum: invest yourself / 個別 annuity / fixed deposit
-- Annuity (HKMC Annuity Plan): guaranteed monthly income for life
-- Mix often optimal
+💰 **提取規劃**
+- 65 歲：一筆過或年金選擇
+- 一筆過：自己投資 / 個別年金 / 定期
+- 年金（HKMC Annuity Plan）：終身保證月入
+- 混合通常最佳
 
-📊 **Tax considerations**
-- MPF withdrawal at 65: not taxable (after 1 year wait usually)
-- Re-invest in dividend stock / fixed deposit: dividend tax-free HK
-- Foreign investment: tax in source country may apply
+📊 **稅務考慮**
+- 65 歲 MPF 提取：唔徵稅（通常等 1 年後）
+- 重新投資派息股 / 定期：HK 派息免稅
+- 海外投資：來源國可能徵稅
 
-⏰ **Re-employ after 65**
-- Continue contribute if working
-- Tax-deductible VC continues
-- 不 force withdrawal mandatory
+⏰ **65 歲後再就業**
+- 若仍工作，繼續供款
+- 可扣稅 VC 繼續
+- 唔強制提取
 
-🏥 **Healthcare considerations**
-- Healthcare inflation HK 顯著
-- 預 medical expenses post-retirement
-- 私人 medical insurance even post-retirement
+🏥 **醫療考慮**
+- HK 醫療通脹顯著
+- 預算退休後醫療開支
+- 私人醫療保險即使退休後仍要
 
-🎒 **Other retirement income**
-- Property (rent / sale)
-- Investment portfolio
-- 公 social benefits (老人 CSSA if applicable)
-- Family support (Asian context common)
+🎒 **其他退休收入**
+- 物業（租金 / 出售）
+- 投資組合
+- 公共福利（適用就攞長者綜援）
+- 家人支援（亞洲常見）
 
-📋 **5-year-out planning**
-- IFA / wealth manager consult important
-- Estate planning + will
-- Beneficiary designation update
-- Power of attorney prep
+📋 **退休前 5 年規劃**
+- IFA / wealth manager 諮詢重要
+- 遺產規劃 + 遺囑
+- 受益人指定更新
+- 授權書準備
 
-🚨 **Late-career pitfall**
-- 過 aggressive close to retirement (no recovery time)
-- 過 conservative early (don't grow enough)
-- 不 plan withdrawal phase
-- Ignore inflation impact
+🚨 **晚期 career 陷阱**
+- 接近退休過度積極（冇恢復時間）
+- 早期過度保守（增長唔夠）
+- 唔規劃提取階段
+- 忽視通脹影響
 
-語氣：transition planning, balance growth and preservation.
+語氣：過渡規劃，平衡增長同保留。
 </PromptBlock>
 
-### 變化 3：自僱 / freelance 不 employer-matched MPF
+### 變化 3：自僱 / 自由工作者，冇 employer match MPF
 
-自僱嘅 MPF complexity 同 reality:
+自僱嘅 MPF 複雜性同現實：
 
-<PromptBlock label="變化 3 — Self-employed / freelance MPF">
-我自僱 freelance, 5 年. MPF 不 same employer match. Want maximize.
+<PromptBlock label="變化 3 — 自僱 / 自由工作者 MPF">
+我自僱 / freelance，5 年。MPF 冇 employer match。想最大化。
 
-📐 **Self-employed MPF specifics**
+📐 **自僱 MPF 專項**
 
-🎯 **Mandatory contribution**
-- Self-employed 加 MPF mandatory rate: 5% relevant income
-- Income above HK$30k / month: full 5%
-- Income below HK$7,100 / month: optional contribute
-- 月 income variable: contribute based on actual income
+🎯 **強制供款**
+- 自僱 MPF 強制率：相關收入嘅 5%
+- 月入 HK$30k 以上：full 5%
+- 月入 HK$7,100 以下：自選供款
+- 月入波動：按實際收入供款
 
-💰 **No employer match**
-- 不 「matching」 contribution like employed
-- 但 tax deductible (HK$18k / year cap mandatory)
-- Voluntary contribution: additional HK$60k / year tax-deductible
+💰 **冇 employer match**
+- 冇「matching」供款
+- 但可扣稅（強制部分每年 HK$18k 上限）
+- 自願性供款：額外每年 HK$60k 可扣稅
 
-📊 **Scheme selection**
-- 自僱 揀 own scheme (any approved provider)
-- Lower fee 揀 比 important (no employer baseline cushion)
-- DIY 不 default fund
+📊 **計劃揀法**
+- 自僱揀自己計劃（任何認可供應商）
+- 較低收費比較重要（冇 employer baseline 緩衝）
+- DIY 唔好用 default fund
 
-⏰ **Income volatility management**
-- 月 income low: contribute minimum but stay enrolled
-- 月 income 大: voluntary contribution maximize tax saving
-- 不 stop contribute even rough months (continuous record)
+⏰ **收入波動管理**
+- 月入低：供最低但保持入會
+- 月入大：自願性供款最大化稅務節省
+- 即使月份差都唔好停供（持續紀錄）
 
-🎯 **Strategy**
+🎯 **策略**
 
-✅ **Year 1**:
-- Enroll appropriate scheme
-- Voluntary contribution start mid-year if cash flow OK
+✅ **第 1 年**：
+- 加入合適計劃
+- 自願性供款年中開始若 cash flow OK
 
-✅ **Year 2+**:
-- Maximize voluntary contribution if income strong
-- Tax saving 18% bracket = HK$18k tax-deductible save HK$3.24k tax / year
-- Mandatory 5% on capped HK$30k income = HK$1500 / month
+✅ **第 2 年起**：
+- 收入強就最大化自願性供款
+- 稅率 18% = HK$18k 可扣稅每年節省 HK$3.24k
+- 強制 5% 上限 HK$30k 收入 = HK$1,500 / 月
 
-⏰ **Tax filing**
-- Self-employed file tax: MPF contribution deductible
-- Voluntary contribution receipt save
-- Tax efficient timing
+⏰ **稅務申報**
+- 自僱報稅：MPF 供款可扣
+- 自願性供款收據保存
+- 稅務有效時機
 
-🚨 **Self-employed pitfall**
-- Skip contribution because 月 income variable
-- 不 enroll thinking 「I'll start later」
-- Voluntary skipped because 「we'll do it」
+🚨 **自僱陷阱**
+- 因月入波動而跳過供款
+- 唔加入諗住「遲啲先嚟」
+- 自願性跳過諗住「我哋會做」
 
-📋 **Annual review**
-- Income projection
-- Tax-efficient contribution
-- Scheme performance
+📋 **每年 review**
+- 收入預測
+- 稅務有效供款
+- 計劃表現
 
-語氣：self-employment 不 excuse skip retirement planning.
+語氣：自僱唔係跳過退休規劃嘅藉口。
 </PromptBlock>
 
 ## 一個 mindset
 
-MPF review 嘅 hidden truth: **「未 review」 嘅 cost 比 「 review 後 wrong decision」 嘅 cost 大 5-10 倍**.
+MPF review 嘅隱藏真相：**「未 review」嘅成本，比「review 後錯誤決定」嘅成本大 5-10 倍**。
 
-呢個 hidden truth's reason:
-- 「Wrong decision」 = 1-2% sub-optimal return 1 year
-- 「Never review」 = 1.7% sub-optimal return compound over 30 年 = significant cumulative
-- 1.7% / yr × 30 年 ≈ 65% portfolio difference at retirement
+呢個隱藏真相嘅原因：
+- 「錯誤決定」= 1-2% 次佳回報 1 年
+- 「從未 review」= 1.7% 次佳回報複利 30 年 = 顯著累積
+- 1.7% / 年 × 30 年 ≈ 65% 退休時 portfolio 差距
 
-呢個 mindset 嘅 reframe: MPF 唔係 「retirement 嗰 part 我 default 唔 manage」 — 係 **30 年複利機器 deserve 30 分鐘 / year attention**.
+呢個 mindset 嘅 reframe：MPF 唔係「退休嗰部分我 default 唔理」—— 係**30 年複利機器，值得每年 30 分鐘關注**。
 
-Claude 嘅 role 喺 MPF: 你 alone navigate jargon (alpha, expense ratio, glide path) 困難 + sense intimidation. Claude container 提供 explanatory + quantitative framework. 你 dump statement + concern, Claude reflect specific number + option. Decision 後續 你 own (IFA potentially involve).
+Claude 喺 MPF 入面嘅角色：你一個人應付 jargon（alpha、開支比率、glide path）困難 + 易生畏縮。Claude 提供解釋性 + 量化嘅框架。你 dump 結單 + 擔心，Claude 反映具體數字 + 選擇。決定仍然你做（可能涉 IFA）。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **78% HK 員工 not switched fund**. You doing review = top 22% — already ahead.
-- ⚠️ **不 over-react single year**. 1 yr return high variance. 3-5 yr compare meaningful.
-- 🆘 **大 amount switch (>HK$500k)** consider IFA consultation. Claude 不 replace licensed adviser.
+- ✅ **78% HK 員工未轉過 fund**。你做 review = top 22% —— 已經 lead。
+- ⚠️ **唔好對單一年過度反應**。1 年回報變異高。3-5 年比較先有意義。
+- 🆘 **大金額轉（>HK$500k）**考慮 IFA 諮詢。Claude 唔取代持牌顧問。
 
-下個月 first review session. Year-end check progress. 5 年 later compounding visibly different.
+下個月第一次 review session。年底 check 進度。5 年後複利明顯唔同。
