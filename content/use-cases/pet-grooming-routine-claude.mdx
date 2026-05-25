@@ -1,5 +1,5 @@
 ---
-title: "主子每次去 grooming 都嚇到匿 3 日？用 Claude 整 home routine + 揀啱 groomer 嘅 5 條問題"
+title: "主子每次去美容都嚇到匿 3 日？用 Claude 整居家護理 + 揀啱美容師嘅 5 條問題"
 slug: "pet-grooming-routine-claude"
 issue: 56
 publishedAt: 2026-05-23
@@ -10,8 +10,8 @@ subcategory: "美容護理"
 heroImage: "/hero/pet-grooming-routine-claude.webp"
 difficulty: 1
 timeMinutes: 15
-toolsNeeded: ["Claude Chat", "主子嘅 breed + coat type info", "（可選）上次 groomer 嘅 receipt / 過程描述"]
-description: "主子上次去 grooming 嚇到匿床底 3 日，連你都唔想再 book。用 Claude 拆每週 home routine（brushing / nail / ear / dental）+ vet 下一個 groomer 嘅 5 條 question + 一個 4 週 desensitization plan，讓主子 grooming 唔再 trauma。"
+toolsNeeded: ["Claude Chat", "主子嘅品種 + 毛髮類型資料", "（可選）上次美容嘅單據 / 過程描述"]
+description: "主子上次去美容嚇到匿床底 3 日，連你都唔想再 book。用 Claude 拆解每週居家護理（梳毛 / 剪甲 / 洗耳 / 牙齒）+ 審查下一個美容師嘅 5 條問題 + 一個 4 週減敏計劃，等主子美容唔再有陰影。"
 keywords: ["寵物美容 香港", "pet grooming HK", "home grooming cat", "寵物剪甲", "cat grooming anxiety", "dog groomer 揀邊間"]
 related: ["vet-visit-prep-claude", "pet-sitter-handover-claude", "pet-picky-eater-diet-transition-claude"]
 featured: false
@@ -19,382 +19,382 @@ featured: false
 
 ## 情境
 
-上星期六，你帶主子（你隻 5 歲 long-hair cat / dog）去 grooming。
+上星期六，你帶主子（你隻 5 歲長毛貓 / 狗）去寵物美容。
 
-10am check in。Groomer 跟你 brief 一輪「冇 mat 嗎，要剪短啲嗎，indoor cat 啱 lion cut 嗎」。你 sign 張 consent form。
+朝早 10 點放低。美容師同你傾咗一輪「有冇打結呀，要剪短啲嗎，室內貓啱唔啱剪獅子裝」。你簽咗張同意書。
 
-2pm pick up。Groomer 個樣有啲不自然：「主子比較 unsettled。我哋盡量做晒，但 mat 太多有啲位剪得短咗 ⋯⋯ 佢有少少 vocal 但 OK ⋯⋯」
+晏晝 2 點接返。美容師個樣有啲唔自然：「主子比較不安。我哋盡量做晒，但打結太多有啲位剪得短咗 ⋯⋯ 佢有少少出聲但 OK 嘅 ⋯⋯」
 
-你抱主子返屋企，佢一落地下即衝入床底。
+你抱主子返屋企，佢一落地即刻衝入床底。
 
 接落嚟 3 日：
-- 主子唔出嚟食
-- 你 peek 床底，見到佢個身全身 trim 得 patchy
-- 第 2 日佢手手有個小傷口（trim 太貼？）
-- 第 3 日佢仲匿，但開始出嚟食少量
+- 主子唔出嚟食嘢
+- 你裝吓床底，見到佢全身剪到一忽忽
+- 第 2 日發現佢手仔有個小傷口（剪得太貼？）
+- 第 3 日佢仲匿埋，但開始出嚟食少少嘢
 
-你查 receipt：HK$680。你個心 sink。
+你睇返張單：HK$680。你個心沉咗落去。
 
-宜家 6 個月後又到 grooming season（夏天 mat 易嚴重）。你冇信心 book 同一間，但又唔知點揀。同時，你想減少將來 grooming 嘅頻率——可唔可以喺屋企 maintain？
+而家過咗 6 個月又到美容季節（夏天打結容易嚴重）。你冇信心 book 返同一間，但又唔知點揀。同時，你想減少將來美容嘅頻率——可唔可以喺屋企維持？
 
-**呢篇用 Claude 拆 3 樣**：
-1. 你可以喺屋企做嘅每週 routine（減 grooming 頻率）
-2. 揀新 groomer 嘅 5 條 vet question
-3. 主子嘅 4 週 desensitization plan（即使下次 grooming，stress level 細好多）
+**呢篇教你用 Claude 拆解 3 樣嘢**：
+1. 你可以喺屋企做嘅每週護理（減少美容頻率）
+2. 揀新美容師嘅 5 條審查問題
+3. 主子嘅 4 週減敏計劃（就算下次去美容，壓力都會細好多）
 
 ## 跟住做
 
-### 1. Dump 主子嘅 coat + 行為 info 入 Claude
+### 1. 將主子嘅毛髮 + 行為資料話畀 Claude 知
 
-開 Claude，先 brain dump，唔好 ask Claude 直接 generate routine：
+開 Claude，先將你諗到嘅寫晒出嚟，唔好就咁叫 Claude 直接出計劃：
 
-> 主子 5 歲，male, neutered。Long-hair cat (Maine Coon mix? 或 Persian mix — 唔肯定 breed)。
-> 
-> Coat：full undercoat + topcoat，特別肚 + 大髀 + 腋下易結 mat。Shedding 全年都有，spring + autumn double coat blowing。
-> 
-> 行為：對被 brush 嘅反應——頭 30 秒 OK，之後扭動 + 咬刷 + 走。剪甲嚴重 resistant，要 2 個人 hold 先做到 1 隻爪。Bath 完全唔得（last bath @ vet 用咗 sedation 先做完）。
-> 
-> 過去 grooming 經驗：
-> - 6 個月前 groomer A — 平 ($380) 但 trim patchy
-> - 上週 groomer B — 貴 ($680) 但主子嚇到匿 3 日
-> 
-> 我每日 routine：朝 9am / 7pm 餵食。我可以喺早晚各 spare 5-10 分鐘做 grooming if 主子 tolerate。
+> 主子 5 歲，男仔，已絕育。長毛貓 (緬因貓混血？或者波斯混血 — 唔肯定品種)。
+>
+> 毛髮：有底毛 + 面毛，特別肚 + 大髀 + 腋下容易打結。全年都會甩毛，春秋兩季會大換毛。
+>
+> 行為：對梳毛嘅反應——頭 30 秒 OK，之後會扭來扭去 + 咬梳 + 走佬。極度抗拒剪甲，要 2 個人㩒住先剪到 1 隻爪。完全唔洗得白白（上次喺診所洗要打鎮靜劑先搞得掂）。
+>
+> 過去美容經驗：
+> - 6 個月前美容師 A — 平 ($380) 但剪到一忽忽
+> - 上星期美容師 B — 貴 ($680) 但主子嚇到匿咗 3 日
+>
+> 我每日作息：朝早 9 點 / 夜晚 7 點餵食。如果主子接受到，我可以喺早晚各抽 5-10 分鐘做護理。
 
-呢類 dump 比行貨「點 home groom cat」嘅 prompt 出 personalized routine 好太多。
+呢類詳細資料，比起行貨「點樣喺屋企幫貓美容」嘅 prompt 出嚟嘅度身訂造計劃好太多。
 
-### 2. 用呢個 prompt 整 home grooming routine
+### 2. 用呢個 prompt 整居家護理計劃
 
-<PromptBlock label="完整 prompt — Home grooming 每週 routine">
-[paste 你上面嘅 dump]
+<PromptBlock label="完整 prompt — 居家護理每週計劃">
+[貼上你上面嘅詳細資料]
 
-請幫我整一個 **realistic home grooming routine**——強調主子嘅 tolerance level，唔係 ideal frequency。
+請幫我整一個 **實際可行嘅居家護理計劃**——強調主子嘅接受程度，而唔係最理想嘅頻率。
 
-我嘅 goal：
-- 減少 professional grooming 頻率（由 6 個月 → 8-12 個月）
-- 減少 mat 形成（特別 hot spots）
-- 主子 tolerate 不致 trauma — 漸進進步
+我嘅目標：
+- 減少專業美容頻率（由 6 個月 → 8-12 個月）
+- 減少打結（特別係重災區）
+- 主子接受到而唔會有陰影 — 循序漸進
 
-請整 **每週 schedule**：
+請整 **每週時間表**：
 
-📅 **Daily（2-3 分鐘）**
-- 邊樣最少嘢主子應該 daily handle?（e.g., 5-10 strokes 用 wide-tooth comb 喺 hot spots）
+📅 **每日（2-3 分鐘）**
+- 邊樣最少功夫而主子應該每日接觸嘅？（例如：用闊齒梳喺重災區梳 5-10 下）
 
-📅 **2-3 次 / 週（5-10 分鐘）**
-- 全身 brushing 用咩 tools — list 2-3 種：
-  - Slicker brush（undercoat removal）
-  - Wide-tooth comb（detangling）
-  - Rubber grooming mitt（low-stress alternative）
-- Sequence：邊度開始（低焦慮位 — back / cheek）→ 邊度尾（高焦慮位 — belly / paws）
-- 主子 tolerance signal：tail flick、ear back、low growl — 一出現 = pause + reward
+📅 **每週 2-3 次（5-10 分鐘）**
+- 全身梳毛用咩工具 — 列出 2-3 種：
+  - 針梳（清底毛）
+  - 闊齒梳（解結）
+  - 橡膠按摩手套（低壓力替代方案）
+- 次序：由邊度開始（低焦慮位 — 背脊 / 面珠）→ 邊度尾（高焦慮位 — 肚 / 手腳）
+- 主子嘅容忍信號：揈尾、縮耳、低吼 — 一出現 = 暫停 + 獎勵
 
-📅 **1 次 / 週（10-15 分鐘）**
-- Mat check：spot check 5 個 hot zones（armpit / belly / behind ear / tail base / leg back）— 用手指 vs 揾出已成 mat
-- 微小 mat：detangling spray + 手指 work — **唔好用剪刀埋皮**（最常見 home grooming 受傷）
-- 大 mat：DON'T attempt — log 低，留畀 professional groomer
+📅 **每週 1 次（10-15 分鐘）**
+- 檢查打結：重點檢查 5 個重災區（腋下 / 肚 / 耳背 / 尾部根部 / 腳後跟）— 用手指去搵出已經成形嘅結
+- 微小打結：解結噴霧 + 手指慢慢解 — **絕對唔好用剪刀貼住皮剪**（居家護理最常見嘅受傷原因）
+- 大結：唔好自己搞 — 記低，留畀專業美容師
 
 📅 **每 2 週**
-- 剪甲：主子嚴重 resistant — 分階段 desensitize（本文步驟 4）
-- Ear check：用 cotton ball + ear cleaning solution（vet 推薦 brand）擦外耳。**唔好用 Q-tip 入耳道**
+- 剪甲：主子嚴重抗拒 — 分階段減敏（參考本文步驟 4）
+- 檢查耳仔：用棉花球 + 洗耳水（診所推薦牌子）抹外耳。**唔好用棉花棒插入耳道**
 
 📅 **每月**
-- 體重 check（mat-prone cat 易因 weight change 影響 coat condition）
-- Photo log：影 5 個 hot zone close-up，月月比較 — 你可以早 catch coat 變化
+- 檢查體重（容易打結嘅貓容易因為體重變化影響毛髮狀態）
+- 影相紀錄：影 5 個重災區特寫，每個月比較 — 你可以及早發現毛髮變化
 
-🛒 **Tool budget**（HK 2026 typical）
-- Slicker brush（FURminator / Trixie）: HK$120-180
-- Wide-tooth comb: HK$60-100
-- Rubber grooming mitt: HK$80
-- Detangling spray (Earthbath / Burt's Bees): HK$120
-- Nail clipper (cat-specific guillotine type): HK$80
-- Treat pouch（high-value treats — freeze-dried chicken）: $40 + treat $80
+🛒 **工具預算**（香港 2026 年一般價格）
+- 針梳（FURminator / Trixie）: HK$120-180
+- 闊齒梳: HK$60-100
+- 橡膠按摩手套: HK$80
+- 解結噴霧 (Earthbath / Burt's Bees): HK$120
+- 寵物指甲鉗 (貓用鍘刀型): HK$80
+- 零食袋（極吸引零食 — 凍乾雞肉）: $40 + 零食 $80
 
-⏰ **Long-hair cat 有 grooming 焦慮嘅 realistic schedule**
-- 唔好太雄心一開始 daily — 你會 burn out + 主子會 associate grooming with 你嘅焦慮
-- 由每週 2 次 5 分鐘 brushing 開始，4 週後 evaluate
-- 進度標準：主子嘅 tolerance window（tolerate without escape）長咗 → upgrade
+⏰ **長毛貓有美容焦慮嘅實際時間表**
+- 唔好太有野心一開始就日日做 — 你會覺得攰 + 主子會將梳毛同你嘅焦慮聯繫埋一齊
+- 由每週 2 次、每次 5 分鐘梳毛開始，4 個禮拜後再評估
+- 進度標準：主子嘅容忍時間（唔走佬嘅情況下接受到）長咗 → 先升級
 
 🚫 **唔好做**
-- Bath at home：long-hair cat 喺屋企洗澡失敗率高 + 強化 trauma（少數例外 — 用 dry shampoo / wet wipe spot clean OK）
-- Scissor trim mat 接近皮膚：受傷風險高
-- 強制 hold 主子完成 routine：長遠強化焦慮
-- 同 social media 嘅 grooming influencer 比較 — 佢哋寵物經多年 desensitization
+- 喺屋企洗白白：長毛貓喺屋企洗白白失敗率極高 + 加深陰影（少數例外 — 用乾洗粉 / 濕紙巾局部清潔 OK）
+- 用鉸剪貼皮剪結：受傷風險極高
+- 強行㩒住主子完成護理：長遠只會加深焦慮
+- 同社交媒體嘅寵物網紅比較 — 佢哋嘅寵物經過多年減敏訓練
 
-語氣：realistic + 唔 shame。Owner 知道主子有焦慮唔等於 owner failed。
+語氣：貼地 + 唔好怪責。主人知道主子有焦慮唔等於主人失敗。
 </PromptBlock>
 
-Claude 出嘅 routine 你 print 一份貼喺貓砂盆隔籬（你每日見到）。**頭 4 週 focus 喺一致性，唔係 quality**——主子 tolerate 你拎個 brush 出嚟，已經係進步。
+Claude 出嘅計劃你印一份貼喺貓砂盆隔籬（你每日都會見到）。**頭 4 個禮拜集中喺堅持，唔係講求完美**——主子接受到你攞把梳出嚟，已經係進步。
 
-### 3. Vet 下一個 groomer 嘅 5 條 question
+### 3. 審查下一個美容師嘅 5 條問題
 
-唔係所有 groomer 適合焦慮 pet。Claude 幫你出一份 vet question list：
+唔係所有美容師都適合容易焦慮嘅寵物。Claude 幫你出一份審查問題清單：
 
-<PromptBlock label="完整 prompt — Groomer vet questions">
-我要揀新 groomer for 主子（[species + breed + temperament + past grooming trauma]）。
+<PromptBlock label="完整 prompt — 審查美容師問題">
+我要揀新美容師畀主子（[物種 + 品種 + 性格 + 過去美容陰影]）。
 
 過去不愉快經驗：
-- Groomer B 上次令主子嚇到匿 3 日，trim patchy，有小 wound
-- 我而家極謹慎 vet new groomer
+- 美容師 B 上次令主子嚇到匿咗 3 日，剪到一忽忽，有小傷口
+- 我而家極度謹慎去審查新美容師
 
-請整 **5 條關鍵 question + 點 evaluate answer**：
+請整 **5 條關鍵問題 + 點樣評估答案**：
 
-❓ **Question 1：如果 pet visible 嚴重 stressed during grooming，你會點 handle?**
-- 🟢 好答：「我哋會 pause + offer break，部分情況我會 recommend 分 2 次 visit / 或 escalate to vet for sedation」
-- 🟡 OK 答：「我哋會 continue but gentler」
-- 🔴 紅燈：「我哋有經驗 handle，唔需要 stop」
-- 額外 ask：你哋有冇 trained 喺 fear-free grooming approach?
+❓ **問題 1：如果寵物喺美容過程明顯極度緊張，你會點處理？**
+- 🟢 好答覆：「我哋會暫停 + 畀佢休息，部分情況我會建議分 2 次搞 / 或者轉介去診所打鎮靜劑」
+- 🟡 尚可：「我哋會繼續但溫柔啲」
+- 🔴 紅燈：「我哋有經驗處理，唔需要停」
+- 額外追問：你哋有冇受過無恐懼美容 (fear-free grooming) 嘅訓練？
 
-❓ **Question 2：你 typical 1 隻 cat / dog grooming session 幾耐？同步 vs separate?**
-- 🟢 好：30-60 分鐘 per pet, **同步 only 1 隻 at a time, 喺 separate room**
-- 🟡 OK：60-90 分鐘 but room shared with calm dog
-- 🔴 紅燈：「100+ 隻一日，shared cage area, 同時處理 multiple」 = grooming mill model, high stress
+❓ **問題 2：你一般處理 1 隻貓 / 狗美容要幾耐？同其他寵物一齊定分開？**
+- 🟢 好：每隻寵物 30-60 分鐘，**同一時間只處理 1 隻，喺獨立房間**
+- 🟡 尚可：60-90 分鐘，但同冷靜嘅狗共用空間
+- 🔴 紅燈：「一日做 100+ 隻，共用籠區，同時處理多隻」 = 流水作業模式，壓力極大
 
-❓ **Question 3：你可唔可以 update 我中途，或者我 stay 喺度?**
-- 🟢 好：「Owner can stay or we send photo update mid-session，唔影響 grooming quality」
-- 🟡 OK：「我哋 prefer owner 唔喺度（pet behave 唔同）但 send WhatsApp update」
-- 🔴 紅燈：「Drop off only, pick up only, no communication during」 = 唔透明
+❓ **問題 3：你可唔可以中途 update 我，或者我留喺度睇？**
+- 🟢 好：「主人可以留低或者我哋會影相 update，唔會影響美容質素」
+- 🟡 尚可：「我哋傾向主人唔喺度（寵物表現會唔同）但會 WhatsApp update」
+- 🔴 紅燈：「只准放低同接走，中途零溝通」 = 唔透明
 
-❓ **Question 4：你哋有冇 cancel 嘅 case? 點 handle?**
-- 🟢 好：「如果主子過度 stressed，我哋會 stop early + 只 charge partial。我哋唔會 force 完成」 — 表示 ethics
-- 🟡 OK：「Cancel 有 cancellation fee，但會 explain」
-- 🔴 紅燈：「我哋 commit complete the service」 = pressure to finish at pet's expense
+❓ **問題 4：你哋有冇取消嘅個案？點處理？**
+- 🟢 好：「如果主子過度緊張，我哋會提早停 + 只收部分費用。我哋唔會夾硬完成」 — 顯示有職業操守
+- 🟡 尚可：「取消有取消費，但會解釋原因」
+- 🔴 紅燈：「我哋一定會完成服務」 = 將完成工作建立喺寵物嘅痛苦之上
 
-❓ **Question 5：可唔可以做 trial visit?（10-20 分鐘 short session）**
-- 🟢 好：「Yes，我哋有 desensitization session $XXX，純 socialize, no actual cut」
-- 🟡 OK：「我哋可以 short brushing session 試下 fit」
-- 🔴 紅燈：「我哋 only full service」 = inflexible
+❓ **問題 5：可唔可以做試驗性質探訪？（10-20 分鐘短時間）**
+- 🟢 好：「可以，我哋有減敏環節 $XXX，純粹熟習環境，唔會真剪」
+- 🟡 尚可：「我哋可以試吓短時間梳毛睇吓啱唔啱」
+- 🔴 紅燈：「我哋只做全套服務」 = 缺乏彈性
 
-📋 **額外驗證（before book）**
-- Google review / FB review 揀 specific keywords：「anxious」「scared」「rescued」— 睇佢哋 handle 過 anxious pet 嘅 review
-- Visit 一次 facility 唔 book（揾 excuse 入去拎 brochure）— 觀察：
-  - Pet 之間有冇分開？
-  - Groomer 緊張 / calm？
-  - 氣味（urine / fear pheromone — clean facility 唔應該有 strong smell）
-  - 同 owner 溝通方式（patient / dismissive）
+📋 **額外驗證（book 之前）**
+- Google 評論 / FB 評論搜尋特定關鍵字：「焦慮」「驚」「領養」— 睇吓佢哋處理焦慮寵物嘅評價
+- 踩場參觀一次但唔 book（搵藉口入去攞單張）— 觀察：
+  - 寵物之間有冇分開？
+  - 美容師狀態緊張定冷靜？
+  - 氣味（尿味 / 恐懼費洛蒙 — 乾淨嘅地方唔應該有大陣味）
+  - 同主人溝通方式（有耐性 / 敷衍）
 
-🚩 **絕對 walk away signal**
-- 拒絕答你嘅 question
-- 「我嚟 18 年從來冇 pet stressed」 = 講大話或者觀察唔好
-- 價錢含糊 / 隱藏 add-on
-- 迫你 book 快 / discount today only
-- 拒絕你 book 前參觀 facility
+🚩 **絕對調頭走嘅信號**
+- 拒絕答你嘅問題
+- 「我做咗 18 年從來冇寵物會緊張」 = 講大話或者觀察力差
+- 價錢含糊 / 隱藏附加費
+- 逼你盡快 book / 話只限今日優惠
+- 拒絕你 book 之前參觀地方
 
-語氣：賦權 owner — owner 唔係 paranoid，係 advocate。Groomer 嘅 stress response = 主子未來 grooming experience。
+語氣：賦予主人權力 — 主人唔係神經質，係寵物嘅代言人。美容師帶來嘅壓力反應 = 主子未來嘅美容體驗。
 </PromptBlock>
 
-5 條 question 嘅 answer quality 比 price 更重要。**寧願多付 30% 揀 calm groomer，唔好慳 30% 累主子半年 recovery**。
+5 條問題嘅答案質素比價錢更重要。**寧願畀多 30% 錢揀個冷靜嘅美容師，都唔好慳嗰 30% 搞到主子要半年先平復到**。
 
-### 4. 主子嘅 4 週 desensitization plan
+### 4. 主子嘅 4 週減敏計劃
 
-家居 desensitization 嘅 goal 唔係訓主子「鐘意」grooming——係讓 grooming 嘅 association 由「panic」變到「neutral + treat」。
+家居減敏嘅目標唔係訓練主子「鍾意」美容——係將對美容嘅聯想由「恐慌」變成「中性 + 零食」。
 
-<PromptBlock label="完整 prompt — 4 週 grooming desensitization plan">
-主子 grooming 嚴重焦慮。我想喺屋企做 4 週 desensitization，目標：下次 professional grooming visit 主子 stress level 細好多。
+<PromptBlock label="完整 prompt — 4 週美容減敏計劃">
+主子對美容嚴重焦慮。我想喺屋企做 4 週減敏訓練，目標：下次去專業美容，主子壓力細好多。
 
-主子 tolerance baseline：
-- 被 brush：30 秒 OK，之後 escape
-- 被觸碰 paw：抗拒嚴重
-- 見到 nail clipper：即逃跑
-- 聽到 grooming-related 聲（電動剪刀 / hair dryer）：匿埋
+主子目前嘅容忍底線：
+- 被梳毛：30 秒 OK，之後就走佬
+- 被掂手腳：極度抗拒
+- 見到指甲鉗：即刻走佬
+- 聽到美容相關聲音（電剪 / 風筒）：匿埋
 
-請整 **Week 1-4 漸進 plan**（每日 2-3 分鐘）：
+請整 **Week 1-4 漸進計劃**（每日 2-3 分鐘）：
 
-🗓 **Week 1 — 純存在**
-**Goal：主子 associate grooming tools with high-value treat**
-- Day 1-2：放 brush 喺地下 5 米外，主子過去聞 = treat
-- Day 3-5：放 brush 喺地下 1 米外，主子過去聞 = treat
-- Day 6-7：手攞 brush，主子過嚟 = treat（**唔係 brush，淨係 hold**）
-- Treat：freeze-dried chicken / churu / 任何主子鐘意嘅
-- 唔 brush。重複「tool = treat」association
+🗓 **Week 1 — 純粹存在**
+**目標：令主子將美容工具同極吸引嘅零食聯繫埋一齊**
+- Day 1-2：放把梳喺地下 5 米外，主子行埋去聞 = 獎零食
+- Day 3-5：放把梳喺地下 1 米外，主子行埋去聞 = 獎零食
+- Day 6-7：手揸住把梳，主子行埋嚟 = 獎零食（**唔係梳，淨係揸住**）
+- 零食：凍乾雞肉 / 肉泥 / 任何主子最鍾意嘅
+- 絕對唔梳。重複「工具 = 零食」嘅聯想
 
 🗓 **Week 2 — 摸但唔用工具**
-**Goal：主子 tolerate 你 hand touch hot zones**
-- Day 1-3：1 分鐘 session — touch 主子 neck + shoulder（低焦慮位），完成 → treat
-- Day 4-5：加 back stroke
-- Day 6-7：嘗試 touch belly 1 second（高焦慮位）→ immediate treat
-- 守則：主子一 escape = stop. 唔追. 等下次 session.
+**目標：主子接受你用手摸重災區**
+- Day 1-3：1 分鐘環節 — 摸主子頸 + 膊頭（低焦慮位），完成 → 獎零食
+- Day 4-5：加入摸背脊
+- Day 6-7：嘗試摸肚 1 秒（高焦慮位）→ 即刻獎零食
+- 守則：主子一走佬 = 停。唔好追。等下次。
 
-🗓 **Week 3 — Tool + 最少接觸**
-**Goal：主子 tolerate 1-2 brushing strokes**
-- Day 1-2：brush 觸 fur 1 stroke → treat
-- Day 3-4：3 strokes → treat
-- Day 5-7：5 strokes → treat。**頭只觸低焦慮位（neck / cheek / shoulder）**
-- 唔做 hot zone（belly / paw / tail base）
+🗓 **Week 3 — 工具 + 最少接觸**
+**目標：主子接受 1-2 下梳毛**
+- Day 1-2：梳輕輕掂毛 1 下 → 獎零食
+- Day 3-4：梳 3 下 → 獎零食
+- Day 5-7：梳 5 下 → 獎零食。**頭幾下只梳低焦慮位（頸 / 面珠 / 膊頭）**
+- 唔好搞重災區（肚 / 手腳 / 尾巴根部）
 
-🗓 **Week 4 — 擴大範圍 + 加其他 tools**
-**Goal：主子 tolerate full session 3-5 分鐘**
-- Day 1-3：包括 back + leg outer side
-- Day 4-5：嘗試 paw touch 1 second → treat
-- Day 6-7：introduce nail clipper（不剪 — 只放 visible + treat）
-- 一直 maintain low expectation：5 分鐘 max session
+🗓 **Week 4 — 擴大範圍 + 加入其他工具**
+**目標：主子接受完整環節 3-5 分鐘**
+- Day 1-3：包埋背脊 + 腳外側
+- Day 4-5：嘗試掂手腳 1 秒 → 獎零食
+- Day 6-7：引入指甲鉗（唔剪 — 只放喺視線範圍 + 獎零食）
+- 一直保持低期望：每次最多 5 分鐘
 
-📈 **進度 markers**（每週末 check）
-- Week 1 end：主子自願 approach tool? Y / N
-- Week 2 end：主子 tolerate 30 秒 touch without escape? Y / N
-- Week 3 end：主子 tolerate 5 strokes? Y / N
-- Week 4 end：主子 calm during 3 分鐘 full session? Y / N
+📈 **進度指標**（每週末檢討）
+- Week 1 完：主子自願行埋工具度？Y / N
+- Week 2 完：主子接受 30 秒觸摸而唔走佬？Y / N
+- Week 3 完：主子接受梳 5 下？Y / N
+- Week 4 完：主子喺 3 分鐘完整環節保持冷靜？Y / N
 
-如果某週停滯（冇進度 7 日）：
-- DON'T push to next week
-- 重複該週 1 額外週
-- 縮短 session 長度（2 分鐘 → 1 分鐘）
-- 提高 treat value
+如果某個禮拜停滯不前（連續 7 日冇進步）：
+- 絕對唔好夾硬推進去下一個禮拜
+- 重複該週進度額外 1 個禮拜
+- 縮短時間（2 分鐘 → 1 分鐘）
+- 提高零食吸引力
 
-🚨 **絕對 stop signal**
-- 主子 匿 >1 hr after session：你 push 太快
-- 主子 starts to fear treat hand：reset entire approach
-- 主子 self-injure scratching / hot spots：vet visit, possible anxiety condition
+🚨 **絕對停止信號**
+- 完咗之後主子匿埋超過 1 個鐘：你推進得太快
+- 主子開始驚你餵零食隻手：成個方法要推倒重來
+- 主子抓傷自己 / 狂𢯎重災區：要去睇醫生，可能有潛在焦慮問題
 
-🐾 **Bonus — 對聲音 counterconditioning**
-- Week 2+：play electric clipper YouTube sound（低音量），主子過嚟 → treat
-- Week 4+：嘗試 hair dryer 短 burst（距離遠 + 細聲）
+🐾 **Bonus — 對聲音嘅反制約**
+- Week 2 起：播電剪 YouTube 聲（低音量），主子行埋嚟 → 獎零食
+- Week 4 起：嘗試開風筒極短時間（距離遠 + 細聲）
 
-語氣：耐心 + realistic。4 週唔保證主子「rebrand grooming」 — 但保證 baseline 進步。長期：持續 maintenance routine 6-12 個月先見大 improvement。
+語氣：有耐性 + 貼地。4 個禮拜唔保證主子會「愛上美容」 — 但保證底線會有進步。長遠嚟講：持續護理 6-12 個月先會有大改善。
 </PromptBlock>
 
-呢個 plan 嘅 secret：**唔係訓主子，係訓你**。你嘅 patience + treat timing + reading 主子 body language 嘅 sensitivity，全部都係 skill。主子進步係 byproduct。
+呢個計劃嘅秘訣：**唔係訓練主子，係訓練你**。你嘅耐性 + 畀零食嘅時機 + 觀察主子身體語言嘅敏感度，全部都係技巧。主子嘅進步只係附帶結果。
 
-## 變化
+## 變化例子
 
-### 變化 1：短毛 pet（cat / dog）grooming routine
+### 變化 1：短毛寵物（貓 / 狗）護理計劃
 
-短毛 pet 嘅 routine 唔同 long-hair：
+短毛寵物嘅護理同長毛唔同：
 
-<PromptBlock label="變化 1 — Short-hair pet grooming routine">
-我隻主子短毛 [breed + species]。佢冇 mat 問題，但 [shedding 嚴重 / 油脂多 / 皮屑]。
+<PromptBlock label="變化 1 — 短毛寵物護理計劃">
+我隻主子係短毛 [品種 + 物種]。佢冇打結問題，但 [甩毛嚴重 / 油脂多 / 皮屑多]。
 
-請整短毛 routine：
+請整短毛護理計劃：
 
-🐾 **Short-hair grooming priorities**
-唔 focus mat prevention，focus：
-- Shedding management（家居衛生）
-- Skin health monitor（短毛皮膚 visible，易見 condition）
-- Nail + ear（同 long-hair 一樣）
-- Dental（特別重要 — short-hair breed 易 dental issue）
+🐾 **短毛護理重點**
+唔係集中防打結，而係：
+- 處理甩毛（家居衛生）
+- 監察皮膚健康（短毛皮膚易見，容易發現問題）
+- 剪甲 + 洗耳（同長毛一樣）
+- 牙齒護理（特別重要 — 短毛品種容易有牙齒問題）
 
-📅 **Schedule**
-- Daily：3 分鐘 grooming mitt 全身（mainly remove loose hair）
-- 2x/week：bristle brush 全身（刺激 skin oil + distribute）
-- 1x/week：nail check / ear check
-- 1x/月：dental check / brushing if 接受
-- 1x/3 個月：bath if needed（short-hair 唔需要常 bath，過度 bath 反而乾燥皮膚）
+📅 **時間表**
+- 每日：用橡膠按摩手套掃勻全身 3 分鐘（主要清廢毛）
+- 每週 2 次：用豬鬃毛梳梳全身（刺激皮膚分泌油脂 + 分佈均勻）
+- 每週 1 次：檢查指甲 / 耳仔
+- 每月 1 次：檢查牙齒 / 刷牙（如果接受）
+- 每 3 個月 1 次：沖涼（如有需要 — 短毛唔需要成日沖，過度沖涼反而會令皮膚乾燥）
 
-🛒 **Tools**
-- Rubber grooming mitt（short-hair 主要工具）: HK$80
-- Bristle brush: HK$100
-- Toothbrush + pet-specific toothpaste: HK$120
-- Wet wipe（pet-safe）for spot cleanup: HK$40 per pack
+🛒 **工具**
+- 橡膠按摩手套（短毛主要工具）: HK$80
+- 豬鬃毛梳: HK$100
+- 寵物牙刷 + 專用牙膏: HK$120
+- 寵物濕紙巾（局部清潔）: 每一包 HK$40
 
-🔍 **Short-hair specific 注意**
-- Bald patches / hot spots = 通常係過敏 / 壓力 / parasites — vet visit
-- 過度 shedding seasonal vs 持續異常 — 後者 vet check
-- Cat: 短毛 cat 自己 groom 80% — 你嘅 routine 係輔助, 唔係 main grooming source
+🔍 **短毛專屬注意位**
+- 甩毛斑禿 / 紅腫 = 通常係敏感 / 壓力 / 寄生蟲 — 要睇醫生
+- 季節性大量甩毛 vs 持續異常甩毛 — 後者要睇醫生
+- 貓：短毛貓自己會搞掂 80% 護理 — 你嘅計劃只係輔助，唔係主要來源
 
-語氣：精簡 — short-hair 唔需要 complex routine，過度 grooming 反而有害。
+語氣：精簡 — 短毛唔需要複雜計劃，過度護理反而有害。
 </PromptBlock>
 
-### 變化 2：狗 grooming — trim style + breed cut
+### 變化 2：狗隻美容 — 修剪造型 + 品種專屬剪法
 
-狗 grooming 比 cat 複雜（breed-specific trim style + bath frequency）：
+狗隻美容比貓複雜（特定品種修剪風格 + 沖涼頻率）：
 
-<PromptBlock label="變化 2 — Dog grooming routine + breed-specific trim">
-我隻主子狗 [breed + age + coat type]。佢需要：
-- Trim frequency: [每 6 週 / 每 8 週 / 每 12 週]
-- Bath frequency: [每 2 週 / 每月 / 視乎活動量]
-- 每日散步 - 街上污糟積埋
+<PromptBlock label="變化 2 — 狗隻護理計劃 + 品種專屬修剪">
+我隻主子狗 [品種 + 年齡 + 毛髮類型]。佢需要：
+- 修剪頻率：[每 6 週 / 每 8 週 / 每 12 週]
+- 沖涼頻率：[每 2 週 / 每月 / 視乎活動量]
+- 每日散步 — 街上污糟積埋
 
 請整：
 
-📅 **Schedule**
-- Daily：行完街抹腳（remove 城市灰塵 + 化學物質 from pavements）
-- 2-3x/week：全身 brushing
-- 1x/week：bath（如 breed 需要 — Poodle / Doodle / 部分 Terrier）or 每 2-4 週（其他 breeds）
-- 1x/月：耳清 + 牙
-- 每 6-12 週：professional trim
+📅 **時間表**
+- 每日：行完街抹腳（清走街道灰塵 + 化學物質）
+- 每週 2-3 次：全身梳毛
+- 每週 1 次：沖涼（如果品種需要 — 貴婦狗 / 貴婦混種 / 部分爹利犬）或者 每 2-4 週（其他品種）
+- 每月 1 次：清耳仔 + 刷牙
+- 每 6-12 週：專業修剪
 
-🦴 **Breed-specific 注意**
-你嘅 breed 嘅 typical cut style + maintenance：
-- Poodle / Doodle: 持續長毛, 高 mat 風險, 需 professional trim 每 6 週
-- Shih Tzu / Maltese: 絲質長毛, 持續每日 brushing, 眼周持續清潔
-- Bulldog / Pug: 皮膚摺位持續清潔（mid-day wipe），少 trim 需要
-- 中型 mixed: 視乎 coat type，部分需要 trim 部分淨係 brush
+🦴 **品種專屬注意位**
+你個品種嘅典型剪法 + 維持方法：
+- 貴婦狗 / 貴婦混種: 毛髮不斷長，極易打結，需要每 6 週專業修剪
+- 西施 / 摩天使: 絲質長毛，需要每日梳毛，眼周持續清潔
+- 鬥牛犬 / 八哥: 皮膚摺位持續清潔（中午抹吓），少修剪需要
+- 中型唐狗: 視乎毛髮類型，部分需要修剪，部分淨係梳毛就得
 
-🛁 **喺屋企幫狗洗澡**
-（cat 唔建議，但 dog 通常 OK）
-- 溫水 + dog-specific shampoo（pH 唔同人類）
-- 用 cotton ball 塞耳
-- 沖徹底（leftover shampoo = 皮膚刺激）
-- 完成後 towel + low-heat blow dry
-- Treat reward 全程
+🛁 **喺屋企幫狗沖涼**
+（貓唔建議，但狗通常 OK）
+- 溫水 + 狗專用沖涼液（酸鹼值同人類唔同）
+- 用棉花球塞住耳仔
+- 徹底過水（殘留沖涼液 = 刺激皮膚）
+- 完咗之後抹乾 + 低溫吹乾
+- 全程獎勵零食
 
-🚶 **行街相關 grooming**
-- HK 街道熱 / 化學清潔劑：paw burn 風險，夏天下午避免熱 pavement
-- 行山後 tick check：focus armpit / ear / 腳跟
-- 長毛狗有泥：沖腳唔好 full bath（過度 bath 乾燥皮膚）
+🚶 **行街相關護理**
+- 香港街道熱 / 化學清潔劑：燙傷腳板底風險，夏天晏晝避免行熱石屎路
+- 行山後檢查牛蜱：集中檢查腋下 / 耳仔 / 腳跟
+- 長毛狗有泥：淨係沖腳，唔好全身沖（過度沖涼會令皮膚乾燥）
 
-語氣：breed-aware — 唔同 breed 完全唔同 grooming reality。
+語氣：了解品種特性 — 唔同品種完全唔同護理現實。
 </PromptBlock>
 
-### 變化 3：長者 pet grooming — 安全考慮
+### 變化 3：年老寵物護理 — 安全考慮
 
-10 歲+ pet 嘅 grooming 需要特別小心：
+10 歲以上嘅寵物護理需要特別小心：
 
-<PromptBlock label="變化 3 — Senior pet (10+ yrs) safe grooming">
-我隻主子 [12 歲 cat / 14 歲 dog]，最近 [行動慢 / arthritis / kidney disease / skin condition]。我擔心 grooming 對佢 too stressful，但又唔可以唔做（coat 開始 unkempt）。
+<PromptBlock label="變化 3 — 年老寵物（10 歲以上）安全護理">
+我隻主子 [12 歲貓 / 14 歲狗]，最近 [行動慢 / 關節炎 / 腎病 / 皮膚問題]。我擔心美容對佢壓力太大，但又唔可以唔做（毛開始亂晒）。
 
-請整 senior pet-specific approach：
+請整針對年老寵物嘅方案：
 
-⚕️ **Pre-grooming vet consult**
-- Senior pet grooming 前 check：
-  - 心臟 fit for sedation if needed?
-  - Arthritis 嚴重程度 — restraint 引發 pain?
-  - Skin condition — sensitive area 避開
-- Vet 可能建議：只 home grooming，唔再 professional visit
+⚕️ **護理前獸醫諮詢**
+- 年老寵物護理前檢查：
+  - 心臟負荷到鎮靜劑嗎（如需要）？
+  - 關節炎嚴重程度 — 限制活動會引起痛楚？
+  - 皮膚狀況 — 避開敏感部位
+- 醫生可能建議：只做居家護理，唔再去專業美容
 
-🏠 **Home grooming 調整**
-- Surface：軟墊（瑜伽 mat）— 硬地對 arthritis joint 痛
-- Sessions：短（2-3 分鐘 max），更頻（5-7x/week）
-- Position：主子自己 comfortable position — 唔強迫 standing
-- 跳過：areas 主子 strongly resist（唔好強迫 — senior pet 嘅 resistance 可能 indicate pain）
+🏠 **居家護理調整**
+- 表面：軟墊（瑜伽墊）— 硬地對關節炎有痛楚
+- 時間：短（每次最多 2-3 分鐘），更頻密（每週 5-7 次）
+- 姿勢：主子自己舒服嘅姿勢 — 唔強迫企起身
+- 跳過：主子強烈抗拒嘅部位（唔好強迫 — 年老寵物嘅抗拒可能代表痛楚）
 
-🛁 **Bath alternatives**
-- Senior pet 持續濕 = 凍親風險 + skin issue
-- 用 dry shampoo / wet wipe spot clean
-- 如必須 bath（accident soiled）：partial bath + immediate towel + 保暖
-- 避免 blow dryer 嘅聲 + 熱 — towel dry only
+🛁 **沖涼替代方案**
+- 年老寵物持續濕身 = 凍親風險 + 皮膚問題
+- 用乾洗粉 / 濕紙巾局部清潔
+- 如果必須沖涼（意外整污糟）：局部沖洗 + 即刻抹乾 + 保暖
+- 避免風筒嘅聲 + 熱 — 淨係用毛巾抹乾
 
-✂️ **Mat handling**
-- Senior pet 嘅 mat 通常因為 reduced self-grooming
-- 細小 mat 用 detangling spray + 手指
-- 大 mat: **唔好自己剪埋皮** — senior 皮薄 + 易 tear。Call mobile groomer / vet 處理
-- 嚴重 unkempt = 考慮 lion cut (全身短) 一次，然後 maintain 易啲
+✂️ **處理打結**
+- 年老寵物打結通常因為減少自我清潔
+- 細小打結用解結噴霧 + 手指
+- 大結: **絕對唔好自己貼皮剪** — 老人家皮薄 + 容易撕裂。搵上門美容師 / 診所處理
+- 嚴重污糟打結 = 考慮剷獅子裝 (全身剷短) 一次，然後容易啲打理
 
-⚠️ **紅燈 signals**
-- 主子 vocalise during grooming = 痛，stop + vet check
-- 喺 grooming 期間發現新粒嘢 = vet
-- 皮膚情況惡化 = vet
-- 主子 grooming 後唔肯食 = stress 過 threshold
+⚠️ **紅燈信號**
+- 主子喺護理期間出聲 = 痛，停手 + 睇醫生
+- 喺護理期間發現新腫塊 = 睇醫生
+- 皮膚情況惡化 = 睇醫生
+- 主子護理後唔肯食嘢 = 壓力爆煲
 
-📋 **End-of-life 考慮**
-如果主子喺 hospice 階段（見 [pet-end-of-life-grief-claude]），grooming priority 改變：
-- 目標唔再美觀 — comfort + 衛生
-- 接受 unkempt 為 trade-off for 不 disturb 主子
-- 唔小心 soiled 嘅 spot clean 為主，full grooming 唔重要
+📋 **臨終階段考慮**
+如果主子喺安寧護理階段（見 [pet-end-of-life-grief-claude]），護理優先次序要改變：
+- 目標唔再係靚 — 係舒服 + 衛生
+- 接受毛髮唔靚作為換取唔打擾主子嘅代價
+- 唔小心整污糟嘅局部清潔為主，全套護理唔重要
 
-語氣：尊重 senior pet — grooming 唔係 owner 嘅 vanity, 係主子嘅 comfort。Senior 階段主子 lifestyle 變，grooming approach 都要變。
+語氣：尊重年老寵物 — 護理唔係主人貪靚，係為主子舒服。步入老年，主子生活方式改變，護理方式都要跟住變。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-Grooming 喺 owner 嘅 narrative 入面通常 frame 做「主子嘅事」——主子鐘意唔鐘意，主子反應強唔強。
+護理喺主人嘅概念入面通常被視為「主子嘅事」——主子鍾唔鍾意，主子反應大唔大。
 
-但其實，grooming 嘅 quality outcome 80% 取決於 **owner 嘅 skill + patience + 一致性**。Groomer 一個月見主子 1 次 1 小時，你一個月見主子 720 小時。**你嘅 home routine 影響嗰個 weight，beats any single grooming visit**。
+但其實，護理嘅最終效果 80% 取決於 **主人嘅技巧 + 耐性 + 堅持**。美容師一個月見主子 1 次 1 個鐘，你一個月見主子 720 個鐘。**你嘅居家護理所佔嘅比重，遠超任何一次單獨嘅美容體驗**。
 
-呢個 mindset 嘅 reframe：home grooming 唔係 cost-saving hack，係 ownership skill。同你學煮飯 / 學洗衣服分顏色一樣，**係長期 pet 共同生活嘅 baseline competency**。
+呢個思維嘅轉變：居家護理唔係為咗慳錢，係做主人嘅基本技能。同你學煮飯 / 學洗衫分顏色一樣，**係長期同寵物共同生活嘅基本能力**。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **進度標準唔係「主子鐘意 grooming」**——係「主子 tolerate without trauma」。Low bar, achievable。
-- ⚠️ **唔好比較你嘅主子同 social media 嘅 perfect grooming pet**。佢哋花咗 2-3 年 desensitization 訓練。
-- 🆘 **嚴重 grooming 焦慮 > 6 個月 home work 後仲冇進步** = consider vet 開嘅焦慮藥（短期 + 持續行為 work）+ 專門 fear-free groomer。主子嘅焦慮唔係 character flaw — 係醫療問題值得 address。
+- ✅ **進度標準唔係「主子鍾意護理」**——係「主子接受到而冇陰影」。要求唔高，絕對做得到。
+- ⚠️ **唔好比較你嘅主子同社交媒體嗰啲完美護理寵物**。佢哋花咗 2-3 年時間做減敏訓練。
+- 🆘 **嚴重護理焦慮超過 6 個月居家訓練後仲冇進步** = 考慮獸醫開嘅焦慮藥（短期 + 持續行為訓練）+ 專門無恐懼美容師。主子嘅焦慮唔係性格缺陷 — 係醫療問題值得正視。
 
-下次 grooming visit, 主子唔會冇焦慮，但焦慮 threshold 高過上次——已經算 win。
+下次去美容，主子唔會完全冇焦慮，但焦慮底線高過上次——已經算係成功。
