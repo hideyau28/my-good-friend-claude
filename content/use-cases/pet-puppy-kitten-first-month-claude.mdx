@@ -1,5 +1,5 @@
 ---
-title: "領養咗新主子？用 Claude 整 30 日 settle + 訓練 schedule（HK 屋企 reality 版）"
+title: "領養咗新主子？用 Claude 整 30 日適應 + 訓練時間表（HK 屋企現實版）"
 slug: "pet-puppy-kitten-first-month-claude"
 issue: 57
 publishedAt: 2026-05-23
@@ -10,8 +10,8 @@ subcategory: "新成員適應"
 heroImage: "/hero/pet-puppy-kitten-first-month-claude.webp"
 difficulty: 2
 timeMinutes: 20
-toolsNeeded: ["Claude Chat", "主子嘅 source + age + breed info", "（可選）adoption paperwork / health record"]
-description: "你頭先由 SPCA 領養咗隻 8 週小貓 / puppy，主子第一晚匿床底 cry。用 Claude 拆 Day 1-7 settle、Day 8-14 routine、Day 15-30 social + basic training，加埋 HK 屋苑 reality + 第一次 vet visit timing。"
+toolsNeeded: ["Claude Chat", "主子嘅來源 + 年齡 + 品種資料", "（可選）領養文件 / 健康紀錄"]
+description: "你頭先由 SPCA 領養咗隻 8 週小貓 / 小狗，主子第一晚匿床底喊。用 Claude 拆 Day 1-7 適應、Day 8-14 建立 routine、Day 15-30 社交 + 基本訓練，加埋 HK 屋苑現實 + 第一次睇獸醫時機。"
 keywords: ["領養寵物 香港", "SPCA HK adoption", "new puppy schedule", "kitten first month", "寵物 適應", "屋苑 養寵物"]
 related: ["vet-visit-prep-claude", "pet-picky-eater-diet-transition-claude", "pet-sitter-handover-claude", "pet-grooming-routine-claude"]
 featured: false
@@ -19,566 +19,566 @@ featured: false
 
 ## 情境
 
-你頭先 6pm 由 SPCA Wan Chai branch 帶主子返屋企。
+你頭先 6pm 由 SPCA 灣仔分會帶主子返屋企。
 
-主子 8 週大，short-hair black-and-white kitten / mixed-breed puppy。adoption paper 簽完，volunteer 同你 brief 5 分鐘，SPCA 送你一個 starter pack：少量試食、一份 brochure、microchip 證書、第一次 vaccination record。
+主子 8 週大，短毛黑白色嘅小貓 / 唐狗混血小狗。領養紙簽完，義工同你 brief 5 分鐘，SPCA 送你一個入門包：少量試食、一份單張、晶片證書、第一次疫苗紀錄。
 
-你抱住 carrier 上的士，主子喺 carrier 入面震。你住 8 樓，住緊 350 sqft 1-bedroom flat。lift lobby 嗅住消毒水味，鄰居睇你抱住 carrier，笑下，問「咩 breed?」你答「mixed」。
+你抱住個籠上的士，主子喺籠入面震。你住 8 樓，350 呎一房單位。電梯大堂一陣消毒水味，鄰居望你抱住個籠，笑下，問「咩品種？」你答「混血」。
 
 入屋。
 
-你慢慢開 carrier 個門，set 喺地下中央。等。
+你慢慢開籠門，放喺地下中央。等。
 
-主子探頭，望住個陌生環境（4 面 vinyl floor、新傢俬味、aircon 嘅 hum），縮返入 carrier。
+主子探頭，望住個陌生環境（4 面膠地板、新傢俬味、冷氣嘅嗡嗡聲），縮返入籠。
 
-你坐喺 sofa，唔知做咩好。雪櫃 hum。隔離單位電視聲 muted but audible。主子喺 carrier 入面，過咗 10 分鐘冇出嚟。
+你坐喺梳化，唔知做咩好。雪櫃嗡嗡聲。隔離單位電視聲靜咗音但聽到。主子喺籠入面，過咗 10 分鐘冇出嚟。
 
-8pm 你嘗試放 food bowl 1 米外。主子唔出嚟。
+8pm 你嘗試放食物盆喺 1 米外。主子唔出嚟。
 
-10pm 你瞓覺，主子仲喺 carrier。
+10pm 你瞓覺，主子仲喺籠入面。
 
-凌晨 2am 你聽到主子 cry。你 turn on phone torch，發現主子匿咗喺 sofa 底，眼閃閃，嘴細細 cry。
+凌晨 2am 你聽到主子喊。你開電話電筒，發現主子匿咗喺梳化底，眼閃閃，細細聲喊。
 
-呢一刻你 panic：**我係咪 traumatize 咗主子？我做錯咩？30 日內我要點 reset?**
+呢一刻你 panic：**我係咪嚇親咗主子？我做錯咩？30 日內我要點 reset？**
 
-呢篇用 Claude 拆 4 個 phase（Day 1-7 / 8-14 / 15-30 / 30 天後），每個 phase 嘅具體 milestone + 警告訊號。
+呢篇用 Claude 拆 4 個階段（Day 1-7 / 8-14 / 15-30 / 30 日後），每個階段嘅具體目標 + 警告訊號。
 
 ## 跟住做
 
-### 1. 用呢個 prompt 整 30 日 day-by-day schedule
+### 1. 用呢個 prompt 整 30 日逐日時間表
 
-開 Claude 之前，先 dump 主子嘅 baseline info：
+開 Claude 之前，先將主子嘅基本資料寫晒落嚟：
 
-> 主子 8 週 male short-hair kitten (SPCA 領養，混色 black + white)。adoption 時間：今晚 6pm。
-> 
-> 屋企 setup：350 sqft 1-bedroom，HK 高層 apartment。8 樓。窗有鐵窗網。冇 garden / outdoor space。
-> 
-> 屋企人：我 (35, work from home 一半時間)。Partner 朝早出朝 8pm 返。冇細路。冇其他 pet。
-> 
-> Daily routine：朝 7am 起身，9am-7pm work（在家或 office），晚 7-11pm dinner + relax。Weekend：自由 schedule。
-> 
-> Goal：主子健康 + 適應屋企 + 同我哋 bond + Day 30 前學識基本 potty。
+> 主子 8 週大，男仔短毛小貓（SPCA 領養，黑白色混色）。領養時間：今晚 6pm。
+>
+> 屋企環境：350 呎一房單位，HK 高層樓宇。8 樓。窗有鐵窗網。冇花園 / 戶外空間。
+>
+> 屋企人：我（35 歲，一半時間 work from home）。伴侶朝早出夜晚 8pm 返。冇細路。冇其他寵物。
+>
+> 每日作息：朝 7am 起身，9am-7pm 開工（在家或公司），夜晚 7-11pm 食飯 + 休息。週末：自由時間表。
+>
+> 目標：主子健康 + 適應屋企 + 同我哋建立感情 + Day 30 前學識基本如廁。
 
-呢類 dump 比行貨「new kitten schedule」嘅 prompt 出嘅 plan 好太多。
+呢類詳細資料，比起行貨「新貓時間表」嘅 prompt 出嚟嘅計劃好太多。
 
-<PromptBlock label="完整 prompt — 30 天 new pet onboarding schedule">
-[paste 你上面嘅 dump]
+<PromptBlock label="完整 prompt — 30 日新主子適應時間表">
+[貼上你上面嘅資料]
 
-請整 **30 日 day-by-day schedule**，每個 phase 包括每日 routine + milestone check + 警告訊號。
+請整 **30 日逐日時間表**，每個階段包括每日作息 + 目標檢查 + 警告訊號。
 
-🗓 **Phase 1 — Day 1-7：Settle（最關鍵嗰星期）**
+🗓 **階段 1 — Day 1-7：適應（最關鍵嗰個禮拜）**
 
-**Goal**: 主子接受屋企環境 + 開始建立信任 + 食 / 屎尿正常化
+**目標**：主子接受屋企環境 + 開始建立信任 + 食 / 屎尿正常化
 
-**Daily routine**:
-- Wake + first feeding：[time]
-- Play / interaction：[次數 + duration]
-- Quiet time（主子 rest 為主，唔強迫互動）：[%]
-- Last feeding + sleep transition：[time]
+**每日作息**：
+- 起身 + 第一餐：[時間]
+- 玩 / 互動：[次數 + 時長]
+- 安靜時間（主子休息為主，唔強迫互動）：[%]
+- 最後一餐 + 入眠過渡：[時間]
 
-**Day 1-2 — 只去 safe room**
-- 主子困喺 1 個 small room（廁所 / 細房間）— 全屋 overwhelming
-- Essentials：food, water, litter（cat）/ pee pad（dog）, bed, 匿藏位
-- 你 routine：每 1-2 小時 sit silently 喺 room 入面（唔追，唔抱）讓主子 approach 你
+**Day 1-2 — 只去安全房間**
+- 主子困喺 1 個細房間（廁所 / 細房）— 全屋對佢嚟講太多嘢
+- 必備：食物、水、貓砂盆（貓）/ 尿墊（狗）、床、匿藏位
+- 你嘅作息：每 1-2 小時靜靜坐喺房入面（唔追，唔抱）等主子自己行埋你度
 
 **Day 3-5 — 擴展到客廳**
-- 開 safe room 門，主子自己 explore（唔抱出嚟）
-- Identify hot spots（主子鐘意匿嘅 spot — sofa 底 / window 邊 / closet）
+- 開安全房間嘅門，主子自己探索（唔好抱出嚟）
+- 認清主子鐘意匿邊度（梳化底 / 窗邊 / 衣櫃）
 - 確保匿藏位安全（冇危險嘢 — 電線 / 細小可吞食物 / 化學品）
 
 **Day 6-7 — 全屋通行**
-- 主子應該自願 explore 全屋
-- 仲未 explore 嘅 area：唔強迫
-- 第一次 vet visit 預約 Day 7+（如 SPCA 證書要求 deworming follow-up）
+- 主子應該自願探索全屋
+- 仲未探索嘅區域：唔好強迫
+- 第一次睇獸醫預約 Day 7+（如 SPCA 證書要求杜蟲跟進）
 
-**Day 1-7 milestone check**:
-- ✅ 食得 regular Y/N（pet 8 週新環境，24-36 hr 唔食正常，>48 hr = vet）
-- ✅ 用 litter / pee pad Y/N
-- ✅ 自願 approach 你拎 treat Y/N
-- ✅ 連續 sleep >6 hr Y/N
+**Day 1-7 目標檢查**：
+- ✅ 食得定時 Y/N（8 週主子新環境，24-36 小時唔食正常，超過 48 小時 = 即去獸醫）
+- ✅ 用貓砂 / 尿墊 Y/N
+- ✅ 自願行埋你度攞零食 Y/N
+- ✅ 連續瞓覺超過 6 小時 Y/N
 
-🗓 **Phase 2 — Day 8-14：建立 routine**
+🗓 **階段 2 — Day 8-14：建立作息**
 
-**Goal**: 主子進入每日 routine pattern + 顯露 personality + 完成第一次 vet visit
+**目標**：主子進入每日作息規律 + 顯露性格 + 完成第一次睇獸醫
 
-**Daily routine 細化**:
-- Feeding times：[固定 — 朝 7-8am, 中午 12-1pm, 晚 6-7pm（cat 3 餐 / dog 3-4 餐 small portion）]
-- Play sessions：cat 2x 15 分鐘 daily；puppy 4x 10 分鐘 daily (short attention span)
-- Sleep zone established（主子自己揀嘅 spot，唔 force）
-- Quiet hours（你工作時段 — 主子自己 amuse）
+**每日作息細化**：
+- 餵食時間：[固定 — 朝 7-8am, 中午 12-1pm, 晚 6-7pm（貓 3 餐 / 狗 3-4 餐少量多餐）]
+- 玩耍環節：貓每日 2 次 15 分鐘；小狗每日 4 次 10 分鐘（專注力短）
+- 睡眠區確立（主子自己揀嘅位，唔好夾硬）
+- 安靜時段（你工作時段 — 主子自己玩）
 
-**Week 2 specific tasks**:
-- Day 8 — 第一次 vet visit:
-  - Full physical exam
-  - Confirm vaccination schedule
-  - Deworming
-  - Microchip verified
-  - Discuss neuter / spay timing
-- Day 10 — Introduce grooming tools（brush placed in environment without use）
-- Day 12 — 開始 name recognition training:
-  - 講主子個名 + treat 5x daily
-  - 唔係 train command — train name association
-- Day 14 — First photo / weight log（每月 baseline 比較）
+**第 2 週特定任務**：
+- Day 8 — 第一次睇獸醫：
+  - 全身檢查
+  - 確認疫苗時間表
+  - 杜蟲
+  - 晶片核實
+  - 商討絕育時機
+- Day 10 — 介紹護理工具（將梳放喺環境入面但唔用）
+- Day 12 — 開始名字認知訓練：
+  - 講主子個名 + 零食，每日 5 次
+  - 唔係訓指令 — 訓佢將個名同好嘢聯繫
+- Day 14 — 第一張相 / 體重紀錄（每月基準作比較）
 
-**Week 2 milestone check**:
-- ✅ 識自己個名? (叫佢佢會望)
-- ✅ 接受被摸身體 (未到耳 / 爪)
-- ✅ 有固定 sleep zone
+**第 2 週目標檢查**：
+- ✅ 識自己個名？（叫佢佢會望）
+- ✅ 接受摸身體（未到耳 / 爪）
+- ✅ 有固定睡眠區
 - ✅ 食量行為可預測
 
-🗓 **Phase 3 — Day 15-30：Social + 基本訓練**
+🗓 **階段 3 — Day 15-30：社交 + 基本訓練**
 
-**Goal**: 信任穩固，開始基本 commands，習慣 sights / sounds
+**目標**：信任穩固，開始基本指令，習慣畫面 / 聲音
 
-**Week 3 — Touch desensitization**:
-- 每日 30 秒 touch 耳 / 爪 / 尾根 → immediate treat
-- 唔 push past resistance — short positive sessions
-- 你 partner 都加入（多人 touch handling = robust adult pet）
+**第 3 週 — 觸摸減敏**：
+- 每日 30 秒摸耳 / 爪 / 尾巴根 → 即刻獎零食
+- 唔好夾硬推 — 短時間正面環節
+- 你伴侶都加入（多人觸摸 = 將來成熟主子更穩陣）
 
-**Week 4 — Basic commands (puppy) / Engagement (kitten)**:
+**第 4 週 — 基本指令（小狗）/ 互動（小貓）**：
 
-對於 puppy:
-- Sit: lure + reward, 2x 5 分鐘 daily
-- Come: indoor only, treat 反應
-- Crate / bed: positive association
+對於小狗：
+- 坐低：引誘 + 獎勵，每日 2 次 5 分鐘
+- 過嚟：只係室內，零食反應
+- 籠 / 床：建立正面聯繫
 
-對於 kitten:
-- 唔需要正式 command — focus engagement:
-- Interactive toy play 引發 hunt instinct
-- Treat 嚟 recognize 「呢個聲 = good thing」
+對於小貓：
+- 唔需要正式指令 — 集中互動：
+- 互動玩具引發狩獵本能
+- 零食令主子認知「呢個聲 = 好嘢」
 
-**Socialization checklist**（呢個 week 介紹）:
-- 不同聲：吸塵機（distant + 低 volume）, hair dryer, doorbell, traffic
-- 不同 visitors: 1-2 個 friend brief visit, calm interaction
-- 不同 textures: tile, carpet, towel, grass (balcony pot if no garden)
-- Carrier positive association: 每日將開咗嘅 carrier 放 treat 入面
+**社交化清單**（呢個禮拜介紹）：
+- 唔同聲音：吸塵機（遠 + 低音量）、風筒、門鐘、馬路聲
+- 唔同訪客：1-2 個朋友短探訪，平靜互動
+- 唔同質感：地磚、地氈、毛巾、草（露台盆栽如冇花園）
+- 籠正面聯繫：每日將打開咗嘅籠放零食入面
 
-**Week 3-4 milestone check**:
-- ✅ 接受基本 handling (touch all body parts briefly)
-- ✅ 喺你面前食 / 自信咁 approach 治 treat 手
-- ✅ Routine 同行為 pattern 可預測
-- ✅ Plays interactively (not just self-play)
-- ✅ Carrier positive association (自己入)
+**第 3-4 週目標檢查**：
+- ✅ 接受基本摸（短時間摸全身）
+- ✅ 喺你面前食 / 自信咁行埋你隻零食手
+- ✅ 作息同行為規律可預測
+- ✅ 同人玩耍（唔只係自己玩）
+- ✅ 籠正面聯繫（自己入）
 
-🚨 **Warning signs throughout — 即去 vet**:
-- 持續 >24 hr 唔食
-- 嚴重 diarrhea / vomiting (puppy / kitten 脫水快)
-- Lethargic + 唔玩
-- 見到 parasites (worms in stool / fleas)
-- Limping / pain signs
-- Eye / nose discharge
+🚨 **整個過程嘅警告訊號 — 即去獸醫**：
+- 持續超過 24 小時唔食
+- 嚴重肚瀉 / 嘔吐（小貓 / 小狗脫水好快）
+- 萎靡 + 唔玩
+- 見到寄生蟲（屎入面有蟲 / 跳蚤）
+- 一拐一拐 / 痛楚跡象
+- 眼 / 鼻分泌物
 
-🏠 **HK 屋苑 reality reminders**:
-- 確認屋苑允許養 pet（lease + 業主立案法團 rules — 部分 estate 限制 dog size / breed）
-- 鄰居 noise considerations: puppy 頭幾晚 cry 正常 — 寫個 note 同直接鄰居道歉 + 講時間
-- 細空間 living: cat OK 350 sqft；dog 不論大細都需要每日 outdoor walk
-- Lift / lobby etiquette: 出入用 carrier，no off-leash
+🏠 **HK 屋苑現實提醒**：
+- 確認屋苑允許養寵物（租約 + 業主立案法團規則 — 部分屋苑限制狗體型 / 品種）
+- 鄰居噪音考慮：小狗頭幾晚喊正常 — 寫個 note 同直接鄰居道歉 + 講時間
+- 細空間住屋：貓 OK 住 350 呎；狗不論大細都需要每日戶外散步
+- 電梯 / 大堂禮儀：出入用籠，唔好放繩
 
-📋 **Day 30 review**:
-- 主子 weight / size change
-- Personality emerged
-- Routine settled
-- Bonding strength
-- 之後 plan: spay / neuter (typical 5-6 months), training 進度, 4 個月再 vet check
+📋 **Day 30 檢視**：
+- 主子體重 / 體型變化
+- 性格浮現
+- 作息穩定
+- 感情強度
+- 之後計劃：絕育（通常 5-6 個月大）、訓練進度、4 個月再睇獸醫檢查
 
-請每個 phase 整 print-friendly 每日 checklist format。
+請每個階段整成可列印嘅每日清單格式。
 
-語氣：實在 + realistic。Don't overpromise — 部分主子 Day 30 仲冇完全 adjust，呢個正常。
+語氣：實在 + 貼地。唔好過度承諾 — 部分主子 Day 30 仲未完全適應，呢個正常。
 </PromptBlock>
 
-Claude 出嘅 schedule print 一份貼喺 fridge。**每日填一次 milestone check**——你會見到緩慢但持續進步。
+Claude 出嘅時間表印一份貼喺雪櫃。**每日填一次目標檢查**——你會見到緩慢但持續進步。
 
-### 2. Pre-arrival prep + Day 1 essentials
+### 2. 領養前準備 + Day 1 必備
 
-如果你 read 呢篇文係 adopt 前（congrats — proactive prep 唔多 owner 做到），呢個 step 係 prep checklist。
+如果你睇呢篇文係領養之前（恭喜你 — 主動準備嘅主人唔多），呢個步驟係準備清單。
 
-<PromptBlock label="完整 prompt — Pre-arrival shopping + setup checklist">
-我即將 [幾日 / 1 週後] 由 SPCA 領養 8 週 kitten / puppy。我屋企 350 sqft 1-bedroom HK apartment。冇現有 pet。
+<PromptBlock label="完整 prompt — 領養前購物 + 設置清單">
+我即將 [幾日 / 1 週後] 由 SPCA 領養 8 週小貓 / 小狗。我屋企 350 呎一房單位，HK apartment。冇現有寵物。
 
-請整 **pre-arrival shopping + setup checklist**（按重要性 — 必買 → nice to have）：
+請整 **領養前購物 + 設置清單**（按重要性 — 必買 → 可有可無）：
 
-🛒 **必買（Day 1 已 ready）**
+🛒 **必買（Day 1 已準備好）**
 
-For kitten:
-- Litter box (1.5x 主子 size) + cat litter (start with same brand SPCA used — switch gradually later)
-- Food bowl + water bowl (陶瓷 / 不鏽鋼 — 唔好 plastic)
-- 同 SPCA 一樣嘅 food (transition gradually after Day 7)
-- Bed / blanket (washable)
-- Carrier (for vet visits)
-- Few interactive toys (wand / ball)
-- Nail clipper
-- Scratch post / pad (cat — saves your sofa)
+對於小貓：
+- 貓砂盆（主子體型 1.5 倍大）+ 貓砂（先用 SPCA 用緊嘅牌子 — 之後慢慢轉）
+- 食物盆 + 水盆（陶瓷 / 不鏽鋼 — 唔好用膠）
+- 同 SPCA 一樣嘅糧（Day 7 之後慢慢轉）
+- 床 / 毛毯（可洗）
+- 籠（睇獸醫用）
+- 幾件互動玩具（逗貓棒 / 球）
+- 指甲鉗
+- 抓板 / 抓柱（貓 — 保住你張梳化）
 
-For puppy:
-- Crate (right size — 唔可以太大，主子會 use far corner as toilet)
-- Food + water bowl
-- Same food as source (transition gradually)
-- Pee pads (頭幾週用嚟 indoor potty training)
-- Leash + harness (right size)
-- Few chew toys (teething)
-- Crate blanket
-- Treats (high-value for training)
+對於小狗：
+- 圍欄（啱啱好大小 — 唔可以太大，主子會將遠一角當廁所）
+- 食物盆 + 水盆
+- 同原本一樣嘅糧（慢慢轉）
+- 尿墊（頭幾週用嚟室內如廁訓練）
+- 牽繩 + 胸帶（啱啱好大小）
+- 幾件咬玩具（出牙期）
+- 圍欄毛毯
+- 零食（高價值零食用嚟訓練）
 
-⚙️ **Setup（主子嚟之前）**
+⚙️ **設置（主子嚟之前）**
 
-- **Safe room**: 揀 small enclosed room (廁所 OK for cat, larger room for puppy)
-- **全屋 pet-proof**: 
-  - 收走 cords / cables 入 cable management
-  - 收走有毒植物 (lily / pothos for cat / lily 對 cat 劇毒)
+- **安全房間**：揀細小封閉房間（廁所 OK 啱貓，較大房間啱小狗）
+- **全屋寵物防護**：
+  - 收走電線 / 充電線入電線管理盒
+  - 收走有毒植物（百合 / 黃金葛 — 百合對貓劇毒）
   - 收走細小可吞嘅嘢
-  - Childproof lock on toxic chemical cabinets
-  - 確認窗戶有鐵窗網（cat — high-rise syndrome real risk in HK）
-  - 廁板要落（puppy drown risk）
-- **Schedule yourself**: 安排 first 3 days off / WFH (主子需要持續 presence)
-- **Vet pre-booked**: 揀好 vet, register, book Day 7 appointment
+  - 有毒化學品櫃加防兒童鎖
+  - 確認窗戶有鐵窗網（貓 — 高層墜樓喺 HK 真實風險）
+  - 廁板要落（小狗有遇溺風險）
+- **安排你自己時間**：頭 3 日請假 / WFH（主子需要持續陪伴）
+- **獸醫預先 book 好**：揀好獸醫，登記，預約 Day 7
 
-🟡 **Nice to have（Week 2-4 add）**
-- Pet camera (Tapo / Wyze — 你出去時 monitor)
-- 寵物保險研究 (see [pet-insurance-review-claude])
-- Travel carrier (different from vet carrier — bigger for longer travel)
-- Grooming starter kit (brush + dental supplies)
-- Feeding mat (catches spills)
+🟡 **可有可無（第 2-4 週再加）**
+- 寵物鏡頭（Tapo / Wyze — 你出去時監察）
+- 寵物保險研究（睇 [pet-insurance-review-claude]）
+- 旅行籠（同睇獸醫用嘅唔同 — 大啲適合長途）
+- 護理入門套裝（梳 + 牙齒用品）
+- 餵食墊（接住瀉到嘅嘢）
 
-💰 **HK 2026 typical first-month budget**
-- Essentials: HK$1,500-2,500
-- Food first month: HK$300-600
-- First vet visit: HK$800-1,500
-- Vaccination remainder: HK$1,000-1,500
-- Microchip + license (if not done by SPCA): HK$300-500
-- **Total Month 1: HK$4,000-6,500**
+💰 **HK 2026 一般第一個月預算**
+- 必需品：HK$1,500-2,500
+- 第一個月糧：HK$300-600
+- 第一次睇獸醫：HK$800-1,500
+- 餘下疫苗：HK$1,000-1,500
+- 晶片 + 牌照（如 SPCA 未做）：HK$300-500
+- **第 1 個月總額：HK$4,000-6,500**
 
-⚠️ **Day 1 唔好做嘅 mistake**:
-- 唔好 invite 親戚朋友嚟見主子 Day 1 — overwhelming
-- 唔好 force interaction — let 主子揀 pace
-- 唔好預期主子同你 cuddle 第 1 晚 — could take 2-4 週
-- 唔好即刻換主子嘅 food brand — Day 7+ 慢慢轉
-- 唔好 leave 主子 alone all day Day 1-3 — 半日 OK, 全日唔好
+⚠️ **Day 1 唔好做嘅錯誤**：
+- 唔好叫親戚朋友嚟見主子 Day 1 — 太多嘢
+- 唔好夾硬互動 — 等主子自己揀節奏
+- 唔好預期主子第 1 晚同你攬攬 — 可能要 2-4 週
+- 唔好即刻轉主子嘅糧 — Day 7+ 慢慢轉
+- 唔好留主子一個人成日 Day 1-3 — 半日 OK，成日唔好
 
-語氣：實際, budget 對應 HK 現實。
+語氣：實際，預算對應 HK 現實。
 </PromptBlock>
 
-### 3. 同主子 bond 建立 — 唔係靠抱，靠 ritual
+### 3. 同主子建立感情 — 唔係靠抱，靠儀式
 
-新 owner 常見錯誤：too much physical interaction too soon。Bonding 喺**predictability + safety**，唔係 cuddle frequency。
+新主人常見錯誤：頭嗰幾個禮拜身體互動太多。建立感情靠**可預測性 + 安全感**，唔係攬攬頻率。
 
-<PromptBlock label="完整 prompt — Trust + bond 建立 daily rituals">
-我想 understand 點 build long-term trust + bond with my new 主子（8 週 kitten or puppy）。我發現你建議唔好 over-cuddle 頭 2 週，但又怕「冷淡」主子。
+<PromptBlock label="完整 prompt — 信任 + 感情建立每日儀式">
+我想了解點樣同我新主子（8 週小貓或小狗）建立長期信任 + 感情。我發現你建議唔好頭 2 週過度攬，但又驚對主子「冷淡」。
 
-請整 **daily bonding rituals**（5-10 分鐘 each, 高信任 ROI）：
+請整 **每日感情建立儀式**（每樣 5-10 分鐘，高信任回報）：
 
-🌅 **早晨 ritual (5 mins)**
-- 你起身 first task：坐喺主子瞓覺 area 隔籬 + 靜默 presence
-- 唔即刻 touch — let 主子 approach 你
-- 如果主子過嚟：手裡 treat
-- 建立: 你 = 第一樣可預測 + 安全嘅嘢
+🌅 **早晨儀式（5 分鐘）**
+- 你起身第一樣嘢：坐喺主子瞓覺位置隔籬 + 靜靜陪伴
+- 唔好即刻摸 — 等主子行埋嚟
+- 如果主子過嚟：手裡攞零食
+- 建立：你 = 第一樣可預測 + 安全嘅嘢
 
 🍽 **食飯時陪伴**
-- 主子食緊飯坐附近 (1-2 米距離，唔 hover)
-- 唔 disturb meal — 但主子 associate 你嘅 presence 同正面（食物）
-- Same time daily — predictability 就係 bonding
+- 主子食緊飯時坐附近（1-2 米距離，唔好太近）
+- 唔好騷擾食飯 — 但主子將你嘅存在同正面（食物）聯繫埋一齊
+- 每日同一時間 — 可預測性就係建立感情
 
-🎯 **Play ritual (15-30 mins)**
-- 同一 toy daily (wand for cat, tug rope / chew for puppy)
-- 同一 time daily (e.g., 7pm before dinner)
-- End on win — 主子「catch」toy, then small treat
-- 唔好過度 stimulate — short positive sessions
+🎯 **玩耍儀式（15-30 分鐘）**
+- 每日同一件玩具（逗貓棒 for 貓，拉繩 / 咬玩具 for 小狗）
+- 每日同一時間（例如 7pm 食飯前）
+- 以贏結尾 — 主子「捉到」玩具，然後細零食
+- 唔好過度刺激 — 短時間正面環節
 
 🧘 **靜默共存**
-- 你 read / work，主子同 room 自由
-- 唔 demand attention — 主子幾週後會自願 approach
-- 呢類靜默共存比 active interaction 對長期 bond 更強
+- 你睇書 / 開工，主子同房自由活動
+- 唔好要求注意 — 主子幾個禮拜後會自願行埋
+- 呢類靜默共存比主動互動對長期感情更強
 
-🌙 **睡前 ritual**
-- 同一 phrase before sleep（"goodnight 主子"）— 主子 learn vocal pattern + day-end cue
-- Lights dim 一致 schedule — 建立 circadian rhythm
-- 唔強迫 sleep in your bed — let 主子揀
+🌙 **睡前儀式**
+- 同一句話前說（「晚安主子」）— 主子學識聲音規律 + 一日完結提示
+- 燈光調暗一致 — 建立生理時鐘
+- 唔好夾硬主子瞓你張床 — 等主子揀
 
-🚫 **反 bonding 嘅 actions（即使 well-intentioned）**
-- 抱起主子走嚟走去（主子 feel out of control = bonding 倒退）
-- 用主子做 social media content too frequently（"propping" — over-handling）
-- 多人同時 approach 主子（overwhelming）
-- 喺主子匿藏位強拉佢出
-- Schedule 唔一致（今日 7am feed, 明日 9am — 不穩定）
+🚫 **反建立感情嘅動作（即使出於好意）**
+- 抱起主子周圍行（主子覺得失控 = 感情倒退）
+- 用主子做社交媒體內容太頻密（「擺拍」— 過度玩弄）
+- 多人同時行埋主子（太多嘢）
+- 喺主子匿藏位強拉佢出嚟
+- 時間表唔一致（今日 7am 餵，聽日 9am — 不穩定）
 
-🔬 **主子 show 你嘅 bonding 訊號（漸進）**:
+🔬 **主子畀你嘅感情訊號（漸進）**：
 
-Week 1:
-- 開始自願由匿藏位出嚟當你入房
+第 1 週：
+- 開始自願由匿藏位出嚟，當你入房
 - 你坐附近佢都肯食飯
 
-Week 2:
-- Approach 你拎 treat (not just food)
+第 2 週：
+- 行埋嚟攞零食（唔係淨係食物）
 - 短暫倚住你 / 過嚟摸你腳
 
-Week 3:
-- 喺你 visible area 瞓覺 (not hidden)
-- Belly exposure during rest (高信任 sign)
-- Slow blink (cat)
-- 尾巴 relaxed 咁擺 (puppy)
+第 3 週：
+- 喺你睇得到嘅地方瞓覺（唔係匿埋）
+- 休息時露肚（高信任訊號）
+- 慢慢眨眼（貓）
+- 尾巴放鬆咁擺（小狗）
 
-Week 4+:
-- 自願 seek physical contact
+第 4 週+：
+- 自願求身體接觸
 - 你返到屋企迎接你
-- Vocalizes for attention
+- 出聲求關注
 - 喺你附近瞓
 
-語氣：強調耐心。Bonding 唔係 weekly milestone — 係多年 compound。Year 5 你哋嘅 bond 唔係 year 1 base + 4 年延續 — 係完全不同 quality。
+語氣：強調耐心。建立感情唔係每週進度 — 係多年複利。Year 5 你哋嘅感情唔係 Year 1 加 4 年延續 — 係完全不同嘅質素。
 </PromptBlock>
 
-### 4. Crisis management — Day 1-7 常見問題
+### 4. 危機處理 — Day 1-7 常見問題
 
-新 owner 頭 7 日通常遇到 1-3 個 panic moments。Claude help triage：
+新主人頭 7 日通常遇到 1-3 個 panic 時刻。Claude 幫你分流：
 
-<PromptBlock label="完整 prompt — Common Day 1-7 issues triage">
-我新主子（8 週）住咗 [幾日]。出現以下 issue [描述]。
+<PromptBlock label="完整 prompt — Day 1-7 常見問題分流">
+我新主子（8 週）住咗 [幾日]。出現以下問題 [描述]。
 
-請 help me triage:
+請幫我分流：
 
-📋 **常見 Issue 1: 主子唔食 12-24 hr**
+📋 **常見問題 1：主子唔食 12-24 小時**
 
-Triage:
-- 少於 12 hr: 正常 stress reaction, monitor + offer high-value food (small piece churu for cat / cooked chicken for puppy)
-- 12-24 hr: Try food variety + warm slightly (release smell) + hand feed if needed
-- >24 hr (kitten / puppy): VET — small animals 脫水 / hypoglycemia 快
-- 任何時候 + lethargic / vomiting / diarrhea: 即去 VET
+分流：
+- 少於 12 小時：正常壓力反應，監察 + 提供高吸引力食物（細塊肉泥畀貓 / 熟雞肉畀小狗）
+- 12-24 小時：嘗試食物變化 + 稍為翻熱（散發香味）+ 必要時用手餵
+- 超過 24 小時（小貓 / 小狗）：即去獸醫 — 細小動物脫水 / 低血糖好快
+- 任何時候 + 萎靡 / 嘔吐 / 肚瀉：即去獸醫
 
-📋 **常見 Issue 2: 主子持續匿 + cry**
+📋 **常見問題 2：主子持續匿埋 + 喊**
 
-Triage:
-- Day 1-3: 正常適應，唔好 force 出嚟，確保 food / water / litter accessible near hiding spot
-- Day 4-7: 仲完全匿 = 你嘅 presence pattern 可能太 intense, 反而 give more solitude
-- 加 night cry: 可能想念兄弟姊妹 (8 週主子剛離開 litter) — 加 ticking clock under blanket (mimics heartbeat) + warm hot water bottle wrapped in towel
-- Cry + 唔食 + lethargic = VET
+分流：
+- Day 1-3：正常適應，唔好夾硬出嚟，確保食物 / 水 / 貓砂喺匿藏位附近可達
+- Day 4-7：仲完全匿 = 你嘅存在可能太強烈，反而畀多啲獨處空間
+- 加上夜晚喊：可能掛住兄弟姊妹（8 週主子啱啱離開窩）— 加滴答鐘喺毯下面（模仿心跳）+ 暖水袋包毛巾
+- 喊 + 唔食 + 萎靡 = 即去獸醫
 
-📋 **常見 Issue 3: Litter / potty 唔成功**
+📋 **常見問題 3：貓砂 / 如廁唔成功**
 
-對於 kitten:
-- Place 主子 in litter after meals + waking
-- 確認 box size + litter type same as source
-- 多 box if large apartment (Cat: N+1 box for N cats)
-- 唔好 punish accidents — clean with enzyme cleaner (prevents repeat)
-- 持續 >Day 5 唔 use: medical issue check (UTI common in young kittens)
+對於小貓：
+- 食完飯 + 起身後放主子入貓砂盆
+- 確認盆嘅大小 + 貓砂類型同來源一樣
+- 大單位多個盆（貓：N+1 盆對 N 隻貓）
+- 唔好罰意外 — 用酵素清潔劑清（防止重覆）
+- 持續超過 Day 5 唔用：要檢查醫療問題（年輕貓常見尿道炎）
 
-對於 puppy:
-- 8 週 puppy bladder very small — 每 1-2 hr potty trip
-- After meals + waking + play: immediate to pee pad
-- 唔好太快放 puppy free-roam — accidents = setback
-- 持續 >Week 2 唔 progress: behavioral consultation
+對於小狗：
+- 8 週小狗膀胱好細 — 每 1-2 小時去廁所
+- 食飯後 + 起身後 + 玩完後：即時去尿墊
+- 唔好太快畀小狗自由行動 — 意外 = 退步
+- 持續超過第 2 週冇進度：要做行為諮詢
 
-📋 **常見 Issue 4: 主子咬 / 抓你**
+📋 **常見問題 4：主子咬 / 抓你**
 
-Triage:
-- Play biting 正常 — 即刻 redirect to toy
-- 唔好用手做玩具訓練主子 (long-term problem)
-- 高音「ouch」+ ignore 1 分鐘 (mimics littermate teaching)
-- 持續 aggression beyond play: behavioral consultation (rare in 8 週 — usually under-socialization)
+分流：
+- 玩耍咬正常 — 即刻轉移去玩具
+- 唔好用手做玩具同主子玩（長遠出問題）
+- 高音「哎呀」+ 忽視 1 分鐘（模仿同窩兄弟姊妹教導）
+- 持續攻擊性超越玩耍範圍：要做行為諮詢（8 週主子罕見 — 通常係社交化不足）
 
-📋 **常見 Issue 5: 主子同 partner / family member 不熟**
+📋 **常見問題 5：主子同伴侶 / 家人唔熟**
 
-Triage:
-- 主子通常 first bond with primary caregiver (the one feeding most)
-- Partner / family 慢慢加入透過:
-  - Sit silently in room (no interaction demand)
-  - Hand treat once trust builds
-  - Take over 1 feeding session per day
-- 唔好強迫主子同陌生人 interact - lifelong fearful adult
+分流：
+- 主子通常先同主要照顧者（餵得最多嗰個）建立感情
+- 伴侶 / 家人慢慢加入透過：
+  - 喺房入面靜靜坐（唔要求互動）
+  - 等信任建立後手餵零食
+  - 接手每日 1 餐餵食
+- 唔好夾硬主子同陌生人互動 — 一世都驚人嘅成年主子
 
-📋 **常見 Issue 6: 鄰居投訴 (puppy 持續 cry)**
+📋 **常見問題 6：鄰居投訴（小狗持續喊）**
 
-Triage:
-- 8 週 puppy 頭幾晚 cry 正常 (missing litter)
-- Solutions:
-  - Crate 喺你床邊 first 2 週 (proximity reassurance)
-  - Heartbeat clock + warm pad
-  - 短期 anti-anxiety pheromone diffuser (Adaptil) HK$300
-- 主動同直接鄰居 communicate: 敲門 + 解釋 + 道歉 + 講時間
-- 持續 >2 週: vet consult (separation anxiety 藥短期 + 行為 plan)
+分流：
+- 8 週小狗頭幾晚喊正常（掛住窩）
+- 解決方法：
+  - 圍欄擺喺你床邊頭 2 週（接近令佢安心）
+  - 心跳鐘 + 暖墊
+  - 短期抗焦慮費洛蒙擴香（Adaptil）HK$300
+- 主動同直接鄰居溝通：敲門 + 解釋 + 道歉 + 講時間
+- 持續超過 2 週：獸醫諮詢（分離焦慮藥短期 + 行為計劃）
 
-🚨 **即去 vet signals (Day 1-7)**:
-- 持續 vomiting >2 episodes / 8 hr
-- Diarrhea + 血
-- 拒食 + 拒水 >24 hr
-- 見到 parasites
-- Lethargic + 唔玩 + 唔 respond to stimuli
+🚨 **即去獸醫訊號（Day 1-7）**：
+- 持續嘔吐超過 2 次 / 8 小時
+- 肚瀉 + 血
+- 拒食 + 拒水超過 24 小時
+- 見到寄生蟲
+- 萎靡 + 唔玩 + 對外界刺激冇反應
 - 呼吸困難
-- 突然 limping
+- 突然一拐一拐
 
-語氣：reassuring but not dismissive — 第一次 owner 嘅 concern valid，但唔係每個焦慮 = emergency。
+語氣：安撫但唔輕視 — 第一次做主人嘅擔憂合理，但唔係每個焦慮 = 緊急狀況。
 </PromptBlock>
 
-## 變化
+## 變化例子
 
-### 變化 1：領養 senior pet（5 歲以上）
+### 變化 1：領養年長寵物（5 歲以上）
 
-Senior pet adoption 嘅 dynamics 完全唔同：
+年長寵物領養嘅動態完全唔同：
 
-<PromptBlock label="變化 1 — Senior pet (5+) adoption onboarding">
-我領養 [5 歲 / 8 歲 / 10 歲+] 嘅 [species]，源自 [SPCA / surrender / rescue]。Adult pet 唔係 8 週 kitten — 完全唔同 approach。
+<PromptBlock label="變化 1 — 年長寵物（5 歲以上）領養適應">
+我領養 [5 歲 / 8 歲 / 10 歲以上] 嘅 [物種]，來源 [SPCA / 主人交回 / 救援]。成年寵物唔係 8 週小貓 — 完全唔同方法。
 
-請整 senior-specific 30 天 onboarding：
+請整針對年長寵物嘅 30 日適應：
 
-🐾 **Senior adopt 嘅獨特 challenge**
-- 已有 personality + habit pattern（可能有 trauma history）
-- 健康 baseline 未知（不像 kitten/puppy 平均健康）
-- Adaptation 慢過 young pet（established neural patterns）
-- 部分 senior pet 一世只 bond with 一個 caregiver
+🐾 **年長寵物領養嘅獨特挑戰**
+- 已有性格 + 習慣規律（可能有創傷歷史）
+- 健康基線未知（不像小貓小狗平均健康）
+- 適應慢過年輕寵物（神經規律已建立）
+- 部分年長寵物一世只同一個照顧者建立感情
 
-🗓 **Phase 1 — Day 1-7：慢慢 exposure**
-- 主子自己揀 pace — 真係自己揀（部分 senior pet 頭週完全匿正常）
-- 唔需要每日「playful」interaction — senior pet 可能 prefer quiet
-- Maintain 之前 routine 如果知道 (rescue 可能有 record)
+🗓 **階段 1 — Day 1-7：慢慢接觸**
+- 主子自己揀節奏 — 真係自己揀（部分年長寵物頭一週完全匿埋正常）
+- 唔需要每日「玩樂」互動 — 年長寵物可能想要安靜
+- 維持之前作息如果知道（救援可能有紀錄）
 
-🗓 **Phase 2 — Day 8-14：健康 baseline**
-- 第一次 vet visit Day 7-10:
-  - Full blood panel (senior baseline)
-  - Dental check (常見 senior issue)
-  - Arthritis assessment
-  - Vaccination history reconcile
-- Diet review: switch to senior formula 如未係
+🗓 **階段 2 — Day 8-14：健康基線**
+- 第一次睇獸醫 Day 7-10：
+  - 全套驗血（年長基線）
+  - 牙齒檢查（常見年長問題）
+  - 關節炎評估
+  - 疫苗歷史核對
+- 飲食檢視：轉年長配方如未轉
 
-🗓 **Phase 3 — Day 15-30：Personality 浮現**
-- 部分 trauma signs surface 喺 Week 3-4 (not Week 1)
-- Identify trigger pattern (specific noise / object / behavior)
-- 行為 plan 如需要 (consult cat / dog behaviorist)
-- Bond 進度比 kitten 慢 — Year 1 才真正「settle in」
+🗓 **階段 3 — Day 15-30：性格浮現**
+- 部分創傷跡象第 3-4 週先浮現（唔係第 1 週）
+- 認清誘發規律（特定聲音 / 物件 / 行為）
+- 行為計劃如需要（諮詢貓 / 狗行為治療師）
+- 感情進度比小貓慢 — 第 1 年先真正「安頓」
 
-⚠️ **調整 expectation**:
-- Day 30 review: senior pet 可能仲 cautious — 正常
-- 健康 issue 可能頭 3-6 個月浮現 — financial buffer 重要
-- 鐘意 senior pet 嘅 owner share 一個 trait: 耐心 + 唔比較
+⚠️ **調整期望**：
+- Day 30 檢視：年長寵物可能仲謹慎 — 正常
+- 健康問題可能頭 3-6 個月浮現 — 財政儲備重要
+- 鍾意年長寵物嘅主人有一個共通點：耐性 + 唔比較
 
-語氣：respect for senior pet's life history，唔好 try to「fix」existing personality。
+語氣：尊重年長寵物嘅人生歷史，唔好嘗試「修正」現有性格。
 </PromptBlock>
 
-### 變化 2：已有 resident pet — Second pet introduction
+### 變化 2：屋企已有寵物 — 第二隻寵物介紹
 
-如果你屋企有現有 pet，新加入需要小心 introduction：
+如果你屋企有現有寵物，新加入需要小心介紹：
 
-<PromptBlock label="變化 2 — Second pet 介紹 protocol">
-我屋企有 [resident pet — species + age + temperament]。我即將 adopt [new pet — same / different species + age]。
+<PromptBlock label="變化 2 — 第二隻寵物介紹程序">
+我屋企有 [現有寵物 — 物種 + 年齡 + 性格]。我即將領養 [新寵物 — 同 / 唔同物種 + 年齡]。
 
-請整 **安全 introduction protocol** (避免常見 mistake — too fast = lifelong tension)：
+請整 **安全介紹程序**（避免常見錯誤 — 太快 = 一世緊張）：
 
-🗓 **Phase 1 — Week 1: No visual contact**
-- New pet in separate room, 門關住
-- 唔好 face-to-face yet
-- 每日交換氣味:
-  - 換 blanket / bed between rooms
-  - 用同一塊布抹兩隻 pet 嘅 cheek，畀對方聞
-- Resident pet routine 不變 — 唔好因為新嚟者 disrupt resident
+🗓 **階段 1 — 第 1 週：冇視覺接觸**
+- 新寵物喺獨立房間，門關住
+- 唔好面對面
+- 每日交換氣味：
+  - 換毛毯 / 床喺兩房之間
+  - 用同一塊布抹兩隻寵物嘅面珠，畀對方聞
+- 現有寵物作息不變 — 唔好因為新嚟者打亂現有寵物
 
-🗓 **Phase 2 — Week 2: 隔住門 / barrier introduction**
-- 門打開少少或者 baby gate
-- 兩隻 pet 短暫見對方 + treat reward
-- 短期 sessions (5 mins x 2-3 / day)
-- 唔 force interaction — 觀察 body language
+🗓 **階段 2 — 第 2 週：隔住門 / 屏障介紹**
+- 門打開少少或者用嬰兒柵欄
+- 兩隻寵物短暫見對方 + 零食獎勵
+- 短時間環節（5 分鐘，每日 2-3 次）
+- 唔好夾硬互動 — 觀察身體語言
 
-🗓 **Phase 3 — Week 3: 監督下同房**
-- 兩隻同房，兩隻牽住 / 新嚟者喺 carrier
-- 5-10 mins at a time, treats throughout
-- 任何 hissing / lunging = 下次 session 退返 Phase 2
-- Resident pet's POV: 確認你「冇 neglect」 — 每日同 resident 1-on-1 time
+🗓 **階段 3 — 第 3 週：監督下同房**
+- 兩隻同房，兩隻牽住 / 新嚟者喺籠入面
+- 每次 5-10 分鐘，全程獎勵
+- 任何嘶叫 / 撲擊 = 下次環節退返階段 2
+- 現有寵物角度：確認你「冇忽略」佢 — 每日同現有寵物一對一時間
 
-🗓 **Phase 4 — Week 4+: 慢慢自由 interaction**
-- 監督下自由 interaction
-- 分開 feeding stations (爭食物常見衝突源)
-- 分開 resting spots (每隻 pet 有自己嘅 safe zone)
-- Resident pet 優先待遇維持 (你先食，先打招呼)
+🗓 **階段 4 — 第 4 週+：慢慢自由互動**
+- 監督下自由互動
+- 分開餵食位置（爭食常見衝突源）
+- 分開休息位置（每隻寵物有自己嘅安全區）
+- 維持現有寵物優先待遇（你先食，先打招呼）
 
-🚩 **紅燈 — 慢落 protocol**:
-- Resident pet 唔食 / withdraws
-- Resident pet aggressive
-- New pet shows extreme stress (持續匿即使 >Day 14)
-- Resident pet starts marking / spraying (territorial response)
+🚩 **紅燈 — 放慢程序**：
+- 現有寵物唔食 / 退縮
+- 現有寵物攻擊性
+- 新寵物表現極大壓力（持續匿埋超過 Day 14）
+- 現有寵物開始噴尿（地盤反應）
 
-🎯 **長遠 success**:
-- 大部分 properly introduced pet 6-12 個月成 friendly companions
-- 部分 (about 20%) tolerate but never close - 可接受 outcome
-- 極少數 (少於 5%) cannot coexist - 試足 6 個月後考慮 rehome
+🎯 **長遠成功**：
+- 大部分正確介紹嘅寵物 6-12 個月後成為好朋友
+- 部分（約 20%）容忍但永遠唔親近 — 可接受結果
+- 極少數（少於 5%）無法共存 — 試足 6 個月後考慮重新安置
 
-語氣：強調耐心。Wrong intro = years of tension. Done right = lifelong companions。
+語氣：強調耐心。錯誤介紹 = 多年緊張。做得對 = 一世伴侶。
 </PromptBlock>
 
-### 變化 3：街上撿到嘅 pet — Rescue 從零
+### 變化 3：街上撿到嘅寵物 — 由零救援
 
-街上撿到 pet 嘅 onboarding 完全唔同 — 健康 unknown + history unknown：
+街上撿到嘅寵物適應完全唔同 — 健康未知 + 歷史未知：
 
-<PromptBlock label="變化 3 — 街上 rescue pet 處理">
-我喺街上 [區] 撿到一隻 [估計年齡 + species]。狀況: [瘦 / 受傷 / friendly / 驚 / matted / 跳蚤可見]。我想 keep 但首先要 stabilize。
+<PromptBlock label="變化 3 — 街上救援寵物處理">
+我喺街上 [區] 撿到一隻 [估計年齡 + 物種]。狀況：[瘦 / 受傷 / 友善 / 驚 / 打結 / 跳蚤可見]。我想留低但首先要穩定佢。
 
-請整即時 rescue protocol：
+請整即時救援程序：
 
-⚠️ **Hour 0-24：Stabilize + assess**
+⚠️ **頭 24 小時：穩定 + 評估**
 
-- 安全 first:
-  - 用 carrier / 紙箱 transport (唔好直接抱 — 街 pet 可能 panic bite / scratch)
-  - 戴 thick towel as barrier
-  - 唔好接近明顯 aggressive / 受傷嘅 pet — call SPCA (2802 0501) 求助
+- 安全第一：
+  - 用籠 / 紙箱運送（唔好直接抱 — 街寵物可能 panic 咬 / 抓）
+  - 戴厚毛巾做屏障
+  - 唔好行埋明顯有攻擊性 / 受傷嘅寵物 — 打畀 SPCA（2802 0501）求助
 
-- 即時醫療:
-  - 即去 vet (24-hr emergency if 嚴重脫水 / 受傷)
-  - 同 vet brief: 街上 rescue, 不知歷史
-  - First check:
-    - Microchip scan (可能 someone's lost pet, not stray)
-    - Parasites (fleas, ticks, worms — 街 pet 幾乎一定有)
-    - 傷口 / infections
-    - FIV / FeLV test (cat) / heartworm test (dog)
-    - Vaccination 開始
+- 即時醫療：
+  - 即去獸醫（24 小時急症室如嚴重脫水 / 受傷）
+  - 同獸醫講明：街上救援，唔知歷史
+  - 第一次檢查：
+    - 掃晶片（可能係人遺失嘅寵物，唔係流浪）
+    - 寄生蟲（跳蚤、牛蜱、蟲 — 街寵物幾乎一定有）
+    - 傷口 / 感染
+    - FIV / FeLV 測試（貓）/ 心絲蟲測試（狗）
+    - 開始疫苗
 
-- 隔離:
-  - 如有 existing pet, 街上 rescue 完全分開 first 2 週 (預防疾病傳染)
-  - Quarantine in 廁所 / 細房間 with own supplies
-  - Wash hands between handling
+- 隔離：
+  - 如有現有寵物，街上救援完全分開頭 2 週（防止傳染）
+  - 隔離喺廁所 / 細房間，自己有用品
+  - 換手後洗手
 
-🏛 **HK 法律 reality**
-- 狗：強制 chip + license — scan chip 即知 owner。冇 chip 嘅 stray dog 撿到須報 AFCD (1823) 24 hr 內
-- 貓: 唔強制 chip，但建議仍 report to AFCD lost pet database — 可能有 owner 揾緊
+🏛 **HK 法律現實**
+- 狗：強制晶片 + 牌照 — 掃晶片即知主人。冇晶片嘅流浪狗撿到須報漁護署（1823）24 小時內
+- 貓：唔強制晶片，但建議仍報漁護署遺失寵物資料庫 — 可能有主人搵緊
 
-🗓 **Day 1-14: 健康 stabilize + check ownership claim**
+🗓 **Day 1-14：健康穩定 + 檢查擁有權聲明**
 
-- AFCD wait period: 通常 4-7 days for chip lookup + posting public lost pet board
-- 期間 you can foster (不 own — 律師 perspective)
-- 同時:
-  - Treat parasites
-  - Vaccination series 開始
-  - Spay / neuter 商討 (鼓勵成功率 stray adopt)
+- 漁護署等待期：通常 4-7 日畀晶片查核 + 公開遺失寵物公告
+- 期間你可以暫養（唔係擁有 — 律師角度）
+- 同時：
+  - 處理寄生蟲
+  - 開始疫苗系列
+  - 商討絕育（鼓勵成功率流浪領養）
 
-🗓 **Day 15+: 如果確認冇 owner**
+🗓 **Day 15+：如確認冇主人**
 
-- 正式 adopt：
-  - SPCA / AFCD paperwork
-  - License (dog mandatory)
-  - Chip 登記你嘅資料
-- 開始 standard new pet onboarding (本文 Phase 1-3) BUT 注意 unknown history:
-  - 可能有 trauma triggers
-  - Socialization gaps possible
-  - 行為 surprises Week 3-6
+- 正式領養：
+  - SPCA / 漁護署文件
+  - 牌照（狗強制）
+  - 晶片登記你嘅資料
+- 開始標準新寵物適應（本文階段 1-3）但要留意未知歷史：
+  - 可能有創傷誘發物
+  - 社交化空白可能存在
+  - 第 3-6 週可能行為驚喜
 
-🆘 **如果你 keep 唔到**
-- 老實評估 Day 1: keeping street pet 長期 = 7-15 年 commitment
-- Foster + 同 SPCA / rescue 合作 find adopter — 比 abandon 好
-- 唔好「return to street」 — once removed from territory, releasing 等於死刑 (territory taken by others)
+🆘 **如果你留唔到**
+- 老實 Day 1 評估：留低街上寵物長期 = 7-15 年承諾
+- 暫養 + 同 SPCA / 救援機構合作搵領養者 — 比掉低好
+- 唔好「放返街上」 — 一旦離開地盤，放返等於死刑（地盤已被其他寵物佔）
 
-語氣：respect for the rescue impulse + reality check on commitment。
+語氣：尊重救援衝動 + 對承諾現實檢查。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-你 adopt 主子嗰一刻，你同時做兩樣事:
+你領養主子嗰一刻，你同時做兩樣嘢：
 
-**1. 你 commit 一個 7-15 年 caretaking relationship**。主子嘅 lifespan 大部分時間你哋會係 daily presence 喺對方 life。
-**2. 你進入一個已存在嘅 narrative**——主子 8 週前已經有 personality genetic + 母親 nurturing + littermate dynamics 嘅 first 8 weeks experience。
+1. **你承諾一段 7-15 年嘅照顧關係**。主子嘅一生大部分時間，你哋會係對方生活嘅日常存在。
+2. **你進入一個已存在嘅故事**——主子 8 週前已經有性格基因 + 母親照顧 + 同窩兄弟姊妹動態嘅頭 8 週經歷。
 
-呢個 mindset 嘅 reframe：你嘅 30 日 onboarding plan 唔係「training 主子」——係**你同主子互相 learn 嘅 first chapter**。
+呢個思維嘅轉變：你嘅 30 日適應計劃唔係「訓練主子」——係**你同主子互相學習嘅第一章**。
 
-主子學識你嘅 voice、你嘅 schedule、你 sit on sofa 嘅哪個 spot 係 favourite。同時你學識主子嘅 tail flick 何時 means 興奮 vs frustration、佢匿何時正常 vs 要擔心、佢 silence 何時 calm vs withdrawn。
+主子學識你嘅聲音、你嘅作息、你坐喺梳化邊個位係最鍾意。同時你學識主子尾巴擺幾時表示興奮 vs 沮喪、佢匿埋幾時正常 vs 要擔心、佢沉默幾時係平靜 vs 退縮。
 
-呢個 mutual learning curve **未來 14 年都 ongoing**——你 Year 5 仲會 surprise 主子 shows new trick。
+呢個互相學習嘅曲線**將來 14 年都會持續**——你 Year 5 仲會驚訝主子展現新技倆。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **Day 1 唔 perfect 唔代表將來**。第一晚主子 cry 唔係 sign 你 failed — 係 sign 主子經歷 huge transition。
-- ⚠️ **唔好比較你嘅主子同 social media 嘅「instantly cuddle」主子**。鏡頭唔 show Week 3 嘅 vet visit / Week 4 嘅 accidents。
-- 🆘 **Day 30 仲 struggling = call vet + 唔需要羞愧**。Adoption return rate 喺 honest discussion 之下 manageable。主子應該 thrive with right family — not necessarily yours, and that's OK.
+- ✅ **Day 1 唔完美唔代表將來**。第一晚主子喊唔係代表你失敗 — 係代表主子經歷緊巨大轉變。
+- ⚠️ **唔好比較你嘅主子同社交媒體嗰啲「即刻攬攬」嘅主子**。鏡頭唔會 show 第 3 週嘅獸醫探訪 / 第 4 週嘅意外。
+- 🆘 **Day 30 仲掙扎中 = 打畀獸醫 + 唔需要羞愧**。領養退回率喺老實討論之下可以管理。主子應該喺合適家庭茁壯 — 唔一定係你，咁都 OK。
 
 歡迎主子嚟到你屋企。下一個 14 年精彩開始。
