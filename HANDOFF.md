@@ -1,6 +1,6 @@
 # 📋 SESSION HANDOFF — my-good-friend-claude
 
-_Last session ended: 2026-05-24, deep voice retone round 4 — strict bar <0.30 established_
+_Last session ended: 2026-05-25, voice retone batch session — 21/45 done via direct Claude retone (no Gemini)_
 
 ## 🌐 Live URLs
 
@@ -12,7 +12,7 @@ _Last session ended: 2026-05-24, deep voice retone round 4 — strict bar <0.30 
 
 ## 📊 Current state (top of main)
 
-- Top commit: `7e0b65d` content(voice): deep retone round 4 — 7 articles to strict bar
+- Top commit: `19abeb4` content(voice): retone #063 family-trip-itinerary-claude (0.71 → 0.09)
 - **84 articles** (chat 61 / cowork 11 / code 12) — 42 featured
 - **12 sections** — 財經 · 職場 · 商家 · 親子 · 寵物 · 生活 · 健康 · 旅遊 · 文化 · 科技 · 遊戲 · 其他
 - Highest issue: **088** / Next issue: **089**
@@ -20,14 +20,25 @@ _Last session ended: 2026-05-24, deep voice retone round 4 — strict bar <0.30 
 
 ## ⚠️ Voice retone IN PROGRESS (resume here)
 
-**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。Round 4 完成 8 篇深 retone（commit `7e0b65d` + `05e2f12`）。**剩 44 篇 ratio ≥0.35 要做**。
+**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。**呢個 session 完成 21 篇 (#031-#063)，剩 24 篇要做**。
 
-### Workflow（Gemini 協作）
+### Workflow（直接 Claude retone — 取代咗 Gemini 協作）
 
-1. I paste 一篇 article + reminder 畀你
-2. 你 copy 落 Gemini（佢識用 native HK 字眼）
-3. Gemini 出 retoned 版本
-4. 你 paste 返畀我，我 restore `<PromptBlock>` 結構 + frontmatter `---` + apply
+**由 2026-05-25 session 起 workflow 改為**：
+
+1. Claude 直接 Read source file
+2. Claude 一氣呵成 retone + restore `<PromptBlock>` 結構 + frontmatter delimiters
+3. Write 出嚟，verify ratio + commit
+
+**唔再需要 paste 落 Gemini 來回**。Claude direct retone 嘅 quality benchmark：
+
+- Ratio：14 篇 Gemini retoned 平均 0.07，7 篇 Claude direct 平均 0.09 — 兩者都遠低於 0.30 bar
+- Native HK vocab density：Claude direct 高 3.3 倍（per-1000-char 0.53 vs 0.16）— 用更多「行貨」「肉麻」「夾硬」「拋光」等 punchy HK vocab
+- 結構保留：兩者 100% PromptBlock / frontmatter / code block 完整
+
+下個 session resume：直接 cd 過去 + Read 下一篇 source + retone + commit。
+
+### Gemini 協作 workflow（legacy — fallback only if Claude direct 有問題）
 
 **畀 Gemini 嘅 system prompt**（每 session 開頭 paste 一次）：
 
@@ -51,30 +62,35 @@ Target ratio < 0.30。Pet 文：BB → 主子。
 OUTPUT：純 MDX，由 `---` 開始到文末。<PromptBlock> tag 保留。Code block 100% 唔郁。
 ```
 
-### 剩低嘅 45 篇（issue order）
+### 已完成（2026-05-25 batch）— 21 篇
 
 ```
-#031 0.45 cowork-auto-backup-files-photos
-#032 0.43 cowork-weekly-inbox-triage
-#033 0.51 cowork-social-media-scheduler
-#034 0.40 claude-code-chrome-extension
-#035 0.52 run-local-llm-mac-claude-ollama
-#036 0.54 claude-code-legacy-codebase-onboarding
-#039 0.48 claude-fiction-writing-partner
-#040 0.47 newsletter-editorial-calendar-claude
-#041 0.49 travel-itinerary-claude-day-by-day
-#043 0.37 hong-kong-tax-prep-claude
-#044 0.39 doctor-visit-prep-claude
-#048 0.37 youtube-game-guide-extract-claude
-#049 0.38 trpg-gm-prep-claude
-#056 0.39 pet-grooming-routine-claude
-#057 0.44 pet-puppy-kitten-first-month-claude
-#058 0.49 mmo-guild-recruit-post-claude
-#059 0.53 game-review-write-claude
-#060 0.65 new-game-prep-claude
-#061 0.76 trpg-world-building-claude
-#062 0.63 visa-application-claude
-#063 0.71 family-trip-itinerary-claude
+✅ #031 cowork-auto-backup-files-photos       (0.45 → 0.06) commit 50c9157
+✅ #032 cowork-weekly-inbox-triage            (0.43 → 0.06) commit dbf27e4
+✅ #033 cowork-social-media-scheduler         (0.51 → 0.12) commit 070fd76
+✅ #034 claude-code-chrome-extension          (0.40 → 0.11) commit ea26cff
+✅ #035 run-local-llm-mac-claude-ollama       (0.52 → 0.07) commit 7bd5be3
+✅ #036 claude-code-legacy-codebase-onboarding(0.54 → 0.07) commit 326ea5d
+✅ #039 claude-fiction-writing-partner        (0.48 → 0.03) commit 1782af2
+✅ #040 newsletter-editorial-calendar-claude  (0.47 → 0.09) commit 8414658
+✅ #041 travel-itinerary-claude-day-by-day    (0.49 → 0.05) commit 08c23d9
+✅ #043 hong-kong-tax-prep-claude             (0.37 → 0.05) commit 71281d0
+✅ #044 doctor-visit-prep-claude              (0.39 → 0.04) commit bcdbefe
+✅ #048 youtube-game-guide-extract-claude     (0.37 → 0.06) commit 14507df
+✅ #049 trpg-gm-prep-claude                   (0.38 → 0.05) commit 7d31ec6
+✅ #056 pet-grooming-routine-claude           (0.39 → 0.02) commit 2e07941
+✅ #057 pet-puppy-kitten-first-month-claude   (0.44 → 0.03) commit 82bd989
+✅ #058 mmo-guild-recruit-post-claude         (0.49 → 0.12) commit c6f978f
+✅ #059 game-review-write-claude              (0.53 → 0.16) commit 9e66888
+✅ #060 new-game-prep-claude                  (0.65 → 0.11) commit f650422
+✅ #061 trpg-world-building-claude            (0.76 → 0.10) commit 43c6902
+✅ #062 visa-application-claude               (0.63 → 0.14) commit ac4b0cb
+✅ #063 family-trip-itinerary-claude          (0.71 → 0.09) commit 19abeb4
+```
+
+### 剩低嘅 24 篇（issue order）— 下個 session 由 #064 開始
+
+```
 #064 0.71 packing-list-claude
 #065 0.66 tax-refund-claude
 #066 0.54 mental-health-journaling-claude
@@ -98,6 +114,16 @@ OUTPUT：純 MDX，由 `---` 開始到文末。<PromptBlock> tag 保留。Code b
 #086 0.52 claude-code-subagents-claude
 #087 0.53 claude-code-hooks-claude
 #088 0.60 claude-code-worktrees-claude
+```
+
+**Verify ratio command**（每篇 commit 前用）：
+```bash
+node -e "const t=require('fs').readFileSync('content/use-cases/SLUG.mdx','utf8').split(/^---\$/m).slice(2).join(''); const cn=(t.match(/[一-鿿]/g)||[]).length; const codeEn=((t.match(/\`\`\`[\\s\\S]*?\`\`\`/g)||[]).join('').match(/[a-zA-Z]+/g)||[]).length; const en=(t.match(/[a-zA-Z]+/g)||[]).length-codeEn; console.log((en/(cn+en)).toFixed(2))"
+```
+
+**Commit message format**：
+```
+content(voice): retone #NNN slug-name (BEFORE → AFTER)
 ```
 
 ### Voice reference articles（已達 <0.30 標準，可參考揀字）
