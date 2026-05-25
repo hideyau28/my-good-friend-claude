@@ -1,5 +1,5 @@
 ---
-title: "TRPG / D&D GM 開團前：用 Claude 生 NPC + 場景 + 突發劇情"
+title: "TRPG / D&D GM 開團前：用 Claude 諗 NPC + 場景 + 突發劇情"
 slug: "trpg-gm-prep-claude"
 issue: 49
 publishedAt: 2026-05-22
@@ -10,8 +10,8 @@ subcategory: "跑團助手"
 heroImage: "/hero/trpg-gm-prep-claude.webp"
 difficulty: 2
 timeMinutes: 15
-toolsNeeded: ["Claude Chat", "現有 campaign notes / setting bible（如有）"]
-description: "GM 開團前 1 個鐘 prep？用 Claude 生 NPC personality + 突發 encounter + 玩家走偏時嘅 backup hook。香港粵語桌遊圈、D&D 5e / Call of Cthulhu / Coriolis 通用。"
+toolsNeeded: ["Claude Chat", "現有跑團筆記 / 世界觀設定 (如有)"]
+description: "GM 開團前 1 個鐘準備？用 Claude 構思 NPC 性格 + 突發事件 + 玩家行錯路時嘅後備誘餌。香港廣東話桌遊圈、D&D 5e / Call of Cthulhu / Coriolis 通用。"
 keywords: ["trpg gm", "d&d 跑團", "ai 生 npc", "桌遊 香港", "call of cthulhu", "coriolis", "claude gm tool"]
 related: ["claude-fiction-writing-partner", "jp-rpg-translation-claude", "wedding-speech-claude-hong-kong"]
 featured: false
@@ -19,264 +19,265 @@ featured: false
 
 ## 情境
 
-星期五晚 9 點，明日下午 2 點開團。
+星期五晚 9 點，聽日下晝 2 點開團。
 
-4 個玩家。Session 5。佢哋上次喺一個 tavern 度遇到一個 mysterious noble，諗住跟住做 patron quest。你之前 prep 嘅 plot 係：noble 派佢哋去鎮外山洞 retrieve 一個 artefact。
+4 個玩家。第 5 場 (Session 5)。佢哋上次喺一間酒館度遇到一個神秘貴族，諗住跟住接佢嘅任務。你之前準備好嘅劇情係：貴族派佢哋去鎮外山洞搵返件法器。
 
-但你打 group chat：
-- 玩家 A：「我想 background check 嗰個 noble」
-- 玩家 B：「我去 tavern 問下其他 patron 聽過呢個人嗎」
-- 玩家 C：「我順便買隻 horse」
-- 玩家 D：「我問 tavern keeper 有冇 rumours 關於山洞」
+但你打開 group chat：
 
-⋯⋯你哋仲未行去你 prep 嘅山洞。
+- 玩家 A：「我想查下嗰個貴族嘅底細」
+- 玩家 B：「我去酒館問下其他酒客有冇聽過呢個人」
+- 玩家 C：「我順便買隻馬」
+- 玩家 D：「我問酒館老闆有冇關於山洞嘅傳聞」
 
-呢個就係 TRPG GM 永遠嘅 prep tax：**玩家會行去你冇 prep 嘅方向**。你可以：
+⋯⋯你哋仲未行去你準備好嘅山洞。
 
-- 強制 railroad（破壞 player agency）
-- 即場硬作（quality drop，consistency 出事）
-- 預先 prep 30 個 contingency（時間負擔太大）
+呢個就係 TRPG GM 永遠要交嘅準備稅：**玩家會行去你冇準備嘅方向**。你可以：
 
-呢篇用 Claude 喺**開團前 1 個鐘**，prep 一啲 modular building blocks——NPC、scene、hook——等你即場可以 mix-and-match，唔需要硬作。
+- 強制拉佢哋返正軌 (railroad)（破壞玩家自主權）
+- 即場硬作（質素下降，前後矛盾出事）
+- 預先準備 30 個應變方案（時間負擔太大）
+
+呢篇教你用 Claude 喺**開團前 1 個鐘**，準備一啲模組化嘅積木——NPC、場景、劇情誘餌 (hook)——等你即場可以隨時拼湊，唔需要硬作。
 
 ## 跟住做
 
-### 1. 餵 setting context 畀 Claude
+### 1. 餵世界觀背景畀 Claude
 
-第一步永遠係：**Claude 唔知你個 campaign。**唔好咁就問「畀我一個 noble NPC」。先 paste 你個 setting bible（如果你冇，寫個 200 字 summary）：
+第一步永遠係：**Claude 唔知你個跑團世界係點。**唔好一開波就叫「畀個貴族 NPC 我」。先貼上你個世界觀設定（如果你冇，寫個 200 字摘要）：
 
-<PromptBlock label="完整 prompt — Campaign context setup">
-我做緊 GM 跑緊一個 [系統名，例：D&D 5e / Call of Cthulhu / Coriolis / 自家系統]，session [N]，4 個玩家。
+<PromptBlock label="完整 prompt — 跑團背景設定">
+我做緊 GM 跑緊一個 [系統名，例：D&D 5e / Call of Cthulhu / Coriolis / 自家系統]，第 [N] 場，4 個玩家。
 
-📚 **Setting**：
-- World：[簡單描述，2-3 句]
-- 時代 / tech level：[例：medieval fantasy / 1920s cosmic horror / sci-fi 探索]
-- 我哋而家喺：[city / region / planet / station 名 + 簡單描述]
+📚 **世界觀設定 (Setting)**：
+- 世界：[簡單描述，2-3 句]
+- 時代 / 科技水平：[例：中世紀奇幻 / 1920 年代宇宙恐怖 / 科幻探索]
+- 我哋而家喺：[城市 / 地區 / 星球 / 太空站名 + 簡單描述]
 
-🎭 **Tone**：
-- [serious / pulpy / horror / political intrigue / comedy / 混合]
-- 玩家 expectation：[combat-heavy / RP-heavy / mystery / 探索 / mix]
+🎭 **氣氛 (Tone)**：
+- [嚴肅 / pulp 雜誌風 / 恐怖 / 政治角力 / 搞笑 / 混合]
+- 玩家期望：[多戰鬥 / 多角色扮演 / 懸疑 / 探索 / 混合]
 
-👥 **PC（玩家角色）**：
-- A 玩 [class/role/概念]，動機：[]
+👥 **玩家角色 (PC)**：
+- A 玩 [職業/定位/概念]，動機：[]
 - B 玩 ...
 - C 玩 ...
 - D 玩 ...
 
-🧠 **上次 session 結局**：
+🧠 **上次結局**：
 - 場景發生喺：[]
 - 玩家最後決定：[]
-- 未解嘅 thread：[]
+- 未解嘅伏線：[]
 - 我預咗想推進去：[]
 
-🚨 **可能會出事嘅 contingency**：
-我預玩家會做 A，但**可能會做 B / C / D**：
+🚨 **可能會出事嘅應變情況**：
+我預計玩家會做 A，但**可能會做 B / C / D**：
 - B = []
 - C = []
 
-下面我會 ask 你幫我 prep 唔同 building block — 請記住呢個 setting + tone。Reply 「Got it」我就開始。
+下面我會叫你幫我準備唔同嘅模組積木 — 請記住呢個設定 + 氣氛。回覆「收到」我就開始。
 
-語氣：好似一個玩 TRPG 嘅 GM friend 同你 brainstorm，唔係 dump 行貨 fantasy template。
+語氣：好似一個玩 TRPG 嘅 GM 朋友同你一齊度橋，唔係畀啲行貨奇幻範本我。
 </PromptBlock>
 
-⚠️ **Pro tip**：將呢個 base prompt 存成 Claude Project 嘅 system instruction，之後成個 campaign 都唔使重 paste。
+⚠️ **專業提示**：將呢個基本 prompt 存成 Claude Project 嘅系統指令，之後成個跑團活動都唔使重新貼上。
 
-### 2. 即場 prep 5 個 modular blocks
+### 2. 即場準備 5 個模組積木
 
-收到 Claude「Got it」之後，逐個 ask：
+收到 Claude「收到」之後，逐個要求：
 
-**Block 1：3 個 NPC**
+**積木 1：3 個 NPC**
 
-<PromptBlock label="Block 1 — 3 個 modular NPC">
-畀我 3 個 NPC，喺呢個 area 嘅。每個 NPC 我可以**plug 入任何 scene**（tavern / 街市 / political meeting / accident），所以唔好太 setting-specific。
+<PromptBlock label="積木 1 — 3 個模組化 NPC">
+畀我 3 個 NPC，喺呢個地區嘅。每個 NPC 我可以**插入任何場景**（酒館 / 街市 / 政治會議 / 意外現場），所以唔好太特定設定。
 
-每個 NPC：
+每個 NPC 要有：
 
-- **Name** + race / class hint
-- **One-line 點認得佢**（physical / verbal tic — 例：「成日清喉嚨」/「個 ring 滑入 finger 又滑出」）
-- **Want** — 想要乜（surface）
-- **Need** — 真正缺乜（hidden，可能 conflict with want）
-- **Secret** — 1 個如果 PC dig 深啲會搵到嘅嘢
-- **Plot hook** — 點同 PC 結合（quest / red herring / contact）
-- **Voice** — 我點 act 佢（accent / cadence / vocabulary）
+- **名** + 種族 / 職業暗示
+- **一句話點認得佢**（外表 / 說話小動作 — 例：「成日清喉嚨」/「隻戒指喺手指滑上滑落」）
+- **表面欲望 (Want)** — 想要乜
+- **內在需求 (Need)** — 真正缺乜（隱藏嘅，可能同表面欲望有衝突）
+- **秘密** — 1 個如果玩家查深啲會搵到嘅嘢
+- **劇情誘餌 (Plot hook)** — 點樣同玩家扯上關係（任務 / 煙幕 / 聯絡人）
+- **演繹方式 (Voice)** — 我點樣扮演佢（口音 / 語速 / 用詞）
 
-唔好搞行貨「tall mysterious stranger with hood」。要有 specific texture。
+唔好搞行貨「笠住冷帽嘅高大神秘陌生人」。要有具體質感。
 </PromptBlock>
 
-**Block 2：1 個突發 scene**
+**積木 2：1 個突發場景**
 
-<PromptBlock label="Block 2 — 1 個突發 scene（玩家走偏時用）">
-畀我 1 個 dynamic scene，當玩家 detour 唔跟我 plot 嘅時候我可以 deploy。
+<PromptBlock label="積木 2 — 1 個突發場景（玩家走偏時用）">
+畀我 1 個動態場景，當玩家偏離我嘅劇情時可以即場部署。
 
 要求：
-- **Setup**：3-4 句，emerging tension（唔係 random encounter，要有原因發生）
-- **3 個 entry point**：玩家 might trigger 嘅 3 種方式（passive observe / active intervene / accidentally caught）
-- **2-3 個 NPC**（reuse Block 1 或新角，自己決定）
-- **Goal / stakes**：scene 解決就乜結果，唔解決就乜後果
-- **Twist trigger**：scene 嘅中段如果玩家做咗 X，twist 變 Y
-- **Exit doors**：scene 完之後 lead 去 3 個 different next-scene direction（唔好 dead-end）
-- **Connect 返我主 plot 嘅 thread**：scene 入面 plant 一個 hint 接 main plot
+- **設定**：3-4 句，逐漸升溫嘅張力（唔係隨機遇敵，要有原因發生）
+- **3 個介入點**：玩家可能會觸發嘅 3 種方式（被動觀察 / 主動介入 / 意外捲入）
+- **2-3 個 NPC**（重用積木 1 或新角色，你自己決定）
+- **目標 / 賭注**：場景解決咗有咩結果，唔解決有咩後果
+- **轉折觸發點**：場景中段如果玩家做咗 X，局勢會突變成 Y
+- **出口**：場景完咗之後帶出 3 個唔同嘅下一場景方向（唔好變掘頭路）
+- **連返我主線劇情**：場景入面埋下一個線索接駁主線
 </PromptBlock>
 
-**Block 3：1 個 combat encounter**
+**積木 3：1 場戰鬥遭遇**
 
-<PromptBlock label="Block 3 — 1 個 combat encounter (balanced + interesting)">
-畀我 1 個 combat encounter，[system 嘅 balanced enemy budget — 例：D&D 5e CR 5 for level 5 party of 4]。
+<PromptBlock label="積木 3 — 1 場戰鬥遭遇（平衡 + 有趣）">
+畀我 1 場戰鬥遭遇，[系統嘅平衡敵人預算 — 例：D&D 5e CR 5 對 4 人 5 級隊伍]。
 
 要求：
-- **環境 terrain**：3 個 distinct features（柱、池、邊緣、燃燒物等）影響 tactics
-- **敵人 mix**：唔好 4 隻同 stat 嘅 monster — 要 role variety（striker / controller / threat / support）
-- **戰術 trigger**：第 X round 或 boss HP 50% 時，敵人 do XX（change up）
-- **逃跑 / 投降 option**：boss reach low HP 時，PC 可以 choose mercy / kill / interrogate，每個 branch 有後果
-- **Loot + clue**：戰後 PC 可以 search 到嘅 3 樣嘢，其中 1 樣連返 main plot
+- **環境地形**：3 個明顯特徵（柱、水池、懸崖邊、燃燒物等）會影響戰術
+- **敵人組合**：唔好 4 隻同數值嘅怪 — 要有角色多樣性（打手 / 控場 / 威脅核心 / 輔助）
+- **戰術觸發點**：第 X 回合或 boss 血量跌到 50% 時，敵人會做 XX（改變戰術）
+- **逃跑 / 投降選項**：boss 血量低時，玩家可以揀放過 / 殺死 / 盤問，每個分支有後果
+- **戰利品 + 線索**：戰後玩家可以搜到嘅 3 樣嘢，其中 1 樣連返去主線
 </PromptBlock>
 
-**Block 4：3 個 rumour / 街市 chatter**
+**積木 4：3 個傳聞 / 街坊八卦**
 
-<PromptBlock label="Block 4 — 3 個 rumour PC 喺 tavern / 街市可能聽到">
-畀我 3 個 rumour 玩家可以喺 social space 聽到。
+<PromptBlock label="積木 4 — 3 個玩家喺酒館 / 街市可能聽到嘅傳聞">
+畀我 3 個玩家可以喺社交場合聽到嘅傳聞。
 
-每個：
+每個要有：
 - **內容**（1-2 句）
-- **真實性**：true / mostly true / red herring / outright lie
-- **來源 hint**：邊個 social class / 行業先傳呢個 rumour
-- **Connect 點**：呢個 rumour 同邊個 thread 連住（main plot / NPC backstory / side quest seed）
+- **真實性**：真 / 大部分真 / 煙幕 / 完全係大話
+- **來源提示**：邊個階層 / 行業先會傳呢個傳聞
+- **連接口**：呢個傳聞同邊條伏線連住（主線 / NPC 背景 / 支線任務種子）
 
-要 mix tone：1 個 mundane（食物漲價）/ 1 個 mid-stakes（某 noble 失蹤）/ 1 個 high-stakes（cosmic / political）
+要混合氣氛：1 個日常（食物加價）/ 1 個中等風險（某貴族失蹤）/ 1 個高風險（宇宙級 / 政治危機）
 </PromptBlock>
 
-**Block 5：玩家 wild card 預備**
+**積木 5：應付玩家出怪招嘅預備**
 
-<PromptBlock label="Block 5 — 玩家典型 derailment 嘅 contingency">
-我嘅玩家以前試過呢類 derailment：
-- 玩家 A：成日想 seduce 任何 NPC
-- 玩家 B：成日想 background check + 查 records
-- 玩家 C：成日要 buy weird 嘢
-- 玩家 D：成日想 shortcut 用 magic / hack
+<PromptBlock label="積木 5 — 玩家典型出軌嘅應變">
+我嘅玩家以前試過呢類出軌行為：
+- 玩家 A：成日想引誘任何 NPC
+- 玩家 B：成日想查底細 + 查記錄
+- 玩家 C：成日要買騎呢嘢
+- 玩家 D：成日想用魔法 / 駭客手段抄捷徑
 
-請每位 prep 一個**1-line response**我可以即場 deploy：
+請為每位準備一個**一句話回應**，等我可以即場攞出嚟用：
 
-- A 嘅 seduce target：NPC X 嘅 reaction（flatter / refuse / accept with strings）
-- B 嘅 background check：佢搵到 [3 條 info — 2 mundane 1 plot-relevant]
-- C 嘅 weird item：店主可能會有 [3 件 unusual items]，每件 1 句描述 + 暗藏 hook
-- D 嘅 magic shortcut：呢個 area 嘅 magic 有 [限制 / cost / side effect]
+- A 嘅目標：NPC X 嘅反應（奉承 / 拒絕 / 接受但有附帶條件）
+- B 嘅查底細：佢搵到 [3 條資料 — 2 條日常 1 條關劇情事]
+- C 嘅騎呢道具：店主可能會有 [3 件唔尋常嘅道具]，每件 1 句描述 + 暗藏劇情誘餌
+- D 嘅魔法捷徑：呢個地區嘅魔法有 [限制 / 代價 / 副作用]
 </PromptBlock>
 
-呢 5 block 通常 15-30 分鐘搞掂晒。你 print 出嚟或者放隔離 monitor，session 中 reference。
+呢 5 舊積木通常 15-30 分鐘搞掂晒。你印出嚟或者放喺隔離螢幕，玩緊嗰陣隨時參考。
 
-### 3. Session 中即場用
+### 3. 玩緊嗰陣即場用
 
-玩家做 unexpected 事？打開你個 prep doc：
+玩家做預期之外嘅事？打開你份準備文件：
 
-> 玩家：「我去 background check 個 noble」
-> 你：（睇 Block 5 - B 嘅 response）「⋯⋯經過半日 footwork，你搵到佢叫 Lord Aldric Vance，3 年前由 northern duchy 嚟。佢嘅 wife 死於『不明病』，之後佢留咗一段時間先返 capital。」（呢句包含 1 個 plot hint = 不明病）
+> 玩家：「我去查下個貴族底細」
+> 你：（睇積木 5 - B 嘅回應）「⋯⋯經過半日四處打聽，你搵到佢叫 Lord Aldric Vance，3 年前由北部公爵領地嚟。佢老婆死於『不明病』，之後佢留咗一段時間先返首都。」（呢句包含 1 個劇情線索 = 不明病）
 
-無需要硬作，flow 流暢。
+無需要硬作，流程順暢。
 
-## 變化
+## 變化例子
 
-### 變化 1：Session 後 recap → 下次 session prep seed
+### 變化 1：玩完總結 → 下次準備嘅種子
 
-完 session 一齊先食晚飯 / 收檔，趁記憶新鮮：
+玩完一齊食晚飯前 / 執嘢走人，趁記憶猶新：
 
-<PromptBlock label="變化 1 — Session recap + 下次 prep seed">
-我啱啱完 session [N]。發生咗：
+<PromptBlock label="變化 1 — 玩完總結 + 下次準備種子">
+我啱啱玩完第 [N] 場。發生咗：
 
-[5-10 句講今次 session 結局]
+[5-10 句講今次結局]
 
-玩家最後 decision：[]
-未解 thread：
+玩家最後決定：[]
+未解伏線：
 - A：[]
 - B：[]
 - C：[]
 
-NPC 出場：[列出，註明 alive/dead/missing]
+NPC 出場：[列出，註明 生/死/失蹤]
 
 請：
 
-**Recap（player-facing）**
-2-3 段 narrative summary，我可以 send 落 group chat 等大家下次 session 前複習。語氣係小說敘事，唔係 GM notes。
+**總結（畀玩家睇嘅）**
+2-3 段敘事總結，我可以 send 落 group chat 等大家下次玩之前溫故知新。語氣係小說敘事，唔係 GM 筆記。
 
-**GM-facing tracker**
-- 未解 thread + 個 plot priority（high / medium / low）
-- NPC stat tracker（who's alive, who's mad at PC, who owes PC）
-- Item / clue PC 攞咗冇用嘅，下次 session 點 surface 返
-- 玩家 character development 嘅 hook — 邊個 PC 嘅 personal arc 應該下次 session push
+**GM 內部追蹤表**
+- 未解伏線 + 劇情優先次序（高 / 中 / 低）
+- NPC 狀態追蹤（邊個生存, 邊個嬲咗玩家, 邊個欠玩家主意）
+- 玩家攞咗但未用嘅道具 / 線索，下次點樣提返起
+- 玩家角色發展誘餌 — 邊個玩家嘅個人成長線應該下次推動
 
-**Next session prep checklist**
-我下次 session prep 應該優先：
-1. [最迫切 contingency]
-2. [next major scene / encounter]
-3. [character moment for 邊個 PC]
+**下次準備清單**
+我下次準備應該優先搞：
+1. [最逼切嘅應變情況]
+2. [下一個主要場景 / 遭遇]
+3. [邊個玩家嘅角色發揮時刻]
 </PromptBlock>
 
-### 變化 2：玩家 character backstory expansion
+### 變化 2：玩家角色背景故事擴充
 
-新玩家入 campaign / 開新 character：
+新玩家加入 / 開新角色：
 
-<PromptBlock label="變化 2 — Player character backstory deepening">
-我嘅 player 寫咗以下 character backstory：
+<PromptBlock label="變化 2 — 玩家角色背景故事深化">
+我嘅玩家寫咗以下角色背景故事：
 
-[paste]
+[貼上]
 
-我嘅 campaign setting / tone reminder：[1-2 句]
+我嘅世界觀設定 / 氣氛提示：[1-2 句]
 
 請：
 
-**Backstory 入面嘅 plot hook 抽出嚟**
-列出 3-5 個 element 我可以喺 campaign 入面 reference / call back（NPC、地點、past event、未解疑團）
+**抽出背景故事入面嘅劇情誘餌**
+列出 3-5 個元素我可以喺跑團入面引用 / 呼應（NPC、地點、過去事件、未解疑團）
 
-**Personality consistency check**
-有冇地方 contradict 自身？有冇可能 evolve 嘅 character flaw？
+**性格一致性檢查**
+有冇地方自相矛盾？有冇可能演變出角色缺點？
 
-**3 個「呢個 character 嘅未解問題」**
-玩家自己未必意識到嘅 backstory gap，我可以慢慢 reveal
+**3 個「呢個角色嘅未解問題」**
+玩家自己未必意識到嘅背景故事空白，我可以慢慢揭曉
 
-**Session 1 personal hook**
-1 個 specific moment / NPC encounter，我可以 plant 喺第 1-2 session，等個 character 即刻覺得自己「belong 入呢個 world」
+**第一場嘅個人誘餌**
+1 個具體時刻 / NPC 遭遇，我可以擺喺第 1-2 場，等個角色即刻覺得自己「屬於呢個世界」
 
-**Long-term arc seed**
-我可以 plant 嘅 5-10 session 嘅 personal arc，呼應 backstory 嘅 unresolved tension
+**長遠發展種子**
+我可以埋下嘅 5-10 場個人發展線，呼應背景故事嘅未解決張力
 </PromptBlock>
 
-### 變化 3：玩家做 unexpected action 嘅即場 adjudication
+### 變化 3：玩家做意想不到行動嘅即場裁決
 
-Session 中，玩家做咗某啲 mechanic ambiguous 嘅嘢：
+玩緊嗰陣，玩家做咗某啲機制上模稜兩可嘅事：
 
-<PromptBlock label="變化 3 — 即場 rules / fairness adjudication">
-我玩 [system]。玩家做緊：
+<PromptBlock label="變化 3 — 即場規則 / 公平裁決">
+我玩 [系統]。玩家做緊：
 
-[describe action — 例：用 mage hand grapple boss 嘅 weapon，再 throw 落 lava]
+[描述行動 — 例：用「法師之手」捉住 boss 把武器，再掟落熔岩]
 
-我宜家 stuck 喺：[ambiguity 喺邊]
+我而家卡住喺：[邊度模稜兩可]
 
-我嘅 inclination 係 [allow / restrict / partial]，但驚 [side effect — 例：set precedent for future / 破壞 boss fight / break action economy]。
+我嘅傾向係 [容許 / 限制 / 部分容許]，但驚 [副作用 — 例：開咗壞先例 / 破壞 boss 戰 / 打破行動經濟學]。
 
 請：
 
-**System-faithful ruling**
-按 [system] 嘅 RAW (rules as written)，呢個 action 點 adjudicate
+**忠於系統嘅裁決**
+按 [系統] 嘅字面規則 (RAW)，呢個行動點樣裁決
 
-**Fair improv ruling**
-如果 RAW 唔清楚 / 太 restrictive，建議一個 fair house ruling，符合 system spirit
+**公平嘅即興裁決**
+如果字面規則唔清楚 / 太嚴，建議一個公平嘅「家規 (house ruling)」，符合系統精神
 
-**Precedent risk**
-如果我 allow 呢個，玩家下次會點 abuse？我宜家有冇辦法 frame 個 ruling 唔開呢度 door
+**先例風險**
+如果我容許呢樣嘢，玩家下次會點樣濫用？我而家有冇辦法界定個裁決唔好開呢道門
 
-**對 session 嘅 immediate impact**
-依個 action succeed / fail 之後，scene 點推進
+**對目前進度嘅即時影響**
+依個行動成功 / 失敗之後，場景點樣推進
 
-語氣：rules lawyer + 玩過好多年嘅 GM。
+語氣：熟讀規則嘅玩家 + 玩過好多年嘅 GM。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-GM 嘅工作 80% 係 **prep**——剩 20% 係 **improvise 你冇 prep 嘅嘢**。
+GM 嘅工作 80% 係 **準備**——剩低 20% 係 **即興發揮你冇準備嘅嘢**。
 
-Claude 唔係取代 你 prep——好嘅 GM 永遠都係**對自己 campaign 有 emotional ownership** 嘅人。Claude 嘅 role 係**將 prep 時間由 3 個鐘變 1 個鐘，留多 2 個鐘畀 you 同朋友 actually play**。
+Claude 唔係取代你準備——好嘅 GM 永遠都係**對自己嘅跑團世界有感情投入**嘅人。Claude 嘅角色係**將準備時間由 3 個鐘變 1 個鐘，留多 2 個鐘畀你同朋友真正去玩**。
 
-香港玩 TRPG 嘅人通常返工返到爆 + 朋友散喺世界各地，session 一個月一次都好 luck。每次 prep 質素提升 30%，整個 group 嘅 enjoyment 都 compound。
+香港玩 TRPG 嘅人通常返工返到爆 + 朋友散落喺世界各地，一個月夾到一次時間已經好幸運。每次準備質素提升 30%，成班人嘅享受程度會複利增長。
 
-最後 reminder：**唔好將 Claude generate 嘅 NPC / scene 一字不改 deploy**。睇佢嘅 raw output，揀有 spark 嘅 element，**加你自己嘅 detail**（你個 group 嘅 inside joke、上次 session 嘅 callback、香港文化 reference 例如「個 noble 個 accent 似官恩娜」）。AI output + 你嘅 personal touch = 你個 unique campaign。
+最後提醒：**唔好將 Claude 生成嘅 NPC / 場景一字不改咁用**。睇佢嘅原始輸出，揀有火花嘅元素，**加你自己嘅細節**（你哋班朋友嘅內部笑話、上次玩嘅回憶、香港文化共鳴例如「個貴族啲口音似官恩娜」）。AI 輸出 + 你嘅個人特色 = 你獨一無二嘅跑團世界。
 
-Roll for initiative 🎲
+擲骰決定先後啦 🎲
