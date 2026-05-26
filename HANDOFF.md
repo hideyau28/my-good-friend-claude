@@ -200,12 +200,19 @@ content(voice): retone #NNN slug-name (BEFORE → AFTER)
 2. ~~**Borderline cleanup — 7 articles**~~ ✅ COMPLETE (2026-05-26, commit `5096f46`)
 3. ~~**Replace `/collaborate` email**~~ ✅ DONE (2026-05-26, commit `2f7dff0`)
    - Set to `yau@flowstudiohk.com` — production launch blocker cleared
-4. 🔴 **Newsletter backend env vars** — `/api/newsletter/route.ts` 已接 Beehiiv API
-   - **必須喺 Vercel project settings 加**：
-     - `BEEHIIV_PUBLICATION_ID`（例：`pub_xxxxxxxx`）
-     - `BEEHIIV_API_KEY`
-   - 未設定 env vars → form return 503，唔再靜雞雞食咗 email（之前係 console.log 完丟）
-   - 如果用 ConvertKit / Buttondown 取代：改 `forwardToBeehiiv` 一個 function 就得
+4. 🟡 **Newsletter form：而家 default「即將開通」state**
+   - UI 由 env var `NEXT_PUBLIC_NEWSLETTER_ENABLED` gate：
+     - 未設定 → ComingSoonFallback：誠實「執緊緊 + email me」CTA
+     - `"true"` → 顯示真 form（POST 去 `/api/newsletter` → Beehiiv）
+   - 接通 newsletter service 步驟（sign up 後）：
+     1. Sign up [beehiiv.com](https://www.beehiiv.com)（free tier OK）
+     2. Create publication，攞 `pub_xxxxxxxx` ID + API key（Settings → Integrations → API）
+     3. Vercel project settings → Environment Variables 加：
+        - `BEEHIIV_PUBLICATION_ID=pub_xxxxxxxx`
+        - `BEEHIIV_API_KEY=<secret>`
+        - `NEXT_PUBLIC_NEWSLETTER_ENABLED=true`
+     4. Redeploy → form 即刻 live
+   - 換 service（ConvertKit / Buttondown）：改 `src/app/api/newsletter/route.ts` 入面 `forwardToBeehiiv` 個 function 就得
 5. 🟡 **Pricing anchors** on `/collaborate` FAQ（`page.tsx:144-149`）
    - 現時已有 ballpark：「HK 5-figure 起 / workshop HK 4-figure」
    - 收到第一單付費 quote 後可以加返具體 anchor
