@@ -33,7 +33,7 @@ export default function HomePage() {
               打工仔、小店主、學生家長都用得——冇 demo、冇花巧，
               每一個 use case 都係由真實情境出發、有完整步驟、跟得到、做得到。
             </p>
-            <EditorByline meta={`一個香港人 · 已寫 ${totalUseCases}+ 個 use case · 2,400+ 位讀者訂閱`} />
+            <EditorByline meta={`一個香港人 · 已寫 ${totalUseCases} 個 use case · 每週日更新`} />
             <div className="flex flex-wrap gap-3 mt-8">
               <Link
                 href="/use-cases"

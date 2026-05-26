@@ -27,9 +27,9 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/use-cases" className="hover:text-[var(--color-seal)] no-underline">Use Case 庫</Link></li>
-              <li><Link href="/use-cases?category=chat" className="hover:text-[var(--color-seal)] no-underline">日常用 Chat</Link></li>
-              <li><Link href="/use-cases?category=cowork" className="hover:text-[var(--color-seal)] no-underline">自動化 Cowork</Link></li>
-              <li><Link href="/use-cases?category=code" className="hover:text-[var(--color-seal)] no-underline">開發者 Code</Link></li>
+              <li><Link href="/learn/chat" className="hover:text-[var(--color-seal)] no-underline">日常用 Chat</Link></li>
+              <li><Link href="/learn/cowork" className="hover:text-[var(--color-seal)] no-underline">自動化 Cowork</Link></li>
+              <li><Link href="/learn/code" className="hover:text-[var(--color-seal)] no-underline">開發者 Code</Link></li>
             </ul>
           </div>
 
@@ -39,9 +39,9 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/about" className="hover:text-[var(--color-seal)] no-underline">關於本副刊</Link></li>
+              <li><Link href="/collaborate" className="hover:text-[var(--color-seal)] no-underline">合作</Link></li>
               <li><Link href="/#newsletter" className="hover:text-[var(--color-seal)] no-underline">每週日訂閱</Link></li>
-              <li><a href="https://instagram.com" className="hover:text-[var(--color-seal)] no-underline">Instagram</a></li>
-              <li><a href="https://threads.net" className="hover:text-[var(--color-seal)] no-underline">Threads</a></li>
+              <li><Link href="/feed.xml" className="hover:text-[var(--color-seal)] no-underline">RSS</Link></li>
             </ul>
           </div>
         </div>

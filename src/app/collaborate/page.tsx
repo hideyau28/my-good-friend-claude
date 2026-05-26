@@ -14,7 +14,7 @@ const CONTACT_EMAIL = 'yau@flowstudiohk.com'
 export const metadata: Metadata = {
   title: '合作 · Collaborate',
   description:
-    '我寫「我的好朋友 Claude」，亦幫人 build 嘢——web app、Shopify、AI workflow 自動化。HK-based，AI-native workflow。',
+    'AI-native dev workflow，3–5× 速度 ship MVP。Shopify Plus（Lighthouse 34→85）、multi-tenant SaaS（StockFlow）、AI workflow automation。HK-based，4–8 週交付。',
 }
 
 export default function CollaboratePage() {
@@ -23,13 +23,13 @@ export default function CollaboratePage() {
       <Masthead />
       <main className="max-w-3xl mx-auto px-6 py-12">
         <SectionLabel number="◉" label="合作 · COLLABORATE" className="mb-6" />
-        <h1 className="font-serif font-black text-4xl md:text-6xl leading-tight mb-6">
+        <h1 className="font-serif font-black text-4xl md:text-6xl leading-tight mb-8">
           我寫嘢，
           <br />
           亦幫人 build 嘢。
         </h1>
 
-        <div className="flex items-center gap-4 mb-10">
+        <div className="flex items-center gap-6 mb-12">
           <Seal char="合" size={64} />
           <EditorByline meta="揾我合作 · BUILD · ADVISE · AUTOMATE" />
         </div>

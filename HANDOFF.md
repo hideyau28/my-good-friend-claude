@@ -200,11 +200,21 @@ content(voice): retone #NNN slug-name (BEFORE → AFTER)
 2. ~~**Borderline cleanup — 7 articles**~~ ✅ COMPLETE (2026-05-26, commit `5096f46`)
 3. ~~**Replace `/collaborate` email**~~ ✅ DONE (2026-05-26, commit `2f7dff0`)
    - Set to `yau@flowstudiohk.com` — production launch blocker cleared
-4. 🟡 **Pricing anchors** on `/collaborate` FAQ（`page.tsx:144-149`）
+4. 🔴 **Newsletter backend env vars** — `/api/newsletter/route.ts` 已接 Beehiiv API
+   - **必須喺 Vercel project settings 加**：
+     - `BEEHIIV_PUBLICATION_ID`（例：`pub_xxxxxxxx`）
+     - `BEEHIIV_API_KEY`
+   - 未設定 env vars → form return 503，唔再靜雞雞食咗 email（之前係 console.log 完丟）
+   - 如果用 ConvertKit / Buttondown 取代：改 `forwardToBeehiiv` 一個 function 就得
+5. 🟡 **Pricing anchors** on `/collaborate` FAQ（`page.tsx:144-149`）
    - 現時已有 ballpark：「HK 5-figure 起 / workshop HK 4-figure」
    - 收到第一單付費 quote 後可以加返具體 anchor
-5. 🟢 Custom domain（取代 `my-good-friend-claude.vercel.app`）
-6. 🟢 `/collaborate` Calendly / Tally form 升級
+6. 🟡 **Featured use cases trim** — 而家 42 / 84 篇 marked featured（50%），令 flag 失去語意
+   - Homepage lead story 顯示 6 篇最新 featured，functionally OK 但唔係 hand-picked
+   - 建議：trim 落 6-10 篇 hand-picked，剩低 unfeature
+7. 🟢 Custom domain（取代 `my-good-friend-claude.vercel.app`）
+8. 🟢 `/collaborate` Calendly / Tally form 升級
+9. 🟢 Footer 加返 social links（之前係 placeholder `instagram.com` / `threads.net`，已 remove；提供真實 handle 後再加返）
 
 ## 🚀 How to resume — next session 開頭一句
 
