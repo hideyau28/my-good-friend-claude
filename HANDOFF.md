@@ -188,6 +188,8 @@ content(voice): retone #NNN slug-name (BEFORE → AFTER)
 | `src/app/collaborate/page.tsx` | ✅ CONTACT_EMAIL set to yau@flowstudiohk.com (2026-05-26) |
 | `scripts/import-hero.mjs` / `batch-import-heroes.mjs` | Hero pipeline |
 | `HERO-PROMPTS-BATCH.md` | 59 hero prompt completed |
+| `.claude/skills/cantonese-usecase-tutor/` | 廣東話 interactive tutor skill — trigger by「教我學 [slug]」入 Claude Code |
+| `src/components/use-case/InteractiveLessonCTA.tsx` | 文末「試」CTA — copy portable tutor prompt 入 clipboard 畀讀者 paste 入 claude.ai |
 
 ## 🎨 Hero illustration status
 
