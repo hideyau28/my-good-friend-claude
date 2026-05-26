@@ -216,9 +216,11 @@ content(voice): retone #NNN slug-name (BEFORE → AFTER)
 5. 🟡 **Pricing anchors** on `/collaborate` FAQ（`page.tsx:144-149`）
    - 現時已有 ballpark：「HK 5-figure 起 / workshop HK 4-figure」
    - 收到第一單付費 quote 後可以加返具體 anchor
-6. 🟡 **Featured use cases trim** — 而家 42 / 84 篇 marked featured（50%），令 flag 失去語意
-   - Homepage lead story 顯示 6 篇最新 featured，functionally OK 但唔係 hand-picked
-   - 建議：trim 落 6-10 篇 hand-picked，剩低 unfeature
+6. ~~**Featured use cases trim**~~ ✅ DONE (2026-05-26)
+   - Trimmed 42 → 8 hand-picked featured，覆蓋 7 個版面、5 種受眾、3 categories
+   - **Featured 8**: `claude-code-install-claude` / `dse-prep-mental-claude` / `lost-pet-flyer-claude` / `employment-contract-review-claude` / `cowork-order-automation` / `claude-pdf-summary` / `hong-kong-mortgage-comparison` / `whatsapp-group-chat-summary-claude`
+   - Lead story 6 篇（issue desc）：83, 70, 54, 28, 22, 19
+   - 改 featured 上下架：直接改個別 `.mdx` `featured:` field
 7. 🟢 Custom domain（取代 `my-good-friend-claude.vercel.app`）
 8. 🟢 `/collaborate` Calendly / Tally form 升級
 9. 🟢 Footer 加返 social links（之前係 placeholder `instagram.com` / `threads.net`，已 remove；提供真實 handle 後再加返）
