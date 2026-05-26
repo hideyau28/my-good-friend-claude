@@ -1,5 +1,5 @@
 ---
-title: "玩完一個遊戲想揾類似？用 Claude 5 個 dimension 推薦類遊戲"
+title: "玩完一個遊戲想揾類似？用 Claude 5 個維度推薦類遊戲"
 slug: "steam-game-similar-recommendation-claude"
 issue: 46
 publishedAt: 2026-05-22
@@ -11,7 +11,7 @@ heroImage: "/hero/steam-game-similar-recommendation-claude.webp"
 difficulty: 1
 timeMinutes: 5
 toolsNeeded: ["Claude Chat"]
-description: "玩完 Hollow Knight / Outer Wilds / Disco Elysium 想揾類似 vibe 嘅遊戲，但 Steam recommend 嘅成日唔啱？教 Claude 用 5 個 dimension（mechanics / mood / 美術 / 故事節奏 / playtime） narrow down，揾啱啖 next game。"
+description: "玩完 Hollow Knight / Outer Wilds / Disco Elysium 想揾類似氣氛嘅遊戲，但 Steam 推薦嘅成日唔啱？教 Claude 用 5 個維度（機制 / 氣氛 / 美術 / 故事節奏 / 遊玩時間）縮窄範圍，揾啱嘅下隻遊戲。"
 keywords: ["steam 揀 game", "類遊戲推薦", "claude 遊戲推薦", "indie game", "玩 game 揀", "next game"]
 related: ["jp-rpg-translation-claude", "saas-tool-comparison-claude-hk"]
 featured: true
@@ -19,190 +19,190 @@ featured: true
 
 ## 情境
 
-你啱啱通關 Hollow Knight。100 小時 plus，最後 boss 流晒淚。你想揾下一隻**類似 vibe** 嘅遊戲——sticky combat、cryptic lore、atmospheric solitude——但問題出咗：
+你啱啱通關 Hollow Knight。100 個鐘以上，最後 boss 流晒淚。你想揾下一隻**類似氣氛**嘅遊戲——黏手戰鬥、神秘世界觀、氛圍式孤獨——但問題出咗：
 
-- Steam「More Like This」？通常 push HK 你 Dead Cells、Blasphemous、Salt and Sanctuary。**全部都係 metroidvania，但氣氛唔同。**
-- Reddit 推薦？top comment 講 Ori，第 2 個推 Celeste，第 3 個彈走講 Dark Souls。**冇人問你想要邊個 dimension 似。**
-- YouTube「Top 10 like Hollow Knight」？演算法只跟 tag「metroidvania」，**意境一致嘅遊戲就 miss 晒**（例：Outer Wilds 同 Hollow Knight 氣氛接近但 mechanics 完全唔同，永遠唔會撞到。）
+- Steam「More Like This」？通常 push 你 Dead Cells、Blasphemous、Salt and Sanctuary。**全部都係 metroidvania，但氣氛唔同。**
+- Reddit 推薦？top comment 講 Ori，第 2 個推 Celeste，第 3 個彈走講 Dark Souls。**冇人問你想要邊個維度似。**
+- YouTube「Top 10 like Hollow Knight」？演算法只跟標籤「metroidvania」，**意境一致嘅遊戲就會走漏**（例：Outer Wilds 同 Hollow Knight 氣氛接近但機制完全唔同，永遠唔會撞到。）
 
-問題本質：**「類似」唔係一個 single dimension。** Hollow Knight 嘅「似」可以指：
-- 探索式 metroidvania mechanics
-- Hand-drawn art + melancholic OST
-- 環境敘事，唔靠 cutscene
-- Solitary mood，少 NPC 對話
-- 死咗就由 checkpoint 重新 grind 嘅 risk-reward loop
+問題本質：**「類似」唔係單一維度。** Hollow Knight 嘅「似」可以指：
+- 探索式 metroidvania 機制
+- 手繪美術 + 憂鬱 OST
+- 環境敘事，唔靠過場片
+- 孤獨氣氛，少 NPC 對話
+- 死咗就由 checkpoint 重新刷嘅風險回報循環
 
-要 narrow 到啱你想要嘅 dimension，**先要拆清楚自己想要邊一面**。
+要縮窄到啱你想要嘅維度，**先要拆清楚自己想要邊一面**。
 
-呢篇用 Claude 5 分鐘揾到 next pick——唔靠 tag、靠 dimension。
+呢篇用 Claude 5 分鐘揾到下一隻 pick——唔靠標籤、靠維度。
 
 ## 跟住做
 
-### 1. Inventory 你嘅 reference game
+### 1. 整理你嘅參考遊戲
 
 開新 Claude chat。第一句直接：
 
-> 我啱啱玩完 Hollow Knight，想揾下一隻 vibe 接近嘅遊戲。
+> 我啱啱玩完 Hollow Knight，想揾下一隻氣氛接近嘅遊戲。
 
-唔好就咁停喺度——加多兩句幫 Claude narrow：
+唔好就咁停喺度——加多兩句幫 Claude 縮窄：
 
-> 之前我玩過 Outer Wilds、Celeste，都 enjoy。但 Dark Souls 玩半個鐘就 quit 咗（覺得太 grindy）。
+> 之前我玩過 Outer Wilds、Celeste，都鍾意。但 Dark Souls 玩半個鐘就退出咗（覺得太刷）。
 
-呢 3 個 reference point（2 喜歡 + 1 唔合）已經畀到 Claude 嘅 baseline。
+呢 3 個參考點（2 鍾意 + 1 唔合）已經畀到 Claude 嘅基準。
 
 ### 2. 用呢個 prompt
 
-<PromptBlock label="完整 prompt — 由 reference 揾類遊戲">
-我啱啱玩完 [遊戲名]，rate 我 [9/10]。
+<PromptBlock label="完整 prompt — 由參考揾類遊戲">
+我啱啱玩完 [遊戲名]，畀 [9/10] 分。
 
-📚 **同 series 比較**
-我之前玩過嘅 reference games：
+📚 **同系列比較**
+我之前玩過嘅參考遊戲：
 - ✓ 鍾意：[2-3 隻 + 點解]
-- ✗ 唔合：[1-2 隻 + quit 嘅原因]
+- ✗ 唔合：[1-2 隻 + 退出嘅原因]
 
-🎯 **我而家想要邊種 vibe（揀 1-2 個 dimension）**
-- [ ] Mechanics — similar gameplay loop（platforming / souls-like / city-builder）
-- [ ] Mood / atmosphere — 氣氛接近，唔理 mechanics
-- [ ] 美術風格 — pixel art / hand-drawn / low-poly / photo-real
-- [ ] 故事節奏 — 緊湊敘事 / open-world exploration / minimal lore
-- [ ] Playtime budget — 我得 [X] 小時，唔玩 100+ hr 嘅 RPG
+🎯 **我而家想要邊種氣氛（揀 1-2 個維度）**
+- [ ] 機制 — 類似遊玩循環（platforming / souls-like / city-builder）
+- [ ] 氣氛 — 氣氛接近，唔理機制
+- [ ] 美術風格 — pixel art / 手繪 / low-poly / 寫實
+- [ ] 故事節奏 — 緊湊敘事 / 開放世界探索 / 極少世界觀
+- [ ] 遊玩時間預算 — 我得 [X] 個鐘，唔玩 100+ 鐘嘅 RPG
 
-⚙️ **我嘅 platform / budget**
+⚙️ **我嘅平台 / 預算**
 - [PC / Switch / PS / Xbox]
-- 預算 HK$[多少]
+- 預算 HK$[幾錢]
 - 鍾唔鍾意 indie / AAA / 都得
 
 請推薦：
 
-**Tier 1：3 隻 strong match**（≥ 4 個 dimension 啱）
+**第一層：3 隻強力配對**（≥ 4 個維度啱）
 每隻：
-- 1 句 elevator pitch（vibe + mechanics）
-- 同我 reference 邊度似 / 邊度唔似
-- Playtime ETA
-- HKD 約值（Steam HK / 港行）
-- 風險 — 你會唔 enjoy 嘅 1 點
+- 1 句簡介（氣氛 + 機制）
+- 同我參考邊度似 / 邊度唔似
+- 預計遊玩時間
+- 港幣大約值（Steam HK / 港行）
+- 風險 — 你會唔鍾意嘅 1 點
 
-**Tier 2：3 隻 wild card**（2-3 個 dimension 啱，但可能驚喜）
-- 同 Tier 1 一樣 format
-- 額外講：點解我可能會 hate 但都 worth try
+**第二層：3 隻冷門推薦**（2-3 個維度啱，但可能驚喜）
+- 同第一層一樣格式
+- 額外講：點解我可能會唔鍾意但都值得試
 
-**Tier 3：1 隻「completely different but 同 mood」**
-- 跨 genre 嘅 surprise pick
+**第三層：1 隻「完全唔同但同氣氛」**
+- 跨類型嘅驚喜推介
 - 解釋點解你覺得我會中
 
 ⚠️ **避雷區**
-3 隻表面 similar 但**我大機會 quit** 嘅，講原因。
+3 隻表面類似但**我大機會退出**嘅，講原因。
 
-語氣：好似識遊戲嘅朋友推介，唔係 IGN review summary。
+語氣：好似識遊戲嘅朋友推介，唔係 IGN review 摘要。
 </PromptBlock>
 
-### 3. Follow up 收窄
+### 3. 跟進收窄
 
-收到 9 隻推薦之後唔好即刻去 wishlist。Follow up：
+收到 9 隻推薦之後唔好即刻去 wishlist。跟進：
 
-> 「Tier 1 第 2 隻 [Tunic] 我細個玩過 Zelda，未玩過 souls-like，會唔會 frustrate 我？」
+> 「第一層第 2 隻 [Tunic] 我細個玩過 Zelda，未玩過 souls-like，會唔會煩親我？」
 
-> 「Tier 2 [Outer Wilds] 我嘅 partner 唔玩 game，可唔可以 couch coop？」
+> 「第二層 [Outer Wilds] 我嘅伴侶唔玩 game，可唔可以梳化雙人？」
 
-> 「Tier 3 [Slay the Spire] 我已經砌咗 100 小時 Hearthstone，會唔會 too similar?」
+> 「第三層 [Slay the Spire] 我已經砌咗 100 個鐘 Hearthstone，會唔會太似？」
 
-呢類 contextual question 係 Claude 比 algorithmic recommend 嘅強項——你可以**追問 + qualify + push back**。
+呢類追問係 Claude 比演算法推薦嘅強項——你可以**追問 + 限定 + 反駁**。
 
 ## 變化
 
-### 變化 1：「我得 30 分鐘 break，揾隻 quick session」
+### 變化 1：「我得 30 分鐘抖氣，揾隻短局遊戲」
 
 唔係每次都係買新 game，有時係要由 backlog 揀今晚玩邊隻。
 
 <PromptBlock label="變化 1 — 由 backlog 揀今晚玩邊隻">
 我 backlog（買咗未通關）：
-- [Game A — playtime so far / current chapter]
-- [Game B]
-- [Game C]
-- [Game D]
+- [遊戲 A — 玩咗幾耐 / 目前章節]
+- [遊戲 B]
+- [遊戲 C]
+- [遊戲 D]
 
-今晚我有 [30 / 60 / 90] 分鐘，[累 / 精神好 / 想 chill / 想刺激]，想 [推進主線 / explore / 收集 / 純放鬆]。
+今晚我有 [30 / 60 / 90] 分鐘，[攰 / 精神好 / 想 chill / 想刺激]，想 [推進主線 / 探索 / 收集 / 純放鬆]。
 
 請：
 
 1. 推薦今晚玩邊隻
-2. 由我 current state，建議：
-   - 玩 main story 哪一段 / 抑或 side quest？
-   - 1 個 30 分鐘嘅 mini-goal（唔好 push 我 grind 1 小時）
-3. 如果我 mood 變咗，backup pick 係邊隻
+2. 由我目前狀態，建議：
+   - 玩主線哪一段 / 抑或支線？
+   - 1 個 30 分鐘嘅小目標（唔好推我刷 1 個鐘）
+3. 如果我心情變咗，後備 pick 係邊隻
 
-語氣：好似 friends 幫你揀「今晚食乜」，唔係 game journalism。
+語氣：好似朋友幫你揀「今晚食乜」，唔係遊戲記者。
 </PromptBlock>
 
-### 變化 2：「我喺意一個極 niche 嘅 mechanic，揾類似」
+### 變化 2：「我喺意一個極小眾嘅機制，揾類似」
 
-有時你想要嘅唔係 vibe 而係**一個好特別嘅 mechanic**：
+有時你想要嘅唔係氣氛而係**一個好特別嘅機制**：
 
-- Outer Wilds 嘅 22 分鐘 time loop
-- Inscryption 嘅 meta breaking 4th wall
-- Disco Elysium 嘅 skill 變角色內心對話
-- Return of the Obra Dinn 嘅 deduction puzzle
+- Outer Wilds 嘅 22 分鐘時間循環
+- Inscryption 嘅打破第四面牆
+- Disco Elysium 嘅技能變角色內心對話
+- Return of the Obra Dinn 嘅推理謎題
 
-<PromptBlock label="變化 2 — 揾類 niche mechanic 嘅遊戲">
-我特別 enjoy [遊戲名] 嘅 [某個 mechanic，描述 1-2 句]。
+<PromptBlock label="變化 2 — 揾類似小眾機制嘅遊戲">
+我特別鍾意 [遊戲名] 嘅 [某個機制，描述 1-2 句]。
 
-例如：我 enjoy Outer Wilds 嘅 「knowledge as progression」 ——
-你冇 stats 升級，你嘅角色點通關 fully depend 你個玩家學識嘅 lore。
-我想要更多呢類 design。
+例如：我鍾意 Outer Wilds 嘅「知識作為推進」——
+你冇等級升級，你嘅角色點通關完全取決於你個玩家學識嘅世界觀。
+我想要更多呢類設計。
 
-請推薦 5 隻**核心 mechanic 接近**嘅遊戲，唔理 genre。每隻：
+請推薦 5 隻**核心機制接近**嘅遊戲，唔理類型。每隻：
 
-- 個 mechanic 點 reinterpret
-- 「sister design」（design philosophy 一脈相承）/ 「distant cousin」（皮唔同骨同）
-- 玩到呢個 mechanic 嘅 unlock condition（要 grind 幾耐先見到）
-- 如果係冷門 / 1990s old 遊戲，講 modern emulation 邊度玩到
+- 個機制點重新演繹
+- 「親兄弟設計」（設計哲學一脈相承）/「遠房親戚」（皮唔同骨同）
+- 玩到呢個機制嘅解鎖條件（要刷幾耐先見到）
+- 如果係冷門 / 1990 年代舊遊戲，講現代模擬器邊度玩到
 
-語氣：game design 講座 + 朋友推介。
+語氣：遊戲設計講座 + 朋友推介。
 </PromptBlock>
 
-### 變化 3：「呢隻 hyped game，我 fit 唔 fit 玩」
+### 變化 3：「呢隻熱話 game，我啱唔啱玩」
 
-新 game launch 之前你已經睇咗一堆 trailer / preview，但唔知自己會唔會 enjoy：
+新 game 推出之前你已經睇咗一堆預告 / 預覽，但唔知自己會唔會鍾意：
 
-<PromptBlock label="變化 3 — 新作 fit 唔 fit 我">
-我 considering 買 [新 game 名，launch date]。
+<PromptBlock label="變化 3 — 新作啱唔啱我">
+我考慮緊買 [新 game 名，推出日期]。
 
-我嘅 game DNA：
-- 過去 3 年 favorites：[3 隻]
-- 過去 3 年 quit 嘅：[3 隻 + 原因]
-- 我 dislike 嘅 game design pattern：[例如 grinding, gacha, multiplayer toxic, jump scare]
-- 我嘅 platform / 預算
+我嘅遊戲基因：
+- 過去 3 年最愛：[3 隻]
+- 過去 3 年退出嘅：[3 隻 + 原因]
+- 我唔鍾意嘅遊戲設計規律：[例如刷怪、抽卡、多人有毒、jump scare]
+- 我嘅平台 / 預算
 
 請整：
 
-**Compatibility score (1-10)** + 你嘅 reasoning
+**配對分數 (1-10)** + 你嘅理由
 
-**3 個 green flags**
-呢隻 game 嘅 elements 你會 enjoy
+**3 個綠燈**
+呢隻 game 嘅元素你會鍾意
 
-**2 個 yellow flags**
+**2 個黃燈**
 未必 dealbreaker 但會煩到你嘅嘢
 
-**1 個 red flag**
-最可能令你 60 小時後 quit 嘅 risk
+**1 個紅燈**
+最可能令你 60 個鐘後退出嘅風險
 
 **等定唔等**
-- Launch day 買？
-- 等 1 個月睇 patch & 評論？
-- 等 sale（通常 Steam 1 年內 25-40% off）？
-- skip？
+- 推出日買？
+- 等 1 個月睇修補同評論？
+- 等減價（通常 Steam 1 年內 25-40% off）？
+- 跳過？
 
-語氣：唔好做 hype train 銷售員，係要 protect 你個 wallet 同時間。
+語氣：唔好做炒作銷售員，係要保護你個銀包同時間。
 </PromptBlock>
 
-## 一個 mindset
+## 一個思維框架
 
-Steam 嘅「More Like This」係 tag-based。Reddit 推薦係 popularity-weighted。YouTube 「Top 10」係 SEO-driven。
+Steam 嘅「More Like This」係標籤為主。Reddit 推薦係人氣加權。YouTube「Top 10」係 SEO 為主。
 
-呢 3 個 source 都係用**集體統計**嚟揾「類似」，但你個人嘅「類似」係**dimension specific**——你可能想要 mood 一致 mechanics 唔同，或者 mechanics 一致 art 完全 different。
+呢 3 個來源都係用**集體統計**嚟揾「類似」，但你個人嘅「類似」係**維度具體**——你可能想要氣氛一致機制唔同，或者機制一致美術完全不同。
 
-Claude 嘅 unique value 唔係 catalog 大過 Steam，而係佢可以同你**逐個 dimension 拆**。你 input 越精準（reference + 想要邊面），output 越啱。
+Claude 嘅獨特之處唔係資料庫大過 Steam，而係佢可以同你**逐個維度拆**。你輸入越精準（參考 + 想要邊面），輸出越啱。
 
-最後 reminder：**唔好用 Claude 揾完一張 9 隻嘅 list 之後一隻一隻買晒**。揾完返去 Steam wishlist，等 sale，1 個月後再揀其中 1 隻——畀自己一啲 distance 去 process 推薦。
+最後提醒：**唔好用 Claude 揾完一張 9 隻嘅清單之後一隻一隻買晒**。揾完返去 Steam wishlist，等減價，1 個月後再揀其中 1 隻——畀自己一啲距離去消化推薦。
 
-Wishlist 太長 = 真正想玩嘅 signal 會 lost。
+Wishlist 太長 = 真正想玩嘅信號會走失。

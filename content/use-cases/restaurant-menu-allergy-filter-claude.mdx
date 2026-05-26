@@ -1,5 +1,5 @@
 ---
-title: "影個餐廳 menu 即 filter：用 Claude 揾出 vegan / gluten-free / 食物敏感 適合菜式"
+title: "影個餐廳 menu 即篩選：用 Claude 揾出 vegan / gluten-free / 食物敏感適合菜式"
 slug: "restaurant-menu-allergy-filter-claude"
 issue: 42
 publishedAt: 2026-09-22
@@ -11,7 +11,7 @@ heroImage: "/hero/restaurant-menu-allergy-filter-claude.webp"
 difficulty: 1
 timeMinutes: 5
 toolsNeeded: ["Claude Chat（手機）"]
-description: "影個餐廳 menu 即 filter：用 Claude 揾出 vegan、gluten-free、海鮮敏感、無酒精 嘅 dishes。HK 飲食習慣有限制嘅人嘅救星 prompt。"
+description: "影個餐廳 menu 即篩選：用 Claude 揾出 vegan、gluten-free、海鮮敏感、無酒精嘅菜式。HK 飲食習慣有限制嘅人嘅救星 prompt。"
 keywords: ["食物敏感", "vegan menu hong kong", "gluten free 香港", "敏感 餐廳", "claude 食"]
 related: ["travel-itinerary-claude-day-by-day", "doctor-visit-prep-claude"]
 featured: true
@@ -21,152 +21,152 @@ featured: true
 
 你有食物限制：
 
-- **Vegan / vegetarian**：避免肉、蛋、奶、蜜糖
-- **Gluten intolerance / coeliac**：避免麥、米麵、醬油 enzyme issue
-- **海鮮敏感**：避免蝦、蟹、貝、有時連魚都唔得
-- **無酒精**：宗教 / health / pregnancy
-- **低 sodium**：高血壓 / 心臟病要 watch
-- **Halal / Kosher**
+- **Vegan / 素食**：避免肉、蛋、奶、蜜糖
+- **麩質敏感 / 麩質不耐**：避免麥、米麵、醬油酵素問題
+- **海鮮敏感**：避免蝦、蟹、貝，有時連魚都唔得
+- **無酒精**：宗教 / 健康 / 懷孕
+- **低鈉**：高血壓 / 心臟病要小心
+- **清真 / 猶太餐**
 
-你同朋友 / 家人去食飯。 進餐廳，個 menu 來了——20 頁中文 + 英文，dish 名以「金粟豆芽炒河」呢類 描述 為主，無 ingredient 詳列。
+你同朋友 / 家人去食飯。入餐廳，個 menu 嚟咗——20 頁中文 + 英文，菜式名以「金粟豆芽炒河」呢類描述為主，冇成份詳列。
 
-你嘅 default option：
+你嘅預設做法：
 
-- **問侍應**：5 分鐘 detail 描述每個 dish，侍應有時都唔肯定
-- **食 「safe」 default**（白飯 + plain 蔬菜）：可能 miss 整個餐廳嘅 highlight
-- **冒險 order**：撞到 trigger 食物，浪費餐 + 身體不舒服
+- **問侍應**：5 分鐘詳細描述每個菜，侍應有時都唔肯定
+- **食「安全」預設**（白飯 + 淨味菜）：可能錯過成間餐廳嘅亮點
+- **冒險落單**：撞到觸發食物，浪費餐 + 身體唔舒服
 
-呢篇用 Claude 手機 chat：**影個 menu 一張相，30 秒 filter 出你食得安全嘅 dish**。
+呢篇用 Claude 手機 chat：**影個 menu 一張相，30 秒篩選出你食得安全嘅菜式**。
 
 ## 跟住做
 
 ### 1. 開 Claude.ai 手機 app
 
-iOS / Android 都得。 第一次 use 之前 sign in，等再次用就唔需要 setup。
+iOS / Android 都得。第一次用之前 sign in，等再次用就唔需要 setup。
 
-### 2. 拍 menu
+### 2. 影 menu
 
-整個 menu 拍清啲（多張相 OK，Claude 支援 multi-image）。
+整個 menu 拍清啲（多張相 OK，Claude 支援多張圖）。
 
-⚠️ Tips：
-- **避免 reflection** —— 個 menu 唔好過光
-- **覆蓋整 page** —— 唔好 cut menu 邊
-- **如果你只 interested 某 page**，淨係拍 嗰 page
+⚠️ 貼士：
+- **避免反光** —— 個 menu 唔好過光
+- **覆蓋整頁** —— 唔好剪到 menu 邊
+- **如果你只關心某頁**，淨係影嗰頁
 
 ### 3. 用呢個 prompt
 
-<PromptBlock label="完整 prompt — 食物 filter">
-影咗呢個餐廳嘅 menu。 我嘅 dietary restriction：
+<PromptBlock label="完整 prompt — 食物篩選">
+影咗呢個餐廳嘅 menu。我嘅飲食限制：
 
-- [列你嘅 restriction，例：vegan、gluten-free、避免海鮮]
+- [列你嘅限制，例：vegan、gluten-free、避免海鮮]
 
 請：
 
-**Part 1：✓ Safe dishes**
-List 所有我可以食嘅 dishes：
-- Dish name + 英文 / 中文（用 menu 顯示嘅）
-- 點解 safe（明確 reason）
-- 1-2 個 「possible concern」 我應該 ask 侍應 confirm 嘅地方（醬料、cooking oil shared with 其他 dish 等）
+**Part 1：✓ 安全菜式**
+列出所有我可以食嘅菜：
+- 菜名 + 英文 / 中文（用 menu 顯示嘅）
+- 點解安全（明確原因）
+- 1-2 個「可能擔心位」我應該問侍應確認嘅地方（醬料、煮食油同其他菜 share 等）
 
-**Part 2：⚠️ Maybe dishes**
-邊啲 dish 「likely safe but uncertain」 需要 ask 侍應：
-- Dish name
-- Specific question 我 should ask（例：「呢個炒河 用咩 oil? Share with 蝦 嗰個 wok 嗎?」）
+**Part 2：⚠️ 可能可以嘅菜式**
+邊啲菜「可能安全但唔肯定」需要問侍應：
+- 菜名
+- 具體問題我應該問（例：「呢個炒河用咩油？同蝦嗰個鑊 share 嗎？」）
 
-**Part 3：✗ Avoid**
-邊啲 dish 明顯 NOT safe：
-- Dish name
-- Trigger ingredient
-- 唔需要 elaborate，short 一句
+**Part 3：✗ 避開**
+邊啲菜明顯唔安全：
+- 菜名
+- 觸發成份
+- 唔需要詳細解釋，短一句
 
-**Part 4：Recommendation**
-基於 Safe + Maybe，推薦：
-- **Solo order**：3 個 main dish 我可以食 + balanced
-- **Sharing order**（如果 dining with 朋友 / 家人）：仲有邊啲 「safe for me + popular for them」 嘅 dish
+**Part 4：推薦**
+基於安全 + 可能類別，推薦：
+- **單人落單**：3 個主菜我可以食 + 均衡
+- **分享落單**（如果同朋友 / 家人食）：仲有邊啲「對我安全 + 對佢哋受歡迎」嘅菜
 
-語氣：直接、實用。 餐廳場景下你冇時間 read long output。
+語氣：直接、實用。餐廳場景下你冇時間讀長文。
 
-**重要：** menu 入面有時用 abbreviation 或者 unusual dish name。 如果 unsure，老實標 「需 confirm with server」，唔好估。
+**重要：** menu 入面有時用簡寫或者不尋常嘅菜名。如果唔肯定，老實標「需要同侍應確認」，唔好估。
 </PromptBlock>
 
-### 4. 直接同侍應 confirm Maybe list
+### 4. 直接同侍應確認可能類別
 
-帶住 Claude 嘅 output，侍應前面 efficient ask：
+帶住 Claude 嘅輸出，侍應面前有效率咁問：
 
-> 「呢個炒河同呢個炒飯，請問用嘅 oil 同其他 dish share 嗎? 蝦炒飯 嗰個 wok 同呢碟 share 嗎?」
+> 「呢個炒河同呢個炒飯，請問用嘅油同其他菜 share 嗎？蝦炒飯嗰個鑊同呢碟 share 嗎？」
 
-具體 question 比 「我食唔食得?」 強好多——侍應有 specific question 容易答。
+具體問題比「我食唔食得？」強好多——侍應有具體問題容易答。
 
-### 5. 食完 update 你 own dietary log
+### 5. 食完更新你自己嘅飲食紀錄
 
-如果食完出反應（少少 GI distress、麻煩），記低：
+如果食完出反應（少少腸胃不適、麻煩），記低：
 - 邊間餐廳
-- 邊個 dish
-- 用咗 「Safe」 / 「Maybe」 / 「Avoid」 嘅 prompt judgement
+- 邊個菜
+- 用咗「安全」/「可能」/「避開」嘅判斷
 
-呢類 micro-feedback 累積落，**你嘅 trigger pattern 同 餐廳 trust scoring** 越來越 sharp。
+呢類微回饋累積落，**你嘅觸發規律同餐廳信任評分**越來越精準。
 
 ## 變化例子
 
-### 變化 1：陪小朋友（picky eater + 敏感）
+### 變化 1：陪小朋友（揀飲擇食 + 敏感）
 
-<PromptBlock label="變化 1 — 小朋友 friendly filter">
-影咗呢個餐廳嘅 menu。 我陪 [年齡] 小朋友食飯。
+<PromptBlock label="變化 1 — 小朋友友善篩選">
+影咗呢個餐廳嘅 menu。我陪 [年齡] 小朋友食飯。
 
-小朋友 restriction：
+小朋友限制：
 - 食物敏感：[列]
-- Picky preference：[列，例：唔食 mushroom、唔食 spicy]
-- 喜歡：[列]
+- 揀飲擇食偏好：[列，例：唔食蘑菇、唔食辣]
+- 鍾意：[列]
 
 請：
-1. Filter safe + 小朋友 likely eat 嘅 dish（兩個 criteria）
-2. 識別 「safe but boring」 vs 「safe + appealing」
-3. 推薦 sharing portion 我點 order（小朋友食啲、我食啲）
-4. ⚠️ Flag：菜式 even safe，但 portion size 大／spicy degree 唔啱小朋友
+1. 篩選安全 + 小朋友可能會食嘅菜（兩個條件）
+2. 識別「安全但悶」vs「安全 + 吸引」
+3. 推薦分享份量我點落單（小朋友食啲，我食啲）
+4. ⚠️ 提示：菜式即使安全，但份量大 / 辣度唔啱小朋友
 </PromptBlock>
 
-### 變化 2：日本 / 韓國 / 東南亞 嘅 menu（外語）
+### 變化 2：日本 / 韓國 / 東南亞嘅 menu（外語）
 
 <PromptBlock label="變化 2 — 外文 menu">
-我喺 [日本 / 韓國 / 越南 / 等] 旅行。 影咗本地 menu（[語言]）。
+我喺 [日本 / 韓國 / 越南 / 等] 旅行。影咗本地 menu（[語言]）。
 
-我嘅 restriction：[列]
-
-請：
-1. **Translate** dish names 落英 + 中文
-2. 用 same 「Safe / Maybe / Avoid」 framework
-3. 加：cultural note — 邊啲 hidden ingredient 喺呢個 cuisine 常出但 menu 唔特別 mention（例：日本 dashi 通常 contain 鰹魚、韓國 醬料常 contain shrimp paste）
-4. Specific 「ask the server」 phrase 用嗰種語言（我手機 show 畀侍應）
-</PromptBlock>
-
-### 變化 3：街市 / 街邊小食檔（無 menu，只有 verbal order）
-
-<PromptBlock label="變化 3 — 街市 quick check">
-我喺街邊小食檔 / 街市。 menu 係 mental list / 小黑板 / 一兩款選擇。
-
-我影咗 stall 嘅外觀 / 小黑板 / 已準備好嘅 food。 我嘅 restriction：[列]
+我嘅限制：[列]
 
 請：
-1. Identify likely 食物 / 烹飪方式
-2. 「Safe to ask for」 vs 「Avoid」 嘅 quick judge
-3. Specific question 我可以用廣東話問 stall owner（簡短）
-4. ⚠️ Caveat：street food trust 永遠基於 stall owner 嘅 honesty + cross-contamination risk 一定有
+1. **翻譯**菜名做英文 + 中文
+2. 用同樣「安全 / 可能 / 避開」框架
+3. 加：文化備註 — 邊啲隱藏成份喺呢個菜系常出但 menu 唔特別提（例：日本 dashi 通常含鰹魚、韓國醬料常含蝦醬）
+4. 具體「問侍應」用語用嗰種語言（我手機顯示畀侍應）
 </PromptBlock>
 
-## 一個 reality check
+### 變化 3：街市 / 街邊小食檔（冇 menu，只有口頭落單）
 
-呢個 prompt 嘅 reliability 唔係 100%：
+<PromptBlock label="變化 3 — 街市快速 check">
+我喺街邊小食檔 / 街市。Menu 係腦海清單 / 小黑板 / 一兩款選擇。
 
-- **Menu 描述 vague** —— Claude 同你一樣難 judge
-- **Hidden ingredient** —— 醬料 / 高湯 / cooking oil 常 contain trigger
-- **Cross-contamination** —— 即使 dish ingredient safe，shared wok / utensil 可能 trigger
+我影咗檔口外觀 / 小黑板 / 已準備好嘅食物。我嘅限制：[列]
 
-呢個 process 嘅 **realistic value** 係 **「先 filter 走 obvious avoid，再 narrow down 你 ask server 嘅 specific question」**。 唔係取代你 due diligence。
+請：
+1. 識別可能嘅食物 / 烹飪方式
+2. 「可以問」vs「避開」嘅快速判斷
+3. 具體問題我可以用廣東話問檔主（簡短）
+4. ⚠️ 提示：街頭食物信任永遠基於檔主嘅老實 + 交叉污染風險一定有
+</PromptBlock>
 
-對於 severe allergy（peanut anaphylaxis、coeliac等），**呢個 prompt 只係 starting point**。 一定要 verbally confirm 同 server / kitchen，必要 carry EpiPen。
+## 一個現實檢視
 
-對於 less severe preference（vegan、low sodium、避免酒精），呢個 prompt 真係 streamline 食飯經驗，**令你 enjoy meal 而唔係 panic order**。
+呢個 prompt 嘅可靠程度唔係 100%：
 
-最終 reminder：呢個 use case 嘅 magic 唔係取代 「自己讀 menu」，係**令你 confident 同侍應 ask 具體 question**。 由 「我食唔食得?」 嘅 vague anxiety， 變 「呢三個 dish，share wok 嗎? Oil substitute 嗎?」 嘅 specific dialogue。
+- **Menu 描述模糊** —— Claude 同你一樣難判斷
+- **隱藏成份** —— 醬料 / 高湯 / 煮食油常含觸發物
+- **交叉污染** —— 即使菜成份安全，shared 鑊 / 廚具可能觸發
 
-呢個 confidence shift，對於 daily 撞食物 restriction 嘅人，係 small but real 嘅 quality-of-life upgrade。
+呢個流程嘅**實際價值**係**「先篩走明顯避開嘅，再縮窄你問侍應嘅具體問題」**。唔係取代你嘅應盡注意。
+
+對於嚴重過敏（花生過敏致敏性休克、乳糜瀉等），**呢個 prompt 只係起點**。一定要口頭同侍應 / 廚房確認，必要時帶 EpiPen。
+
+對於較輕嘅偏好（vegan、低鈉、避免酒精），呢個 prompt 真係簡化食飯體驗，**令你享受餐而唔係慌張落單**。
+
+最後提醒：呢個用途嘅 magic 唔係取代「自己讀 menu」，係**令你有信心同侍應問具體問題**。由「我食唔食得？」嘅模糊焦慮，變「呢三個菜，share 鑊嗎？油可以換嗎？」嘅具體對話。
+
+呢個信心轉變，對於每日撞食物限制嘅人，係細微但真實嘅生活質素提升。

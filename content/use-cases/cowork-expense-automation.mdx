@@ -10,8 +10,8 @@ subcategory: "自動化重覆任務"
 heroImage: "/hero/cowork-expense-automation.webp"
 difficulty: 2
 timeMinutes: 45
-toolsNeeded: ["Claude Cowork", "Gmail（收 receipt）", "Apple Notes 或 Local folder"]
-description: "Claude Cowork 自動化 expense report：set 一次 schedule，每月底自動由 Gmail + receipt folder 抽 expense、cross-reference trip、出 .xlsx。HK 打工仔嘅 Cowork 入門 use case。"
+toolsNeeded: ["Claude Cowork", "Gmail（收收據）", "Apple Notes 或本地資料夾"]
+description: "Claude Cowork 自動化 expense report：set 一次排程，每月底自動由 Gmail + 收據資料夾抽出開支、對返公幹紀錄、出 .xlsx。HK 打工仔嘅 Cowork 入門用法。"
 keywords: ["expense report 自動化", "報銷 ai", "claude cowork 教學", "schedule task ai", "打工仔 自動化"]
 related: ["cowork-order-automation", "claude-pdf-summary"]
 featured: false
@@ -19,183 +19,183 @@ featured: false
 
 ## 情境
 
-你出咗成個月差，receipt 散喺手機相簿、email 附件、Apple Notes 度。公司用緊舊式 expense system，**每月底要 submit 一份 .xlsx**：
+你出咗成個月差，收據散喺手機相簿、email 附件、Apple Notes 度。公司用緊舊式 expense system，**每月底要交一份 .xlsx**：
 
-- Date
-- Vendor
-- Category (Travel / Food / Office / Client Entertainment / Other)
-- Amount (HKD)
-- Currency converted (如果係 JPY / USD / RMB)
-- Project / Trip code
-- Receipt attached (Y/N)
+- 日期
+- 商戶
+- 類別（Travel / Food / Office / Client Entertainment / Other）
+- 金額（HKD）
+- 換算貨幣（如果係 JPY / USD / RMB）
+- 項目 / 公幹編號
+- 收據附上（Y/N）
 
-正常人花一個鐘整呢個 report，**因為個 task 完全係機械式** — 開 email、揾 receipt、cross-reference trip、抄入 sheet、conversion rate。呢個 task 完美 fit Cowork：**重覆、有規律、唔需要創意**。
+正常人花一個鐘整呢個 report，**因為個任務完全係機械式** — 開 email、揾收據、對返公幹、抄入 sheet、匯率換算。呢個任務完美貼合 Cowork：**重覆、有規律、唔需要創意**。
 
-呢篇 set up 一個每月底自動行嘅 expense report draft —— **你個 final review 仍然要做（公司審計需要 human approval），但 80% 嘅機械式 work 已經自動完成**。
+呢篇 set up 一個每月底自動行嘅 expense report 草稿 ——**你個最後檢視仍然要做（公司審計需要人手批核），但 80% 嘅機械式工作已經自動完成**。
 
-> Caveat：Cowork 仲係 research preview。佢會直接讀你 Gmail / local files。Setup 之前喺 Mac 開一個 dedicated「expense」folder 畀佢，唔好畀佢漫遊敏感檔案。
+> 注意：Cowork 仲係研究預覽版。佢會直接讀你 Gmail / 本地檔案。Setup 之前喺 Mac 開一個專用「expense」資料夾畀佢，唔好畀佢漫遊敏感檔案。
 
 ## 跟住做
 
-### 1. 開個專用 folder + Apple Notes section
+### 1. 開個專用資料夾 + Apple Notes 區
 
 喺你 Mac Documents 度開：
 
 ```
 ~/Documents/expenses/
 ├── 2026-03/        ← 呢個月嘅
-│   ├── receipts/   ← 你 dump 相片入嚟
-│   └── (Claude 會喺呢度生成 draft)
+│   ├── receipts/   ← 你儲相片入嚟
+│   └── (Claude 會喺呢度生成草稿)
 └── archive/        ← 過往幾個月
 ```
 
-Apple Notes 開一個叫「Trips & Projects」嘅 note，list 你呢個月有去咗邊：
+Apple Notes 開一個叫「Trips & Projects」嘅 note，列出你呢個月有去咗邊：
 
 ```
 2026-03 Trips & Projects:
-- 03/05–03/08 Tokyo (Client X, project code: CX-2026)
-- 03/14 Macau day trip (Client Y, project code: CY-Q1)
-- 全月 Office (project code: OFFICE)
+- 03/05–03/08 Tokyo (Client X, 項目編號：CX-2026)
+- 03/14 Macau 一日遊 (Client Y, 項目編號：CY-Q1)
+- 全月 Office (項目編號：OFFICE)
 ```
 
-呢個 note 係 Claude 嘅 ground truth — 佢用呢個 list 去 match receipt 落 trip。
+呢個 note 係 Claude 嘅參考依據 — 佢用呢個清單去對返收據落公幹。
 
 ### 2. 開 Claude Desktop 嘅 Cowork session
 
-入 Cowork mode（要 Pro / Max plan）。
+入 Cowork 模式（要 Pro / Max plan）。
 
-### 3. 用呢個 prompt setup 流程
+### 3. 用呢個 prompt 設定流程
 
-<PromptBlock label="完整 prompt — Setup 每月 expense automation">
-我想 set up 一個每月底自動執行嘅 expense report task。以下係流程：
+<PromptBlock label="完整 prompt — 設定每月 expense 自動化">
+我想設定一個每月底自動執行嘅 expense report 任務。以下係流程：
 
-**Input sources：**
-1. 我嘅 Gmail（搵 vendor email、digital receipt）
-2. ~/Documents/expenses/2026-XX/receipts/ folder（我手動拍照 dump 嘅 receipt 相）
-3. Apple Notes 入面叫「Trips & Projects」嘅 note（畀你睇我去過邊、edit 過 project code）
+**輸入來源：**
+1. 我嘅 Gmail（搵商戶 email、電子收據）
+2. ~/Documents/expenses/2026-XX/receipts/ 資料夾（我手動拍照儲落嘅收據相）
+3. Apple Notes 入面叫「Trips & Projects」嘅 note（畀你睇我去過邊、編輯過項目編號）
 
 **每月最後一日晚上 9 點自動行：**
 
-第一步：collect receipts
-- Scan Gmail 過去 30 日，揾包含「receipt」、「invoice」、「booking confirmation」、「reservation」等字眼嘅 email
-- Scan ~/Documents/expenses/2026-[月份]/receipts/ folder 入面所有圖片
-- 由每張 receipt 抽：日期、vendor name、金額、currency
+第一步：收集收據
+- 掃 Gmail 過去 30 日，揾包含「receipt」、「invoice」、「booking confirmation」、「reservation」等字眼嘅 email
+- 掃 ~/Documents/expenses/2026-[月份]/receipts/ 資料夾入面所有圖片
+- 由每張收據抽出：日期、商戶名、金額、貨幣
 
 第二步：分類
-- 用 vendor name 估 category：
-  - Airlines / 機票 / 酒店 → Travel
+- 用商戶名估類別：
+  - 航空公司 / 機票 / 酒店 → Travel
   - 餐廳 / cafe → Food
   - 文具店 / 印刷 / Apple Store → Office
-  - 高端 dining + 同期有 client meeting → Client Entertainment
-  - 其他 → Other（同我 confirm）
+  - 高端餐飲 + 同期有 client meeting → Client Entertainment
+  - 其他 → Other（同我確認）
 
-第三步：match trip / project
-- 用日期 cross-reference Apple Notes「Trips & Projects」
-- 將每張 receipt assign 落最相關嘅 trip / project code
-- 如果含糊（例如同一日有兩個 project），標「需 confirm」
+第三步：對返公幹 / 項目
+- 用日期對返 Apple Notes「Trips & Projects」
+- 將每張收據配落最相關嘅公幹 / 項目編號
+- 如果含糊（例如同一日有兩個項目），標「需確認」
 
-第四步：currency conversion
-- 如果唔係 HKD，攞當日嘅 exchange rate（用 publicly available rate）
-- 出 original currency + amount + converted HKD
+第四步：貨幣換算
+- 如果唔係 HKD，攞當日嘅匯率（用 publicly available rate）
+- 出原幣 + 金額 + 換算 HKD
 
-第五步：output
+第五步：輸出
 - 喺 ~/Documents/expenses/2026-[月份]/ 度生成「[月份]-expense-draft.xlsx」
 - 三個 sheet：
-  - **Main**：完整 expense list，columns 同公司 template 一致
-  - **Flagged**：需要我 confirm 嘅項目（缺 receipt、含糊 category 等）
-  - **Summary**：每個 category 嘅 total、每個 trip / project 嘅 total
+  - **Main**：完整開支清單，欄位同公司範本一致
+  - **Flagged**：需要我確認嘅項目（缺收據、含糊類別等）
+  - **Summary**：每個類別嘅總額、每個公幹 / 項目嘅總額
 
 第六步：email 提醒
-- Send 一封 email 畀我，subject：「[月份] Expense Draft Ready — [N] 條」
-- Body：簡短 summary + flagged 數 + 個 file 嘅 path
+- 寄一封 email 畀我，subject：「[月份] Expense Draft Ready — [N] 條」
+- 內容：簡短總結 + flagged 數 + 個檔案路徑
 
-**重要 constraints：**
-- 唔好 submit 任何 expense report 畀公司！Draft 出嚟之後等我親自 review
-- 缺少 receipt 嘅花費寧願標「未有」，唔好硬作
-- 估唔到 category 嘅 conservative 標「Other - needs review」
-- Currency conversion 用嘅 exchange rate 一定要 source，喺 Notes column 寫明
+**重要限制：**
+- 唔好交任何 expense report 畀公司！草稿出嚟之後等我親自檢視
+- 缺收據嘅花費寧願標「未有」，唔好硬作
+- 估唔到類別嘅保守標「Other - needs review」
+- 貨幣換算用嘅匯率一定要有來源，喺 Notes 欄寫明
 
-Setup 好嘅話 confirm 我，再 schedule 落每月最後一日 9pm 行。
+設定好嘅話確認我，再排程落每月最後一日 9pm 行。
 </PromptBlock>
 
-### 4. Dry run 第一次
+### 4. 第一次試行
 
-第一次跑唔好 schedule，要 Claude 喺 sandbox mode dry run：「即場行一次，showcase output，唔好真係寫落 disk」。
+第一次跑唔好排程，要 Claude 喺沙盒模式試行：「即場行一次，展示輸出，唔好真係寫落硬碟」。
 
 睇下：
-- 佢有冇正確 read 你嘅 Gmail
-- Category 估得合唔合理
-- Trip / project matching 準唔準
-- Output xlsx format 啱唔啱公司 template
+- 佢有冇正確讀你嘅 Gmail
+- 類別估得合唔合理
+- 公幹 / 項目對得準唔準
+- 輸出 xlsx 格式啱唔啱公司範本
 
-執完 prompt 之後，先 enable scheduled task。
+執完 prompt 之後，先啟用排程任務。
 
-### 5. 第一個月 final review
+### 5. 第一個月最終檢視
 
-第一個月 Claude 生成 draft 之後，你親自 cross-check 嘅時候要：
+第一個月 Claude 生成草稿之後，你親自核對嘅時候要：
 
-1. 開 Flagged sheet — 處理所有含糊 item
-2. 開 Main sheet — 隨機抽 5 條 cross-check：vendor name、金額、currency 對返 receipt 啱唔啱
-3. 對返 Summary — 個總數 sanity check（接近你心目中個 monthly burn rate？）
+1. 開 Flagged sheet — 處理所有含糊項目
+2. 開 Main sheet — 隨機抽 5 條核對：商戶名、金額、貨幣對返收據啱唔啱
+3. 對返 Summary — 個總數合理性檢查（接近你心目中個月度燒錢？）
 
-通常第一個月會發現 2-3 樣要調整嘅嘢（例：某啲 vendor 分類錯、某啲 trip 你唔記得加入 Notes）。**Fine-tune 一次 prompt，之後幾個月就 smooth**。
+通常第一個月會發現 2-3 樣要調整嘅嘢（例：某啲商戶分類錯、某啲公幹你唔記得加入 Notes）。**微調一次 prompt，之後幾個月就順**。
 
 ## 變化例子
 
 ### 變化 1：唔用 Apple Notes，用 Google Calendar
 
-如果你嘅 trip / meeting 都喺 Calendar：
+如果你嘅公幹 / 會議都喺日曆：
 
-<PromptBlock label="變化 1 — Calendar-driven matching">
+<PromptBlock label="變化 1 — 日曆驅動配對">
 （同上面 prompt 一樣，但第三步改成）：
 
-第三步：match trip / project
-- Read 我嘅 Google Calendar 過去 30 日 events
-- Match receipt 落同日／同期嘅 event
-- Event title 通常會 hint project code（例：「CX-2026 Tokyo Onsite」）
-- 如果一個 event 跨幾日（例：3 日 onsite trip），呢段時間嘅 receipt 都 attribute 落該 trip
+第三步：對返公幹 / 項目
+- 讀我嘅 Google Calendar 過去 30 日 events
+- 將收據配落同日 / 同期嘅 event
+- Event 標題通常會提示項目編號（例：「CX-2026 Tokyo Onsite」）
+- 如果一個 event 跨幾日（例：3 日 onsite trip），呢段時間嘅收據都歸落該公幹
 </PromptBlock>
 
-### 變化 2：自動 detect 缺 receipt 嘅 expense
+### 變化 2：自動偵測缺收據嘅開支
 
-<PromptBlock label="變化 2 — 揾返 missing receipt">
+<PromptBlock label="變化 2 — 揾返漏咗嘅收據">
 （追加呢一步）
 
-額外 step：cross-reference 我嘅 credit card statement（已 upload 做 PDF / 喺 Gmail 嘅 monthly statement）。
+額外步驟：對返我嘅信用卡月結單（已 upload 做 PDF / 喺 Gmail 嘅月度結單）。
 
-對於 statement 上嘅 charge：
-- 如果我有 receipt match 到 → OK
-- 如果冇 receipt → 喺 Flagged sheet 標「Missing receipt」+ vendor + amount
+對於結單上嘅扣帳：
+- 如果我有收據對到 → OK
+- 如果冇收據 → 喺 Flagged sheet 標「Missing receipt」+ 商戶 + 金額
 
-呢個幫我 catch 嗰啲我食完唔記得攞 receipt 嘅花費（落酒店嘅 minibar、店內 tap pay 但冇要 invoice 等等）。
+呢個幫我捉返嗰啲我食完唔記得攞收據嘅花費（落酒店嘅 minibar、店內拍卡但冇要 invoice 等等）。
 </PromptBlock>
 
-### 變化 3：團隊版本（你係 manager）
+### 變化 3：團隊版本（你係主管）
 
-<PromptBlock label="變化 3 — 整個 team 嘅 expense">
-（如果你 manage 緊 5 人 team，每個都 submit 自己嘅 expense）：
+<PromptBlock label="變化 3 — 整個團隊嘅 expense">
+（如果你 manage 緊 5 人團隊，每個都交自己嘅 expense）：
 
 每月最後一日：
-1. 收齊 5 個下屬個人嘅 expense draft（佢哋自己用變化 1 出嘅 xlsx）
-2. Combine 成一份 team-level expense report
-3. 計每個 project / trip 嘅 total spend
-4. Flag：有冇邊個 outlier（例：某個下屬 dining spending 明顯高過 team average）— 唔係指控，係幫你準備同 finance 解釋
-5. 出 team-level summary email 寄畀 me + finance partner
+1. 收齊 5 個下屬個人嘅 expense 草稿（佢哋自己用變化 1 出嘅 xlsx）
+2. 合併成一份團隊層面 expense report
+3. 計每個項目 / 公幹嘅總共花費
+4. Flag：有冇邊個離群（例：某個下屬餐飲花費明顯高過團隊平均） — 唔係指控，係幫你準備同財務解釋
+5. 出團隊層面總結 email 寄畀我 + 財務伙伴
 
-私隱 reminder：呢個 task 處理嘅係 sensitive employee data，唔好 share 其他人嘅 individual details 畀錯人。
+私隱提醒：呢個任務處理嘅係敏感員工資料，唔好分享其他人嘅個別細節畀錯人。
 </PromptBlock>
 
-## 點解呢個 task 啱 Cowork 唔啱 Chat
+## 點解呢個任務啱 Cowork 唔啱 Chat
 
-呢個 task 嘅特性：
+呢個任務嘅特性：
 - ✓ 重覆：每月做同一件事
-- ✓ 機械式：rule-based、唔需要創意判斷
-- ✓ 多 source：要 cross-reference Gmail + folder + Notes + Calendar
-- ✓ 有明確 output format
-- ✓ Failure tolerant：draft 出錯 OK，你 review 時可以 catch
+- ✓ 機械式：規則為主、唔需要創意判斷
+- ✓ 多來源：要對返 Gmail + 資料夾 + Notes + 日曆
+- ✓ 有明確輸出格式
+- ✓ 容錯：草稿出錯 OK，你檢視時可以捉返
 
-Chat mode 嘅限制：你要每月主動開 chat、逐個 upload receipt、逐個指示佢點做。**做一次唔煩，做 12 次就煩**。
+Chat 模式嘅限制：你要每月主動開 chat、逐張上傳收據、逐個指示佢點做。**做一次唔煩，做 12 次就煩**。
 
-Cowork 嘅 leverage 喺：**setup 嗰 30 分鐘嘅投資，換成個年慳返 12 個鐘 + 永遠唔會 forget**。
+Cowork 嘅好處喺：**設定嗰 30 分鐘嘅投資，換成個年慳返 12 個鐘 + 永遠唔會漏**。
 
-最後一個 reminder：Cowork 而家仲係 research preview，**唔好交畀佢做 critical 決策**（submit expense、發 client email、charge money）。佢嘅 sweet spot 係 **「draft + collate」**，最後一步嘅 approve 永遠係你。
+最後一個提醒：Cowork 而家仲係研究預覽版，**唔好交畀佢做關鍵決定**（交 expense、發 client email、扣錢）。佢嘅 sweet spot 係 **「草擬 + 整理」**，最後一步嘅批核永遠係你。
