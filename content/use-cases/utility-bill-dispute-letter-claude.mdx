@@ -1,0 +1,251 @@
+---
+title: "電費 / 水費 / 煤氣費單異常用 Claude 寫投訴信：sound reasonable，唔 cringe，搞掂為止"
+slug: "utility-bill-dispute-letter-claude"
+issue: 135
+publishedAt: 2026-05-27
+audience: ["消費者", "打工仔"]
+category: "chat"
+section: "其他"
+subcategory: "投訴 / 維權"
+difficulty: 1
+timeMinutes: 25
+toolsNeeded: ["Claude Chat", "上期同今期賬單", "電錶 / 水錶相"]
+description: "中電 / 港燈 / 水務署 / 煤氣月單突然 jump 200%？hotline hold 你成個 quarter？教你用 Claude 寫一封 sound reasonable 嘅 escalation 投訴信，連消委會 cc 路徑、follow-up cadence 都齊。"
+keywords: ["HK 投訴信", "消委會 escalation", "電費 dispute", "utility bill complaint", "中電 賬單 投訴", "煤氣費 異常"]
+related: ["employment-contract-review-claude", "hong-kong-tenancy-agreement-claude", "apology-email-template-claude"]
+featured: false
+---
+
+## 情境
+
+你打開電子賬單，呆咗 3 秒。
+
+> 「上個月 $480，今個月 $1,420。冇開過冷氣，冇加電器，冇人住多咗。」
+
+你打 hotline。等 38 分鐘。客戶服務員話：「先生我哋會 raise case，7 個工作天回覆你。」 7 日後冇人覆。再打，再 hold 半個鐘，重新講一次。對方話：「個 case 仲喺度 process。」
+
+呢個唔係你諗多。HK 公用事業 / 電訊 / 銀行嘅 first-line hotline，**設計上就係用嚟過濾投訴**——絕大部分人 hold 兩次就放棄。
+
+但係**書面投訴信進入正式 escalation channel 之後**，遊戲規則完全唔同：
+
+- 公司有法定 / 自願守則嘅回覆時限
+- 抄消委會 / 通訊事務管理局 / 金管局 = 監管機構備案
+- 留低書面 trail = 之後上小額錢債審裁處嘅證據
+
+呢篇用 Claude 25 分鐘整一封 **sound reasonable 但企硬** 嘅投訴信，唔 cringe、唔 dramatize、唔 doormat，搞掂為止。
+
+> 利益申報：呢個唔取代法律意見。涉及金額大（過萬蚊）或者人身安全（煤氣洩漏、電力故障），直接搵消委會 / 機電工程署 / 報警。Claude 嘅輸出係幫你**寫得清楚有力**，唔取代你應該行使嘅其他渠道。
+
+## 跟住做
+
+### 1. 齊資料先寫信（5 分鐘）
+
+寫信之前手頭要有：
+
+- **過去 6-12 個月嘅賬單**（電子版 / 紙本都得）—— 用嚟證明「平均用量 vs 今期跳升」
+- **今期賬單**（連 account number、meter number、billing period）
+- **電錶 / 水錶 / 煤氣錶嘅實物相**（影低數字 + 拍埋日期）—— 證明你親自核對過
+- **之前打 hotline 嘅紀錄**（日期、case number、客服姓名）—— 證明已經試過正常 channel
+- **任何 supporting evidence**：搬走 / 出 trip 嘅日期、之前報修紀錄、相鄰單位用量
+
+冇相、冇 case number 都唔緊要——照寫，封信入面講「我已於 [日期] 致電熱線，案件編號 pending」即可。
+
+### 2. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — utility bill escalation 投訴信">
+我要寫一封正式投訴信畀 [公司名，例：中華電力 / 港燈 / 水務署 / 香港中華煤氣]，escalate 一單賬單異常爭議。
+
+背景：
+
+- 我嘅賬戶 / 戶口號碼：[填]
+- 爭議賬單嘅 billing period：[例：2026-04-15 至 2026-05-14]
+- 爭議金額：[例：$1,420，比過去 6 個月平均 $480 高出約 195%]
+- 過去 6 個月平均月費：[填]
+- 今期賬單金額：[填]
+- 用量有冇實質改變：[例：冇搬屋、冇新增電器、住戶人數冇變、冇放長假等]
+- 我已採取嘅行動：[例：5 月 18 日致電 hotline，case ref CR-XXXX，客服話 7 工作天覆；至今 [幾耐] 未收到回覆]
+- 電錶 / 水錶 / 煤氣錶相片：[有 / 冇]
+- 我想要嘅 remedy（揀一個或多個）：
+  - 重新讀錶 + 核實今期讀數
+  - 派技工檢查錶具有冇故障
+  - 調整賬單金額至合理水平 + 退款
+  - 提供分期付款安排（避免逾期罰款）
+  - 暫緩追數 / 暫緩斷供，直至爭議解決
+
+請幫我整一封正式書面投訴信，符合 HK 商業書信標準（中文版 + 英文版各一）。
+
+結構（必須跟）：
+
+**段 1：開門見山 state 事實**
+- 一句講清楚我係邊個、賬戶號、爭議邊張單、爭議乜
+- 唔加情緒形容詞（「離譜」、「不能接受」呢類唔好用）
+- 數字講晒嘢：今期 vs 過去平均、百分比差距
+
+**段 2：列出我已經採取嘅 reasonable 行動**
+- 致電 hotline 嘅日期、case ref、客服回應
+- 自行核對電錶 / 水錶讀數
+- 確認用電 / 用水 / 用氣行為冇實質改變
+- 呢段嘅 tone：「我已經畀咗 normal channel 機會」
+
+**段 3：specific request（最重要）**
+- 列點寫出我要求嘅具體 remedy（上面 1-5 條）
+- 唔好寫「請貴公司妥善處理」呢種 vague request
+- 每項 remedy 要 actionable（公司收到信知道要做乜）
+
+**段 4：cite 監管 / 消費者保障路徑**
+- 提及如果 [14 日] 內未收到滿意回覆，我會：
+  - 將事件轉介消費者委員會（電：2929-2222）
+  - [視乎行業] 轉介通訊事務管理局 / 機電工程署 / 水務署投訴組
+  - 保留申索小額錢債審裁處嘅權利
+- Tone：陳述事實，唔威脅。「我會」唔係「我會告死你」
+
+**段 5：deadline + next step**
+- 明確寫出我期望嘅回覆 deadline（建議 14 個工作天）
+- 我嘅聯絡方法（email + 電話 + 通訊地址）
+- 抄送名單 (CC)：[消委會 / 相關監管機構]
+
+簽署：[我嘅全名] + 日期
+
+語氣要求：
+- Reasonable adult tone — 唔卑躬屈膝，唔氣急敗壞
+- 唔用感嘆號
+- 唔用「貴公司可恥」、「員工態度極差」呢類人身評論
+- 用事實 + 數字 + 時間線講嘢
+- 中文版用書面語，唔好太口語化（呢封信會入 file，可能畀律師 / 監管機構睇）
+
+最後另外畀我：
+- 信件嘅 subject line（email 用）
+- 應該寄去 / email 去邊個部門地址（如果你知道）
+- 應該夾埋邊啲附件（賬單影印本、電錶相、之前 case ref 截圖等）
+</PromptBlock>
+
+### 3. 點 send 先有效
+
+唔好淨係 email 完就算。**多渠道並行**先係 HK 投訴文化嘅標準動作：
+
+- **Email** —— 寄去公司嘅 customer service / complaints 部門 email。Subject line 寫「Formal Complaint — Account [號碼] — Billing Dispute [日期]」，留 paper trail
+- **掛號信** —— 同一封信印出嚟，寄去公司總辦事處。掛號回條 = 法律上嘅送達證明
+- **CC 消委會** —— 將 email cc 去 `cc@consumer.org.hk`，或者另外經消委會網站投訴系統開 case。消委會本身唔判決，但係佢哋會跟進，公司收到「來自消委會嘅查詢」會認真好多
+- **相關監管機構**：
+  - 電 / 煤氣（安全 / 服務）：機電工程署 2333-3762
+  - 通訊 / 電訊：通訊事務管理局 (OFCA) 2961-6333
+  - 銀行 / 信用卡：金管局投訴熱線 2878-1378
+  - 水費：水務署客戶諮詢中心 2824-5000
+
+正路係**email + 掛號 + CC 消委會**三管齊下。費用：一個郵票 + 5 分鐘。
+
+### 4. Follow-up cadence（最多人輸喺呢度）
+
+寄信之後唔好就咁等。set timeline：
+
+- **Day 7** —— 如果完全未收到 acknowledgment，email 公司問 case 進度，順手 forward 返原信。Tone 保持中性：「following up on my formal complaint dated [日期]」
+- **Day 14** —— 如果到 deadline 仲未實質回覆，正式 email 通知公司你會 escalate。同日 follow up 消委會（電話 + email）拎個 case ref
+- **Day 21** —— 如果消委會跟進都未推到，考慮：(a) 小額錢債審裁處（claim 上限 $75,000，無需律師），或者 (b) 媒體投訴版（東張、東呼）。後者係 last resort，但對大型公用事業有用，因為佢哋唔想上新聞
+
+關鍵：每一次 follow-up 都用書面（email），每次都簡短引用上次嘅日期同 case ref。**Paper trail 就係你嘅籌碼**。
+
+## 變化例子
+
+### 變化 1：電訊 service 漫遊費 / 月費 dispute
+
+<PromptBlock label="變化 1 — 電訊月費 / 漫遊費爭議">
+我嘅情況唔係公用事業，係電訊服務（[HKT / SmarTone / 3HK / CSL / csl Mobile / 中國移動香港]）。
+
+爭議類型：[揀一個]
+- 漫遊費異常（出 trip 前已 set 漫遊套餐 / 已關 data roaming，但收到 high charge）
+- 月費自動續約後跳價，無 prior notice
+- 增值服務（鈴聲 / SMS 訂閱 / VAS）無同意被收費
+- 寬頻速度長期低於 advertised
+- Contract 內收費項目同 sales 落單時口頭承諾唔同
+
+請按主 prompt 嘅 5 段結構整投訴信，但特別注意：
+
+1. **段 4 cite 嘅監管機構** 換成：
+   - 通訊事務管理局 (OFCA) 2961-6333 — 服務質素 / 不公平收費投訴
+   - 消委會（同樣 cc）
+   - 「電訊服務合約資料簡介手冊」嘅相關條款（如有適用）
+
+2. **段 3 remedy** 加多兩條選項：
+   - 提早解約並豁免違約金（如果服務嚴重偏離合約承諾）
+   - 退回 [日期] 至今多收嘅費用
+
+3. **附件清單**：合約副本、最近 6 期月費單、爭議當月嘅 itemised bill、sales 落單時嘅 WhatsApp / email 紀錄（如有）
+
+4. 信件 tone 額外注意：電訊公司 retention team 嘅權限其實好大，留有彈性畀對方 propose alternative（例：「如貴公司可提出合理 alternative，我願意先了解再決定下一步」），唔好一上嚟就講小額錢債審裁處
+</PromptBlock>
+
+### 變化 2：銀行 charge / 信用卡 fraud transaction
+
+<PromptBlock label="變化 2 — 銀行 / 信用卡爭議">
+我嘅爭議係銀行 / 信用卡（[銀行名 + 卡 type]）。
+
+爭議類型：[揀一個]
+- 信用卡上有未授權交易 (unauthorized transaction)
+- 商戶重複扣賬 (double charge)
+- 已 cancel 嘅訂閱服務繼續扣賬
+- 銀行收費（年費 / 手續費 / forex markup）同產品條款唔符
+- 自動轉賬出錯 (direct debit error)
+
+請按主 prompt 結構整投訴信，但特別注意：
+
+1. **時間敏感**：信用卡未授權交易要喺 **30 日內** 書面通知發卡銀行（呢個係 chargeback right 嘅標準時限），信件第一段要明確 invoke 「I am exercising my right to dispute this charge within the 30-day window」
+
+2. **段 4 cite 嘅監管機構**：
+   - 金管局投訴處 2878-1378（銀行業務）
+   - 證監會（如涉及投資產品）
+   - 消委會（同樣 cc）
+
+3. **段 3 remedy** 寫明：
+   - 凍結爭議交易，唔當 outstanding balance 計利息 / late fee
+   - 啟動 chargeback 程序
+   - 提供 chargeback 嘅 case ref 同預計處理時限
+
+4. **附件**：爭議交易嘅 statement 截圖（highlight 嗰行）、與商戶嘅溝通紀錄（如有）、報警紀錄（如涉及盜用 / 詐騙）
+
+5. 平行動作：同步致電發卡銀行 24 小時 hotline 報失 / 暫停張卡。書面投訴信 唔取代 即時停卡。
+</PromptBlock>
+
+### 變化 3：政府部門評估錯誤（運輸署 / 稅局 / 差餉物業估價署）
+
+<PromptBlock label="變化 3 — 政府部門評估 / 收費爭議">
+我嘅爭議對象係政府部門（[運輸署 / 稅務局 / 差餉物業估價署 / 房署 / 入境處 / 食環]）。
+
+爭議類型：[填，例如：]
+- 稅局發出嘅評稅通知書金額有誤（漏報扣除、計錯免稅額）
+- 運輸署交通違例罰款不合理（路牌不清、訊號燈故障）
+- 差餉 / 地租評估高於市值
+- 政府部門延誤處理我嘅申請，造成損失
+
+請按主 prompt 結構整投訴信，但特別注意：
+
+1. **政府部門有法定 statutory 投訴 / 上訴程序**，要 cite 對嘅機制：
+   - 稅局：「反對評稅通知書」(Notice of Objection)，必須喺評稅後 1 個月內提出，引用 Inland Revenue Ordinance s.64
+   - 差餉：差餉物業估價署嘅 proposal / 上訴機制
+   - 罰款：交通違例事項裁判法庭嘅 plead not guilty 機制
+
+2. **段 4 cite 嘅路徑**：
+   - 申訴專員公署 (Ombudsman) 2629-0555 — 政府部門行政失當
+   - 立法會議員辦事處（地區辦） — 經選舉議員介入，對部分案件有用
+   - 相關部門嘅獨立投訴組 / 內部監察組
+
+3. **段 3 remedy** 要 align 政府程序術語：
+   - 「申請覆核」(request for review)
+   - 「提出反對」(file an objection)
+   - 「申請寬免 / 緩繳」(apply for waiver / deferred payment)
+
+4. **Tone 額外注意**：對政府部門用書面語要更正式（「敬啟者」開頭、「此致 [部門全名]」結尾、用「本人」唔用「我」）。中文版優先，英文版作 supporting。
+
+5. **deadline 設定**：政府部門有自己嘅服務承諾 (performance pledge) 時限，cite 對應嘅 pledge（例：稅局 21 個工作天回覆查詢），唔好自己亂 set。
+</PromptBlock>
+
+## 一個思維轉變
+
+HK 消費者最大嘅心理障礙：「投訴會唔會搞到我？」、「會唔會被 cut 服務？」、「會唔會被 label 為麻煩客？」
+
+**事實係剛好相反**。公用事業 / 電訊 / 銀行內部都有 complaint logging system，書面投訴 = 個案進入正式 KPI tracking。staff 處理 escalated case 嘅 incentive 係**搞掂佢**，唔係搞你。
+
+> 同事間嘅一句話：「reasonable, documented, persistent」嘅投訴客，係公司最快畀 remedy 嘅嗰批人。又 cringe 又 emotional 又重複講同樣嘅嘢嘅，先至會被擺埋一邊。
+
+Claude 嘅作用就係令你由「打電話發洩」變成「reasonable, documented, persistent」——一封 800 字、tone neutral、有時間線、有 specific request 嘅信，**勝過 hold 線 3 個鐘鬧 5 個客服**。
+
+25 分鐘嘅寫信功夫，可能幫你拎返幾百到幾千蚊，順手保住未來幾年面對同類爭議嘅心理 leverage。**唔係出力鬧，係出力寫清楚**。

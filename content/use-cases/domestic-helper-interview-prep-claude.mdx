@@ -1,0 +1,147 @@
+---
+title: "請工人姐姐前用 Claude 整 interview question：兼顧工作能力 + 屋企 fit + red flag screen"
+slug: "domestic-helper-interview-prep-claude"
+issue: 126
+publishedAt: 2026-05-27
+audience: ["消費者", "學生家長"]
+category: "chat"
+section: "親子"
+subcategory: "屋企 管理"
+difficulty: 1
+timeMinutes: 30
+toolsNeeded: ["Claude Chat"]
+description: "請工人姐姐前 agency 安排 15-30 分鐘 interview，問乜先唔浪費？教你用 Claude 整一份 tailored 你屋企 setup 嘅 question list：揭真實工作能力、試屋企 fit、screen red flag。"
+keywords: ["HK 工人姐姐 interview", "外傭 面試", "domestic helper interview HK", "請工人 question", "外傭 中介 面試"]
+related: ["apology-email-template-claude", "parent-teacher-feedback-claude", "hong-kong-school-comparison-claude"]
+featured: false
+---
+
+## 情境
+
+中介 send 三個 candidate profile 畀你，安排咗下星期三晚 phone 或者 video interview，每個 15 到 30 分鐘。你坐喺度諗：「咁短時間，到底問乜先有用？」
+
+大部分人問嘅 question 都好行貨：
+
+- 「你識唔識煮飯？」——CV 已寫
+- 「你帶過幾大個細路？」——profile 已寫
+- 「你做得幾耐？」——合約 record 已寫
+- 「你會唔會 OK 同我哋住？」——對方梗係答 OK
+
+15 分鐘問曬呢啲，等於冇 interview 過。你 hire 個人入屋住兩年，做嘅 decision 完全靠 agency 嘅 profile 同一個 gut feeling。
+
+呢篇用 Claude 整一份**度身訂造你屋企 setup** 嘅 question 清單，三個目標：揭真實工作能力、試屋企 fit、screen red flag。
+
+## 跟住做
+
+### 1. 列出你屋企真實 context
+
+開 Claude 前，自己 jot 低呢幾樣：
+
+- **屋企成員**：細路幾多歲、有冇長者、有冇寵物、有冇人 work from home
+- **lifestyle**：你哋幾點返工放工、weekend 通常做咩、屋企人嘅飲食習慣、有冇 dietary restriction
+- **空間**：幾大、姐姐房嘅 setup、share 廁所定獨立
+- **你最 priority 嘅 task**：照顧細路？煮飯？清潔？接送？病人照顧？
+- **你嘅 dealbreaker**：例如唔接受食辣、唔接受夜瞓開電視、唔接受用電話太多
+
+呢啲 context 唔 share 畀 Claude，問題只會係 generic「點樣帶細路」嘅 list，同 Google 出嚟一樣。
+
+### 2. 用呢個 prompt 整 interview question 清單
+
+<PromptBlock label="完整 prompt — 整 tailored interview question 清單">
+我下星期同三個外傭 candidate 做 phone interview，每個 20 分鐘。請幫我整一份 tailored question 清單。
+
+我屋企 context：
+- 成員：[爸爸 媽媽 + 兩個細路（5 歲、8 歲）+ 一隻貓]
+- Lifestyle：[父母都返 full-time，5:30pm 後返到屋企；weekend 多數出街]
+- Priority task ranking：[1. 照顧細路課後 2. 煮三餐 3. 清潔 4. 寵物]
+- Dealbreaker：[唔接受成日玩電話、唔接受對貓有 phobia]
+- 候選人 profile：[兩個有香港 experience 嘅菲律賓姐姐、一個第一次嚟港嘅印尼姐姐]
+
+請出 question 清單，分四 section：
+
+**Section A — 揭真實工作能力（5 條）**
+- 唔好問「你識唔識做 X」（佢一定答識）
+- 要 behavioral question：「上一份工，當 [具體情境]，你會點處理？」
+- 例如：細路發燒 38 度但家長未返到，你會做啲乜先？
+- 目標：聽 specific story，唔係抽象 statement
+
+**Section B — 試屋企 fit（4 條）**
+- 圍繞 lifestyle compatibility、生活習慣、價值觀
+- 例如：你 off day 通常做啲乜？你瞓覺嘅習慣係點？
+- 唔好問成 「will you be happy living with us」呢類零分問題
+- 目標：聽佢真實 lifestyle，自己 judge fit 唔 fit
+
+**Section C — Screen red flag（4 條）**
+- 前 employer contract 結束嘅原因（佢嘅版本 vs profile 寫嘅版本有冇出入）
+- Family commitment（屋企人對佢嚟港工作嘅 expectation、有冇供緊家用 pressure）
+- 健康狀況（過去一年有冇 major illness）
+- Financial pressure signal（有冇 debt、有冇 send remittance 嘅 obligation）
+- 唔好問到似審犯——用 open question 入手，followup 先深入
+
+**Section D — 畀對方問你（2 條 prompt）**
+- 你應該 invite 對方反問
+- 對方問嘅嘢，本身就係 signal（問放假定 wifi password 定細路功課 routine）
+
+每條 question 後面標明：問佢嘅目的 + 你應該聽乜 signal。
+</PromptBlock>
+
+### 3. 點 conduct 個 interview
+
+收到 Claude 出嘅 list 之後，唔好照 read。記住三個 principle：
+
+- **Open question 先，followup 跟住嚟**。佢答完一個 generic answer，跟一句「Can you give me a specific example?」——大部分人就喺呢一句出真章
+- **靜 5 秒**。對方答完唔好即刻接，留少少 silence。佢通常會自己加多句 unprompted 嘅嘢——嗰句先係真嘢
+- **Red flag 唔係 deal-breaker，係 followup trigger**。聽到不一致就跟，唔好內心 disqualify 完就轉 topic
+
+### 4. Post-interview 用 Claude score + compare candidates
+
+訪完三個，趁印象新鮮 dump 你嘅 note 入 Claude：
+
+<PromptBlock label="Post-interview compare prompt">
+我訪完三個 candidate。以下係每個嘅 note（包括答嘢嘅 key point、我個 gut feeling、red flag 同 yellow flag）：
+
+[Candidate A note]
+[Candidate B note]
+[Candidate C note]
+
+請幫我：
+1. 對住我之前 list 嘅 priority task ranking，score 每個 1-5
+2. 對住我嘅 dealbreaker，flag 每個 candidate 有冇踩
+3. 點出我 note 入面有冇 inconsistency 或者我 underweight 咗嘅 signal
+4. 如果三個都唔 perfect（通常都係），邊個係 best trade-off？
+
+唔好幫我做 final decision——我自己決定。但幫我睇清楚我自己嘅 bias。
+</PromptBlock>
+
+## 變化例子
+
+### 變化 1：新請第一次（新手 employer） vs 換工人姐姐
+
+第一次請：你冇 baseline，唔知乜叫合理。Claude prompt 加多一段「我未請過工人姐姐，請順便點出我 expectation 入面邊啲係 unrealistic（例如：唔可以 expect 一個人同時做曬 cooking、cleaning、childcare、tutoring）」。
+
+換姐姐：你已知前任邊度做得好、邊度做得唔好。加段「前姐姐 [strength + weakness]，新姐姐我特別想 cover 返 [gap]」，Claude 會 tailor question focus 喺 gap 嗰邊。
+
+### 變化 2：接手前 employer terminate 嘅 contract / 試新 nationality
+
+Profile 寫住「contract terminated by employer」係 yellow flag，唔一定係 red flag——可能係 employer 嗰邊 issue。Prompt 入面講明：「請出 3 條 question 探對方版本嘅 termination 故事，目標係聽 specific event 同 self-reflection，唔係 blame 前 employer。」
+
+試新 nationality（譬如你之前只請過菲律賓姐姐而家試印尼），加段「我冇接觸過 [nationality] 工人姐姐，請列出我可能有嘅 stereotype 同 blind spot，順便提我邊啲 question 容易 trigger cultural misunderstanding」。
+
+### 變化 3：長者 / 病人照顧為主嘅 specialized hire
+
+呢個 case 揀錯成本超高。Prompt 改 priority：「主要 task 係照顧 [中風後復康嘅 80 歲嫲嫲]」，要求 question focus 喺：
+
+- 過往照顧個案嘅 specific medical situation（屙血、跌倒、唔肯食藥）
+- 情緒 capacity（被長者鬧、被誤會偷嘢，點處理）
+- Physical ability（搬抬、抱起、推輪椅）
+- 同醫護溝通（識唔識同物理治療師、家庭醫生 brief 情況）
+
+呢類 hire 唔好慳呢 30 分鐘。值得做兩輪 interview。
+
+## 一個 mindset
+
+> 你 interview 嘅唔係一個 service provider，係一個未來兩年會睇住你細路長大、入過你睡房收衫、知道你屋企 wifi password 嘅人。
+
+15 分鐘嘅 interview，最大價值唔係「揀啱人」——係**強迫你自己諗清楚，你究竟想請一個點樣嘅人入屋**。
+
+Claude 嘅 leverage 喺呢度：佢幫你由 generic「會唔會煮飯」嘅 question，跳到 specific 你屋企 context 嘅 question。剩低嗰部分——肯唔肯靜五秒等對方答完、肯唔肯 followup 唔順耳嘅答案——係你自己嘅 job。

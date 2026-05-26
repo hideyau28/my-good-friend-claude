@@ -1,0 +1,499 @@
+---
+title: "父母 80 歲跌親後揾長期照顧？用 Claude 拆「請工人 vs 老人院 vs 喺屋企住」decision matrix"
+slug: "elder-care-decision-claude-hk"
+issue: 137
+publishedAt: 2026-05-27
+audience: ["學生家長", "消費者"]
+category: "chat"
+section: "親子"
+subcategory: "長者 / 父母照顧"
+heroImage: "/hero/elder-care-decision-claude-hk.webp"
+difficulty: 2
+timeMinutes: 40
+toolsNeeded: ["Claude Chat", "父母最近醫生報告 / 出院紙", "兄弟姊妹 contact + 屋企人 financial 大概"]
+description: "父母 80 歲跌親、輕度中風出院，子女要急住揀請外傭 / 老人院 / 接落屋企。用 Claude 整 decision matrix、查中央輪候冊同改善家居服務、開 family meeting、同父母温柔開口。"
+keywords: ["HK 長者 照顧", "父母 安老院 揀", "中央輪候冊 elder care", "sandwich generation HK", "外傭 vs 老人院", "改善家居及社區照顧服務"]
+related: ["pet-end-of-life-grief-claude", "chronic-condition-management-claude", "doctor-visit-prep-claude"]
+featured: false
+---
+
+> ⚠️ Claude 唔取代社工 / 老人科醫生 / 律師。文中 framework 係幫你 organise 思緒同 family conversation — 牽涉申請 / 法律 / 醫療決定，去社署「長者地區中心」或者父母嘅 case manager 度確認。
+
+## 情境
+
+朝早 6:45，醫院 call 你。
+
+「[姓] 先生／太太，你媽咪／爸爸今朝喺廁所跌親，而家急症室。盤骨裂，要住院。」
+
+你即刻請假落醫院。父母 82 歲，獨居（或者同另一位 80+ 歲嘅 partner 住），平時行得食得，但呢半年開始「有啲忟忟憎憎」、「忘記咗食藥」、「行樓梯氣咳」。今次跌親係 wake-up call。
+
+主診醫生第 5 日同你坐低：
+
+> 「跌親本身好返，但骨頭未長返實之前要 6-8 週唔可以負重。出院之後，屋企人要諗下長期照顧安排 — 唔係淨係呢 8 週，係之後嘅 5-10 年。」
+
+你諗起阿哥喺加拿大，阿妹喺深圳返工，你係香港唯一一個。你自己 40+ 歲，仔女仲讀書，full-time 返工。你而家面對 3 條可能路：
+
+1. **請外傭 / 看護**喺父母屋企照顧
+2. **送父母入安老院** / 護老院 / 護養院
+3. **接父母落自己屋企住**，全家照顧
+
+每條路都有 cost、care quality、family dynamic、父母自尊嘅 trade-off。最 painful 嘅係 — **父母自己有意見**，而佢嘅意見可能同你嘅 practical assessment 唔同。
+
+呢一刻你 google 「香港 安老院 點揀」出來幾百個結果，全部好難消化。你個腦 fog，guilt + 焦慮 + 疲勞混在一起。
+
+呢篇用 Claude 幫你 **structure 個 decision，唔係幫你做決定**。Claude 嘅 role：
+
+1. 列 options + 各自 trade-off（cost / care level / dignity）
+2. 拆解 HK 政府資源（中央輪候冊、改善家居及社區照顧服務、樂悠咭等）
+3. 同兄弟姊妹開 family meeting 嘅 script
+4. 同父母 sensitive conversation 嘅 framing
+
+最終決定 = 你 + 兄弟姊妹 + 父母 + 社工 + 醫生。Claude 幫你個腦清返。
+
+## 跟住做
+
+### 1. 寫晒父母真實情況做 baseline
+
+第一步唔係上網 search，係坐低 30 分鐘寫晒 baseline。冇 baseline 你個 decision matrix 會 floating。
+
+<PromptBlock label="完整 prompt — 父母照顧 baseline assessment">
+我父母 [年紀] 歲，最近 [跌親 / 輕度中風 / 認知開始退化 / 慢性病惡化]。我想 set up 一個 decision matrix 幫我同兄弟姊妹傾長期照顧。
+
+請幫我 organise 以下 baseline，由我填，之後你 reflect 返畀我睇有冇 gap。
+
+👴 **父母身體狀況**
+- 醫療診斷：[列出 — 跌親 / 中風 / 糖尿 / 高血壓 / 認知症 / 視力 / 聽力]
+- 自理能力（ADL — Activities of Daily Living）：
+  - 沖涼：自理 / 要 prompt / 要 hands-on 協助
+  - 著衫：自理 / 要協助
+  - 食飯：自理 / 要餵
+  - 大小便：自理 / 失禁
+  - 行動：自己行 / 拐杖 / 助行架 / 輪椅 / 完全臥床
+- 認知：清醒 / 偶然 confused / 中度認知障礙 / 重度
+- 食藥：自己 manage / 要人 prompt / 要人預埋
+- 跌親風險：低 / 中 / 高
+
+🏠 **屋企 setup**
+- 父母而家住邊：[公屋 / 私樓 / 自己屋企] [幾多樓 / 有冇𨋢]
+- 屋企有冇 fall hazard：浴室扶手、地板防滑、樓梯、夜燈
+- 同住人：[獨居 / 老伴 / 子女 / 工人]
+- 屋企面積：[大約呎數 — 影響工人房 / 接落屋企可行性]
+
+👨‍👩‍👧 **家庭資源**
+- 兄弟姊妹幾多個 + 喺邊：[列出 — HK / 海外 / 內地]
+- 邊個有 capacity 做 primary coordinator：[你？阿哥？]
+- 父母對唔同子女嘅信任度：[誠實 — 父母通常有 favorite]
+- 我自己屋企情況：[有冇細路、配偶 capacity、屋企面積]
+
+💰 **財務**
+- 父母自己有冇積蓄 / pension / MPF / 物業
+- 父母有冇申請緊「長者生活津貼」/「綜援」/「高額長者生活津貼」
+- 子女夾錢 capacity：每月夾得起幾錢
+- 一次過大支出 capacity：[裝修無障礙廁所 / 院舍按金]
+
+😶 **父母自己意願**（極重要）
+- 父母而家有冇講過想點：[「死都唔入老人院」/ 「唔好阻你哋」/ 冇 explicit 講過]
+- 父母對「畀外人入屋」嘅態度：[OK / 抗拒 / 從未試過]
+- 父母而家有冇 mental capacity 自己決定：[Yes / partial / No — 認知障礙程度]
+
+請你睇完之後：
+1. Reflect 返我有冇漏咗咩 dimension
+2. 指出邊啲 area 我嘅資料 too vague（例：「跌親風險中」要再具體）
+3. 提醒我 — 邊啲嘢應該揾社工 / 醫生 fact-check，唔係喺 family discussion 估
+4. 用温和 tone — 我而家 emotionally 仲喺急性 stress
+
+語氣：尊重、唔批判。我而家心情好亂。
+</PromptBlock>
+
+Claude 出 reflection。你會發現自己對某幾條問題「唔知道」 — 例如父母真實 ADL（你以為佢沖涼 OK，其實佢已經 3 個月冇沖過頭髮）。呢啲 gap 就係你接住要 fact-check 嘅 question。
+
+⏰ **時間**：30-45 分鐘。可以同住喺香港嘅兄弟姊妹一齊填，data 會更準。
+
+### 2. 用 decision matrix 列三條路嘅 trade-off
+
+Baseline 有咗，Claude 可以出個 decision matrix — 唔係出答案，係出 framework 等你睇清楚每條路嘅 cost。
+
+<PromptBlock label="完整 prompt — 三條路 decision matrix">
+基於我啱啱寫嘅 baseline（父母情況 + 屋企 + 家庭資源 + 父母意願），請幫我整一個 **3 條路 decision matrix**：
+
+🅰 **請外傭 / 看護喺父母屋企**
+🅱 **入安老院 / 護老院 / 護養院**
+🅒 **接父母落子女屋企住**
+
+每條路評估 8 個 dimension（1-5 分，1=極差，5=極好）：
+
+1. **Care level fit** — 配唔配父母 ADL 同醫療需要
+2. **每月 cost**（HK 2026 typical range，要具體數）
+3. **一次過 setup cost**（裝修 / 按金 / 工人安置費）
+4. **父母 dignity / autonomy** — 父母仲喺熟悉環境？仲有自主感？
+5. **父母 social connection** — 識唔識同舊街坊 / 教會 / 茶餐廳保持聯繫
+6. **子女 burden（時間 + 心理）** — 每週要花幾多鐘
+7. **緊急應變能力** — 半夜跌親 / 突然不適點處理
+8. **可持續性** — 5 年後父母情況惡化，呢條路仲 work 嗎
+
+每條路加 **2-3 個真實 trade-off**（唔好 sanitise — 例如：「外傭可能語言唔通，父母 isolation 反而更深」/「老人院再貴都係 institutional setting，探訪頻率會直接影響父母 wellbeing」/「接落屋企子女配偶關係好大壓力 — 唔少離婚 case 由呢度開始」）。
+
+請列埋 **HK 2026 typical cost range**：
+
+🅰 **外傭**
+- 月薪 + 膳食 / 房屋津貼 + 中介費 + 機票
+- 假設要 24 小時，可能要請第二個（或者請本地看護輪更）
+- Care level 上限：照顧到中度依賴，重度可能 unsafe
+
+🅱 **院舍**（HK 大類）
+- **私營安老院**（自費）：[月費 range]
+- **私營護老院 / 護養院**（更高 care level）：[range]
+- **資助宿位**（津助 / 合約 / 改善買位）— 要過中央輪候冊
+- **甲一級非資助宿位** vs **乙級** care level 差別
+- 中央輪候冊典型輪候時間：[資助宿位點解輪 3-5 年]
+
+🅒 **接落屋企**
+- 屋企裝修（扶手 / 防滑 / 床 / 無障礙廁所）
+- 可能仲要請 part-time 看護 / 鐘點
+- 隱形 cost：子女 career impact、配偶 burnout、細路空間壓縮
+
+最後，請畀我 **3 個 reflection question** 而唔係答案：
+- 邊個 dimension 對我哋家庭最重要？
+- 我哋而家係咪 react 緊急性、定係真係諗 5 年路？
+- 父母自己會點 weigh 呢 8 個 dimension？
+
+語氣：實際、唔造作、唔 push 任何一條路。
+</PromptBlock>
+
+Claude 會出個 table。**唔好即刻 share 畀全家**。先自己 sit with 一晚。
+
+你會發現 — matrix 唔會「告訴你揀邊條」。佢會 surface 你冇諗過嘅 trade-off。例如：你以為「接落屋企」最孝順，matrix 提醒你父母可能會失去日日落公園做晨運嘅 social network，反而抑鬱。
+
+### 3. 拎晒 HK 政府資源同 waiting list 真實 timeline
+
+呢一步好多 sandwich generation 子女漏咗：**HK 有相當多政府資源**，但要識揾。Decision matrix 入面嘅 cost 會因為呢啲 subsidy 大幅變。
+
+<PromptBlock label="完整 prompt — HK 長者政府資源同申請流程">
+我父母 [年紀]，[medical condition]，住 [區]，[公屋 / 私樓 / 自置物業]。請幫我 list 晒 2026 年 HK 政府長者資源 + 申請流程 + 真實 waiting time。
+
+請覆蓋以下 categories：
+
+🏥 **社署 — 長期照顧服務**
+
+1. **中央輪候冊 — 資助長期護理服務**
+   - 申請點開始（轉介？社署 hotline？老人科醫生？）
+   - 評估流程（標準化評估機制 SCMC）
+   - 「家居為本」vs「院舍為本」嘅評估結果
+   - 點解資助院舍要輪 3-5 年 — 同時可以揀「改善買位計劃」加快
+
+2. **改善家居及社區照顧服務（EHCCS）**
+   - 上門照顧（沖涼、清潔、送飯、護士到診）
+   - 適合：父母想留喺屋企，但需要 daily/weekly support
+   - 申請：同上中央輪候冊掛鈎
+   - 輪候：[typical range]
+
+3. **綜合家居照顧服務（IHCS）— 普通個案 vs 體弱個案**
+   - 收費低（個案類別 means-tested）
+   - 包括陪診、護送、送飯、家居清潔
+
+4. **日間護理中心 / 老人地區中心**
+   - 父母日頭去中心，夜晚返屋企
+   - 適合：父母獨居或老伴照顧者 burnout buffer
+   - 收費 subsidised
+
+💵 **現金 / 津貼**
+- **長者生活津貼**（普通額 vs 高額）— means test
+- **綜援**（如父母收入低於門檻）
+- **公共福利金 — 高齡津貼（生果金）**
+- **傷殘津貼**（如評估到 ADL 嚴重依賴）
+- **樂悠咭** — 60 歲以上 $2 乘車
+
+🏠 **環境改善**
+- **長者社區照顧服務券**（CCSV）— 院舍 / 家居服務 voucher
+- **長者院舍住宿照顧服務券**（RCSV）— 自選認可院舍
+- **房屋署「長者住屋改善工程」** — 公屋戶免費裝扶手 / 防滑
+
+⚖️ **法律 / 文件**
+- **持久授權書（EPA）** — 父母仲清醒時做，授權子女處理財產
+- **預設醫療指示（AMD）** — 父母自己決定 end-of-life care
+- **平安紙 / 遺囑** — 唔係 morbid，係保護家庭和諧
+
+🆘 **緊急 / 危機支援**
+- 跌親後出院支援（醫管局「離院長者綜合支援計劃」）
+- 護老者支援中心 / 護老者熱線
+
+📞 **點開始（具體 action）**
+請畀我一個 **「Day 1 / Week 1 / Month 1」action list**：
+- Day 1：打邊個 hotline、揾邊個社工
+- Week 1：去邊間長者地區中心 register、攞 SCMC 評估
+- Month 1：父母嘅 EPA / AMD discussion 開始
+
+⚠️ **誠實 reminder**
+- HK 資助宿位輪候真實 timeline（唔好sugarcoat）
+- 即使有 voucher，配額 / 質素 vary — 唔可以「申請完就 set」
+- 任何申請都要父母同意 + 醫生 / 社工評估，唔可以子女單方面決定
+
+語氣：實事求是，唔好過度樂觀，但同時 empower 我知有資源。
+</PromptBlock>
+
+⚠️ **重要**：Claude 嘅 HK 資料可能有 cutoff lag。最終流程同 waiting time 一定要去 **社署 hotline 2343 2255** 或者父母居住區嘅 **長者地區中心** 確認。但 Claude 嘅 framework 可以幫你知道「應該問咩」。
+
+### 4. Family meeting + 同父母對話嘅 script
+
+最 emotionally hard 嘅一 step。揾完資源、列完 matrix，跟住要 **同兄弟姊妹開會** + **同父母開口**。Claude 可以幫你 draft script — 唔係照讀，係 surface 你想點 frame。
+
+<PromptBlock label="完整 prompt — Family meeting + 父母對話 script">
+我想用 Claude 幫我 prep 兩個極難嘅 conversation。
+
+**A. 兄弟姊妹 family meeting（90 分鐘 video call）**
+
+Context：
+- 兄弟姊妹幾多個 + 喺邊：[列]
+- Primary coordinator 係：[你 / 其他]
+- 過往家庭動態：[誠實 — 邊個一向唔肯出錢、邊個 over-promise under-deliver、邊個父母偏愛]
+- 父母而家情況 + 醫生 prognosis：[簡述]
+
+請整 **90 分鐘 facilitation script**，分 5 phase：
+
+1. **Phase 1（10 分鐘）— Grounding**
+   - 一齊重溫醫生講嘅嘢（事實，唔係 interpretation）
+   - 每個人講一句「我而家對呢件事最擔心咩」
+   - **唔好** 由「邊個出幾多錢」開始
+
+2. **Phase 2（20 分鐘）— 父母嘅意願**
+   - 父母自己講過咩
+   - 父母 mental capacity 嘅誠實評估
+   - 邊個負責同父母單獨深入傾
+
+3. **Phase 3（30 分鐘）— Trade-off discussion**
+   - 過 decision matrix
+   - 每個 sibling 講對邊條路嘅 instinct + 為咩
+   - **唔好** 即場決定 — 呢個 phase 係 surface concern，唔係 reach consensus
+
+4. **Phase 4（20 分鐘）— Resource 分工**
+   - Time（探訪 / 陪診 / coordinate）— 誰可以付出幾多
+   - Money（每月 / 一次性）— 誠實 disclosure，但唔強迫 equal split
+   - Decision authority — 邊個有 final call 喺邊類決定
+   - **Principle**：唔係每個 sibling 出一樣嘢，係每個出佢 capacity 可以出嘅。海外 sibling 出多啲錢，本地 sibling 出多啲時間，呢個係 fair。
+
+5. **Phase 5（10 分鐘）— Next steps**
+   - 邊個負責下一步 specific action
+   - 下次 meeting 日期
+   - **必須** agree 一條 emergency contact protocol
+
+加埋 5 條 **conflict landmines** + 點 defuse：
+- 「我冇錢出」→ 點 reframe 做時間 / coordination 貢獻
+- 「點解一定要我做 primary」→ 點開誠布公講 burden
+- 「阿爸阿媽 always 偏心邊個」→ 點 acknowledge past without weaponising
+- 「我老婆 / 老公唔同意」→ 點 honor 配偶 voice 但唔畀佢 hijack decision
+- 「我哋細個你都冇照顧」→ 點 contain old wound 唔影響 current decision
+
+**B. 同父母嘅 sensitive conversation**
+
+Context：
+- 父母 personality：[頑固 / 順從 / 易內疚 / 抑鬱傾向]
+- 父母 explicit 表達過嘅意願：[「死都唔入老人院」/ 其他]
+- 父母 cognitive state：[清醒 / 偶然糊塗 / 認知障礙]
+
+請整 **3 個 conversation scenario**：
+
+**Scenario 1 — 父母 clearly 抗拒**（「我自己一個住到死」）
+- 點 acknowledge 佢嘅 fear（控制 / dignity / 唔想成為 burden）
+- 唔好 argue facts — 處理 underlying emotion 先
+- 引入 trial period framing（「不如試 3 個月 part-time 看護，唔啱就停」）
+- 避免 「為咗你好」「我哋為你犧牲」呢類觸發 guilt 嘅句
+
+**Scenario 2 — 父母擔心 burden 子女**（「唔好阻你哋」）
+- 反轉 narrative — 唔係幫佢，係家庭一齊行
+- 具體 reassure（「[兄] 出嘅錢佢早已 set aside」）
+- 引出父母自己嘅 preference — 唔再淨係 self-sacrifice 模式
+
+**Scenario 3 — 父母拒絕外人入屋**（cultural / privacy resistance）
+- 認可 — 屋企係佢 30 年嘅 sanctuary，畀陌生人入係 invasion
+- Trial：先試短時間 helper（每週 2 次 2 小時清潔），唔係 24 小時
+- 揀同父母同 dialect / 同年代 sensibility 嘅 helper
+- 父母同 helper 之間嘅 social mismatch 係真，唔好 dismiss
+
+**Universal principle**
+- 父母仲有 capacity 嗰陣，**佢嘅 vote 加倍重**
+- 唔好 unilateral 決定，即使「客觀最好」
+- 預期至少 3 次對話先有 traction，第 1 次往往係 surfacing
+- 自己 / sibling 喊 OK — 父母見到你哋難過，唔係 weakness 係 connection
+
+語氣：温柔、實際、acknowledge guilt 同 reality 嘅 tension。我而家對呢個 conversation 好驚。
+</PromptBlock>
+
+呢個 script 唔好照讀。Sit with 24 小時，然後改入你自己嘅 voice、你哋家庭嘅 specific 動態。打 video call 嗰陣記得做 facilitator，唔係 advocate。
+
+## 變化
+
+### 變化 1：父母仲算 independent — 只係「跌親 wake-up call」
+
+父母而家 ADL 全自理，認知正常，但今次跌親提醒你哋「窗口期」開始：
+
+<PromptBlock label="變化 1 — 父母仍 independent，提前 prep">
+父母 [年紀]，跌親 / 輕度中風後好返，ADL 全自理，認知正常。我唔想 over-react 但又唔想等下一次危機先反應。
+
+請幫我整 **「light-touch 提前 prep」list**：
+
+🏠 **屋企環境**
+- 浴室扶手 + 防滑墊
+- 樓梯雙邊扶手
+- 夜燈
+- 床邊 fall mat
+- 跌親 alert（智能手錶 / 平安鐘 / 一線通平安鐘）
+- 家居 declutter — 地氈、scattered 物品
+
+📋 **文件 prep（趁仲 clear-headed）**
+- 持久授權書 EPA — 律師約一次
+- 預設醫療指示 AMD — 同家庭醫生傾
+- 平安紙 / 遺囑 — 公證
+- 父母醫療資料整理（藥、過敏、主診）一份畀子女
+
+🤝 **Build network（唔急但要做）**
+- Register 父母去附近長者地區中心 — 即使佢未需要 daily service，emergency 時 SCMC 評估會快
+- 識下街坊 + 大廈管理 — 唔係 surveillance 係 looking out
+- 家庭醫生 / 老人科 establish baseline
+
+📅 **每年 check-in**
+- 跟父母做一次 ADL self-check
+- 確認文件仲 valid
+- Family meeting 一次（短，唔係危機）
+
+🧠 **認知 / 心理**
+- 識別早期認知變化 signs（重複問同樣 question、忘記近期事件、財務 mistake）
+- 父母 social isolation 係 cognitive decline 大 trigger
+- 抑鬱 in 長者 often presents as 「攰」「冇胃口」 — 唔好 dismiss
+
+⚠️ **唔好 over-react**
+- Independent 嘅父母最 hate「被當細路」
+- 你嘅 prep 應該 invisible 唔 patronising
+- 父母自主 = 健康 longevity 嘅 strongest predictor
+
+語氣：尊重父母 autonomy，subtle 而非 alarmist。
+</PromptBlock>
+
+### 變化 2：失能 / 失智 — care level 大幅升
+
+父母重度依賴（不能自理 / 中後期認知障礙）：
+
+<PromptBlock label="變化 2 — 重度依賴 / 失智父母">
+父母 [年紀]，[完全臥床 / 失禁 / 中後期認知障礙 / 需要 24 小時監察]。請調整 decision matrix。
+
+🏥 **Care level reality check**
+- 重度依賴 / 失智 = **外傭一個人 unsafe**
+  - 翻身、餵食、失禁、wandering、跌親風險都 high
+  - 傭工自己 burnout + 受傷 risk
+- 接落子女屋企 = **要全屋無障礙改造 + 至少 2 個 caregiver rotation**
+- 院舍方向 reasonable — 但要揀啱 level
+
+🏥 **院舍 level 分類**
+- **安老院（Care and Attention Home）** — 中度依賴
+- **護理安老院 / 護養院（Nursing Home）** — 重度依賴 + medical
+- **醫院（長期病床）** — 末期 / palliative
+- 失智父母：要揀「認知障礙症友善」設計嘅院舍（防 wander、reminiscence room）
+
+🧠 **失智 specific**
+- Sundowning（黃昏 confused 加劇）
+- Wandering — 屋企 unsafe
+- 唔識自己食飯 / 失禁 — 子女 hands-on 照顧 = 子女 burnout 6 個月內
+- 親人 mis-recognition — 子女情緒 hardest hit
+
+⚖️ **倫理 + 法律**
+- 父母已失去 mental capacity = 子女做決定要有 EPA 或者「精神健康條例」程序
+- 院舍 admission 父母拒絕但子女覺得 necessary — 要社工 + 醫生介入
+- 唔好 guilt — 重度照顧 outsource 唔係不孝，係 sustainable
+
+💔 **照顧者自身**
+- 失智照顧者抑鬱率極高
+- Respite care（暫託服務）— 每月 1-2 週 break 唔係奢侈
+- 護老者支援中心、家屬互助組
+
+語氣：認可呢個 phase 嘅 grief — 父母「仲喺度但又唔再係佢」係 ambiguous loss。
+</PromptBlock>
+
+### 變化 3：海外 / 移民咗嘅子女 — long-distance care
+
+兄弟姊妹海外，你係香港唯一一個（或者反過來，你海外，兄弟姊妹喺香港）：
+
+<PromptBlock label="變化 3 — Long-distance care coordination">
+我 / 兄弟姊妹喺 [加拿大 / 英國 / 澳洲 / 內地]，[一個 / 多個] 喺香港。請整 long-distance care 嘅 division of labor + coordination tools。
+
+🌍 **公平 division 嘅 principle**
+- **時區優勢** — 海外 sibling 處理唔同時段 admin（醫保、文件、保險），補時差
+- **金錢 vs 時間 trade** — 海外 sibling 通常出多啲錢，本地 sibling 出時間
+- **誠實 disclose financial capacity** — 唔好 assume 海外人「梗係有錢」
+- **本地 sibling 唔係 default 主力** — 父母係 shared responsibility
+
+📅 **Coordination cadence**
+- Weekly 15 分鐘 family call（fixed time，唔好 ad hoc）
+- 共享 doc / app track 父母嘅 medical / financial / mood
+- Emergency protocol（半夜跌親點 call 你）
+- 海外 sibling 每年返 HK 至少 1 次親自探訪 + 接手 1 週「本地 caregiver respite」
+
+🛠 **Tools that help**
+- 共享 Google Doc / Notion 父母 care log
+- Share medical app（藥物 + 約期）
+- 家庭 group chat 分 channel（urgent / admin / emotional）
+
+🎥 **科技 bridge — 父母 vs 海外 sibling**
+- Video call cadence — 父母每週見海外 sibling 個樣，唔係淨係文字
+- 教父母用 Whatsapp video（簡化 setup，大字體 icon）
+- 海外 sibling 寄相 / 寄細路畫 — 父母 fridge wall
+
+🚨 **海外 sibling 嘅情緒 reality**
+- Guilt — 「我冇喺度照顧」
+- Disconnect — 唔親身見 = 對父母 decline 嘅 reality 滯後
+- 同本地 sibling 嘅 tension — 「你冇喺度 understand 唔到」vs「你以為我冇盡力」
+- 緊急時返 HK 嘅 disruption（工作 / 細路）
+
+⚠️ **本地 sibling 嘅 burnout signs**
+- Resentment 海外 sibling
+- 自己屋企關係 strained
+- 唔肯接 family call
+- 對父母嘅 patience 跌
+
+💡 **Respite — 唔係 luxury**
+- 每年至少 1 次「本地 sibling off-duty」週，海外 sibling 返嚟接手
+- 唔係「假期」係 system maintenance
+
+語氣：認可 long-distance 嘅 reality — 冇 perfect arrangement，只有可持續 arrangement。
+</PromptBlock>
+
+## 一個 mindset
+
+Sandwich generation 嘅 quiet truth：你而家做嘅每一個決定，都喺 guilt 同 reality 之間嘅 narrow gap 入面行。
+
+「最好」嘅 option 通常唔存在。你揀請外傭 — 父母 isolation；揀老人院 — 你成世記得佢喊「唔好留我喺度」；揀接落屋企 — 你婚姻、細路、自己 career 全部要 absorb。每條路都有 cost，**而呢個 cost 唔係你嘅 fault**。
+
+呢個 mindset 嘅 core：**你唔係喺揀「最孝順」嘅路。你係喺揀「對全家最可持續嘅路」**。可持續 = 父母得到 adequate care、子女唔 burnout、家庭關係唔崩、5 年後仲 sustainable。
+
+亞洲文化會 frame 呢個做「孝」嘅 test。但「孝」嘅 original meaning 唔係 self-sacrifice — 係 thoughtful care。Thoughtful = 攞晒 information、open 同父母傾、coordinate 兄弟姊妹、用社區資源、保住自己 capacity 等之後 5-10 年仲行得到。
+
+Claude 喺呢個過程嘅 role 唔係 emotional support — Claude 唔識替你承受 guilt。Claude 嘅 role 係**喺你個腦 fog 嗰陣 hold structure**：list options、查資源、draft script、reflect 你冇諗到嘅 gap。等你嘅情緒同直覺有空間出現，唔被 logistics 淹沒。
+
+---
+
+### 🆘 真人支援（HK，2026）
+
+**社署相關**：
+- 社會福利署熱線：2343 2255（24 小時）
+- 長者地區中心 — 各區，搜「[區名] 長者地區中心」
+- 長者咭計劃熱線：2961 5722
+
+**護老者支援**：
+- 護老者支援熱線（基督教家庭服務中心）：2338 2086
+- 賽馬會耆智園 — 認知障礙症支援
+- 香港耆康老人福利會 — 護老者課程
+
+**法律 / 文件**：
+- 法律援助署 — 平安紙 / EPA 諮詢
+- 醫管局 AMD（預設醫療指示）— 同家庭醫生 / 老人科 initiate
+
+**自殺 / 抑鬱**：
+- 護老者出現自我傷害念頭，請即刻 call：
+- 撒瑪利亞防止自殺會：2389 2222
+- 醫管局精神健康熱線：2466 7350
+
+最後 reminder：
+
+- ✅ **父母嘅 vote 加倍重**。佢仲有 capacity 嗰陣，唔好 unilateral。
+- ⚠️ **唔好 silent burnout**。你 collapse = 全家系統 collapse。每月畀自己 1 日 off。
+- 🤝 **第 1 次對話通常係 surface。第 3-5 次先 traction**。慢，但慢係 OK。
+
+父母 80 年人生喺度。你哋而家行嘅呢條路，可能係佢哋最後一段路嘅 frame。慢慢嚟、互相扶持、用工具、用資源、保住自己。

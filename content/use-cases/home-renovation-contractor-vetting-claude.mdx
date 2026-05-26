@@ -1,0 +1,185 @@
+---
+title: "揀裝修師傅前用 Claude：3 份報價同合約一齊讀，揾出隱形 cost + 唔該得嘅條款"
+slug: "home-renovation-contractor-vetting-claude"
+issue: 127
+publishedAt: 2026-05-27
+audience: ["消費者"]
+category: "chat"
+section: "其他"
+subcategory: "屋企 / 裝修"
+difficulty: 2
+timeMinutes: 40
+toolsNeeded: ["Claude Chat"]
+description: "香港裝修一個 flat 動輒 4-10 萬，3 個師傅報價差 25% 點解？教你用 Claude 一次過讀 3 份報價同合約，揪出 hidden cost、含糊條款，列出簽約前要問師傅嘅 10 條 sharp question。"
+keywords: ["HK 裝修 報價", "裝修 合約 review", "裝修師傅 揀", "renovation contractor HK", "裝修 hidden cost", "裝修 預付金"]
+related: ["hong-kong-mortgage-comparison", "hong-kong-tenancy-agreement-claude", "insurance-policy-review-claude"]
+featured: false
+---
+
+## 情境
+
+你終於儲夠錢 / 上到車，準備裝修。 揾咗 3 個師傅上嚟度尺 + 報價：
+
+- 師傅 A：$68,000，做齊全屋
+- 師傅 B：$52,000，「全屋裝修」
+- 師傅 C：$84,000，連 designer 出圖
+
+睇落 B 最抵，但你心入面知唔對路 — **同樣 600 呎 flat，點解差價成 25%**？
+
+打開三份報價：有啲寫「拆牆另計」、有啲寫「水電另計」、有啲只係寫「油漆、地板、廚櫃」冇講 brand、grade、收口位點處理。 你完全分唔到邊個係真係抵、邊個係**齋寫平、上手之後一單一單 charge 落單**。
+
+呢篇教你點用 Claude 一次過讀 3 份報價（連埋師傅畀你嘅 scope of work 或者 draft contract），**揪出隱形 cost、唔清楚嘅條款、同埋預付金嘅 red flag**。
+
+> 重要 disclaimer：Claude 嘅 output 唔係取代專業驗樓師或者裝修顧問。但如果你 budget 有限請唔起顧問，呢個 process 至少令你**簽合約前知道自己唔知乜**。
+
+## 跟住做
+
+### 1. 影 / scan 齊 3 份報價 + scope of work
+
+每個師傅畀你嘅嘢，全部影低 / 影相 / scan。 包括：
+
+- 報價單（quotation）— 通常 1-3 版紙、列項目同價錢
+- Scope of work（如果有）— 寫做乜、用乜物料、point of completion
+- Draft contract / 訂金收據（如果已經傾到呢一步）
+- WhatsApp 對話入面提過嘅 verbal promise（截圖）
+
+**WhatsApp 截圖好重要** — 因為好多師傅口頭應承「呢樣 included」、但份報價冇寫。 上到工就會話「呢樣冇講過喎」。
+
+### 2. 核心 prompt — line-by-line 對比
+
+一次過 upload 三份報價畀 Claude，跑以下 prompt：
+
+<PromptBlock label="完整 prompt — 3 份裝修報價對比">
+我喺度揀緊裝修師傅，呢度有 3 份報價單同相關文件。我嘅單位係 [600 呎 / 2 房 / 私樓 / 樓齡 X 年]。請幫我做以下分析：
+
+**Part 1：Scope 對齊 table**
+
+整一個 table，columns 係師傅 A / B / C，rows 係每個裝修項目：
+- 拆牆 / 砌牆
+- 水電（連 socket 數量、明線 / 暗線）
+- 防水
+- 地板（種類 + brand + grade）
+- 廚櫃（材質 + 五金 brand）
+- 浴室潔具
+- 油漆（牌子 + 層數）
+- 木工 / 趟門
+- 收口 / 執漏
+- 清拆 + 棄置費
+
+每格寫「included / 另計 / 未列明」+ 價錢（如果有列）。
+
+**Part 2：點解差價**
+
+3 份報價 grand total 差好遠。請拆解：
+- 邊啲項目係造成差價嘅主因（top 5）？
+- 邊啲師傅唔包但其他人包嘅嘢？呢啲「另計」最後預計大約幾錢？
+- 物料 grade 差異（例：師傅 B 用普通 laminate vs 師傅 C 用實木皮）對長期耐用度有咩 implication？
+
+**Part 3：合約 / 條款 red flag**
+
+逐份報價揪出唔清楚或者對業主不利嘅條款：
+- 付款 milestone — 預付金幾多？係咪一開工就要畀大筆？
+- Variation order（加單）點計？per item 定 lump sum？
+- 工期 — 有冇寫明開工 / 完工日？延誤有冇 penalty？
+- 保養期 — 油漆 / 防水 / 木工 各保幾耐？
+- 物料 brand 寫得明唔明（「同等級」呢類字眼最危險）？
+- 棄置費 / 清潔費 / 雜費 — 邊啲寫死、邊啲開放式？
+
+**Part 4：簽約前必問師傅嘅 10-15 條 sharp question**
+
+由你嘅 analysis 出發，列出我應該逐個師傅 confirm 嘅 specific question。
+每條問題要清楚、有針對性、可以 yes/no 答到，唔好行貨。
+</PromptBlock>
+
+### 3. Claude flag 出嘅 question — 用嚟逐個師傅問
+
+Claude 列嘅 10-15 條 question，**唔好齋睇**，要逐條 send 返畀 3 個師傅，**叫佢哋書面回覆**（WhatsApp 都當書面）。
+
+典型會出嘅 question：
+
+- 「報價入面寫『廚櫃 included』，請問板材係咩 brand？厚度幾多 mm？五金（鉸位、滑軌）係咩 brand？」
+- 「『水電另計』— 大概預幾多預算？包唔包 socket 數量增加？」
+- 「拆一幅非結構牆要幾錢？棄置費 included？」
+- 「Variation order 點計？有冇 written quote 先做？」
+- 「預付金 30% 你哋係 industry standard 定可以傾？分幾多個 milestone 畀餘款？」
+- 「工期書面寫 8 星期，超期 1 星期會點？」
+
+**師傅 reply 嗰陣嘅態度好 telling** — 寫得清楚 + 願意 commit 嘅，多數係可以信。 含混其辭 / 話「呢啲到時再傾」嘅，red flag。
+
+### 4. 簽合約前最後 sanity check + payment milestone protect
+
+揀好師傅之後、簽合約之前，**將最終 contract draft 再丟畀 Claude review 一次**：
+
+<PromptBlock label="簽合約前 final review">
+呢份係我準備同師傅簽嘅裝修合約 draft。我已經畀咗 [預付金 30% / 完工 70%] 嘅 verbal agreement。請：
+
+1. 揪出任何對業主不利嘅條款（特別係付款、變更、爭議解決、保養）
+2. 確認以下基本保障有冇寫入：
+   - 工期 + 延誤 penalty
+   - Variation order 要書面 quote
+   - 保養期 + cover 範圍
+   - 物料 brand / grade 明確
+   - 完工後執漏期 + 留款（retention）
+3. 建議我加入 / 修改邊啲條款
+
+香港 standard：通常會分 4-5 個 milestone 畀錢（簽約、開工、中期、完工、執漏後），retention 5-10% 留執漏期過咗先放。如果合約唔係咁，flag 出嚟。
+</PromptBlock>
+
+**Payment milestone 係保護自己最後一道防線** — 一次過畀 70% 嘅話，師傅做到一半人間蒸發你都冇皮符。
+
+## 變化例子
+
+### 變化 1：局部裝修（廚櫃 / 浴室 only）
+
+<PromptBlock label="變化 1 — 局部裝修報價對比">
+我淨係 renovate 廚房（或浴室），有 3 個訂造廚櫃師傅嘅報價。請：
+
+1. Table 對比：板材 brand + 厚度、五金 brand、檯面材質（石英石 / 不銹鋼 / 實木）、安裝費、運費、舊櫃拆除棄置
+2. 同樣 size 嘅廚櫃點解差價？係物料定人工？
+3. 邊啲師傅嘅報價有「同等級」呢類含糊字眼？
+4. 訂造期 + 安裝期書面寫咗未？
+5. 簽約前要 confirm 嘅 8 條 question
+</PromptBlock>
+
+局部裝修最常見伏位：板材 grade 唔講明、五金（鉸位、滑軌）冇 brand、檯面接駁位收費另計。
+
+### 變化 2：公屋裝修（Housing Authority 限制）
+
+<PromptBlock label="變化 2 — 公屋裝修">
+我係公屋戶，準備裝修。Housing Authority 有 [拆牆限制 / 改水電限制 / 防水要求] 等條款。我有 3 個師傅嘅報價（其中至少有一個自稱熟公屋）。請：
+
+1. Table 對比 scope，特別 highlight 邊個師傅有處理 HA 申請（拆改則 / 入則）、邊個冇
+2. 公屋常見伏位有冇寫入：
+   - 改廁所位置嘅限制 + 申請費
+   - 廚房磚牆唔可以拆
+   - 防水做唔好漏落樓下嘅責任
+3. 邊個師傅有公屋 portfolio / past project reference？
+4. 對公屋戶嚟講，呢 3 個邊個最穩陣？
+</PromptBlock>
+
+公屋戶最大風險：師傅唔熟 HA 規矩、拆咗唔應該拆嘅牆，事後罰款 + 還原成本你自己食。
+
+### 變化 3：新樓收樓驗樓 + 執漏
+
+<PromptBlock label="變化 3 — 新樓收樓驗樓報告 review">
+我啱啱收新樓，揾咗驗樓公司做驗樓報告（已 upload）。我而家收到發展商嘅執漏 timeline 同 scope（已 upload）。請：
+
+1. 驗樓報告入面嘅 defect，邊啲發展商承諾會執？邊啲冇 cover 到？
+2. 執漏 scope 嘅描述（例：「修補」、「打磨」、「更換」）邊啲含糊？我應該叫發展商寫清楚乜嘢？
+3. 執漏期完之後仲有冇 defect liability period？通常香港新樓係幾耐？
+4. 我下一步應該書面 send 畀發展商 / 管理公司嘅 sharp question（5-8 條）
+</PromptBlock>
+
+新樓執漏期通常 12 個月，過咗就要自己畀錢補。 收樓嗰陣**所有 defect 都要書面記錄 + 影相**，唔好齋口頭講。
+
+## 兩個 caveat
+
+**第一：Claude 唔識上門度尺 + 睇實物**
+
+報價單上嘅「實木皮 laminate」同實物可以差好遠。 Claude 幫你 surface 問題，但你最後始終要**上門睇 sample、摸實物、影低**。 尤其係廚櫃板材、地板、浴室磚 — 呢三樣最易呃。
+
+**第二：師傅嘅 communication style 都係 signal**
+
+技術上嘅嘢 Claude 幫到，但**師傅肯唔肯 commit、肯唔肯書面確認、應你 WhatsApp 快唔快** — 呢啲係人本身嘅 signal，Claude 睇唔到。
+
+用 Claude prep 嘅好處係：你帶住 sharp question 同 specific term 去傾，**師傅一見你 prepared，多數會 cut 走啲行貨 sales talk、直接報實價同 commit 實 timeline**。 就算最後揀邊個都好，你已經由「被佢哋報乜畀乜」變成「我要乜你接唔接得到」。

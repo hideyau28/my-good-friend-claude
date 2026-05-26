@@ -1,0 +1,178 @@
+---
+title: "HK 揀車保用 Claude：3 間 quote 一齊讀，揾出 no-claim discount + 細項唔保條款"
+slug: "car-insurance-comparison-hk-claude"
+issue: 132
+publishedAt: 2026-05-27
+audience: ["消費者"]
+category: "chat"
+section: "財經"
+subcategory: "保險"
+difficulty: 2
+timeMinutes: 35
+toolsNeeded: ["Claude Chat"]
+description: "HK 車保 renew 嗰陣，broker send 3 個 quote 同 30 頁條款。用 Claude 一次過讀晒：no-claim discount calc、飛石玻璃自付額、car park 碰撞細項，揾出真正性價比。"
+keywords: ["HK 車保 比較", "no-claim discount HK", "全保 條款", "car insurance HK", "第三者保險"]
+related: ["insurance-policy-review-claude", "pet-insurance-review-claude", "hong-kong-mortgage-comparison"]
+featured: false
+---
+
+## 情境
+
+到期前一個月，agent WhatsApp 你：
+
+> 「今年幫你 quote 咗三間：中銀、AXA、Zurich。中銀最平，全保 $8,200；AXA $9,800 但 NCB 比較多；Zurich $11,500 公司大啲。你揀邊間？」
+
+你睇住三份 PDF，每份 8 至 12 頁條款。表面上都係「全保」（comprehensive），但：
+
+- **同係「全保」，點解差 $3,000？**
+- **agent 講嘅 NCB（no-claim discount）60% 係點計？**對唔對到 renewal letter 上面個數？
+- **飛石撞爛擋風玻璃**——邊間自付額（excess）低啲？
+- **泊喺商場 car park 畀人撞凹**——對方走咗，邊間照賠？
+- **車入面部 iPad / 行車記錄儀**畀人偷——隨車物品保唔保？
+
+呢啲細項 broker 唔會主動講，但出事嗰陣每樣都係幾千蚊。用 Claude 一次過 read 晒，35 分鐘揾出真實性價比。
+
+> ⚠️ 利益申報：呢個唔係保險建議。最終決定請同你信任嘅 broker 確認，特別係 high-value 車或 commercial 用途。
+
+## 跟住做
+
+### 1. 攞齊 3 個 quote + 完整條款
+
+問 broker / agent 要：
+
+- **Quote summary**（每間嘅報價單，列明保額、excess、NCB%）
+- **完整 policy wording**（30+ 頁條款 PDF，唔係 brochure）
+- **上年度 renewal letter / NCB 證明書**（用嚟核對折扣對唔對）
+
+少咗 policy wording 就係讀 marketing，唔係讀合約。
+
+### 2. 用呢個 prompt
+
+<PromptBlock label="完整 prompt — 3 間車保 quote 一齊讀">
+我而家 renew 私家車保險，attached 3 間嘅 quote summary + 完整 policy wording：
+
+- 公司 A：[中銀 / AXA / Zurich / Manulife / 其他]，保費 [$X]
+- 公司 B：[填]，保費 [$X]
+- 公司 C：[填]，保費 [$X]
+
+我嘅背景：
+- 車型 + 車齡：[例：Toyota Sienta 2022]
+- 車價（市值）：[$X]
+- 駕齡 + 上年索償紀錄：[填，例：駕齡 8 年，過去 3 年無 claim]
+- 主要用途：[私人代步 / 返工 / 接送小朋友 / 偶爾長途]
+- 主要停泊：[私家車位 / 路邊 / 商場 car park]
+
+請整 5 part 分析：
+
+**Part 1：同一條 spec 並排比較**
+表格列出三間：第三者保額、自己車身保額、醫療保額、玻璃自付額、car park 碰撞 excess、其他常見 excess、NCB% 同條款、隨車物品上限。
+
+**Part 2：⚠️ 細項不保條款 line-by-line**
+逐間揾出容易中伏嘅 exclusion：
+- 飛石玻璃自付額 / 一年內 claim 次數限制
+- Car park 碰撞「肇事者不知」嘅扣減
+- 隨車物品（行車記錄儀 / 兒童安全座椅 / 工具）
+- 「未經授權司機」定義（屋企人開算唔算？）
+- 風暴 / 水浸 / 山泥傾瀉
+- 進入內地（一卡兩地）保唔保
+- 改裝部件（hi-fi / wheel / 行李架）
+
+每條條款抄原文，再用簡單廣東話解釋。
+
+**Part 3：NCB 核對**
+我上年度 NCB 係 [填，例：50%]，無 claim 過。
+請逐間核對 quote 上面個 NCB 對唔對：
+- 應該升到幾多 %（睇返每間嘅 NCB scale）
+- 實際 quote 上面填咗幾多 %
+- 如果有出入，可能係 agent 計錯定刻意 under-quote
+- Switch 公司會唔會 reset NCB？邊間認其他公司嘅 NCB proof？
+
+**Part 4：理賠程序嘅 catch**
+逐間 quote 嘅 claim 流程：
+- 出事後幾耐內要 report
+- 必須去指定 garage 定可以揀
+- 「自選 garage」會唔會扣 NCB 或加 excess
+- 拖車服務 24/7 定有時限
+- 代步車（courtesy car）有冇、幾耐
+
+**Part 5：5 條應該問 broker 嘅問題**
+基於以上落差，列出針對性 follow-up 問題。
+</PromptBlock>
+
+### 3. 攞 Claude 出嘅 questions 反問 broker
+
+Claude 會 generate 5 至 8 條好具體嘅問題，例如：
+
+- 「Zurich quote 嘅 NCB 寫 50%，但我上年已經係 50% 無 claim，今年應該升到 60% — 點解無升？」
+- 「AXA policy 第 14 頁話 car park 撞凹『肇事者不知』要扣 $5,000，中銀 quote 寫 $3,000，邊個先正確？」
+- 「三間都唔包行車記錄儀，但 AXA 條款寫『permanently installed accessories』可能 cover，可以確認嗎？」
+
+Broker 收到呢類問題，通常會老實答（因為佢知你讀過條款），有啲仲會主動講邊間 quote 其實落漏咗 NCB。
+
+### 4. 用 decision matrix 做最後決定
+
+<PromptBlock label="Step 4 — Renew vs switch decision matrix">
+基於以上分析，幫我整一個 decision matrix：
+
+縱軸列三間公司，橫軸列：
+- 年度總成本（保費 + 預期自付額）
+- 我最高風險嘅 exclusion 嚴重程度（1–5 分）
+- Claim 流程方便度（指定 garage 嚴唔嚴）
+- NCB 攜帶 / 轉移風險
+- 公司 financial rating（搵返公開資料）
+
+最後畀我一個建議：renew 原本嗰間 vs switch，理據要 quote 返條款原文。
+</PromptBlock>
+
+## 變化例子
+
+### 變化 1：新手 P 牌第一年揀車保
+
+<PromptBlock label="變化 1 — P 牌 / 第一年揀">
+我啱啱攞牌 [幾耐]，第一年買車保，無 NCB 紀錄。Attached 3 間 quote。
+
+請額外分析：
+1. 「Young / inexperienced driver」附加保費喺三間分別係幾多
+2. 邊間接受「Named driver experience」（用屋企人駕齡頂上）
+3. 第一年買「第三者」vs「全保」嘅實際差價 + 風險
+4. 第一年無 claim 之後，邊間 NCB 升得快（10% → 20% → 30% scale 邊間最闊）
+5. 邊間有 telematics / 黑盒折扣 plan 啱新手
+</PromptBlock>
+
+### 變化 2：High-value 車（Tesla / Porsche / classic）
+
+<PromptBlock label="變化 2 — 高價值車額外考慮">
+我部車係 [Tesla Model Y / Porsche 911 / 1995 classic Mercedes]，市值 $[X]，attached 3 間 quote。
+
+請額外揾出：
+1. Agreed value vs market value 條款——出事 total loss 賠市值定議定值
+2. EV 嘅電池保障（battery 算唔算車身？火災條款？）
+3. 原廠零件 vs after-market 維修條款
+4. 指定 garage 入面有冇識整你部車型嘅
+5. Classic car 嘅「每年里數上限」條款（部分 plan 一年唔可以揸多過 X km）
+6. 部件 / wheel / interior 改裝點 declare
+</PromptBlock>
+
+### 變化 3：Commercial vehicle（Uber / 自僱 delivery）
+
+<PromptBlock label="變化 3 — 商用 / 自僱用途">
+我部車用嚟做 [Uber / 自僱 food delivery / 跑單 / 自僱地盤工具車]。
+
+請額外揾出：
+1. 三間 quote 喺「商用」/「hire and reward」條款點寫——私家車牌做 Uber 可能直接 void 保單
+2. 第三者保額對乘客 / 貨物嘅覆蓋
+3. 司機僱員責任（Employees' Compensation）有冇 bundle
+4. 每日 / 每年里數上限對商用嘅影響
+5. 邊間有專門嘅「Private Hire」/「Goods Carrying」附加 plan
+6. 出事如果保險公司發現實際用途同 declared 唔同，會點處理
+</PromptBlock>
+
+## 一個思維轉變
+
+車保唔係買「全保」就萬無一失。「全保」係 marketing label，真正保到幾多睇條款細項。
+
+每年 renew 之前 35 分鐘，用 Claude 拆解 3 間 quote，你會發現：
+
+> 「最平嗰間自付額高 $2,000、NCB 計少咗 10%；最貴嗰間其實有 cover 行車記錄儀同 car park 碰撞。」**真正性價比唔係表面個保費數字。**
+
+最後提醒：呢個過程唔取代你信任嘅 broker。但你帶住具體問題去傾，broker 會認真返應你；只係比價搵最平，就會永遠中伏。

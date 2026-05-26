@@ -1,0 +1,196 @@
+---
+title: "HK Tinder / Bumble / Hinge profile 用 Claude rewrite：唔做 cliché HK dating script，attract 啱嘅人"
+slug: "dating-app-profile-rewrite-claude-hk"
+issue: 144
+publishedAt: 2026-05-27
+audience: ["消費者"]
+category: "chat"
+section: "生活"
+subcategory: "Dating / 社交"
+heroImage: "/hero/dating-app-profile-rewrite-claude-hk.webp"
+difficulty: 1
+timeMinutes: 30
+toolsNeeded: ["Claude Chat", "Tinder / Bumble / Hinge"]
+description: "HK Tinder / Bumble / Hinge profile rewrite：用 Claude 由你日常 brain dump 起 3 個 positioning draft、calibrate signal vs gatekeep、配 opening message script。"
+keywords: ["Tinder profile HK", "Bumble 寫法", "Hinge prompt HK", "dating app HK", "claude 寫 profile", "profile rewrite"]
+related: ["linkedin-cold-outreach-claude", "wedding-speech-claude-hong-kong", "english-email-polish-hk"]
+featured: false
+---
+
+## 情境
+
+你開咗 Tinder / Bumble / Hinge 三個月，swipe 過幾百個人，match 嘅人傾兩三句就冷。你打開自己 profile 望多次：
+
+> 「Love travelling, good food and sunset 🌅
+> Family is everything ❤️
+> Looking for someone genuine」
+
+⚠️ 呢一段你會喺**九成 HK profile** 入面見到。可能加多隻狗 emoji、加多句「No drama please」、加多張西貢行山相。Algorithm 對你冇 hate，但你嘅 profile 對 algorithm 嚟講係**雜訊**——同其他幾百個 profile 撞晒，所以推畀你嘅人都係同一批 default swiper。
+
+問題唔係你唔有趣，係你**將自己壓縮成最大公約數**。Profile 越 generic，引嚟嘅人越 random，傾偈越 hea，sunk cost 越高。
+
+呢篇用 Claude 重寫你 profile：唔係幫你扮 cool，係幫你 articulate 你**真實**嘅 identity signal，calibrate signal vs gatekeep 嘅 trade-off，連第一條 opening message 都對應返。
+
+## 跟住做
+
+### 1. Brain dump：last 30 日你真實做過嘅嘢
+
+唔好諗 profile，唔好諗 audience。畀自己 15 分鐘喺 Apple Notes 列：
+
+- **過去 30 日週末你真實做咗咩**（具體：「上禮拜六去咗深水埗食潮州打冷、之後去 Tai Kwun 睇個展、夜晚返屋企煲 Severance」，唔係「I love exploring HK」）
+- **你最近一齊食飯 / 飲嘢嘅人**（同邊個傾偈會 zone out、同邊個會傾到凌晨）
+- **你 phone screen time top 3 app**（誠實啲，唔好 filter）
+- **你最近主動洗錢嘅 3 樣嘢**（一場 gig？一對波鞋？課程？）
+- **你 last 一次同人爭拗到面紅嘅 topic**
+- **你私底下嘅 mild contrarian opinion**（例：「我覺得西貢已經 over-rated」、「Sourdough 熱潮係 marketing」）
+- **你 hard pass 嘅 dealbreaker**（具體：「對方覺得睇 subtitle 戲好辛苦」）
+
+呢個 brain dump 唔係寫畀人睇，係**畀 Claude 嘅 raw material**。Honesty 同 specificity 直接決定個 output。
+
+### 2. 用呢個 prompt：寫 3 個 positioning draft
+
+<PromptBlock label="完整 prompt — 由 brain dump 寫 3 個 dating profile draft">
+我想 rewrite 我嘅 dating app profile。我用緊 [揀 — Tinder / Bumble / Hinge / Coffee Meets Bagel]。
+
+以下係我嘅 raw brain dump（last 30 日真實做過嘅事、看過、買過、爭拗過嘅嘢）：
+[paste 你嘅 brain dump]
+
+我嘅基本資料：
+- 年齡：[填]
+- 性別 + 性取向：[填]
+- 而家喺 HK 邊區住：[填]
+- 我搵緊：[揀 — 認真長期 / 開放 explore / 純結識朋友 / 未諗清楚]
+- 我嘅 hard dealbreaker（最多 2 個）：[填]
+
+請幫我寫 3 個唔同 positioning 嘅 profile draft，每個 250 字以內（Bumble 限 300、Hinge 用 prompt 答題格式、Tinder 短啲），要做到：
+
+**Positioning A — 具體日常派**
+- 由我 brain dump 入面揀 2-3 個最 specific 嘅 detail
+- 唔出「I love food / travel / family」呢類 universal claim
+- 目標：對方睇完知道呢個禮拜六我大概會做咩
+
+**Positioning B — Opinion / taste 派**
+- 帶出我嘅 mild contrarian opinion 或 strong taste（書、戲、音樂、食、城市觀察）
+- 唔好攻擊性，但要有立場
+- 目標：對方睇完知道我點睇世界，唔係只係知道我做咩
+
+**Positioning C — Self-aware 幽默派**
+- 用一個自嘲式 hook 開頭（唔係 self-deprecating 到 cringe，係輕微 wink）
+- 中段 ground 返一個 real detail
+- 目標：對方睇完笑一下，但唔覺得我係 try-hard comedian
+
+每個 draft 請額外標：
+1. **Signal vs gatekeep 評估**：呢個版本會吸引到 / 篩走邊類人？（具體 trade-off）
+2. **過 specific 嘅 risk**：邊一句可能 over-narrow 個 dating pool？
+3. **過 broad 嘅 risk**：邊一句仲係 generic、可以再 sharp？
+
+**避免：**
+- 「Looking for my person / partner in crime / plus one」
+- 「No drama / No games / No hookups」（呢類 negative framing 反而 attract 你想 avoid 嘅人）
+- 「Ask me anything」（懶嘅 hook）
+- Emoji 多過 3 隻
+- 列 5 樣 hobby 但每樣得一個字
+- 「Fluent in sarcasm / sushi / movies」呢類 2017 年 template
+
+語氣：HK 廣東話思維、英文夾雜 OK（Hinge / Bumble 英文 base 場合），唔好成段中文 over-translate。
+</PromptBlock>
+
+### 3. Photo selection：Claude 唔睇相，但可以教你揀
+
+Claude 唔可以直接睇你張相，但你可以用佢 audit 你嘅 photo lineup。將你 6 張相每張用一句話描述（「西貢行山自拍 + 太陽眼鏡」、「同朋友 LKF 飲嘢 group shot」、「廚房整意粉嘅 candid」），交畀 Claude，問：
+
+> 「呢 6 張相喺講緊邊 3 個 story？有冇 redundant 嘅 photo（同一個 story 重複講）？我 brain dump 入面邊個 identity signal 缺咗一張對應嘅相？」
+
+Photo logic：**6 張相應該 cover 3 個唔同 dimension**——一張 clear face（單獨、平視鏡頭）、一張 activity / context（show 你真實做嘅事）、一張 social proof（同朋友、但你係 focal point）。第四到第六張係 bonus signal——寵物、travel、整嘢食、運動。
+
+⚠️ HK common mistake：6 張相全部 group shot（人哋 swipe 緊估邊個係你）、或全部西貢 / 日本 / 台北 travel 相（你淨係識去 3 個地方）。
+
+### 4. 第一條 opening message：對應 match 嘅 profile
+
+Profile 改完，**第一條 message 都要對應**。唔好 default「Hey :)」或「How's your weekend?」。
+
+<PromptBlock label="Opening message 模板">
+我 match 咗一個人。對方 profile 寫嘅嘢（重點）：
+[列 3 個對方 profile 入面具體 detail，例：「鍾意 vinyl」、「last book 係 Pachinko」、「養咗一隻三色貓」]
+
+我嘅 profile：
+[paste 你嘅 final profile]
+
+我嘅目的：希望換到一條**有 substance 嘅回覆**，唔係「Haha thanks」。
+
+請寫 3 條 opening message option，每條：
+1. **第一句**——對應對方 profile 嘅一個具體 detail（唔係讚靚 / 讚 cool）
+2. **第二句**——一個 specific question 或一個 mild opinion 邀請對方反應
+3. **長度**：2-3 句，唔好寫 paragraph
+4. **避免**：「I noticed you...」開頭、「You seem...」加形容詞、過分 compliment
+
+3 個 option 要走唔同 angle（一個好奇、一個輕微挑戰、一個分享你自己一個 parallel detail）。
+</PromptBlock>
+
+WhatsApp transition 嘅原則：傾過 5-8 條 message，互相有 reciprocity，你就可以提「不如出嚟飲杯嘢」。**唔好喺 dating app 入面傾兩個禮拜**——對方 momentum 會走、你個 swipe 紅利會用晒。
+
+## 變化例子
+
+### 變化 1：30+ professional 揾長期關係版
+
+<PromptBlock label="變化 1 — 30+ 認真長期關係版">
+我 30 至 40+，搵長期關係（potentially 結婚 / 同居）。我 brain dump：
+[paste]
+
+我嘅生活已經 settled（有事業、有 routine、HK 有屋住或租緊穩定地方）。我搵嘅人都係 30+、有自己生活、唔係 looking to be rescued or to rescue。
+
+請寫 profile，要做到：
+1. **唔扮後生** —— 唔用 Gen-Z slang、唔扮夜蒲、唔列一堆未做過嘅 bucket list
+2. **Show settled-ness without sounding boring**：具體 routine（「Saturday morning 多數 Kennedy Town 個 cafe + 朋友食 brunch」）反而比「I love adventure」吸引返成熟讀者
+3. **講清長期 intent，但唔嚇人**：唔係寫「Looking for marriage / babies」（呢類太 front-loaded），係寫「Past the casual dating phase」呢類 implicit signal
+4. **一個 vulnerability signal**：例如承認一個 mild flaw 或正在 work on 嘅嘢
+
+避免：列職位 / 公司、講收入、列 Master degree（呢啲 attract 錯人）。
+</PromptBlock>
+
+### 變化 2：International / English-speaking, expat-friendly
+
+<PromptBlock label="變化 2 — English-speaking expat-friendly 版本">
+我嘅 dating pool 包括 expat、returnee、ABC、international HK 人。我用 English profile（Hinge / Bumble），但我嘅 cultural identity 係 HK 人 / HK-raised。
+
+我嘅 brain dump：
+[paste]
+
+請寫一個 English profile，要做到：
+1. **Anchor 喺 HK，但唔係 tourist gaze**：唔好寫「I love dim sum and Star Ferry」（local 唔會咁講、expat 覺得 try-hard）；要寫只有住喺度先講得出嘅 detail（「The one bakery in Sai Ying Pun I keep going back to」）
+2. **語言層次**：英文 base，但 sprinkle 一兩個粵語 phrase 自然帶過（例：「going for a 飲茶」、「post-work 落樓上 bar」）—— signal bilingual identity 而唔係 perform Hong Konger-ness
+3. **Calibrate cultural fluency expectation**：你期望對方識 HK 到咩程度？（新落地 vs 住咗 5+ 年 vs returnee） 用一句 implicit 帶出
+4. **避免**：「Born and raised in HK but global citizen」（generic）、列 N 個國家旅行清單（expat profile 過度 trope）
+
+語氣：grounded、curious、唔 try-hard cosmopolitan。
+</PromptBlock>
+
+### 變化 3：LGBTQ+ HK context
+
+<PromptBlock label="變化 3 — LGBTQ+ HK context">
+我嘅 dating app：[Tinder / Hinge / HER / Grindr / other]
+我嘅 identity：[gay / lesbian / bi / pan / queer / trans / non-binary，或你 comfortable 嘅 self-description]
+我嘅 out status：[fully out / selectively out / discreet]
+
+我嘅 brain dump：
+[paste]
+
+HK LGBTQ+ context 嘅 specific consideration：
+- Scene 細，重複 face 多，profile 越 generic 越 disappear into the noise
+- 部分人未 fully out（屋企 / 同事），但又想搵 meaningful connection
+- Femme / masc / fluid presentation 嘅 signal 要清楚但唔好被 reduce 成 type label
+
+請寫 profile，要做到：
+1. **Identity signal 清楚但唔係 label dump**：唔需要喺第一句寫 5 個 identity term；用具體 cultural reference / community detail 自然帶出
+2. **Out status 處理**：如果 selectively out，用 implicit cue（「Not on socials in that way」）而唔好 over-explain
+3. **避免 default LGBTQ+ profile cliché**：「Looking for something real in a sea of hookups」、「No more 1am `hey` messages」（呢類 reactive framing 反而困你喺 negative tone）
+4. **Community vs mainstream pool**：你想 attract 主要係 community 內 / 開放 cross-community？（影響 reference 同 emoji 嘅揀法）
+
+語氣：confident、specific、有立場但 inclusive。
+</PromptBlock>
+
+> 一個 reminder：dating app 嘅成功 metric 唔係 swipe right rate，係**你 match 到嘅人有冇 quality**。Profile 寫得 generic，inbox 會塞滿但全部 dead-end；profile 寫得真實但 specific，inbox 數量少但每個都接近你想要嘅人。
+>
+> Claude 嘅 leverage 唔係幫你扮另一個人，係幫你**將原本喺你 head 入面嘅 self-knowledge translate 成對方 5 秒讀得明嘅 signal**。你嘅 brain dump 越 honest，個 profile 越似你；越似你，越篩到啱嘅人。
+>
+> 真誠但 specific，永遠贏靚但 generic。

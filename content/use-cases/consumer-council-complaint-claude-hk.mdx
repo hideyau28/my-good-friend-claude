@@ -1,0 +1,291 @@
+---
+title: "商戶呃錢 / 服務縮水點告？用 Claude 寫消委會 / 海關 / 小額錢債正式投訴 + appeal 跟進"
+slug: "consumer-council-complaint-claude-hk"
+issue: 145
+publishedAt: 2026-05-27
+audience: ["消費者"]
+category: "chat"
+section: "其他"
+subcategory: "消費者 維權"
+difficulty: 2
+timeMinutes: 35
+toolsNeeded: ["Claude Chat", "合約 / 收據", "WhatsApp / email 紀錄", "付款紀錄"]
+description: "美容療程 upsell、健身會所執笠、婚紗 package 縮水點告？35 分鐘用 Claude 拆爭議性質、揀啱消委會 / 海關 / 小額錢債 escalation 路徑、寫正式投訴信同 90 日跟進 cadence。"
+keywords: ["消委會 投訴", "HK consumer dispute", "小額錢債 申索", "商品說明條例", "海關 投訴", "消費者保障 香港"]
+related: ["utility-bill-dispute-letter-claude", "apology-email-template-claude", "insurance-policy-review-claude"]
+featured: false
+---
+
+## 情境
+
+你預繳咗 $28,000 嘅美容療程，做咗 3 次，第 4 次門市話「療程師 quit 咗，等通知」。等咗兩個月，門市冇人接電話。
+
+或者：你 book 咗婚紗 package $58,000，sales 落單時口頭話「包當日 6 小時 outdoor + 50 張精修」，到簽合約嗰刻被加錢加到 $72,000，仲話「精修 20 張，多影另計」。
+
+又或者：你喺旅行社訂咗一個夏天嘅 package tour $24,000，出發前 3 個禮拜旅行社突然 email「業務調整，全數退款處理中」——之後就冇人覆。
+
+呢類 dispute 嘅特點：**金額大到肉痛，但細到搵律師唔抵**。十居其九嘅人放棄，自認倒霉。
+
+但 HK 其實有一條 escalation ladder：
+
+- **消委會** —— conciliation，免費，唔判決但有 leverage
+- **海關** —— 商品說明條例 (TDO) 刑事檢控，針對虛假商品說明 / 誤導性遺漏
+- **小額錢債審裁處** —— 申索額 $75,000 以下，無需律師
+- **區域法院** —— 申索額 $75,000 至 $3,000,000
+
+呢篇用 Claude 35 分鐘做兩件事：拆清楚件事屬於邊一條 track，然後寫返封企得起身嘅正式投訴。
+
+> 利益申報：呢個唔取代律師。涉及金額過 $75,000、涉及人身傷害、或者商戶有刑事詐騙嫌疑（拐帶款項潛逃），直接搵律師 + 報警。Claude 嘅輸出係幫你**喺正確 channel 講清楚件事**，攞返錢嘅 odds 視乎商戶嘅 solvency——預繳商戶執笠之後嘅 recovery rate 老老實實好低。
+
+## 跟住做
+
+### 1. 齊嗮 evidence 先（10 分鐘）
+
+未開 prompt 之前，手頭整理：
+
+- **合約 / 服務確認書**（紙本 / email / WhatsApp 截圖都算）—— 揾出口頭承諾 vs 書面條款嘅 gap
+- **付款紀錄**（信用卡 statement、銀行轉賬截圖、收據）—— 證明你已經畀錢
+- **服務交付紀錄**（已做咗幾多次、剩低幾多次、未交付項目）
+- **商戶宣傳材料**（網站截圖、IG post、單張、sales 展示嘅 PPT）—— 證明 advertised 同實際嘅落差
+- **與商戶嘅溝通紀錄**（WhatsApp、email、通話錄音如有）—— 證明你已嘗試 reasonable resolution
+- **同類個案**（消委會公開個案、新聞報導、討論區 thread）—— 證明唔係單一事件
+
+冇齊唔緊要，照 prompt，Claude 會話你知邊樣 missing 影響邊一條 track。
+
+### 2. 用呢個 prompt 拆 legal angle
+
+<PromptBlock label="完整 prompt — 拆爭議性質 + 揀 escalation track">
+我有一單消費爭議，想搞清楚屬於邊個 legal angle，應該行邊條 escalation track。
+
+爭議概況：
+
+- 商戶類型：[例：美容院 / 健身中心 / 旅行社 / 婚紗店 / 補習社 / 網購平台]
+- 商戶名稱 + 地點：[填]
+- 我預繳 / 已付金額：[例：HK$28,000]
+- 服務 / 商品 nature：[例：30 次美容療程 package，已做 3 次，剩 27 次未交付]
+- 爭議發生經過（時間線，事實）：[3-5 句講清楚乜事，唔加形容詞]
+- 商戶現狀：[例：門市仍開但拒接電話 / 已執笠 / 老闆失蹤 / 仍正常營業但拒絕退款]
+- 我手上嘅證據：[列點：合約、付款紀錄、WhatsApp 等]
+- Sales 落單時嘅口頭承諾（如有）：[例：「保證 6 個月見效」、「療程師全程同一位」]
+- 我想要嘅 outcome：[退款 / 餘下服務轉移 / 履行原合約 / 唔做 just want money back]
+
+請幫我做以下分析：
+
+**1. 法律性質定性**
+
+呢單爭議最可能涉及邊類條文：
+- 《商品說明條例》(Cap. 362) —— 虛假商品說明、誤導性遺漏、具威嚇性營業行為、不當地接受付款（接受付款但無意 / 無能力交付）
+- 《不合情理合約條例》(Cap. 458) —— 合約條款明顯不公平
+- 《管制免責條款條例》(Cap. 71) —— 商戶試圖用合約條款免除合理責任
+- 普通法下嘅「違反合約」(breach of contract)
+- 「失實陳述」(misrepresentation) —— sales 口頭承諾同實際唔符
+
+請逐項評估適用性，並指出 strongest 嘅一兩條。
+
+**2. Escalation track recommendation**
+
+請排序邊個 channel 最值得行，附 cost / time / 預期 outcome：
+
+(a) **消費者委員會 conciliation** —— 免費、約 2-3 個月、無判決權但對仍營運嘅商戶有 reputational leverage
+(b) **海關 商品說明條例組** 28922222 —— 免費、刑事檢控、適用於有虛假陳述 / 具威嚇性營業手法嘅個案
+(c) **小額錢債審裁處** —— 申索額 ≤ $75,000、申索費約 $120-$1,045、無需律師、判決有強制執行力
+(d) **區域法院 / 高等法院** —— 申索額大、需律師、cost 高
+(e) **報警** —— 如有刑事詐騙嫌疑（拐款潛逃、偽造合約）
+
+針對我個 case，邊個係 primary track、邊個 parallel 行、邊個唔抵行？
+
+**3. 攞返錢嘅 realistic odds**
+
+老實 assess：
+- 如果商戶仍營運：成功 recovery 嘅 %
+- 如果商戶已執笠 / 進入 liquidation：成功 recovery 嘅 %
+- 如果商戶轉名 / 老闆設新公司繼續經營：點 trace
+
+唔好過度樂觀。如果 odds 低，請直接講。
+
+**4. Missing evidence**
+
+我手上嘅 evidence 有冇 gap？要再補咩先 file 投訴會更 solid？
+
+**5. Time sensitivity**
+
+呢類個案有冇 limitation period（例：違反合約 6 年、商品說明條例檢控時限）？我而家 file 緊唔緊張？
+
+請用平實語氣，唔需要 disclaimer 連篇，但對 odds 要 honest。
+</PromptBlock>
+
+呢個 prompt 嘅核心唔係叫 Claude 扮律師，係幫你**將模糊嘅「我畀人呃」rephrase 成 legal taxonomy**——咁先有得對應 channel。
+
+### 3. 寫正式投訴：消委會 form + 海關 form（同步）
+
+拆完 track 之後，分別寫兩封：
+
+**消委會投訴**（如 Claude 建議 primary track）：
+
+- 上 consumer.org.hk 開 online case，或者 fax / 郵寄
+- 內容要包：商戶完整資料（名 / 地址 / BR no.）、爭議時間線、付款金額、要求嘅 remedy、已採取嘅 actions、附件清單
+- Tone：clear、 chronological、 唔渲染情緒。消委會職員每日睇幾十 case，越 structured 越快被 pick up
+
+**海關 商品說明條例 投訴**（如有虛假陳述 / 預繳商戶懷疑無意交付）：
+
+- 熱線 2545-6182，或網上 customs.gov.hk「投訴及表揚」表格
+- 重點：cite 邊一條條文（s.7 虛假商品說明 / s.13E 不當地接受付款 / s.13F 具威嚇性營業手法）
+- 附 sales 口頭承諾 vs 實際交付嘅對照、付款紀錄、商戶宣傳材料
+
+兩條 track parallel 行冇 conflict。消委會走 conciliation、海關走刑事——前者幫你拎錢、後者幫商戶留紀錄（甚至檢控）。
+
+> Pro tip：消委會嘅個案編號喺後續任何書面通訊都 cite 返。對方收到「來自消委會跟進嘅查詢」嘅心理 weight 比一般客戶投訴高一截。
+
+### 4. 14 / 30 / 90 日 cadence + 小額錢債 cost-benefit
+
+寄信 / 開 case 之後 set 三個 checkpoint：
+
+- **Day 14** —— 消委會應該已 acknowledged。如未，主動 follow up 拎 case ref。同步檢查商戶有冇 acknowledge 你嘅 demand letter
+- **Day 30** —— 消委會通常會嘗試 conciliation 一兩次。如商戶 zero response，呢個 stage 開始考慮升級到小額錢債
+- **Day 90** —— 如仍未解決，做最後 cost-benefit：
+
+**小額錢債審裁處 cost-benefit checklist**：
+
+| 項目 | 預計 cost / 時間 |
+|---|---|
+| 申索費（$10,000-$50,000 段） | 約 $370 |
+| 申索費（$50,000-$75,000 段） | 約 $1,045 |
+| 申請文件起草時間 | 8-12 小時（用 Claude 起草約 3 小時） |
+| 首次聆訊輪候 | 約 6-10 星期 |
+| 整個程序預計 | 4-8 個月 |
+| 勝訴後執行（商戶冇錢 / 走數） | 額外 $$$ 同心力 |
+
+簡單 rule：申索金額 ≥ $15,000 + 商戶仍有 solvency = 抵告。 < $15,000 + 商戶執笠 = 心痛但放手嘅機會成本更低。
+
+## 變化例子
+
+### 變化 1：預繳式服務（健身 / 美容 / tutor 班）倒閉
+
+<PromptBlock label="變化 1 — 預繳商戶倒閉個案">
+我嘅 case 屬於「預繳式服務商戶倒閉 / 突然停業」：
+
+- 行業：[健身會所 / 美容院 / 補習社 / 興趣班 / 月費共享空間]
+- 預繳金額：[填]
+- 已使用比例：[例：30 堂剩 22 堂未上 / 12 個月會籍剩 7 個月]
+- 商戶現狀：[已貼結業告示 / 進入清盤 / 老闆失蹤 / 轉名再經營]
+- 付款方式：[一次過畀現金 / 信用卡分期 / 簽 finance plan]
+
+請特別處理以下：
+
+**1. 信用卡 chargeback 可能性**
+
+如果我用信用卡畀錢，仲未過 chargeback 時限（一般係交易日起計 120 日，但商戶倒閉「服務無法交付」嘅 chargeback 有部分發卡行接受更長時限），我要點 invoke chargeback right？我應該乜時間點 contact 發卡行？要 prepare 咩文件？
+
+**2. 簽咗 finance plan / 私人貸款**
+
+如果我簽咗 finance plan（其實係透過商戶介紹嘅財務公司借錢），商戶倒閉，我仲要供？呢個係預繳商戶嘅常見 trap。請分析 Cap. 622 公司條例 / 放債人條例 下嘅 angle，同建議我應該即刻點做（通知財務公司 / cease payment / 法律咨詢）。
+
+**3. Class action / 集體投訴**
+
+通常呢類個案會有幾百個受害者，請建議：
+- 點 join existing 投訴群組（消委會通常會合併處理同一商戶嘅多宗投訴）
+- 自己 file vs 加入 collective 嘅 trade-off
+- 媒體曝光（東張 / 蘋果消費版）對 recovery 嘅實際效果
+
+**4. 清盤 (winding-up) 程序**
+
+如果商戶正式進入清盤，請解釋：
+- 我作為 unsecured creditor 嘅排位
+- 點 file proof of debt 畀清盤人
+- Realistic recovery rate（行業通常係 single digit cents on the dollar）
+
+最後一句老實話：呢類個案 recovery $0 嘅機會大不大？
+</PromptBlock>
+
+### 變化 2：婚禮 / 旅遊 service 突然 cancel
+
+<PromptBlock label="變化 2 — 婚禮 / 旅遊 service 取消">
+我嘅 case 屬於「重大 life event service 突然 cancel」：
+
+- 服務類型：[婚禮 package / 婚紗攝影 / 婚宴酒席 / 旅行團 / 機票酒店套票 / 郵輪 booking]
+- 合約金額：[填]
+- 服務日期：[填] vs 通知 cancel 日期：[填]
+- 商戶提供嘅 reason：[業務調整 / 不可抗力 / 員工問題 / fully refund 但拖數]
+- 我已 incur 嘅 collateral cost：[例：已 send 結婚請柬、已訂酒店、親友已買機票飛來港、已請假]
+
+請特別處理：
+
+**1. 條文 angle**
+
+- 違反合約 (breach of contract) 嘅 quantum 計算：除咗已付款，仲可唔可以 claim consequential loss（已 incur 嘅 collateral cost）？引用相關案例 logic（唔需要真實 case name，講原理就得）
+- 不可抗力條款 (force majeure) 嘅 scope —— 商戶通常會 invoke，但呢條條款適用範圍其實受限
+- 如涉及旅行社：旅遊業議會 (TIC) 嘅「旅遊業賠償基金」適用條件
+
+**2. 時間敏感 — 補救行動**
+
+距離原定 service date 仲有時間嘅話，可以即時 source replacement service。請建議：
+- 點記錄 replacement 嘅成本差額（用作日後 claim 嘅 quantum 基礎）
+- 應否 mitigate loss（法律上有 duty to mitigate）
+
+**3. 媒體 + 監管雙線**
+
+呢類個案媒體曝光 leverage 大（「新人婚禮兩日前被 cancel」係好題材）。請建議：
+- 何時 approach 傳媒 vs 何時 hold back
+- 對應監管機構：婚紗業界冇統一 regulator，但旅遊業有 TIC + 商務及經濟發展局；婚宴酒店有食物環境衞生署 licence angle（極端 case）
+
+**4. 信件 tone**
+
+呢類個案商戶通常已知衰咗，會 quickly offer 一個低 ball settlement。請建議信件中點 leave room 畀對方 propose，但同時 anchor 一個 reasonable 嘅 claim 金額（已付款 + 證實 collateral cost），唔好開頭就喊打喊殺，亦唔好天真接受 30% refund 就算。
+</PromptBlock>
+
+### 變化 3：網購（Taobao / iHerb / Amazon ship HK）dispute
+
+<PromptBlock label="變化 3 — 跨境網購爭議">
+我嘅 case 屬於「跨境網購 dispute」：
+
+- 平台：[Taobao / Tmall / 京東 / iHerb / Amazon / eBay / SHEIN / 其他]
+- 訂單金額：[填]
+- 爭議類型：[揀]
+  - 收貨同 listing 描述不符（fake / 縮水 / 壞 / 過期）
+  - 完全未收貨（lost in transit / 商家未發 / 物流卡關）
+  - 商家拒絕退貨退款
+  - 平台 dispute 系統判我輸但我認為唔合理
+- 已嘗試嘅 steps：[平台 dispute、聯絡商家、申請 refund 等]
+
+請特別處理：
+
+**1. Jurisdiction reality check**
+
+跨境網購 dispute 嘅老實答案：HK 消委會 / 海關對境外商戶冇執法權。請直接 acknowledge：
+- 對 Taobao / Tmall：可投訴上「12315」（內地消費者投訴熱線）+ 阿里巴巴 internal 仲裁機制
+- 對 Amazon / iHerb：用 A-to-Z Guarantee / 平台 dispute 系統
+- HK 法院判決對境外被告嘅執行 hurdle
+
+呢條 track 嘅核心唔係告，係 leverage 平台 dispute system。
+
+**2. 信用卡 chargeback as default**
+
+跨境網購 dispute 嘅最高勝率 track 通常係信用卡 chargeback。請建議：
+- 何時直接跳過平台 dispute 直接 chargeback（如平台 hold 你超過 30 日無進展）
+- 點 frame chargeback reason code（merchandise not as described / goods not received / services not rendered）
+- 要 prepare 嘅 evidence package（listing 截圖、收貨相 vs listing 對比、物流紀錄、與商家溝通紀錄）
+
+**3. 平台投訴信寫法**
+
+平台 dispute 系統有 character limit（通常 500-2000 字），請示範一個英文版 + 中文版 template，包含：
+- One-line summary
+- Bullet-pointed timeline
+- 具體 requested remedy（refund / replacement / partial refund）
+- Attached evidence list reference
+
+**4. 唔好做嘅嘢**
+
+- 唔好情緒化（平台 algorithm 同 reviewer 都會 down-rank）
+- 唔好同時開多個 dispute（會被 system flag 成 abuse）
+- 收到貨之後唔好即刻 confirm receipt 喺平台度（confirm 之後 dispute window 縮短）
+</PromptBlock>
+
+## 一個老實嘅 reality check
+
+HK 消費者維權嘅難處唔係「冇 channel」，係「channel 多但分散，每條 track 嘅 ROI 都唔高」。 消委會冇判決權、海關刑事檢控門檻高、小額錢債告完商戶冇錢 = empty judgment、跨境網購基本 outside jurisdiction。
+
+> 行內人嘅一句話：「真正攞返錢嘅 case，七成靠 documentation 嘅完整度，兩成靠肯堅持嘅 cadence，一成靠運氣（商戶仲有錢 + 仍想保 reputation）。律師意見值錢，但對小金額 dispute 嘅邊際效益其實有限。」
+
+Claude 嘅 leverage 喺呢度有兩個：(1) 幫你 30 分鐘做完原本要 2 個鐘揾資料 + 寫信嘅功夫，等你成本低到可以同時行三條 track；(2) 幫你寫一封 read 起嚟 sound like 你做過 homework 嘅投訴，畀對家覺得「呢個客唔好搞，畀返佢算」。
+
+35 分鐘嘅功夫，唔保證攞返錢，但保證你由「畀人呃完冇晒辦法」變成「該行嘅 channel 都行過、該 file 嘅 case 都 file 過」。後者就算最終 recover $0，至少瞓得着。**重點唔係贏，係企得起身行完條 ladder**。

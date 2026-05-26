@@ -1,0 +1,398 @@
+---
+title: "生完小朋友 3 個月睡眠破碎、情緒崩潰？用 Claude 整 self-screen + 揾真正 support"
+slug: "postpartum-mental-health-claude"
+issue: 134
+publishedAt: 2026-05-27
+audience: ["學生家長"]
+category: "chat"
+section: "健康"
+subcategory: "心理 / 產後"
+difficulty: 2
+timeMinutes: 30
+toolsNeeded: ["Claude Chat"]
+description: "生完 3 個月，BB 三點鐘喊，你坐喺廁所地下喊。屋企人話「忍下就過」。用 Claude 做廣東話 EPDS self-screen、拆 baby blue vs 真產後抑鬱、整 HK 母嬰健康院 + 私營 counselor 路線。Claude 唔取代醫生。"
+keywords: ["HK 產後抑鬱", "母嬰健康院 EPDS", "postpartum depression Hong Kong", "新手媽媽 心理", "產後情緒", "爸爸產後抑鬱", "EPDS 廣東話"]
+related: ["mental-health-journaling-claude", "sleep-insomnia-tracker-claude", "chronic-condition-management-claude"]
+featured: false
+---
+
+> 如果你而家有傷害自己 / BB 嘅念頭，本文唔啱睇。即刻 call 撒瑪利亞防止自殺會 **2389 2222**（24 小時）或者去最近急症室。Claude 唔取代精神科醫生 / 臨床心理學家 / 母嬰健康院。本文係幫你**準備同真人傾**嘅工具，唔係 substitute。
+
+## 情境
+
+凌晨 3:47。BB 第三次喊。
+
+你坐喺廁所地下，門鎖住。你已經 11 日冇瞓夠 4 個鐘。你個身奶仲滲緊，傷口仲拉緊，激素喺度過山車式 crash。
+
+老爺奶奶今朝講：「我哋以前生五個都冇你咁多嘢」。老公話：「你係咪 too sensitive」。你媽喺電話另一邊：「忍下就過」。
+
+但你心入面有一把聲，越嚟越大：「我唔係 too sensitive。我係**唔 OK**」。
+
+你 Google「產後抑鬱」，個 list 嘅 symptom 你中 8 個。但你又驚——「baby blue」3 週內會過？「真抑鬱」要見醫生？母嬰健康院個 6 週覆診你已經報「我好」因為唔知點答？
+
+香港產後 3-6 個月嘅媽媽（同爸爸——係，**爸爸都有 10% 機會**），呢個位置好普遍。Cultural script 講「為母則強」、「忍下就過」、「BB 健康就夠」——拖延就醫嘅代價係：你嘅 window 越開越窄，BB 嘅依附發展（attachment）都受影響。
+
+呢篇用 Claude 做：
+
+1. **EPDS-style 廣東話 self-screen**（10 條問題，世衛建議嘅產後篩查）
+2. **拆 baby blue（短暫，2-3 週內消）vs 真產後抑鬱**（持續、運作受影響）
+3. **HK 真路線**：母嬰健康院 → 家庭醫生 → 精神科 / 臨床心理學家
+4. **點同老公 / 家人開口**講「我唔 OK」嘅 script
+
+**再講多次**：Claude 唔係 therapist，唔可以診斷。Claude 嘅角色係幫你**整理證據去見真人**。急性危機 = 急症室或 2389 2222。
+
+## 跟住做
+
+### 1. 揀環境同時段
+
+呢一步比個 prompt 仲重要。
+
+唔好：
+
+- 喺餵奶崩潰嗰 5 分鐘做（你個 baseline 已經 distorted）
+- BB 喺隔籬會喊嘅環境（每 30 秒被打斷）
+- 老公 / 屋企人喺隔籬聽到嗰個房（你會自我審查）
+
+要：
+
+- BB 瞓咗、餵咗、換咗片之後嘅 20-30 分鐘 window
+- 揀朝早或者下午（夜晚 baseline 低，screen 結果會 inflated）
+- 一個你可以鎖門 / 戴耳機嘅 corner
+- 一杯水 + 紙巾（你可能會喊，呢個 OK）
+
+如果你連 20 分鐘安靜時間都揾唔到——呢個本身已經係 signal。揾屋企人或者朋友幫你睇 BB 半個鐘。**呢個唔係奢侈，係 medical preparation**。
+
+### 2. EPDS 廣東話 self-screen
+
+EPDS（Edinburgh Postnatal Depression Scale）係母嬰健康院、世衛、英國 NHS 都用嘅產後篩查工具，10 條問題，過去 7 日嘅情緒。
+
+<PromptBlock label="完整 prompt — EPDS 廣東話 guided self-screen">
+我係 HK 產後 [N 週 / N 個月] 嘅 [媽媽 / 爸爸]。我想做一次 EPDS（Edinburgh Postnatal Depression Scale）self-screen，廣東話進行。
+
+請你做嘅嘢：
+
+📋 **1. 一題一題問我**
+- 用 EPDS 10 條原版問題嘅廣東話 adaptation
+- 每題 4 個選項（0-3 分），用 HK 口語化嘅表達
+- 例：「過去 7 日，我可以笑得返出，見到嘢嘅好笑一面」
+  - [a] 同以前一樣咁多 (0 分)
+  - [b] 而家少咗少少 (1 分)
+  - [c] 而家明顯少咗 (2 分)
+  - [d] 完全笑唔出 (3 分)
+- 一次問一題，等我答完先再問下一題
+- 唔好提示「正常答案」係咩
+
+📊 **2. 計分**
+10 題答完之後，幫我計總分（0-30 分）：
+- 0-9：低風險（仍要留意 trend）
+- 10-12：可能有 mild 產後情緒問題（建議 follow up）
+- 13+：建議**儘快**見家庭醫生 / 母嬰健康院 / 精神科
+- **第 10 題（自殘 / 自殺念頭）任何 ≥ 1 分**：唔理總分，**即刻**升級
+
+⚠️ **3. 重要 caveat**
+- EPDS 係 **screening**，唔係 **diagnosis**
+- 高分唔代表「你一定有產後抑鬱」
+- 低分唔代表「你冇問題」（特別係如果你直覺話有事）
+- 只係幫你同醫生有共同語言
+
+🩺 **4. Next step 建議**
+基於分數，幫我列：
+- 邊個 HK 入口最啱（母嬰健康院 / GP / 直接私營）
+- 預約嗰陣可以講咩開場白
+- 我應該帶咩去（呢次 screen 嘅 raw 答案）
+
+🚫 **5. 唔好做**
+- 唔好「你冇事啦」式 reassure
+- 唔好誇張 catastrophize
+- 唔好喺第 10 題答完之後跳過 escalation 直接計總分
+- 唔好假裝你係醫生 / 可以診斷
+
+語氣：冷靜、結構化、尊重——好似一個受過 training 嘅護士帶我做 questionnaire。
+</PromptBlock>
+
+第一次做大概 15-20 分鐘。如果分數 ≥ 10，唔好自己諗「係咪我太 dramatic」——**呢個工具設計就係喺呢個分數 flag**。
+
+### 3. 揀 next step（light / moderate / severe）
+
+EPDS 出咗分之後，下一步取決於 severity。
+
+<PromptBlock label="完整 prompt — 根據 EPDS 分數整 HK action plan">
+我啱啱做完 EPDS，總分 [N]，第 10 題 [N 分]。我喺 HK，產後 [N 個月]。
+
+請幫我整一個**具體**嘅 next step plan，唔好行貨：
+
+🟢 **如果我 0-9（低風險）**
+- 監察 trend：每 2 週重做一次 EPDS，記低
+- Baby blue 通常 2-3 週內 peak 然後消——如果 6 週後仲喺度，升級
+- 自我照顧 baseline：瞓（even broken sleep 都 prioritize）、食、水、5 分鐘出街
+- Signal 要 escalate：分數連續 2 次升 / 第 10 題出現 ≥ 1 分 / 直覺話「我唔 OK」
+
+🟡 **如果我 10-12（mild-moderate）**
+- 預約**母嬰健康院**做正式 EPDS + 醫生面談
+  - 帶埋我自己做嘅 EPDS 答案
+  - 開場：「我自己做咗 EPDS [N] 分，我想正式 evaluate」
+- 或者家庭醫生（GP）：較快、私營、可轉介
+- 同伴侶 / 一個信得過嘅人講（script 喺下一步）
+- 唔好等：呢個 range 嘅嘢拖落去更難拆
+
+🟠 **如果我 13+（建議快啲跟進）**
+- **2 週內**見醫生（GP 或母嬰健康院）
+- 如果母嬰健康院 waiting 太耐，私營 GP / 精神科：
+  - 精神科專科診金 HK$1500-3000
+  - 臨床心理學家 HK$1000-2500
+  - 工作 EAP（如有）可能 cover 3-6 次
+- 講畀屋企人聽你需要：BB 託管 buffer、減 night feed shift、physical 幫手
+
+🔴 **如果第 10 題 ≥ 1 分（任何自殘 / 自殺念頭，唔理總分）**
+- **而家、今日**：
+  - 同信得過嘅人講你**而家**嘅狀態
+  - Call 撒瑪利亞防止自殺會 **2389 2222**（24 小時中文）
+  - 或者去最近**急症室**
+- BB 嘅 safety plan：如果有任何傷害 BB 嘅念頭，**而家**安排另一個成人陪 BB
+- 唔係「我會頂多陣」——呢個係 emergency
+
+🩺 **HK 路線（2026）**
+- **母嬰健康院**：免費 / 低收費、產後 6 週同 8 個月恆常覆診都會 screen
+- **家庭醫生 / GP**：較快、私營 HK$300-600、可寫轉介
+- **精神科專科**：公院 waiting 12-18 個月、私營 1-3 週
+- **臨床心理學家**：CBT / interpersonal therapy 對產後抑鬱 evidence base 強
+- **Mother's Choice（母親的抉擇）**：低收費、產後支援 + counseling
+- **Mind HK**：therapist directory，可以 filter 廣東話 + 產後
+
+❌ **唔好做**
+- 唔好淨係靠 Claude / online forum 拖
+- 唔好以為「BB 餵到大就會好」——有時會，有時越拖越深
+- 唔好食補品 / 中藥 self-treat moderate-severe 抑鬱
+
+語氣：實際、唔煽情、唔輕視——就好似你嘅 senior 朋友啱啱經歷過同樣嘅嘢。
+</PromptBlock>
+
+呢個 plan 嘅關鍵：**唔好停喺 self-screen**。EPDS 嘅 evidence base 強嘅地方係「screen → refer → treat」嘅 pipeline，唔係 screen 完自己消化。
+
+### 4. 同伴侶 / 家人開口嘅 script
+
+呢一步好多人卡住。
+
+「我而家唔 OK」呢句話喺 HK 文化入面好難講出口——驚畀人話矯情、驚畀人話「你應該要堅強為咗 BB」、驚對方亂緊張 / overreact。
+
+<PromptBlock label="完整 prompt — 同伴侶 / 屋企人開口嘅 script">
+我想同 [伴侶 / 我媽 / 老爺奶奶 / 一個信得過嘅朋友] 講我而家嘅產後狀態。我 EPDS [N 分]，我想佢知道、我想佢具體點 support 我，唔係單純擔心。
+
+請幫我整 3 個版本嘅開場，**因應對方嘅 baseline 唔同**：
+
+💬 **版本 A — 對方屬於「會 minimize」嗰種（例：講「忍下就過」「我哋以前都係咁」）**
+- 唔嘗試說服佢「呢樣係真實病」
+- 用具體 functional impact 講
+- 例：「我想話你知，我過去 [N] 週每日喊超過 3 次、唔想餵奶、有時望住 BB 諗『我係咪適合做 mom』。我自己做咗一個 screen，分數係 [N]。我下星期會去母嬰健康院 follow up。我而家需要嘅唔係 advice，係 [具體：星期三夜晚你陪 BB 我瞓 6 個鐘]」
+- Focus：講事實、要具體 ask、唔辯論診斷
+
+💬 **版本 B — 對方屬於「會 panic」嗰種（例：一聽就驚到喊 / 即時 call 全家）**
+- 預先 contain reaction
+- 例：「我有啲嘢想同你講，但你聽完之後請唔好即刻 call 任何人 / 唔好驚。我而家狀態唔太好，但我有 plan。我已經預約咗 [GP / 母嬰健康院]，我需要嘅係你聽我講、唔好 fix。」
+- 講完之後具體 ask：「你可以做嘅係 [具體 — 例：每日晏晝 send 一個 text 問我 OK 嗎、就咁]」
+
+💬 **版本 C — 對方屬於「正常 supportive」嗰種**
+- 最直接
+- 例：「我而家經歷緊產後抑鬱（or 篩查緊）。我做咗 EPDS [N 分]。我下星期見醫生。今晚 / 呢個禮拜我需要嘅係 [具體]」
+
+📋 **唔理邊個版本，要包含**：
+- 1 個事實（你個 state）
+- 1 個 action（你已經 / 將會做）
+- 1 個具體 ask（唔好留白 — 對方會亂估）
+
+🚫 **唔好用嘅嘢**
+- 「我冇事，可能我太 sensitive」（self-undermine）
+- 「我覺得我可能有啲少少抑鬱」（hedging）
+- 「對唔住我講出嚟」（apologize for needing help）
+
+🎯 **如果對方反應差**
+- 「忍下就過」/「你而家有 BB 應該開心」/「我哋以前都係咁」
+- 唔需要說服佢
+- 講：「我聽到。我已經會去見專業人士。我而家講咗，我盡咗我份」
+- 然後揾下一個——朋友、姐妹、Mind HK directory、母嬰健康院護士
+
+語氣：fellow new parent 嘅落地建議，唔係 therapist 嘅 communication framework 講課。
+</PromptBlock>
+
+第一次講會 awkward。**第二、第三次會易啲**。如果第一個人反應差，唔代表所有人都會——揾下一個。
+
+## 變化例子
+
+### 變化 1：爸爸都有產後抑鬱（10% 機會）
+
+爸爸 postpartum depression（PPND — Paternal Postnatal Depression）研究數字大約 10%，HK 數據可能更高因為男性求助率低 + 經濟壓力。Trigger 唔同：
+
+- 睡眠剝奪 + 即刻返工
+- 伴侶情緒變化 + 自己唔知點 support
+- 經濟壓力（家庭收入單肩膊）
+- 父職身份 identity shift（特別係如果原本好 career-focused）
+- 同 BB 嘅 bonding delay（媽媽有 breastfeeding hormonal advantage，爸爸要主動建立）
+
+<PromptBlock label="變化 1 — 爸爸 postpartum self-check">
+我係 HK 新手爸爸，BB [N 個月]。我留意到：
+- [症狀：易怒 / 麻木 / 工作 disengage / 飲多咗 / 對伴侶 distant / 對 BB 冇感覺 / 失眠（唔關 BB 事）]
+
+請幫我：
+
+🧐 **1. 認真 self-check**
+- 用 EPDS 嘅 adapted 版本（EPDS 對男性都 validated）問我 10 題
+- 廣東話、HK 口語化
+- 揀我啱嘅 4 個選項
+
+📊 **2. 計分 + 解讀**
+- 同媽媽嘅 cut-off 一樣（10+ flag、13+ 建議跟進）
+- 但留意：男性 presentation 可能係 **irritability / withdrawal / substance use** 多過「sad」
+
+🩺 **3. HK 男性產後資源**
+- GP 入手（精神科 / 心理學家轉介）
+- Mind HK 有男性 friendly therapist
+- 工作 EAP（如有）
+- 唔好以為「冇 men's perinatal clinic」=「我冇資格 seek help」——所有 perinatal mental health 服務都應該服務父母雙方
+
+🗣 **4. 同伴侶溝通**
+- 唔好「我都辛苦」（會 trigger compare）
+- 用：「我留意到我自己都唔 OK。我想我哋兩個都搞掂呢個。」
+
+🚫 **唔好**
+- 「啤酒 fix」
+- 「捱多排就過」
+- Self-isolate
+
+語氣：直接、男性 perspective、唔講課。
+</PromptBlock>
+
+### 變化 2：第二 / 三胎 vs 第一胎
+
+唔少媽媽以為「第一胎都過到，第二胎應該更易」——其實**第二胎產後抑鬱風險可能更高**：
+
+- 第一胎你冇 toddler 喺度
+- 你有 baseline expectation（「上次我頂到」），跌嘅時候 self-judge 重啲
+- Toddler regression（爭寵）係日日 trigger
+- 你可能已經透支嘅 reserve 仲未 refill 就再次 deplete
+
+<PromptBlock label="變化 2 — 第二 / 三胎產後 self-screen">
+我已經有 [N] 個小朋友，最新 BB [N 個月]。我發現呢一胎 vs 上一胎好唔同 / 似但更深。
+
+請幫我：
+
+🔍 **1. 對比 trigger pattern**
+- 上一胎你嘅 trigger 係咩？（瞓 / 餵奶 / 經濟 / 關係 / identity）
+- 呢一胎新加咗咩？（toddler / 經濟 / 屋企空間 / 老公更 absent / 你年紀大咗）
+- 邊啲係新嘅 trigger，邊啲係舊嘅 trigger 加深
+
+📋 **2. EPDS + 增量問題**
+- 標準 EPDS 10 題
+- 加 3 題：
+  - 你對大仔 / 大女嘅耐性點？
+  - 你有冇 resent BB / 大個嗰個？
+  - 你有冇諗過「如果只係一個就好」嘅念頭？（呢個 normal，但持續 = signal）
+
+🟠 **3. 升級 threshold**
+- 第二 / 三胎媽媽**唔好用同樣 threshold**：你 reserve 已經低咗
+- 即使 8-9 分（technically 低風險），如果你覺得「呢次唔同」——信你自己
+
+🩺 **4. HK 路線特別考慮**
+- 母嬰健康院依然係入口
+- 同 GP 提：「我之前 [N 胎] 時 [有冇診斷 / 食過藥]」——前史係 strong predictor
+- 如果上次食過 SSRI，可能而家會更快重啟（同醫生討論）
+
+語氣：尊重你已經 navigate 過一次，唔講課。
+</PromptBlock>
+
+### 變化 3：早產嬰 / NICU baby 父母（PTSD overlap）
+
+如果 BB 早產 / 入過 NICU / 有 medical complication，你經歷嘅可能唔淨係「產後抑鬱」——可能包埋 **birth trauma PTSD**。Symptom 重疊但治療路徑唔完全一樣。
+
+<PromptBlock label="變化 3 — 早產嬰 / NICU 父母 self-screen">
+我嘅 BB [早產 N 週 / NICU 入咗 N 日 / 有 medical complication：xxx]。BB 而家 [狀態]。我發現：
+- [Flashback / 避開醫院 / 過度警覺 / 失眠（唔關 night feed 事，係腦倒帶）/ 麻木]
+
+請幫我：
+
+🧐 **1. 區分產後抑鬱 vs birth trauma PTSD**
+- 產後抑鬱：persistent sadness / hopeless / anhedonia / 對 BB 嘅 attachment 困難
+- Birth trauma PTSD：flashback 入院 / 分娩細節、avoidance（避醫院 / 拒絕復診）、hyperarousal、噩夢
+- 可以**同時**有
+
+📋 **2. Screen 兩個 dimension**
+- EPDS（產後抑鬱）
+- PCL-5 簡化版（PTSD 6 題）：flashback / avoidance / 負面情緒 / hyperarousal 各 1-2 題
+
+🩺 **3. HK 路線**
+- 一般 GP / 母嬰健康院**未必熟** birth trauma PTSD
+- 揾 trauma-informed therapist（Mind HK directory 可 filter）
+- EMDR 或 trauma-focused CBT 對 birth trauma 嘅 evidence 強
+- 如果係 NICU 父母：考慮揾過經歷類似嘅 peer support group
+
+🤝 **4. NICU 父母特定 resource**
+- 醫管局某啲醫院有 NICU parent support
+- 香港早產嬰兒基金會（如仲運作）
+- 國際：March of Dimes、Hand to Hold（英文 resource，但 framework 有用）
+
+⚠️ **5. 唔好嘅 framing**
+- 「BB 而家 OK 啦，你 should grateful」——感激同 trauma 可以共存
+- 「我冇資格 traumatized，BB 有啲父母更慘」——trauma 唔係 comparative
+
+語氣：認真對待 birth trauma，唔輕視 NICU 經驗。
+</PromptBlock>
+
+## 一個思維框架
+
+產後抑鬱嘅 cultural trap 喺 HK 特別深：「為母則強」、「BB 健康就夠」、「忍下就過」。
+
+呢啲句子嘅 hidden assumption 係：**你嘅情緒健康係 luxury，BB 嘅 physical 健康先係 priority**。
+
+但 evidence 講相反——**媽媽 / 爸爸 untreated postpartum depression 對 BB 嘅長期 attachment、emotional regulation、cognitive development 有 measurable impact**。你照顧自己嘅情緒健康，**唔係**犧牲 BB——係**為咗** BB 嘅 best outcome。
+
+Claude 喺呢個 pipeline 入面嘅角色好窄：
+
+- ✅ 幫你**廣東話**做 EPDS（HK 母嬰健康院個版本英文為主，唔少媽媽轉譯嗰陣已經 understated）
+- ✅ 幫你**整理**證據去見醫生（你 11pm 一個人對住 Claude 比 5 分鐘對住 GP 有時間）
+- ✅ 幫你**rehearse** 同屋企人開口嘅 script
+- ✅ 24/7 有得用（凌晨 3 點 BB 訓咗你獨自 panic 嘅嗰種時刻）
+
+唔可以做：
+
+- ❌ 診斷（只有受過 training 嘅 clinician 可以）
+- ❌ 處方（包括建議停 / 開 / 轉藥）
+- ❌ 處理急性危機（自殺 / 自殘 / 傷害 BB 嘅念頭 = 急症室、唔係打字）
+- ❌ 取代真人嘅 attunement（therapist、partner、屋企人、其他媽媽）
+
+最後三個提醒：
+
+- ✅ **EPDS 係 screen，唔係 diagnosis**——分數高 / 低都唔係終點，係去見醫生嘅起點
+- ⚠️ **產後抑鬱 window 唔淨係 6 週**——研究話直到產後 12 個月都係 risk period
+- 🆘 **任何傷害自己 / BB 嘅念頭** = 即時 call 2389 2222 或者去急症室，唔係 Claude
+
+---
+
+### 🆘 真人支援（HK 2026）
+
+**24 小時危機熱線**
+- 撒瑪利亞防止自殺會（中文）：**2389 2222**
+- 撒瑪利亞會多語熱線：**2896 0000**（廣東話、英語、普通話、Tagalog）
+- 醫管局心理健康 24 小時熱線：**2466 7350**
+
+**產後 / 母嬰專門**
+- **母嬰健康院**（衞生署）：免費 / 低收費、產後 6 週 + 8 個月覆診會 screen EPDS、可轉介
+- Mother's Choice 母親的抉擇：低收費、產後支援 + counseling、廣東話
+- 醫管局精神科專科（要 GP 轉介）
+
+**較低成本治療轉介**
+- Mind HK 治療師目錄：mind.org.hk（可 filter 廣東話 + 產後）
+- 聖路加牧靈輔導（按收入調節）
+- HKSKH（香港聖公會）家庭輔導中心
+
+**工作場所 EAP**
+你或者伴侶嘅公司健康保險可能包 EAP（Employee Assistance Program）——3-6 次 session 免費 / 機密。HR 問。
+
+**第一步唔知點開始？**
+家庭 GP 係最快入口。GP 可以：
+- 做 EPDS + 詳細評估
+- 處方（如需要、breastfeeding-compatible SSRI 有得揀）
+- 寫轉介去精神科 / 臨床心理學家
+- 機密——HR 唔會知
+
+唔好獨自捱。你而家咁辛苦，唔係因為你弱，係因為你身體 + 環境 + 激素同時 stress test 緊一個唔可以一個人扛嘅 load。
+
+你而家攞起電話打 call 嗰個 action，係 BB 將來會 grateful 嘅嗰個 decision。

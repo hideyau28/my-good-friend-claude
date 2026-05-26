@@ -1,0 +1,439 @@
+---
+title: "父母走咗 / 自己 pre-plan 身後事：用 Claude 整 HK 殯儀完整 checklist + cost transparency"
+slug: "funeral-planning-checklist-claude-hk"
+issue: 138
+publishedAt: 2026-05-27
+audience: ["消費者", "學生家長"]
+category: "chat"
+section: "其他"
+subcategory: "身後事"
+difficulty: 2
+timeMinutes: 45
+toolsNeeded: ["Claude Chat", "死者身份證 + 醫生死因證明書 (Form 18)", "（如 pre-plan）自己嘅 wish list"]
+description: "父母突然走咗，48 小時要簽死亡證、揀殯儀館、決定火葬土葬。HK 殯儀業 opaque、易 upsell。用 Claude 整 7 日 task checklist + 殯儀館報價問題 + ceremony 揀法 + 遺產 admin。Pre-plan 自己 funeral 都用得。"
+keywords: ["HK 殯儀 cost", "殯儀館 比較", "死亡證 申請", "funeral planning Hong Kong", "香港 火葬", "身後事 checklist", "遺產 處理", "Estate Duty HK"]
+related: ["pet-end-of-life-grief-claude", "elder-care-decision-claude-hk", "insurance-policy-review-claude"]
+featured: false
+---
+
+> 呢篇唔避諱講死。如果你而家係父母剛走咗嘅頭 48 小時，跳到「跟住做」第 1 步——清楚 immediate task。如果你係 pre-plan，由「變化 1」入。Claude 唔取代殯儀顧問或律師，但佢 hold 住 structure，等你喺 grief 入面唔會俾人 upsell。
+
+## 情境
+
+可能你係呢兩個情境之一。
+
+**情境 A — 父母剛走咗**：
+
+凌晨 4 點，醫院 call 你。你阿爸 / 阿媽喺老人科病房走咗。你趕到醫院，護士遞一張表畀你簽。醫生開咗 **死因醫學證明書（Form 18）**，叫你 24 小時內去**生死註冊處**換**死亡證**。你問下一步點？護士 sympathetic 但簡短：「殯儀館會聯絡你，揀邊間？」
+
+你冇心理準備。你只係知道——
+
+- 屋企人喺 WhatsApp group 開始問「幾時 set 安息禮拜？」
+- 殯儀館中介喺醫院門口已經派咭片
+- 你阿姨話「世界殯儀館好啲」，你舅父話「紅磡殯儀館傳統啲」
+- 你唔知 棺木幾錢、化妝幾錢、紙紮幾錢
+- 你唔知 火葬定土葬、邊度有位、要等幾耐
+
+**呢 48 小時嘅每一個決定都涉及錢同情感**。殯儀業界唔係邪惡，但**資訊極度 opaque**——你冇 baseline，就好易被 upsell 一個 $80k 嘅 package，當中可能有一半你根本唔需要。
+
+**情境 B — 你想 pre-plan 自己嘅身後事**：
+
+你 55 歲，剛幫朋友處理完佢阿爸喪事，見到佢同兄弟姊妹喺殯儀館門口為咗「燒邊種紙紮」嗌交。你諗：我唔想下一代搞成咁。
+
+兩個情境，Claude 都可以幫你 **scaffold 個 process**。佢唔取代殯儀顧問，但佢令你**有 baseline 去傾**。
+
+## 跟住做
+
+### 1. 頭 48 小時 / 7 日 / 30 日 task checklist
+
+最焦慮嘅嘢係「我係咪漏咗啲嘢」。先用 Claude 出一份分時段 checklist，print 出嚟，逐項剔。
+
+<PromptBlock label="完整 prompt — HK 身後事 48 小時 / 7 日 / 30 日 checklist">
+我[父親 / 母親 / 配偶]今日（[日期]）喺[醫院 / 屋企 / 院舍]過身。我需要一份**香港 2026 身後事 task checklist**，分三個時段：
+
+⏰ **首 48 小時**
+- 死因醫學證明書（Form 18）邊個醫生簽：醫院 / 簽發機構
+- 屋企走嘅 case：call 999 定家庭醫生？要唔要驗屍？
+- 接收死者個人物品：身份證、銀行卡、藥物、眼鏡（影低件件登記）
+- 通知 next-of-kin：點 prioritise（配偶 → 子女 → 兄弟姊妹 → 摯友）
+- 殯儀館接體：可以等，唔好 panic 揀；醫院殮房通常免費 keep 48-72 小時
+- 揀**生死註冊處**地點（[港九新界 4 個 office]）
+
+📋 **首 7 日**
+- 死亡證正本（換 Form 18 → 死亡登記證明書）—— 我需要帶咩文件
+- 火葬／土葬決定：食環署火葬場 vs 私營（如華永會、教會墓地）
+- 殯儀館報價（步驟 2 詳細處理）—— 至少報 3 間
+- 訂場：殯儀廳一晚 vs 兩晚、出殯日期（避開公眾假期 + 親友 fly-back time）
+- 通知：公司 / 學校 / 銀行 / 政府部門（強積金、長者津貼、公屋）—— 邊啲要 paper、邊啲打去就得
+- 訂訃聞（如要登報）
+- 同宗教領袖確認：神父 / 法師 / 牧師 / civic celebrant 揀邊個
+
+📅 **首 30 日**
+- 火化後：骨灰位申請（食環署輪候期 4-5 年 vs 私營即得）
+- 「頭七」如有做傳統儀式（佛教 / 道教 case）
+- 死亡證 certified copy（銀行 / 保險各要一張，建議申請 10 張）
+- 遺產處理啟動（步驟 4 詳細）：揾律師 vs DIY 小額遺產
+- 收回死者公屋 / 私樓（如獨居）
+- 取消：八達通自動增值、SIM card、Netflix、銀行戶口（要遺產承辦書先做）
+- 100 日 / 對年（傳統家庭）安排
+
+🛑 **唔好做（常見 trap）**
+- 唔好喺醫院門口即場簽殯儀館合約 —— 中介有 commission
+- 唔好預付全數（30-50% 訂金 reasonable，餘額完工後）
+- 唔好同單一殯儀館講「我趕」—— 你越急佢越唔讓步
+- 唔好喺 grief acute phase 揀 $50k+ 棺木 —— 你會後悔
+
+語氣：實際、莊重、清楚 timeline。我而家腦袋 offline，需要 step-by-step。
+</PromptBlock>
+
+Claude 出嗰份 checklist 你 print 出嚟，貼喺廚房。每剔一項，你冇遺漏嘅安全感就多一分。
+
+### 2. 殯儀館報價問題 + cost transparency
+
+呢一步係 **最易俾人搵笨** 嘅環節。HK 私營殯儀館報價結構超複雜——一個 「basic package」 可以由 $25k 跳去 $120k，視乎你加幾多 add-on。
+
+<PromptBlock label="完整 prompt — HK 殯儀館報價 line item 拆解 + 比較表">
+我要為[父親 / 母親]安排 [佛教 / 基督教 / civic / 簡約] 喪禮。我想 Claude 幫我整一份**殯儀館報價拆解 framework**，等我打去 3 間問價嗰陣，知道應該問乜、應該對比乜。
+
+🪦 **HK 殯儀 line items（typical breakdown，2026 ballpark）**
+
+請列出**每一條 line item** + 香港市場 typical range + 「易俾人 upsell 嘅版本」：
+
+1. **基本服務費**（接體 / 化妝 / 入殮 / 出殯協調）—— typical range
+2. **棺木 / 骨灰盅**
+   - 火葬用簡約紙棺：[range]
+   - 中價實木：[range]
+   - 進口高檔（楠木 / 進口櫻桃木）：[range]
+   - 提醒：火葬燒晒，貴棺木只係儀式意義
+3. **殯儀廳場地租金**（一晚 vs 兩晚）
+   - 大廳 vs 細廳
+   - 紅磡 / 北角 / 鑽石山 / 新界 各區典型 range
+4. **化妝 + 整容服務**（基本 vs 嚴重外傷 case）
+5. **遺體運送**（醫院 → 殯儀館 → 火葬場 each leg）
+6. **儀式人員**
+   - 法師誦經（佛教 / 道教）
+   - 神父 / 牧師（基督 / 天主教）
+   - civic celebrant（無宗教）
+7. **紙紮 / 祭品**（傳統家庭，可以由 $2k 到 $30k+）—— 哪啲必要、哪啲純情感
+8. **鮮花**（祭壇 + 親友花籃 — 親友花籃通常親友自付）
+9. **影相 / 攝錄 / 直播**（海外親友 attend）
+10. **訃聞登報**（明報 / 東方 / SCMP each rate）
+11. **回禮**（毛巾 + 糖 + 利是封）—— 數量計法
+12. **火化爐租用**（食環署 vs 私營）
+13. **骨灰位**（食環署輪候 vs 私營即時）—— 申請 process
+
+🔍 **打去殯儀館要問嘅 question list**
+- 報價有冇**書面 itemized quote**？（要 paper，唔好聽口頭）
+- 邊幾條係「必須」、邊幾條係「optional」？（迫佢分清楚）
+- 訂金幾多 %？退款條款？
+- 有冇額外**手續費 / 服務附加**？（部分殯儀館有 10-15% admin fee 收喺最後）
+- 出殯當日**人手配備**（幾多個工作人員 cover），有冇 overtime charge？
+- 如果出殯延期（火葬場排唔到），點計？
+
+💰 **三檔 budget 參考**（2026，僅供 anchor）
+- 簡約火葬：HK$30-50k（基本服務 + 簡約棺 + 1 晚廳 + 食環署火化）
+- 中位數傳統：HK$60-100k（中價棺 + 2 晚廳 + 法師 + 適度紙紮 + 私營骨灰位）
+- 大型傳統：HK$150k+（高檔棺 + 大廳 + 全套紙紮 + 私營骨灰塔位）
+
+⚠️ **upsell 紅旗**
+- 「呢個係 minimum 你父母會 deserve 嘅 standard」—— 情感勒索
+- 「呢個 add-on 而家訂有 discount」—— 假 urgency
+- 「其他客都揀呢個 package」—— anchor bias
+- 唔肯畀 itemized quote，淨係報 lump sum
+
+請整成**一個對比表 template**（殯儀館 A / B / C 三 column），我打完三個電話可以即刻 fill in 對比。
+
+語氣：商業 literate、唔判斷家庭嘅 spending choice、但保護我 from manipulation。
+</PromptBlock>
+
+打三間電話。**唔好同一日打**——分開兩日，你嘅情緒 baseline 唔同，你會聽到唔同嘅嘢。最平嗰間唔一定揀，但**最貴嗰間應該畀到你最具體嘅 itemised breakdown**——如果佢含糊其辭，walk away。
+
+### 3. Ceremony style — cultural / 個人 wish / 親友 expectation 三角
+
+呢個係 **family conflict 嘅高發點**。你阿媽生前話「簡單啲就好」，但阿姨話「你阿爸地下會嬲」、舅父話「冇法師唔得」。Claude 唔解決家庭政治，但幫你**framework 三方平衡**。
+
+<PromptBlock label="完整 prompt — Ceremony style 決策框架">
+我[父親 / 母親]嘅信仰 / 文化 background：[佛教 / 基督教 / 天主教 / 道教 / 無宗教 / 混合]。
+
+死者生前 expressed wish（如有）：[簡單 / 傳統 / 海葬 / 環保 / 唔肯講過]
+我自己嘅 leaning：[簡約 / 傳統 / 環保 / 唔知]
+親友 expectation：[長輩想全套傳統 / 兄弟姊妹分歧 / 屋企人一致]
+
+請幫我整**四種 HK 主流 ceremony style 嘅 comparison**：
+
+⛩️ **傳統佛教 / 道教**
+- 流程：頭七、做七、出殯、火化、骨灰安奉
+- 時長：通常 7 日內出殯，全程儀式 3-5 個鐘
+- 法師費 + 誦經費 typical range
+- 服飾要求（孝服 / 麻衣）
+- 適合：長輩仍在生堅持、死者生前傳統、屋企人需要儀式 containment
+
+✝️ **基督教 / 天主教安息禮拜**
+- 流程：守夜 + 安息禮拜 + 出殯 + 火化 / 土葬
+- 時長：可以快過傳統，5-7 日內完成
+- 牧師 / 神父費（部分教會免費，奉獻為主）
+- 適合：死者教會生活、屋企人多基督徒、需要 community support
+
+🕊️ **Civic / 非宗教告別會**
+- 流程：自由 design，分享環節 + music + slideshow + speeches
+- 時長：1.5-3 個鐘
+- Celebrant 費 + AV 設備
+- 適合：死者無宗教、家庭多元信仰、想 personalised
+- 場地：殯儀館廳 OR 餐廳 / community hall（部分私營殯儀館肯 host）
+
+🌿 **簡約 / 環保 / Green burial**
+- HK option：海上撒灰（食環署免費安排）/ 紀念花園撒灰 / 環保紙棺
+- 流程：可以無正式 ceremony，純家庭聚會
+- 成本最低：HK$15-30k 完成
+- 適合：死者明確要求、家庭 alignment、無強烈宗教 / 傳統壓力
+
+🎯 **決策 framework**
+請幫我答以下，得出我嘅 lean direction：
+
+1. **死者 wish weight**（你哋傾過嗎？寫過嗎？）—— wish 寫低嘅，weight 最重
+2. **長輩 expectation severity**（拒絕妥協 vs 不滿但接受）
+3. **屋企人共識**（一致 / 分裂）
+4. **budget 限制**（簡約 $30k vs 傳統 $80k vs 大型 $150k）
+5. **海外親友**（要唔要直播 / 延後 ceremony 等返港）
+
+⚖️ **如果 conflict**
+- 三方衝突常見 pattern：死者 wish vs 長輩 expectation
+- Mediation suggestion：核心儀式跟長輩（保 face），personal tribute 跟死者 wish（一段 slideshow / 一首歌 / 一段 reading）
+- 「兩階段」做法：殯儀館內傳統儀式 + 屋企 / 餐廳 informal memorial 之後一日
+
+請幫我列出**三個 follow-up questions** 我應該問屋企其他成員，等決策更 grounded。
+
+語氣：尊重所有信仰、唔貶低任何 style、認可家庭政治嘅 reality。
+</PromptBlock>
+
+Claude 出嘅 framework 你睇咗，**唔好即刻 broadcast 去 family WhatsApp group**。先 1-on-1 同最近你嗰個 sibling 傾，align 你哋兩個，再 united front 同長輩傾。
+
+### 4. Post-funeral admin — 遺產 / bank / Estate Duty
+
+火化完之後，你以為完——其實 admin 部分先開始。HK Estate Duty 2006 年已廢除，但**遺產承辦書（Grant of Probate / Letters of Administration）**仍然係取出死者銀行戶口、變賣物業嘅 prerequisite。
+
+<PromptBlock label="完整 prompt — HK 遺產處理 + 政府部門通知 checklist">
+我[父親 / 母親]剛火化完。死者資產：[銀行戶口 / 物業 / 強積金 / 保險 / 股票 / 公司股權 — 列出大概]。死者有冇遺囑：[有 — 律師處 / 屋企 / 無]。
+
+請幫我整**HK 遺產處理 30-90 日 checklist**：
+
+📜 **遺囑 vs 無遺囑**
+- 有遺囑 → 申請 **Grant of Probate**（遺囑認證）
+- 無遺囑 → 申請 **Letters of Administration**（遺產管理書）
+- 小額遺產（HK$150k 以下）→ 可以走 **小額遺產簡易程序**，免律師
+
+🏦 **銀行戶口**
+- 死者單名戶口：凍結，要遺產承辦書解凍
+- 聯名戶口（and/or 視 case）：survivor 通常可以提取
+- 信用卡：通知銀行 cancel，部分卡有死亡 protection（債務免）
+- 自動轉賬：list 晒，逐個 cancel（電費 / 水費 / 電訊）
+
+🏘️ **物業**
+- 單名 → 入遺產，要承辦書先轉名
+- 聯名（joint tenancy）→ 自動 pass to survivor，但仍要去土地註冊處備案
+- 公屋 → 通知房署，由 surviving 戶主繼承戶籍
+
+💼 **強積金 / 退休金**
+- 強積金：填妥 MPF 死亡索償，受益人 nominate 過就直接 release
+- 政府公務員退休金：通知部門
+
+🛡️ **保險**
+- 人壽保險：受益人直接 claim，唔入遺產
+- 醫療 / 危疾未 claim 過嘅，最後一次 claim 醫療費
+
+📋 **政府 / 公共部門通知 list**
+- 入境處（身份證註銷）
+- 房署 / 公屋
+- 食衛局（長者醫療券餘額）
+- 社署（長者生活津貼 / 綜援）
+- 稅局（個人入息評稅最後一年）
+- 選舉登記處
+- 強積金管理局
+
+💸 **Estate Duty 現況**
+- HK 2006 年起廢除遺產稅
+- 但 **死者去世前 7 年 made 嘅大額 gift** 仍可能涉及法律爭議（如有 family dispute）
+- 跨境資產（中國內地 / 海外）—— 該地稅制 separate apply
+
+🧑‍⚖️ **律師 vs DIY**
+- 小額遺產 + 無爭議 → DIY 可（高等法院 Probate Registry 有 self-help guide）
+- 物業 / 多名繼承人 / 跨境 → 律師（typical fee HK$15-40k）
+- 紅旗：兄弟姊妹有人 contest → 一定揾律師
+
+⏰ **Timeline**
+- Grant of Probate / LA：典型 3-9 個月
+- 期間銀行戶口凍結 —— **預先 set aside 喪葬費 + 6 個月家用** 喺自己戶口
+- 物業出售（如要）：承辦書出咗先可以放盤
+
+請整成**一張 30-60-90 日時間表**，每段我應該完成乜。
+
+語氣：admin、唔煽情，但提醒呢個階段嘅疲勞係 real ——「事都做完，個 grief 先正式 surface」。
+</PromptBlock>
+
+呢一份 print 兩份。一份俾你，一份俾最 trusted 嗰個 sibling。**Admin 唔應該由一個人 carry**。
+
+## 變化
+
+### 變化 1：Pre-plan 自己嘅 funeral（55-70 歲 reader）
+
+你健康，但你睇住朋友處理父母喪事時嘅混亂——你想下一代少受罪。
+
+<PromptBlock label="變化 1 — Pre-plan 自己嘅身後事 + letter to next-of-kin">
+我[年紀]，健康，但想 pre-plan 自己嘅身後事，等屋企人之後唔使估。
+
+請幫我整**3 份文件 draft**：
+
+📝 **A. Wish letter to next-of-kin**
+框架包括：
+- 我想要嘅 ceremony style（傳統 / civic / 簡約 / 環保）+ why
+- 火葬 vs 土葬 + 骨灰處理（撒海 / 撒灰花園 / 安奉骨灰位 / 帶返鄉下）
+- 預算上限 hint（「唔好俾人 upsell，[$X] 之內掂晒就 OK」）
+- 我想播嘅 music / 想讀嘅文字 / 想 invite 嘅人
+- 我**唔想**嘅嘢（例：唔想登報、唔想搞紙紮、唔想哭得太慘）
+- 一段「畀下一代嘅 forgiveness + permission」—— let them grieve their way
+
+🏛️ **B. Living will（預設醫療指示）**
+- HK 2025 起 Advance Directive 法律框架更清晰
+- 列明：拒絕嘅延命治療（CPR / 插喉 / 維生機）
+- 適用條件：末期 / 持續植物人 / 不可逆昏迷
+- 邊度簽：兩個成年見證人（其中一個唔可以係受益人）
+- Copy 俾：家庭醫生 / 信任 NOK / 律師
+
+📋 **C. Practical info sheet**
+- 銀行 / 保險 / MPF account list（**唔寫密碼**，寫機構 + 戶口號碼）
+- 律師 / 會計師 contact
+- 遺囑放邊（律師處 / 銀行保險箱 / 屋企夾萬）
+- 數碼 legacy：email / Facebook / iCloud 點 handle（部分平台有 legacy contact setting）
+- 寵物安排（如有）—— 邊個接手
+
+語氣：唔忌諱、實際、temperate。Pre-plan 唔係 morbid，係 last gift to your kids。
+</PromptBlock>
+
+寫完 3 份，print，放夾萬。同你最 trusted 嗰個 NOK 講「夾萬入面有嘢」，**唔需要而家睇**。
+
+### 變化 2：海外亡親 — 運遺體返港 vs 海外火化
+
+父母移咗民去[加拿大 / 英國 / 澳洲 / 中國內地]，喺嗰邊走咗。
+
+<PromptBlock label="變化 2 — 海外亡親處理 logistics">
+我[父親 / 母親]喺[國家 / 城市]過身。我喺香港，需要決定：
+
+✈️ **Option A：運遺體返港**
+- 海外殯儀館 embalming + 防腐處理（HK 火葬場要求）
+- 國際運送費：典型 [USD ranges]，視距離 + 航空公司
+- 文件：當地死亡證 + 公證 + 中文翻譯
+- HK 入境：食環署遺體入境批准
+- Timeline：通常 2-4 週
+- 適合：屋企人堅持 HK 安葬、有家族墓地 / 骨灰位
+
+🔥 **Option B：海外火化 + 骨灰返港**
+- 當地火化（成本通常較平）
+- 骨灰運返：可隨身（國際航空大部分接受，有 documentation）
+- HK 入境骨灰：相對 simple
+- Timeline：1-2 週
+- 適合：屋企人 OK 海外火化、想減成本同 logistics 負擔
+
+🌍 **Option C：海外安葬，HK 辦 memorial**
+- 死者葬喺移民地（部分人 wish stay there）
+- HK 親友辦 memorial service（無遺體）
+- 成本最低，但部分屋企人會覺得「冇 closure」
+- 適合：死者明確 wish 留喺移民地、HK 屋企人接受
+
+📋 **決策 questions**
+- 死者生前有冇講過 wish？
+- HK 屋企人能唔能去當地 attend？
+- 預算容忍度？
+- HK 有冇家族墓地 / 骨灰位 reserve 緊？
+- 跨境法律：當地遺產 vs HK 遺產 separate process
+
+語氣：實際、認可跨境 grief 嘅 unique heaviness ——「你冇喺現場」嘅 guilt 係 common 但唔合理。
+</PromptBlock>
+
+### 變化 3：環保土葬 / 海上撒灰（HK options）
+
+死者生前 expressed「唔想喺骨灰塔等 4 年」/「想回歸自然」。
+
+<PromptBlock label="變化 3 — HK 環保身後事 options">
+死者 wish：環保 / 自然 / 簡約。請列 HK 2026 環保身後事 options：
+
+🌊 **海上撒灰**
+- 食環署免費安排（每月固定船次，由南丫島 / 西貢出發）
+- 流程：火化 → 申請 → 上船 → 撒灰
+- Timeline：火化後 1-2 個月 schedule 到
+- 親友 attend：船有限額，通常 6-8 人
+
+🌳 **紀念花園撒灰**
+- 食環署管理 13 個紀念花園（鑽石山 / 葵涌 / 富山 etc.）
+- 免費 / 低收費
+- 撒灰後種紀念樹（部分花園）—— 唔可以 mark individual location
+- 適合：想有「specific 拜祭點」但唔要骨灰位嘅家庭
+
+♻️ **環保紙棺 / Bamboo coffin**
+- HK 部分殯儀館有 supply
+- 成本：$3-8k（vs 木棺 $15-50k+）
+- 火化後完全降解
+- 視覺上 simpler ——部分長輩 initial resistance，但喪禮上會見到嘅人少
+
+🍃 **無 ceremony，純家庭聚會**
+- 火化後屋企人小型聚會，無正式儀式
+- 成本只係火化費 + 簡單棺木 = HK$15-25k
+- 適合：死者明確 wish + 家庭 alignment
+
+⚖️ **何時呢條路會撞牆**
+- 長輩堅持「先人要有風光大葬」
+- 親戚之後話「你阿爸地下嬲你」
+- Compromise 做法：正式 ceremony 簡化 + 撒灰嘅 ritual 反而做隆重啲
+
+🏛️ **HK 法律 reminder**
+- 私人土地撒灰：業權人同意可以
+- 公園 / 沙灘 / 山徑：技術上唔合法（但 enforcement 罕見）
+- 海上撒灰：要走食環署正式 channel，唔好私自出海
+
+語氣：認可環保選擇唔係「唔孝順」—— 死者 wish 應該優先。
+</PromptBlock>
+
+## 一個 mindset
+
+殯儀業界唔係邪惡。佢哋每日見死亡，部分前線甚至比家屬更冷靜。但呢個行業嘅 economic incentive 同你嘅 grief vulnerability **逆向對齊**——你越急、越唔識、越情緒，佢哋越容易賣到貴嘢。
+
+**Claude 喺呢個 process 嘅 role 唔係取代殯儀顧問或律師**。佢嘅 role 係：
+
+- 喺你頭腦 offline 嘅 48 小時，**hold 住 checklist structure**，等你唔會漏文件
+- 喺你打殯儀館電話之前，**畀你 baseline knowledge**，等你問得到對嘅問題
+- 喺家庭 conflict 嘅時候，**framework 三方利益**，等你唔係靠情緒 dispute
+- 喺 admin 嘅疲勞期，**list 出 政府部門 + 銀行 + 律師 sequence**，等你睇得到終點
+
+> 莊重，唔需要等於昂貴。簡約，唔等於唔孝順。
+>
+> 死者真正帶走嘅，係佢同你共同經歷嘅嗰啲時間。棺木幾錢、紙紮幾大件，30 年後冇人會記得。記得嘅，係你哋互相講過嘅最後幾句說話、你頭七嘅嗰一頓飯、你撒灰嗰日嘅天氣。
+>
+> 用 Claude hold structure，等你嘅哀傷有空間。
+
+---
+
+### 真人 resources（HK 2026）
+
+**Grief / bereavement support**：
+- 撒瑪利亞會 24 小時多語 hotline：2896 0000
+- 撒瑪利亞防止自殺會：2389 2222（中文）
+- 賽馬會安寧頌（CADENZA）哀傷輔導 referral
+- 善寧會（Society for the Promotion of Hospice Care）—— 喪親家庭支援
+
+**法律 / 遺產**：
+- 法律援助署（小額遺產 free advice）
+- 高等法院 Probate Registry（自助申請 guide）
+- 香港律師會 referral
+
+**Pre-plan 資源**：
+- 食環署殯儀資訊頁
+- 醫管局預設醫療指示（Advance Directive）資料
+- 中大公共衞生學院死亡識能（Death Literacy）公眾講座
+
+**緊急 reminder**：
+
+- 唔好喺 acute grief 嘅 48 小時做大額財務決定（買 plot / 簽長期合約）
+- 唔好獨自 navigate—— 至少 1 個 sibling / 配偶 / 信任朋友 co-pilot
+- 唔好對自己 harsh ——「我做得唔夠好 / 應該早啲」嘅 thought 係 grief 嘅 standard pattern，唔係事實
+- 如出現持續失眠 / 食欲全失 / 自我傷害 thought >2 週 → 即刻搵真人
+
+爸媽帶你嚟呢個世界。你送佢哋走。呢個 cycle，每個人都要行一次。用 structure，留空間畀 grief。

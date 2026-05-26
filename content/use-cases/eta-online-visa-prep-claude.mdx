@@ -1,0 +1,597 @@
+---
+title: "日本 eVisa / UK ETA / 美國 ESTA 申請前用 Claude：揾出 reject 高危位 + form 各 field 點填"
+slug: "eta-online-visa-prep-claude"
+issue: 142
+publishedAt: 2026-05-27
+audience: ["消費者", "打工仔"]
+category: "chat"
+section: "旅遊"
+subcategory: "Online visa"
+difficulty: 1
+timeMinutes: 25
+toolsNeeded: ["Claude Chat", "HKSAR / BNO 護照", "過去 5 年旅遊紀錄"]
+description: "UK ETA、US ESTA、日本 eVisa、Korea K-ETA、AUS ETA 表面簡單，但 reject 之後 7 日內唔可以重試。用 Claude pre-screen 你個 background 嘅高危位、揾每 field 點填、揀同步申請次序，連 reject 之後嘅應變都有。"
+keywords: ["ESTA 申請 reject", "UK ETA HK", "K-ETA 韓國", "eVisa Japan", "AUS ETA", "online visa HK"]
+related: ["visa-application-claude", "packing-list-claude", "travel-itinerary-claude-day-by-day"]
+featured: false
+---
+
+## 情境
+
+你 6 月計劃 3 個月 mini sabbatical — UK 兩星期，跟住飛美國探朋友 10 日，最後韓國 5 日返 HK。
+
+3 個地方而家全部都要 online 預批：
+
+- UK ETA（2025 年全面強制）— £16，48 小時批
+- US ESTA — US$21，72 小時內通常批
+- Korea K-ETA — ₩10,000，72 小時批
+
+你打開 UK 官網 `gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta`。
+
+表面好簡單 — 11 條問題，全部 yes/no 或者 dropdown。
+
+但係：
+
+> "Have you ever been refused entry to the UK or any other country?"
+
+你 2019 年去美國轉機嗰次，邊個官員問你 "intent of stay" 你答得唔好，被帶去 secondary inspection 問 45 分鐘先放你走。**呢個算唔算 refused entry？**
+
+> "Have you ever been arrested, charged, or convicted of any offence in any country?"
+
+你大學時試過遊行被警察查身份證影低，無起訴 — 但**有冇紀錄？**
+
+> "Do you have any other nationality or citizenship?"
+
+你父母同時有 BNO + HKSAR — **填 BNO 定 HKSAR？兩個都填？**
+
+你停咗喺呢三條問題上面 20 分鐘。Google 嘅答案矛盾。Reddit 嘅人 case-by-case。
+
+呢度個關鍵 — **ETA reject 之後通常 7 日內唔可以重新 apply 同一個 system**。UK ETA reject = 改 apply Standard Visitor Visa（£127 + 3 週處理 + 面試）。ESTA reject = 改 apply B1/B2 visa（US$185 + 領事館面試 + 數月排期）。
+
+而 reject 嘅理由唔會講畀你聽。你只會收一封「your application was not successful」嘅 email。
+
+呢個 online ETA 系統嘅陷阱：
+
+- **表面簡單 → 你以為 5 分鐘搞掂**（其實每條問題都有陷阱）
+- **問題用法律 term**（"refused entry"、"convicted"、"intent to remain"）但你用日常理解作答
+- **錯一條 = 永久 record**（將來所有國家簽證問題都要披露）
+- **無法 retry**（同一 ETA system 拒咗，等於關咗呢條路）
+
+呢篇用 Claude **25 分鐘 pre-screen** — 用 HKSAR / BNO 視角，揾你 background 嘅高危位、教你各 field 點填、安排多 destination 嘅 timing 次序，連 reject 之後嘅 fallback path 都齊。
+
+唔取代 immigration lawyer。如果你 background 有任何 criminal record、過去 visa refusal、dual nationality 複雜情況，**先 consult 律師再 apply**。Claude 嘅角色係幫你睇清楚邊度應該 consult、邊度可以自己搞。
+
+## 跟住做
+
+### 1. 列你 background + 旅遊 plan
+
+開 Claude 之前，自己 offline 寫一份 background snapshot。**呢份嘢唔好上 cloud / share 出去** — 純粹自己睇住跟 Claude 對答用。
+
+包括：
+
+> **護照狀態**
+> - HKSAR 護照（號碼、發放日期、到期日）
+> - BNO 護照（如有，到期日、過去 5 年用咗幾多次）
+> - 其他護照 / OCI / PR 卡（如有）
+>
+> **過去 5 年出入境**
+> - 每次去過邊度（日期 + 國家）
+> - 有冇被 secondary inspection / 問話超過 15 分鐘
+> - 有冇 visa 申請過（批 / 拒 / withdraw）
+> - 有冇喺任何國家逾期停留（即使 1 日）
+>
+> **法律 / 警方紀錄**
+> - 有冇被捕（即使無起訴）
+> - 有冇被警察查問 / 帶返警署
+> - 有冇法庭傳召（即使民事）
+> - 有冇政治參與被紀錄（遊行、捐款、組織）
+>
+> **僱主 + 財務**
+> - 當前公司 + 任職幾耐
+> - 月薪 + 存款大概範圍
+> - 過去 12 個月有冇換工
+>
+> **今次行程**
+> - 邊 3 個（或更多）destination
+> - 每個停幾耐
+> - 入境次序
+> - 探親 / 朋友 / 公幹 / 純旅遊嘅 mix
+> - 同行者
+
+呢份 snapshot 寫得越具體，Claude 嘅 pre-screen 越準。模糊輸入 = 行貨輸出。
+
+### 2. 用呢個 prompt 揾 high-risk field + 各 field 合適 phrasing
+
+<PromptBlock label="完整 prompt — ETA / ESTA 申請 pre-screen + field-by-field 解讀">
+[貼上你嘅 background snapshot]
+
+我 HKSAR 護照（+ BNO 如有），準備同步申請：[UK ETA / US ESTA / Korea K-ETA / Japan eVisa / AUS ETA — 列出邊幾個]。
+
+請逐個 system pre-screen 我嘅 background，揾出 **high-risk fields** + 提供 **合適 phrasing**。
+
+🚨 **第 1 部分：跨系統 high-risk 問題識別**
+
+請逐個列我 background 入面對應以下 categories 嘅 fields，每個解釋風險 + 建議處理：
+
+**Category A：Past refused entry / visa refusal**
+- 「被拒入境」嘅法律定義（vs 你以為嘅「被問話多」/「secondary inspection」）
+- HK 申請人常見誤解：transit 被問話 ≠ refused entry
+- 我嘅 case 點答（具體）
+
+**Category B：Arrest / criminal record**
+- 「被捕」vs「被警察查問」vs「拘留」嘅法律區分
+- HK 警方查身份證 / 留資料 ≠ arrested
+- Caution / fixed penalty notice 算唔算
+- 我嘅 case 點答
+
+**Category C：Dual nationality / multiple citizenships**
+- HKSAR 護照持有人嘅複雜性：
+  - BNO 同時持有 → 申報定唔申報？
+  - 中國國籍嘅技術定位
+  - OCI / PR 卡（澳洲、加拿大、英國 settled status 等）算唔算「另一國籍」
+- UK ETA 對 BNO 嘅特殊處理（**BNO 持有人唔需要 UK ETA**，但係要小心 form 邊度宣告）
+- 我嘅 case 點答
+
+**Category D：Intent to remain / dual purpose**
+- 「Will you work / study / engage in business during your visit?」嘅範圍
+- Remote work for HK employer 算唔算 working in destination？
+- 同 destination 嘅朋友合作 side project 嘅敏感度
+- 我嘅 case 點答
+
+**Category E：Past visa overstay**
+- 1 日逾期 vs 1 個月逾期 嘅披露要求差異
+- 自願離境 vs 被遣送嘅紀錄
+- 我嘅 case 點答
+
+🎯 **第 2 部分：逐個 destination 嘅 form 重點 fields**
+
+**🇬🇧 UK ETA（如適用）**
+- Employment 填法：「Employed」/「Self-employed」/「Student」 — 我嘅 case 選邊個
+- Home address：HK 住址中譯英嘅標準格式（line 1 / 2 / postcode 處理）
+- Intended stay 日期 + 地點：寫具體 city 定 region
+- 「Have you ever been involved in...」嘅長 list — 我點逐條 verify
+- BNO 持有人特別注意：如果你揀 BNO 入境，**唔需要 ETA**（呢個 system 唔 apply）
+
+**🇺🇸 US ESTA（如適用）**
+- Eligibility questions 嘅 9 條 yes/no — 我每條嘅答案 + reasoning
+- 「Communicable disease」嘅範圍（HIV 2010 後已刪除，但其他仍適用）
+- 「Engaged in espionage / sabotage / terrorism」— 政治活動嘅邊界
+- Employer / contact info：HK 公司英文名要 match HR 系統正式名
+- Address while in US：朋友屋企地址寫法（zip code 必須）
+
+**🇰🇷 K-ETA（如適用）**
+- Occupation dropdown 嘅 70+ 選項 — 邊個最符我嘅實際職位
+- 韓國境內 address：朋友屋企 / Airbnb / 酒店嘅填法
+- 「Have you been refused entry to Korea or any country?」— Category A 答案重用
+
+**🇯🇵 Japan eVisa（如適用）**
+- HKSAR 護照持有人現時仍 visa-free 90 日 — eVisa 主要係特定 case（長期商務、結婚簽證等）
+- 確認你今次 trip 真係需要 eVisa（而唔係單純 visa-free 入境）
+- 如真係需要：Sponsor / Inviting party 嘅 fields 點填
+
+**🇦🇺 AUS ETA（如適用）**
+- Subclass 601（ETA）vs 651（eVisitor，BNO 適用）vs 600（Visitor visa）嘅揀法
+- 「Convicted of any offence」嘅澳洲特別嚴格定義
+- Character declaration 嘅完整列表
+
+⏰ **第 3 部分：同步申請嘅 timing strategy**
+
+我計劃 [出發日期]。請排申請次序：
+
+- **邊個 system 先 apply**（基於處理時間 + reject 後 fallback 嘅複雜度）
+- **每個之間隔幾耐**（避免一個 reject 影響下一個申報）
+- **如果 system A reject，system B 仲未 apply，要點調整 phrasing**（披露義務由邊一刻觸發）
+
+建議排序例子：
+1. 處理時間最長 + reject 後最難補救嘅先 apply（通常 US ESTA — reject 後要做 B1/B2 面試）
+2. 中等難度跟住
+3. 最快 + 最寬鬆嘅最後（通常 K-ETA）
+
+🚨 **第 4 部分：Reject 之後嘅 fallback path**
+
+對每個 system，列：
+
+- Reject 之後可唔可以即時 retry 同一 system（**通常唔可以 — 至少等 1 個申請週期**）
+- Fallback visa category（標準訪客簽證 / B1-B2 / Standard Visitor）嘅申請成本 + 時間
+- Reject 對其他國家將來簽證嘅披露義務（**呢點關鍵 — 一個 reject 5-10 年要 declare**）
+- 領事館上訴 / waiver path（部分國家有 humanitarian / business waiver）
+
+🛑 **第 5 部分：你 Claude 我嘅 case，需唔需要 escalate 律師**
+
+請老實判斷我嘅 background 風險級別：
+- **低**：直接 apply，跟你建議 phrasing
+- **中**：apply 之前再睇 1 次官方 guidance + 喺 grey area 揀保守答案
+- **高**：先 consult immigration lawyer（HK 顧問費 HK$2,000-5,000 一次 — 比 reject 後嘅成本平好多）
+
+語氣：法律精確，唔過度安撫；HK 持照人視角；避免行貨「consult a professional」式 disclaimer，要具體點解我嘅 case 屬咩級別。
+</PromptBlock>
+
+Claude 出嘅 pre-screen 你印出嚟，逐條 walk through 一次先開官網 form。**唔好 form 開咗一半先諗** — online ETA system 通常 30 分鐘 timeout，半途 stuck 喺敏感問題會 panic 亂答。
+
+### 3. 同時 multi-destination apply 嘅 timing
+
+3 個 ETA 同步申請睇似簡單，但披露義務嘅 timing 好微妙：
+
+<PromptBlock label="完整 prompt — Multi-destination ETA timing strategy">
+我要同時申請 [UK ETA + US ESTA + Korea K-ETA]，出發 [日期]。
+
+請整 **timing decision tree**：
+
+📅 **理想時序**
+
+- T-60 日：開始準備 background snapshot
+- T-45 日：apply 第一個（處理時間最長 / 風險最高 — 通常 US ESTA）
+- T-40 日：收到 system A 結果之後，先 apply system B
+- T-35 日：收到 B 結果之後，apply system C
+- T-7 日：所有 ETA 應該已批，print + 存電子副本
+
+⚠️ **點解唔同步 submit 3 個**
+
+- 如果 A reject，B + C 嘅「Have you been refused a visa / ETA for any country?」答案由「No」變「Yes」
+- 已 submit 嘅 B + C 你冇得改 — 等於變相虛假陳述
+- 一個 reject 連鎖 3 個 reject 嘅風險
+
+📋 **披露觸發時機**
+
+「Have you been refused...」嘅披露義務由 **收到 reject 通知嗰一刻** 觸發。所以：
+
+- A submit + pending → B 申報「No refused」OK（截至 submit 時刻屬實）
+- A reject 通知收到 → B / C 仲未 submit，**必須改答「Yes」+ 解釋**
+- A reject 通知收到 → B / C 已 submit 但未批，**主動 contact 領事館修正**（罕但要做）
+
+🎯 **建議申請次序（HK 視角）**
+
+1. **US ESTA 先**（reject 後 fallback 最複雜，processing 72 小時通常）
+2. **UK ETA 跟住**（reject 後 Standard Visitor 仲有出路，48 小時處理）
+3. **K-ETA 最後**（最寬鬆，72 小時）
+
+如果你係 BNO 持有人去 UK：
+
+- Skip UK ETA entirely — BNO entry 唔需要
+- 但 ESTA 嘅「other nationality」要申報 BNO
+- K-ETA 嘅「other nationality」同樣申報
+
+🚨 **特殊狀況**
+
+- 如出發前 < 30 日：壓縮時序，每個 system 之間至少隔 24 小時
+- 如出發前 < 14 日：直接付 expedited fee（US ESTA 唔接受加錢，UK / K-ETA 有 priority option）
+- 如出發前 < 7 日：放棄 ETA，改 apply visa-on-arrival（如有）或者改機票
+
+語氣：實際 + risk-aware，唔好 oversimplify。
+</PromptBlock>
+
+呢個次序嘅核心：**每個 ETA 之間留呼吸位**。你以為平行 submit 慳時間，但係 reject 連鎖嘅成本遠大過慢幾日。
+
+### 4. Reject 應變（waiver / consular interview path）
+
+最壞情況準備：
+
+<PromptBlock label="完整 prompt — ETA reject 之後嘅應變">
+假設我 [其中一個] ETA reject 咗。請畀我 **應變決策樹**：
+
+📨 **收到 reject 嗰刻**
+
+**唔好做**：
+- ❌ 即時 retry 同一 system（通常 lock 7-90 日）
+- ❌ 修改答案重新 submit（呢個係詐騙，永久 ban）
+- ❌ 用其他護照 apply 同 system（dual nationality 唔申報 = 詐騙）
+- ❌ Cancel 機票同酒店（reject 唔等於 trip 死，仲有 fallback）
+
+**要做**：
+- ✅ Print / screenshot reject email + 任何 reference number
+- ✅ 列你 fallback path 嘅 deadline（出發前要批咗嘅 cutoff）
+- ✅ 評估係咪值得繼續去（visa 費 + 律師費 vs trip 價值）
+
+🛂 **每個 system 嘅 fallback**
+
+**US ESTA reject → B1/B2 visa**
+- 費用：US$185 + DS-160 填寫
+- 處理時間：HK consulate 預約等 2-8 週
+- 必須親身面試
+- Reject ESTA 後申請 B1/B2 batting average 較低（officer 會睇 reject 紀錄）
+- 建議：揾 immigration lawyer 寫 cover letter 解釋 ESTA reject 原因
+
+**UK ETA reject → Standard Visitor Visa**
+- 費用：£127（短期）/ £400+（多次 2-10 年）
+- 處理時間：3-15 個工作日
+- 通常文件審核，部分 case 要面試
+- Reject ETA 之後申請 Standard Visitor 較常見，但要 fully explain
+- 建議：自己 draft cover letter + 揾律師 review
+
+**K-ETA reject → 韓國 C-3 短期訪問簽證**
+- 費用：~HK$300
+- 處理時間：3-5 個工作日
+- HK 韓國領事館申請
+- 通常文件 OK 就批
+- 建議：可以自己搞，唔需要律師
+
+**AUS ETA reject → Visitor visa subclass 600**
+- 費用：AU$190
+- 處理時間：可以快至 1 個工作日，部分 case 數週
+- 全 online，少數 case 要面試
+- 建議：自己搞 OK
+
+**Japan eVisa reject → 領事館 visa**
+- 視乎邊種 eVisa reject（商務 / 結婚 / 親屬）
+- 通常領事館申請 fallback 較寬鬆
+- HK 日本總領事館預約
+
+💰 **Reject 嘅長期成本**
+
+未來 5-10 年所有國家簽證 form 都要 declare 呢次 reject。具體影響：
+
+- 申請第 4 個國家簽證嘅 form「Have you been refused...」答「Yes」
+- 通常需要 attach 1 頁解釋信
+- 部分 senior consulate officer 會額外問話
+- **唔等於將來全部 reject**，但需要 extra work
+
+🆘 **點時候必須揾律師**
+
+- ESTA reject 嘅同時你想申請 US visa（律師費 HK$3,000-8,000 — 值得）
+- UK ETA reject 而你過去有 UK 學生 / 工作簽證歷史
+- 任何 ETA reject 加 criminal record / 過去 visa overstay
+- ETA reject 影響到工作（公幹 trip 要批）
+
+⏰ **Reject 嗰刻嘅 trip 修改 decision**
+
+- 機票 cancel insurance check（部分覆蓋 visa refusal）
+- 改 routing 跳過 reject 嘅 destination 可行性
+- 同 employer / 朋友 reschedule trip 嘅 cost
+- 直接放棄個 destination，下年再 plan
+
+語氣：實際 + non-panic，俾我清楚 next 24 小時要做咩。
+</PromptBlock>
+
+呢個 fallback prompt 你 reject 之前都應該行一次。**有 plan B 喺手嘅人，apply 嘅時候少 anxiety，反而表現更好**。
+
+## 變化例子
+
+### 變化 1：UK ETA + BNO 嘅 interplay
+
+BNO 持有人去 UK 嘅特殊狀況：
+
+<PromptBlock label="變化 1 — BNO + UK ETA decision tree">
+我同時持有 HKSAR 護照 + BNO 護照。今次去 UK 旅遊 2 星期。請釐清：
+
+🇬🇧 **BNO 入境 UK 嘅 status**
+
+- BNO 護照持有人入境 UK：**唔需要 ETA**（visa-free 6 個月訪問）
+- 用 BNO 入境 = 用 BNO 過關 = 走 UK / EEA passport channel
+- 用 HKSAR 入境 = 需要 ETA（£16，48 小時批）
+
+🤔 **應該用邊本護照入境？**
+
+**用 BNO 嘅好處**：
+- Skip ETA fee + 申請
+- Skip 所有 ETA 申報問題（refused entry / criminal / nationality 等）
+- 走 e-gate 快過 visitor channel
+- 將來 BNO visa pathway 嘅 entry 紀錄保留
+
+**用 BNO 嘅壞處**：
+- 如果你計劃將來去美國，US ESTA 嘅「other nationality」一定要申報 BNO（即使 entry 用 HKSAR）
+- BNO 入境 UK 6 個月限制嚴格執行
+- 如果你之後想 transition to BN(O) visa 5 年路徑，呢次 entry 嘅 stamp / record 唔可以混亂
+
+**建議**：
+- 純旅遊 < 2 星期 → 用 BNO 入境，skip ETA
+- 任何工作 / 學習成分 → 揾 immigration lawyer 釐清
+
+📋 **ETA form 上嘅 nationality 申報**
+
+如果你決定用 HKSAR 入境（apply UK ETA）：
+- "Nationality"：HKSAR（Chinese）
+- "Do you hold any other nationality?"：**Yes，British National (Overseas)**
+- 唔申報 = 虛假陳述（即使 BNO 喺 UK 法律下 status 模糊）
+
+🇺🇸 **同步 apply US ESTA 嘅影響**
+
+ESTA 嘅「Do you hold or have you ever held any other nationality / passport?」：
+- **必須申報 BNO**（即使從未用 BNO entry US）
+- BNO passport 號碼 + 國家「United Kingdom」填入 additional nationality field
+- 唔影響 ESTA 批核（BNO 屬於 Visa Waiver Program 兼容）
+
+🇰🇷 **K-ETA 嘅 BNO 申報**
+
+K-ETA form 上「Other nationality」field：
+- 申報 BNO + UK 為 issuing country
+- 韓國對 BNO 持有人同 HKSAR 持有人 visa-free treatment 相同（90 日）
+
+🚨 **唔申報 BNO 嘅長期風險**
+
+如果你選擇唔申報 BNO（例：用 HKSAR apply ESTA 但 hide BNO）：
+- 任何將來 US visa interview，officer database check 會 surface BNO 紀錄
+- 「Why did you not declare in ESTA?」= 永久 ban risk
+- 唔值得為咗慳填一行嘢冒呢個風險
+
+✅ **建議統一規則**
+
+- 所有 ETA / visa form 嘅 nationality field：申報你**所有持有嘅 valid travel document**
+- Entry 用邊本：另一回事，揀對你最有利
+- 兩者一致性：盡量 trip 期間用同一本入同一國，避免 stamp 混亂
+
+語氣：法律精確 + 實際考慮一齊。
+</PromptBlock>
+
+### 變化 2：ESTA reject 之後改用 B1/B2
+
+ESTA 嘅 reject 處理係 ETA 系統入面最複雜嘅：
+
+<PromptBlock label="變化 2 — ESTA reject 之後嘅 B1/B2 路線">
+我 ESTA 申請 reject 咗。Trip 喺 [日期]。請整 B1/B2 visa 救援 plan：
+
+🇺🇸 **ESTA reject 之後嘅實況**
+
+- ESTA 唔可以 appeal（呢個唔係 visa，係 pre-authorization）
+- 唔可以即時 reapply ESTA（要等 background change，例如新工作 / 新護照）
+- **唯一 fallback：apply B1/B2 visa**
+- 即使你之前 ESTA 批過，今次 reject = 連鎖將來 ESTA 都會 reject
+
+📋 **B1/B2 visa 流程**
+
+**Step 1：DS-160 form**
+- Online 填，~90 分鐘
+- 比 ESTA 詳細好多（過去 5 年僱主、過去國家、social media handle）
+- Submit 後生成 barcode page，要 print
+
+**Step 2：付費 + 預約**
+- US$185 MRV fee
+- HK 美國領事館預約面試
+- 旺季排期 4-8 週（暑假 / 聖誕前）
+- 淡季 1-3 週
+
+**Step 3：面試準備**
+- 帶文件：DS-160 confirmation、appointment letter、護照、相片、ESTA reject email、工作證明、財務證明、行程
+- 對「Why was your ESTA rejected?」要有 1 句答（你都唔知原因，但你要展示你誠實 + 已準備好）
+- 對「強 ties to HK」要有具體 evidence：work contract、property、家庭
+
+**Step 4：面試當日**
+- 通常 3-5 分鐘對話
+- Officer 1 個決定批 / 拒
+- 批：護照留低 1-5 個工作日 collect
+- 拒：212(b) 信解釋大致原因，可以重新 apply 但要 address concerns
+
+🚨 **ESTA reject 後 B1/B2 嘅特殊考慮**
+
+Officer 一定會睇 ESTA reject 紀錄。你要 proactively 處理：
+
+- 唔好假裝唔知（「I don't know why」係差答）
+- 唔好 over-explain（「Maybe because of...」串講猜想）
+- 中性答：「I was not given a specific reason. I am here to demonstrate my eligibility under standard visa requirements.」
+
+📅 **Trip timing 評估**
+
+- 標準 trip 6 月出發
+- 4 月 ESTA reject 收到 → 即日 start B1/B2
+- 4 月底完成 DS-160 + payment
+- 5 月初預約 slot（旺季可能 6 月）
+- 5 月中面試
+- 5 月底 / 6 月初 visa 批
+
+如果 timing 太緊：
+- 揾律師寫 expedite request（emergency travel）
+- 改行程 push 後 2-3 個月
+- 放棄 US 部分，trip continue UK + Korea
+
+💰 **總成本**
+
+- DS-160 + MRV fee：US$185
+- 律師費（recommended for ESTA-reject case）：HK$3,000-8,000
+- 機票改期：HK$500-3,000
+- 酒店改期：視 booking policy
+- 時間成本：3-6 週
+
+vs 原本 ESTA US$21 + 5 分鐘 — **20x 嘅成本**。
+
+🆘 **點時候放棄 US**
+
+- 律師評估你 B1/B2 success rate < 50%
+- Trip 入面 US 部分嘅唯一價值係探朋友（可以視訊 / 朋友來 HK）
+- 律師費 + visa fee + 時間成本 > trip 入面 US 部分嘅價值
+
+語氣：清醒 + 步驟具體，唔做安慰式言論。
+</PromptBlock>
+
+### 變化 3：多 country mix（Schengen + ETA combo）
+
+歐洲 trip 加美國 / UK / 韓國嘅混合 case：
+
+<PromptBlock label="變化 3 — Schengen + ETA mix-and-match">
+我 9 月 6 星期 trip：法國 + 意大利（Schengen）→ UK 1 星期 → 紐約 1 星期。請整 visa / ETA combo plan：
+
+🌍 **Combo overview**
+
+- 法國 + 意大利：**Schengen visa**（短期訪問，C visa）
+- UK：**ETA**（£16，48 小時）— 注意 UK 已脫歐，唔係 Schengen
+- US：**ESTA**（US$21，72 小時）
+
+⏰ **申請次序 + timing**
+
+**T-90 日：start Schengen**
+- Schengen 處理時間 15-45 工作日
+- HK VFS 預約可能要等 2-4 週
+- 文件最重 — bank statement、僱主信、保險、行程、酒店、機票
+- 詳細流程睇我哋之前篇 [Schengen visa article](/use-cases/visa-application-claude)
+
+**T-45 日：Schengen 批咗之後 apply ESTA**
+- 點解 Schengen 先？因為 ESTA form 嘅「Have you been issued a visa by any country in the past 5 years?」要申報 Schengen
+- Schengen approved → ESTA 填得有底氣
+- ESTA 72 小時批
+
+**T-30 日：UK ETA**
+- UK ETA 同 ESTA 都 short ETA，順序可以倒轉
+- UK ETA 48 小時批
+- 兩個都申報你已有 Schengen + 即將 trip 嘅 itinerary
+
+📋 **三個 system 嘅申報一致性**
+
+最容易出錯：3 份 form 嘅以下 fields 必須完全一致：
+
+- 護照號碼 + 發放日期 + 到期日
+- 全名拼寫（match 護照中英對照）
+- HK 住址（line 1 / 2 / postcode 寫法統一）
+- 僱主英文全名（match HR 系統，唔好簡寫）
+- 過去 5 年旅遊紀錄
+- 入境 destination 嘅日期 + 地址（朋友屋企 / 酒店）
+
+建議：開 1 個 Google Doc / Notes 記低「reference values」，3 份 form 都 copy-paste 同一啲字。
+
+🛂 **入境次序對申報嘅影響**
+
+如果你計劃：HK → Paris → London → NYC → HK
+
+- 入境 Schengen：法國海關，用 Schengen visa
+- 出 Schengen 入 UK：英國海關，用 UK ETA
+- 出 UK 入 US：美國海關，用 ESTA
+- 每次過關 officer 會睇前一個國家 stamp
+
+UK + US 嘅 officer 通常會問：「How long in Europe before here?」— 預一個 1 句答（match 你 form 入面寫嘅）。
+
+⚠️ **三系統都申報義務**
+
+如果 Schengen reject → ESTA + UK ETA form 上嘅「visa refused」答「Yes」
+如果 ESTA reject 喺 UK ETA 批之前 → 你已 submit 嘅 UK ETA 可能受影響（雖然 UK 唔特別問美國 ETA refusal）
+如果 UK ETA reject → 通常唔影響 ESTA / Schengen（互相獨立 system）
+
+🎯 **如其中一個 reject 嘅 trip rescue**
+
+- Schengen reject：放棄歐洲段，剩低 UK + US（2 星期 + 1 星期）
+- ESTA reject：B1/B2 fallback 或者 skip US，多花時間喺 UK + Schengen
+- UK ETA reject：Standard Visitor visa 或者 skip UK（直接 Schengen → US）
+
+每個 reject 之前 mentally pre-commit 一個 rescue plan，唔好 reject 嗰刻先諗。
+
+💰 **總成本估算**
+
+- Schengen visa：~HK$1,500-2,500
+- UK ETA：£16 = ~HK$160
+- US ESTA：US$21 = ~HK$165
+- 旅遊保險：HK$1,000-2,000
+- 文件費 + VFS 預約：HK$500-1,000
+- **總 visa / ETA 成本：~HK$3,500-6,000**
+
+唔大，但要預留時間。
+
+語氣：複雜 case，要序列清晰。
+</PromptBlock>
+
+## 一個思維框架
+
+Online ETA system 嘅 user experience 設計目標係**篩走風險 case，唔係幫你 navigate**。
+
+Form 上面每條問題嘅 phrasing 故意保留法律模糊性 — 留 officer 後續解讀空間。對你嚟講，呢個 ambiguity 就係風險來源：你用日常意義理解問題，officer 用法律 / 政策意義裁決你嘅答案。
+
+> 「Have you ever been refused entry?」喺你嘅腦：「我曾經被推返嚟？」
+>
+> 喺 officer 嘅腦：「呢人有冇 record of inadmissibility？」
+
+呢兩個唔同 question。**Claude 嘅角色喺呢度 — 幫你由日常理解 reverse-engineer 返 officer 嘅 mental model，再 calibrate 你嘅 phrasing**。
+
+呢個思維轉變：online ETA 唔係「填表格」嘅 admin task — 係**法律自我披露練習**。每 click submit 一次，你就喺 5-10 個國家嘅 immigration database 留低永久 record。25 分鐘 pre-screen 嘅成本，對比一次 reject 嘅 5-10 年 follow-up cost，比例非常划算。
+
+最後提醒：
+
+- ✅ **Pre-screen 比 post-reject 應變平好多**。Claude 25 分鐘 vs 律師 HK$5,000 + 4 星期，揀邊樣明顯。
+- ⚠️ **Claude 唔取代 immigration lawyer**。如果你有 criminal record、past visa refusal、dual nationality 複雜、過去 overstay — 律師費係必要 expense，唔係 optional。
+- 🛂 **一致性比聰明答案更重要**。3 份 form 之間嘅 fields 唔對應，officer 即時 flag。寧願老實 + 一致，唔好聰明 + 矛盾。
+
+ETA system 設計嚟篩你，但你有 Claude 幫你睇清楚每條問題嘅真正含義。25 分鐘 pre-screen，trip 出發前心安理得。一路平安。

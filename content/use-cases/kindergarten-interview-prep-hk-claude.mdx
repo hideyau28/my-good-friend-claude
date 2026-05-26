@@ -1,0 +1,249 @@
+---
+title: "HK 幼稚園面試前用 Claude：細路訓練 + 家長口試 prep，唔灌輸 standard answer"
+slug: "kindergarten-interview-prep-hk-claude"
+issue: 128
+publishedAt: 2026-05-27
+audience: ["學生家長"]
+category: "chat"
+section: "親子"
+subcategory: "升學 / 面試"
+difficulty: 2
+timeMinutes: 40
+toolsNeeded: ["Claude Chat"]
+description: "HK 幼稚園面試殘酷，3 歲細路要面試、家長亦要口試。坊間 prep 班 8000 蚊灌 standard answer，呢篇教你用 Claude 練細路 expressiveness、幫家長 articulate parenting philosophy，唔讀 script。"
+keywords: ["HK 幼稚園 面試", "K1 K2 K3 interview prep", "名校 面試 prep", "HK kindergarten interview", "家長口試", "幼稚園 面試問題"]
+related: ["hong-kong-school-comparison-claude", "claude-tsa-homework-hk", "primary-school-makeup-request-claude"]
+featured: false
+---
+
+## 情境
+
+HK 幼稚園面試季節（9-12 月），對 2-3 歲細路同家長嚟講殘酷得唔合理。
+
+細路 K1 面試要對住陌生老師、做 task、答問題。家長口試 10-15 分鐘，校長 / 副校長坐你對面，問你嘅 parenting philosophy、屋企習慣、點解揀呢間學校。
+
+坊間中介開 8000-15000 蚊「面試 prep 班」，內容係：
+
+- 細路死記答案：「我鍾意紅色，因為朱古力顏色」
+- 家長背誦：「我哋重視小朋友嘅 holistic development」
+- 演練微笑、坐姿、握手
+
+問題：校長一聽就知係 coached。問深一層就穿崩。**最重要嘅嘢——細路嘅真實 personality、家長嘅真實 parenting style——反而冇 prep 到。**
+
+呢篇教你用 Claude 做更有用嘅 prep：細路練 expressiveness 多過記答案、家長練 articulate 自己嘅 philosophy、做學校 specific research 對應點 frame。
+
+> Disclaimer：呢個唔保證入到。幼稚園收生有好多因素（兄姐、宗教、地區、運氣）係 prep 改變唔到。Claude 嘅角色係幫你個細路同你自己**真實咁 present**，唔係扮另一個人。
+
+## 跟住做
+
+### 1. 列你嘅 target 幼稚園 + 細路真實 personality
+
+開始之前 write down：
+
+- **3-5 間 target 幼稚園**，分 dream / realistic / safety 三層
+- **細路真實 profile**：唔好寫「乖、聰明、聽話」呢類行貨。寫具體：「鍾意砌嘢，可以坐定半個鐘；陌生人面前會收埋；情緒大會喊但 5 分鐘 calm 到」
+- **你屋企真實 parenting style**：「我哋少睇 iPad，多去公園；返工時間長，主要 weekend 親子；爸爸負責 storytime」
+
+呢啲 raw material 之後喺 prompt 入面 paste 畀 Claude。**寫得越真實、越有 specific detail，Claude 幫到你越多。**
+
+### 2. PromptBlock — 揀啱問題類型畀細路練
+
+細路 3 歲練「答問題」嘅 goal **唔係答得啱**，係練到佢面對陌生大人**夠膽出聲、表達意思**。
+
+<PromptBlock label="完整 prompt — 細路面試 expressiveness 練習">
+我細路 [年齡，例如：2 歲 10 個月] 仔／女，下星期面試 [幼稚園名]，K1。
+
+佢嘅真實 personality：
+
+- [例：陌生人面前會收埋，要 5-10 分鐘 warm up]
+- [例：鍾意講嘢，但會 jump topic]
+- [例：嬲嘅時候會 freeze 唔出聲]
+- [例：對顏色 / 動物特別有興趣]
+
+我想喺屋企同佢練，但唔想佢「死記答案」。我想 build 佢嘅 expressiveness、confidence、自然反應。
+
+請幫我整：
+
+**Part 1：10 條適合佢年齡嘅 open question**
+
+唔係「你叫咩名」呢類 closed question。要：
+
+- 邀請佢講多兩句（「你最鍾意嗰隻動物係邊隻？點解？」）
+- 對應佢個人興趣（顏色 / 動物 / 砌嘢）
+- 包括 emotion question（「你開心嘅時候會點？」）—— 校長鍾意問
+- 唔需要 standard answer，鼓勵佢自己諗
+
+**Part 2：5 個 task-based scenario**
+
+幼稚園面試常考 task：執玩具、分顏色、follow instruction、reading time、free play。每個 task：
+
+- 點喺屋企 simulate
+- 觀察重點（唔係佢做唔做到，係佢 process）
+- 如果佢拒絕，點 react（唔好硬迫，但教佢嘅應對方式）
+
+**Part 3：練習嘅 ground rule**
+
+- 一日唔好練超過 [X 分鐘]
+- 唔好罰、唔好對比兄姐 / 同學
+- 練習應該 feel like play，唔係 drill
+- 邊啲 signal 顯示細路已經有壓力，要 stop
+
+語氣：實際、child-development informed、唔出 tiger parent vibe。
+如果你覺得我細路嘅 profile 唔適合 [幼稚園名]（例如 academic-heavy school 但細路 expressive learner），老實講。
+</PromptBlock>
+
+關鍵：練完之後**畀細路自由發揮**。佢面試嗰日答「我鍾意紫色因為咁樣好靚」，比起 coached 嘅「我鍾意紅色因為朱古力顏色」勁好多。**真實感係 3 歲 unbeatable 嘅優勢。**
+
+### 3. 家長口試 prep — Claude 幫你 articulate parenting philosophy
+
+家長口試最 cringe 嘅 answer：「我哋好重視小朋友嘅 holistic development。」
+
+校長聽過 500 次。
+
+真正打動校長嘅，係**你有諗過、講得出 specific、同你屋企做緊嘅嘢一致**嘅 answer。
+
+<PromptBlock label="家長口試 articulation prep">
+我下星期參加 [幼稚園名] 嘅家長口試（10-15 分鐘）。我同我老婆 / 老公兩個都出席。
+
+我哋嘅真實 parenting context：
+
+- 工作：[例：兩個都 full-time，朝 9 晚 7]
+- 屋企日常：[例：婆婆 weekday 主力照顧，weekend 我哋親子]
+- 嗰啲我哋著緊嘅：[例：細路情緒調節、閱讀習慣、戶外時間]
+- 嗰啲我哋唔太強嘅：[例：第二語言、structured learning]
+
+校長預期會問：
+
+1. 點解揀我哋呢間學校
+2. 你哋嘅 parenting philosophy
+3. 小朋友 challenge 嘅時候你哋點處理
+4. 屋企典型 weekend 點過
+5. 你期望小朋友 K3 畢業時係點
+
+請幫我：
+
+**Part 1：每條問題嘅 articulation framework**
+
+唔係 script，係 framework：
+
+- Anchor（你想 convey 嘅 1 個核心 message）
+- 1-2 個 specific real-life example（例：「上個禮拜佢喺公園搶玩具，我哋點處理」唔係「我哋會引導佢」）
+- 避免嘅 cliché（例：「holistic development」、「whole-person education」）
+
+**Part 2：avoid 嘅 red flag**
+
+- 用語頂尖 buzzword 但講唔出實例
+- 同 spouse 答 contradict（要事先 align）
+- 過份吹噓 / 過份謙虛
+- 講「我哋好 push 佢，因為要 prepare 小一」（呢間學校如果 progressive 會即扣分）
+
+**Part 3：我 spouse 同我要 pre-align 嘅 3 個問題**
+
+口試入面校長問 「邊個 take lead 處理 [情境]」，兩個答唔同最尷尬。列我哋應該事前傾好嘅 3 個 sensitive topic。
+
+語氣：實際、真實感，唔好幫我堆 corporate speak。
+</PromptBlock>
+
+呢個 prep 嘅 outcome 唔係背 script。係**你諗清楚自己屋企真實係點，講嗰陣自然有 specific 嘅 detail 帶出嚟**。
+
+### 4. 面試完 debrief — 同細路傾傾嘅 framework
+
+面試出嚟個細路通常累、可能喊、可能話「冇嘢呀」。家長 anxiety 想知「點呀？答得好唔好？」。直接問「老師問你乜呀？答咗咩？」基本攞唔到有用 info。
+
+<PromptBlock label="面試完同細路傾傾嘅 framework">
+我細路啱啱面試完 [幼稚園名]，K1。佢 [情緒：累 / 喊咗 / 興奮 / 靜咗]。
+
+我想：
+
+- 知佢入面發生咗咩（佢嘅 perspective）
+- 唔畀佢覺得自己被 「考核」
+- 為下一間面試 learn 啲嘢
+
+請畀我：
+
+1. **唔好問嘅問題**（例：「你答啱咗冇？」「老師鍾唔鍾意你？」）
+2. **應該問嘅 open question 5 條**，由細路角度，例如「老師個房有冇得意嘅嘢？」
+3. **點處理佢嘅情緒**（如果佢 frustrated 或者覺得自己「衰咗」）
+4. **觀察重點**：佢自然 share 出嚟嘅 detail 邊啲值得 note（之後 prep 第二間用）
+5. 我 own anxiety 嘅 handling —— 我點忍住唔問 「你答 X 問題嗰陣答咗咩」
+
+語氣：以細路 wellbeing 為先，唔係考評 mindset。
+</PromptBlock>
+
+呢個 step 一般家長唔做，但**對細路嘅 long-term 面試 experience 同信心極關鍵**。一連幾間面試完都 feel safe，先有可能 perform 到佢真正嘅水平。
+
+## 變化例子
+
+### 變化 1：K1 vs K2 vs 小一面試版
+
+<PromptBlock label="變化 1 — 唔同年級嘅 prep">
+我細路而家 [年齡]，面試 [K1 / K2 / 小一]。
+
+唔同年級 prep focus 應該唔同：
+
+1. K1（2.5-3 歲）：focus on 邊 3 個能力？（hint：唔係學術）
+2. K2（3.5-4 歲）：開始要求咩 cognitive skill？
+3. 小一（5.5-6 歲）：academic 加重幾多？
+
+請對應 [我細路年齡 + target 年級]，列：
+
+- 呢個年級面試 evaluator 真正觀察緊邊 5 樣嘢
+- 屋企可以做嘅 prep 同要避免嘅 over-prep
+- 邊啲 「prep 班教嘅嘢」喺呢個年級反而扣分
+</PromptBlock>
+
+### 變化 2：國際學校（admissions test + parent essay）
+
+<PromptBlock label="變化 2 — 國際學校 admissions">
+我考慮 [國際學校名]，K1 收生，有：
+
+- 細路 admissions assessment（30 分鐘 play-based + observation）
+- 家長 written essay（300-500 字 English）
+- 家長 in-person interview
+
+我細路 profile：[填]
+我屋企背景：[例：local family / mixed / expat / returning HK]
+
+請：
+
+1. International school 同 local 嘅 evaluation criteria 點唔同（具體 dimension）
+2. Parent essay 5 條典型 prompt 同點 frame（avoid 嘅 cliché、想 surface 嘅 quality）
+3. 細路 play-based assessment 點 prep（hint：唔係 drill ABC）
+4. Interview 入面 international school 校長特別會問嘅問題類型
+5. 如果我哋係 local family 申請 international，點 frame 個 「fit」 narrative
+</PromptBlock>
+
+### 變化 3：SEN 細路嘅 disclosure 同 framing
+
+<PromptBlock label="變化 3 — SEN 細路嘅 prep">
+我細路 [年齡]，有 [SEN 類型，例如：language delay / ASD 傾向 / ADHD trait / 暫未確診但有 concern]。
+
+我哋有 [evaluation report / OT 報告 / 言語治療師 note]。面試 [幼稚園名]。
+
+我內心矛盾：
+
+- Disclose 怕學校 filter 走
+- 唔 disclose 怕入到先 mismatch，反而辛苦小朋友
+
+請：
+
+1. 唔同 disclosure 策略嘅 trade-off（full disclosure / partial / wait-and-see）
+2. 點 evaluate 一間幼稚園係咪真係 SEN-friendly（唔係佢 website 寫 「inclusive」就算）
+3. 如果決定 disclose，點 frame 先唔會 sound like 推卸（focus on 小朋友 strength + support need）
+4. 面試嘅問題我可以反問校方，test 佢哋對 SEN 嘅 actual readiness
+5. 如果今間唔啱，可以諗嘅 alternative path（special needs 友善學校 / 主流 + therapy / delay K1）
+
+語氣：以小朋友長期 wellbeing 為先，唔係 「點樣入到主流名校」mindset。
+</PromptBlock>
+
+## 一個 framing
+
+幼稚園面試呢件事容易令家長變形。8000 蚊 prep 班、WhatsApp group 嘅 「攻略」、playgroup 入面嘅比較——所有 incentive 都係 push 你 over-prep。
+
+over-prep 嘅 cost 唔係銀紙。係細路 3 歲已經 internalize 「我嘅 value 由 performance 決定」呢個 message。
+
+> 校長見過 1000 個 coached 嘅細路。佢真正想揾嘅，係一個喺呢個年齡**真實咁 present 自己**嘅細路，同一對**清楚知道自己想做點 parent**嘅家長。
+
+Claude 喺呢度嘅 leverage：**唔係幫你 sound 更厲害，係幫你想清楚自己屋企真實係點、再 articulate 出嚟**。當你嘅 answer 有 specific real-life detail、有 internal consistency、配合你細路嘅 actual personality——校長一聽就分得出。
+
+最後 reminder：入到邊間幼稚園唔決定你細路 15 年後嘅人生。**但你而家畀佢嘅 prep experience，決定佢點睇自己同 evaluation 嘅關係。** 揀對個 prep 方式，比揀對間學校更長遠。
