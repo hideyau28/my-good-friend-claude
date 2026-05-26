@@ -1,6 +1,6 @@
 # 📋 SESSION HANDOFF — my-good-friend-claude
 
-_Last session ended: 2026-05-26 (cont.), voice retone batch session — 39/45 done via direct Claude retone_
+_Last session ended: 2026-05-26 (cont.), voice retone batch session — ✅ 45/45 DONE 🎉_
 
 ## 🌐 Live URLs
 
@@ -12,17 +12,17 @@ _Last session ended: 2026-05-26 (cont.), voice retone batch session — 39/45 do
 
 ## 📊 Current state (top of main)
 
-- Top commit: `9392820` content(voice): retone #083 claude-code-install-claude (0.39 → 0.26)
+- Top commit: `883fc5f` content(voice): retone #088 claude-code-worktrees-claude (0.60 → 0.28)
 - **84 articles** (chat 61 / cowork 11 / code 12) — 42 featured
 - **12 sections** — 財經 · 職場 · 商家 · 親子 · 寵物 · 生活 · 健康 · 旅遊 · 文化 · 科技 · 遊戲 · 其他
 - Highest issue: **088** / Next issue: **089**
 - ✅ 84/84 articles have hero illustrations (100% coverage)
 
-## ⚠️ Voice retone IN PROGRESS (resume here)
+## ✅ Voice retone COMPLETE — 45/45 done 🎉
 
-**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。**累計完成 39 篇，剩 6 篇要做（#084-#088 Claude Code 教學 + 1）**。
+**新 strict bar**：每篇 ratio <0.30（廣東話為主，只保留 brand / 法律條款引文 / code literal / HK-specific 縮寫）。**全部 45 篇完成，平均 ratio ~0.15**。
 
-⚠️ Code 教學 retone 注意：要保留 code block、CLI command、file path 100% 唔郁。只 retone prose 部分。Ratio 落到 0.20-0.26 已可，因為 inline `code` 同 brand name 多。
+⚠️ Code 教學 retone 注意（for future similar work）：要保留 code block、CLI command、file path 100% 唔郁。只 retone prose 部分。Ratio 落到 0.20-0.28 已可，因為 inline `code` 同 brand name 多。
 
 ### Workflow（直接 Claude retone — 取代咗 Gemini 協作）
 
@@ -106,13 +106,18 @@ OUTPUT：純 MDX，由 `---` 開始到文末。<PromptBlock> tag 保留。Code b
 ✅ #081 claude-artifacts-deep-dive-claude     (0.47 → 0.25) commit 723b5db
 ✅ #082 claude-long-conversation-management   (0.46 → 0.19) commit 026a762
 ✅ #083 claude-code-install-claude            (0.39 → 0.26) commit 9392820
+✅ #084 claude-code-slash-commands-claude     (0.56 → 0.29) commit 1cc8f4c
+✅ #085 claude-code-mcp-servers-claude        (0.65 → 0.27) commit 8cc2a77
+✅ #086 claude-code-subagents-claude          (0.52 → 0.19) commit d54754c
+✅ #087 claude-code-hooks-claude              (0.53 → 0.27) commit 9bc310d
+✅ #088 claude-code-worktrees-claude          (0.60 → 0.28) commit 883fc5f
 ```
 
-### 剩低嘅 5 篇（issue order）— 下個 session 由 #084 開始
-
-全部係 Claude Code 教學，ratio 較高（0.52-0.65），code literal 多要留意。
+### ✅ 全部完成 — 冇剩低需要 retone 嘅文章
 
 ```
+（全部 45 篇都已 retone 至 ratio < 0.30）
+ARCHIVED LIST FOR REFERENCE:
 #084 0.56 claude-code-slash-commands-claude
 #085 0.65 claude-code-mcp-servers-claude
 #086 0.52 claude-code-subagents-claude
@@ -189,7 +194,7 @@ content(voice): retone #NNN slug-name (BEFORE → AFTER)
 
 ## 🔓 Remaining backlog
 
-1. **Voice retone — 45 articles remaining** (see list above)
+1. ~~**Voice retone — 45 articles**~~ ✅ COMPLETE (2026-05-26)
 2. **Replace `/collaborate` email** placeholder (`hello@my-good-friend-claude.com`) — production launch blocker
 3. **Pricing anchors** on `/collaborate` FAQ — after first paid quote
 4. Custom domain (currently `my-good-friend-claude.vercel.app`)
