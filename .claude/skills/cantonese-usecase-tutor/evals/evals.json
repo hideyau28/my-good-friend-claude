@@ -1,0 +1,26 @@
+{
+  "skill_name": "cantonese-usecase-tutor",
+  "evals": [
+    {
+      "id": 0,
+      "name": "chat-simple-pdf-summary",
+      "prompt": "教我學 claude-pdf-summary 呢一篇",
+      "expected_output": "Claude 應該讀 /Users/ngyau/Projects/my-good-friend-claude/content/use-cases/claude-pdf-summary.mdx，用廣東話開場介紹情境 + 問 1-2 條 personal context question，等讀者 ground 自己嘅 use case。唔應該一次過 dump 成篇文。",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "cowork-structured-order-automation",
+      "prompt": "我想用 cowork-order-automation 嗰篇 walk through 教我點 set 起個自動化",
+      "expected_output": "Claude 應該載入 cowork-order-automation.mdx，用廣東話開場，介紹「老闆每星期手抄 IG / WhatsApp 訂單入 Google Sheet」呢個 pain，問讀者「你而家賣咩 / 通常一星期幾多單」。然後逐個 step 行（呢篇大致 5 個 step），重點放喺 PromptBlock 嘅 1-2 個 placeholder（如：產品類型、客戶嚟源）。最後 output 一個 personalized prompt block 加 mindset。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "code-technical-install-walkthrough",
+      "prompt": "我想試吓 /Users/ngyau/Projects/my-good-friend-claude/content/use-cases/claude-code-install-claude.mdx 呢個 interactive 教學",
+      "expected_output": "Claude 應該識讀 path、加載文章。用廣東話 walk through Claude Code 安裝 steps（呢篇係 technical，可能 terminal command 多過 prompt placeholder）。如果一個 step 冇 PromptBlock，問 comprehension question（例：你 Mac 定 Linux？你有 brew 未？）。每個 turn 唔好過 150 字。最後嘅 deliverable 可能唔係 prompt block 而係 next-step checklist。",
+      "files": []
+    }
+  ]
+}

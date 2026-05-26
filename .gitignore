@@ -38,6 +38,8 @@ next-env.d.ts
 # IDE
 .vscode/
 .idea/
-.claude/
+.claude/*
+!.claude/skills/
+.claude/skills/*-workspace/
 _tmp_*
 .vercel
