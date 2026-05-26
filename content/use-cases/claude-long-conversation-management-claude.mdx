@@ -1,5 +1,5 @@
 ---
-title: "50-message conversation 開始變慢 + 失去 context？點 break 變 reusable Project + Skills"
+title: "50 句對話開始變慢 + 失去 context？點拆做可重用嘅 Project + Skills"
 slug: "claude-long-conversation-management-claude"
 issue: 82
 publishedAt: 2026-05-24
@@ -11,8 +11,8 @@ heroImage: "/hero/claude-long-conversation-management-claude.webp"
 difficulty: 2
 timeMinutes: 25
 toolsNeeded: ["Claude.ai (Pro+)"]
-description: "你同 Claude 傾咗 3 小時、52 個 message。Claude 開始變慢、答得唔一致、context window 食滿。教你有系統咁拆長 conversation 入 Project + Skill 結構，可 reuse + share。"
-keywords: ["long conversation Claude", "context window", "Claude memory", "conversation archive", "reusable workflow"]
+description: "你同 Claude 傾咗 3 個鐘、52 句訊息。Claude 開始變慢、答得唔一致、context window 食滿。教你有系統咁拆長對話入 Project + Skill 結構，可重用 + 可分享。"
+keywords: ["長對話 Claude", "context window", "Claude 記憶", "對話 archive", "可重用 workflow"]
 related: ["claude-projects-setup-claude", "claude-skills-build-claude", "claude-artifacts-deep-dive-claude"]
 featured: false
 ---
@@ -21,73 +21,73 @@ featured: false
 
 5 月 22 日，禮拜五 9pm。
 
-你 wrap up 3 小時嘅 product brainstorm session 同 Claude。Conversation thread 52 message：
+你完結 3 個鐘嘅產品 brainstorm session 同 Claude。對話 thread 52 句：
 
-- 第 1-15 messages：你 dump rough product idea，Claude 反問 clarifying question
-- 第 16-30：refine target audience, brand positioning, USP
-- 第 31-42：messaging architecture, key visual direction
-- 第 43-52：specific launch copy, IG caption sample
+- 第 1-15 句：你 dump 粗略產品 idea，Claude 反問釐清
+- 第 16-30 句：refine target audience、brand positioning、USP
+- 第 31-42 句：messaging 架構、key visual 方向
+- 第 43-52 句：具體 launch copy、IG caption sample
 
-呢個 conversation 有 quality output，但：
+呢個對話有優質 output，但：
 
-- Claude 開始**慢** — 每 message 30-60 秒先回
-- 你問第 50 條 question, Claude「forget」第 8 message 揀過嘅 brand voice direction
-- 你 scroll up 揾返第 27 message 嘅 key insight = 20 秒 scroll
-- 你諗「下個禮拜 reopen 條 chat 繼續 — 但 chat 名 / context 我個腦唔記得」
-- 你諗「想 share 畀 partner 但 52 messages 唔可以 ask 佢 read 嗮」
+- Claude 開始**慢** —— 每句要 30-60 秒先回
+- 你問第 50 條問題，Claude「forget」第 8 句揀過嘅 brand voice 方向
+- 你 scroll 上去揾返第 27 句嘅關鍵洞察 = 20 秒 scroll
+- 你諗「下個禮拜重開條 chat 繼續 —— 但 chat 名 / context 我個腦唔記得」
+- 你諗「想分享畀 partner 但 52 句唔可以叫佢全部讀」
 
-呢個 long conversation 嘅普遍問題：
+呢個長對話嘅普遍問題：
 
-- **Context window 食滿**: Claude 處理 conversation tokens 越多，response 越慢 + quality 漂移
-- **Memory drift**: Claude「remember」early message 但推理力減弱
-- **Discovery friction**: 你個腦知第 27 message 有 key insight，但揾嘅 cost 高
-- **Reuse barrier**: 1 個 chat = 1 個 silo, 唔易 reuse
+- **Context window 食滿**：Claude 處理 conversation tokens 越多，回應越慢 + 質素漂移
+- **記憶漂移**：Claude「記得」早期訊息但推理力減弱
+- **發現摩擦**：你個腦知第 27 句有關鍵洞察，但揾嘅成本高
+- **重用障礙**：1 個 chat = 1 個 silo，唔易重用
 
-**Solution framework**:
+**解決框架**：
 
-✅ Extract conversation **價值** (insights / decisions)
-✅ Compress 入 Project knowledge base
-✅ 重要 workflow extract 為 Skills
-✅ 關舊 chat，開 fresh chat with Project context
+✅ 抽取對話嘅**價值**（洞察 / 決定）
+✅ 壓縮入 Project knowledge base
+✅ 重要 workflow 抽取做 Skills
+✅ 關舊 chat，喺 Project 入面開新 chat
 
-呢篇教你 5 步有系統咁拆長 conversation 嘅 process。
+呢篇教你 5 步有系統咁拆長對話嘅程序。
 
 ## 跟住做
 
-### Step 1: 分辨 conversation 嘅 value type
+### Step 1：分辨對話嘅 value type
 
-返 chat thread, scroll 過全部 52 message。每段 message 屬於邊類:
+返 chat thread，scroll 過全部 52 句。每段訊息屬於邊類：
 
-🎯 **Type A — Standing context (應入 Project knowledge)**
-- Brand voice rule
-- Target audience profile
+🎯 **A 類 —— 長駐 context（應入 Project knowledge）**
+- Brand voice 規則
+- 受眾 profile
 - USP / positioning
-- 永遠 future chat 用嘅 background
+- 將來 chat 永遠會用嘅背景
 
-🔄 **Type B — Workflow / procedure (應變 Skill)**
-- 點 generate IG caption (步驟)
-- 點 polish email (rules)
-- 重複 task 嘅邏輯
+🔄 **B 類 —— 工序 / 程序（應變 Skill）**
+- 點生成 IG caption（步驟）
+- 點 polish email（規則）
+- 重複任務嘅邏輯
 
-📝 **Type C — 具體 output (應 archive 為 file)**
-- 完成嘅 IG caption (10 條)
-- 寫好嘅 product brief
-- Final visual direction note
+📝 **C 類 —— 具體 output（應 archive 成 file）**
+- 完成嘅 IG caption（10 條）
+- 寫好嘅產品 brief
+- 最終 visual 方向 note
 
-🗑 **Type D — 廢話 filler (可 delete)**
+🗑 **D 類 —— 廢話填充（可刪）**
 - 「OK 試下」/「不錯」/「等等⋯」之類嘅 back-and-forth
 - 你自己嘅情緒反應
-- 死胡同方向 (你跟住 abandon 嘅)
+- 死胡同方向（你之後 abandon 嗰啲）
 
-每段 message tag 為 ABCD。20 分鐘有系統咁 review。
+每段訊息 tag 做 ABCD。20 分鐘有系統咁 review。
 
-### Step 2: Extract Type A → Project knowledge
+### Step 2：抽取 A 類 → Project knowledge
 
-開 new Claude Project (per 第 78 篇 setup)。
+開新 Claude Project（按第 78 篇 setup）。
 
-System prompt:
+System prompt：
 ```
-[Type A 嘅 standing context — 1 paragraph 整合]
+[A 類嘅長駐 context — 1 段整合]
 
 例：
 你係幫 Bull Kicks 做 marketing 嘅 partner.
@@ -108,13 +108,13 @@ USP:
 - 具體 brand collab story
 ```
 
-Upload supporting file (`reference/brand-voice-decisions.md`):
-- Paste Type A 嘅 detailed message 入一個 MD file
-- 重要 context Claude 永遠可 reference
+Upload 支援 file（`reference/brand-voice-decisions.md`）：
+- 將 A 類嘅詳細訊息貼入一個 MD file
+- 重要背景，Claude 永遠可以參考
 
-### Step 3: Extract Type B → Skill
+### Step 3：抽取 B 類 → Skill
 
-長 conversation 入面你同 Claude 一齊 develop 出嘅程序 (e.g.,「點 generate IG carousel from 1 個 product brief」)，extract 為 reusable Skill:
+長對話入面你同 Claude 一齊發展出嘅程序（例如「點由 1 個產品 brief 生成 IG carousel」），抽取做可重用 Skill：
 
 ```markdown
 ---
@@ -147,11 +147,11 @@ description: Generate IG carousel (5 slide) from product brief. Trigger when use
 - 中英 mix 自然
 ```
 
-呢個 skill 由你 52-message conversation extract — 但變 portable reusable，可以喺任何 future chat invoke。
+呢個 skill 由你 52 句對話抽取 —— 但變得可攜可重用，喺任何將來 chat 都可以叫起。
 
-### Step 4: Archive Type C → external file
+### Step 4：Archive C 類 → 外部 file
 
-具體 output (Type C) save 為 external 文件：
+具體 output（C 類）儲做外部文件：
 
 ```
 /Bull-Kicks-Launch-Project/
@@ -163,48 +163,48 @@ description: Generate IG carousel (5 slide) from product brief. Trigger when use
 
 放 Notion / Google Drive / GitHub 視乎 team。
 
-呢類 archive 比 chat thread search 易揾 — file name 直接講出面係咩。
+呢類 archive 比 chat thread search 易揾 —— file name 直接講明係咩。
 
-### Step 5: 開 fresh chat in Project
+### Step 5：喺 Project 入面開新 chat
 
-關舊 52-message thread (或 archive — 唔 active 就 OK)。
+關舊 52 句 thread（或者 archive —— 唔 active 就 OK）。
 
 返 Project，「+ New chat」開新 thread。
 
-第一個 message 可以好短:
+第一句訊息可以好短：
 ```
 基於我哋上次 brand voice + product brief，generate Mother's Day campaign IG caption 5 個。
 ```
 
-Claude 即時用 Project 嘅 brand voice + 可能 invoke ig-carousel-from-brief skill。
+Claude 即時用 Project 嘅 brand voice + 可能叫起 ig-carousel-from-brief skill。
 
-5 分鐘出 5 個 caption，全部 voice-consistent。**vs 重 paste 5 段 background**。
+5 分鐘出 5 條 caption，全部 voice 一致。**vs 重貼 5 段背景**。
 
-每星期你開 fresh chat in Project。chat thread 持續短 + sharp。
+每星期你喺 Project 入面開新 chat。Chat thread 持續短 + 精準。
 
 ## 變化
 
-### 變化 1：「我未 setup Project」— 緊急 export 法
+### 變化 1：「我未 setup Project」—— 緊急匯出法
 
-仲未 build Project / Skill，但條 long chat 已經 critical：
+仲未 build Project / Skill，但條長 chat 已經關鍵：
 
-**快速 export 方法**：
+**快速匯出方法**：
 
 1. 開 Claude chat
-2. 滾上 top
-3. ⌘+A select all
+2. 滾上頂
+3. ⌘+A 全選
 4. Copy
-5. Paste 入 markdown file (e.g., `conversation-2026-05-22.md`)
+5. 貼入 markdown file（例如 `conversation-2026-05-22.md`）
 
-Save 入你嘅 archive folder。下次你用嘅時候 open 該文件，reference 具體 decision「per our 5/22 conversation, brand voice OK」。
+存入你嘅 archive folder。下次用嘅時候打開該文件，參考具體決定「per our 5/22 conversation, brand voice OK」。
 
-呢個係手動 band-aid，唔有系統 — 但緊急場景 OK。
+呢個係手動 band-aid，唔有系統 —— 但緊急場景 OK。
 
-### 變化 2：Conversation handoff to teammate
+### 變化 2：將對話交接畀同事
 
-你 leave 公司 / 換 project / 同事 take over，要 hand off 複雜 Claude conversation：
+你離職 / 換 project / 同事接手，要交接複雜 Claude 對話：
 
-**Handoff document 結構**:
+**交接文件結構**：
 
 ```markdown
 # Project [Name] — Claude Conversation Handoff
@@ -233,37 +233,37 @@ Save 入你嘅 archive folder。下次你用嘅時候 open 該文件，reference
 4. Iterate system prompt as needed
 ```
 
-呢個 doc 比「open ChatGPT and figure it out」慳同事 3-6 個禮拜 ramp time。
+呢個 doc 比「開 ChatGPT 自己摸」幫同事慳 3-6 個禮拜 ramp 時間。
 
-### 變化 3：Conversation 變 internal training video
+### 變化 3：對話變內部培訓素材
 
-長 chat 入面有「教學 moment」— Claude explain 某 concept 你 first time understand。Extract 為 training material:
+長 chat 入面有「教學 moment」—— Claude 解釋某個概念你第一次明白。抽取做培訓素材：
 
-1. Identify「教學 moment」messages
-2. Copy 嗰段 Q + A pair
-3. Format 入 training doc
-4. 加 screenshot / 圖 illustrate
+1. 識別「教學 moment」訊息
+2. Copy 嗰段 Q + A
+3. 排入培訓文檔
+4. 加 screenshot / 圖示
 
-例：你問「點 evaluate Schengen visa rejection risk」，Claude 出 5-factor framework。Extract 呢段做 internal sales training material → 新 hire 5 分鐘 read = 慳 1 個鐘 onboarding。
+例：你問「點評估 Schengen 簽證被拒風險」，Claude 出 5 因素框架。抽取呢段做 internal sales 培訓素材 → 新同事 5 分鐘讀 = 慳 1 個鐘 onboarding。
 
 ## 一個 mindset
 
-長 conversation 嘅 paradox：**conversation 越長越 valuable，越難維持 quality + reuse**。
+長對話嘅悖論：**對話越長越有價值，越難維持質素 + 重用**。
 
-呢個 paradox 嘅原因: chat thread 係 ephemeral medium (sequence of message)，但 valuable content 嘅本質係 structured + searchable + reusable。Mismatch 直接令人 frustrate。
+呢個悖論嘅原因：chat thread 係 ephemeral 媒介（訊息嘅順序），但有價值內容嘅本質係結構化 + 可搜索 + 可重用。錯配直接令人 frustrate。
 
-呢個 mindset 嘅 reframe: chat thread 唔係「永久 archive」— chat thread 係「explore + iterate sandbox」。Crystallized output 應 migrate to structured container (Project / Skill / file)。
+呢個 mindset 嘅 reframe：chat thread 唔係「永久 archive」—— chat thread 係「探索 + 迭代嘅 sandbox」。結晶化嘅 output 應該遷移到結構化容器（Project / Skill / file）。
 
-呢個 process 同你寫 journal 一樣:
-- Journal entry (free thinking) — 等於 chat
-- Personal essay (crystallized thinking) — 等於 Project knowledge / Skill
+呢個 process 同你寫 journal 一樣：
+- Journal 條目（自由思考）—— 等於 chat
+- 個人 essay（結晶化思考）—— 等於 Project knowledge / Skill
 
-兩種都 valuable，唔好混淆。
+兩種都有價值，唔好混淆。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **每星期 1 hour review long chat → extract value → migrate**。比「我下次 scroll 揾」更可靠。
-- ⚠️ **50+ message chat 真係慢**。Don't push past。開 fresh thread 入 Project + reference past output。
-- 🎯 **Extract 嘅 effort 第 1 次 1 hour，但 setup 後每月慳 5-10 hours**。ROI 明顯。
+- ✅ **每星期 1 個鐘 review 長 chat → 抽取價值 → 遷移**。比「我下次 scroll 揾」可靠。
+- ⚠️ **50+ 句 chat 真係慢**。唔好硬撐落去。喺 Project 入面開新 thread + 參考過往 output。
+- 🎯 **抽取嘅功夫第 1 次要 1 個鐘，但 setup 之後每月慳 5-10 個鐘**。回報明顯。
 
-下個禮拜 dedicate 1 hour，breakdown 你最長嘅 active chat。你會 surprise — 50% content 屬於 Type D (廢話 filler), 真 valuable 嘅 Type A + B 其實只 20%。20% 嘅提取 + structure = high-leverage 嘅時間投資。
+下個禮拜抽 1 個鐘，拆解你最長嘅活躍 chat。你會 surprise —— 50% 內容屬於 D 類（廢話），真正有價值嘅 A + B 其實只係 20%。20% 嘅抽取 + 結構化 = 高槓桿嘅時間投資。
