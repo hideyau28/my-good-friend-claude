@@ -1,0 +1,220 @@
+---
+title: "Cowork 每朝 read 你 calendar：每個 meeting 自動出 prep 重點 + 要問嘅 questions"
+slug: "cowork-meeting-prep-from-calendar"
+issue: 89
+publishedAt: 2026-05-27
+audience: ["打工仔", "老闆"]
+category: "cowork"
+section: "商家"
+subcategory: "Workflow management"
+difficulty: 2
+timeMinutes: 45
+toolsNeeded: ["Claude Desktop (Pro / Max plan)", "Google Calendar (或 Outlook)", "你嘅 emails / docs (要 grant Cowork access)"]
+description: "HK 打工仔 meeting prep 自動化：用 Claude Cowork 每朝 8:50am 自動讀 calendar、cross-reference 你嘅 email + docs，每個 meeting 出 1 頁 prep doc，包上次 context、要問嘅 questions、agenda 建議。"
+keywords: ["claude cowork calendar", "HK 打工仔 meeting prep", "meeting 準備 自動化", "claude desktop google calendar", "1:1 meeting prep ai"]
+related: ["cowork-weekly-inbox-triage", "claude-projects-setup-claude", "claude-long-conversation-management-claude"]
+featured: false
+---
+
+## 情境
+
+朝早 9 點，你開電腦，calendar 已經塞滿：
+
+- 9:30 — 同 product manager 傾 Q3 roadmap
+- 11:00 — Sales call，個客上次傾過你都唔記得講過咩
+- 1:30 — 你個 direct report 嘅 1:1
+- 3:00 — 同 vendor review proposal
+- 4:30 — 跨 team 開 alignment meeting
+
+每個 meeting 你**應該**做嘅 prep：
+
+1. 揾返上次同呢個人傾過咩（search Gmail / Slack / Notion）
+2. 揾返今次相關嘅 doc / spec / 數字
+3. 諗 3 條要問嘅 question，至少有個 angle 入場
+4. 睇下個 agenda 合唔合理
+
+5 個 meeting × 12 分鐘 prep = 一個鐘。但你冇一個鐘——你 9 點開電腦，9:30 已經要入第一個 meeting。所以大部分時間，你係**裸入 meeting**：聽人哋講、唯唯諾諾、行禮如儀，散會先發覺啲嘢應該講而冇講。
+
+呢篇教你 set 一次 Cowork，**每朝 8:50am 自動讀你 calendar、cross-reference email + docs、每個 meeting 出一頁 prep doc 放入 Google Drive**。你 9 點開電腦，5 份 prep doc 已經喺度。
+
+> Caveat：Cowork 要 Pro / Max plan + Claude Desktop。佢會 read 你 calendar、emails、Drive 啲嘢，授權之前要諗清楚邊啲帳戶可以 grant（建議用工作帳戶，唔好 mix 個人）。**呢個 workflow 全部係 read-only**——出 doc、唔會自動 send email、唔會改 calendar、唔會回覆任何人。
+
+## 跟住做
+
+### 1. 開 Cowork session + 連好帳戶
+
+Claude Desktop（Pro / Max）→ Cowork mode。第一次用要 grant 以下 access：
+
+- Google Calendar（或 Outlook）— 讀你 events
+- Gmail（或 Outlook mail）— 揾返上次 thread
+- Google Drive（或 Notion / Dropbox）— 揾相關 doc + 寫低 prep doc
+
+如果你公司用緊 Slack / Teams 又有 MCP connector，順手連埋（變化 2 會用到）。
+
+### 2. 個核心 prompt — set 一次跑成年
+
+呢個 prompt 重點係教 Claude **點 cross-reference**：唔係淨係 dump calendar，而係每個 attendee 都要返 Gmail / Drive 揾返 context。
+
+<PromptBlock label="完整 prompt — 每朝自動出 meeting prep">
+我想 set 一個每朝 08:50 (HKT) 自動跑嘅 workflow。
+
+**Trigger：** 每個工作日 (Mon-Fri) 朝早 08:50
+
+**Step 1：讀今日 calendar**
+
+由我嘅 Google Calendar 攞返今日 09:00 之後嘅所有 events。
+排除：
+- 已 cancel 嘅
+- 我 decline 咗嘅
+- 純 block time / focus time（無其他 attendee 嘅）
+- 1 小時以內嘅短 sync 但 attendee 超過 8 個嘅（大 town hall，唔需要 prep）
+
+**Step 2：每個 meeting 出一頁 prep doc**
+
+每個保留落嚟嘅 meeting，做：
+
+A. **基本 info**
+- Title、時間、地點 / link
+- Attendees（標返內部 vs 外部）
+- 主辦人
+
+B. **上次 context（最重要）**
+搜返過去 90 日 Gmail + Drive：
+- 同呢班 attendees（尤其主辦人）最近嘅 email thread — 抽 3 個最相關
+- 對話入面提過嘅 decision、commitment、未解決嘅 question
+- 任何「我應承過跟進」嘅 item（呢個必出，唔好漏）
+
+C. **相關 docs**
+由 Google Drive 揾 3 個最相關嘅 doc / spec / sheet：
+- Title + 1 句點解相關
+- 直接連結
+- 標返 last edited date（太舊嘅要提我留意）
+
+D. **3 條 prep question**
+基於 B + C，幫我 draft 3 條我入 meeting 之前要諗清楚嘅 question。
+要求：
+- 唔好 generic（唔好出「咩係 success metric」呢類阿媽問題）
+- 要扣 context（例如「上次你提過 timeline 會 push 1 個月，今次有無 update？」）
+- 至少有 1 條係 risk / blocker / 唔肯定嘅地方
+
+E. **Agenda 建議**
+如果 calendar event 已經有 agenda：check 有冇漏 B 入面嗰啲未解決嘅 item。
+如果冇 agenda：draft 1 個 5-bullet agenda。
+
+**Step 3：output 落 Google Drive**
+
+寫入 folder「Daily Meeting Prep / [YYYY-MM-DD]」。
+
+每個 meeting 一個 markdown file：
+`[HH:MM] - [meeting title].md`
+
+另外出一個 `00 - Today Overview.md` 列：
+- 今日總共幾個 meeting、總時長
+- 標 1-2 個「最需要 prep」嘅（即 stakes 高、attendee 高層、或者上次有 unresolved item）
+- 標 1-2 個「可以 deprioritize」嘅（純通報、唔需要你發言）
+
+**Step 4：通知我**
+
+寫好之後寄一封短 email 畀我，主旨「今日 Meeting Prep Ready — X 個 meeting」。
+內容：folder link + 「最需要 prep」嗰 1-2 個 meeting 嘅 title + 直接 link。
+唔好喺 email 入面 dump prep 內容——只係 pointer。
+
+**重要限制：**
+- 全程 read-only：唔好覆任何 email、唔好改 calendar、唔好 share 任何 doc 出去
+- 如果搜唔到上次 context（例如新 attendee），明講「冇 prior context」，唔好作
+- 唔好 cross-reference 任何標咗「private / personal」嘅 calendar 或 email
+- Confidential 嘅 thread（標咗 confidential / HR / legal）只列存在，唔好抽內容
+
+set 好之後 confirm 我，行 dry run 一次睇 output，先 schedule。
+</PromptBlock>
+
+### 3. Output 格式 + Dry run
+
+第一次跑**唔好直接 schedule**。叫 Cowork：「即時跑一次今朝 calendar，show 我 5 份 prep doc，唔好真係寫入 Drive」。
+
+睇住佢出嘅 output check：
+
+- **Context 抽得準唔準**——5 份入面有冇 1 份係抽錯 thread / 攞錯 doc
+- **3 條 question 嘅質素**——有冇真係扣到 context，定係 generic
+- **Agenda 建議**——合唔合理，有冇漏 obvious 嘅 item
+- **隱私邊界**——有冇唔小心抽咗 personal email / confidential thread
+
+執完先 enable schedule。Output 落 Google Drive 之後，你可以將 prep doc folder pin 落 desktop 或者 bookmark，每朝一 click 就到。
+
+### 4. First week refinement
+
+頭一個禮拜出嘅 5 × 5 = 25 份 prep doc，你會發現規律：
+
+- **某啲 attendee Cowork 唔識搵 context**（例如名字喺 Gmail 用英文、calendar 用中文）→ 加一個 alias mapping 落 prompt
+- **3 條 question 太 generic** → 加例子落 prompt，show 你想要嘅 question 風格
+- **Agenda 同主辦人原本嘅 agenda 撞**→ 改成「淨係喺主辦人冇 set agenda 時先 draft」
+- **某啲 recurring 短 meeting（daily standup）唔需要 prep**→ 加 exclusion rule
+
+呢個 iteration 大約 2 個禮拜會穩定。穩定之後幾乎唔需要再執——除非你跳 team / 換 role。
+
+## 變化例子
+
+### 變化 1：唔用 Cowork，每朝 manual trigger
+
+Pro 用家冇 scheduled task，但用 Claude Desktop + MCP 一樣做到，淨係要你每朝自己 trigger。
+
+<PromptBlock label="變化 1 — Manual trigger 版">
+我每朝 8:45 開電腦會手動 trigger 你一次。
+
+每次跑：
+- 讀今日 Google Calendar
+- 對每個 meeting，做上面 Step 2 嘅 A-E
+- output 唔需要寫 Drive，直接喺呢個 chat 出 markdown 我自己 copy
+- 結尾 list 「最需要 prep」嗰 1-2 個
+
+我會 save 個 prompt 做 [快速命令]，每朝撳一次。
+</PromptBlock>
+
+呢個 setup 嘅 trade-off：你要記得 trigger（一兩個禮拜未養成習慣會漏），但你可以即時跟進、即時微調。
+
+### 變化 2：加 Slack / Teams DM context
+
+如果你公司 day-to-day 喺 Slack 傾，淨係 email 抽 context 唔夠完整。
+
+<PromptBlock label="變化 2 — 加 Slack DM context">
+喺 Step 2 嘅 B「上次 context」加一層：
+
+由 Slack 搜過去 30 日：
+- 同每個 attendee 嘅 DM
+- attendees 都 in 嘅 channel 入面，最近 mention 過 meeting 主題 keyword 嘅 message
+
+抽 3 個最相關，列：
+- Channel 或 DM
+- 日期
+- 1 句撮要
+
+呢層尤其捉到啲「Slack 講咗、email 冇 follow up」嘅 commitment——呢啲最易遺忘。
+
+私隱限制同 email 一樣：private channel / 標 confidential 嘅 thread 只列存在，唔抽內容。
+</PromptBlock>
+
+### 變化 3：Founders / managers 版 — 1:1 meeting prep
+
+你 manage 緊團隊，每星期 5-8 個 1:1。每個 1:1 嘅 prep 同普通 meeting 唔同：重點係**上次 action item follow-up + 對方 morale**。
+
+<PromptBlock label="變化 3 — 1:1 meeting 專屬 prep">
+如果今日 meeting attendee 得 1 個內部 direct report，當佢做 1:1 處理：
+
+Step 2 嘅 B「上次 context」改成：
+- 揾返上次同呢個人嘅 1:1 prep doc（如果有）
+- 抽出上次嘅 action item：佢應承過嘅 + 我應承過嘅
+- 標返：邊啲已 close、邊啲仲 open、邊啲 overdue
+
+Step 2 嘅 D「3 條 prep question」改成：
+1. 一條 follow-up：上次 action item 嘅進度
+2. 一條 forward-looking：佢手頭 project 嘅 blocker / risk
+3. 一條 personal：基於最近 Slack / email 嘅 signal（例如最近 PR review 嘅 turnaround、休假 pattern、佢主動提過嘅長遠 goal）— 唔好 forced，搵唔到信號就跳過
+
+額外加 Step 2.5：
+- 列我上次 1:1 應承過佢但未做嘅嘢（呢個係**最容易失信**嘅地方，必出）
+- 列佢 last 3 個 PR / project deliverable 嘅 summary，畀我有 concrete嘢可以讚
+
+呢類 prep 對保住團隊 trust 嘅 ROI，遠高過任何 sales meeting prep。
+</PromptBlock>
+
+> Meeting prep 嘅問題從來唔係「冇時間 prep」——係**你最 fresh 嗰 30 分鐘（朝早 9 點）用嚟做機械式 search**，所以入到 meeting 已經攰。Cowork 嘅槓桿：將機械式 search 推前到 8:50am 之前，你 9 點開電腦見到嘅係 **判斷題**，唔係 **搜尋題**。

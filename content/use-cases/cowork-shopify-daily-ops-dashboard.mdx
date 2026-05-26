@@ -1,0 +1,176 @@
+---
+title: "Cowork 每朝 9am pull Shopify orders：inventory / shipping / refund 三 alert 一頁睇晒"
+slug: "cowork-shopify-daily-ops-dashboard"
+issue: 104
+publishedAt: 2026-05-27
+audience: ["老闆"]
+category: "cowork"
+section: "商家"
+subcategory: "電商 ops"
+heroImage: "/hero/cowork-shopify-daily-ops-dashboard.webp"
+difficulty: 3
+timeMinutes: 50
+toolsNeeded: ["Claude Desktop (Pro/Max)", "Shopify admin access (read-only API)", "Email 或 Slack channel"]
+description: "HK 電商老闆每朝開 Shopify admin 行三圈：overnight orders trend、低庫存 SKU、shipping delay + refund。用 Claude Cowork 每朝 9am 自動 pull API，三個 alert 一頁出 Slack/email，由 20 分鐘變 3 分鐘。"
+keywords: ["Shopify dashboard automation", "HK 電商 老闆 daily ops", "inventory alert Claude", "ecommerce monitoring", "shopify cowork"]
+related: ["cowork-order-automation", "cowork-sales-pipeline-automation"]
+featured: false
+---
+
+## 情境
+
+你開 Shopify 小店，每朝坐低第一件事——撳開 admin，順序 check 三樣嘢：
+
+- 噚晚有冇 overnight order？同前一日 / 上星期同一日比，多咗定少咗？
+- 邊啲 SKU 跌穿 reorder threshold？順豐單寄出之後啲存貨夠唔夠頂到下個禮拜？
+- 有冇 shipping delay（SF Express 卡咗喺中轉站）、有冇 refund request 未 handle？
+
+熟手都要 15–20 分鐘——而且呢 20 分鐘係**每朝重覆**嘅嘢，唔做又會走漏 dog（特別係 refund 拖過 48 小時就會收差評）。
+
+Cowork 啱啱好做呢類 task：每朝 9am 自動 pull Shopify Admin API、跑三條 query、出一封一頁紙嘅 email（或者 Slack 訊息），9:00–9:15 你飲住咖啡 scan 一次，有問題先撳入 admin 跟，冇問題就過下一單。
+
+> 利益申報：Cowork 仲係 research preview，要 Pro/Max plan。Shopify API 連住你嘅銷售數據——**用 read-only scope**（`read_orders`、`read_products`、`read_inventory`、`read_fulfillments`），唔好畀佢 write access。
+
+## 跟住做
+
+### 1. Shopify private app + read-only token
+
+Shopify admin → Settings → Apps and sales channels → Develop apps → Create an app（叫「Daily Ops Reader」就得）。
+
+Admin API scopes 只揀：
+- `read_orders`
+- `read_products`
+- `read_inventory`
+- `read_fulfillments`
+- `read_customers`（refund 要 match customer）
+
+Install 完攞個 Admin API access token，貼入本機 `~/Documents/shopify-ops/.env`（**唔好 commit 落 git**）：
+
+```
+SHOPIFY_STORE=your-store.myshopify.com
+SHOPIFY_TOKEN=shpat_xxxxxxxxxxxx
+```
+
+### 2. 核心 prompt — set 一次、每朝 9am 跑
+
+<PromptBlock label="完整 prompt — 每朝 9am Shopify daily ops">
+我開一間香港 Shopify 小店（賣家品），用 SF Express 寄貨，付款方式有 Stripe / FPS / COD。
+
+每朝香港時間 9:00am 自動跑以下流程，用 `~/Documents/shopify-ops/.env` 入面嘅 token 連 Shopify Admin API（read-only）：
+
+**第一段 — Overnight orders（過去 24 小時）**
+- 總單數、總銷售額（HKD）
+- Payment method 拆分（Stripe / FPS / COD 各幾單）
+- 同前一日比 +/- %，同上星期同一日比 +/- %
+- Flag 任何 single order > $2,000（高價單要 manual confirm 落單真確）
+
+**第二段 — Inventory alert**
+- 讀 `~/Documents/shopify-ops/reorder-thresholds.csv`（我 maintain，列 SKU + reorder_point + supplier_lead_days）
+- 列出所有 inventory_quantity ≤ reorder_point 嘅 SKU
+- 排序：剩餘日數最少（用過去 14 日嘅銷售速度估）排最頂
+- 已經叫咗 supplier 嘅唔好出（我會喺 CSV 加 `on_order=Y` 欄）
+
+**第三段 — Shipping delay + refund**
+- Fulfillment 已 ship 但 SF tracking 停咗 ≥ 48 小時冇 update：列 order #、客名、tracking、停咗幾耐
+- Refund requests 過去 7 日仲係 `pending` 嘅：列 order #、refund 原因、金額、客拎咗等幾耐
+
+**輸出格式 — 一頁 email：**
+- Subject：`[Shopify Daily] YYYY-MM-DD — X 單 / $XXXX / Y SKU 低庫存 / Z refund 待 handle`
+- Body 分三段（用上面三個標題），每段控制喺 5 行內
+- 結尾加一句：「需要即時跟進嘅事項」list（最多 3 項，AI 自己判斷）
+
+寄去 boss@mystore.hk。
+
+**限制：**
+- 絕對唔好改 Shopify 任何嘢（read-only）
+- 唔好自動回客 / 自動 refund
+- 數據對唔上（e.g. API timeout）→ email 寫「數據不完整」，唔好估
+- 用 HKT 時區、HKD 銀碼
+
+Set 好 confirm 我，再 schedule 每朝 9:00am HKT 跑。第一次 dry run 唔好真寄 email，show output 我睇。
+</PromptBlock>
+
+### 3. Tune 你嘅 alert threshold
+
+第一個禮拜出嘅 email 通常會「太嘈」——例如低庫存名單列咗 20 個 SKU，但其實一半你已經叫咗貨。呢度就係 `reorder-thresholds.csv` 嘅作用：
+
+```csv
+sku,reorder_point,supplier_lead_days,on_order
+HKD-CANDLE-01,15,7,N
+HKD-DIFFUSER-02,8,14,Y
+HKD-SOAP-03,30,5,N
+```
+
+調 threshold 嘅原則：**`reorder_point` = (每日平均銷量 × supplier_lead_days) × 1.5**。1.5 倍 buffer 係畀 SF 偶爾 delay + 你忘記落單嘅 grace period。
+
+Refund 嘅 48 小時門檻可以調——如果你係食品 / 易壞貨，改 24 小時；如果係 made-to-order 慢慢做嘅，可以調去 72 小時。
+
+### 4. 每朝 9:00–9:15 嘅 review ritual
+
+Cowork 出嘅 email 9:00 入到信箱。你嘅 15 分鐘咁用：
+
+- **9:00–9:05** Overnight orders scan：總數 OK 就跳過；異常高（疑似刷單 / 跌穿 50%）先撳入 admin。
+- **9:05–9:10** Inventory：揀「剩餘日數 ≤ supplier_lead_days」嘅即時 WhatsApp supplier。叫完貨入返 CSV `on_order=Y`，下日佢就唔再 nag 你。
+- **9:10–9:15** Shipping + refund：SF 卡咗超 72 小時嘅 proactive WhatsApp 客戶報平安；refund 全部當朝清，唔好過夜。
+
+呢個 ritual 幾關鍵——AI 出 alert 嘅價值唔係「幫你做晒」，而係**逼你每朝 15 分鐘埋一次數**。冇 alert 你會 skip，有 alert 喺面前你就會做。
+
+## 變化例子
+
+### 變化 1：Multi-store group dashboard
+
+<PromptBlock label="變化 1 — 兩三間 Shopify 一齊 monitor">
+我有兩間 Shopify store（旗艦店 + outlet 店），用唔同 .env file：
+- `~/Documents/shopify-ops/store-main.env`
+- `~/Documents/shopify-ops/store-outlet.env`
+
+請改造流程：
+- 兩間舖各自跑一次同樣 query
+- Email 出一封，subject 列「Main: X 單 / Outlet: Y 單」
+- Body 分兩 section，每間舖三段（orders / inventory / shipping+refund）
+- 加一個 group-level summary 喺最頂：總銷售、邊間舖跑贏邊間（同上星期比）
+- Inventory threshold CSV 兩間舖獨立 maintain
+
+如果有個 SKU 兩間舖都缺貨，喺 group summary flag 出嚟「跨店缺貨」。
+</PromptBlock>
+
+### 變化 2：加埋 Meta / Google Ads ROI
+
+<PromptBlock label="變化 2 — 加 ad spend / ROAS">
+除咗 Shopify，請連埋 Meta Ads + Google Ads（用 `~/Documents/shopify-ops/ads-tokens.env` 嘅 token）。
+
+加第四段 — Ad performance（過去 24 小時）：
+- Meta：spend (HKD)、impressions、purchases (pixel)、ROAS
+- Google Ads：spend、clicks、conversions、ROAS
+- Combined ROAS = Shopify revenue ÷ (Meta + Google spend)
+- Flag 任何單一 campaign ROAS < 1.5（蝕緊錢）
+- Flag spend > 預算 120%（呢個閾值喺 `ads-budget.csv` 入面 maintain）
+
+留意：Shopify 嘅 revenue 同 Meta pixel 嘅 attribution 通常有 10–20% 落差，唔使逐蚊對，看 trend 就得。
+</PromptBlock>
+
+### 變化 3：Sale 期間密集監測
+
+<PromptBlock label="變化 3 — 雙11 / 黑五 期間每 2 小時跑一次">
+12 月 1 日到 12 月 5 日（年尾 sale 期）：
+- 改成每 2 小時跑一次（9am / 11am / 1pm / 3pm / 5pm / 7pm / 9pm）
+- 簡化 output：淨係出 orders + inventory 兩段（refund 一日總結一次就夠）
+- Inventory alert 改用更嚴 threshold：剩餘日數 ≤ 3 日就 flag
+- 加一個「sale velocity」指標：呢 2 小時嘅單數 / 平日同時段平均
+- 任何 SKU 喺呢 2 小時跑出超過 20 單 → email subject 加 [HOT]，要即刻決定加唔加價 / 收檔
+
+Sale 完之後（12 月 6 日）自動還原做一日一次 9am 跑。
+</PromptBlock>
+
+## 點解呢個 task 啱 Cowork
+
+> 每朝 9am 開 admin 行三圈嘅嘢，唔係難——係「日日要做、漏一日就有人投訴」。Cowork 嘅價值唔係取代你嘅判斷，而係幫你**每朝塞一封信入信箱**，逼你飲咖啡嗰 15 分鐘埋一次數。
+
+呢個任務 fit Cowork 嘅 checklist：
+
+- 重覆：一年 365 次
+- 機械式：API call + threshold 比對，冇創意成份
+- 唔涉 write actions：純 read，最壞情況都係出錯 alert，唔會炒咗訂單
+- 容錯率高：出咗錯你撳入 admin 一睇就知
+
+最後提一句——Shopify token 唔好放 cloud sync folder（iCloud / Dropbox），放本地 + macOS Keychain 最穩陣。Cowork 跑 task 嗰部機，sleep 嘅時候 schedule 就跑唔到，所以呢類 daily ops 要部機長開（或者用 server / 公司閒置部 mac mini 跑）。

@@ -1,0 +1,178 @@
+---
+title: "Cowork 自動 file 收據 + 保固：影張相，月底 search 返「上個月買咩」"
+slug: "cowork-receipt-warranty-management"
+issue: 90
+publishedAt: 2026-05-27
+audience: ["消費者", "打工仔"]
+category: "cowork"
+section: "生活"
+subcategory: "個人 admin"
+difficulty: 2
+timeMinutes: 30
+toolsNeeded: ["Claude Desktop (Pro/Max)", "iPhone / Android 拍照", "Google Drive 或本地 folder"]
+description: "HK 人買嘢成日唔記得保固期、退貨 deadline，收據又冚唪唥唔知放邊。影張相丟入 folder，Cowork 每晚自動 OCR 商戶、金額、保固期，入 master spreadsheet，月底自動出 report。一句話 search 返「上次喺邊買乒乓拍」、「電飯煲保固到幾時」。"
+keywords: ["HK 收據管理", "保固期 tracker", "cowork OCR", "報稅 收據整理", "電子收據 自動歸檔"]
+related: ["cowork-auto-backup-files-photos", "hong-kong-tax-prep-claude", "monthly-budget-hk-claude"]
+featured: false
+---
+
+## 情境
+
+你部電飯煲星期日朝早突然冇反應。你記得舊年買嘅，應該仲喺保固期入面——但張單你揾極都揾唔到。試咗去信用卡 statement 揾返筆款，發現原來唔係今年買，係前年；再睇返保固期係 18 個月，已經過咗。
+
+呢個 scenario 喺 HK 屋企每年發生唔止一次：
+
+- 退貨 deadline 過咗先發現，得個吉
+- 報稅季要 medical receipts，但散落 WhatsApp、email、銀包入面
+- 公司要報銷飯局，張紙仔已經喺洗衫機洗到糊
+- 想知「我上個月買咗咩」，要逐張信用卡單對返
+
+問題本質：**買嘅一刻你會記得，三個月後完全唔記得**。傳統解法（裝個 receipt app、每張單手動 type 入去）大部分人撐唔到兩個禮拜。
+
+呢篇用 Cowork 改個思路：你淨係要做一件事——**影張相**，跟住擺埋一個 folder。Cowork 每晚自動執手尾，OCR、歸類、入 spreadsheet、計保固到期日。月底出 report。年尾報稅 data 已經齊。
+
+> Cowork 仲係 research preview，要 Pro/Max plan。會直接讀你嘅檔案，所以淨係畀佢掂呢一個 dedicated folder，唔好掂其他敏感資料。
+
+## 跟住做
+
+### 1. 開個 shared folder + 講清楚 Cowork 點 watch
+
+開個 folder：`~/Documents/receipts-inbox/`（或者 Google Drive 入面起一個 `Receipts/Inbox` folder，sync 落 Mac）。
+
+你部電話 set 個 shortcut：每次影完收據，one-tap save 入呢個 folder。iPhone 用「捷徑」、Android 用 Files app 嘅「儲存到 Drive」。**唔需要 rename、唔需要分類**——亂咁丟入嚟得。
+
+另外開兩個 sibling folders：
+
+- `~/Documents/receipts-inbox/_processed/` — Cowork 處理完會搬入嚟
+- `~/Documents/receipts-inbox/_master.xlsx` — 主 spreadsheet
+
+### 2. 個核心 prompt — OCR + 結構化 entry
+
+<PromptBlock label="完整 prompt — set 一次，每晚跑">
+我想設定每晚 9pm 自動執行嘅收據處理流程。
+
+**Folder：** `~/Documents/receipts-inbox/`
+**唔好掂：** 其他 folder、原始相 metadata、任何已經喺 `_processed/` 嘅檔案
+
+**每晚 9pm 做：**
+
+1. 掃 `receipts-inbox/` 入面所有 .jpg / .heic / .png / .pdf（唔好掂 `_processed/` 入面嘅嘢）
+2. 對每張，OCR 抽以下資料：
+   - 商戶名（中／英都要，盡量 match 返常見 HK 連鎖：百老匯、豐澤、Watsons、Mannings、Apple Store、IKEA HK 等）
+   - 日期（YYYY-MM-DD）
+   - 總金額 + 貨幣（預設 HKD）
+   - 主要 line items（最多 5 項；只抽得到啲就抽啲）
+   - 付款方式（信用卡尾 4 碼 / 現金 / Octopus / 八達通）
+   - 保固期（如有寫；冇就睇返商戶＋產品估返：電子產品預設 12 個月、大型家電 24 個月、衣物 0）
+   - 退貨 deadline（如收據有寫；冇就空白）
+3. 計返「保固到期日」 = 日期 + 保固期
+4. Append 一行入 `_master.xlsx` 嘅 `Receipts` sheet，columns：
+   `日期 | 商戶 | 金額 | 類別 | Line items | 付款 | 保固到期 | 退貨 deadline | 原檔名 | Notes`
+5. 類別自動分：餐飲／日用／電器／衣物／醫療／交通／家居／其他
+6. 將原相搬入 `_processed/[YYYY-MM]/`，rename 做 `[日期]_[商戶]_[金額].原 extension`
+7. 如果一張相 OCR 唔到（模糊、唔似收據、重複），搬入 `_processed/_needs-review/`，喺 `_master.xlsx` 嘅 `Review` sheet 記低原檔名 + 估計問題
+
+**限制：**
+- 唯讀模式：原相唔好改、唔好刪
+- 任何金額 > HKD 5,000 嘅 entry，喺 Notes column 標「⚠️ 待核」等我自己驗一驗
+- OCR 唔肯定嘅 field 留空白，唔好亂估
+- 唔好將收據內容 send 去任何外部服務
+
+Set 好確認我，然後 schedule 每晚 9:00 跑。
+</PromptBlock>
+
+第一晚跑完，自己開 spreadsheet 睇下對唔對。OCR 認唔到商戶嘅 case，補一份「商戶別名表」（例如「百佳超級市場 = ParknShop」）做附件，下次就準。
+
+### 3. Schedule nightly run + monthly report
+
+夜晚 9pm 個 schedule set 好之後，加多個月尾 report。每月最後一日夜晚 10pm 跑一次：
+
+<PromptBlock label="月尾 report prompt">
+每月最後一日 22:00，read `_master.xlsx` 入面當月嘅 `Receipts` rows，生成一份 monthly summary，email 寄返畀我：
+
+**Subject：** [月份] 收據總結 — [N] 張，HKD [總額]
+
+**內容：**
+
+1. 當月總開支（HKD），對比上個月嘅升／跌
+2. 按類別 breakdown（餐飲 / 日用 / 電器 / 衣物 / 醫療 / 交通 / 家居 / 其他）
+3. Top 5 單筆最大開支（日期 + 商戶 + 金額）
+4. 保固提醒：列出 60 日內到期嘅保固 + 30 日內到期嘅退貨 deadline
+5. 待核 entries（> HKD 5,000 嗰啲）
+6. 缺資料嘅 entries 數量（喺 `_needs-review/` 嗰啲）
+
+唔好做投資建議、唔好評論我消費習慣。淨係出 data。
+</PromptBlock>
+
+呢樣每月 5 分鐘睇完，你就大致知道個月開支去咗邊。保固提醒嗰節最有用——電器壞嗰一刻先發現過咗保，永遠都係最 painful 嘅。
+
+### 4. Search workflow — 一句話揾返一張單
+
+呢個先係真正回本嘅地方。任何時候 open Claude Desktop（唔需要 Cowork mode，普通 chat 都得，只要佢可以 read `_master.xlsx`），直接問：
+
+- 「我去年 6 月買嘅電飯煲保固到幾時？」
+- 「上次喺邊度買乒乓波拍？幾錢？」
+- 「過去 12 個月喺 Apple Store 用咗幾錢？」
+- 「邊張單係去年 medical，可以攞嚟報稅？」
+- 「冷氣機嗰張單仲喺退貨期入面嗎？」
+
+Claude 會 scan `_master.xlsx`、揾返 row、答你之餘附返「原檔擺喺 `_processed/2025-06/...`」畀你開實物相。一句話搞掂以前要揭半個鐘銀包嘅嘢。
+
+## 變化
+
+### 變化 1：抓埋 Apple Wallet pass + email 嘅電子收據
+
+<PromptBlock label="變化 1 — 電子收據自動歸檔">
+除咗影相收據，加多兩個來源：
+
+1. Gmail 入面標籤 `receipts` 嘅 email（我自己 set rule 自動加 label：sender 含 noreply 同 subject 含 receipt / 收據 / order confirmation）
+2. Apple Wallet 嘅 passes export folder（我每星期手動 export 一次）
+
+對每封 email：抽商戶、金額、日期、order #，append 入 `_master.xlsx`，原 .eml 存入 `_processed/_email/[YYYY-MM]/`。
+
+如果同一單嘢，相同 + email 同時存在（例如 Apple Store 你影咗相又收到 email），自動去重——keep email 版本（因為 data 完整啲），喺 Notes 寫「有實體單」。
+</PromptBlock>
+
+### 變化 2：報稅季用呢個 dataset 算 deductibles
+
+<PromptBlock label="變化 2 — 報稅 deductible 計算">
+3 月底報稅季前，跑一次 deductible audit：
+
+讀 `_master.xlsx` 入面過去 12 個月（4 月到 3 月）嘅 entries，按 HK IRD 規則初步分類：
+
+1. 認可慈善捐款（捐畀 tax-exempt charities，section 88）
+2. 進修開支（自我增值嘅課程費，每年上限）
+3. 強積金額外自願性供款（TVC）
+4. 自願醫保計劃保費（VHIS）
+5. 長者住宿照顧開支
+
+對每類，列出：
+- 入面 qualify 嘅 entries（商戶 + 日期 + 金額）
+- 全年總額
+- HK IRD 上限同我距離
+- 我仲缺乜嘢文件先報得（IR831 收條 / VHIS 自願醫保證明等）
+
+⚠️ 你係幫我做初步整理，唔係稅務顧問。最終要會計師或者 IRD guideline 確認。Edge cases 標出嚟等我問人。
+</PromptBlock>
+
+### 變化 3：公司開支報銷版（打工仔）
+
+<PromptBlock label="變化 3 — 公司 expense report">
+我份工成日要出差、請客、買 office 用品，月尾要 file expense report。
+
+加一個 sub-folder `~/Documents/receipts-inbox/_work/`，呢度入面嘅收據另外 process：
+
+1. 抽資料同正常一樣，但 append 入 `_master.xlsx` 嘅 `Work Expenses` sheet
+2. 加多兩個 columns：`Client / Project`（睇收據 context 估，估唔到就空白）、`Reimbursable`（Y/N，我自己 set 規則）
+3. 每月 25 號 9am 出一份 expense report PDF：
+   - 公司 template 格式（我會擺 template.docx 入 folder 畀你 reference）
+   - 按 project 分組
+   - 每張收據對應原檔嘅 thumbnail 連結
+   - 總額 + 我自己 expense card 簽名位
+
+唔好直接 send 出去——出咗 PDF 我自己 review 完先 submit。
+</PromptBlock>
+
+---
+
+> 最 painful 嘅唔係影張相同抄入 spreadsheet，係決定「我幾時做呢樣嘢」。將「諗」呢一步外判畀 Cowork，你淨係要做返一件最簡單嘅事——影張相。一年之後，你會發現自己唔知唔覺累積咗一個比銀行 statement 仲完整嘅個人開支紀錄。

@@ -1,0 +1,197 @@
+---
+title: "Cowork 每月 1 號自動出 SaaS founder dashboard：MRR / churn / cohort 一頁睇晒"
+slug: "cowork-stripe-monthly-saas-review"
+issue: 91
+publishedAt: 2026-05-27
+audience: ["老闆", "創作者"]
+category: "cowork"
+section: "商家"
+subcategory: "SaaS metrics"
+difficulty: 3
+timeMinutes: 60
+toolsNeeded: ["Claude Desktop (Pro/Max)", "Stripe account + API key", "Google Sheets 或 Notion"]
+description: "Solo SaaS founder 每月手做 metric review 痛苦：抄 Stripe、計 MRR、估 churn、砌 cohort。教你用 Claude Cowork set 一次，每月 1 號 7am 自動 pull Stripe data、計核心 SaaS 指標、出 founder dashboard markdown，push 入 Notion 或 email 落你個 inbox。"
+keywords: ["Stripe SaaS metrics 自動", "MRR churn dashboard", "solo founder 自動化 report", "saas cohort retention", "founder dashboard 自動化"]
+related: ["cowork-sales-pipeline-automation", "cowork-order-automation", "claude-google-sheets-integration-claude"]
+featured: false
+---
+
+## 情境
+
+你係香港 indie SaaS founder，product 啱啱跑緊，每月有十幾單到幾十單 subscription。 每個月 1 號早上你會做同一件事：
+
+- 開 Stripe dashboard，慢慢撳入唔同 view
+- 抄 MRR、new customers、cancelled 入一個 Google Sheet
+- Excel formula 計 churn rate、LTV、cohort retention
+- 砌幾個 chart
+- 寫一段 monthly review 畀自己（有時 send 埋畀 advisor 或者 angel）
+
+熟手都要兩個鐘。而且做到一半成日攰到唔想計 cohort，跳過咗，下個月又話「下次補返」——成年都冇補。
+
+呢個 task 嘅特徵：**完全機械式、每月一次、資料 source 同格式都唔變**。完全係 Cowork 嘅 sweet spot——你 set 一次，佢每月 1 號 7am 自動跑，你 8am 起身就有份 dashboard 喺 inbox。
+
+> 利益申報：Cowork 仲係 research preview，要 Pro/Max plan。 Stripe API key 等於你嘅錢嘅 master key——呢篇教你用嘅一定要係 **restricted read-only key**，唔好用 secret key 或者 full access key。錯咗一個 prompt 用全權限 key，後果可以好嚴重。
+
+## 跟住做
+
+### 1. Stripe API key + Cowork 工作 folder
+
+落 Stripe dashboard → Developers → API keys → Create restricted key。 權限只開：
+
+- `Charges`: Read
+- `Customers`: Read
+- `Subscriptions`: Read
+- `Invoices`: Read
+- `Products / Prices`: Read
+
+**全部 Write 都唔好 tick。** 命名 key 做「claude-cowork-readonly」，copy 個 key 出嚟（`rk_live_...` 開頭，唔係 `sk_live_`）。
+
+開個 dedicated folder：
+
+```
+~/Documents/founder-dashboard/
+├── .env                       ← Stripe key 擺呢度
+├── 2026-05/                   ← 今個月嘅
+│   └── (Cowork 生成嘅 dashboard)
+├── templates/
+│   └── dashboard-template.md
+└── archive/                   ← 過往幾個月
+```
+
+`.env` 入面寫一行：`STRIPE_API_KEY=rk_live_xxx`。 呢個 folder 之後就係 Cowork 嘅工作範圍，**唔好俾佢掂出面任何嘢**。
+
+### 2. 核心 prompt — 教 Claude 點計 SaaS metrics
+
+呢個 prompt 比較長，因為 SaaS 指標嘅定義要寫死，唔好等 Claude 自己估。
+
+<PromptBlock label="完整 prompt — 每月 1 號 7am 自動出 founder dashboard">
+我係 solo SaaS founder。 我想設定每月 1 號朝早 7 點自動跑一次嘅 founder dashboard。
+
+**工作 folder：** `~/Documents/founder-dashboard/`
+**Stripe key：** 由 `.env` 讀 `STRIPE_API_KEY`（restricted read-only key）
+**今個月 folder：** `2026-MM/`（用上個月嘅年月）
+
+**流程：**
+
+第一步：用 Stripe API pull 上個月嘅 data
+- 所有 `customer.created` 喺上個月嘅 customers
+- 所有 active subscriptions 喺月頭同月尾嘅 snapshot
+- 所有 `invoice.payment_succeeded` 喺上個月
+- 所有 `customer.subscription.deleted`（churn 事件）喺上個月
+
+第二步：計核心 SaaS 指標
+- **MRR**（月底 snapshot）：所有 active monthly subscription 嘅 sum；yearly 嘅除 12
+- **ARR**：MRR × 12
+- **New MRR**：上個月新增 subscription 帶嚟嘅 MRR
+- **Churned MRR**：上個月 cancelled subscription 失去嘅 MRR
+- **Net New MRR**：New − Churned
+- **Logo churn rate**：(cancelled customers ÷ 月頭 active customers) × 100%
+- **Revenue churn rate**：(churned MRR ÷ 月頭 MRR) × 100%
+- **ARPU**：MRR ÷ active customers
+- **LTV**（用 1 ÷ monthly churn × ARPU 嘅 simple 估算，註明係 estimate）
+
+第三步：Cohort retention table
+- 將過去 6 個月 cohort（按 customer signup 月份 group）
+- 每個 cohort 喺 M0、M1、M2、M3、M4、M5 嘅 retention %
+- 用 markdown table 出
+
+第四步：對比上個月
+- MRR growth %
+- New customers 數量變化
+- Churn rate 上升定下跌
+- 標示異常（例如某個指標跌咗 > 20%）
+
+第五步：用 `templates/dashboard-template.md` 做 base，生成 markdown report
+存做 `2026-MM/founder-dashboard.md`，包括：
+- TL;DR 三行（最重要嗰三件事）
+- Metric table（今月 vs 上月 vs 兩個月前）
+- Cohort retention table
+- 三段 narrative：「health」「risks」「next month focus」
+- 任何 data quality issue（例如有 customer 缺 email、有 invoice failed）
+
+第六步：通知我
+- 將 markdown email 落我 inbox（subject：「Founder dashboard — 2026-MM」）
+- 如果 MRR 跌、churn > 5%、或者有大 customer churn 咗，喺 subject 加「⚠️」
+
+**重要限制：**
+- 絕對唔好寫任何嘢去 Stripe（你個 key 都冇 write 權限，但 prompt 上要明確）
+- 絕對唔好 email 出去任何外部 address
+- 所有計算公式喺 report 底寫返出嚟，方便我 audit
+- 如果某個指標 Claude 唔肯定點計，標「需要 founder 確認」，唔好估
+
+set 好之後 confirm 我，再 schedule 落每月 1 號朝早 7 點自動跑。
+</PromptBlock>
+
+### 3. Output format + delivery
+
+Cowork 出嘅 markdown 可以有兩個落腳點，揀一個（或者兩個都做）：
+
+- **Notion**：開個 database 叫「Founder dashboards」，每月一個 entry，title 用「2026-MM」。 Cowork 可以直接寫入（要 Notion integration）。
+- **Email**：最簡單，直接 send 去你自己個 inbox，加 label 「founder-dashboard」歸類。
+
+如果想睇趨勢圖，可以再多一步：叫 Cowork 將 metric table 同時 append 落一個 Google Sheet，到時 chart 由 Sheet 出。 chart 唔好喺 markdown 入面 inline 砌——出嚟好醜，而且 Cowork 砌 chart 容易出錯。
+
+### 4. Schedule + first-month sanity check
+
+第一次跑**唔好直接 schedule**。叫 Cowork：「即場跑一次用上個月嘅 data，唔好 email 我，show 我 output 喺 chat 度」。
+
+你要 cross-check：
+
+- MRR：開 Stripe dashboard → Billing → MRR view，對比 Cowork 計嘅數啱唔啱（差 < 1% OK，差 > 5% 一定有問題）
+- Churn：揾返上個月 cancel 嘅 customer，自己 count 一次
+- Cohort：揀一個你記得嘅 cohort（例如三個月前），睇下 retention 啱唔啱
+- 公式：睇 report 底嗰啲 formula，會唔會將 yearly subscription 當成 monthly（呢個係最常見錯誤）
+
+第一個月嘅 dashboard 唔可以盡信。 跑完第二第三個月，數對得返 Stripe，先當佢穩定。 然後先 enable schedule。
+
+## 變化
+
+### 變化 1：唔用 Stripe，用 LemonSqueezy / Paddle / Gumroad
+
+<PromptBlock label="變化 1 — LemonSqueezy 版本">
+（同主 prompt 一樣，但改）：
+
+- API source 換成 LemonSqueezy API（read-only key）
+- LemonSqueezy 已經幫你計咗部分 metric（dashboard 有 MRR / churn），但 cohort retention 同 LTV 仲係要 Claude 自己計
+- Subscription status 嘅 enum 名唔同（LemonSqueezy 用 `active` / `on_trial` / `cancelled` / `expired`）—— Claude 要識區分
+- Webhooks 嘅 event 名都唔同——但因為我哋係月底 snapshot，唔靠 webhook，問題唔大
+
+Paddle 同 Gumroad 同理，叫 Claude 一開始確認你嘅 platform 嘅 API endpoint 同 field 名。
+</PromptBlock>
+
+### 變化 2：加 product analytics data merge
+
+<PromptBlock label="變化 2 — 加 PostHog / Plausible 數據">
+（喺主 prompt 第二步同第三步中間加）：
+
+第 2.5 步：由 PostHog API（或者 Plausible）pull 上個月嘅 product usage data
+- DAU / WAU / MAU
+- Activation rate（你定義嘅核心 action）
+- 邊個 feature 最多人用
+
+第 3.5 步：將 Stripe 嘅 customer ID 同 PostHog 嘅 user ID join（假設你有 set distinct_id = stripe customer id）
+- 計返「paying customer 嘅 engagement」：佢哋上個月有冇用過 product
+- 標示 high churn risk：付緊錢但 30 日冇 login
+
+呢個版本特別有用：純 revenue metric 望唔到 customer 緊唔緊張你個 product。 一個 paying customer 三十日冇 login = 下個月好可能 churn。
+</PromptBlock>
+
+### 變化 3：Weekly 版本（每星期一 9am 跑簡化版）
+
+<PromptBlock label="變化 3 — 每週簡化 dashboard">
+我想加多一個每週一 9am 嘅輕量版本（除咗月度 dashboard 之外）。
+
+每週版只需要：
+- 過去 7 日 new MRR
+- 過去 7 日 churned MRR
+- 過去 7 日 new customers（連名單）
+- 過去 7 日 cancelled customers（連名單同 cancellation reason，如果 Stripe 有 metadata）
+- 同上週對比
+
+唔需要 cohort、唔需要 LTV、唔需要 narrative。
+直接 email 落我 inbox，subject：「Weekly pulse — week of 2026-MM-DD」。
+
+呢個係輕量「脈搏」，畀我每週一返工前掃一眼就知個 product 健康度。
+</PromptBlock>
+
+> Solo founder 最易犯嘅錯：每月 1 號好認真做 dashboard，第三個月開始懶，第五個月直接放棄，到 fundraising 或者第十個月先回頭執——但嗰陣 cohort data 已經斷咗。 自動化嘅價值唔係慳嗰兩個鐘，係幫你**冇得偷懶**。 個 dashboard 每月 1 號 7am 一定喺 inbox，你睇唔睇就你嘅選擇——但起碼 data 唔會斷。

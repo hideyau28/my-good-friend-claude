@@ -1,0 +1,203 @@
+---
+title: "Cowork 每週 scan HK 物業 listing：filter 你 budget + 區，新盤 30 分鐘 alert 你"
+slug: "cowork-hk-property-listing-watchlist"
+issue: 92
+publishedAt: 2026-05-27
+audience: ["消費者"]
+category: "cowork"
+section: "財經"
+subcategory: "住屋 / 物業"
+difficulty: 3
+timeMinutes: 50
+toolsNeeded: ["Claude Desktop (Pro/Max)", "HK property listing 網站 (Centaline / Midland / 28Hse)", "Telegram bot 或 email"]
+description: "用 Claude Cowork set 一次 criteria，每朝自動 scan Centaline、Midland、28Hse 三個 portal 嘅新盤，filter budget / 區 / 校網之後，30 分鐘內 push 落 Telegram 或 email。週末再出 week-in-review。HK 揾樓族唔使再日日 refresh。"
+keywords: ["HK 揾樓 自動", "Centaline Midland watchlist", "property listing 通知 alert", "Claude 揾樓", "香港物業 ai", "cowork 物業"]
+related: ["hong-kong-mortgage-comparison", "hong-kong-tenancy-agreement-claude", "monthly-budget-hk-claude"]
+featured: false
+---
+
+## 情境
+
+香港揾樓嘅日常你應該好熟：
+
+- 朝早返工巴士上 refresh Centaline
+- 午飯前 refresh Midland
+- 夜晚瞓前再 refresh 28Hse
+- 見到啱嘅盤打去問，agent 話「啱啱賣咗」
+
+你要嘅唔多，得幾條條件：**$8M 以下、九龍塘 / 何文田、3 房、入伙 20 年內、唔要低層**。但每個 portal 嘅 filter UI 都唔同，set 完仲要日日返去 click 一次睇有冇新盤。新盤上 portal 之後通常 1–2 日就有人下訂——你 refresh 慢咗，就執輸。
+
+呢篇教你用 Claude Cowork **set 一次 criteria，每朝 9am 自動 scan 三個 portal，filter 後嘅新盤 30 分鐘內 push 落 Telegram 或 email**。週末再出個 week-in-review。
+
+> 重要 caveat：Cowork 仲係 research preview，要 Pro/Max plan。佢有 agentic 能力會直接幫你開 browser 操作網站，**先開一個 dedicated 工作 folder 畀佢**，唔好畀佢掂你嘅敏感檔案。同埋呢類 scraping 行為要尊重各 portal 嘅 robots.txt 同 rate limit——當自己係 polite browser，唔好打到人哋 server。
+
+## 跟住做
+
+### 1. 定 criteria — 寫低你嘅「揾樓 spec sheet」
+
+開始 Cowork 之前，先用文字 file 寫清楚你揾乜。Claude 唔識讀你個腦，你 spec 寫得越 sharp，filter 就越準。
+
+呢個係範本，自己改：
+
+```
+[揾樓 spec — 自住版]
+
+用途：自住
+類型：買賣（唔睇租）
+預算：$6M – $8.5M（HKD）
+首期：3 成
+區：九龍塘、何文田、又一村（其他唔考慮）
+校網：11 校網優先
+房數：3 房（包工人房都計）
+實用面積：≥ 600 sqft
+入伙年份：2005 後（即係 < 20 年）
+層數：唔要地下 / 1 樓 / 頂層
+方向：南或東南優先
+其他：要有會所、可以養狗
+
+deal-breaker（呢啲一見就 skip）：
+- 唐樓
+- 凶宅 / 戶主已 disclose 有 issue
+- 連租約（我要自住）
+- 招標（無底價嗰啲我懶得 chase）
+```
+
+存做 `property-spec.txt`，放入你嘅 Cowork 工作 folder。
+
+### 2. 核心 prompt — 教 Cowork 點 scan + filter
+
+呢個 prompt 比較長，因為要寫清楚**邊度 scan、點 filter、output 乜**。
+
+<PromptBlock label="完整 prompt — set 每日 watchlist">
+我要你做我嘅 HK 物業 watchlist agent。
+
+**Source files：**
+- 我嘅揾樓 criteria 喺 `property-spec.txt`，每次 run 之前先讀一次（我會不時更新）
+- 之前見過嘅盤記錄喺 `seen-listings.json`（你自己 maintain，用 listing URL 做 unique key）
+
+**每朝 9am 嘅 task：**
+
+1. 開 browser，scan 以下三個 portal 嘅「最新放盤」section：
+   - Centaline（centanet.com）— 揀啱我 spec 嘅區
+   - Midland（midland.com.hk）— 同上
+   - 28Hse（28hse.com）— 同上
+   行得慢啲，每個 page 之間 wait 5–10 秒，唔好打 server。
+
+2. 對每個 listing，抽：
+   - URL、portal 名、agent 同電話
+   - 屋苑 / 街道、樓層、座向、實用呎數、房數
+   - 叫價、呎價、入伙年份、校網
+   - 有冇會所、有冇花園 / 露台、寵物 friendly（如果有寫）
+   - Listing 第一次上 portal 嘅日期（如果見到）
+
+3. 對比 `property-spec.txt`：
+   - 完全 match → 標 「★ STRONG」
+   - 大部分 match 但有 1 個 soft criteria miss（例如方向、會所）→ 標「○ WORTH-LOOK」
+   - 撞中任何 deal-breaker → skip，唔好出
+   - 之前喺 `seen-listings.json` 已經見過 → skip
+
+4. 輸出今日嘅 new listings list（最多 15 個），format：
+
+   ```
+   ★ STRONG | 何文田 XX 苑 | 高層 3 房 720 sqft | $7.8M | $10,833/呎 | 2018 入伙
+   呎價低於同區 median 8%、會所有、寵物 ok
+   👉 https://...
+   📞 Agent: XXX 9xxx-xxxx (Centaline)
+   ```
+
+5. Push 落我嘅 Telegram bot（token 同 chat_id 喺 `.telegram-config.json`）。如果 Telegram fail，fallback 用 email 寄。
+
+6. 將今日見到嘅所有 listing URL append 落 `seen-listings.json`，下次唔再出。
+
+**唔好做：**
+- 唔好 contact agent
+- 唔好填任何 enquiry form
+- 唔好 login 任何 account
+- 一日 run 一次就夠，如果一日內見到太多盤（> 30 個 raw），收緊 filter 之後再出，唔好 spam
+
+set 好之後 dry run 一次畀我睇 output，確認 ok 我先 schedule 每朝 9am 自動跑。
+</PromptBlock>
+
+### 3. Set up output channel — Telegram bot 或 email digest
+
+**Telegram bot 路線（recommended）：**
+
+1. 揾 `@BotFather` 開個新 bot，攞 token
+2. 同你新 bot send 一句訊息，再去 `https://api.telegram.org/bot[YOUR_TOKEN]/getUpdates` 攞返你個 chat_id
+3. 將兩個值寫入 `.telegram-config.json`（**呢個 file 加入 .gitignore，唔好 commit**）
+4. 同 Cowork 講「test send 一句『watchlist ready』畀我 Telegram」，確認 wiring ok
+
+**Email digest 路線（簡單啲）：**
+
+直接叫 Cowork 用你 Gmail send digest 畀自己，subject 寫 `[揾樓] YYYY-MM-DD — N 個新盤`。手機開 Gmail filter，標星就 ok。
+
+兩個 channel 嘅取捨：Telegram alert 即時、唔會 miss；email 適合慢慢睇，但容易 bury 落其他 mail 入面。揾樓緊張時揀 Telegram。
+
+### 4. Weekly summary — 每個禮拜日加多份 week-in-review
+
+平日嘅 alert 係 push 你新盤；週末加一份 zoom-out report，幫你睇 trend。
+
+<PromptBlock label="週末 add-on — week-in-review">
+逢星期日下晝 6pm，額外做以下：
+
+過去 7 日喺 `seen-listings.json` 入面，filter 出**啱我 criteria 嘅區**（九龍塘、何文田、又一村）嘅所有 listing。整一份 weekly digest，包：
+
+1. **數量**：呢個禮拜你 area 新增幾多盤（每個 portal 拆開）
+2. **價位 distribution**：呎價 median、最平、最貴；呢個禮拜 vs 上個禮拜變幾多 %
+3. **下價盤（top 5）**：呎價最低嗰 5 個，連 listing URL
+4. **撻 deal 跡象**：有冇 listing 喺呢個禮拜內減過價？減幾多 %？
+5. **我應該特別留意嘅**：有冇盤上完 portal 5 日仲喺度（即係冇人搶 = 可能議價空間大）
+
+email 寄畀我，subject「揾樓週報 — Week of YYYY-MM-DD」。
+</PromptBlock>
+
+跑兩三個禮拜之後，你會見到自己個區嘅真實 baseline：median 呎價幾多、邊個屋苑經常有放盤、邊個屋苑死寂。**呢個 sense 一手 build 得返，比起聽 agent 講「呢個價好抵」可靠好多**。
+
+## 變化例子
+
+### 變化 1：租務版
+
+<PromptBlock label="變化 1 — 揾租盤">
+改 spec：
+- 用途：租
+- 預算：$30,000 – $38,000 / 月（HKD）
+- 加多幾項 criteria：傢俬齊全（fully furnished） vs 吉樓、寵物友善、可短租（< 1 年）、最快入伙日期
+- Lease term：standard 2 年 vs 較短 lease
+
+每日 alert 邏輯一樣，但 STRONG / WORTH-LOOK 嘅 ranking factor 加重「即時可入伙」同「pet friendly」。
+週末 review 加多一項：呢個禮拜你 area 嘅租金 median 點變。
+</PromptBlock>
+
+### 變化 2：投資版（rental yield + 區內成交）
+
+<PromptBlock label="變化 2 — 投資角度">
+我用呢個 watchlist 揾投資盤（買咗即放租）。每個 listing 額外計：
+
+1. **Estimated gross rental yield**：用同屋苑 / 同類面積過去 3 個月嘅租盤 median 月租，除以呢個盤嘅叫價 × 12 × 100%。標出來。
+2. **區內成交對比**：scrape 中原 / 美聯嘅成交記錄，列出呢個屋苑過去 6 個月嘅 3 宗最近成交（呎價、面積、日期）。如果叫價 vs 最近成交呎價差超過 +5%，標「叫得進取」；差超過 -5%，標「叫得克制」。
+3. Ranking 改做按 yield 由高到低排，唔係按 STRONG / WORTH。
+
+呢個版本一星期跑一次就夠（逢星期一），唔需要日日 alert。
+</PromptBlock>
+
+### 變化 3：賣樓監測版
+
+<PromptBlock label="變化 3 — 監測你自己屋苑嘅 sold trend">
+我自己住緊 XX 苑（同類 3 房約 700 sqft），想知幾時係好時機賣。
+
+每個禮拜一 9am：
+
+1. Scan 中原 / 美聯 / 28Hse 上面**呢個屋苑同類單位**（3 房、600–800 sqft）嘅：
+   - 現時放盤數（同上個禮拜比）
+   - 平均叫價呎價（trend：升 / 跌 / 平）
+   - 上個禮拜嘅成交（如果 portal 有顯示 sold price 同日期）
+
+2. Push 一份 weekly Telegram message：
+   - 「你屋苑而家 N 個放盤，平均呎價 $X，比上週 +Y%」
+   - 「上週成交：列出來」
+   - 「Signal：放盤多 + 呎價跌 → 買方市場；放盤少 + 呎價升 → 賣方市場」
+
+3. 唔需要每日 alert，呢個係 trend monitoring 唔係 deal hunting。
+</PromptBlock>
+
+> 揾樓嘅痛唔係資料少、係資料散。你日日 refresh 三個 portal，其實做緊一份 機器啱啱適合做嘅 lookup work。**Cowork 拎走呢層體力勞動，剩返畀你嘅就係真正要思考嗰啲嘢**——呢個價值唔值、呢個區啱唔啱、呢個首期供唔供得起。Agent 嘅 sales pitch 改變唔到你嘅 budget；但你 build 出嚟嘅 baseline sense，可以。

@@ -1,0 +1,249 @@
+---
+title: "Cowork 每月 1 號 audit 你投資組合：drift 過 threshold 自動提你 rebalance"
+slug: "cowork-portfolio-monthly-rebalance-check"
+issue: 97
+publishedAt: 2026-05-27
+audience: ["消費者", "打工仔"]
+category: "cowork"
+section: "財經"
+subcategory: "投資 / 退休"
+heroImage: "/hero/cowork-portfolio-monthly-rebalance-check.webp"
+difficulty: 3
+timeMinutes: 50
+toolsNeeded: ["Claude Desktop (Pro/Max)", "Brokerage account exports (CSV)", "Google Sheet 或 Notion 做 target allocation"]
+description: "你個投資組合散喺 IBKR、富途、HSBC、強積金，年頭定咗 60/30/10 但成年冇 review。Cowork 每月 1 號自動 pull 各 brokerage CSV、計 current allocation vs target、drift 過 5% 自動 email 你 rebalance suggestion。Set 一次跑成年。"
+keywords: ["投資組合 rebalance automation", "HK ETF MPF dashboard", "portfolio drift monitor Claude", "Claude Cowork 投資", "asset allocation 自動化", "強積金 整合 review"]
+related: ["investment-portfolio-review-claude", "mpf-review-claude", "monthly-budget-hk-claude"]
+featured: false
+---
+
+> Claude 唔係持牌投資顧問。呢篇講嘅 automation 係幫你**捕捉漂移信號**，唔係幫你做買賣決定。所有 rebalance 落單之前你自己 review 過先做。大額或者結構性嘅變動，搵持牌 IFA 傾。
+
+## 情境
+
+5 月 1 號 9:32am。你開 email，見到 Claude Cowork 寄畀你一封標題「第 5 期 portfolio audit — 2 個 category drift > 5%」嘅報告。打開：
+
+- 美股：目標 35%，實際 **42%** ⚠️ drift +7%
+- 港股：目標 20%，實際 **15%** ⚠️ drift -5%
+- 國際 ETF：目標 15%，實際 14%
+- 債券：目標 20%，實際 19%
+- 現金：目標 10%，實際 10%
+- 強積金（保守基金）：唔計入 rebalance（lock-in 到 65）
+
+附帶一段：「美股自上次 audit（4 月 1 號）升咗 8%，港股走平。建議由美股沽出 HK$95k，分注 4 週買入港股 ETF 2800。執行前請 review。」
+
+呢份 report 你**冇做過嘢**。Cowork set 咗一次，每個月 1 號自動跑。
+
+呢個係散戶嘅典型痛點：
+
+- IBKR 有美股、富途有港股、HSBC 有債券基金、強積金有 employer 部分——5 個 portfolio 散晒
+- 年頭定咗 target allocation 60/30/10，但成年冇 review
+- 美股升完一輪、港股捧蛋一輪之後，組合早就 drift 到唔似原本嘅 plan
+- 「應該要 rebalance」嘅念頭每兩個月響一次，但唔知幾時做、做幾多
+
+Chat 模式幫到你做一次 deep review（睇 [investment-portfolio-review-claude](/use-cases/investment-portfolio-review-claude)）。Cowork 嘅角色係**將呢個動作變做月度 ritual**：每月 1 號自動 pull data、自動計 drift、drift 過 threshold 先出 suggestion。冇 drift 就一句「全部喺 band 入面，今期跳過」。
+
+## 跟住做
+
+### 1. Set target allocation + brokerage CSV export pipeline
+
+未叫 Cowork 做嘢之前，你要有兩樣嘢：
+
+**(a) Target allocation 寫低喺一個地方**。Google Sheet 或者 Notion 都得。建議 schema：
+
+| 類別 | 目標 % | Drift threshold | Brokerage |
+|------|--------|-----------------|-----------|
+| 美股 | 35 | ±5 | IBKR |
+| 港股 | 20 | ±5 | 富途 |
+| 國際 ETF | 15 | ±5 | IBKR |
+| 債券 | 20 | ±5 | HSBC + IBKR |
+| 現金 | 10 | ±3 | HSBC 儲蓄 |
+| 強積金 | 排除 | — | HSBC MPF |
+
+**(b) Brokerage 每月 export CSV**。IBKR / 富途 / HSBC 都有「每月自動 email statement」嘅 option，揾返戶口設定 enable 佢。Cowork 就由你 Gmail 入面攞呢啲 CSV，唔需要你逐次手動 download。
+
+> ⚠️ Cowork agentic mode 會直接讀你 Gmail。**開一個 dedicated folder 畀佢操作**，唔好畀佢掂你嘅敏感檔案。Brokerage statement 本身唔係極敏感（你自己已經有），但 access pattern 要清晰。
+
+### 2. 核心 prompt — 計 allocation drift + flag categories
+
+呢個 prompt 比較長，要寫清楚成個月度流程。Cowork 會 plan 同 execute，第一次跑用 dry run 模式睇下啱唔啱。
+
+<PromptBlock label="完整 prompt — 每月 1 號自動跑 portfolio audit">
+我有一個投資組合散喺幾個 brokerage，想你每個月 1 號朝早 9 點自動做以下嘅嘢：
+
+**Input sources**：
+1. Gmail：揾返過去 30 日入面 subject 包含「statement」、「月結單」、「portfolio summary」嘅 email，由以下 sender：
+   - noreply@interactivebrokers.com（IBKR）
+   - statement@futuhk.com（富途）
+   - hsbc.statement@hsbc.com.hk（HSBC）
+2. 我嘅 Google Sheet「2026 Portfolio Target」嘅 "Allocation" sheet（target % + drift threshold）
+
+**步驟**：
+
+1. 下載各 brokerage 嘅 CSV / PDF attachment 入 dedicated folder `/portfolio-audit/2026-MM/`
+2. 由每份 statement 抽 holdings + 市值（HKD equivalent；如果係 USD 計價就用當日 HKMA 中間價換算）
+3. 將 holdings 分入以下 category：
+   - 美股：所有美國上市 ETF + 個股（VOO、QQQ、VXUS、個別 US stock）
+   - 港股：所有港股 ETF + 個股（2800、3033、騰訊、滙豐 etc.）
+   - 國際 ETF：非美非港嘅 broad market ETF（VWRL、IEMG、3035 etc.）
+   - 債券：所有 bond ETF + iBond + 公司債券（TLT、IEF、SHY、港府 iBond）
+   - 現金：HKD / USD 儲蓄
+   - 強積金：HSBC MPF holdings — **唔計入 rebalance pool**，淨係列出嚟做 context
+4. 計算每個 category 嘅 current % = 該 category 市值 / (總組合市值 - 強積金)
+5. 對比 target %，計 drift = current - target
+6. **Flag rule**：
+   - 任何 category drift 絕對值 > threshold → flag「需要 rebalance」
+   - 全部喺 band 入面 → 出一句「全部 in-band，今期跳過」嘅 email 就算
+7. 對於每個 flagged category，計 rebalance suggestion：
+   - 沽出嘅金額 = (current % - target %) × 組合總值
+   - 分 4 週執行嘅 schedule（每週 25%）
+   - 配對嗰個 under-weight 嘅 category 買入
+8. 將完整報告 email 返畀我，subject「第 [N] 期 portfolio audit — [X] 個 category drift > 5%」
+9. 將 raw data + 報告存入 Google Sheet「Portfolio Audit Log」做歷史 trail
+
+**重要 constraints**：
+- 唔好自動落任何單。Read-only + 報告 only
+- 唔好計入強積金做 rebalance（lock-in 到 65 歲）
+- 如果某個 statement 攞唔到 / 缺，喺報告頂寫「⚠️ 缺 [brokerage] 5 月 statement」，跳過嗰部分
+- 香港冇 capital gains tax，唔需要諗 tax-loss harvesting，但要 flag 美股股息預扣稅（W-8BEN 用戶 30% / UCITS ETF 15%）作為 context
+- 報告語氣：基於 data，列出 suggestion，唔係 instruction
+
+set 好之後 confirm 我，dry run 一次畀我睇 output，再 schedule 落每月 1 號 9am 自動跑。
+</PromptBlock>
+
+### 3. Rebalance suggestion logic — HK 無 CGT 但要諗 MPF lock-in
+
+香港稅務環境對 rebalance 嚟講係**好處**：
+
+- ✅ 冇 capital gains tax — 沽贏家唔使蝕稅，rebalance 自由
+- ✅ 冇股息稅（港股）— iBond / 港府債券 / 港股股息全免
+- ⚠️ 美股股息要扣 30% 預扣稅，揸 UCITS ETF（如 CSPX）可以減到 15%
+- 🔒 **強積金 lock-in 到 65 歲** — 唔好計入「可 rebalance pool」
+
+呢個 lock-in 嘅 implication：你 36 歲，強積金已經有 HK$300k。呢 HK$300k **唔可以用嚟對抗美股過度集中**，因為攞唔到出嚟。所以 audit 要將強積金抽離計算，淨係 audit「可動倉位」嘅 drift。
+
+強積金嘅 review 係另一個流程（睇 [mpf-review-claude](/use-cases/mpf-review-claude)），每年做一次就夠，唔係月度。Cowork 報告淨係將強積金 holdings 列出嚟做 context，唔混入 drift 計算。
+
+<PromptBlock label="Rebalance suggestion 框架（加落主 prompt 嘅 step 7）">
+對於每個 flagged category 嘅 rebalance suggestion：
+
+**結構**：
+1. Drift 方向 + 金額：「美股 over-weight HK$95k」
+2. 建議動作：「分 4 週沽出，每週 HK$23.75k」
+3. 配對買入：「轉入 under-weight 嘅 港股，買 2800 或 3033」
+4. 執行時間建議：避開 earnings week（如有個股）、避開連續 3 日大跌（情緒成本）
+5. 預期 drift after rebalance：「執行完應該返到 35% ± 1%」
+
+**唔好做嘅事**：
+- 唔好建議 market timing（「等回調先買」）
+- 唔好用「機會」、「呢輪」呢類字眼
+- 唔好建議集中一日落單
+- 唔好計入強積金做 rebalance source
+
+**要做嘅事**：
+- 列明假設（HKD 計、用月底 close price）
+- 提醒「執行前自己 review」
+- 提醒「香港冇 CGT，唔需要諗稅務排序」
+- 提醒「呢個係 suggestion，唔係 instruction」
+</PromptBlock>
+
+### 4. Monthly review ritual + 同 emotion 拆開
+
+Cowork 出咗報告之後，你嘅工作流：
+
+1. **5 分鐘 scan**：drift 邊個 category 過 threshold、suggestion 嘅金額
+2. **24 小時 cooling-off**：唔好即日落單。瞓一晚先。情緒（「美股仲會升」、「港股一定 dead cat」）會喺呢段時間散晒
+3. **第二日落單**：分 4 週執行，IBKR / 富途自己 schedule recurring order
+4. **存檔**：將執行 confirmation forward 返畀 Cowork 嘅 audit folder，下個月 1 號跑嗰陣會見到 drift 收窄
+
+呢個 ritual 嘅核心：**將「捕捉 drift」嘅工作自動化，將「決定買賣」嘅 friction 保留**。Cowork 唔係幫你落單，係幫你冇藉口話「冇時間 review」。Drift 過 5% 嘅信號每個月 1 號都會到 inbox，你自己決定行唔行動。
+
+## 變化
+
+### 變化 1：純 ETF passive investor（簡化版）
+
+如果你淨係買 3-5 隻 broad ETF（VWRL + BND + 港股 ETF 嗰類），唔需要 category-level breakdown，直接 ETF-level audit：
+
+<PromptBlock label="變化 1 — Passive ETF 投資者簡化版">
+我係純 passive investor，只揸：
+- VWRL（全球股）目標 60%
+- BND（全球債）目標 30%
+- 現金（HKD）目標 10%
+
+每月 1 號朝早 9 點：
+1. 由 IBKR statement 攞 VWRL + BND 嘅持倉同市值
+2. 由 HSBC 儲蓄攞現金結餘
+3. 計三者嘅 current %
+4. Drift > 5% → flag + 出 rebalance suggestion
+5. Drift 全部 < 5% → 一句 email「全部 in-band」就算
+
+唔需要分國家 / sector，唔需要計強積金（如有 lock-in），淨係呢三隻。
+
+語氣：簡單直接，唔好嚇親我。
+</PromptBlock>
+
+呢個版本嘅好處：低決策疲勞、低 friction。3 隻 ETF 嘅組合 set 一次 target，跟 80% 嘅 use case 都夠用。
+
+### 變化 2：加 MPF auto-include（整合退休 horizon）
+
+如果你 50+，已經諗緊退休 horizon，強積金嘅 lock-in 就由「障礙」變成「buffer」。可以將強積金納入 audit pool（但 rebalance 仍然要諗 lock-in）：
+
+<PromptBlock label="變化 2 — 50+ 整合退休 horizon">
+我 54 歲，11 年退休。強積金已經佔我可動資產 + MPF 總和嘅 35%。
+
+每月 1 號 audit 加入強積金：
+1. 攞強積金最新結餘（HSBC MPF statement）
+2. 將強積金 fund 分類入「股票」/「債券」/「混合」
+3. 計總組合 %（包括強積金）
+4. Target：股票 50% / 債券 40% / 現金 10%（去風險中段）
+5. Drift > 5% 嘅 flag
+
+**強積金 rebalance 規則**：
+- 強積金內部可以轉換 fund（HSBC MPF online 做到），算 rebalance source
+- 但 lock-in 到 65，唔可以攞出嚟 fund 其他 category
+- 如果強積金股票過重 → suggest 強積金內部由「股票基金」轉去「平穩基金」
+- 如果可動倉位股票過重 → suggest 由 IBKR 沽股票買債券
+
+語氣：強積金內部 + 可動倉位分開 suggest，唔好混淆兩個 pool。
+</PromptBlock>
+
+50+ 嘅人，強積金 lock-in 嘅「靜止時間」剩返 < 15 年，將佢納入 audit 開始有意義。30 多歲嘅人 lock-in 仲有 30 年，audit 入面當佢唔存在會 cleaner。
+
+### 變化 3：個股 / dividend stock 揀手投資者版（加 earnings calendar alert）
+
+如果你揸個股 + dividend stock（騰訊、滙豐、領展、AT&T、JNJ 嗰類），個股集中度同 earnings event 都要 audit：
+
+<PromptBlock label="變化 3 — 個股 + dividend stock 揀手版">
+我除咗 ETF 之外，仲揸 8-10 隻個股（港股 + 美股）。
+
+每月 1 號加 audit：
+1. 標準 category-level drift（如主 prompt）
+2. **單一個股集中度**：任何個股 > 組合 5% → flag
+3. **單一 sector 集中度**：例如 8 隻港股入面 5 隻係銀行 → flag
+4. **Earnings calendar**：未來 30 日有 earnings 嘅持倉，列出日期 + 上次 EPS surprise
+5. **股息日曆**：未來 30 日 ex-dividend 嘅持倉，列出股息率
+6. **W-8BEN 提醒**：如果美股個股股息累積 > USD 500/年，提我 check W-8BEN 仲 valid 唔 valid
+
+Rebalance suggestion 加：
+- 個股 > 5% → suggest trim 一半，轉去同 sector ETF（如賣騰訊買 3033）
+- Earnings week 嘅持倉 → suggest 避開嗰週做 rebalance（情緒成本）
+
+唔好做：
+- 唔好建議基於 earnings forecast 嘅買賣
+- 唔好預測股價
+- 唔好用「分析師目標價」呢類字眼
+
+語氣：個股 holder 有自己嘅 conviction，尊重佢，但提醒集中風險。
+</PromptBlock>
+
+個股投資者嘅 audit 比 ETF 投資者複雜 2-3 倍，但 Cowork 自動化嘅 ROI 反而更高——你本來要每個月手動 check 8 隻股嘅 earnings + 集中度，依家一封 email 搞掂。
+
+## 一個 mindset
+
+> 投資組合 rebalance 嘅最大障礙從來唔係「唔知點做」，而係**「冇 trigger 提我做」**。Set-and-forget 嘅問題唔係「set」錯，而係「forget」太徹底——徹底到 5 年後先發現美股已經由 30% 漂到 51%。
+>
+> Cowork 嘅角色：將「每月 review portfolio」由「我要記得做」嘅 mental load，變成「inbox 有封 email 等我」嘅 passive trigger。Drift 過 threshold 先出聲，平靜嘅月份冇 noise。
+>
+> 你嘅角色：每個月 1 號用 5 分鐘 scan 報告，drift 過 5% 就用 30 分鐘決定 + 落單。一年 12 次，總共 6 個鐘。換返嚟嘅係**投資組合永遠喺 target ± 5% 嘅 band 入面**，唔再有「5 年冇 review」嘅災難。
+>
+> ⚠️ 最後 reminder：Claude 唔係持牌顧問。呢個 automation 係 signal generator，唔係 decision maker。大額 rebalance、結構性轉變、退休前 5 年嘅 de-risking——搵 IFA 傾。Cowork 幫你準備好 data + 分析，去 IFA 嗰度傾偈會快好多。

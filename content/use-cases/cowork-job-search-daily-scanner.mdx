@@ -1,0 +1,226 @@
+---
+title: "Cowork 每朝 scan LinkedIn / JobsDB 新工：filter 啱你 background + salary，每朝 1 page shortlist"
+slug: "cowork-job-search-daily-scanner"
+issue: 98
+publishedAt: 2026-05-27
+audience: ["打工仔"]
+category: "cowork"
+section: "職場"
+subcategory: "搵工 / 轉工"
+heroImage: "/hero/cowork-job-search-daily-scanner.webp"
+difficulty: 2
+timeMinutes: 40
+toolsNeeded: ["Claude Desktop (Pro/Max)", "LinkedIn / JobsDB / Indeed account", "你份 resume 同 criteria spec"]
+description: "HK 打工仔 passive job search 自動化：用 Claude Cowork 每朝 7am scan LinkedIn / JobsDB / Indeed 新 post，跟住你份 resume 同 salary band，出一頁 3-5 個 shortlist，每個都有「點解啱你」+「risk 位」。每日 5 分鐘睇晒，唔使再 doomscroll 半個鐘。"
+keywords: ["HK 搵工 自動", "LinkedIn JobsDB Claude monitor", "passive job search automation", "打工仔 轉工 scanner", "cowork 搵工", "claude 求職"]
+related: ["cover-letter-hong-kong-template", "english-email-polish-hk", "employment-contract-review-claude"]
+featured: false
+---
+
+## 情境
+
+你而家份工未算差，但個心仲喺度郁。每朝返工前喺 MTR 度刷 LinkedIn 半個鐘，再 lunch 刷 JobsDB 十分鐘——一個禮拜 search 過嘅 listing 過百個，真正會 apply 嘅得一兩個。
+
+最攰嘅唔係搵唔到嘢——係**每個 listing 都要由零讀起**：
+
+- 個 title 啱，但 JD 寫到要 10 年經驗，你做 5 年；
+- 個 function 啱，但公司喺九龍灣，你住屯門；
+- 個 salary 寫「negotiable」，揾 Glassdoor 對返先知個 band 偏低；
+- 讀完 10 個，3 個啱條件嘅；最後一個都未 apply。
+
+呢個叫 **passive job search burnout**——你冇 urgency，但個 search 嘅 cost 大過 reward。Chat 唔幫到你（你要逐個 listing paste 入去），但 **Cowork 啱**：set 一次條件，每朝 7am 佢自動行一次，出一頁 shortlist 落你 email。你飲咖啡嗰 5 分鐘睇晒。
+
+> Caveat：Cowork 係 Pro/Max plan 嘅 research preview。佢會 access 你嘅 browser session（即係要 login 咗 LinkedIn / JobsDB）。**唔好用公司部機**——用私人電腦，再開個 dedicated profile 畀佢用。
+
+## 跟住做
+
+### 1. 寫一個 `job-criteria.txt` 畀 Claude 對住做
+
+呢個 file 係成個 workflow 嘅骨架。Cowork 唔識估你想要乜——你寫得越具體，個 shortlist 越準。建議放喺 dedicated folder（例如 `~/job-search/`）。
+
+<PromptBlock label="job-criteria.txt — 抄落本地檔案改成你嘅">
+[Title]
+- Product Manager / Senior PM
+- 唔要：Associate PM、Project Manager（PMO 嗰種）
+
+[Function]
+- Product strategy、roadmap、user research
+- 唔要：純 delivery / scrum master role
+
+[Industry]
+- 想：fintech、SaaS、e-commerce
+- 唔要：博彩、insurance（個人偏好）
+
+[Seniority]
+- 5-8 年經驗 sweet spot
+- Manager level OK，Director 太高
+
+[Location]
+- HK only（office 喺港島 / 九龍東優先）
+- Hybrid 3 日 in-office 都收
+- 100% remote 都得（如果係海外 team 但有 HK setup）
+
+[Salary]
+- Base monthly HKD 65k+ (full package 80k+)
+- 唔出 band 嘅 listing：可以 shortlist 但 flag「未報 salary」
+
+[Red flags — 直接 skip]
+- JD 用「we work hard, play hard」、「wear many hats」
+- 寫「stock options 可能有」嘅 startup（即係冇 ESOP doc）
+- Listing post 咗 60 日以上仲 active（多數係 fake req）
+- 公司 Glassdoor < 3.0
+
+[Yellow flags — shortlist 但 flag 出嚟]
+- Salary band 公司平均偏低（要 cross-check Levels.fyi / Glassdoor）
+- HR 揾埋 agency 出 post（多數人工 squeeze）
+- JD 入面 8+ responsibilities（scope creep）
+</PromptBlock>
+
+順便 upload 你份 PDF resume 同埋一份 `background.txt`（一兩段講你而家份工、想轉嘅 reason、唔可以 compromise 嘅 deal-breaker）。Claude 對住呢三份 file 做 cross-check。
+
+### 2. 核心 prompt — 每朝 7am 跑
+
+<PromptBlock label="完整 prompt — set 一次，每朝自動跑">
+我而家 passive 揾工。請幫我每朝 7am HK time 做以下嘅嘢：
+
+1. 連去 LinkedIn Jobs（我已 login），用以下 search：
+   - Location: Hong Kong
+   - Posted: past 24 hours
+   - Keywords: Product Manager, Senior PM
+   - 由 "most recent" 排序
+
+2. 同樣噉做 JobsDB：
+   - URL: jobsdb.com/hk
+   - Function: Information Technology > Product Management
+   - Date posted: today
+
+3. 同樣噉做 Indeed HK：
+   - Posted: last 24 hours
+   - Salary: HK$50,000+
+
+4. 對每一個 listing，做以下 check（對住 job-criteria.txt 同我份 resume）：
+   - Title / function / industry match？
+   - Seniority 對唔對？
+   - Location 啱唔啱？
+   - Salary（如果有報）入 range？
+   - Red flags 中咗冇？
+   - Yellow flags 有幾多？
+
+5. 排優先次序：
+   - Tier A：所有 criteria 都 match，冇 red flag
+   - Tier B：大致 match，但有 1-2 個 yellow flag
+   - Skip 晒 red flag 嗰啲（記低 count，但唔好 send）
+
+6. 每朝 send 一個 email digest 畀我（subject「[搵工 scan] [日期] — N 個 shortlist」），格式如下：
+
+---
+**今日 scan：LinkedIn N 個、JobsDB N 個、Indeed N 個。Skip 咗 N 個（red flag），shortlist X 個。**
+
+**Tier A（X 個）**
+
+1. **[Job Title] — [公司名]**
+   Link：[URL]
+   Salary：[范圍 or「未報」]
+   點解啱你：[一句，要具體，引用 JD 同 resume 嘅交叉位]
+   Risk 位：[一句，e.g.「公司 Glassdoor 2.9」、「上一個 PM 做 8 個月走」]
+
+（…重複 Tier A 嘅每個）
+
+**Tier B（X 個）**
+（同上格式）
+---
+
+7. 限制：
+   - 最多 5 個 listing 一日。多過就揀最強嗰 5 個，其餘下個 batch
+   - 如果一日 0 個 match，照 send email 寫「今日冇 match，scan 咗 N 個」——我想知個 baseline
+   - 唔好幫我 apply、唔好 save、唔好 message recruiter——淨係 scan + report
+
+Set 好之後，dry run 一次（show 我今朝會 send 嘅 email，但唔好真係 send）。我 confirm 之後先 enable 個 7am schedule。
+</PromptBlock>
+
+### 3. Email digest format：3-5 個 entry，唔好 spam
+
+最易行錯嘅一步：set 完之後個 inbox 每朝出 30 個 listing。 噉同 LinkedIn email alert 冇分別——你會 stop 睇。
+
+**3-5 個係 cognitive sweet spot**。飲咖啡 5 分鐘睇晒每個 entry 嘅 「點解啱你」+「risk 位」，揀一個深究、忽略其餘——呢個 decision 一日做一次 OK。如果 inbox 出 15 個，你會 swipe 過晒，跟住 5 日後 unsubscribe。
+
+如果某日真係多 strong match，叫 Claude 出個 **「補 batch」** notification（subject「[搵工 scan] 仲有 N 個未 send，要唔要睇」），畀你主動撳入去先睇——而唔係直接塞晒落 main digest。
+
+### 4. Apply playbook：揀到一個之後
+
+每朝睇個 digest，如果某個 Tier A entry 真係想 apply，你嘅 next step：
+
+1. 撳個 link，自己讀返成個 JD（**唔好淨係信 Cowork 個 summary**——Claude 會錯，特別係 nuance 位）；
+2. 揾埋公司嘅 Glassdoor / LinkedIn People 望吓 team；
+3. 如果決定 apply：開個新 Chat session（**唔係 Cowork**），跟[Cover Letter 範本（香港版）](/use-cases/cover-letter-hong-kong-template)嗰個 prompt 寫 cover letter；
+4. 寄之前同你 trusted friend / mentor 過一過；瞓返一晚先寄。
+
+Cowork 負責 **「搵」**，Chat 負責 **「寫」**。兩個分開，唔好用 Cowork session 寫 cover letter——個 context 太重，輸出會走樣。
+
+## 變化
+
+### 變化 1：Career switcher 版（想轉行）
+
+<PromptBlock label="變化 1 — 轉行 scanner">
+我而家做 Marketing Manager，想轉做 Product Manager。
+
+請將上面個 prompt 改成 transferable skills 角度：
+
+1. Search keywords 改：除咗「Product Manager」之外，加埋「Growth PM」、「Product Marketing Manager」、「PMM」——呢啲係轉行 stepping stone
+2. Seniority 放寬：APM / Associate PM 都收（轉行接受降一級）
+3. Criteria 改：唔再要求「past PM experience」——改做「past experience 入面有冇 product thinking 證據」（e.g. 帶過 product launch、做過 customer research）
+4. 每個 entry 多一個 field：**「轉行可行性」**——一句講你份 resume 邊個經驗最 transferable 落呢個 listing
+5. Yellow flag 加：JD 入面如果寫「must have CS degree / engineering background」——flag 出嚟（呢啲多數係硬要求）
+
+其餘同原 prompt 一樣。
+</PromptBlock>
+
+### 變化 2：Remote-first / international 版
+
+<PromptBlock label="變化 2 — Remote-first scanner">
+我想搵 100% remote 嘅工，唔限 HK 公司。
+
+請改 source：
+
+1. LinkedIn search 改：Location「Worldwide」+ filter「Remote」
+2. JobsDB skip（local-only）
+3. 加 We Work Remotely（weworkremotely.com）
+4. 加 Remote OK（remoteok.com）
+
+Criteria 改：
+
+- Time zone：必須 work async OR 有 overlap 至少 4 hours with HKT
+- Currency：salary 統一 convert HKD（用今日 rate）
+- Tax 注意：如果公司喺 US / EU，flag「需要 contractor setup」
+- Yellow flag：寫「remote-friendly」但要求「occasional travel to HQ」嘅，flag 出嚟
+
+每個 entry 多一個 field：**「Time zone fit」**（一句講你 daily schedule 同個 team overlap 幾多）。
+</PromptBlock>
+
+### 變化 3：Recruiter outreach screening（LinkedIn DM filter）
+
+唔少打工仔嘅 burnout 來源唔係 listing，而係 LinkedIn DM 入面成百個 generic recruiter message。 呢個變化用 Cowork 幫你 filter。
+
+<PromptBlock label="變化 3 — Recruiter DM screening">
+請改個 task：唔再 scan listing，改 scan 我 LinkedIn DM 入面 unread 嘅 recruiter message。
+
+每朝 7am：
+
+1. 列出過去 24 小時新收嘅 recruiter outreach（連去我 LinkedIn inbox）
+2. 對每個 message，extract：
+   - Recruiter 公司同人名
+   - 佢推介嘅 role（title、公司、location、salary 如果有寫）
+   - 個 message 係 personalized 定係 mass-blast template
+3. 對住我 job-criteria.txt 同 resume，分 tier：
+   - **Tier A**：role 啱 + message 有針對性（提到我 profile 某個位）
+   - **Tier B**：role 啱但 message 係 template
+   - **Skip**：role 唔啱、insurance agent recruiter、MLM scheme
+
+4. Email digest format（同主 prompt 類似）：每個 Tier A entry 多一個 **「建議回覆 angle」**——一句 reply draft，唔需要寫成正文，只係 hint 我點起手
+
+5. 限制：唔好幫我自動 reply、唔好 archive、唔好 mark read——我自己決定
+
+我目標：3 分鐘睇晒，回 1-2 個值得回嘅，其餘 batch ignore。
+</PromptBlock>
+
+> 搵工最大嘅 cost 唔係搵唔到——係**永遠喺度 search**。Set 個 scanner 落 Cowork，你買返每朝 25 分鐘嘅腦力。 揾到啱嗰個之前，呢 25 分鐘畀返自己 — 飲咖啡、睇報紙、行去搭車。 唔係 algorithm chase 你，係你 chase 你嘅 timeline。

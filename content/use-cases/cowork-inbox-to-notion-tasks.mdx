@@ -1,0 +1,219 @@
+---
+title: "Cowork 每朝抽 inbox action item，自動 push 入 Notion task list（HK 打工仔版）"
+slug: "cowork-inbox-to-notion-tasks"
+issue: 93
+publishedAt: 2026-05-27
+audience: ["打工仔", "創作者"]
+category: "cowork"
+section: "商家"
+subcategory: "Task management"
+difficulty: 3
+timeMinutes: 50
+toolsNeeded: ["Claude Desktop (Pro/Max)", "Gmail / Outlook + email access", "Notion account + integration token"]
+description: "HK 打工仔每日 60 封 email，action item 散晒落 thread 入面。教你 set 一次 Cowork：每朝 8am 自動掃過去 24 小時 inbox，抽真正要做嘅嘢，連 due date + 來源 email link + priority 一齊 push 入 Notion master task DB。9am 開電腦就見到今日 queue。"
+keywords: ["inbox triage automation", "Notion task automation Claude", "email action item 抽取", "HK 打工仔 task management", "claude cowork notion"]
+related: ["cowork-weekly-inbox-triage", "claude-projects-setup-claude", "claude-long-conversation-management-claude"]
+featured: false
+---
+
+## 情境
+
+朝早 9:15，你坐低，打開 inbox：
+
+> **62 unread**
+
+你開始碌。第 14 封係老闆喺長 thread 第 7 個回覆嗰度 @ 你：「呢個你跟一跟」。第 22 封係 vendor 報價，要你星期五前覆。第 38 封係客最後一行寫「順便要埋上季 sales breakdown」。
+
+你睇完，知道有嘢做。中午食飯，你已經唔記得邊三件係今日真係要動嘅。下晝 4pm 老闆 ping 你：「嗰單你跟咗未？」你心諗：「邊單呀？」
+
+問題唔係 inbox 多，係 **action item 散晒喺 thread 入面、冇統一一個 list**。你個腦做緊兩件事：（1）讀 email、（2）即時記住邊啲要做。第二件事，個腦做得好差。
+
+呢篇教你設定 Cowork 每朝 8am 自動跑：掃過去 24 小時 inbox → 抽真正要做嘅 action item → 連 due date / 來源 email / priority 一齊 push 入 Notion master task DB。9am 你開電腦，Notion 已經有今日 queue。
+
+> 注意：呢個工作流會接你 inbox + 寫入 Notion。要 Pro/Max plan + 一個 dedicated Notion DB（**唔好直接接你私人嗰個 master list**）。第一個禮拜一定有 false positive，要逐日 refine。
+
+## 跟住做
+
+### 1. 設定 Notion integration + Cowork email access
+
+開始之前要備齊兩樣嘢：
+
+**Notion 邊：**
+1. 入 `notion.so/my-integrations` → 開個新 integration，叫「Cowork Inbox」
+2. 攞個 integration token（`secret_xxx`）— 記低，等陣畀 Cowork
+3. 喺 Notion 開個新 database，叫「Inbox Tasks」，schema：
+   - **Title**（text）— task 描述
+   - **Due**（date）— Cowork 估計
+   - **Source**（URL）— 原 email link（Gmail thread URL）
+   - **Priority**（select：高 / 中 / 低）
+   - **Status**（select：未做 / 做緊 / 搞掂）
+   - **Captured**（date）— Cowork 跑嗰日
+4. 撳個 DB 右上角「Share」 → invite 你頭先嗰個 integration → 畀「Can edit」
+
+**Cowork 邊：**
+- Claude Desktop → Cowork mode → 連你 Gmail / Outlook（OAuth）
+- 連 Notion → 貼個 integration token
+
+呢一步係苦工，但只做一次。
+
+### 2. 核心 prompt — 點 distinguish actionable vs FYI
+
+呢個 prompt 嘅關鍵唔係「抽所有 task」，係**抽得準**。第一個禮拜寧願少抽，唔好亂抽。
+
+<PromptBlock label="完整 prompt — 每朝 8am inbox → Notion">
+我想設定每朝 8am 自動跑嘅 inbox → Notion task 工作流。
+
+**觸發：** 每日 08:00（HKT）
+
+**第一步：收集**
+- 由我 Gmail / Outlook 攞過去 24 小時（昨日 8am 到今朝 8am）所有 email
+- 排除：
+  - 推銷 / newsletter（有 List-Unsubscribe 標頭嘅）
+  - 我已經覆咗嘅
+  - 純系統通知（GitHub PR 通知、Calendar invite、Slack digest 等）
+
+**第二步：抽 action item（呢度最緊要）**
+
+**只係**將以下 email 計做有 action item：
+
+A. **有人明確要我做嘢**
+   - 「可唔可以幫我 review X」
+   - 「請喺 X 號前覆 / 提供 / 交 X」
+   - 「你嗰邊跟到 X 點？」
+   - 我喺長 thread 入面被 @ + 後面有 question / request
+
+B. **我答應過要做、而對方等緊**
+   - 我之前回過「好我跟」、「let me check」、「我聽日畀你」
+   - 對方今日再 ping 我（即係到期）
+
+**唔係** action item（呢啲唔好放入 Notion）：
+- FYI / cc 我但冇問我嘢嘅
+- Newsletter / 行業 update
+- 已經有明確 owner 唔係我嘅 thread
+- 「saw your message, thanks」呢類純回應
+- 純 status update（除非佢結尾問我意見）
+
+如果一封 email 有多個 action（罕見），拆做多個 task。
+
+**第三步：每個 action item 整理**
+
+每個 task 出以下 field：
+
+- **Title**：用動詞起句，30 字以內。例：「覆 ABC vendor 報價 — 確認 PO 數量」、「畀上季 sales breakdown Linda」
+- **Due**：根據 email 內文估
+  - 對方明確寫死線 → 用嗰日
+  - 「ASAP」 / 「today」 → 今日
+  - 「呢個禮拜」 / 「by end of week」 → 今個禮拜五
+  - 老闆 / 直屬上司、冇講時間 → 兩日內
+  - 同事 / 外部、冇講時間 → 三日內
+  - 唔肯定 → 今日 + 5 日（畀我自己再 triage）
+- **Source**：原 email 嘅 web link（Gmail 嗰個 thread URL）
+- **Priority**：
+  - **高**：老闆 / 直屬上司 / 客戶寄 + 24 小時內到期
+  - **中**：同事或外部 + 三日內到期
+  - **低**：超過五日到期 / 唔急嘅內部協作
+- **Captured**：今日日期
+
+**第四步：寫入 Notion**
+
+用 Notion API push 入「Inbox Tasks」DB。Status default「未做」。
+
+去重規律：如果 Source URL 已經喺 DB 入面（同一條 thread 之前抽過），唔好建第二個 task —— 除非新 email 真係新 action（例如對方追第二件事），噉就建新 task 同舊嗰個 link 落 source 嘅 row description。
+
+**第五步：寄日摘要畀我**
+
+寄 email 畀我，主旨：「[YYYY-MM-DD] 今日 inbox queue — X 個高 / Y 個中 / Z 個低」
+
+內容：
+- 高優先 list（title + due + Notion link）
+- 中優先簡 list
+- 低優先數量（唔展開）
+- 「我考慮過但冇放入嘅」：列 3-5 封我可能有意見、但 prompt 規律下判斷成 FYI 嘅，等我覆核
+
+**重要限制：**
+- 唔好覆任何 email、唔好封存、唔好標 read
+- 唔好 update 既有 Notion task（只 append 新嘅）
+- 任何唔肯定嘅 thread，寧願標「需人手檢視」放低優先，唔好亂猜
+
+設定好之後 confirm 我，再排程落每朝 8am。第一次跑用 dry run（show output、唔好真係寫入 Notion）。
+</PromptBlock>
+
+### 3. Notion schema + push action
+
+呢個 prompt 寫得長，但你細心睇，個重點係**第二步嗰張「咩唔算 action item」嘅清單**。第一個禮拜你會發現，Cowork 抽得太鬆——你會見到一堆「同事問我意見、但其實已經 cc 咗 owner」嘅嘢入咗 Notion。逐日 refine：見到一個 false positive，更新返 prompt 嘅排除條件。
+
+第三步嗰個「Due date 估算規律」係硬性 rule，避免 Cowork 用「sense」估，要佢用規律估。咁第一個禮拜你 review 時，可以好清楚知道：「呢個估錯日期，係因為規律寫得唔好」，唔係 Cowork「judgment 飄忽」。
+
+第五步嗰個「我考慮過但冇放入嘅」係**最重要嗰段**——你睇返嗰 3-5 封，就知 Cowork 個判斷邊度同你唔同。呢個 list 就係 refine prompt 嘅原材料。
+
+### 4. Daily review ritual — 點同呢個 task list 共處
+
+朝早 9am 開電腦：
+
+1. 開 Notion「Inbox Tasks」DB，filter「Captured = 今日」+「Status = 未做」
+2. 由上至下 scan 一次（通常 5-10 個 task）
+3. 唔同意嘅，撳入去原 email link 重新讀過。判斷錯，刪咗佢
+4. 同意嘅，draft 你嘅執行次序（高優先 + 短嘅做先）
+5. 每件做完撳「搞掂」
+
+**第一個禮拜會痛苦**：你會發現 Cowork 嘅 false positive 率大約 30-40%。日日記低你刪咗咩、點解，星期五 review 一次，update prompt 嘅排除清單。
+
+**第二個禮拜**：false positive 跌到 15-20%。你開始信佢嘅高優先判斷。
+
+**第三個禮拜**：false positive 落到 5-10%。你朝早唔再「掃 inbox」，而係「review queue」。呢個係質變。
+
+呢個工作流嘅真正回報唔係慳時間——係**將「我有冇睇漏嘢」嘅焦慮，轉移畀一個會逐封 email 認真讀過嘅系統**。你個腦終於可以唔再做 background checker。
+
+## 變化
+
+### 變化 1：用 Things 3 / Todoist 取代 Notion（URL scheme）
+
+<PromptBlock label="變化 1 — Things 3 / Todoist 取代 Notion">
+我用緊 Things 3（or Todoist）做 master task list。
+
+修改：
+- 第三步出嚟嘅每個 task，唔好寫入 Notion
+- 改為生成 Things 3 URL scheme link（things:///add?title=...&when=...&notes=...）
+- 或者 Todoist Quick Add API call
+- 寄畀我嘅日摘要 email 入面，每個 task 後面跟住個 deep link，我撳一下就入晒去
+- Source（原 email link）放入 notes field
+
+呢個方案唔需要 Notion integration，但要求你個 task app 接收得到 deep link。
+</PromptBlock>
+
+### 變化 2：Slack messages 接落同一個 pipeline
+
+<PromptBlock label="變化 2 — Slack DM / channel mention 接同一個 pipeline">
+我啲 action item 唔淨止喺 email，仲多嘅係 Slack DM 同 channel @ 我。
+
+修改：
+- 第一步收集擴大到 Slack：過去 24 小時嘅 DM + 我被 @ 嘅 channel message
+- 第二步用同一套規律抽 action item
+- Source field 用 Slack message permalink（唔係 Gmail thread URL）
+- Title 前面加「[Slack]」做識別，方便我 Notion view filter
+
+注意：Slack 嘅雜訊比 email 高啲（standup、emoji 反應、casual chat），prompt 嘅排除清單要加：
+- 純 emoji reaction
+- standup / status update channel（除非有人問返我嘢）
+- channel announcement
+</PromptBlock>
+
+### 變化 3：WhatsApp Business inbox 都接（HK 老闆版）
+
+<PromptBlock label="變化 3 — HK 老闆版：加埋 WhatsApp Business">
+我係小店 / 中小企老闆。我嘅 action item 一半喺 WhatsApp Business（客 / 供應商 / 同事）。
+
+修改：
+- 連 WhatsApp Business API（透過 Meta Business Suite）
+- 第一步收集加：過去 24 小時嘅 WhatsApp 對話
+- 第二步抽 action item：
+  - 客落單 / 改單 / 追貨 → 高優先
+  - 供應商報價 / 確認 PO → 中優先
+  - 員工問放假 / 問人手 → 中優先
+- Source field 用 WhatsApp Business 入面嗰條 chat 嘅 deep link
+- Title 前面加「[WA]」做識別
+
+私隱注意：WhatsApp 內容比 email 私人，呢個工作流嘅 Notion DB 一定要設定為「只你睇」。團隊唔好分享。
+</PromptBlock>
+
+> Email、Slack、WhatsApp 唔係「inbox」——係「**有人對你有期望嘅暫存區**」。腦記唔記得呢啲期望，係件碰運氣嘅事。將佢哋抽出嚟、變成一個你會打開嘅 list，先至係腦力可以投資高判斷力工作嘅前提。Cowork 唔係幫你慳時間，係幫你**搬走嗰個「我會唔會睇漏嘢」嘅 background process**。

@@ -1,0 +1,197 @@
+---
+title: "Cowork 每週日 aggregate newsletter feedback：reply / unsubscribe / new sub 一頁睇晒 trend"
+slug: "cowork-newsletter-feedback-aggregation"
+issue: 94
+publishedAt: 2026-05-27
+audience: ["創作者"]
+category: "cowork"
+section: "文化"
+subcategory: "Newsletter operations"
+difficulty: 2
+timeMinutes: 40
+toolsNeeded: ["Claude Desktop (Pro/Max)", "Newsletter platform (Beehiiv / Substack / ConvertKit / Buttondown)", "Email forwarding access"]
+description: "Indie newsletter 寫到第三個月，reply、unsubscribe、new sub 散落幾個 dashboard 同 inbox，手做整理係 nightmare。set 一次 Cowork，每週日 6pm 自動 pull 三條 stream，cluster 出 weekly review markdown，跟住可以回讀者 + 調下週題目。"
+keywords: ["newsletter feedback automation", "Substack Beehiiv reader analytics", "indie creator weekly review", "cowork newsletter", "reader feedback cluster"]
+related: ["newsletter-editorial-calendar-claude", "claude-content-repurpose", "cowork-weekly-inbox-triage"]
+featured: false
+---
+
+## 情境
+
+你 solo 寫 newsletter 已經第三個月。每星期三朝早 send 出去之後，feedback 散落三個地方：
+
+- **Reply**：30 封左右，由「呢期勁啱睇」到「呢個 framework 我用咗一個禮拜，分享我嘅 case」都有
+- **Unsubscribe**：5 個。Platform 有時會問 reason、有時冇
+- **New subscriber**：12 個。Source 散落 referral link、Twitter bio、朋友轉發
+
+你心知肚明：呢三條 stream 加埋先係讀者真正講緊乜。但要一條條 reply 揭、一個個 unsub reason 抄、再 cross-reference 邊度嚟嘅 new sub——一個鐘冇得走。Send 完 newsletter 已經攰，星期三再加一個鐘做 review，做兩個禮拜就會放棄。
+
+呢一個鐘係**重覆嘢**：同樣三個 source、同樣 cluster 邏輯、淨係內容唔同。**Cowork 嘅賣點就係呢度：set 一次，每週日 6pm 自動跑、整好一頁 weekly review markdown、放入你個 reading folder**。
+
+> Caveat：Cowork 仲係 research preview，要 Pro/Max plan。佢有 agentic 能力會直接 read 你嘅 email 同 platform exports，**開一個 dedicated 工作 folder 畀佢**，唔好畀佢掂你其他敏感檔案。
+
+## 跟住做
+
+### 1. 連 newsletter platform + Cowork setup
+
+主流 platform（Beehiiv / Substack / ConvertKit / Buttondown）都有兩條路：
+
+- **CSV export**：每週日手動 download 一次 subscribers + unsubscribes report，放入 dedicated folder（例如 `~/Newsletter/Weekly/`）
+- **Email forwarding**：將「new subscriber」、「unsubscribe」、「reply」嘅 notification email forward 去一個專用 Gmail label（例如 `newsletter-feedback`）
+
+Forward 法慳工夫但要等一個禮拜砌齊。CSV 法即刻有 backfill，但要記得 download。我建議**頭兩個禮拜用 CSV，第三個禮拜起改 forwarding**。
+
+Cowork 嗰邊：開 Claude Desktop → 揀「Cowork」mode → 指定 working folder 就係上面個 `~/Newsletter/Weekly/`。佢淨係睇得到呢個 folder 同你開咗 access 嘅 Gmail label。
+
+### 2. 核心 prompt — cluster replies + categorize unsub reason
+
+一次過畀佢完整 brief。寫清楚三條 stream 各自做乜。
+
+<PromptBlock label="完整 prompt — Weekly feedback aggregation">
+我 solo 寫一個 HK newsletter（每星期三 send），主題：[填]，訂閱人數：[填]。
+
+我想你每個星期日下午 6 點自動做以下嘅嘢：
+
+**Stream 1：Reply 內容**
+睇 Gmail label「newsletter-feedback」入面過去 7 日所有「Re:」開頭嘅 email。每封：
+
+- 抽出 reader email、引用嘅段落（如果有）、佢自己寫嘅內容
+- Sentiment：正面 / 中性 / 帶批評 / 純分享自己 case
+- Topic cluster：將 30 封 reply 歸入 3-5 個主題（例如「呢期 framework 用得着」、「想睇延伸內容」、「分享自己經歷」、「質疑某個論點」）
+- 每個 cluster 出 2-3 條 representative quote（保留原文，唔好改寫）
+
+**Stream 2：Unsubscribe**
+睇 platform forward 過嚟嘅 unsubscribe notification + folder 入面嗰個 CSV：
+
+- 如果有 reason field：歸類做（內容唔啱、太頻密、太疏、寫得太長、其他）
+- 如果冇 reason：標「未填」
+- Cross-reference：呢啲 unsub 係咩時間訂閱？訂閱咗幾耐？（睇得到就標出嚟）
+- 警號：如果某一 reason 連續兩週上升，紅字標出
+
+**Stream 3：New subscriber**
+睇 platform 嘅 new subscriber list：
+
+- Source breakdown（referral link、direct、social、unknown）
+- 如果 source 係 referral：邊個 existing subscriber 帶嚟最多
+- 同 reply stream cross-reference：有冇 new sub 係由某條 reply quote 嘅讀者帶嚟（佢哋有冇 forward）
+
+**輸出**
+出一份 markdown 報告，存喺呢個 folder，檔名「[YYYY-MM-DD]-weekly-review.md」。格式：
+
+1. 一行 TL;DR（呢個禮拜最值得留意嘅一件事）
+2. Reply clusters + quote
+3. Unsubscribe pattern + 警號
+4. New sub source + 增長 vs 上週
+5. 「下週 content 建議」3 條 — 基於 reply cluster 同 unsub reason 推導
+
+注意：唔好自動 reply 任何讀者、唔好 send 任何 email、唔好改 platform settings。淨係 read + write markdown 報告。
+
+set 好 confirm 我，dry run 一次先 schedule 落每星期日 18:00 自動跑。
+</PromptBlock>
+
+第一次跑**一定要 dry run**。睇下 cluster 嘅準確度、quote 有冇剪斷、source attribution 有冇錯認。OK 先 enable scheduled task。
+
+### 3. Weekly markdown report 格式 + delivery
+
+預期 output 大致係：
+
+```
+# 2026-05-31 · Weekly Review
+
+## TL;DR
+呢個禮拜 reply 入面有 6 封提到想睇「framework 點 apply 落非 tech 行業」——
+連續第二週呢個 cluster 上升，下週可以做。
+
+## Reply clusters（30 封）
+### Framework 應用（12 封）...
+### 想睇延伸內容（8 封）...
+### 質疑「X 論點」（4 封）...
+
+## Unsubscribe（5 個）
+- 太頻密：2
+- 內容唔啱：1
+- 未填：2
+警號：冇
+
+## New subscriber（12 個）
+- Referral: 7（其中 4 個由 @reader_handle 帶嚟）
+- Direct: 3
+- Social: 2
+
+## 下週 content 建議
+1. ...
+2. ...
+3. ...
+```
+
+Markdown 好處：你開 Obsidian / Bear / Apple Notes 都讀得到，唔使再開 dashboard。每週累積成一個 review log，月尾 quarterly review 直接睇返。
+
+### 4. Reply playbook — use insights for 下週 content
+
+Report 出咗，下一步唔係即刻 reply 30 個讀者，係**分流**：
+
+- **「呢期勁啱睇」純鼓勵**：批量 thank you，30 秒搞掂
+- **分享自己 case 嘅**：呢啲最寶貴。逐封 reply，問深入啲，攞 permission quote 落下期 newsletter
+- **質疑論點嘅**：揀 1-2 封認真回，可能就係下期題目嘅種子
+- **想睇延伸**：記入下週 calendar，唔即刻回
+
+報告入面「下週 content 建議」3 條，**唔好照單全收**。Claude 由 pattern 推出嚟，但你了解自己 voice。揀 1 條同你 editorial calendar 啱嘅；剩兩條當 backlog。
+
+## 變化
+
+### 變化 1：加 Twitter / Threads / IG comments
+
+<PromptBlock label="變化 1 — Cross-platform feedback">
+（同上面 prompt 一樣）再加 Stream 4：Cross-platform mentions
+
+睇我 social account（Twitter / Threads / IG）過去 7 日：
+- 任何引用、quote tweet、reply、IG comment 提到呢期 newsletter
+- 抽出 platform、handle、引用片段、sentiment
+- Cluster 入返 Reply stream 嘅同一套主題分類（reply 同 social 加埋睇 trend）
+
+注意：唔好 reply 任何 social post，淨係抽 data。
+</PromptBlock>
+
+社交 platform 嘅 reach 有時比 reply 多。加埋一齊 cluster，先睇到完整 picture。
+
+### 變化 2：Paid subscriber 版本（focus on retention）
+
+<PromptBlock label="變化 2 — Paid retention signal">
+（同前面 prompt，但 Stream 2 / 3 改成）：
+
+**Stream 2：Cancellation**
+- 區分 free unsub vs paid cancel
+- Paid cancel：訂閱咗幾耐先 cancel？（churn timing matter）
+- 警號：如果 paid cancel 連續兩週 > new paid sub，紅字
+- Cross-reference：cancel 嗰啲 paid reader 嘅 reply history（佢哋之前有冇 raise concern）
+
+**Stream 3：New paid + upgrade**
+- 邊個 free reader upgrade 咗去 paid（呢個係 leading indicator）
+- Upgrade 之前一週讀過邊期（揾出「conversion 文章」）
+</PromptBlock>
+
+Paid newsletter 嘅 metric 完全唔同。Retention > acquisition，churn timing > raw unsub count。
+
+### 變化 3：Course / membership creator 版
+
+<PromptBlock label="變化 3 — Course feedback aggregation">
+（同前面 prompt，但三條 stream 改成）：
+
+**Stream 1：Lesson completion**
+- 過去 7 日邊堂完成率最高 / 最低
+- Drop-off pattern：學員停喺邊一 module
+- Cross-reference：drop-off 學員嘅報名日期（新 vs 舊）
+
+**Stream 2：Question / discussion**
+- Course platform 入面學員問題 / community 帖
+- Cluster 主題：concept confusion / 想要更多 example / 申請延期 / 技術問題
+- 揾出「重覆問題」（3 個以上學員問同一條）—下週直接出 FAQ
+
+**Stream 3：New enrollment + refund**
+- New enroll source
+- Refund request（如果有）+ reason
+</PromptBlock>
+
+Course 嘅 feedback loop 仲緊要，因為學員付咗錢期望高。重覆問題直接變下一堂 content。
+
+> Newsletter / course 嘅長期遊戲：**唔係寫得多快，係 listen 得多細**。30 封 reply、5 個 unsub、12 個 new sub 加埋，每週都喺度同你講同一件事——但要你停低睇先聽到。Cowork 做嗰一個鐘嘅 listening lab，你做嗰 10 分鐘嘅 editorial judgment。
