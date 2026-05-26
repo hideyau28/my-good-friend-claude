@@ -1,5 +1,5 @@
 ---
-title: "Git worktrees + Claude Code：3 個 feature 同時 parallel 開發，唔 stash 唔 conflict"
+title: "Git worktrees + Claude Code：3 個 feature 同時並行開發，唔 stash 唔衝突"
 slug: "claude-code-worktrees-claude"
 issue: 88
 publishedAt: 2026-05-24
@@ -10,47 +10,47 @@ subcategory: "Worktrees"
 heroImage: "/hero/claude-code-worktrees-claude.webp"
 difficulty: 3
 timeMinutes: 25
-toolsNeeded: ["Claude Code installed", "Git 基本識"]
-description: "Feature A 做緊一半，老闆 ask「急 fix feature B」— 20 分鐘 context switch overhead。Git worktree 解決：每個 feature 自己 folder + 自己 Claude Code session，可 parallel。教你 setup + Claude Code 整合。"
-keywords: ["git worktrees", "Claude Code parallel", "feature branch", "context switching", "parallel development"]
+toolsNeeded: ["Claude Code 安裝咗", "Git 基本識"]
+description: "Feature A 做緊一半，老闆嗌「急 fix feature B」—— 20 分鐘 context switch 嘅 overhead。Git worktree 解決：每個 feature 自己 folder + 自己 Claude Code session，可以並行。教你 setup + Claude Code 整合。"
+keywords: ["git worktrees", "Claude Code parallel", "feature branch", "context switching", "並行開發"]
 related: ["claude-code-install-claude", "claude-code-subagents-claude", "claude-code-slash-commands-claude"]
 featured: false
 ---
 
 ## 情境
 
-你 mid-day 做緊 feature A:「Add user search to dashboard」。編寫 4 個 file, 30% done, 個腦個 model 已 loaded 晒。
+你中午做緊 feature A：「將用戶搜尋加入 dashboard」。改緊 4 個檔案，30% 做完，個腦個模型已經 load 嗮。
 
-老闆 ping:「Need 急 fix feature B production bug — users can't login since 2pm」。
+老闆 ping：「急 fix feature B 嘅生產 bug —— 用戶由 2pm 開始登入唔到」。
 
-Pre-worktree workflow:
+冇 worktree 時嘅做法：
 
-1. Stash uncommitted A work: `git stash` (但 lose Claude Code session context)
-2. Switch branch: `git checkout main && git pull && git checkout -b fix/login-bug`
-3. Open Claude Code re-onboard:「我而家 fix login bug, 你 context 唔知 feature A。Forget that.」
-4. Fix bug, commit, push, PR
-5. Switch back: `git checkout feature-a`
-6. Stash pop: `git stash pop`
-7. Re-onboard Claude Code:「Resume feature A。我之前 stash, 而家 restored。」
+1. Stash 未 commit 嘅 A 工作：`git stash`（但 Claude Code session 嘅 context 冇咗）
+2. 轉 branch：`git checkout main && git pull && git checkout -b fix/login-bug`
+3. 打開 Claude Code 重新解說：「我而家 fix 登入 bug，你冇 feature A 嘅 context。忘記嗰個。」
+4. Fix bug、commit、push、PR
+5. 轉返去：`git checkout feature-a`
+6. Stash pop：`git stash pop`
+7. 重新解說 Claude Code：「Resume feature A。我之前 stash，而家 restore 咗。」
 
-Context switch overhead: 20-30 分鐘每個方向。Daily 你做 2-3 個 switch = 1-1.5 hr 純 switching 都蝕咗。
+Context switch 嘅 overhead：每個方向 20-30 分鐘。每日做 2-3 次 switch = 1-1.5 個鐘純切換時間蝕咗。
 
-**Git worktree** 解決:
+**Git worktree** 解決：
 
-- 每個 branch 住喺**自己 folder**
-- 你可以同時有 main、feature-a、fix-login 3 個 folder
-- 每個 folder 自己 Claude Code session, 自己 context
-- 換「project」= `cd ~/projects/feature-a` (零 overhead)
+- 每個 branch 住喺**自己嘅資料夾**
+- 你可以同時有 main、feature-a、fix-login 3 個資料夾
+- 每個資料夾自己嘅 Claude Code session、自己 context
+- 換「project」=`cd ~/projects/feature-a`（零 overhead）
 
-呢篇拆 worktree setup + Claude Code 整合 pattern。
+呢篇拆 worktree setup + Claude Code 整合模式。
 
 ## 跟住做
 
 ### 1. Worktree 概念
 
-Standard git: 1 repo = 1 folder, branches share folder (只可以 1 個 active 一次)。
+標準 git：1 個 repo = 1 個資料夾，branch 共用資料夾（一次只可以 1 個 active）。
 
-Worktree git: 1 repo = main folder + N worktree folders, each worktree = 1 個 active branch。
+Worktree git：1 個 repo = 主資料夾 + N 個 worktree 資料夾，每個 worktree = 1 個 active branch。
 
 ```
 ~/projects/my-app/                 ← main repo, branch=main
@@ -58,11 +58,11 @@ Worktree git: 1 repo = main folder + N worktree folders, each worktree = 1 個 a
 ~/projects/my-app-fix-login/       ← worktree, branch=fix/login-bug
 ```
 
-3 個 folder，3 個 branch 並存。
+3 個 folder、3 個 branch 並存。
 
 ### 2. Setup 第一個 worktree
 
-去你 existing repo:
+去你現有 repo：
 
 ```bash
 cd ~/projects/my-app
@@ -70,32 +70,32 @@ git status
 # 確認 clean (no uncommitted change)
 ```
 
-Create worktree:
+建立 worktree：
 
 ```bash
 # Format: git worktree add <path> <branch-name>
 git worktree add ../my-app-feature-search feature/user-search
 ```
 
-呢個 command:
-- 創建 folder `~/projects/my-app-feature-search/`
-- 喺該 folder check out branch `feature/user-search` (如唔 exist, create)
-- Sub-folder share same `.git` 目錄 (via reference)
+呢個指令：
+- 建立資料夾 `~/projects/my-app-feature-search/`
+- 喺該資料夾 check out branch `feature/user-search`（若唔存在，建立）
+- 子資料夾共用同一個 `.git` 目錄（透過 reference）
 
-`ls ~/projects/`:
+`ls ~/projects/`：
 ```
 my-app/
 my-app-feature-search/
 ```
 
-Cd 入新 worktree:
+Cd 入新 worktree：
 ```bash
 cd ../my-app-feature-search
 git status
 # On branch feature/user-search
 ```
 
-獨立 working directory，own state。
+獨立工作目錄、自己嘅 state。
 
 ### 3. 喺 worktree 開 Claude Code
 
@@ -104,18 +104,18 @@ cd ~/projects/my-app-feature-search
 claude
 ```
 
-Claude Code 視呢個 folder 為自己嘅 project。Independent conversation history。No bleed from main repo。
+Claude Code 視呢個資料夾為自己嘅 project。獨立對話歷史。冇主 repo 嘅 bleed。
 
-開始 work feature:
+開始做 feature：
 ```
 我 implementing user search. 需要 add API endpoint /search?q= + frontend search bar.
 ```
 
-Claude 跟你 feature 嘅 design + implement，independent context。
+Claude 跟你 feature 嘅 design + 實作，獨立 context。
 
-### 4. 突發 production bug — 開第二個 worktree
+### 4. 突發生產 bug —— 開第二個 worktree
 
-老闆 ping production bug。你唔 stash feature work, 唔 switch branch:
+老闆 ping 緊急 bug。你唔 stash feature 工作、唔轉 branch：
 
 ```bash
 cd ~/projects/my-app
@@ -125,17 +125,17 @@ cd ../my-app-fix-login
 claude
 ```
 
-新 Claude Code session, fresh context for fix:
+新 Claude Code session，fix 用 fresh 嘅 context：
 ```
 急 fix: users can't login since 2pm. Help me investigate.
 ```
 
-Claude 1 session: feature work, 冇 context 污染。
-Claude 2 session: bug fix, fresh focus。
+Claude 第 1 個 session：feature 工作，冇 context 污染。
+Claude 第 2 個 session：bug fix，fresh focus。
 
 兩個同時 active。Tab 1 IDE + Claude Code A。Tab 2 IDE + Claude Code B。
 
-### 5. Fix + ship + return
+### 5. Fix + ship + 返回
 
 ```bash
 # In fix worktree
@@ -146,19 +146,19 @@ git push -u origin fix/login-bug
 gh pr create
 ```
 
-PR open, fix shipped。
+PR 開咗，fix shipped。
 
-回 feature worktree:
+返 feature worktree：
 ```bash
 cd ~/projects/my-app-feature-search
-# Feature work 仍然 intact, Claude Code session 仲 running
+# Feature 工作仍然完整, Claude Code session 仲跑緊
 ```
 
-你 1 秒內 resume。冇 stash pop, 冇 re-onboard。
+你 1 秒內 resume。冇 stash pop、冇重新解說。
 
 ### 6. Merge 完 cleanup worktree
 
-PR merged。Cleanup:
+PR merged。清理：
 
 ```bash
 cd ~/projects/my-app
@@ -167,9 +167,9 @@ git worktree remove ../my-app-fix-login
 git branch -d fix/login-bug
 ```
 
-Folder 冇咗, Git history 完整 (commit merged into main)。
+資料夾冇咗，Git 歷史完整（commit merged into main）。
 
-### 7. 常用 worktree commands
+### 7. 常用 worktree 指令
 
 ```bash
 # 列嗮 worktrees
@@ -190,9 +190,9 @@ git worktree prune
 
 ## 變化
 
-### 變化 1：Claude Code parallel agent + worktree 組合
+### 變化 1：Claude Code 並行 agent + worktree 組合
 
-Claude Code 嘅 `Agent` tool 配 `isolation: "worktree"` parameter — spawn subagent 喺 separate worktree:
+Claude Code 嘅 `Agent` 工具配 `isolation: "worktree"` 參數 —— 喺獨立 worktree spawn subagent：
 
 ```
 Agent({
@@ -202,13 +202,13 @@ Agent({
 })
 ```
 
-Effect: Claude 自動 spawn subagent → create temp worktree → subagent work in isolation → 如 changes made, commit + 返 path。你 review → merge or discard。
+效果：Claude 自動 spawn subagent → 建立臨時 worktree → subagent 隔離工作 → 若改咗嘢，commit + 返路徑。你 review → 接納或者棄。
 
-呢個 pattern：「Claude experiments in isolated branch」+「if good, merge to main」。Risk-free exploration。
+呢個模式：「Claude 喺隔離 branch 做實驗」+「OK 就接納入主線」。零風險探索。
 
-### 變化 2：5+ parallel worktrees pattern
+### 變化 2：5+ 並行 worktree 模式
 
-進階用法: 5+ worktrees 並存。
+進階用法：5+ worktree 並存。
 
 ```
 ~/projects/my-app/                  ← main
@@ -219,45 +219,45 @@ Effect: Claude 自動 spawn subagent → create temp worktree → subagent work 
 ~/projects/my-app-docs/             ← documentation rewrite
 ```
 
-每個 worktree 自己 Claude Code session, 自己 task。你 daily:
+每個 worktree 自己嘅 Claude Code session、自己嘅任務。你每日：
 
-- Morning: feature A worktree 1 hr
-- Mid-morning: experiment worktree explore approach
-- Lunch
-- After lunch: feature B
-- 3pm: docs rewrite
-- 4pm: review hotfix
+- 朝早：feature A worktree 1 個鐘
+- 上晝：experiment worktree 探索做法
+- 食晏
+- 飯後：feature B
+- 3pm：文檔重寫
+- 4pm：review hotfix
 
-Day end: 5 個 PR 可能。Comparator: 傳統 1-branch workflow, 你最多 ship 1-2。
+日尾：可能出 5 個 PR。對比：傳統 1-branch 做法你最多 ship 1-2 個。
 
-⚠️ Cognitive overhead: 全日記住 5 個 features。唔啱 less experienced dev。Sweet spot: 大部分人 2-3 parallel。
+⚠️ 心理負擔：全日記住 5 個 feature。唔啱經驗較淺嘅開發者。甜蜜點：大部分人 2-3 個並行。
 
 ### 變化 3：Worktree + IDE tab 配對
 
-Set IDE (VS Code) 多 window pattern:
+設定 IDE（VS Code）多視窗模式：
 
-- Window 1: main repo (overview / config)
-- Window 2: feature-a worktree (focused work)
-- Window 3: bug-fix worktree (急 task)
+- 視窗 1：主 repo（總覽 / 設定）
+- 視窗 2：feature-a worktree（專注工作）
+- 視窗 3：bug-fix worktree（急任務）
 
-VS Code「Open Recent」/「Workspace」feature 管理。每個 window 嘅 file tree 只 show 該 worktree 嘅 files — focus 清晰。
+VS Code「Open Recent」/「Workspace」功能管理。每個視窗嘅檔案樹只顯示嗰個 worktree 嘅檔案 —— 集中清晰。
 
-每個 window 一個 Claude Code session。總共：3 個 IDE + 3 個 Claude = 1 個 dev orchestrate level beyond traditional。
+每個視窗一個 Claude Code session。總共：3 個 IDE + 3 個 Claude = 開發者編排層級超越傳統。
 
 ## 一個 mindset
 
-Worktree 嘅深層 insight: **Context switch overhead 唔係「inevitable」— 係「default workflow 嘅 friction」**。
+Worktree 嘅深層 insight：**Context switch 嘅 overhead 唔係「冇得避」—— 係「預設做法嘅摩擦」**。
 
-傳統 git: 1 個 working dir, branches 係 view。Switch view = mental flush + reload。你個腦冇 capability of perfect mental flush — 你 spend 5-10 分鐘 re-load context。
+傳統 git：1 個工作目錄，branch 係 view。換 view = 心理 flush + 重新 load。你個腦冇能力做完美 flush —— 你會花 5-10 分鐘重新 load 背景。
 
-Worktree: branches 係 separate 物理 workspaces。Switch = `cd`。個腦唔需要 flush — feature A space 仍然完整 ready when 你 return。Switch overhead → 近乎零。
+Worktree：branch 係獨立物理工作空間。換 = `cd`。個腦唔需要 flush —— feature A 空間仍然完整等你返。Switch overhead → 近乎零。
 
-呢個 paradigm 對 senior dev / consultant / multi-project freelancer 顯著改變 daily output。
+呢個 paradigm 對 senior 開發者 / 顧問 / 多項目 freelancer 顯著改變每日產出。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **先 try 2 個 worktree**。Comfort 多咗再加。
-- ⚠️ **Folder 數量紀律**。>5 worktrees 個腦就會 track 唔到邊個係邊個。用 descriptive folder name。
-- 🎯 **Worktree + Claude Code subagent + slash command = ultimate parallelism**。Senior 級 workflow。
+- ✅ **先試 2 個 worktree**。舒服咗再加。
+- ⚠️ **資料夾數量要有紀律**。>5 個 worktree 個腦會跟唔到邊個係邊個。用描述性資料夾名。
+- 🎯 **Worktree + Claude Code subagent + slash command = 終極並行**。資深級工作流程。
 
-下個大 feature 試 dedicate 一個 worktree。1 個禮拜後你 context switch friction 顯著降低。1 個月後你會 wonder 點解傳統 branch switch 一直係 default。
+下個大 feature 試專屬一個 worktree。1 個禮拜後你 context switch 嘅摩擦顯著降低。1 個月後你會諗點解傳統 branch 切換一直係預設。
