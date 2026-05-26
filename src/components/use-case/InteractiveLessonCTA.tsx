@@ -102,13 +102,12 @@ ${articleRaw}
               id="interactive-lesson-heading"
               className="font-serif font-black text-xl md:text-2xl text-[var(--color-ink)] mb-2 leading-tight"
             >
-              想 try 多過睇？同 Claude 一齊行一次。
+              睇完想同 Claude 一齊行一次？
             </h3>
             <p className="font-serif text-sm md:text-base text-[var(--color-ink-soft)] mb-5 leading-relaxed">
-              撳一撳，copy 一個 tutor prompt（包埋成篇文嘅內容）。Paste 入
-              Claude.ai 或 Claude Desktop，佢會用廣東話帶你 step-by-step
-              行一次，每步要你填關鍵 placeholder，最後出一個你 own context
-              嘅 personalized prompt 帶走。
+              撳一撳，就將成段 tutor 指示（連埋成篇文嘅內容）抄入剪貼簿。
+              貼入 Claude.ai 或 Claude Desktop，佢會用廣東話帶你一步一步行，
+              每步問你填關鍵位，最後畀返一個專為你情況寫嘅 prompt 帶走。
             </p>
             <button
               type="button"
@@ -117,10 +116,10 @@ ${articleRaw}
               className="font-serif font-bold px-5 py-3 bg-[var(--color-ink)] text-[var(--color-paper)] hover:bg-[var(--color-seal-deep)] transition-colors rounded-sm"
             >
               {status === 'copied'
-                ? '✓ 已 copy — 去 paste 入 Claude'
+                ? '✓ 抄好喇 — 貼入 Claude 就行'
                 : status === 'error'
-                  ? '✗ Copy 失敗，請手動 select'
-                  : '撳一撳 copy tutor prompt →'}
+                  ? '✗ 抄唔到，揀晒段文字自己抄'
+                  : '撳一撳，抄入剪貼簿 →'}
             </button>
             {status === 'copied' && (
               <p className="mt-4 font-serif text-xs text-[var(--color-ink-mute)]">
@@ -133,13 +132,13 @@ ${articleRaw}
                 >
                   claude.ai/new
                 </a>{' '}
-                ，撳一下 paste（⌘V / Ctrl+V），Claude 就會用廣東話開場。
+                ，撳一下貼（⌘V / Ctrl+V），Claude 就會用廣東話開場。
               </p>
             )}
             {status === 'error' && (
               <p className="mt-4 font-serif text-xs text-[var(--color-seal-deep)]">
-                你個 browser 唔畀 clipboard access。試吓喺新 tab
-                開、或者用 Safari / Chrome。
+                你個瀏覽器唔畀 access 剪貼簿。試吓喺新 tab
+                開，或者換 Safari / Chrome。
               </p>
             )}
           </div>
