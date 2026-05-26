@@ -34,7 +34,7 @@ featured: false
 - 試 fix 一個 file → 連帶 5 個 file 都要改 → 改完再壞 3 個
 - 半日就過咗，連第一個 page 都未行得返
 
-**呢個 pattern 嘅根本問題**：major version bump 唔係「一個 command 嘅事」，係一個 **systematic refactor task** —— 但 changelog 寫得似 reference docs、唔係 migration playbook。
+**呢個規律嘅根本問題**：major version bump 唔係「一個 command 嘅事」，係一個 **systematic refactor task** —— 但 changelog 寫得似 reference docs、唔係 migration playbook。
 
 Claude Code 啱呢類嘢：佢可以 ingest changelog、scan 你 codebase、specifically tell 你邊度 break、逐個 fix。呢篇示範一套 controlled upgrade flow，React 18 → 19 / Next.js 14 → 15 / Node 18 → 20 都通用。
 

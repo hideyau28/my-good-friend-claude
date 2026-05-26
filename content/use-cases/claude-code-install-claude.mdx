@@ -27,7 +27,7 @@ featured: true
 2. 揾到 official docs → install 指令但你唔清楚應該喺邊個 directory 跑
 3. Run 完，error message：「ANTHROPIC_API_KEY not set」
 4. 揾到 API key 頁 → create key → 唔清楚喺邊度 set 環境變數
-5. Set 完，試跑第一個指令 → 權限錯誤
+5. 設定完，試跑第一個指令 → 權限錯誤
 6. 卡住 1 個鐘，放棄
 
 呢個 install 死結：
@@ -182,7 +182,7 @@ Claude Code 每次讀寫 / shell 指令都會先問權限：
 - **Allow always**：呢類動作之後自動 allow
 - **Reject**：拒絕，Claude 試另一個方法
 
-新手建議：開頭全部手動 approve，建立信心。1 個禮拜後你 sense 到 pattern，安全動作（讀 file / git status 等）用「Allow always」。
+新手建議：開頭全部手動 approve，建立信心。1 個禮拜後你 sense 到規律，安全動作（讀 file / git status 等）用「Allow always」。
 
 ⚠️ 永遠唔好「Allow always」`rm`、`git push --force`、`sudo`、任何破壞性動作。
 
@@ -256,9 +256,7 @@ claude --model claude-opus-4-7
 
 Claude Code 安裝嘅隱藏 insight：**CLI 工具都有學習曲線，但每日嘅回報會利疊利**。
 
-第 1 日 install + setup：1 個鐘成本
-第 2-7 日：每日 30 分鐘「我仲摸索緊」嘅唔順
-第 8 日後：每日流程順暢
+第 1 日 install + setup：1 個鐘成本第 2-7 日：每日 30 分鐘「我仲摸索緊」嘅唔順第 8 日後：每日流程順暢
 
 第 30 日：你諗唔明點解之前用 web 版 Claude.ai 咁慢。
 

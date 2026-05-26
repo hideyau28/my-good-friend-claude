@@ -172,7 +172,7 @@ Solo dev 一段 deploy 夠用。Team / SaaS 通常分三段：feature branch 開
 
 `/ship` slash command 加參數：
 
-- `/ship preview` —— smoke paths only，平日 iterate 用
+- `/ship preview` —— smoke paths only，平日調整用
 - `/ship staging` —— smoke + Playwright + Slack 通知 `#dev`
 - `/ship prod` —— 上面所有 + 額外 Lighthouse 跑分 + Slack 通知 `#general` + 跑 sentry release create
 

@@ -31,7 +31,7 @@ Update authentication module
 
 技術上 OK。Team rule 角度：fail 嗮。Branch 叫 `update-auth`，commit 唔係 conventional，PR description 一段過。Reviewer 打回頭：「跟返 template 啦。」
 
-問題唔係 Claude 蠢 —— 係**你冇話畀佢知 team 嘅規矩**。Claude 默認用業界 generic style，唔知你公司用 GitFlow 定 trunk-based、唔知你 PR template 喺邊、唔知 `JIRA-123` 係必要 prefix。
+問題唔係 Claude 蠢 —— 係**你冇話畀佢知 team 嘅規矩**。Claude 默認用業界籠統 style，唔知你公司用 GitFlow 定 trunk-based、唔知你 PR template 喺邊、唔知 `JIRA-123` 係必要 prefix。
 
 呢篇拆 4 步，將 team 嘅 git 規矩 codify 入 Claude 嘅預設行為，順手加埋 rebase / conflict 救命員。
 
@@ -219,7 +219,7 @@ Solo dev：CLAUDE.md 寫得鬆啲都得，反正你自己一個。重點係 codi
 最後提醒：
 
 - ✅ **先寫 CLAUDE.md 一段 git conventions**。15 分鐘工，之後每個 commit 慳 2 分鐘。
-- ⚠️ **Hook 要先試 dry-run**。設錯個 regex 全 team commit 唔到，你會收到 8 個 ping。
+- ⚠️ **Hook 要先試試行**。設錯個 regex 全 team commit 唔到，你會收到 8 個 ping。
 - 🎯 **Rebase / cherry-pick / conflict 全部交畀 Claude**。你個腦留嚟諗 architecture，唔係背 `git reflog` syntax。
 
 下個 sprint 試將你 team 嘅 git 規矩寫入 CLAUDE.md。一個禮拜後 reviewer 唔再打回頭叫你跟 template —— 因為 Claude 已經自動跟。

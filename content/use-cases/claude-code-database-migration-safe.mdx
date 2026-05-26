@@ -205,7 +205,7 @@ ORM 有自動 generate migration 嘅 magic，但呢個 magic 撞到 expand-migra
 ⚠️ 千祈唔好用 `prisma db push` 喺 production，佢會直接 sync schema 然後 RENAME。
 </PromptBlock>
 
-Drizzle / TypeORM / SQLAlchemy 同 pattern，重點係**每個 phase 一個 migration file，中間夾住 app deploy**。
+Drizzle / TypeORM / SQLAlchemy 同規律，重點係**每個 phase 一個 migration file，中間夾住 app deploy**。
 
 ### 變化 2：Raw SQL（冇 ORM）
 

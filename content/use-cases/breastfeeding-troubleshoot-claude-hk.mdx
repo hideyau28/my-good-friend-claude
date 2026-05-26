@@ -36,7 +36,7 @@ BB 個 paediatrician 上次覆診講：「體重曲線跌咗一格，下次再 c
 呢篇用 Claude 做：
 
 1. **餵奶 log 結構化**——一週 raw data（frequency、每次長度、wet/dirty diaper、體重曲線）
-2. **拆 signal vs noise**——「3-month growth spurt」、「cluster feeding」呢啲正常波動，vs「真低奶 / latch issue / tongue tie / 體重 faltering」要見 IBCLC 嘅紅旗
+2. **拆訊號 vs noise**——「3-month growth spurt」、「cluster feeding」呢啲正常波動，vs「真低奶 / latch issue / tongue tie / 體重 faltering」要見 IBCLC 嘅紅旗
 3. **HK 路線**——母嬰健康院 lactation consultant / 私營 IBCLC / La Leche League HK
 4. **Mental load**——餵奶 stress 同產後情緒嘅 overlap（cross-ref `/use-cases/postpartum-mental-health-claude`）
 
@@ -53,7 +53,7 @@ BB 個 paediatrician 上次覆診講：「體重曲線跌咗一格，下次再 c
 - **開始時間**（例：02:14）
 - **邊邊**（左 / 右 / 兩邊）
 - **每邊長度**（分鐘——可以粗略）
-- **BB 主動鬆口 定 你 unlatch**
+- **BB 主動鬆口定你 unlatch**
 - **餵完 BB state**（瞓著 / 滿足醒著 / 仲喊扭計）
 
 每日另外記：
@@ -67,7 +67,7 @@ BB 個 paediatrician 上次覆診講：「體重曲線跌咗一格，下次再 c
 
 工具方面 Huckleberry、BabyTracker app 都 OK，唔想裝 app 就手機 Notes 開一個 template。**重點唔係工具靚，係 7 日 consistency**。
 
-### 2. PromptBlock — 拆 signal vs noise
+### 2. PromptBlock — 拆訊號 vs noise
 
 收齊 7 日 data，貼入 Claude：
 
@@ -194,11 +194,11 @@ Bucket 出咗，下一步取決於 urgency + budget。
 語氣：實際、唔 judge 邊種餵法、唔煽情。
 </PromptBlock>
 
-呢個路線嘅關鍵：**唔好喺單一 source（母嬰健康院 OR KellyMom OR 阿姑）入面 stuck**。每個 source 都有 blind spot。私營 IBCLC home visit 一次嘅 ROI 通常好高——佢可以睇到你 log 寫唔出嘅嘢（latch angle、BB 抓握、乳頭 shape）。
+呢個路線嘅關鍵：**唔好喺單一 source（母嬰健康院 OR KellyMom OR 阿姑）入面 stuck**。每個 source 都有 blind spot。私營 IBCLC home visit 一次嘅回報通常好高——佢可以睇到你 log 寫唔出嘅嘢（latch angle、BB 抓握、乳頭 shape）。
 
 ### 4. Mental load — 唔好 sacrificing self 過頭
 
-呢一步好多文章 skip，但實際上係**最大 risk**。
+呢一步好多文章 skip，但實際上係**最大風險**。
 
 餵奶 troubleshoot 嘅 hidden cost：**24/7 vigilance + self-blame + sleep deprivation** 三樣疊埋，係產後抑鬱嘅 strongest predictor 之一。
 
@@ -404,7 +404,7 @@ WHO 建議母乳餵到 2 歲，AAP 講最少 1 歲。HK 媽媽好多喺 6-12 個
 Claude 喺呢個 pipeline 入面嘅角色好窄：
 
 - ✅ 幫你**structure** 7 日 log（一致 format = pattern emerge）
-- ✅ 幫你**拆 signal vs noise**（growth spurt 正常 vs 真低奶）
+- ✅ 幫你**拆訊號 vs noise**（growth spurt 正常 vs 真低奶）
 - ✅ 幫你 **rehearse** 同 IBCLC / paediatrician / 屋企人嘅對話
 - ✅ 凌晨 2 點 BB 鬆口你 panic 嘅嗰陣有得用
 
@@ -413,12 +413,12 @@ Claude 喺呢個 pipeline 入面嘅角色好窄：
 - ❌ Latch assessment（要實體睇）
 - ❌ Diagnose tongue tie / palate issue（要醫生）
 - ❌ Weigh BB（要磅）
-- ❌ 取代 IBCLC 90 分鐘 home visit（一次 home visit 嘅 ROI 通常高過 10 個 prompt）
+- ❌ 取代 IBCLC 90 分鐘 home visit（一次 home visit 嘅回報通常高過 10 個 prompt）
 
 最後三個提醒：
 
 - ✅ **7 日 data > 7 個 opinions**——log 完先決定
-- ⚠️ **「我餵唔到」唔等於「我失敗」**——餵奶 outcome 同 maternal value 唔係 1:1
+- ⚠️ **「我餵唔到」唔等於「我失敗」**——餵奶 outcome 同 maternal value 唔係一對一
 - 🆘 **BB 急性紅旗**（12+ 小時冇濕片、嗜睡叫唔醒、黃疸 + 食差、體重持續跌）= 急症 / paediatrician 同日，唔係打字俾 Claude
 
 ---

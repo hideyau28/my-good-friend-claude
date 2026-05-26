@@ -210,7 +210,7 @@ await fs.writeFile(".env.local", formatDotenv(secrets))
 
 ### 變化 3：Monorepo per-package env
 
-`apps/web`、`apps/api`、`apps/worker` 各自要 env。亂咁 `.env.local` 喺 root 會出事 —— `apps/api` 唔應該 read 到 `NEXT_PUBLIC_*`，`apps/web` 唔應該 read 到 `STRIPE_SECRET_KEY`。
+`apps/web`、`apps/api`、`apps/worker` 各自要 env。亂咁 `.env.local` 喺 root 會出事 —— `apps/api` 唔應該讀到 `NEXT_PUBLIC_*`，`apps/web` 唔應該讀到 `STRIPE_SECRET_KEY`。
 
 每個 package 自己一份 `.env.example`：
 

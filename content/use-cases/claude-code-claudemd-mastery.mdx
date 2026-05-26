@@ -18,7 +18,7 @@ featured: false
 
 ## 情境
 
-你用咗 Claude Code 兩個禮拜，跑得幾順。但有個 pattern 一直 frustrating：
+你用咗 Claude Code 兩個禮拜，跑得幾順。但有個規律一直 frustrating：
 
 - 你叫佢加個 component → 佢用 `camelCase` 命名，但你 project 全部係 `PascalCase`
 - 你叫佢 fix bug → 佢 import 一個 deprecated package，你頭先先至 migrate 走嗰個
@@ -27,7 +27,7 @@ featured: false
 
 呢啲 friction 嘅根源：**Claude 唔知你 project 個 context**。每次新 session 等於同一個新入職同事傾偈，由零開始 onboarding。
 
-解法叫 `CLAUDE.md` —— 放喺 project root 嘅一個 markdown file，Claude Code 自動 read 入做 session context。
+解法叫 `CLAUDE.md` —— 放喺 project root 嘅一個 markdown file，Claude Code 自動讀入做 session context。
 
 但好多人寫 CLAUDE.md 寫到似 README：「我哋係 Next.js 15 project、用 Tailwind、部署喺 Vercel⋯」。Claude 對呢類 info 興趣有限。**佢真正受惠係 conventions、commands、forbidden patterns、project-specific gotchas** —— 即係你會花時間口頭解釋畀新人嘅嘢。
 
@@ -112,7 +112,7 @@ Next.js 15 (App Router) + TypeScript (strict) + MDX + Velite + Tailwind v4 + Pag
 
 每個唔啱嘅地方 = CLAUDE.md 入面缺一條 rule。**審視一次補一次**，2–3 個週期之後就準晒。
 
-### 4. 每月 iterate 一次（5 分鐘）
+### 4. 每月調整一次（5 分鐘）
 
 CLAUDE.md 唔係寫完就放低。每個月睇一次：
 
@@ -131,11 +131,9 @@ CLAUDE.md 唔係寫完就放低。每個月睇一次：
 - **Root `CLAUDE.md`** — 講 monorepo 結構、workspace tool（pnpm / turbo）、跨 package commands、shared conventions
 - **每個 package 一份** — 只寫嗰個 package 特有嘅 quirk（例如 `apps/api/CLAUDE.md` 講 Prisma schema migration flow）
 
-Claude Code 喺 sub-folder 跑會自動 read 兩層。記住：**子層唔好 repeat 父層** —— 只寫 delta。
+Claude Code 喺 sub-folder 跑會自動讀兩層。記住：**子層唔好 repeat 父層** —— 只寫 delta。
 
-### 變化 2：Team CLAUDE.md — 人類 + AI 都 read
-
-你 team 可能淨係一兩個人用 Claude Code，其他人用 VS Code。寫一份兩邊都用得到嘅版本：
+### 變化 2：Team CLAUDE.md — 人類 + AI 都讀你 team 可能淨係一兩個人用 Claude Code，其他人用 VS Code。寫一份兩邊都用得到嘅版本：
 
 ```markdown
 # Conventions（呢份 doc 人類 + Claude Code 都會 read）
@@ -166,7 +164,7 @@ Claude 出嘅 draft 通常 70% 啱、30% 估錯。你逐條核對一次，半個
 
 ## 一個心態
 
-> CLAUDE.md 嘅 ROI 唔係寫嗰陣感覺到 —— 係寫完之後每一個 session 都慳返 5 分鐘解釋時間。
+> CLAUDE.md 嘅回報唔係寫嗰陣感覺到 —— 係寫完之後每一個 session 都慳返 5 分鐘解釋時間。
 
 最大嘅心理障礙：**你會覺得「呢啲嘢咁明顯，駛唔駛寫」**。答案：要。對你明顯，因為你日日睇住個 codebase。對 Claude 每個新 session 都係第一次。
 

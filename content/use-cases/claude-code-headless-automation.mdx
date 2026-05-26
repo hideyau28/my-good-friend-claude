@@ -18,15 +18,15 @@ featured: false
 
 ## 情境
 
-你 install 咗 Claude Code 兩個月，interactive session 用到出神入化。但你開始留意到一啲 pattern：
+你 install 咗 Claude Code 兩個月，interactive session 用到出神入化。但你開始留意到一啲規律：
 
 - 每朝返工頭 30 分鐘做 `git pull` + 讀 PR + sense check 改動
 - 每個禮拜五手動跑 `pnpm outdated` + `npm audit`，再決定升邊個
 - 每次 push 上 GitHub 都要等同事得閒先 review，PR 喺 queue 排幾個鐘
 
-呢啲動作有個共通點：**重複、有 pattern、唔需要實時對話**。你開緊 Claude Code、揼緊 prompt、等緊 output —— 但其實全部都可以喺你訓緊覺嘅時候做完。
+呢啲動作有個共通點：**重複、有規律、唔需要實時對話**。你開緊 Claude Code、揼緊 prompt、等緊 output —— 但其實全部都可以喺你訓緊覺嘅時候做完。
 
-Claude Code 有個 mode 叫 **headless**：`claude -p "task"` 直接畀任務、唔開 interactive session、做完即 exit、output 入 stdout。呢個 mode 就係專門畀 cron、launchd、GitHub Actions、npm script 入面跑。
+Claude Code 有個 mode 叫 **headless**：`claude -p "task"` 直接畀任務、唔開 interactive session、做完即 exit、出入 stdout。呢個 mode 就係專門畀 cron、launchd、GitHub Actions、npm script 入面跑。
 
 呢篇拆 4 個真實 headless setup：
 
@@ -345,7 +345,7 @@ Headless 嘅深層 insight：**你嘅產出唔再受你個鐘頭數限制**。
 
 - **Solo dev**：你冇 reviewer、冇 ops、冇 dep bot。Headless Claude 幫你補上呢 3 個角色，自己一個 ship 嘅速度追平 5 人 team。
 - **Startup 早期 team**：3 個工程師，所有 review / audit / chore 都要人做。Headless 食晒呢層 toil，工程師 focus 真正 feature。
-- **Agency / consulting**：10 個 client project，每個都要 weekly health check。Cron 跑 10 條 script、output 入 client Slack。一個人服務 10 個 account。
+- **Agency / consulting**：10 個 client project，每個都要 weekly health check。Cron 跑 10 條 script、出入 client Slack。一個人服務 10 個 account。
 
 最後提醒：
 

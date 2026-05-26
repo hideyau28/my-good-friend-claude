@@ -62,7 +62,7 @@ featured: false
 - Internal dashboard，得 3 個同事用
 - Documentation generator
 
-**重點**：唔好對 cold path 內疚。Cold path 嘅 ROI 喺 manual + monitoring，唔喺 test。
+**重點**：唔好對 cold path 內疚。Cold path 嘅回報喺 manual + monitoring，唔喺 test。
 
 ### 2. 寫 coverage policy 入 CLAUDE.md
 
@@ -155,7 +155,7 @@ Module：
 
 ### 4. 睇 coverage report 嘅正確角度
 
-跑完 `pnpm test --coverage`，**唔好睇 overall %**。Overall % 係 vanity metric——cold path 拉低個數但唔代表 risk 高。
+跑完 `pnpm test --coverage`，**唔好睇 overall %**。Overall % 係 vanity metric——cold path 拉低個數但唔代表風險高。
 
 正確睇法：
 
@@ -225,7 +225,7 @@ Edge case fuzz 要特別狠：tenant A 嘅 user 試攞 tenant B 嘅 data、deact
 
 Content site 嘅 risk profile 同 B2B SaaS 唔同。呢度 build fail 就立即知、deploy preview 一睇就睇到 layout 爛——manual loop 快過任何 test suite。Coverage 整體可能得 20%，但 critical path 嘅 0 個 module × 100% = 完美達標。
 
-**唔好覺得呢個係偷雞**。Pragmatic coverage 嘅核心係：test 嘅 ROI 取決於「冇 test 嘅 downside」。Content site 冇 downside，test ROI 就低。
+**唔好覺得呢個係偷雞**。Pragmatic coverage 嘅核心係：test 嘅回報取決於「冇 test 嘅 downside」。Content site 冇 downside，test ROI 就低。
 
 > 100% coverage 唔等於 100% 安全。Test 寫喺低風險嘅地方，等如將你嘅注意力分散——critical bug 走出去嘅機會反而高。Coverage 嘅藝術唔係多，係**準**。
 

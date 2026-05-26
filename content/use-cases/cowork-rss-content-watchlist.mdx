@@ -28,12 +28,12 @@ featured: false
 每朝起身嘅儀式：scroll 一個鐘攞 inspiration。問題係：
 
 - 大部分 feed 嘅內容你已經知
-- 真係 fresh 嘅角度通常埋藏喺第 4-5 個 feed 嘅留言區
+- 真係精神嘅角度通常埋藏喺第 4-5 個 feed 嘅留言區
 - 而你最容易嘅陷阱：見到熱話就寫，但發現自己 6 個月前已經寫過類似嘢
 
 呢個耗精力。唔係搵唔到 idea，係要喺一堆已知資訊度篩出未寫過 + 真係新嘅角度。
 
-呢篇用 Cowork 設定：**每朝 7am，自動跑你 RSS、cross-reference 你過去 50 條 content、surface 3 個 fresh angle 落 Notion**。你起身只係開 Notion 揀一個寫。
+呢篇用 Cowork 設定：**每朝 7am，自動跑你 RSS、對照你過去 50 條 content、surface 3 個精神 angle 落 Notion**。你起身只係開 Notion 揀一個寫。
 
 > ⚠️ Cowork 仲係研究預覽版。讀取 OPML / RSS 屬於低風險（公開資料）；寫入 Notion 用 token 設定最低權限。
 
@@ -60,7 +60,7 @@ featured: false
 
 每行 = 一篇你已經寫過嘅嘢。Cowork 之後會用呢份做「我寫過乜」嘅參考。
 
-### 2. 核心 prompt — surface 真 fresh angle
+### 2. 核心 prompt — surface 真精神 angle
 
 <PromptBlock label="完整 prompt — 每朝 RSS watchlist">
 我想設定 Cowork 每朝 7am 自動跑一次 content ideation。
@@ -141,7 +141,7 @@ Notion database「Content Idea Pool」設定：
 3. **過期清理**：「Timeliness = 一週」但已經放咗超過 5 日嘅 → 移去「Dropped」或者降做 evergreen
 4. **回饋 Cowork**：每篇真係 published 嘅，將 title + URL 加入 `recent-content.md` 最頂
 
-第 4 步好重要：**`recent-content.md` 持續更新，Cowork 嘅 cross-reference 先會越嚟越準**。第一個月 fresh angle 命中率可能 50%，三個月後升到 75-80%。
+第 4 步好重要：**`recent-content.md` 持續更新，Cowork 嘅對照先會越嚟越準**。第一個月精神 angle 命中率可能 50%，三個月後升到 75-80%。
 
 ## 變化例子
 
@@ -200,8 +200,8 @@ RSS 之外，我想加埋呢幾個 source（如 API / scraping 可行）：
 
 Niche creator 嘅最大隱形成本：**「我有冇撞題」嘅焦慮**。
 
-每次落筆寫，腦入面有個聲：「我之前係咪寫過？」「行家是否啱啱寫咗類似嘢？」「呢個 angle 係咪真係新？」呢種焦慮唔會殺死你，但會慢慢蠶食你嘅創作勇氣 —— 結果你寫得越嚟越保守、越嚟越 generic。
+每次落筆寫，腦入面有個聲：「我之前係咪寫過？」「行家是否啱啱寫咗類似嘢？」「呢個 angle 係咪真係新？」呢種焦慮唔會殺死你，但會慢慢蠶食你嘅創作勇氣 —— 結果你寫得越嚟越保守、越嚟越籠統。
 
-Cowork 嘅 RSS watchlist 真正解嘅唔係「冇 idea」，係 **將「撞題焦慮」拆解做一個自動跑嘅 cross-reference 系統**。Cross-reference 嗰步幫你睇清楚：「我寫過 X、行家講緊 Y，X ∩ Y 之外仲有 Z 未掂過」。
+Cowork 嘅 RSS watchlist 真正解嘅唔係「冇 idea」，係 **將「撞題焦慮」拆解做一個自動跑嘅對照系統**。Cross-reference 嗰步幫你睇清楚：「我寫過 X、行家講緊 Y，X ∩ Y 之外仲有 Z 未掂過」。
 
 > 創作者嘅注意力應該畀寫嘢本身，唔係 scroll feed 搵題材。Cowork 嘅 7am cron job 就係幫你將 scroll feed 嗰一個鐘換返做寫嘢嗰一個鐘 —— 同一個鐘，產出差成個世界。

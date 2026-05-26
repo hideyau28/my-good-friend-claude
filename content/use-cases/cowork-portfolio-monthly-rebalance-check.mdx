@@ -32,7 +32,7 @@ featured: false
 
 附帶一段：「美股自上次 audit（4 月 1 號）升咗 8%，港股走平。建議由美股沽出 HK$95k，分注 4 週買入港股 ETF 2800。執行前請 review。」
 
-呢份 report 你**冇做過嘢**。Cowork set 咗一次，每個月 1 號自動跑。
+呢份 report 你**冇做過嘢**。Cowork 設定咗一次，每個月 1 號自動跑。
 
 呢個係散戶嘅典型痛點：
 
@@ -60,7 +60,7 @@ Chat 模式幫到你做一次 deep review（睇 [investment-portfolio-review-cla
 | 現金 | 10 | ±3 | HSBC 儲蓄 |
 | 強積金 | 排除 | — | HSBC MPF |
 
-**(b) Brokerage 每月 export CSV**。IBKR / 富途 / HSBC 都有「每月自動 email statement」嘅 option，揾返戶口設定 enable 佢。Cowork 就由你 Gmail 入面攞呢啲 CSV，唔需要你逐次手動 download。
+**(b) Brokerage 每月 export CSV**。IBKR / 富途 / HSBC 都有「每月自動 email statement」嘅 option，揾返戶口設定啟用佢。Cowork 就由你 Gmail 入面攞呢啲 CSV，唔需要你逐次手動 download。
 
 > ⚠️ Cowork agentic mode 會直接讀你 Gmail。**開一個 dedicated folder 畀佢操作**，唔好畀佢掂你嘅敏感檔案。Brokerage statement 本身唔係極敏感（你自己已經有），但 access pattern 要清晰。
 
@@ -153,7 +153,7 @@ Cowork 出咗報告之後，你嘅工作流：
 
 1. **5 分鐘 scan**：drift 邊個 category 過 threshold、suggestion 嘅金額
 2. **24 小時 cooling-off**：唔好即日落單。瞓一晚先。情緒（「美股仲會升」、「港股一定 dead cat」）會喺呢段時間散晒
-3. **第二日落單**：分 4 週執行，IBKR / 富途自己 schedule recurring order
+3. **第二日落單**：分 4 週執行，IBKR / 富途自己 schedule 定期 order
 4. **存檔**：將執行 confirmation forward 返畀 Cowork 嘅 audit folder，下個月 1 號跑嗰陣會見到 drift 收窄
 
 呢個 ritual 嘅核心：**將「捕捉 drift」嘅工作自動化，將「決定買賣」嘅 friction 保留**。Cowork 唔係幫你落單，係幫你冇藉口話「冇時間 review」。Drift 過 5% 嘅信號每個月 1 號都會到 inbox，你自己決定行唔行動。
@@ -182,7 +182,7 @@ Cowork 出咗報告之後，你嘅工作流：
 語氣：簡單直接，唔好嚇親我。
 </PromptBlock>
 
-呢個版本嘅好處：低決策疲勞、低 friction。3 隻 ETF 嘅組合 set 一次 target，跟 80% 嘅 use case 都夠用。
+呢個版本嘅好處：低決策疲勞、低 friction。3 隻 ETF 嘅組合設定一次 target，跟 80% 嘅 use case 都夠用。
 
 ### 變化 2：加 MPF auto-include（整合退休 horizon）
 
@@ -236,7 +236,7 @@ Rebalance suggestion 加：
 語氣：個股 holder 有自己嘅 conviction，尊重佢，但提醒集中風險。
 </PromptBlock>
 
-個股投資者嘅 audit 比 ETF 投資者複雜 2-3 倍，但 Cowork 自動化嘅 ROI 反而更高——你本來要每個月手動 check 8 隻股嘅 earnings + 集中度，依家一封 email 搞掂。
+個股投資者嘅 audit 比 ETF 投資者複雜 2-3 倍，但 Cowork 自動化嘅回報反而更高——你本來要每個月手動 check 8 隻股嘅 earnings + 集中度，依家一封 email 搞掂。
 
 ## 一個心態
 
@@ -246,4 +246,4 @@ Rebalance suggestion 加：
 >
 > 你嘅角色：每個月 1 號用 5 分鐘 scan 報告，drift 過 5% 就用 30 分鐘決定 + 落單。一年 12 次，總共 6 個鐘。換返嚟嘅係**投資組合永遠喺 target ± 5% 嘅 band 入面**，唔再有「5 年冇 review」嘅災難。
 >
-> ⚠️ 最後 reminder：Claude 唔係持牌顧問。呢個 automation 係 signal generator，唔係 decision maker。大額 rebalance、結構性轉變、退休前 5 年嘅 de-risking——搵 IFA 傾。Cowork 幫你準備好 data + 分析，去 IFA 嗰度傾偈會快好多。
+> ⚠️ 最後 reminder：Claude 唔係持牌顧問。呢個 automation 係訊號 generator，唔係 decision maker。大額 rebalance、結構性轉變、退休前 5 年嘅 de-risking——搵 IFA 傾。Cowork 幫你準備好 data + 分析，去 IFA 嗰度傾偈會快好多。
