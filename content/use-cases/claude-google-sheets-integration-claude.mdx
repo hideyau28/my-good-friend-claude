@@ -10,9 +10,9 @@ subcategory: "工具整合"
 heroImage: "/hero/claude-google-sheets-integration-claude.webp"
 difficulty: 2
 timeMinutes: 60
-toolsNeeded: ["Claude.ai (Pro+)", "Google Sheet (你公司 data)", "Apps Script 基本識讀"]
-description: "你每月底花 4 個鐘整 sales 報表 — pull 數、分類、寫 summary、send 老闆。用 Claude + Google Sheets 整合，每月底 1 個 click 就行嗮 — Claude 讀 raw data、自動分類、generate 1 頁 summary。Setup 1 hr，每月慳 3.5 hr。"
-keywords: ["Claude Google Sheets", "Apps Script Claude", "報表自動化", "Sheets AI integration", "細店 自動化", "monthly report automation"]
+toolsNeeded: ["Claude.ai (Pro+)", "Google Sheet（你公司 data）", "Apps Script 基本識讀"]
+description: "你每月底花 4 個鐘整 sales 報表 —— pull 數、分類、寫 summary、send 老闆。用 Claude + Google Sheets 整合，每月底撳 1 下就行嗮 —— Claude 讀 raw data、自動分類、出 1 頁 summary。Setup 1 個鐘，每月慳 3.5 個鐘。"
+keywords: ["Claude Google Sheets", "Apps Script Claude", "報表自動化", "Sheets AI 整合", "細店自動化", "每月報表自動化"]
 related: ["claude-projects-setup-claude", "claude-skills-build-claude", "cowork-sales-pipeline-automation"]
 featured: false
 ---
@@ -21,47 +21,47 @@ featured: false
 
 你係細店老闆。每月 1 號 routine：
 
-- 9am: 開 Stripe / Shopify dashboard，export 上月 transaction CSV
-- 10am: import 入 Google Sheet，clean column
-- 11am: pivot table 整 category breakdown
-- 12pm: 寫 1 頁 summary 畀 partner / accountant
-- 1pm: format + send
+- 9am：開 Stripe / Shopify dashboard，export 上月 transaction CSV
+- 10am：import 入 Google Sheet，整理 column
+- 11am：pivot table 整 category breakdown
+- 12pm：寫 1 頁 summary 畀 partner / 會計
+- 1pm：format + send
 
-4 個鐘月底 ritual，每月準時上演。你試過：
+4 個鐘月底儀式，每月準時上演。你試過：
 
-- 「Excel template 自動」: cleanup 後跑 — 但每月 data 略有不同，template 唔啱
-- 「Bookkeeping app」: 收月費，generate 嘅 report 太行貨
-- 「Accountant 整」: $$ 高 + 仍要你 review
+- 「Excel template 自動」：cleanup 之後跑 —— 但每月數據略有不同，template 唔啱
+- 「Bookkeeping app」：收月費，出嘅報告太行貨
+- 「會計整」：$$ 高 + 你仍然要 review
 
 呢個問題嘅本質：
 
-- Data 行 80% 一致 (column structure same)
-- Insight 行 20% 變 (每月 highlight 唔同)
+- 數據 80% 一致（column 結構一樣）
+- 洞察 20% 變（每月 highlight 唔同）
 - AI 應該 handle 嗰 20% 變嘅部分
 
-呢篇用 Claude + Apps Script 整合，1 個鐘 setup，往後 monthly report 1 click 行。
+呢篇用 Claude + Apps Script 整合，1 個鐘 setup，往後每月報表撳 1 下就行。
 
-⚠️ 呢個 use case 假設你會用 Google Sheets + 識讀基本 JavaScript (Apps Script 就係 JS)。完全唔識 code 嘅 user，跳到「變化 1」用 manual paste flow。
+⚠️ 呢個 use case 假設你會用 Google Sheets + 識讀基本 JavaScript（Apps Script 就係 JS）。完全唔識 code 嘅用家，跳到「變化 1」用手動貼 flow。
 
 ## 跟住做
 
-### 1. Prep 你 Sheet structure
+### 1. Prep 你 Sheet 結構
 
 打開 Google Sheet，setup 兩個 tab：
 
-**Tab 1: `raw-data`**
-- Column A: Date
-- Column B: Amount
-- Column C: Customer
-- Column D: Product / Service
-- Column E: Channel (online / instore / wholesale)
-- Column F: Note
+**Tab 1：`raw-data`**
+- A 欄：日期
+- B 欄：金額
+- C 欄：客戶
+- D 欄：產品 / 服務
+- E 欄：渠道（online / instore / wholesale）
+- F 欄：備註
 
-Paste 上月 transaction 入呢個 tab。
+貼上月交易入呢個 tab。
 
-**Tab 2: `monthly-report`**
-- Cell A1: 「Monthly Report —」 + Cell B1: month label
-- Cell A3: Claude output 嘅位
+**Tab 2：`monthly-report`**
+- A1：「Monthly Report —」+ B1：月份
+- A3：Claude 出嘅位
 
 ### 2. 拎 Anthropic API key
 
@@ -70,15 +70,15 @@ Paste 上月 transaction 入呢個 tab。
 1. Sign up / login
 2. Settings → API Keys
 3. Create key → label「sheets-integration」
-4. **Copy 嘅 key 即刻儲存好** (只會見到一次)
+4. **Copy 嘅 key 即刻儲好**（只見得到一次）
 
-API usage 收 metered fee：1 monthly report ≈ HK$0.5-2，月底 quick automation 平。
+API 用量收 metered fee：1 個 monthly report ≈ HK$0.5-2，月底快速自動化嘅成本好平。
 
 ### 3. 寫 Apps Script
 
-返 Google Sheet → Extensions → Apps Script (open new editor tab)。
+返 Google Sheet → Extensions → Apps Script（開新 editor tab）。
 
-Paste 呢段 code：
+貼呢段 code：
 
 ```javascript
 function generateMonthlyReport() {
@@ -153,20 +153,20 @@ ${dataText}
 }
 ```
 
-### 4. 設定 API key (安全)
+### 4. 設定 API key（安全）
 
-Apps Script editor → Project Settings → Script Properties → Add property:
+Apps Script editor → Project Settings → Script Properties → Add property：
 
-- Name: `ANTHROPIC_API_KEY`
-- Value: paste 你 API key
+- Name：`ANTHROPIC_API_KEY`
+- Value：貼你 API key
 
 Save。
 
-呢個方法比直接 hardcode 入 code 安全 — script 唔會 leak key 透過 sharing / export。
+呢個方法比直接 hardcode 入 code 安全 —— script 唔會透過分享 / export 漏 key。
 
-### 5. 加 menu trigger (1-click run)
+### 5. 加 menu trigger（撳 1 下就行）
 
-返 Apps Script editor，加多一段 code:
+返 Apps Script editor，加多一段 code：
 
 ```javascript
 function onOpen() {
@@ -179,44 +179,44 @@ function onOpen() {
 
 Save。Reload Google Sheet。
 
-你會見到頂部多咗一個 menu「Monthly Report」→「Generate」。撳一次 → 30-60 秒 → 報表 generated。
+你會見到頂部多咗一個 menu「Monthly Report」→「Generate」。撳一次 → 30-60 秒 → 報表出咗。
 
-### 6. 第一次跑 + iterate prompt
+### 6. 第一次跑 + 迭代 prompt
 
-Run 第一次 — 你會發現邊樣 output 唔啱：
+第一次 run —— 你會發現邊樣 output 唔啱：
 
-- 唔夠 detail 某個 dimension → 改 prompt
-- Tone 過 corporate → 加 tone rule
-- Format 錯 → spec format 清楚啲
+- 某個 dimension 唔夠 detail → 改 prompt
+- Tone 過於 corporate → 加 tone 規則
+- Format 錯 → 將 format 講清楚啲
 
-每改一次 prompt 之後 re-run，5 次 iteration 後 prompt 收斂到你要嘅 quality。
+每次改完 prompt re-run，5 次 iteration 後 prompt 會收斂到你要嘅質素。
 
-呢個 1 小時 setup，往後每個月底 1 click 跑 30-60 秒，慳 3.5 小時。1 年慳 42 小時。
+呢個 1 個鐘 setup，往後每月底撳 1 下跑 30-60 秒，慳 3.5 個鐘。1 年慳 42 個鐘。
 
 ## 變化
 
-### 變化 1：唔識 code — manual paste flow
+### 變化 1：唔識 code —— 手動貼 flow
 
-冇 Apps Script setup，每月 manual 5 分鐘 paste flow：
+冇 Apps Script setup，每月手動 5 分鐘貼 flow：
 
 1. Sheet → File → Download → CSV
-2. Open CSV → Copy 全部 transaction text
-3. Open Claude Project (per 第 78 篇 setup)
-4. Paste data + 一個 standing prompt:
+2. 開 CSV → Copy 全部 transaction text
+3. 開 Claude Project（按第 78 篇 setup）
+4. 貼數據 + 一個長駐 prompt：
 
 ```
 新一月 transaction. 用 our standard report template (in project knowledge) 生成.
 ```
 
-5. Copy output → paste 入 Sheet 嘅 monthly-report tab
+5. Copy output → 貼入 Sheet 嘅 monthly-report tab
 
-20 分鐘 / 月（vs 4 hr manual）。冇 setup overhead。
+20 分鐘 / 月（vs 手動 4 個鐘）。冇 setup 負擔。
 
-Trade-off：每月仍要你手動啟動。Apps Script 一次 setup 就永遠自動。
+取捨：每月仍要你手動啟動。Apps Script 一次 setup 就永遠自動。
 
-### 變化 2：Slack 整合 — 自動 send report 落 channel
+### 變化 2：Slack 整合 —— 自動將報告 send 落 channel
 
-加 Slack webhook integration，每月 1 號 9am 自動 trigger + send report 落 #monthly-reports channel:
+加 Slack webhook 整合，每月 1 號 9am 自動 trigger + 將報告 send 落 #monthly-reports channel：
 
 ```javascript
 function sendToSlack(reportText) {
@@ -233,38 +233,38 @@ function sendToSlack(reportText) {
 }
 ```
 
-Trigger time-based: Apps Script editor → Triggers → Add trigger → `generateMonthlyReport` → Time-driven → Monthly → Day 1, 9-10am.
+時間 trigger：Apps Script editor → Triggers → Add trigger → `generateMonthlyReport` → Time-driven → Monthly → Day 1, 9-10am。
 
 每月 1 號自動 run + send Slack。完全 hands-off。
 
-### 變化 3：擴展去其他 report (weekly / quarterly / yearly)
+### 變化 3：擴展去其他報表（每週 / 每季 / 每年）
 
-同樣 framework，唔同 cadence:
+同樣框架，唔同節奏：
 
-- **Weekly**: Mon 9am trigger, focus weekly KPI delta
-- **Quarterly**: 1 號 of Apr/Jul/Oct/Jan trigger, 跨 month aggregate, year-over-year compare
-- **Yearly**: 1 月 1 號 trigger, full year recap + next year planning
+- **每週**：星期一 9am trigger，集中每週 KPI 變化
+- **每季**：4/7/10/1 月 1 號 trigger，跨月匯總，按年比較
+- **每年**：1 月 1 號 trigger，全年回顧 + 下年計劃
 
-每個 cadence open separate menu item + own prompt template。
+每個節奏開獨立 menu 項目 + 自己嘅 prompt 模板。
 
-進階：generate **dashboard** (Apps Script 也可以 create chart based on Claude output) 同時 send email + slack。
+進階：出**儀表板**（Apps Script 都可以基於 Claude output 整圖表），同時 send email + Slack。
 
 ## 一個 mindset
 
-「自動化」呢個 word 容易被 oversold。實際 frame：**自動化 ROI 嘅計算唔係「節省 100% 時間」，係「節省重複嘅 80% 時間，preserve 20% judgment 留畀你」**。
+「自動化」呢個詞容易被 oversell。實際 frame：**自動化 ROI 嘅計算唔係「節省 100% 時間」，係「節省重複嘅 80% 時間，保留 20% 判斷留畀你」**。
 
-每月底你 4 hours：
-- 3.5 hr = 重複 pattern (export / clean / pivot / format)
-- 0.5 hr = 真 judgment (邊個 trend 顯著 / 邊個 concern 真係 worth flag)
+每月底你 4 個鐘：
+- 3.5 個鐘 = 重複 pattern（export / 清理 / pivot / 排版）
+- 0.5 個鐘 = 真正判斷（邊個 trend 顯著 / 邊個 concern 真係值得 flag）
 
-呢個 setup 自動化 3.5 hr。0.5 hr judgment 仍係你做 — 你 read Claude draft + 加 your own context insight (e.g.,「上月 client X 大 order 因為一次 event，唔 sustainable」)。
+呢個 setup 自動化 3.5 個鐘。0.5 個鐘判斷仍然你做 —— 你讀 Claude draft + 加你自己嘅背景洞察（例如「上月 client X 落大 order 因為一次 event，唔可持續」）。
 
-呢個 mindset 嘅 reframe: 自動化唔 replace 你 — 自動化釋放你嘅 judgment 時間。
+呢個 mindset 嘅 reframe：自動化唔係取代你 —— 自動化釋放你嘅判斷時間。
 
-最後 reminder：
+最後提醒：
 
-- ✅ **API cost 低**：1 monthly report ≈ HK$0.5-2，1 年 < HK$30。比「人工 4 hour × 12 month × HK$200/hr = HK$9,600」兩個 universe。
-- ⚠️ **API key 永遠唔好 commit Git / share**。用 Script Properties / env var。
-- 🎯 **第 1 個月你 prompt 唔完美**。每月 5 分鐘 iterate prompt，第 4 個月已經 sharp。
+- ✅ **API 成本低**：1 份每月報告 ≈ HK$0.5-2，1 年 < HK$30。比「人工 4 個鐘 × 12 個月 × HK$200/hr = HK$9,600」係兩個世界。
+- ⚠️ **API key 永遠唔好 commit Git / 分享**。用 Script Properties / 環境變數。
+- 🎯 **第 1 個月你 prompt 唔完美**。每月 5 分鐘調 prompt，第 4 個月已經夠精準。
 
-下個月 1 號試 1 click run。慳 3.5 hr。Compound 12 個月。
+下個月 1 號試撳 1 下行。慳 3.5 個鐘。Compound 12 個月。
