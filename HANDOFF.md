@@ -1,6 +1,6 @@
 # 📋 SESSION HANDOFF — my-good-friend-claude
 
-_Last session ended: 2026-05-26 (cont.), voice retone batch session — ✅ 45/45 DONE 🎉_
+_Last session ended: 2026-05-26 (cont.), voice retone ✅ COMPLETE — **全 84 篇 100% <0.30 strict bar** (avg 0.145, max 0.291)_
 
 ## 🌐 Live URLs
 
@@ -12,7 +12,9 @@ _Last session ended: 2026-05-26 (cont.), voice retone batch session — ✅ 45/4
 
 ## 📊 Current state (top of main)
 
-- Top commit: `883fc5f` content(voice): retone #088 claude-code-worktrees-claude (0.60 → 0.28)
+- Top commit: `5096f46` content(voice): retone 7 borderline articles to <0.20 strict bar
+- ✅ Build pass (91 HTML pages, Pagefind indexed 10,295 words)
+- ✅ **全 84 篇 ratio 100% <0.30**（avg 0.145，max 0.291 youtube-transcript-summary）
 - **84 articles** (chat 61 / cowork 11 / code 12) — 42 featured
 - **12 sections** — 財經 · 職場 · 商家 · 親子 · 寵物 · 生活 · 健康 · 旅遊 · 文化 · 科技 · 遊戲 · 其他
 - Highest issue: **088** / Next issue: **089**
@@ -192,22 +194,34 @@ content(voice): retone #NNN slug-name (BEFORE → AFTER)
 - ✅ **84 / 84 articles have heroes** (100% coverage as of 2026-05-24)
 - **Master style**: 16:9 cream paper / 4-color (#FBF7EA #F7F2E2 #C42424 #0F0B05) / ink hatching / no faces / vermillion 朱紅 印章 corner
 
-## 🔓 Remaining backlog
+## 🔓 Remaining backlog（launch readiness）
 
 1. ~~**Voice retone — 45 articles**~~ ✅ COMPLETE (2026-05-26)
-2. **Replace `/collaborate` email** placeholder (`hello@my-good-friend-claude.com`) — production launch blocker
-3. **Pricing anchors** on `/collaborate` FAQ — after first paid quote
-4. Custom domain (currently `my-good-friend-claude.vercel.app`)
-5. `/collaborate` Calendly / Tally form upgrade later
+2. ~~**Borderline cleanup — 7 articles**~~ ✅ COMPLETE (2026-05-26, commit `5096f46`)
+3. 🔴 **Replace `/collaborate` email** — `src/app/collaborate/page.tsx:12`
+   - 現時 placeholder: `'hello@my-good-friend-claude.com'`
+   - 改為：你嘅真實合作 email
+   - 30 秒就改完，係 production launch 唯一 blocker
+4. 🟡 **Pricing anchors** on `/collaborate` FAQ（`page.tsx:144-149`）
+   - 現時已有 ballpark：「HK 5-figure 起 / workshop HK 4-figure」
+   - 收到第一單付費 quote 後可以加返具體 anchor
+5. 🟢 Custom domain（取代 `my-good-friend-claude.vercel.app`）
+6. 🟢 `/collaborate` Calendly / Tally form 升級
 
-## 🚀 How to resume
+## 🚀 How to resume — next session 開頭一句
 
-下個 session：
+**Launch blocker（最快）**：
+- 「改 /collaborate email 做 your@email.com」（30 秒）
 
-- 「繼續 retone — 由 #031 開始」 — 我會 paste #031 落嚟，你 paste 落 Gemini，循環
-- 「改 /collaborate email 做 [real-email]」
-- 「我想 deepen [section name]」
-- 「Preview server start」（會跑 next-dev port 4321）
+**寫新文**：
+- 「開 #089，topic：[咩 topic]」（30-60 分鐘）
+
+**Polish 現有**：
+- 「Preview server start」（跑 next-dev port 4321 睇全 site）
+- 「Build + spot check 10 篇」
+
+**Domain**：
+- 「set up custom domain：your-domain.com」
 
 ## 🔑 Conventions to keep
 
