@@ -9,7 +9,7 @@ import { NewsletterCTA } from '@/components/design/NewsletterCTA'
 // ⚠️ TODO before going live:
 //   1. Replace CONTACT_EMAIL below with your real collab email.
 //   2. (Optional) Fill in pricing anchors after first few clients.
-const CONTACT_EMAIL = 'hello@my-good-friend-claude.com'
+const CONTACT_EMAIL = 'yau@flowstudiohk.com'
 
 export const metadata: Metadata = {
   title: '合作 · Collaborate',
