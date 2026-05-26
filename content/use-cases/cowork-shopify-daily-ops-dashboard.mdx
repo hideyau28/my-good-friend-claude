@@ -29,11 +29,11 @@ featured: false
 
 Cowork 啱啱好做呢類 task：每朝 9am 自動 pull Shopify Admin API、跑三條 query、出一封一頁紙嘅 email（或者 Slack 訊息），9:00–9:15 你飲住咖啡掃一次，有問題先撳入 admin 跟，冇問題就過下一單。
 
-> 利益申報：Cowork 仲係 research preview，要 Pro/Max plan。Shopify API 連住你嘅銷售數據——**用 read-only scope**（`read_orders`、`read_products`、`read_inventory`、`read_fulfillments`），唔好畀佢 write access。
+> 利益申報：Cowork 仲係 research preview，要 Pro/Max plan。Shopify API 連住你嘅銷售數據——**用唯讀 scope**（`read_orders`、`read_products`、`read_inventory`、`read_fulfillments`），唔好畀佢 write access。
 
 ## 跟住做
 
-### 1. Shopify private app + read-only token
+### 1. Shopify private app + 唯讀 token
 
 Shopify admin → Settings → Apps and sales channels → Develop apps → Create an app（叫「Daily Ops Reader」就得）。
 

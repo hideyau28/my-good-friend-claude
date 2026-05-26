@@ -215,7 +215,7 @@ Driver bump（pg、mysql2、Prisma、Drizzle 等）係 highest-risk 嘅 dependen
 Driver bump 嘅 mandatory steps：
 - 喺 **staging environment** 跑完 1 個禮拜，先 prod
 - 跑 schema diff（`prisma migrate diff`）對比 prod schema
-- 跑一輪 read-only smoke test（揀 representative query，比較新舊 driver 嘅 output）
+- 跑一輪唯讀 smoke test（揀 representative query，比較新舊 driver 嘅 output）
 - 備 rollback plan：lockfile + 舊 driver version pinned，10 分鐘可 revert
 
 ⚠️ Claude 識讀 changelog + scan code，但 **production data 嘅 edge case 佢唔識**。Driver bump 必須人手 review staging dataset。

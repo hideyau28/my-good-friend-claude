@@ -273,6 +273,6 @@ API docs 過時嘅根源唔係懶 —— 係 docs 同 code **本身就喺兩個 
 - ✅ **Schema-first**：Zod / Pydantic 一定要喺 route handler 入面定義。手寫 JSON schema 永遠落後。
 - ✅ **Codegen everything**：types / examples / markdown docs 全部由 spec 生。
 - ✅ **Pre-commit block**：docs 唔同步嘅 PR 唔可以入 main。CI 都要 enforce。
-- ⚠️ **Staging endpoint 要 stable**：example refresh 跑落真實 staging，唔可以連 dev。Token 用 read-only。
+- ⚠️ **Staging endpoint 要 stable**：example refresh 跑落真實 staging，唔可以連 dev。Token 用唯讀。
 
 下個 sprint 加新 endpoint 嘅時候，試 `/api-doc` 一句話搞掂。半年之後再望，47 條 endpoint 嘅 docs 仲係同 code 對齊。客戶 integration team 唔再寫投訴 email。

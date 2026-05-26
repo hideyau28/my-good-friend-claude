@@ -37,13 +37,13 @@ featured: false
 
 呢篇教你設定一次 Cowork，**每朝 8:50am 自動讀你 calendar、對照 email + docs、每個 meeting 出一頁 prep doc 放入 Google Drive**。你 9 點開電腦，5 份 prep doc 已經喺度。
 
-> Caveat：Cowork 要 Pro / Max plan + Claude Desktop。佢會讀你 calendar、emails、Drive 啲嘢，授權之前要諗清楚邊啲帳戶可以 grant（建議用工作帳戶，唔好 mix 個人）。**呢個 workflow 全部係 read-only**——出 doc、唔會自動 send email、唔會改 calendar、唔會回覆任何人。
+> Caveat：Cowork 要 Pro / Max plan + Claude Desktop。佢會讀你 calendar、emails、Drive 啲嘢，授權之前要諗清楚邊啲帳戶可以授權（建議用工作帳戶，唔好 mix 個人）。**呢個 workflow 全部係唯讀**——出 doc、唔會自動 send email、唔會改 calendar、唔會回覆任何人。
 
 ## 跟住做
 
 ### 1. 開 Cowork session + 連好帳戶
 
-Claude Desktop（Pro / Max）→ Cowork mode。第一次用要 grant 以下 access：
+Claude Desktop（Pro / Max）→ Cowork mode。第一次用要授權以下 access：
 
 - Google Calendar（或 Outlook）— 讀你 events
 - Gmail（或 Outlook mail）— 揾返上次 thread
@@ -136,12 +136,12 @@ set 好之後 confirm 我，行 dry run 一次睇 output，先 schedule。
 
 - **Context 抽得準唔準**——5 份入面有冇 1 份係抽錯 thread / 攞錯 doc
 - **3 條 question 嘅質素**——有冇真係扣到 context，定係籠統
-- **Agenda 建議**——合唔合理，有冇漏 obvious 嘅 item
+- **Agenda 建議**——合唔合理，有冇漏明顯嘅 item
 - **隱私邊界**——有冇唔小心抽咗 personal email / confidential thread
 
-執完先啟用 schedule。輸出落 Google Drive 之後，你可以將 prep doc folder 置頂落 desktop 或者 bookmark，每朝一 click 就到。
+執完先啟用 schedule。輸出落 Google Drive 之後，你可以將 prep doc folder 置頂落 desktop 或者收藏，每朝一 click 就到。
 
-### 4. First week refinement
+### 4. 首週微調
 
 頭一個禮拜出嘅 5 × 5 = 25 份 prep doc，你會發現規律：
 
@@ -156,7 +156,7 @@ set 好之後 confirm 我，行 dry run 一次睇 output，先 schedule。
 
 ### 變化 1：唔用 Cowork，每朝 manual trigger
 
-Pro 用家冇 scheduled task，但用 Claude Desktop + MCP 一樣做到，淨係要你每朝自己 trigger。
+Pro 用家冇 scheduled task，但用 Claude Desktop + MCP 一樣做到，淨係要你每朝自己觸發。
 
 <PromptBlock label="變化 1 — Manual trigger 版">
 我每朝 8:45 開電腦會手動 trigger 你一次。
@@ -170,7 +170,7 @@ Pro 用家冇 scheduled task，但用 Claude Desktop + MCP 一樣做到，淨係
 我會 save 個 prompt 做 [快速命令]，每朝撳一次。
 </PromptBlock>
 
-呢個 setup 嘅 trade-off：你要記得 trigger（一兩個禮拜未養成習慣會漏），但你可以即時跟進、即時微調。
+呢個 setup 嘅 trade-off：你要記得觸發（一兩個禮拜未養成習慣會漏），但你可以即時跟進、即時微調。
 
 ### 變化 2：加 Slack / Teams DM context
 
