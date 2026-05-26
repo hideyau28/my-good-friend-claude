@@ -1,0 +1,212 @@
+---
+title: "Claude Code 揾 performance bottleneck：profile → narrow → fix 三段式 workflow"
+slug: "claude-code-performance-debugging"
+issue: 118
+publishedAt: 2026-05-27
+audience: ["創作者", "打工仔"]
+category: "code"
+section: "科技"
+subcategory: "Performance"
+difficulty: 3
+timeMinutes: 60
+toolsNeeded: ["Claude Code CLI", "你個 app + profiler (Chrome DevTools / py-spy / etc.)"]
+description: "頁面 load 慢、API 慢、build time 暴增。Naive 直接問 Claude「optimize」會出一堆 micro-optimization。教 3 段式 workflow：profile 攞 measurable data、narrow 揾 top-3 culprit、fix 一次一個再 re-measure。冇 measurement 就唔好 optimize。"
+keywords: ["Claude Code performance", "profile narrow fix workflow", "Web Vitals AI debug", "N+1 query Claude", "performance bottleneck AI", "Lighthouse Claude Code"]
+related: ["claude-code-debugging-stuck-bug", "claude-code-safe-refactor", "claude-code-install-claude"]
+featured: false
+---
+
+## 情境
+
+你嘅 HK e-commerce site，舊年 LCP 1.8 秒，而家 4.2 秒。或者你個 SaaS API，舊月 p95 180ms，而家 950ms。又或者 `pnpm build` 由 45 秒變 3 分鐘。
+
+你做嘅第一件事，多數係咁：
+
+1. 開 Claude Code，貼個 component / endpoint code 落去
+2. 打：「優化呢段 code，太慢」
+3. Claude 出咗 5 個建議：useMemo 包多幾個 value、加 lazy load、改 SELECT 用 index、bundle split…
+4. 你 apply 晒，re-deploy。LCP 由 4.2 秒變 4.1 秒。
+5. 你問：「仲有冇得 optimize？」Claude 再出 5 個。Apply。3.95 秒。
+6. 過咗 3 個鐘，砌咗 50 個 micro-optimization，p95 改善 12%。你開始懷疑人生。
+
+呢個係**典型 AI-assisted performance anti-pattern**：
+
+- 你冇 profile data，Claude 唯有撩呢個 codebase 入面「教科書 hotspot」嚟改
+- 真正嗰個 80% 嘅 bottleneck 喺你冇貼出嚟嗰個 file 入面（可能係一個 N+1 query、一個 blocking JS、一個 sync filesystem read）
+- 你最後做咗 50 個 5% 嘅改善，但個 single 95% 嘅 culprit 仍然喺度
+
+紀律：**冇 measurement 就唔好 optimize**。下面 3 段式 workflow 係 profile → narrow → fix，每段都有 hard rule。
+
+## 跟住做
+
+### 1. 揀啱 measurement tool（10 分鐘）
+
+落手前，揀啱 profiler。冇 profiler = 唔好開始。
+
+| 場景 | Tool | 量度乜 |
+| --- | --- | --- |
+| 前端 page load | Chrome DevTools Performance + Lighthouse | LCP / INP / CLS / TBT |
+| 前端 runtime（React render） | React DevTools Profiler | Component render time |
+| Backend API (Node) | `clinic.js` / `0x` / built-in `--inspect` | Flame graph、event loop lag |
+| Backend API (Python) | `py-spy record` | CPU sampling |
+| Backend API (Go) | `pprof` | CPU + heap |
+| Database query | Postgres `EXPLAIN ANALYZE` / slow query log | Query plan + time |
+| Build time | `vite --profile` / `webpack-bundle-analyzer` / `esbuild --metafile` | Plugin / chunk cost |
+
+⚠️ **唔好估邊樣慢**。你以為「實係 React render」，profile 出嚟可能係個 500KB 嘅 lottie animation block 咗 main thread。
+
+### 2. Profile capture + 餵 Claude 做 analysis（15 分鐘）
+
+跑 profiler，**save raw output 落 file**（唔好淨係睇 GUI screenshot）。
+
+```bash
+# 例：Node API 用 clinic flame
+npx clinic flame -- node server.js
+# 跑 load test 5 分鐘
+# Stop → 出 flame.html + .clinic-flame folder
+
+# 例：Python 用 py-spy
+py-spy record -o profile.svg -- python app.py
+# 跑 typical workload
+
+# 例：Postgres slow query
+# 已開 log_min_duration_statement = 100ms
+tail -n 500 /var/log/postgresql/postgresql.log > slow.log
+```
+
+然後喺 Claude Code 入面，**唔好貼 code，先貼 profile**：
+
+<PromptBlock label="Profile analysis prompt（narrow phase 入口）">
+我喺度 debug 一個 performance regression。Symptom：[頁面 LCP 4.2 秒 / API p95 950ms / build 3 分鐘]。
+
+我啱啱跑咗 [clinic flame / py-spy / Lighthouse / EXPLAIN ANALYZE]，raw output 喺 `./profile-output.txt`（已 attach）。
+
+請：
+1. 由 profile 倒推 **top-3 hottest path**（function / query / chunk），列出佔總時間嘅 %
+2. 對 top-1，講一句**hypothesis**：呢度慢嘅最有可能原因（algorithmic / IO blocking / N+1 / bundle bloat / etc.）
+3. 講需要再睇邊個 source file 先 confirm
+4. **唔好提議 fix**。我哋仲喺 narrow phase。
+
+如果 profile 噪音太多、top-1 唔明顯，直接話「需要 re-profile with [filter]」，唔好估。
+</PromptBlock>
+
+呢個 prompt 嘅紀律：**禁止 Claude 跳去 fix**。Profile-narrow-fix 三段，每段唔好溝。
+
+### 3. Top culprit narrow + 形成 hypothesis（15 分鐘）
+
+Claude 揾到 top-1 culprit（譬如：`getOrdersWithItems()` 食咗 67% wall time），下一步唔係 fix，係**confirm root cause**。
+
+開個 follow-up prompt，餵嗰個 specific file：
+
+<PromptBlock label="Confirm root cause prompt">
+Profile 顯示 `getOrdersWithItems()`（`src/api/orders.ts`，已 attach）食咗 67% wall time。我用 Postgres slow log 睇到呢個 endpoint 每 request 出 51 個 query。
+
+請：
+1. 逐行讀晒 `getOrdersWithItems`
+2. 講邊一行造成 51 個 query（精確到 line number）
+3. Classify：呢個係 **N+1**、定 **redundant fetch**、定 **缺 index**？
+4. 你嘅 hypothesis 嘅 confidence：高 / 中 / 低？如果中或低，建議再 capture 乜 data confirm。
+
+仍然**唔好提議 fix code**，淨係 confirm cause。
+</PromptBlock>
+
+呢一步嘅意義：你逼 Claude 做 diagnosis 而唔係 prescription。**Diagnosis 錯，prescription 一定錯**。
+
+### 4. Fix one-at-a-time + re-measure cadence（20 分鐘）
+
+Confirm 咗 root cause 先入 fix phase。**一次只 fix 一個 culprit**，fix 完即刻 re-measure。
+
+```bash
+# Cadence 流程
+1. Baseline measurement → 寫低（e.g. p95 = 950ms）
+2. Fix top-1 culprit
+3. Re-measure → 寫低（e.g. p95 = 220ms）
+4. Δ = 730ms = 77% improvement → 真係嗰個 culprit
+5. 仲未達標？返 step 1，攞新 profile，揾新 top-1
+```
+
+<PromptBlock label="Single-fix prompt（已確認 root cause）">
+已 confirm：`getOrdersWithItems` line 42-58 係 N+1（每個 order loop 入面再 query items）。
+
+請提議**一個** fix：
+1. 改 query 用 `JOIN` 一次過攞，或者用 `WHERE order_id IN (...)` batch fetch
+2. 出 diff，淨係改呢個 function
+3. 列出可能 break 嘅 case（譬如 empty order list、order count 過 1000、items table 有 soft delete）
+4. 列我應該加邊個 test case 防 regression
+
+唔好順手 refactor 其他嘢。我要 isolated diff 方便 re-measure。
+</PromptBlock>
+
+紀律：**一個 PR 一個 fix**。你溝兩個 fix，re-measure 嘅 Δ 就唔知邊個貢獻幾多。下次 regression 你又冇得 bisect。
+
+## 變化
+
+### 變化 1：前端 page load（Web Vitals + Lighthouse）
+
+HK e-commerce 最常見：mobile 4G LCP 5 秒。流程：
+
+1. **Profile**：Chrome DevTools → Lighthouse (Mobile, Slow 4G throttle)，save 個 JSON report
+2. **Narrow**：餵個 JSON 落 Claude，問「top-3 contributors to LCP」。通常會講出 render-blocking JS / 大 image / 第三方 script
+3. **Hypothesis confirm**：對 top-1 譬如「Hero image 1.8MB」，問 Claude 「`<Image>` component 點 config 至 next-gen format + responsive sizes」
+4. **Fix + re-measure**：改一樣（譬如轉 AVIF），re-run Lighthouse，寫低 Δ
+
+⚠️ 唔好同一個 PR 入面又轉 image format、又 lazy load script、又 inline critical CSS — 你 re-measure 嗰刻分唔到邊個 work。
+
+### 變化 2：後端 API（database / N+1）
+
+SaaS dashboard 開頁 7 秒，p95 950ms。`EXPLAIN ANALYZE` 先：
+
+```sql
+EXPLAIN (ANALYZE, BUFFERS) SELECT * FROM orders WHERE workspace_id = $1;
+-- 留意 Seq Scan vs Index Scan、Rows Removed by Filter、loops
+```
+
+餵個 plan 落 Claude，問「呢個 plan 邊度唔合理」。Claude 通常即刻 spot 到：缺 index、`SELECT *` 拉太多 column、subquery 應該 rewrite 成 CTE。
+
+關鍵：**唔好淨係問「優化呢個 query」**。問「呢個 EXPLAIN plan 邊行 cost 最高，點解」。前者 Claude 估，後者 Claude 讀數據。
+
+N+1 嘅 fingerprint：log 入面 100ms request 對住 50 個一樣 shape 嘅 query。Prisma / ActiveRecord / SQLAlchemy 都有 ORM-specific 嘅 eager-load syntax（`include` / `includes` / `selectinload`），叫 Claude 直接出嗰個 framework 嘅 idiom。
+
+### 變化 3：Build time（webpack / vite bundle analyzer）
+
+`pnpm build` 由 45 秒變 3 分鐘，CI cost 飛升。
+
+```bash
+# Vite
+vite build --profile  # 出 profile JSON
+npx vite-bundle-visualizer  # 視覺化 chunk
+
+# Webpack
+webpack --profile --json > stats.json
+npx webpack-bundle-analyzer stats.json
+```
+
+餵 JSON 落 Claude，問「邊個 plugin / 邊個 dependency 食咗最多 build time」。通常 culprit 係：
+
+- 一個 dependency upgrade 之後 SSR-bundled 咗一個本嚟唔需要嘅大 package（lodash 全套、moment 全 locales）
+- `@svgr` / `babel-plugin-styled-components` 等 transform 每個 file 都跑
+- TypeScript `incremental: false` / `tsBuildInfoFile` 冇 set
+
+Fix 完即刻再跑一次 `time pnpm build`，記低 Δ。CI 加 cache key 之後再記一次 cold vs warm。
+
+## 一個紀律
+
+> 冇 measurement 就唔好 optimize。冇 narrow 就唔好 fix。
+
+Claude 唔係慢 — 你冇畀佢 profile，佢唯有撩 codebase 入面「教科書 hotspot」。呢類 hotspot 通常 3-5% 改善，但耗你 3 個鐘。真正嗰個 80% bottleneck，profile 一跑就睇到，narrow 5 分鐘就 confirm。
+
+你嘅工作：
+
+- **Measure**（揀啱 profiler，save raw output）
+- **Constrain Claude**（一段一個 prompt，禁止跳 phase）
+- **One fix per re-measure**（保留 attribution）
+
+Claude 嘅工作：
+
+- **讀 profile**（flame、EXPLAIN plan、Lighthouse JSON，呢啲佢真係叻）
+- **Hypothesize root cause**（N+1 / blocking IO / bundle bloat）
+- **Generate isolated diff**（一次一個，唔順手 refactor）
+
+呢個 split 做得好，performance regression 由「3 個鐘 50 個 micro-fix」變「30 分鐘 1 個 PR」。做唔好，你會喺 useMemo 同 SELECT column 之間繞圈。
+
+下次撞到「app 變慢」，**收手 10 分鐘**：揀 profiler、save 個 raw output、再開 Claude。Profile-narrow-fix 三段，紀律守住，bottleneck 就會自己浮出嚟。

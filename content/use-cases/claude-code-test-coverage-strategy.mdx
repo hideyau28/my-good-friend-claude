@@ -1,0 +1,232 @@
+---
+title: "Claude Code 寫 test 唔濫：critical path 100% / hot path 80% / cold path 0%"
+slug: "claude-code-test-coverage-strategy"
+issue: 116
+publishedAt: 2026-05-27
+audience: ["創作者", "打工仔"]
+category: "code"
+section: "科技"
+subcategory: "Testing strategy"
+difficulty: 2
+timeMinutes: 40
+toolsNeeded: ["Claude Code CLI", "你個 test framework"]
+description: "Claude Code 開晒 test 就寫到 100% coverage，但好多 test 對 production 安全完全冇貢獻。教三層 coverage strategy：critical / hot / cold path 分清楚，CLAUDE.md 寫明邊個 module 屬邊層，Claude 自動知幾深寫。"
+keywords: ["Claude Code test coverage", "critical path testing", "test strategy AI", "pragmatic coverage", "Claude Code 測試策略"]
+related: ["claude-code-tdd-pair-workflow", "claude-code-hooks-claude", "claude-code-safe-refactor"]
+featured: false
+---
+
+## 情境
+
+你叫 Claude Code 加 test。15 分鐘後佢出咗 47 個 test file、coverage report 顯示 98.6%。你睇個 dashboard——綠色一片，好滿足。
+
+兩個禮拜後 production 數據錯。睇返 test：
+
+- Payment module：covered 100%，但全部 test 都係 happy path，冇一個係 currency rounding edge case
+- Admin dashboard 嗰個 CSV export script：covered 100%，3 個 test，每個 test 都喺 mock 一個 mock，零實際保護
+- 然後個真正 critical 嘅 RBAC permission check function——`isAllowed()`——只係 1 個 test。「你叫我加 test 我就平均加，呢個 file 細，所以加少啲」
+
+呢個係 Claude Code 嘅 default failure mode：**佢冇你個 production risk 嘅 mental model**，所以佢 spread test 出嚟好平均，但風險集中嘅地方反而 under-covered。
+
+解法唔係寫多啲 test，係**將 coverage strategy 寫死入 CLAUDE.md**，叫 Claude 按你定義嘅三層自動分輕重：
+
+- **Critical path**：payment、auth、data write、permission check — 100% coverage + edge case fuzz
+- **Hot path**：用戶日常 flow（login、search、checkout UI）— 80% smoke + integration
+- **Cold path**：admin tool、one-off script、internal dashboard — **0% test**，靠 manual
+
+呢篇拆呢個 strategy 點落地，等 Claude Code 自動知邊度該深、邊度該淺。
+
+## 跟住做
+
+### 1. 識別你個 codebase 嘅三層
+
+開始前，揀 5 分鐘對住 file tree 過一次，每個 module 貼一個 label：
+
+**Critical path**（每個 codebase 通常得 5-15%）：
+- Payment / billing / subscription
+- Auth / session / token generation
+- Permission check / RBAC / row-level security
+- Data write that mutates business state（order placement、inventory deduction）
+- Audit log writer
+
+**Hot path**（30-50%）：
+- 用戶常用 UI flow（search、filter、profile edit）
+- API endpoint 畀 logged-in user 用
+- 計算 derived data（dashboard metric、report aggregation）
+- Email / notification 觸發
+
+**Cold path**（剩低嗰 40-60%）：
+- Admin-only tool（user search、refund issuance — manual 用，錯咗你即時知）
+- Dev script（DB seed、migration helper、import job）
+- One-off marketing landing page logic
+- Internal dashboard，得 3 個同事用
+- Documentation generator
+
+**重點**：唔好對 cold path 內疚。Cold path 嘅 ROI 喺 manual + monitoring，唔喺 test。
+
+### 2. 寫 coverage policy 入 CLAUDE.md
+
+呢段係 source of truth。Claude Code 每個 session 都讀，自動知幾深寫。
+
+```md
+## Test Coverage Policy
+
+呢個 codebase 用三層 coverage strategy。寫 test 之前確認你知個 module 屬邊層：
+
+### Critical path（100% + edge case fuzz）
+Module：
+- src/payment/**
+- src/auth/**
+- src/permissions/isAllowed.ts
+- src/inventory/deduct.ts
+- src/audit/logger.ts
+
+要求：
+- 100% line + branch coverage
+- 每個 input 邊界 case 都寫 test（null、負數、零、極大、Unicode）
+- 每個 business rule edge case 都寫 test（過期 token、race condition、partial failure）
+- 改呢層任何 file 之前，問我「需唔需要加 test？」
+
+### Hot path（80% smoke + integration）
+Module：
+- src/app/**（除咗 admin 同 internal）
+- src/api/public/**
+- src/components/**（user-facing）
+
+要求：
+- Happy path + 2-3 個常見錯誤 case
+- Integration test cover 主要 user flow
+- 唔需要 100%；80% 已經夠
+
+### Cold path（0% — 唔好寫 test）
+Module：
+- src/admin/**
+- scripts/**
+- src/internal/**
+- src/app/(marketing)/**
+
+要求：
+- **唔好** auto 加 test
+- 如果我明確叫你寫 test 先寫
+- 改 cold path file 唔需要 propose test
+```
+
+關鍵設計：**path-based**，唔係 by feature。Claude 一睇 file path 就分到層，唔需要每次問你。
+
+### 3. 對應每層嘅 test prompt
+
+每層 test 嘅寫法唔同。critical path 要逼 edge case，hot path 要 smoke 廣，cold path 完全唔好寫。
+
+**Critical path 寫 test**：
+
+<PromptBlock label="Critical path test">
+呢個係 critical path module（睇 CLAUDE.md coverage policy）。
+
+階段一：唔好寫 test code。先列：
+1. Input boundary（null、undefined、empty、negative、極大、Unicode、whitespace）
+2. Business rule edge（過期、未生效、partial state、concurrent modification）
+3. External failure（DB timeout、API 5xx、network partition）
+
+每個 case 1 句描述 + 1 個 test name。
+
+階段二：我揀邊幾個寫，你按我嘅 list 出 test code。唔好自己加 case。
+</PromptBlock>
+
+**Hot path 寫 test**：
+
+<PromptBlock label="Hot path test">
+呢個係 hot path module。
+
+寫 smoke + integration test：
+- 1 個 happy path
+- 2-3 個常見 user error（empty input、invalid format、unauthorized）
+- 唔需要 cover 罕見 edge case
+
+目標 coverage 80%，唔需要 100%。寫完同我講你 skip 咗邊類 case + 點解。
+</PromptBlock>
+
+**Cold path**：
+
+<PromptBlock label="Cold path 改 code">
+呢個係 cold path file（睇 CLAUDE.md）。
+
+改完**唔好** propose 加 test。如果你覺得呢段邏輯有風險，喺 reply 入面講你嘅憂慮，由我決定要唔要升做 hot path。
+</PromptBlock>
+
+### 4. 睇 coverage report 嘅正確角度
+
+跑完 `pnpm test --coverage`，**唔好睇 overall %**。Overall % 係 vanity metric——cold path 拉低個數但唔代表 risk 高。
+
+正確睇法：
+
+```bash
+# 只睇 critical path 嘅 coverage
+pnpm test --coverage --coverageDirectory=coverage \
+  --collectCoverageFrom='src/{payment,auth,permissions,inventory,audit}/**'
+```
+
+目標：critical path 段嘅 line + branch coverage 99%+。Hot path 80%+。Cold path 唔睇。
+
+如果 critical path 跌穿 99%，呢個係 P0 警號——比 overall 由 85% 跌去 80% 嚴重 10 倍。
+
+## 變化例子
+
+### 變化 1：B2B SaaS — audit log + RBAC 升做 critical
+
+B2B 客戶嘅 contract 通常寫死要 audit log + RBAC enforcement。一爆出嚟就係 compliance 問題、唔係 bug。
+
+呢類 codebase 嘅 critical path 要擴：
+
+```md
+### Critical path（B2B SaaS 補充）
+- src/audit/**（所有 audit log writer + reader）
+- src/rbac/**（permission check、role assignment、scope filter）
+- src/tenants/isolation.ts（multi-tenant data leak 嘅最後一道防線）
+- src/webhook/signature.ts（incoming webhook auth）
+```
+
+Edge case fuzz 要特別狠：tenant A 嘅 user 試攞 tenant B 嘅 data、deactivated user 嘅 token 仲 valid、role downgrade 之後 in-flight request 點處理。每個都寫 explicit test。
+
+### 變化 2：電商 — payment + inventory 唔可以 share state assumption
+
+電商最痛係兩個 critical module 互相依賴：payment 成功但 inventory deduct 失敗、或者反過嚟。Test 嘅時候唔可以 mock 對方做「永遠成功」。
+
+```md
+### Critical path（電商補充）
+- src/checkout/**（order placement orchestration）
+- src/payment/**（charge、refund、partial refund）
+- src/inventory/{deduct,restock}.ts
+- src/pricing/**（discount、tax、currency conversion）
+
+特別要求：
+- Payment + inventory 嘅 integration test 要 cover「一邊成功一邊 fail」
+- 唔可以 mock 對方做 happy path 通過；必須 test compensation logic
+```
+
+呢類 codebase 嘅 hot path 反而可以鬆——product listing、search filter、wishlist 呢啲，80% smoke 就夠。
+
+### 變化 3：Content site（似呢個 project 自己）— 大部分都係 cold path
+
+呢個 newsletter project 嘅 coverage policy 真係寫得好短：
+
+```md
+### Critical path
+（暫時冇 — 無 payment、無 auth、無 user data）
+
+### Hot path
+- src/lib/content.ts（MDX query helper — 影響全部 page 嘅 build）
+- velite.config.ts（schema 改錯全站爆）
+
+### Cold path
+- 所有 component（visual feedback 比 unit test 快）
+- 所有 MDX content
+- 所有 utility script
+```
+
+Content site 嘅 risk profile 同 B2B SaaS 唔同。呢度 build fail 就立即知、deploy preview 一睇就睇到 layout 爛——manual loop 快過任何 test suite。Coverage 整體可能得 20%，但 critical path 嘅 0 個 module × 100% = 完美達標。
+
+**唔好覺得呢個係偷雞**。Pragmatic coverage 嘅核心係：test 嘅 ROI 取決於「冇 test 嘅 downside」。Content site 冇 downside，test ROI 就低。
+
+> 100% coverage 唔等於 100% 安全。Test 寫喺低風險嘅地方，等如將你嘅注意力分散——critical bug 走出去嘅機會反而高。Coverage 嘅藝術唔係多，係**準**。
+
+HK dev 嘅 pragmatic line：critical 100%、hot 80%、cold 0%。寫死入 CLAUDE.md，等 Claude Code 自動分到層，你就唔需要每次同佢拗「呢個 file 要唔要 test」。

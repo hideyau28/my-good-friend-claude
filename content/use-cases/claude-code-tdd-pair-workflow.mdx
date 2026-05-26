@@ -1,0 +1,191 @@
+---
+title: "Claude Code 行 TDD：你寫 test，Claude 寫 impl — pair-programming 模式真係 work"
+slug: "claude-code-tdd-pair-workflow"
+issue: 111
+publishedAt: 2026-05-27
+audience: ["創作者", "打工仔"]
+category: "code"
+section: "科技"
+subcategory: "TDD / Testing"
+difficulty: 3
+timeMinutes: 50
+toolsNeeded: ["Claude Code CLI", "你個 test framework (jest / vitest / pytest / etc.)"]
+description: "Claude Code TDD 工作流：你 own test、Claude own impl 嘅 pair programming 模式。red-green-refactor 具體 prompt + edge case ratchet + 邊類問題啱用 TDD。"
+keywords: ["Claude Code TDD", "AI pair programming", "test-driven development Claude", "Claude red green refactor", "claude code 測試"]
+related: ["claude-code-tutorial-website", "claude-code-legacy-codebase-onboarding", "claude-code-hooks-claude"]
+featured: false
+---
+
+## 情境
+
+你用 Claude Code 寫 feature。叫佢「整個 function 計 invoice tax，加埋 test」。
+
+佢三秒之內出晒 implementation + test。你睇下，test 全部 pass。Commit、Push、收工。
+
+兩個禮拜後 production 出事——佢個 test 同個 impl 係**同一刻寫出嚟**，互相驗證緊對方嘅幻覺。Edge case 一個都冇 cover。
+
+呢個係 Claude Code 嘅 default failure mode。**解法唔係叫佢寫好啲 test**，係改變分工：**你 own test、Claude own impl**，行真正 TDD。
+
+呢篇教實際 ritual：red-green-refactor 點同 Claude pair、邊類問題啱用、邊類唔啱。
+
+## 跟住做
+
+### 1. 設 TDD-mode rule（5 分鐘）
+
+喺 project root 嘅 `CLAUDE.md` 加一段：
+
+```md
+## TDD Mode
+
+當我講「TDD mode」或者「red-green」嘅時候：
+
+- 我會寫 failing test，你只 own implementation
+- 你**唔可以**改我啲 test file（除非我明確叫你 refactor test）
+- 你寫**最少**嘅 code 令 test pass，唔好預先優化
+- Pass 之後問我：「需要加 edge case test 嗎？」唔好自動加
+- Refactor 階段先動 production code 結構，test 唔郁
+```
+
+然後喺 Claude Code 入面起 session：
+
+<PromptBlock label="Session 開頭">
+我哋而家行 TDD mode（睇 CLAUDE.md）。
+
+我 own test file，你 own implementation。每個 cycle：我貼 failing test → 你出 minimal impl → 我 review 同決定下一步。
+
+確認你明白規則。
+</PromptBlock>
+
+### 2. Red-Green cycle（每個 feature 約 5-10 分鐘）
+
+你先寫 failing test。例：
+
+```typescript
+// invoice.test.ts
+test('calculates 0% tax for tax-exempt items', () => {
+  expect(calculateTax({ amount: 100, exempt: true })).toBe(0)
+})
+```
+
+跑 test，紅。貼畀 Claude：
+
+<PromptBlock label="Red → Green">
+Test 紅咗：
+
+【貼 test code + error output】
+
+請寫**最少**嘅 implementation 令呢個 test pass。
+唔好預估其他 test case，唔好加我未要嘅 function。
+</PromptBlock>
+
+Claude 出 impl。你跑 test，綠。**唔好衝去寫下一個 feature**——呢度先停一停。
+
+### 3. Edge case ratchet（最重要嗰步）
+
+呢個係 TDD 真正威力嘅地方。你**主動逼** Claude 出 edge case，但**由你揀寫邊個**：
+
+<PromptBlock label="Edge case ratchet">
+而家個 happy path 綠咗。
+
+唔好寫 implementation。淨係幫我**列出**呢個 function 可能炒嘅 edge case，按風險高低排：
+
+- Input 邊界（負數、零、極大、null、undefined、空 string）
+- 商業邏輯邊界（tax-exempt + discount 同時、currency rounding、negative tax 情況）
+- 環境邊界（locale 唔同、timezone、float precision）
+
+每個 edge case 出 1 句描述 + 1 個 test name，**唔好寫 test code**。
+</PromptBlock>
+
+Claude 出 list。你揀 2-3 個最高風險嘅，**自己**寫 test，再跑 red-green cycle。
+
+呢個 ratchet 確保兩件事：edge case 唔係 Claude 隨手揀，係你判斷風險之後揀；test 由你寫，唔會同 impl 一齊幻覺。
+
+### 4. Refactor pass
+
+3-5 個 cycle 之後，code 開始有重複或者命名差。先確保所有 test 綠，然後：
+
+<PromptBlock label="Refactor pass">
+所有 test 綠。請 refactor 呢個 module：
+
+- 抽 helper function（如果有重複邏輯）
+- 改名（如果有 ambiguous variable）
+- 抽 magic number 做 constant
+
+**規則**：
+1. Test file 完全唔郁
+2. 每改一步跑一次 test，確保仲係綠
+3. 唔好加新 feature，純粹 restructure
+
+完咗之後總結你改咗乜，等我 review。
+</PromptBlock>
+
+呢個 pass 通常 5 分鐘搞掂，但每幾個 cycle 做一次，code quality 同一次過寫嘅版本差距好明顯。
+
+## 變化例子
+
+### 變化 1：Bug fix mode — regression test 先
+
+撞到 production bug，唔好即刻 fix。先寫 test 重現：
+
+<PromptBlock label="變化 1 — Bug regression TDD">
+Production bug：[描述病徵 + 重現步驟]。
+
+TDD mode：我先寫一個 regression test 重現呢個 bug（會紅）。
+你睇咗 test 之後**唔好**即刻寫 fix，先答我：
+
+1. 你估個 root cause 係邊個 file / function？
+2. 有幾肯定（1-5）？
+3. 仲有冇其他可能性？
+
+等我 confirm 你估嘅方向，先寫 fix。
+</PromptBlock>
+
+呢個 mode 好處：個 regression test 永遠留低，下次 refactor 唔會再出返同一個 bug。
+
+### 變化 2：Refactor mode — existing code 無 test
+
+接手舊 code 想 refactor，但無 test。**先補 characterization test**，唔好直接改：
+
+<PromptBlock label="變化 2 — Characterization test 補底">
+呢個 function 冇 test，但我要 refactor。
+
+幫我出一份「characterization test」清單——記錄佢**而家**嘅實際行為（包括可能係 bug 嘅 behavior），唔係佢應該係點。
+
+每個 test 1 句描述 + expected output。我會自己寫 test code，跑綠之後先 refactor。
+</PromptBlock>
+
+Refactor 之後 test 仲係綠 = 行為冇變。Test 紅咗 = 你 refactor 改咗 semantic，要決定接唔接受。
+
+### 變化 3：Library / API integration 模式
+
+包一個 third-party library？呢個係 TDD 最 work 嘅場景，因為 contract 清晰：
+
+<PromptBlock label="變化 3 — Library wrapper TDD">
+我要包 [library name] 做一個 internal wrapper。Wrapper API 設計：
+
+【貼你嘅 interface 同 type signature】
+
+TDD mode：我會每次貼一個 test（一個 method 一個），你出 minimal impl。
+唔好 import 你估嘅其他 dependency，唔好預設我之後要加乜 method。
+</PromptBlock>
+
+Library wrapping 嘅 input/output 清晰，Claude 嘅 minimal impl 質素極高。
+
+## 邊類問題啱用 TDD？
+
+啱用：
+- **Pure function / 計算邏輯**（tax、pricing、parsing、validation）
+- **Bug fix**（regression test 必寫）
+- **Library wrapper / API integration**（contract 清晰）
+- **Refactor with characterization test**
+
+唔啱用：
+- **Exploration phase**——你都唔知個 feature 應該係點，寫 test 等如過早 commit 個 spec
+- **UI / layout 改動**——visual feedback 比 unit test 快好多
+- **One-off script**——寫完就掉，test 嘅 ROI 太低
+
+HK dev 嘅 pragmatic line：**critical path 同 business logic 行 TDD，UI 同 glue code 唔強迫**。Coverage 80% 已經夠，最後嗰 20% 嘅 ROI 通常負數。
+
+> Claude Code 一次過寫 impl + test 嘅 mode，唔係錯，係**啱 exploration、唔啱 production**。分清楚兩個階段，唔好用同一個 workflow 食晒兩邊。
+
+TDD pair-programming 嘅 unlock 唔係「test coverage 高啲」，係**你重新攞返 design authority**——你 own spec，Claude own implementation。code quality 嘅差距，就喺呢個分工。

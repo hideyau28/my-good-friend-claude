@@ -1,0 +1,245 @@
+---
+title: "Claude Code 處理 dependency 升級：major version bump 點安全行、breaking change 點處理"
+slug: "claude-code-dependency-upgrades"
+issue: 115
+publishedAt: 2026-05-27
+audience: ["創作者", "打工仔"]
+category: "code"
+section: "科技"
+subcategory: "Dependency management"
+difficulty: 3
+timeMinutes: 60
+toolsNeeded: ["Claude Code CLI", "你個 project + lockfile (package-lock.json / pnpm-lock.yaml / etc.)"]
+description: "React 18 → 19、Next.js 14 → 15、Node 18 → 20。Major version bump 永遠唔會「跑一個 npm update 就完」。教用 Claude Code 跑 controlled upgrade：summarize changelog、isolated branch install、systematic breaking change triage、regression smoke test。SME 接手 5 年舊 codebase 都搞得掂。"
+keywords: ["dependency upgrade Claude", "React 19 migration", "breaking change AI", "major version bump", "Next.js 15 升級", "Node 20 migration", "Claude Code refactor"]
+related: ["claude-code-install-claude", "claude-code-safe-refactor", "claude-code-hooks-claude"]
+featured: false
+---
+
+## 情境
+
+你係一間 HK agency 嘅 freelance dev。新客戶 handover 一個 5 年舊嘅 Next.js codebase —— 原本團隊散咗，老闆要你 6 個禮拜內 ship 兩個新 feature。
+
+你 `git clone` + `npm install`，第一輪 warning：
+
+- React 17（current 19）
+- Next.js 12（current 15）
+- Node 16（你 local 跑緊 22，舊版 deprecated 兩年）
+- 47 個 transitive dependency 有已知 CVE
+
+老闆問：「使唔使升級 framework？」你心裡知答案係要，但每次 major bump 都恐怖：
+
+- Changelog 50 頁，唔知邊條 breaking change 影響到你個 codebase
+- 升完跑 `next dev` 死喺 cryptic error，stack trace 指向 `node_modules` 深處
+- 試 fix 一個 file → 連帶 5 個 file 都要改 → 改完再壞 3 個
+- 半日就過咗，連第一個 page 都未行得返
+
+**呢個 pattern 嘅根本問題**：major version bump 唔係「一個 command 嘅事」，係一個 **systematic refactor task** —— 但 changelog 寫得似 reference docs、唔係 migration playbook。
+
+Claude Code 啱呢類嘢：佢可以 ingest changelog、scan 你 codebase、specifically tell 你邊度 break、逐個 fix。呢篇示範一套 controlled upgrade flow，React 18 → 19 / Next.js 14 → 15 / Node 18 → 20 都通用。
+
+## 跟住做
+
+### 1. Pre-upgrade 評估（15 分鐘）
+
+升之前要知道你會撼咗咩。**唔好直接跑 `npm install react@19`**。
+
+開 isolated branch：
+
+```bash
+git checkout -b upgrade/react-19
+```
+
+落第一個 prompt：
+
+```
+我想升級 React 18 → 19。麻煩你：
+1. Fetch React 19 release notes + migration guide
+2. Scan 我個 codebase（特別係 src/）
+3. List 出我具體 codebase 入面會 break 嘅地方，唔好籠統講
+4. 估個 effort scope（細 patch / 中度 refactor / 大手術）
+```
+
+Claude 會：
+- 讀 official changelog（如有 WebFetch 工具）
+- `grep` 你 codebase 揾出受影響 API：`useRef` 寫法、`forwardRef`、`useTransition` 新 signature、`<Context>` provider 寫法等
+- 出一個 markdown report：邊個 file、邊一行、邊一條 breaking change 規則對應
+
+呢一步係防止「升咗先諗」嘅最大保險。如果 report 出嚟係 80 個 site 都要改，你可以同老闆攤牌：呢個唔係 1 日工作，係 3 日。
+
+⚠️ Claude 嘅 changelog summary 唔係 100% complete。將佢視作 **first-pass triage**，唔係 final spec。
+
+### 2. Isolated branch + 安裝（10 分鐘）
+
+確認 plan 後再裝。
+
+```bash
+# 鎖死 Node 版本先（用 .nvmrc / volta / asdf）
+echo "20" > .nvmrc
+nvm use 20
+
+# Install 新版
+pnpm add react@19 react-dom@19
+# 或 npm install react@19 react-dom@19
+```
+
+⚠️ **唔好順手 `npm update`** —— 你只係想升 React，唔想連 50 個 transitive 都一齊飛。Major bump 一次處理一個 framework，先至 isolate 到 root cause。
+
+跑第一輪 sanity check：
+
+```bash
+pnpm typecheck
+pnpm build
+```
+
+預期會死。死法越具體越好（type error > runtime crash > silent regression）。
+
+### 3. Breaking change triage with Claude（25 分鐘）
+
+將 error log 整段交畀 Claude：
+
+```
+typecheck 跑完出咗呢一堆 error（貼 stack trace）。
+參照 step 1 個 migration plan，逐個 file fix：
+- 先 explain 點解 break
+- 再出 minimal diff
+- 唔好一次過改 10 個 file，1 個 1 個嚟我 review
+```
+
+關鍵：**逐個 file approve**。Claude 會傾向「一氣呵成」全部改晒，但 dependency upgrade 嘅錯誤代價高 —— 你需要每個 diff 都睇過。
+
+Claude Code 嘅 Edit tool 會逐個 file 問權限，照常按 Yes / No 即可。每改完一個 file，重新跑 typecheck，確認 error count 下降、無新 error 加入。
+
+常見 trap：
+
+- **Auto-fix「過頭」**：Claude 試 generalize 一條 rule 套去 5 個 file，但其中 2 個 file 嘅 context 唔同 → 反而 break。睇到「我幫你順手連埋呢度都改」時要警惕。
+- **Lockfile drift**：唔同 collaborator 用唔同 package manager 會出唔同 lockfile。揀一個（pnpm-lock.yaml 為主），刪其他。
+- **Peer dependency 黑洞**：React 19 升完，`@testing-library/react` / `next-themes` 等都要跟住升。Claude 識辨呢個 chain，但唔好盲信 —— 每個 peer 都係一輪 micro-upgrade。
+
+### 4. Regression smoke test（10 分鐘）
+
+Typecheck + build 過 ≠ runtime OK。
+
+```bash
+pnpm dev
+# 開瀏覽器，跑 critical user flow
+```
+
+最少跑：
+- Homepage render
+- 一個 form submit
+- 一個 client-side navigation
+- 一個 data-fetching page（SSR / RSC）
+
+如果有 E2E test：
+
+```bash
+pnpm test:e2e
+```
+
+冇 E2E？同 Claude 講：
+
+```
+我冇 e2e test。麻煩寫 3 個 Playwright smoke test，cover：
+1. Homepage 載入無 console error
+2. 主要 navigation link 全部 click 得通
+3. 一個 representative form 可以 submit 成功
+```
+
+跑過、綠燈、再 merge。
+
+```bash
+git checkout main
+git merge upgrade/react-19
+```
+
+🎉 Major bump 一次完成、無 regression、有 paper trail（branch history）。
+
+## 變化
+
+### 變化 1：Node major version bump（runtime change）
+
+升 Node 18 → 20 / 22 同 framework bump 唔同 —— 影響嘅唔止 application code，連 build tool、CI image、Docker base 都要跟。
+
+Claude 嘅角色：
+
+```
+我要升 Node 18 → 20。
+1. List Node 20 對比 18 嘅 breaking change（特別係 fetch、test runner、ESM）
+2. Scan 我個 codebase + package.json + Dockerfile + .github/workflows
+3. 出 checklist：邊個 file 要改、邊個 CI step 要 bump base image
+```
+
+關鍵額外步驟：
+- 改 `.nvmrc` / `volta` config
+- 改 Dockerfile `FROM node:18-alpine` → `node:20-alpine`
+- 改 GitHub Actions `node-version: '18'` → `'20'`
+- 確認 `engines` field 喺 package.json 跟住升
+
+Runtime bump 嘅麻煩位係**環境 drift**：local 升咗、CI 未升 → green locally / red on CI。Claude 幫你 sweep 晒所有 config file 一次過。
+
+### 變化 2：Framework major bump（Next.js / Vue / Nuxt 等）
+
+Framework bump 影響面最大 —— routing、data fetching、build pipeline 都可能換。
+
+Next.js 14 → 15 為例，重要 break：
+
+- Async request API（`cookies()` / `headers()` / `params` 變 async）
+- Caching default 由 cache-by-default 轉 fetch-fresh-by-default
+- Turbopack stable
+
+呢類 bump 用 Claude Code 嘅 codemod approach：
+
+```
+Next.js 15 將 cookies() 改做 async。
+1. 揾我所有用到 cookies() / headers() / params 嘅地方
+2. 一個一個 file 改：加 await + 將上游 function 轉 async
+3. 順住 type error 一路向上 propagate
+```
+
+Claude 識追 type error 嘅 propagation chain —— 你改一個 server component → 用佢嘅 page route 要變 async → page 嘅 metadata generator 要變 async → 一路向上。逐個 file 改、逐個 file approve，30 分鐘搞掂一個本來會 debug 半日嘅 chain。
+
+### 變化 3：Database driver bump（data integrity 額外重要）
+
+Driver bump（pg、mysql2、Prisma、Drizzle 等）係 highest-risk 嘅 dependency upgrade —— 一條 query 行為微微唔同 = production data corruption。
+
+額外步驟：
+
+```
+我要升 Prisma 5 → 6。麻煩：
+1. List breaking change，特別 highlight 任何影響 query 結果嘅
+2. Scan 我所有 .prisma migration + 所有 prisma.*.create/update/findMany
+3. 列出邊啲 query 嘅 behavior 可能微妙變化（date handling / null handling / transaction isolation）
+```
+
+Driver bump 嘅 mandatory steps：
+- 喺 **staging environment** 跑完 1 個禮拜，先 prod
+- 跑 schema diff（`prisma migrate diff`）對比 prod schema
+- 跑一輪 read-only smoke test（揀 representative query，比較新舊 driver 嘅 output）
+- 備 rollback plan：lockfile + 舊 driver version pinned，10 分鐘可 revert
+
+⚠️ Claude 識讀 changelog + scan code，但 **production data 嘅 edge case 佢唔識**。Driver bump 必須人手 review staging dataset。
+
+## 一個 mindset
+
+Dependency upgrade 嘅深層 insight：**bump 唔係「一個動作」，係「一個 process」**。
+
+未有 Claude Code 之前，HK SME / freelance dev 嘅 default 係 **唔升**：
+
+- 升要 1 日，1 日嘅 invoice 客戶唔肯 pay
+- 升完 break，client 投訴「你搞壞咗我嘢」
+- 不升又有 security CVE，但「未爆就唔關事」
+
+呢個拖延嘅累積成本巨大 —— 5 年後變成 unmaintainable codebase，客戶要重寫，重寫 quote 30 萬。
+
+Claude Code 改變嘅 economics：1 小時 controlled upgrade（pre-assess + isolated install + triage + smoke test）取代咗 1 日 panic upgrade。1 小時 quote 得到、做得起、有 paper trail。
+
+呢個 reframe：dependency upgrade 由「risky 大手術」變「routine maintenance」。每兩個月做一次、每次升一兩個 framework，你個 codebase 永遠喺 latest minus 1，CVE 永遠 patch 緊，handover 永遠順手。
+
+最後提醒：
+
+- ✅ **一次升一個 framework**。Lockfile diff 細、root cause 容易 isolate。
+- ⚠️ **唔好相信「Claude 話 OK」就 merge**。Runtime smoke test 同 staging 觀察期省唔到。
+- 🎯 **將 migration plan commit 入 repo**（`docs/upgrades/react-19.md`）。下個 dev 接手見到 paper trail，唔使重新 reverse-engineer。
+
+下個鐘揀你 stack 入面最舊嗰個 dependency，開 branch 試一輪 controlled bump。3 個月後你個 codebase 健康度會係另一個 league。

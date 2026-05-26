@@ -1,0 +1,199 @@
+---
+title: "Claude Code debug 卡 4 個鐘嘅 bug：log-driven investigation、bisect、stress isolation 三個 pattern"
+slug: "claude-code-debugging-stuck-bug"
+issue: 113
+publishedAt: 2026-05-27
+audience: ["創作者", "打工仔"]
+category: "code"
+section: "科技"
+subcategory: "Debugging"
+difficulty: 3
+timeMinutes: 50
+toolsNeeded: ["Claude Code CLI", "你個 project + repro environment"]
+description: "撞到一個 bug 卡 4 個鐘，直接問 Claude「fix」通常出 hallucinated patch。教 3 個 disciplined debugging pattern：log-driven investigation、git bisect 配 AI predicate、minimal repro stress isolation。HK dev solo / 小 team 實戰角度。"
+keywords: ["Claude Code debugging", "AI bug investigation", "git bisect AI", "stuck bug pattern", "log-driven debugging", "minimal repro"]
+related: ["claude-code-install-claude", "claude-code-legacy-codebase-onboarding", "claude-code-tdd-pair-workflow"]
+featured: false
+---
+
+## 情境
+
+下晝 2 點，你撞到一個 bug。
+
+3 點：你以為睇到原因，改完，bug 仲喺度。
+4 點：你問 Claude Code「fix this bug」，貼咗 50 行 code 落去。Claude 出一個睇落幾合理嘅 patch。Apply，run，bug 仲喺度。
+5 點：你再貼多 200 行 context，Claude 出另一個 patch。Apply，今次連帶整爛咗另外兩個 test。
+6 點：你開始懷疑自己係咪做緊呢一行。
+
+呢個係**典型 AI-assisted debugging anti-pattern**：
+
+- 你冇 isolate 個 bug，淨係將 symptom 同一大堆 code 掟畀 Claude
+- Claude 唔知道你已經試過咩，每次都重新 hallucinate 一個「最合理」嘅 fix
+- 你嘅 confidence 隨住 patch failed 嘅次數遞減，最後連基本 hypothesis 都唔敢信
+
+Disciplined debugging 嘅核心：**收窄 search space，再請 Claude 落手**。下面 3 個 pattern 係我自己 solo dev 撞牆撞出嚟嘅 SOP。
+
+## 跟住做
+
+### 1. 第一守則：唔好問 Claude「fix this」
+
+撞到 bug 第一個動作，唔係開 Claude Code。係攞張紙寫低：
+
+- **Symptom**：你睇到乜嘢（error message、wrong output、UI 壞咗）
+- **Expected**：應該係點
+- **Last known good**：上次 work 嘅 commit / time
+- **What changed**：你最近改咗乜
+- **What you tried**：已經試過嘅 hypothesis（即使 fail 嘅都寫低）
+
+呢張紙先係你畀 Claude 嘅 context。冇呢張紙，你係叫 Claude 喺漆黑入面摸路。
+
+```bash
+# 開個 scratch file 寫低，唔好淨係留喺腦
+$ cat > .debug-notes.md <<'EOF'
+SYMPTOM: API /api/orders 返 500，error log 寫 "undefined is not iterable"
+EXPECTED: 返 order list
+LAST KNOWN GOOD: 噚日 commit 8a3f2c1
+WHAT CHANGED: pull 咗 main，merge 咗 feature/discount
+TRIED:
+- restart server → 冇用
+- clear cache → 冇用
+EOF
+```
+
+### 2. Pattern A：log-driven investigation
+
+呢個係最 underused 嘅 pattern。流程：
+
+1. **加 log**（你親手加，唔好叫 Claude 加 — 你最清楚 suspect 邊度）
+2. **Reproduce 一次**
+3. **將 log output 完整 paste 畀 Claude**，問佢 hypothesize
+4. **Claude 出 hypothesis，你決定下一個 log 加邊**
+
+關鍵 prompt：
+
+<PromptBlock label="Log-driven investigation prompt">
+我撞到一個 bug。Symptom 同 context 喺 `.debug-notes.md`，請先讀。
+
+我啱啱喺 `src/api/orders.ts` line 42-58 加咗 log（見以下 output）。Reproduce 一次出嚟係：
+
+```
+[log dump 貼喺度]
+```
+
+請：
+1. 由 log 倒推**最有可能嘅 root cause**（列 2-3 個 hypothesis，按可能性排）
+2. 對最有可能嗰個 hypothesis，建議**下一個應該加 log 嘅位**（精確到 file + line + log 乜 variable）
+3. **唔好提議 fix**。我哋而家係 investigation phase。
+
+如果 log 不足以 disambiguate hypothesis，直接講「需要更多 log」，唔好估。
+</PromptBlock>
+
+呢個 prompt 嘅紀律：**禁止 Claude 提議 fix**。Investigation 同 fix 係兩個 phase，溝埋一齊 = hallucination。
+
+### 3. Pattern B：git bisect 配 Claude 寫 test predicate
+
+如果你知道某個 commit 之前 work、而家壞，但中間有 30-100 個 commit — `git bisect` 係黃金工具，但 90% 開發者唔識用 automated mode。
+
+```bash
+# Manual mode（慢，每步要你手動 test）
+git bisect start
+git bisect bad HEAD
+git bisect good 8a3f2c1
+
+# Automated mode（快，畀 script run）
+git bisect run ./check-bug.sh
+```
+
+關鍵：個 `check-bug.sh` 要 exit 0 = good、exit 1 = bad、exit 125 = skip。寫呢個 predicate script 係 Claude 嘅強項：
+
+<PromptBlock label="Bisect predicate script prompt">
+我要 `git bisect run` 一個 bug。Bug 嘅 minimal repro 步驟：
+
+1. `pnpm install`
+2. `pnpm dev` 起 server
+3. `curl localhost:3000/api/orders` 應該返 200 + JSON array
+4. 而家壞咗：返 500，error message 含 "undefined is not iterable"
+
+請寫一個 `check-bug.sh`：
+- Exit 0 如果 `/api/orders` 返 200
+- Exit 1 如果 返 500
+- Exit 125 如果 `pnpm install` 或 `pnpm dev` 起唔到（compile error 唔算 bug，bisect 應該 skip）
+- Cleanup：每次 run 完要 kill server，唔好攬住 port
+
+加 timeout 防 server hang。
+</PromptBlock>
+
+跑完 `git bisect run`，Claude 嘅 bisect script 會自動 binary search，5-7 步就揾到 culprit commit。然後你再丟畀 Claude：「呢個 commit 點解 break 個 endpoint？」呢個 context 窄得多，hallucination 機率低好多。
+
+### 4. Pattern C：minimal repro 拎出嚟畀 Claude focus
+
+最後一個 pattern 用喺**hypothesis 已經收窄但 fix 唔到**嘅情況。
+
+開一個新 folder，將 bug 抽出嚟做 standalone repro：
+
+```bash
+mkdir ~/bug-repro-orders
+cd ~/bug-repro-orders
+# 抽出 minimum code：1-2 個 file，去除晒所有唔相關嘅 dependency
+```
+
+然後喺呢個 minimal folder 開 Claude Code：
+
+<PromptBlock label="Focused review on minimal repro">
+呢個 folder 係一個 minimal reproduction，得 2 個 file 同 30 行 code。Bug：[symptom]。
+
+請：
+1. **逐行讀晒 2 個 file**（唔好 sample，逐行）
+2. 列出每個 expression 嘅 type 同預期 value
+3. 指出邊一行係 root cause + 點解
+4. 提議 fix，並解釋點解呢個 fix 唔會 break 其他 case
+
+呢個 repro 已經 minimal，唔好叫我加 context。
+</PromptBlock>
+
+呢個 pattern work 嘅原因：Claude 喺 200 行 code 入面 attention 散晒，但 30 行入面佢真係可以做 line-by-line reasoning。**你嘅工作係幫佢 narrow，唔係餵多啲 context**。
+
+## 變化
+
+### 變化 1：race condition / concurrency bug
+
+Race condition 最陰濕 — 跑 100 次得 3 次 fail。直接 paste code 畀 Claude 冇用，因為 symptom 唔 deterministic。
+
+策略：先加 **timing log**（每個 critical section 入口 + 出口 print timestamp + thread / request id），跑 50 次，揀 fail 嗰幾次嘅 log dump 畀 Claude，問佢「邊兩個 event 嘅 interleave 會導致呢個 state」。Claude 對 concurrent reasoning 真係幾叻，但前提係你要畀佢**timing data**，唔係淨係 code。
+
+### 變化 2：Heisenbug（manifestation 變嘅 bug）
+
+Heisenbug 嘅特徵：你加 log 佢就唔再 reproduce、你用 debugger 佢又消失。通常背後係 memory ordering、timing 或者 optimizer 行為。
+
+呢類 bug 唔好叫 Claude 直接 fix。問法：「**呢個 bug 嘅 disappearance pattern 暗示乜嘢類型嘅 root cause**？」Claude 會 list 5-6 個 category（race / undefined behavior / GC timing / etc.），你逐個 rule out。呢個係 meta-debugging — 用 Claude 做 reasoning partner 而唔係 patch generator。
+
+### 變化 3：production-only bug（本地 reproduce 唔到）
+
+本地 work、production 壞 — 通常係 env variable、data shape、scale、或者 timezone 引起。
+
+你冇辦法本地 reproduce，所以重點係**收集 production evidence**：error trace、相關 request payload（要 sanitize PII）、env diff（local vs prod 嘅 env variable 對比表）、relevant log 5-10 分鐘窗口。
+
+將呢啲一次過 paste 畀 Claude，問：「**邊個 env diff 最能解釋呢個 trace**？」直接問 fix 冇用，問 diff 嘅解釋力先有用。揾到 culprit env / data shape，再喺本地用嗰個 env 重 reproduce，跌返入 Pattern A / C。
+
+## 一個紀律
+
+> Debugging 卡住嘅 4 個鐘，唔係「Claude 唔夠強」，係**你冇 isolate 個 bug 就叫 Claude 落手**。
+
+AI-assisted debugging 嘅 mental model 唔係「Claude 係超人 senior，掟個 bug 過去佢自然識搞」。係「Claude 係好叻嘅 pair partner，但佢需要你做埋 narrowing 嗰部分」。
+
+你嘅工作：
+
+- **Isolate**（縮細 search space）
+- **Document**（寫低 symptom、tried、hypothesis）
+- **Feed narrow context**（畀 30 行，唔好畀 300 行）
+- **禁止過早 fix**（investigation 同 fix 唔好溝）
+
+Claude 嘅工作：
+
+- **Hypothesize**（由 log / diff / minimal code 倒推）
+- **Reason about edges**（race、ordering、env diff）
+- **Generate tooling**（bisect predicate、log probe、test case）
+
+呢個 split 做得好，4 個鐘嘅 bug 變 40 分鐘。做唔好，4 個鐘變 8 個鐘加埋兩個 broken patch。
+
+下次撞到 stuck bug，**收手 5 分鐘**：寫 `.debug-notes.md`、揀 Pattern A / B / C、再開 Claude。卡 4 個鐘嘅 bug 通常唔係難，係你太快叫 Claude 出招。

@@ -1,0 +1,163 @@
+---
+title: "Claude Code 5 個高 leverage prompt pattern：plan-first、show-me、verify-with-test"
+slug: "claude-code-prompt-patterns-dev"
+issue: 125
+publishedAt: 2026-05-27
+audience: ["創作者", "打工仔"]
+category: "code"
+section: "科技"
+subcategory: "Prompt patterns"
+difficulty: 2
+timeMinutes: 30
+toolsNeeded: ["Claude Code CLI"]
+description: "用 Claude Code 一年之後嘅 takeaway：5 個高 leverage prompt pattern——plan-first、constrain-output、verify-with-test、show-me、explain-then-do。每個 pattern 具體 example + 邊個情況唔啱用。"
+keywords: ["Claude Code prompt pattern", "AI coding pattern", "prompt engineering dev", "Claude best practice", "Claude Code 用法"]
+related: ["claude-code-tdd-pair-workflow", "claude-code-claudemd-mastery", "claude-code-safe-refactor"]
+featured: false
+---
+
+## 情境
+
+你用 Claude Code 已經一段時間。日日都叫佢寫 code、改 bug、refactor。
+
+有時神級——三分鐘搞掂一個你估要兩個鐘嘅嘢。有時災難——出咗成兩百行你冇要嘅嘢，touch 咗五個你冇講過嘅 file，最後要 `git reset` 重嚟。
+
+差別唔係 model，係**你開頭點問**。一年用落嚟，我發現有 5 個 pattern 比其他八成 pattern 高 leverage——同樣嘅 model、同樣嘅 codebase，產出質素差成倍。
+
+呢篇將 4 個寫入 workflow，第 5 個放入 mindset。每個 pattern：點寫 + 具體 example + 邊個情況唔啱用。
+
+## 跟住做
+
+### 1. Plan-first：先列 approach 唔好寫 code
+
+最常見災難：你句問題太闊，Claude 揀咗一條路衝晒落去，寫完先發現方向錯。
+
+解法係**強制佢 plan 先**，唔畀佢一開始就出 code：
+
+<PromptBlock label="Pattern 1 — plan-first">
+我想加一個 feature：[描述]。
+
+**唔好寫 code**。先列 3 個唔同 approach，每個包：
+1. 1 句描述
+2. 改邊幾個 file
+3. 主要 trade-off（複雜度 vs 擴展性 vs migration cost）
+
+等我揀咗一個你先動手。
+</PromptBlock>
+
+3 個 approach 嘅威力：迫 Claude 唔好衝去最 obvious 嗰個。第 2、第 3 個 approach 通常會帶出第 1 個冇諗到嘅 edge case。
+
+**唔啱用**：純粹 typo fix、改 string、加 log——呢啲嘢 plan-first 係 overhead。一句搞掂嘅嘢唔好用呢個 pattern。
+
+### 2. Constrain-output：明確劃定 scope
+
+第二常見災難：你叫佢改 `a.ts`，佢順手「幫你」改埋 `b.ts` 同 `c.ts`，因為佢覺得「咁先 consistent」。
+
+```text
+// 災難 prompt
+幫我 refactor 個 user service。
+
+// 高 leverage prompt
+淨係改 src/services/user.ts 入面 getUserById 個 function。
+唔好 touch 其他 file。唔好改 type definition。
+如果你覺得要改其他嘢先 work，停低同我講原因，唔好自己動手。
+```
+
+明確列出**邊個 file 可以動、邊個唔可以**，係 reviewer-friendly 嘅起步。Diff 細，review 容易，rollback 安全。
+
+<PromptBlock label="Pattern 2 — constrain-output">
+Scope：
+- 可以改：src/lib/parse-invoice.ts
+- 唔可以改：呢個 module 嘅 caller、type definition、test file
+- 如果你覺得 scope 唔夠，停低問我，唔好擴張
+
+任務：[描述]
+</PromptBlock>
+
+**唔啱用**：跨 module refactor、rename 一個 export（搵 caller 嘅時候必然要 touch 多個 file）。呢類情況反而要主動畀 scope。
+
+### 3. Verify-with-test：先 failing test 等 review
+
+Claude 寫完 impl 同 test 一齊出，係幻覺最容易發生嘅 mode——test 同 impl 同一刻寫出嚟，互相驗證緊對方嘅錯。
+
+解法：**先要 failing test、停低、等你 review test 先寫 impl**。
+
+<PromptBlock label="Pattern 3 — verify-with-test">
+任務：[描述 function 行為]。
+
+Step 1：淨係寫 failing test（test name + assertion），唔好寫 implementation。
+Step 2：跑 test 確認佢紅，貼錯誤畀我。
+Step 3：等我 review 個 test 啱唔啱 spec，confirm 咗你先寫 impl。
+
+唔好跳步。
+</PromptBlock>
+
+你 review 個 test 嗰一刻，其實係 review spec。Spec 啱，impl 啱嘅機會就高。Spec 錯，再叻嘅 impl 都係廢。
+
+呢個係 TDD 嘅 lite 版——唔使每個 cycle 都行，但凡 business logic 都值得行一次。
+
+**唔啱用**：純 UI 改動（visual feedback 快過 test）、exploration phase（你都唔知 spec）、one-off script。
+
+### 4. Show-me：貼 sample input + output
+
+「整個 function parse 我啲 invoice」——呢句問題嘅 ambiguity 等如冇問。Invoice 嘅 schema 係點？Edge case 係乜？Output shape 你想要乜？
+
+**唔好用文字描述，直接貼真實 sample**：
+
+<PromptBlock label="Pattern 4 — show-me 嘅 happy path">
+我有呢類 input：
+
+[invoice_id: "INV-2026-001", items 兩件 (A1 數量 2 單價 100.50、B2 數量 1 單價 50)、currency: "HKD"、tax_exempt: false]
+
+我想 parse 成呢個 shape：
+
+[id: "INV-2026-001"、subtotal: 251.00、tax: 25.10、total: 276.10]
+
+寫個 function。Tax rate 10%，tax_exempt 係 true 嗰陣 tax = 0。
+</PromptBlock>
+
+Sample input + output 比五段文字 spec 都清楚。Claude 寫 impl 嘅時候有錨點，唔使估你個 schema 點。
+
+**進階版**：再貼 2-3 個 edge case sample（zero qty、empty items、null currency），covers 嘅嘢更實。
+
+**唔啱用**：你個 input shape 真係未定（仲喺 design phase）、output 係 free-form prose（呢類 task 要描述 style，唔係 sample）。
+
+## 變化例子
+
+### 變化 1：常見 anti-pattern
+
+幾個我成日見人用緊但 leverage 低嘅 prompt：
+
+- **「幫我整個 X」**——零 constraint，零 spec。Claude 揀方向，你 review 兩百行 diff
+- **「make it better」**——「better」唔係指令。要講邊方面（performance？readability？type safety？）
+- **「點解 work？」緊接「咁 fix 啦」**——冇 confirm root cause 就 fix，通常 fix 咗 symptom 留低 cause
+- **一句問題塞 5 個 task**——Claude 跳住答，漏咗第 3、4 點你都唔知
+
+修法：每個 prompt 出之前問自己一句「**Claude 而家有冇足夠 information 唔需要估？**」估得越多，廢嘢出得越多。
+
+### 變化 2：應用喺 debug / refactor / feature dev
+
+同一套 pattern，三個場景揀法唔同：
+
+- **Debug**：show-me（貼 error log + 重現步驟）+ plan-first（叫佢列 3 個可能 root cause）。**唔好**跳到 fix
+- **Refactor**：constrain-output（明確 scope）+ verify-with-test（先補 characterization test 再動）
+- **Feature dev**：plan-first（揀 approach）→ verify-with-test（spec 鎖死）→ constrain-output（每個 step 細 diff）
+
+Feature dev 通常 4 個 pattern 都行得着，debug 同 refactor 揀 2-3 個夠。
+
+### 變化 3：教 team 新 hire 用 Claude Code
+
+新 hire 第一日上手 Claude Code，唔好叫佢自己摸。直接畀呢 4 個 pattern 做 cheat sheet：
+
+1. 每次起 task：plan-first
+2. 改 code 前：constrain-output 講清 scope
+3. business logic：verify-with-test
+4. 任何 ambiguous spec：show-me 貼 sample
+
+我見過嘅效果：senior 同 junior 用 Claude Code 嘅產出差距，唔係嚟自經驗，係嚟自有冇用呢類 pattern。Junior 行齊呢 4 個，產出可以同 senior 平手。
+
+額外加一條 team rule：**PR description 要寫低你用咗邊個 pattern**。review 嘅時候一望就知個 diff 點嚟，trust 建立得快。
+
+> 第 5 個 pattern——explain-then-do——係 mindset 多過 prompt。每次 Claude 準備動手之前，叫佢「**先解釋你會點做、改邊幾個 file、估幾耐、有冇 risk，等我 say go 你先郁**」。呢個半秒嘅 pause 過濾走九成「衝去做先諗」嘅災難。唔係 micromanage Claude，係攞返你應該有嘅 design authority。
+
+5 個 pattern 加埋唔複雜——plan-first、constrain-output、verify-with-test、show-me、explain-then-do。記得邊個 pattern 配邊個情境，比記晒所有 prompt template 重要。Claude Code 嘅 leverage 唔喺 model 有幾叻，係你問問題嘅紀律有幾穩。

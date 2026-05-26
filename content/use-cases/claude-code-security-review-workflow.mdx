@@ -1,0 +1,277 @@
+---
+title: "Claude Code 做 security review：每個 PR 揾 OWASP top 10 + secrets exposure + permission bypass"
+slug: "claude-code-security-review-workflow"
+issue: 119
+publishedAt: 2026-05-27
+audience: ["創作者", "打工仔"]
+category: "code"
+section: "科技"
+subcategory: "Security"
+difficulty: 3
+timeMinutes: 45
+toolsNeeded: ["Claude Code CLI", "你個 project + 對 codebase 嘅 admin 知識"]
+description: "Solo dev / 細 team 冇 security engineer，但又唔想 ship 出去先見報。教用 Claude Code 做 4 layer review：OWASP top 10、secrets exposure、permission bypass、CVE 掃描。/security-review slash command + headless mode 入 GitHub Actions，每個 PR 自動跑。"
+keywords: ["Claude Code security review", "OWASP automation", "AI security audit", "secret leak detection", "RBAC test", "CVE scan PR"]
+related: ["claude-code-hooks-claude", "claude-code-git-workflow", "claude-code-headless-automation"]
+featured: false
+---
+
+## 情境
+
+你係 solo dev，或者 3 人初創 tech lead：
+
+- Product 趕住 ship，每個禮拜 5-10 個 PR
+- 冇專職 security engineer，請唔起 pen-test 公司（一單報價 USD 15K 起）
+- 但你心入面知：少少嘢漏咗就大鑊
+  - 上次 staging API 冇 auth 揾出嚟，幸好未上 prod
+  - 上個月個 contractor commit 咗 `.env.production` 入 git history
+  - 你 SaaS multi-tenant，但你有冇 100% 信心冇 tenant A 撈到 tenant B data？
+
+呢類風險共通 pattern：**唔係冇能力 review，係冇時間 + 冇紀律每次 review**。手動逐個 PR 逐個 file 對 OWASP top 10 + 掃 secret + 試 RBAC bypass —— 1 個 PR 起碼 1 個鐘，你冇可能每次做。
+
+⚠️ 開頭講清楚：呢套**唔係替代真嘅 security audit**。商業敏感（payment / health data / 政府合約）一定要請真人 pen-tester。Claude Code 做嘅係**第一層 filter** —— 揾出 80% 嘅 obvious 問題，等剩低 20% 真正需要人腦嘅嘢，你 budget 投得起。
+
+**4 個層次**：
+
+1. **OWASP top 10**：injection、broken auth、XSS、CSRF、insecure design、misconfiguration 等
+2. **Secrets exposure**：`.env` leak、log 印 API key、commit message 帶 token
+3. **Permission bypass**：RBAC 漏洞、multi-tenant data leak、IDOR
+4. **Dependency CVE**：`package.json` / `requirements.txt` 揾未 patch known vuln
+
+呢篇拆 4 個步驟 setup + 3 個變化俾唔同 product type。
+
+## 跟住做
+
+### 1. `/security-review` slash command（4-layer prompt）
+
+喺 project root 整 `.claude/commands/security-review.md`：
+
+```markdown
+---
+description: 跑 4-layer security review 喺 current diff
+---
+
+你係 senior application security engineer。請對 current git diff 做以下 4 層 review。
+
+**Layer 1 — OWASP Top 10：**
+逐個 file 揾以下類型問題：
+- A01 Broken Access Control：API endpoint 冇 auth check、user ID 直接 trust client input
+- A02 Cryptographic Failures：自寫 crypto、weak hash (MD5 / SHA1)、HTTP 傳 sensitive data
+- A03 Injection：SQL string concat、shell `exec` 用 user input、NoSQL `$where`
+- A04 Insecure Design：缺 rate limit、無 idempotency key、敏感 op 冇 confirm
+- A05 Misconfiguration：CORS `*`、debug mode on、default credential
+- A06 Vulnerable Components：dependency 過舊 / known CVE（揾 lock file）
+- A07 Auth Failures：weak session、JWT 冇 expiry、密碼 plain text
+- A08 Data Integrity：deserialize untrusted、CI 拎 unsigned artifact
+- A09 Logging Failures：log 印 PII / token、冇 audit trail
+- A10 SSRF：fetch URL 用 user input 冇 whitelist
+
+**Layer 2 — Secrets exposure：**
+- 揾 hardcoded API key / token / password（match pattern `sk-`、`ghp_`、`AKIA`、長 hex string）
+- 揾 `.env` 入 git、log statement 印 process.env.*
+- 揾 commit message 入面 leak credential
+
+**Layer 3 — Permission bypass：**
+- 揾 admin route 冇 role check
+- 揾 multi-tenant query 冇 `tenant_id` / `org_id` filter
+- 揾 IDOR：`/api/user/[id]` 直接攞 ID 冇驗證 ownership
+
+**Layer 4 — Dependency CVE：**
+- 跑 `npm audit --json` 或 `pip-audit --format json`
+- 抽 critical / high severity 出嚟
+
+**輸出 format：**
+每個 finding 要有：
+- Severity：CRITICAL / HIGH / MEDIUM / LOW
+- File + line
+- 點解係問題
+- 建議 fix（具體 code，唔好「應該加 validation」噉空泛）
+
+如果某 layer 冇 finding，明確講「Layer X：clean」。
+```
+
+跑：
+
+```bash
+cd your-project
+git diff main...HEAD | claude /security-review
+```
+
+Claude 會逐 layer review，輸出有 severity tag 嘅 list。你睇 CRITICAL + HIGH 先，MEDIUM 留 backlog。
+
+### 2. Secrets 掃描 pre-commit hook
+
+`/security-review` 係 PR 層。但你想更前置 —— **commit 前就阻**。整 `~/.claude/hooks/pre-commit-secrets.sh`：
+
+```bash
+#!/bin/bash
+input=$(cat)
+command=$(echo "$input" | jq -r '.command')
+
+if [[ "$command" == "git commit"* ]]; then
+  staged=$(git diff --staged)
+
+  # Pattern 1: Common API key prefixes
+  if echo "$staged" | grep -qE '(sk-[a-zA-Z0-9]{20,}|ghp_[a-zA-Z0-9]{30,}|AKIA[0-9A-Z]{16})'; then
+    echo "BLOCKED：detected API key pattern in staged diff" >&2
+    exit 1
+  fi
+
+  # Pattern 2: .env files
+  if git diff --staged --name-only | grep -qE '\.env(\.|$)' \
+     && ! git diff --staged --name-only | grep -qE '\.env\.(example|template|sample)$'; then
+    echo "BLOCKED：staging .env file" >&2
+    exit 1
+  fi
+
+  # Pattern 3: long random strings near 'key|secret|password'
+  if echo "$staged" | grep -qiE '(api[_-]?key|secret|token|password)\s*[:=]\s*["'"'"'][^"'"'"']{20,}'; then
+    echo "WARN：suspicious credential pattern, review staged diff" >&2
+    exit 1
+  fi
+fi
+
+exit 0
+```
+
+`chmod +x` + 註冊 `PreToolUse` matcher `Bash`（睇 hooks 篇 setup）。Claude 試 `git commit` 即時 block。
+
+⚠️ Hook 唔係萬能。Pattern miss 嘅情況都有，所以 layer 1 嘅 PR review 都要做。Defense in depth。
+
+### 3. RBAC bypass test —— 叫 Claude 寫攻擊 test
+
+呢個係 layer 3 最 powerful 嘅做法。唔係叫 Claude review code，係叫 Claude **扮 attacker 寫 test**。
+
+```bash
+claude "讀 src/api/users 全部 route handler。 \
+        然後寫一份 Playwright integration test 試以下情境： \
+        1. user A login → 嘗試 GET /api/users/[user-B-id] → 應該 403 \
+        2. user A login → 嘗試 PATCH /api/orgs/[org-B-id]/settings → 應該 403 \
+        3. user A login → 嘗試 POST /api/admin/* 任何 endpoint → 應該 401 / 403 \
+        4. tenant A 用戶 → query 應自動 filter tenant_id，唔可以見 tenant B row \
+        將 test 寫入 e2e/security/rbac-bypass.spec.ts"
+```
+
+Claude 寫完，你 review 一次，跑：
+
+```bash
+pnpm playwright test e2e/security/rbac-bypass.spec.ts
+```
+
+Test fail = 你個 RBAC 有窿。Test pass = 第一層 sanity check 過。
+
+**Tips**：每次加新 admin route / new tenant-scoped resource，就加新 test case。Claude 可以 maintain 呢個 test suite。
+
+### 4. CVE 自動 audit（headless mode + GHA）
+
+唔好等你記得跑 `npm audit`。入 CI 自動跑。
+
+`.github/workflows/security.yml`：
+
+```yaml
+name: Security Review
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  claude-security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run security review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          git diff origin/main...HEAD > /tmp/pr.diff
+          cat /tmp/pr.diff | claude --headless --print \
+            "/security-review" > /tmp/review.md
+
+      - name: Post review as PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          path: /tmp/review.md
+          header: claude-security
+
+      - name: Fail on CRITICAL findings
+        run: |
+          if grep -q "CRITICAL" /tmp/review.md; then
+            echo "Critical security finding, blocking merge"
+            exit 1
+          fi
+```
+
+效果：每個 PR 自動 trigger，review 結果 sticky comment 喺 PR 入面，CRITICAL finding block merge。
+
+⚠️ Anthropic API spend 留意：每個 PR review 大概 USD 0.10-0.50 視乎 diff size。一個月 100 PR 大概 USD 30-50。比起請真嘅 security engineer 平 100 倍但係 complement，唔係替代。
+
+## 變化
+
+### 變化 1：SaaS multi-tenant 重點
+
+如果你做 multi-tenant SaaS（B2B、各客戶 data 必須 isolated），layer 3 要加重。改 `/security-review` 加：
+
+```
+**Multi-tenant 額外檢查：**
+- 全部 DB query 必須有 tenant_id WHERE clause（無 raw SQL 跳過）
+- Supabase / Postgres RLS policy 每個 table 都要有 + 包含 tenant_id check
+- 背景 job / cron 跑時要明確攞 tenant context，唔可以 cross-tenant aggregate（除非明確 admin）
+- WebSocket / SSE channel name 必須 namespace by tenant
+```
+
+額外叫 Claude 寫 SQL fuzz test：故意傳錯 tenant_id，確認 query 返 0 row 而唔係 leak。
+
+### 變化 2：E-commerce / payment
+
+PCI compliance 完整版要請審計，但 baseline check：
+
+```
+**Payment 額外檢查：**
+- 信用卡 / CVV 絕對唔可以 hit your server（用 Stripe Elements / hosted iframe）
+- Webhook signature 必須驗證（Stripe `stripe-signature` header）
+- Idempotency key 每個 charge endpoint 都要有
+- Refund / void route 必須 admin role + audit log
+- Price 唔可以 trust client（server side 計）
+```
+
+額外：跑 Claude review checkout flow 嘅 server action，特別 focus 「price 由邊度嚟」呢條 trace。8 成 e-commerce vulnerability 喺呢條線。
+
+### 變化 3：Open source / public-facing API
+
+Public repo 風險唔同：
+
+```
+**Open source 額外檢查：**
+- README / docs 例子有冇 leak 真 API key（即使 example 都唔好用真 prefix）
+- Public API route 必須 rate limit + auth tier 清晰
+- CORS 唔可以 `*`（指定 origin list）
+- Dependency 必須無 GPL contamination（如果你 MIT）
+- GitHub Actions workflow 唔可以 `pull_request_target` + checkout untrusted code（RCE 風險）
+```
+
+額外跑 `truffleHog` / `gitleaks` 喺整個 git history 掃過（Claude 可以幫你寫 setup script）。
+
+## 一個 mindset
+
+Security review automation 嘅深層 insight：**安全唔係靠紀律，係靠系統**。
+
+Solo dev 最大嘅敵唔係 attacker —— 係**你自己嘅疲勞**。每個禮拜寫到第 4 個 PR 嘅週五夜晚，你會 skip review，會「下次 fix」，會 commit `.env` 然後即刻 force-push 補救 —— git history 已經 leak 咗。
+
+呢類錯誤共通 root cause：security review 係 manual step，靠你記得 + 有時間。一旦其中一個 condition fail，review 就 skip。
+
+Hook + slash command + GHA 嘅組合 = **將 review 由「我要記得做」變「唔做唔得」**。Commit hook 阻 secret，PR review 揾 OWASP 問題，CI 跑 RBAC test，CVE 自動 flag。你個腦留俾「呢個 design 應唔應該 expose 呢個 endpoint」嘅判斷題。
+
+最後提醒：
+
+- 呢套 setup 完，跑 1 個月，calibrate false positive rate。Too noisy = tune `/security-review` prompt 收窄；漏嘢 = 加 check item。
+- CRITICAL finding 一定要 block merge，但 MEDIUM / LOW 唔好 block（會 desensitize team）。
+- 真正敏感 product（payment、health、政府）跑完呢套之後，仲係要請真 pen-tester。Claude Code 係 first filter，唔係 last line。
+- Update `/security-review` prompt 跟 OWASP 出新版本（佢哋 3-4 年 update 一次，下次 2027）。
+
+下個鐘 setup `/security-review` + secrets hook，跑你最近一個 PR。睇下 Claude 揾到乜你 miss 咗。

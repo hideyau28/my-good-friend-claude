@@ -1,0 +1,225 @@
+---
+title: "Claude Code 同 git 點同步：branch 命名 / commit 文 / PR description 自動 align team 規矩"
+slug: "claude-code-git-workflow"
+issue: 110
+publishedAt: 2026-05-27
+audience: ["創作者", "打工仔"]
+category: "code"
+section: "科技"
+subcategory: "Git workflow"
+heroImage: "/hero/claude-code-git-workflow.webp"
+difficulty: 2
+timeMinutes: 35
+toolsNeeded: ["Claude Code CLI", "Git + gh CLI", "你個 project repo"]
+description: "Claude 預設嘅 commit / PR 寫法「OK 但唔似你 team」。教你用 CLAUDE.md + slash command + hooks 令 Claude 自動跟 conventional commits、branch naming、PR template，仲教 rebase 救命員。"
+keywords: ["Claude Code git workflow", "conventional commits AI", "branch naming Claude", "PR description automation", "git rebase Claude"]
+related: ["claude-code-worktrees-claude", "claude-code-slash-commands-claude", "claude-code-hooks-claude"]
+featured: false
+---
+
+## 情境
+
+你 team 開咗個鐵律：branch 一定要 `feat/JIRA-123-short-slug`，commit 一定 conventional（`feat(auth): ...`），PR description 一定要有 `## What` / `## Why` / `## Test plan` 三段。
+
+你裝咗 Claude Code，叫佢「commit 同 push」。佢出：
+
+```
+Update authentication module
+- Modified login.ts
+- Added tests
+```
+
+技術上 OK。Team rule 角度：fail 嗮。Branch 叫 `update-auth`，commit 唔係 conventional，PR description 一段過。Reviewer 打回頭：「跟返 template 啦。」
+
+問題唔係 Claude 蠢 —— 係**你冇話畀佢知 team 嘅規矩**。Claude 默認用業界 generic style，唔知你公司用 GitFlow 定 trunk-based、唔知你 PR template 喺邊、唔知 `JIRA-123` 係必要 prefix。
+
+呢篇拆 4 步，將 team 嘅 git 規矩 codify 入 Claude 嘅 default 行為，順手加埋 rebase / conflict 救命員。
+
+## 跟住做
+
+### 1. Codify git conventions 入 CLAUDE.md
+
+`CLAUDE.md` 喺 repo root，每個 Claude Code session 自動讀。寫一段 `## Git Conventions`：
+
+```markdown
+## Git Conventions
+
+### Branch naming
+- Format: `<type>/<JIRA-ID>-<kebab-slug>`
+- type: feat / fix / chore / refactor / docs
+- 例: `feat/PAY-412-stripe-webhook-retry`
+- 主線: `main`（protected, no direct push）
+
+### Commit message (Conventional Commits)
+- Format: `<type>(<scope>): <subject>`
+- type: feat / fix / chore / refactor / docs / test / perf
+- scope: 模組名（auth / payment / ui ...）
+- subject: 廣東話或英文都得，唔好過 72 字
+- Body: 解釋「點解」，唔係「做咗乜」
+
+### PR description (必跟 template)
+## What
+<一句講改咗乜>
+
+## Why
+<點解要改 / 連返 JIRA-ID>
+
+## Test plan
+- [ ] 跑 `pnpm test`
+- [ ] 手動測試 [關鍵 flow]
+```
+
+呢段一加，Claude 之後嘅 commit / PR 自動跟。重點：**寫 example，唔好淨係寫 rule**。Claude 跟 example 比跟 abstract rule 準十倍。
+
+### 2. `/commit` 同 `/pr` slash command
+
+CLAUDE.md 係 default，但你想「一鍵」執行成個 git ritual。寫 slash command。
+
+檔案 `.claude/commands/commit.md`：
+
+```markdown
+---
+description: Stage + commit 當前改動，跟 conventional commits
+---
+
+請執行：
+
+1. 跑 `git status` 同 `git diff` 睇清楚改咗乜
+2. 推斷 type（feat / fix / chore / refactor）同 scope
+3. 寫 conventional commit message，subject 唔好過 72 字
+4. Body 解釋「點解改」（睇 JIRA ID from branch name）
+5. `git add` 相關檔案（唔好 `-A`，避免 commit 到 `.env`）
+6. `git commit` 用 heredoc 確保 formatting
+7. 跑 `git status` 確認
+```
+
+檔案 `.claude/commands/pr.md`：
+
+```markdown
+---
+description: Push 同開 PR，跟 team template
+---
+
+請執行：
+
+1. 確認 branch 名跟 `<type>/<JIRA>-<slug>` format
+2. `git push -u origin HEAD`
+3. 用 `gh pr create` 開 PR，body 跟 template：
+   ## What / ## Why / ## Test plan
+4. JIRA ID 從 branch 抽出，放入 Why 段做 link
+5. Return PR URL
+```
+
+之後你打 `/commit` 同 `/pr`，Claude 自動跟你 codify 嘅 ritual。新同事入 team 第一日就有齊套規矩。
+
+### 3. Hook 自動 lint commit message
+
+CLAUDE.md + slash command 係**指引層**。Hook 係**強制層** —— Claude 想點都好，hook 跑唔過就 commit 唔到。
+
+`.claude/settings.json`：
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "command": "if echo \"$CLAUDE_TOOL_INPUT\" | grep -q 'git commit'; then npx commitlint --from HEAD~1 || exit 2; fi"
+      }
+    ]
+  }
+}
+```
+
+配合 `commitlint.config.js`（標準 conventional config）。Claude commit 一 push，hook 跑 commitlint，唔合規就 reject、Claude 收到 error、自己 retry 改 message。你完全唔需要插手。
+
+同樣可以加：
+- `git secrets --scan` 防止 commit 到 API key
+- `pnpm typecheck` 防止 commit broken code
+- Branch name regex check 防 commit 落 `main`
+
+### 4. Conflict resolution playbook
+
+Rebase 衝突係 dev 最痛。Claude 喺呢度係救命員，但要畀佢正確 prompt。
+
+開 conflict 時：
+
+```bash
+git rebase main
+# CONFLICT (content): Merge conflict in src/auth/login.ts
+```
+
+唔好叫「resolve conflict」（太 vague）。叫：
+
+```
+我 rebase main，src/auth/login.ts 有 conflict。
+讀 conflict markers，理解兩邊意圖（main 同 my branch），
+保留兩邊嘅 logic 而唔係揀一邊，
+跑 `pnpm test` 確認，
+然後 `git add` + `git rebase --continue`。
+```
+
+Cherry-pick 救 commit：
+
+```
+從 branch feat/old-experiment cherry-pick `abc123` 個 commit 入 current branch。
+如果有 conflict，跟上面 playbook。
+```
+
+Interactive rebase squash：
+
+```
+最近 5 個 commit 全部係「WIP」「fix typo」。
+幫我 squash 成 1 個 conventional commit，
+message 由 diff 推斷意圖。
+```
+
+Claude 處理 git plumbing 比你手動快 5 倍，因為佢唔會驚 `--force-with-lease`。
+
+## 變化
+
+### 變化 1：GitFlow vs trunk-based
+
+GitFlow team：CLAUDE.md 加 `develop` / `release/*` / `hotfix/*` branch policy。Claude 預設由 `develop` cut feature branch，hotfix 由 `main` cut。Slash command `/release` 處理 release branch ritual。
+
+Trunk-based team：CLAUDE.md 寫明「short-lived branch 少過 2 日、merge into main、feature flag 控 rollout」。Claude 預設 push 細 PR，唔會自己 stack 5 個 feature 落同一 branch。
+
+兩種 workflow 嘅差異全部喺 CLAUDE.md codify，Claude 跟你 team 嘅選擇。
+
+### 變化 2：Monorepo 多 changelog
+
+Monorepo（`pnpm workspaces` / Turborepo）：每個 package 自己 changelog。Conventional commit scope 變成 package 名（`feat(api): ...` / `feat(web): ...`）。
+
+CLAUDE.md 加：「Commit scope 必須係 package 名之一：api / web / shared / docs。一個 commit 只改一個 package（除非係跨 package refactor，scope 用 `repo`）。」
+
+配合 Changesets：`/commit` slash command 加多步「跑 `pnpm changeset` 生成 changelog entry」。Claude 自動補 changelog，release 自動化跟住順。
+
+### 變化 3：Open source maintainer 收 outside PR
+
+你係 OSS maintainer，收到陌生人 PR。用 Claude 並行 review：
+
+```
+Agent({ prompt: "Review PR #234 diff for code quality + 跟唔跟 CONTRIBUTING.md" })
+Agent({ prompt: "Check PR #234 有冇 security risk (injection / secret leak)" })
+Agent({ prompt: "Draft maintainer reply: 讚好嘅地方 + 列具體要改嘅 point" })
+```
+
+3 個 subagent 並行，整合返一份 review。你最後加人味、approve 或者 request changes。OSS maintainer 由「30 分鐘 review 一個 PR」變「5 分鐘 review 一個」，唔再 PR backlog 三個月。
+
+## 一個 mindset
+
+Solo dev：CLAUDE.md 寫得鬆啲都得，反正你自己一個。重點係 codify 你**自己**慣性（你已經慣 conventional commit，咁就寫低，Claude 跟你而唔係跟業界平均）。
+
+2-3 人 team：CLAUDE.md commit 入 repo，全 team 共用。新同事 day 1 用 Claude Code 就自動跟規矩，唔需要 onboarding 文檔 100 頁。
+
+大公司 enterprise：JIRA / GitHub Enterprise / 強制 PR template 嘅環境，CLAUDE.md + hook 嘅組合 = Claude 唔可能違規。Audit / compliance 角度睇，AI 寫嘅 commit 同人寫嘅一樣可追蹤。
+
+> Git 嘅規矩唔係限制，係 team 溝通嘅 protocol。Claude 跟唔到，唔係 Claude 嘅錯，係你冇將 protocol 寫低。
+
+最後提醒：
+
+- ✅ **先寫 CLAUDE.md 一段 git conventions**。15 分鐘工，之後每個 commit 慳 2 分鐘。
+- ⚠️ **Hook 要先試 dry-run**。設錯個 regex 全 team commit 唔到，你會收到 8 個 ping。
+- 🎯 **Rebase / cherry-pick / conflict 全部交畀 Claude**。你個腦留嚟諗 architecture，唔係背 `git reflog` syntax。
+
+下個 sprint 試將你 team 嘅 git 規矩寫入 CLAUDE.md。一個禮拜後 reviewer 唔再打回頭叫你跟 template —— 因為 Claude 已經自動跟。

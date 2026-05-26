@@ -1,0 +1,211 @@
+---
+title: "Claude Code ship 完即 verify：自動 ping Vercel preview + smoke test + Slack 通知"
+slug: "claude-code-deploy-preview-verify"
+issue: 124
+publishedAt: 2026-05-27
+audience: ["創作者", "打工仔"]
+category: "code"
+section: "科技"
+subcategory: "Deploy / DevOps"
+heroImage: "/hero/claude-code-deploy-preview-verify.webp"
+difficulty: 2
+timeMinutes: 35
+toolsNeeded: ["Claude Code CLI", "Vercel / Netlify / Cloudflare Pages account", "Slack / Discord webhook"]
+description: "Push 唔代表 deploy 成功。教 Claude Code 一個 ship 後 ritual：poll Vercel API 等 build ready、ping critical path、跑 Playwright smoke、Slack 報生死。一個 /ship 搞掂。"
+keywords: ["Vercel deploy verify", "post-deploy smoke test", "Claude Code ship workflow", "deploy preview check", "Playwright smoke test"]
+related: ["claude-code-git-workflow", "claude-code-headless-automation", "claude-code-hooks-claude"]
+featured: false
+---
+
+## 情境
+
+你 indie 做緊個 SaaS，禮拜五夜晚 push 完一個 pricing page 嘅改動，落街食飯。返到屋企打開 laptop —— Slack 三個用戶 ping 你：「點解 `/pricing` 出 500？」
+
+睇 Vercel dashboard，build 綠色。睇 GitHub，merge 咗。但個 page 真係 500。原因：你改咗個 env var name，本地 `.env.local` 有，Vercel project setting 冇加。Build 過得，runtime 死。
+
+呢類錯，**push 成功 ≠ deploy 成功 ≠ user-facing 正常**。Vercel 個綠剔淨係話 build pipeline 行得，唔保證個 page render 到。
+
+呢篇拆 4 步，教 Claude Code 喺你打完 `git push` 之後，自動 run 一個 post-deploy verify ritual：等 deploy ready、ping 關鍵路徑、跑 Playwright smoke、Slack 報生死。出事第一個知嘅係你，唔係你 user。
+
+## 跟住做
+
+### 1. Poll Vercel API 等 deploy ready
+
+Push 完即跑 smoke test 會撞「deploy 仲未起好」。要先 poll Vercel API 等 state 變 `READY`。
+
+`.claude/scripts/wait-deploy.sh`：
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_ID="${VERCEL_PROJECT_ID:?missing}"
+TOKEN="${VERCEL_TOKEN:?missing}"
+SHA="$(git rev-parse HEAD)"
+
+for i in {1..40}; do
+  RES=$(curl -s "https://api.vercel.com/v6/deployments?projectId=$PROJECT_ID&limit=5" \
+    -H "Authorization: Bearer $TOKEN")
+  URL=$(echo "$RES" | jq -r ".deployments[] | select(.meta.githubCommitSha==\"$SHA\") | .url" | head -1)
+  STATE=$(echo "$RES" | jq -r ".deployments[] | select(.meta.githubCommitSha==\"$SHA\") | .state" | head -1)
+
+  if [ "$STATE" = "READY" ]; then
+    echo "https://$URL"
+    exit 0
+  fi
+  if [ "$STATE" = "ERROR" ] || [ "$STATE" = "CANCELED" ]; then
+    echo "deploy failed: $STATE" >&2
+    exit 1
+  fi
+  sleep 10
+done
+echo "timeout waiting for deploy" >&2
+exit 1
+```
+
+呢段 poll 每 10 秒，最多等 400 秒（一般 build 兩三分鐘）。Token 喺 Vercel account settings 開，scope 限 read deployments 已經夠。Return preview URL 畀下游用。
+
+### 2. Critical path smoke check
+
+有咗 preview URL，第一輪驗證係**HTTP 層**：關鍵 page response 200，response body 含預期關鍵字。冇任何 browser、快、cheap。
+
+`.claude/scripts/smoke-paths.sh`：
+
+```bash
+#!/usr/bin/env bash
+BASE="$1"
+PATHS=(
+  "/|首頁"
+  "/pricing|月費"
+  "/api/health|ok"
+)
+
+FAIL=0
+for entry in "${PATHS[@]}"; do
+  IFS='|' read -r path expect <<< "$entry"
+  RES=$(curl -s -w "\n%{http_code}" "$BASE$path")
+  CODE=$(echo "$RES" | tail -1)
+  BODY=$(echo "$RES" | sed '$d')
+
+  if [ "$CODE" != "200" ]; then
+    echo "FAIL $path → HTTP $CODE"; FAIL=1; continue
+  fi
+  if ! echo "$BODY" | grep -q "$expect"; then
+    echo "FAIL $path → missing 「$expect」"; FAIL=1; continue
+  fi
+  echo "OK   $path"
+done
+exit $FAIL
+```
+
+呢層捉到 90% 嘅 deploy regression：env var 漏、route 拆錯、SSR 拋 error。Cost 三秒。每條 path 配個關鍵字，捉到「200 但 render 咗 fallback empty page」嘅暗病。
+
+### 3. Playwright scenario test
+
+HTTP layer 過唔代表用戶 flow 行得到。第三步係 headless browser 跑 3-5 條 critical flow。
+
+`tests/smoke.spec.ts`：
+
+```typescript
+import { test, expect } from '@playwright/test'
+
+const BASE = process.env.PREVIEW_URL!
+
+test('landing → CTA → signup form 開到', async ({ page }) => {
+  await page.goto(BASE)
+  await page.getByRole('link', { name: /開始試用/ }).click()
+  await expect(page.getByRole('heading', { name: /註冊/ })).toBeVisible()
+})
+
+test('pricing page 三個 plan 都 render', async ({ page }) => {
+  await page.goto(`${BASE}/pricing`)
+  await expect(page.getByText('Starter')).toBeVisible()
+  await expect(page.getByText('Pro')).toBeVisible()
+  await expect(page.getByText('Team')).toBeVisible()
+})
+
+test('search 打字有結果', async ({ page }) => {
+  await page.goto(BASE)
+  await page.getByPlaceholder(/搵嘢/).fill('claude')
+  await expect(page.locator('[data-testid="search-result"]').first()).toBeVisible({ timeout: 5000 })
+})
+```
+
+跑：`PREVIEW_URL=$URL npx playwright test --project=chromium tests/smoke.spec.ts`。
+
+呢個唔係 full E2E，係 smoke —— 揀 3-5 條「呢條死咗即等於 site 死咗」嘅 flow。多咗會慢、會 flaky、會 false alarm。
+
+### 4. Slack / Discord 通知
+
+最後一步：將上面三輪結果 pipe 入 webhook，pass 報綠、fail 報紅 + 連 preview URL + commit message。
+
+`.claude/commands/ship.md`：
+
+```markdown
+---
+description: Push + verify deploy + Slack 通知
+---
+
+請執行：
+
+1. `git push origin HEAD`
+2. 跑 `.claude/scripts/wait-deploy.sh`，拎到 PREVIEW_URL
+3. 跑 `.claude/scripts/smoke-paths.sh "$PREVIEW_URL"`
+4. 跑 `PREVIEW_URL=$PREVIEW_URL npx playwright test tests/smoke.spec.ts`
+5. 整合結果：
+   - 全綠 → POST Slack webhook：✅ shipped [commit subject] → [PREVIEW_URL]
+   - 任一 fail → POST Slack webhook：🔴 deploy verify FAIL → [fail 嘅 step] + [PREVIEW_URL]
+6. Return 一句總結
+```
+
+`SLACK_WEBHOOK_URL` 入 `.env.local`（同 Claude session env 共用）。打 `/ship` 一鍵搞掂：push、等、驗、報，五分鐘冇你事，行完先 ping 你。
+
+## 變化
+
+### 變化 1：Netlify 版本
+
+Netlify API 同 Vercel 邏輯一樣，poll endpoint 換做 `https://api.netlify.com/api/v1/sites/$SITE_ID/deploys`，state 認 `ready`、`error`。Cloudflare Pages 用 `/accounts/.../pages/projects/$PROJECT/deployments`，state 認 `success`。Step 2-4 完全唔使改 —— preview URL 出嚟之後嘅 verify 邏輯同 platform 無關，呢個就係呢個 ritual 嘅威力。
+
+### 變化 2：三段 deploy（preview / staging / prod）
+
+Solo dev 一段 deploy 夠用。Team / SaaS 通常分三段：feature branch 開 preview、merge `develop` 出 staging、merge `main` 出 prod。
+
+`/ship` slash command 加參數：
+
+- `/ship preview` —— smoke paths only，平日 iterate 用
+- `/ship staging` —— smoke + Playwright + Slack 通知 `#dev`
+- `/ship prod` —— 上面所有 + 額外 Lighthouse 跑分 + Slack 通知 `#general` + 跑 sentry release create
+
+CLAUDE.md codify 每段嘅 gate（譬如 prod 必須 staging 綠咗 24 小時先肯 ship），Claude 唔會冇 staging 直接 prod。
+
+### 變化 3：E-commerce checkout flow
+
+賣嘢嘅 site，最 critical 嘅唔係首頁而係 checkout。Playwright smoke 必須跑足 add-to-cart → checkout → payment confirm（用 Stripe test mode key）：
+
+```typescript
+test('checkout flow 行到尾', async ({ page }) => {
+  await page.goto(`${BASE}/products/test-sku`)
+  await page.getByRole('button', { name: /加入購物車/ }).click()
+  await page.goto(`${BASE}/checkout`)
+  await page.getByLabel('Email').fill('smoke@example.com')
+  // Stripe test card
+  const card = page.frameLocator('iframe[name^="__privateStripeFrame"]')
+  await card.getByPlaceholder('Card number').fill('4242 4242 4242 4242')
+  await page.getByRole('button', { name: /落單/ }).click()
+  await expect(page.getByText(/多謝惠顧/)).toBeVisible({ timeout: 15000 })
+})
+```
+
+呢條 flow 一綠，等於話收錢條 pipeline 通晒。Black Friday 前一晚 push，跑完先放心瞓。
+
+## 一個 mindset
+
+> Deploy 唔係「`git push` 完就算」，係「user 真係見到嘅嘢同你 staging 一樣」先算。中間嗰段差距，就係呢個 ritual 補返。
+
+最後提醒：
+
+- ✅ **先做 step 1-2**（poll + curl smoke）。15 分鐘工，已經捉到八成 regression。
+- ⚠️ **Playwright smoke 要狠揀**。多過 5 條會 flaky、會煩、會被你 disable。三條最 critical 嘅夠。
+- 🎯 **Slack 通知一定要連 preview URL**。出事個陣你撳一下就跳到出事個 page，唔需要再揾。
+
+下次禮拜五夜晚 push，落街食飯前打 `/ship` 一句。返到屋企 Slack 已經話畀你聽生定死 —— 而唔係用戶話畀你聽。

@@ -1,0 +1,260 @@
+---
+title: "Claude Code 喺新機 30 分鐘 onboarding：dotfiles、API key vault、project bootstrap script"
+slug: "claude-code-onboarding-new-machine"
+issue: 117
+publishedAt: 2026-05-27
+audience: ["創作者", "打工仔"]
+category: "code"
+section: "科技"
+subcategory: "Setup / Onboarding"
+difficulty: 2
+timeMinutes: 30
+toolsNeeded: ["Claude Code CLI", "GitHub account", "Optional: dotfiles repo"]
+description: "新 Mac 開箱 / 入新公司 / 換機重新 setup Claude Code + 你 project 要幾個鐘？教用 Claude Code 自己寫個 onboarding script：dotfiles、API key 用 keychain 收好、bootstrap script clone + install + configure，30 分鐘新機開工。"
+keywords: ["Claude Code onboarding", "new machine setup AI", "dotfiles Claude", "developer onboarding script", "Mac dev setup", "Claude Code bootstrap"]
+related: ["claude-code-install-claude", "claude-code-hooks-claude"]
+featured: false
+---
+
+## 情境
+
+你呢個禮拜換新 Mac：
+
+- 舊機 M1 換 M4，公司 IT 順手 wipe 咗
+- 或者你 freelancer 揾到新 client，佢借部機畀你做 contract
+- 又或者你新入職 agency，HR 派部全新機，要你今日 setup 好開工
+
+過去你嘅 setup 流程：
+
+1. Install Xcode CLI tools（15 分鐘）
+2. Install Homebrew（10 分鐘）
+3. brew install 一堆嘢：node / git / pnpm / gh / jq（15 分鐘）
+4. 揾返 dotfiles，唔記得放邊（10 分鐘 google）
+5. Clone 5 個 active project，每個 npm install（20 分鐘）
+6. 揾返所有 API key（Anthropic / OpenAI / GitHub / Vercel）—— 但你唔記得邊個 key 喺邊個密碼管理器（30 分鐘）
+7. Set 環境變數，逐個 export 入 `.zshrc`
+8. Install Claude Code，但 settings.json 同 hook 又要重新整
+
+埋單 3 個鐘，仲未開始做正經嘢。
+
+**問題核心**：每次 setup 都係手動 + 靠記性。新機越多，越證明你應該將個 setup 自動化。
+
+**Claude Code 反過來幫你**：用佢生成你自己嘅 onboarding script，下次換機 30 分鐘搞掂。
+
+## 跟住做
+
+### 1. Dotfiles repo 構造（10 分鐘）
+
+開個 public 或 private GitHub repo 叫 `dotfiles`。最少要有：
+
+```
+dotfiles/
+├── .zshrc           # shell config
+├── .gitconfig       # git user + alias
+├── .claude/
+│   └── settings.json   # Claude Code hooks / config
+├── Brewfile         # brew install 清單
+└── install.sh       # symlink + install runner
+```
+
+`Brewfile` 例子：
+
+```
+brew "node"
+brew "pnpm"
+brew "gh"
+brew "jq"
+brew "ripgrep"
+brew "fzf"
+cask "iterm2"
+cask "visual-studio-code"
+cask "1password-cli"
+```
+
+`install.sh` 入面 symlink 返去 `$HOME`：
+
+```bash
+#!/bin/bash
+set -e
+DOTFILES="$HOME/dotfiles"
+ln -sf "$DOTFILES/.zshrc" "$HOME/.zshrc"
+ln -sf "$DOTFILES/.gitconfig" "$HOME/.gitconfig"
+mkdir -p "$HOME/.claude"
+ln -sf "$DOTFILES/.claude/settings.json" "$HOME/.claude/settings.json"
+brew bundle --file="$DOTFILES/Brewfile"
+echo "Dotfiles installed"
+```
+
+唔知由邊度開始？開 Claude Code 喺空 folder，講：「我用 Mac，每日寫 Next.js + Python。整個 minimal dotfiles repo，包 zshrc、gitconfig、Brewfile、install.sh。」Claude 5 分鐘出齊。
+
+### 2. API key 用 macOS keychain 收好（5 分鐘）
+
+唔好再喺 `.zshrc` 寫 `export ANTHROPIC_API_KEY="sk-ant-..."`。Plain text key 喺 dotfiles repo 即係 leak。
+
+用 macOS 內建 `security` 指令：
+
+```bash
+# 加入 keychain（一次性）
+security add-generic-password \
+  -a "$USER" -s "ANTHROPIC_API_KEY" \
+  -w "sk-ant-..."
+
+# 用嘅時候攞返
+security find-generic-password \
+  -a "$USER" -s "ANTHROPIC_API_KEY" -w
+```
+
+喺 `.zshrc` 加 helper function：
+
+```bash
+load_secret() {
+  security find-generic-password -a "$USER" -s "$1" -w 2>/dev/null
+}
+
+export ANTHROPIC_API_KEY="$(load_secret ANTHROPIC_API_KEY)"
+export OPENAI_API_KEY="$(load_secret OPENAI_API_KEY)"
+export GITHUB_TOKEN="$(load_secret GITHUB_TOKEN)"
+```
+
+新機 setup：第一次手動 `security add-generic-password` 入 3-5 個 key，之後 `.zshrc` 自動 load。Dotfiles repo 唔再 hold 任何 secret。
+
+🔒 用 1Password 嘅版本：裝 `1password-cli`，用 `op read "op://Private/Anthropic/api_key"` 取代 `load_secret`。跨機更方便（keychain 唔跨機）。
+
+### 3. Bootstrap script 由 Claude Code 自己生成（10 分鐘）
+
+唔好手寫 bootstrap script。喺新機（或者用 Claude Code 喺舊機）開 session，畀佢咁嘅 prompt：
+
+```
+我換緊新 Mac。寫個 bootstrap.sh 做以下嘢：
+
+1. Install Xcode CLI tools (xcode-select --install)
+2. Install Homebrew (官方 install script)
+3. Clone https://github.com/[你 username]/dotfiles 入 $HOME/dotfiles
+4. 跑 dotfiles/install.sh
+5. Clone 我以下 5 個 active project 入 $HOME/code/:
+   - [list 你 5 個常用 repo URL]
+6. 每個 project cd 入去跑 pnpm install
+7. Install Claude Code: npm install -g @anthropic-ai/claude-code
+8. 印出「Next: security add-generic-password 加 API keys」
+
+每步前 print 狀態，每步 fail 即 exit 1。
+```
+
+Claude 出 script，你 review。確認無問題，commit 入 dotfiles repo 做 `bootstrap.sh`。
+
+新機開箱流程變成：
+
+```bash
+# 1. 開 Terminal
+curl -fsSL https://raw.githubusercontent.com/[你]/dotfiles/main/bootstrap.sh | bash
+
+# 2. 加 API keys
+security add-generic-password -a "$USER" -s "ANTHROPIC_API_KEY" -w "..."
+
+# 3. 開工
+cd ~/code/[main-project] && claude
+```
+
+30 分鐘埋單。
+
+### 4. CLAUDE.md template library（5 分鐘）
+
+新 project 唔好每次重寫 CLAUDE.md。喺 dotfiles repo 加：
+
+```
+dotfiles/
+└── templates/
+    ├── CLAUDE.md.nextjs
+    ├── CLAUDE.md.python
+    └── CLAUDE.md.monorepo
+```
+
+每個 template 包：
+
+- Stack 簡介（一句）
+- Commands（dev / build / test / lint）
+- Conventions（命名、folder 結構）
+- Gotchas（你呢類 project 撞過嘅雷）
+
+新 project：
+
+```bash
+cp ~/dotfiles/templates/CLAUDE.md.nextjs ./CLAUDE.md
+# 改 2-3 個 project 專屬位
+```
+
+每次 Claude session 入新 project 即刻有 context，唔使再口頭交代。
+
+## 變化
+
+### 變化 1：Team onboarding（新員工 30 分鐘 setup）
+
+你 senior dev，公司請新人，IT 派部機就走。傳統做法：senior 陪新人坐 2 個鐘 setup。
+
+改做法：team 共用 `team-dotfiles` repo，內含：
+
+- 公司 standard `Brewfile`（齊全 tool chain）
+- 公司 `.claude/settings.json`（hook、permission default、共用 slash command）
+- `bootstrap-newhire.sh`：clone 公司 active repo + 接 SSO / VPN script
+- `templates/CLAUDE.md.[stack]`：公司每個技術 stack 嘅 template
+
+新人 day 1：開 Terminal，跑一條 curl 指令，30 分鐘可以開 PR。Senior 唔使坐喺隔離。
+
+### 變化 2：多機同步（laptop + desktop）
+
+你屋企 desktop + 公司 laptop 都要保持 sync。
+
+- Dotfiles repo：`git pull` 即同步
+- API key：用 1Password CLI（跨機），唔好用 keychain（綁住部機）
+- Active project：每部機跑 bootstrap.sh，clone 同一批 repo
+- `.claude/projects/` session 歷史：唔需要 sync（每部機獨立），但 `.claude/settings.json` 應該 sync
+
+關鍵：machine-specific 嘢（session、cache）唔 sync；shared config 全部入 dotfiles。
+
+### 變化 3：完全異機（Mac → Linux 工作站）
+
+你公司租咗部 Linux GPU 機 train model，要 setup Claude Code。
+
+90% bootstrap.sh 可以重用，但要分支：
+
+```bash
+if [[ "$(uname)" == "Darwin" ]]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  brew bundle --file="$DOTFILES/Brewfile"
+else
+  sudo apt-get update
+  sudo apt-get install -y nodejs npm jq ripgrep fzf gh
+fi
+```
+
+API key 喺 Linux 用 `pass`（password-store）或者 1Password CLI 取代 keychain：
+
+```bash
+# Linux 版 load_secret
+load_secret() {
+  pass show "api/$1" 2>/dev/null
+}
+```
+
+CLAUDE.md template 跨 OS 100% 重用。
+
+## 一個 mindset
+
+呢個 onboarding 嘅深層 insight：**每次手動 setup 都係未來自己嘅債**。
+
+第一次手動 setup：1 個鐘
+第二次手動 setup：1 個鐘（你已經唔記得上次點做）
+第三次手動 setup：1 個鐘 + 開始悶
+第四次：你終於受唔住，花 1 個下晝寫自動化
+
+對比：第一次手動 setup 就用 Claude Code 一齊寫埋 bootstrap.sh。第一次成本：1.5 個鐘。第 2/3/4 次每次：30 分鐘。第 5 次（教新同事）：你 forward 一條 curl link，全程零分鐘。
+
+呢個 mindset 嘅 reframe：**dotfiles + bootstrap script 唔係「dev 潔癖」，係 onboarding 嘅 ROI 投資**。每多寫一 line 自動化，未來嘅你（同你 team）少痛一次。
+
+最後提醒：
+
+- ✅ **secret 永遠唔好入 dotfiles repo**。Keychain / 1Password / pass —— 揀一樣。
+- ⚠️ **bootstrap.sh 每 3 個月跑一次測試**（喺 throwaway VM 或者 Docker）。Brew formula 改名、API endpoint 搬位都會 break 你 script。
+- 🎯 **dotfiles + Claude Code 嘅組合最大 leverage**：CLAUDE.md template + slash command + hooks 全部 sync。新機 30 分鐘等於舊機。
+
+下個鐘開個 `dotfiles` repo，將 `.zshrc` 同 `Brewfile` 入面嘢 commit。換機嗰日你會感激今晚嘅自己。
