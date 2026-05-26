@@ -31,11 +31,11 @@ featured: false
 
 而呢三類 task，全部用緊同一個 model — Sonnet 4.5。
 
-呢個 default 邏輯有問題：
+呢個預設邏輯有問題：
 
 - **Sonnet 強，但 rename 一個 variable 用佢係燒銀紙**。Haiku 4.5 做呢樣嘢有 90% 質素，價錢得 1/4
 - **真係要諗嘢嘅 task 反而用緊「平衡型」**。複雜 race condition、tricky refactor，你需要嘅係 Opus
-- **Claude Code 識揀 model，但你冇教過佢點揀**。佢只能用 default
+- **Claude Code 識揀 model，但你冇教過佢點揀**。佢只能用預設
 
 呢篇教你建立 task-to-model routing。3 個 slash command、1 個 CLAUDE.md routing rule、加 subagent dispatch — 跟住做，下個月 bill 落 50%-70%，質素冇跌反而升（因為複雜 task 開始用 Opus）。
 
@@ -161,7 +161,7 @@ Haiku 平行 5 條，總成本可能仲低過用 Sonnet 順序做一條。
 
 ### 變化 1：Solo dev 緊 budget 版
 
-每月想壓喺 US$50 以下。Default 反過嚟 — 預設 Haiku，escalate 先用 Sonnet。
+每月想壓喺 US$50 以下。預設反過嚟 — 預設 Haiku，escalate 先用 Sonnet。
 
 `CLAUDE.md`：
 
@@ -206,11 +206,11 @@ Routing rule 按 client 嘅 budget 調 — premium client 容許 Opus，cost-sen
 
 學習階段「貴 model 用喺 explain」其實划算 — 你慳嘅係「Google 唔到答案嗰兩個鐘」。
 
-## 一個 mindset
+## 一個心態
 
-> Default 係給唔識揀嘅人用嘅。識揀嘅人，每個 task 都揀啱 tool。
+> 預設係給唔識揀嘅人用嘅。識揀嘅人，每個 task 都揀啱 tool。
 
-Claude Code default Sonnet 唔係佢嘅錯 — 係佢未識你嘅工作模式。你 install 第一日，佢冇辦法分得清「rename」同「architecture」對你嘅難度差距。
+Claude Code 預設 Sonnet 唔係佢嘅錯 — 係佢未識你嘅工作模式。你 install 第一日，佢冇辦法分得清「rename」同「architecture」對你嘅難度差距。
 
 但兩個月之後，你應該識自己。應該知道：
 

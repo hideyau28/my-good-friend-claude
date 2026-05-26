@@ -38,7 +38,7 @@ my-saas/
 1. Grep 成個 repo 搵 `login`
 2. Match 到 23 個檔案，喺 `apps/web`、`apps/admin`、`packages/auth` 都有
 3. Context 用咗 40k token 先理解到「邊個 login 先係 admin login」
-4. 一唔小心改埋 `apps/web` 嘅 login flow，你 review 嗰陣先發現
+4. 一唔小心改埋 `apps/web` 嘅 login flow，你覆檢嗰陣先發現
 
 Monorepo 嘅默契係「package 之間有界線」，但 Claude 預設行為係 flat search — 界線對佢嚟講唔存在。
 
@@ -207,7 +207,7 @@ Claude 知道 build order 之後，做改動會主動建議「呢個會 cascade 
 唔好喺 root 直接 `pnpm add` — 一定要用 filter。
 ```
 
-Claude 學識 filter 之後，唔會再喺 root 撞 install。
+Claude 學識篩選之後，唔會再喺 root 撞 install。
 
 ### 變化 3：Mixed framework monorepo（Next.js + Astro + Vite）
 
@@ -227,9 +227,9 @@ Claude 學識 filter 之後，唔會再喺 root 撞 install。
 
 呢張表喺 mixed-framework agency 工作流幫到手 — junior 同 Claude 都唔會撈亂 directive。
 
-## 一個 mindset
+## 一個心態
 
-Monorepo 嘅核心唔係「將代碼放埋一齊」— 係**邊界**。Package boundary 喺人類眼中係 folder structure，喺 Claude 眼中**預設係透明嘅**，因為佢嘅 default tool 係 flat grep。
+Monorepo 嘅核心唔係「將代碼放埋一齊」— 係**邊界**。Package boundary 喺人類眼中係 folder structure，喺 Claude 眼中**預設係透明嘅**，因為佢嘅預設 tool 係 flat grep。
 
 你嘅工作係將呢啲邊界變返 visible：
 

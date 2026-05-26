@@ -179,11 +179,11 @@ Crontab：
 
 禮拜一返工已經有條 PR 等你 review。Test pass、summary 清楚、major upgrade 列咗出嚟畀你揀。
 
-呢個 setup 嘅 guardrail：Claude **唔可以** `git push --force`、唔可以 merge、唔可以 touch major version。你保留最終決定權。
+呢個 setup 嘅 guardrail：Claude **唔可以** `git push --force`、唔可以合併、唔可以 touch major version。你保留最終決定權。
 
 ### 4. GitHub Actions PR auto-review
 
-目標：每條 PR 開出嚟，Claude 自動 review、留 comment。
+目標：每條 PR 開出嚟，Claude 自動覆檢、留 comment。
 
 `.github/workflows/claude-review.yml`：
 
@@ -334,7 +334,7 @@ for await (const message of result) {
 
 Solo dev 唔需要。Agency / startup 跑 5+ 條 automation workflow 嗰陣，SDK 嘅 retry / error handling / cost log 抵成本。
 
-## 一個 mindset
+## 一個心態
 
 Headless 嘅深層 insight：**你嘅產出唔再受你個鐘頭數限制**。
 
@@ -349,8 +349,8 @@ Headless 嘅深層 insight：**你嘅產出唔再受你個鐘頭數限制**。
 
 最後提醒：
 
-- ✅ **由 1 條 cron 開始**。揀最 boring 嘅重複動作（你 dread 每日做嗰樣），先 automate 嗰一條。1 個禮拜驗證 output 質素先加第 2 條。
-- ⚠️ **monitor cost**。Headless 跑得密 = bill 升得快。頭 1 個月每日睇 Anthropic console，calibrate 真實成本，再決定要唔要由 Sonnet 降去 Haiku。
+- ✅ **由 1 條 cron 開始**。揀最 boring 嘅重複動作（你 dread 每日做嗰樣），先自動化嗰一條。1 個禮拜驗證 output 質素先加第 2 條。
+- ⚠️ **監察 cost**。Headless 跑得密 = bill 升得快。頭 1 個月每日睇 Anthropic console，calibrate 真實成本，再決定要唔要由 Sonnet 降去 Haiku。
 - 🎯 **`--allowed-tools` 唔好懶**。Headless = 冇人喺度問你 Y/N。Tool 鎖死 = 你訓得安樂。
 
 今晚加一條 cron，聽朝 7 點睇佢嘅 output。一個禮拜後你會問自己：「點解之前所有嘢都要手動跑？」

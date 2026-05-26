@@ -31,13 +31,13 @@ featured: false
 
 - 「Excel template 自動」：cleanup 之後跑 —— 但每月數據略有不同，template 唔啱
 - 「Bookkeeping app」：收月費，出嘅報告太行貨
-- 「會計整」：$$ 高 + 你仍然要 review
+- 「會計整」：$$ 高 + 你仍然要覆檢
 
 呢個問題嘅本質：
 
 - 數據 80% 一致（column 結構一樣）
 - 洞察 20% 變（每月 highlight 唔同）
-- AI 應該 handle 嗰 20% 變嘅部分
+- AI 應該處理嗰 20% 變嘅部分
 
 呢篇用 Claude + Apps Script 整合，1 個鐘 setup，往後每月報表撳 1 下就行。
 
@@ -186,7 +186,7 @@ Save。Reload Google Sheet。
 第一次 run —— 你會發現邊樣 output 唔啱：
 
 - 某個 dimension 唔夠 detail → 改 prompt
-- Tone 過於 corporate → 加 tone 規則
+- 語氣過於 corporate → 加語氣規則
 - Format 錯 → 將 format 講清楚啲
 
 每次改完 prompt re-run，5 次 iteration 後 prompt 會收斂到你要嘅質素。
@@ -216,7 +216,7 @@ Save。Reload Google Sheet。
 
 ### 變化 2：Slack 整合 —— 自動將報告 send 落 channel
 
-加 Slack webhook 整合，每月 1 號 9am 自動 trigger + 將報告 send 落 #monthly-reports channel：
+加 Slack webhook 整合，每月 1 號 9am 自動觸發 + 將報告 send 落 #monthly-reports channel：
 
 ```javascript
 function sendToSlack(reportText) {
@@ -249,7 +249,7 @@ function sendToSlack(reportText) {
 
 進階：出**儀表板**（Apps Script 都可以基於 Claude output 整圖表），同時 send email + Slack。
 
-## 一個 mindset
+## 一個心態
 
 「自動化」呢個詞容易被 oversell。實際 frame：**自動化 ROI 嘅計算唔係「節省 100% 時間」，係「節省重複嘅 80% 時間，保留 20% 判斷留畀你」**。
 
@@ -259,7 +259,7 @@ function sendToSlack(reportText) {
 
 呢個 setup 自動化 3.5 個鐘。0.5 個鐘判斷仍然你做 —— 你讀 Claude draft + 加你自己嘅背景洞察（例如「上月 client X 落大 order 因為一次 event，唔可持續」）。
 
-呢個 mindset 嘅 reframe：自動化唔係取代你 —— 自動化釋放你嘅判斷時間。
+呢個心態嘅 reframe：自動化唔係取代你 —— 自動化釋放你嘅判斷時間。
 
 最後提醒：
 

@@ -35,7 +35,7 @@ featured: false
 
 1. **OpenAPI spec** —— single source of truth，由 route handler 直接生成
 2. **TypeScript types** —— spec 出 codegen，frontend / SDK 直接 import
-3. **Example payload** —— Claude 跑落 staging、verify 個 response，update example
+3. **Example payload** —— Claude 跑落 staging、核實個 response，update example
 
 加埋一個 pre-commit hook + `/api-doc` slash command —— 加新 endpoint，docs 自動跟。
 
@@ -126,7 +126,7 @@ type CreateOrderBody = paths['/api/orders']['post']['requestBody']['content']['a
 
 **手動 copy field 嘅日子完。** Spec 改一行，types 即時跟。
 
-### 3. Example payload test + verify pipeline
+### 3. Example payload test + 核實 pipeline
 
 最後一層：example response。呢層最易腐，因為冇人想手跑 endpoint 再 copy JSON。
 
@@ -152,7 +152,7 @@ for (const endpoint of spec.paths) {
 pnpm tsx scripts/refresh-examples.ts
 ```
 
-跟住叫 Claude Code verify：
+跟住叫 Claude Code 核實：
 
 <PromptBlock label="Verify example payload prompt">
 讀 docs/examples/ 入面所有 JSON 同 openapi.yaml 嘅 response schema。
@@ -196,7 +196,7 @@ description: 加新 API endpoint + 自動 sync 三層 docs
 /api-doc 加一個 GET /api/orders/:id endpoint，攞返單筆訂單詳情，permission 同 POST 一樣
 ```
 
-Claude 會跑晒成個 chain：route → schema → spec → types → example → verify → commit。
+Claude 會跑晒成個 chain：route → schema → spec → types → example → 核實 → commit。
 
 收工。
 
@@ -239,7 +239,7 @@ FastAPI 識自己 emit OpenAPI —— `/openapi.json` 即係 source of truth。
 curl http://localhost:8000/openapi.json > openapi.json
 ```
 
-之後 chain 同 TypeScript 版一樣：openapi-typescript-codegen 出 client types，Claude verify example。
+之後 chain 同 TypeScript 版一樣：openapi-typescript-codegen 出 client types，Claude 核實 example。
 
 關鍵：Pydantic model 同 endpoint signature 已經夠表達，唔需要再加 layer。Claude 直接讀 router file，spec 同步喺 import 嘅 Pydantic schema。
 
@@ -264,7 +264,7 @@ Webhook 同 REST 唔同 —— **你係 send 出去**，但收嘅人要知你 pa
 
 Partner integration 接 webhook，永遠 reference 自動同步嘅 docs。
 
-## 一個 mindset
+## 一個心態
 
 API docs 過時嘅根源唔係懶 —— 係 docs 同 code **本身就喺兩個 source**。手動 sync 必有漏。
 

@@ -21,11 +21,11 @@ featured: false
 
 你 indie 做緊個 SaaS，禮拜五夜晚 push 完一個 pricing page 嘅改動，落街食飯。返到屋企打開 laptop —— Slack 三個用戶 ping 你：「點解 `/pricing` 出 500？」
 
-睇 Vercel dashboard，build 綠色。睇 GitHub，merge 咗。但個 page 真係 500。原因：你改咗個 env var name，本地 `.env.local` 有，Vercel project setting 冇加。Build 過得，runtime 死。
+睇 Vercel dashboard，build 綠色。睇 GitHub，合併咗。但個 page 真係 500。原因：你改咗個 env var name，本地 `.env.local` 有，Vercel project setting 冇加。Build 過得，runtime 死。
 
 呢類錯，**push 成功 ≠ deploy 成功 ≠ user-facing 正常**。Vercel 個綠剔淨係話 build pipeline 行得，唔保證個 page render 到。
 
-呢篇拆 4 步，教 Claude Code 喺你打完 `git push` 之後，自動 run 一個 post-deploy verify ritual：等 deploy ready、ping 關鍵路徑、跑 Playwright smoke、Slack 報生死。出事第一個知嘅係你，唔係你 user。
+呢篇拆 4 步，教 Claude Code 喺你打完 `git push` 之後，自動 run 一個 post-deploy 核實 ritual：等 deploy ready、ping 關鍵路徑、跑 Playwright smoke、Slack 報生死。出事第一個知嘅係你，唔係你 user。
 
 ## 跟住做
 
@@ -164,7 +164,7 @@ description: Push + verify deploy + Slack 通知
 
 ### 變化 1：Netlify 版本
 
-Netlify API 同 Vercel 邏輯一樣，poll endpoint 換做 `https://api.netlify.com/api/v1/sites/$SITE_ID/deploys`，state 認 `ready`、`error`。Cloudflare Pages 用 `/accounts/.../pages/projects/$PROJECT/deployments`，state 認 `success`。Step 2-4 完全唔使改 —— preview URL 出嚟之後嘅 verify 邏輯同 platform 無關，呢個就係呢個 ritual 嘅威力。
+Netlify API 同 Vercel 邏輯一樣，poll endpoint 換做 `https://api.netlify.com/api/v1/sites/$SITE_ID/deploys`，state 認 `ready`、`error`。Cloudflare Pages 用 `/accounts/.../pages/projects/$PROJECT/deployments`，state 認 `success`。Step 2-4 完全唔使改 —— preview URL 出嚟之後嘅核實邏輯同 platform 無關，呢個就係呢個 ritual 嘅威力。
 
 ### 變化 2：三段 deploy（preview / staging / prod）
 
@@ -198,7 +198,7 @@ test('checkout flow 行到尾', async ({ page }) => {
 
 呢條 flow 一綠，等於話收錢條 pipeline 通晒。Black Friday 前一晚 push，跑完先放心瞓。
 
-## 一個 mindset
+## 一個心態
 
 > Deploy 唔係「`git push` 完就算」，係「user 真係見到嘅嘢同你 staging 一樣」先算。中間嗰段差距，就係呢個 ritual 補返。
 

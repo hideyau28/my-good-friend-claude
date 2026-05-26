@@ -33,7 +33,7 @@ Update authentication module
 
 問題唔係 Claude 蠢 —— 係**你冇話畀佢知 team 嘅規矩**。Claude 默認用業界 generic style，唔知你公司用 GitFlow 定 trunk-based、唔知你 PR template 喺邊、唔知 `JIRA-123` 係必要 prefix。
 
-呢篇拆 4 步，將 team 嘅 git 規矩 codify 入 Claude 嘅 default 行為，順手加埋 rebase / conflict 救命員。
+呢篇拆 4 步，將 team 嘅 git 規矩 codify 入 Claude 嘅預設行為，順手加埋 rebase / conflict 救命員。
 
 ## 跟住做
 
@@ -73,7 +73,7 @@ Update authentication module
 
 ### 2. `/commit` 同 `/pr` slash command
 
-CLAUDE.md 係 default，但你想「一鍵」執行成個 git ritual。寫 slash command。
+CLAUDE.md 係預設，但你想「一鍵」執行成個 git ritual。寫 slash command。
 
 檔案 `.claude/commands/commit.md`：
 
@@ -206,7 +206,7 @@ Agent({ prompt: "Draft maintainer reply: 讚好嘅地方 + 列具體要改嘅 po
 
 3 個 subagent 並行，整合返一份 review。你最後加人味、approve 或者 request changes。OSS maintainer 由「30 分鐘 review 一個 PR」變「5 分鐘 review 一個」，唔再 PR backlog 三個月。
 
-## 一個 mindset
+## 一個心態
 
 Solo dev：CLAUDE.md 寫得鬆啲都得，反正你自己一個。重點係 codify 你**自己**慣性（你已經慣 conventional commit，咁就寫低，Claude 跟你而唔係跟業界平均）。
 

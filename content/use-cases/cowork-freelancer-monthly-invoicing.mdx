@@ -28,7 +28,7 @@ featured: false
 
 8 個 client 做晒，**4 個鐘冇咗**。而且月月做、月月一樣。
 
-呢個任務完全係 Cowork 嘅 sweet spot — **重覆、多來源、有明確輸出、但最後一步要你親自 send**。Set 一次，每月 1 號 10am 自動 draft 晒，你坐低半個鐘檢視 + 撳 send 就完。
+呢個任務完全係 Cowork 嘅 sweet spot — **重覆、多來源、有明確輸出、但最後一步要你親自 send**。Set 一次，每月 1 號 10am 自動起稿晒，你坐低半個鐘檢視 + 撳 send 就完。
 
 > Caveat：Cowork 仲係 research preview，要 Pro / Max plan。**唔好叫佢 auto-send invoice email** — invoice 出錯（rate 計錯、發錯客）係要追嘅，draft mode 永遠係最後一道閘。
 
@@ -124,7 +124,7 @@ ZEN,Zenith Tokyo,ap@zenith.jp,150,USD,NET 30,3-1-1 Shibuya Tokyo
 set 好之後 confirm 我，再 schedule 落每月 1 號 10am 自動跑。
 </PromptBlock>
 
-第一次跑一定要 dry run：「即場跑一次上個月 data，輸出晒所有檔案但**唔好真係 schedule**」。睇下 rate 計啱冇、email tone 啱唔啱、PDF format 過唔過得到客個 finance team。OK 先 enable schedule。
+第一次跑一定要 dry run：「即場跑一次上個月 data，輸出晒所有檔案但**唔好真係 schedule**」。睇下 rate 計啱冇、email 語氣啱唔啱、PDF format 過唔過得到客個 finance team。OK 先 enable schedule。
 
 ### 3. PDF / markdown output + email draft（DON'T auto-send）
 
@@ -148,9 +148,9 @@ set 好之後 confirm 我，再 schedule 落每月 1 號 10am 自動跑。
 1. 開 `summary.md`，掃一眼 grand total — 同你印象中嘅月度收入差幾多？差太遠就有嘢錯
 2. 開 `untagged.csv` — 處理漏 tag 嘅 entries（手動分返客或者算 admin time）
 3. 隨機抽 1–2 個 client 嘅 PDF 開嚟睇 — line items 有冇重覆、rate 啱唔啱、due date 啱唔啱
-4. 開每個 .eml（macOS 雙撳會喺 Mail 度開做 draft），檢一檢 tone，撳 send
+4. 開每個 .eml（macOS 雙撳會喺 Mail 度開做 draft），檢一檢語氣，撳 send
 
-**為咩唔 auto-send？** Invoice 錯一次嘅成本（追數、改 invoice、同 client 解釋）遠高過你 review 嗰半個鐘。Cowork 嘅哲學係「**機械工序 automate、判斷工序留返畀人**」，invoice send 就係嗰條判斷線。
+**為咩唔 auto-send？** Invoice 錯一次嘅成本（追數、改 invoice、同 client 解釋）遠高過你 review 嗰半個鐘。Cowork 嘅哲學係「**機械工序自動化、判斷工序留返畀人**」，invoice send 就係嗰條判斷線。
 
 ### 4. Payment tracker — 點 update status
 
@@ -163,7 +163,7 @@ INV-2026-043,TKO,2026-05-01,2026-05-15,8000,HKD,paid,2026-05-12,
 INV-2026-044,ZEN,2026-05-01,2026-05-31,3750,USD,overdue,,sent reminder 06/05
 ```
 
-每月 1 號嗰個 task 加多一步：**「跑完 draft 之後，將今次新出嘅 invoice append 落 ar-tracker.csv，default status = 'draft'。我撳 send 嗰陣，我會手動改去 'sent'。」**
+每月 1 號嗰個 task 加多一步：**「跑完 draft 之後，將今次新出嘅 invoice append 落 ar-tracker.csv，預設 status = 'draft'。我撳 send 嗰陣，我會手動改去 'sent'。」**
 
 再加一個每星期一 9am 嘅輕量 task：「scan ar-tracker.csv，如果有 status='sent' 而 today > due_date 嘅，flag 做 'overdue' 同寄個 weekly summary 畀我」。呢個係下面變化 3 嘅基礎。
 
@@ -216,7 +216,7 @@ Payment instructions 按 currency 切：
 
 呢個變化解決一個實際痛點：用單一幣值畀所有 client 會出事（USD client 收到一張 HKD invoice 要 finance team 自己換、好多時佢哋直接退返畀你）。
 
-### 變化 3：加 follow-up 自動 nudge（overdue >14 日自動 draft 催收 email）
+### 變化 3：加 follow-up 自動 nudge（overdue >14 日自動起稿催收 email）
 
 最辛苦嘅 freelance 工作唔係出 invoice，係催數。
 

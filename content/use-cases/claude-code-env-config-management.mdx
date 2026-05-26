@@ -29,7 +29,7 @@ featured: false
 過去你嘅做法：
 
 1. Local 有 `.env.local`，自己一份
-2. Staging / prod 喺 Vercel dashboard click click click 入 env var
+2. Staging / prod 喺 Vercel dashboard click click 撳入 env var
 3. 加新 feature 加新 env var → 手動入 3 個地方
 4. 同事 onboard → 你 Slack 抄畀佢
 5. 某日 staging build 死，揾咗成晚先發覺：staging 漏咗 `RESEND_API_KEY`，dev 有、prod 有，淨係 staging 唔知幾時 forgotten
@@ -221,20 +221,20 @@ apps/
 └── worker/.env.example   # queue creds, Anthropic key, S3 creds
 ```
 
-`/env-add` slash command 升級：第一個問題加埋「邊個 package？」，根據答案揀對應 `.env.example` 同 Vercel project（每個 app 喺 Vercel 通常獨立 project）。Claude 嘅 CLAUDE.md 寫清楚：「envvar 只放對應 package，唔好 share；要 share 就用 build-time inject」。
+`/env-add` slash command 升級：第一個問題加埋「邊個 package？」，根據答案揀對應 `.env.example` 同 Vercel project（每個 app 喺 Vercel 通常獨立 project）。Claude 嘅 CLAUDE.md 寫清楚：「envvar 只放對應 package，唔好 share；要分享就用 build-time inject」。
 
-## 一個 mindset
+## 一個心態
 
 > **Env config drift 唔係紀律問題，係 system design 問題。** 靠人類記性同 Slack 提醒一定輸；靠 single source of truth + 自動 propagate + CI 檢查就贏。
 
 最反直覺嘅 insight：**dashboard 唔應該係 source of truth**。Vercel / Railway 嘅 UI 好順手，但每次喺度 click 就係一次潛在 drift。`.env.example` （或者 secret manager）入 git、入 PR review，先至有 history、有 review、有 rollback。
 
-呢個 mindset 嘅 reframe：env config 同 schema migration 一樣，係 **infrastructure-as-code** 嘅一部分。冇人會手 click migration，但好多人手 click env var —— 諗起就唔合理。
+呢個心態嘅 reframe：env config 同 schema migration 一樣，係 **infrastructure-as-code** 嘅一部分。冇人會手 click migration，但好多人手 click env var —— 諗起就唔合理。
 
 最後提醒：
 
 - ✅ **`.env.example` 永遠跟 codebase 同步 commit**。加新 var 嗰個 PR 入面同時更新。
 - ⚠️ **真 secret 永遠唔好入 `.env.example`**，連 placeholder 都唔好寫真 key 開頭。
-- 🔁 **每季 rotate 一次高敏感 key**（Stripe / DB / Anthropic）。Claude 寫條 `/rotate <key>` slash command，三個 env 順序換、舊 key revoke、deploy verify，半個鐘搞掂。
+- 🔁 **每季 rotate 一次高敏感 key**（Stripe / DB / Anthropic）。Claude 寫條 `/rotate <key>` slash command，三個 env 順序換、舊 key revoke、deploy 核實，半個鐘搞掂。
 
 今個 weekend 抽 35 分鐘搭好呢套。下次同事問你「點解 staging 又死」，你會發現答案唔再係「我夜晚改下」。

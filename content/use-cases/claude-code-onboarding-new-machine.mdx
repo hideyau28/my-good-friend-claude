@@ -37,7 +37,7 @@ featured: false
 
 埋單 3 個鐘，仲未開始做正經嘢。
 
-**問題核心**：每次 setup 都係手動 + 靠記性。新機越多，越證明你應該將個 setup 自動化。
+**問題核心**：每次設置都係手動 + 靠記性。新機越多，越證明你應該將個 setup 自動化。
 
 **Claude Code 反過來幫你**：用佢生成你自己嘅 onboarding script，下次換機 30 分鐘搞掂。
 
@@ -194,7 +194,7 @@ cp ~/dotfiles/templates/CLAUDE.md.nextjs ./CLAUDE.md
 改做法：team 共用 `team-dotfiles` repo，內含：
 
 - 公司 standard `Brewfile`（齊全 tool chain）
-- 公司 `.claude/settings.json`（hook、permission default、共用 slash command）
+- 公司 `.claude/settings.json`（hook、permission 預設、共用 slash command）
 - `bootstrap-newhire.sh`：clone 公司 active repo + 接 SSO / VPN script
 - `templates/CLAUDE.md.[stack]`：公司每個技術 stack 嘅 template
 
@@ -213,7 +213,7 @@ cp ~/dotfiles/templates/CLAUDE.md.nextjs ./CLAUDE.md
 
 ### 變化 3：完全異機（Mac → Linux 工作站）
 
-你公司租咗部 Linux GPU 機 train model，要 setup Claude Code。
+你公司租咗部 Linux GPU 機 train model，要設置 Claude Code。
 
 90% bootstrap.sh 可以重用，但要分支：
 
@@ -238,23 +238,23 @@ load_secret() {
 
 CLAUDE.md template 跨 OS 100% 重用。
 
-## 一個 mindset
+## 一個心態
 
-呢個 onboarding 嘅深層 insight：**每次手動 setup 都係未來自己嘅債**。
+呢個 onboarding 嘅深層 insight：**每次手動設置都係未來自己嘅債**。
 
-第一次手動 setup：1 個鐘
-第二次手動 setup：1 個鐘（你已經唔記得上次點做）
-第三次手動 setup：1 個鐘 + 開始悶
+第一次手動設置：1 個鐘
+第二次手動設置：1 個鐘（你已經唔記得上次點做）
+第三次手動設置：1 個鐘 + 開始悶
 第四次：你終於受唔住，花 1 個下晝寫自動化
 
-對比：第一次手動 setup 就用 Claude Code 一齊寫埋 bootstrap.sh。第一次成本：1.5 個鐘。第 2/3/4 次每次：30 分鐘。第 5 次（教新同事）：你 forward 一條 curl link，全程零分鐘。
+對比：第一次手動設置就用 Claude Code 一齊寫埋 bootstrap.sh。第一次成本：1.5 個鐘。第 2/3/4 次每次：30 分鐘。第 5 次（教新同事）：你 forward 一條 curl link，全程零分鐘。
 
-呢個 mindset 嘅 reframe：**dotfiles + bootstrap script 唔係「dev 潔癖」，係 onboarding 嘅 ROI 投資**。每多寫一 line 自動化，未來嘅你（同你 team）少痛一次。
+呢個心態嘅 reframe：**dotfiles + bootstrap script 唔係「dev 潔癖」，係 onboarding 嘅 ROI 投資**。每多寫一 line 自動化，未來嘅你（同你 team）少痛一次。
 
 最後提醒：
 
 - ✅ **secret 永遠唔好入 dotfiles repo**。Keychain / 1Password / pass —— 揀一樣。
 - ⚠️ **bootstrap.sh 每 3 個月跑一次測試**（喺 throwaway VM 或者 Docker）。Brew formula 改名、API endpoint 搬位都會 break 你 script。
-- 🎯 **dotfiles + Claude Code 嘅組合最大 leverage**：CLAUDE.md template + slash command + hooks 全部 sync。新機 30 分鐘等於舊機。
+- 🎯 **dotfiles + Claude Code 嘅組合最大優勢**：CLAUDE.md template + slash command + hooks 全部 sync。新機 30 分鐘等於舊機。
 
 下個鐘開個 `dotfiles` repo，將 `.zshrc` 同 `Brewfile` 入面嘢 commit。換機嗰日你會感激今晚嘅自己。

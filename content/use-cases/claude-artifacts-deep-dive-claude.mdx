@@ -39,14 +39,14 @@ featured: false
 1. 你問 Claude，「呢度 → artifact 預覽」panel 即時 render
 2. 你見到 HTML 即刻 work
 3. 你話「H1 字大啲、CTA button vermillion」
-4. Claude 直接 update artifact，預覽即 refresh
+4. Claude 直接更新 artifact，預覽即 refresh
 5. 3 分鐘迭代週期
 
 呢篇拆 5 個 Artifacts 真實用 use case，每個示範 prompt + 幾時用。
 
 ## 跟住做
 
-### 1. 認識：咩會 trigger Artifacts
+### 1. 認識：咩會觸發 Artifacts
 
 Claude 喺以下情況自動 render artifact：
 
@@ -81,7 +81,7 @@ Output：完整 HTML 喺 artifact panel，預覽 render 出嚟。
 H1 字細啲 (60px → 48px)，CTA button hover effect 加 darker shade，feature card 加大 spacing
 ```
 
-Claude 直接 update artifact，預覽即時 refresh。20 分鐘內多次迭代 → 最終 draft 出嚟。
+Claude 直接更新 artifact，預覽即時 refresh。20 分鐘內多次迭代 → 最終起稿出嚟。
 
 **限制**：Claude artifact 唔連真實 backend / form submission。真正 production deploy 仍要你 push 去 Vercel / Netlify。但樣板 / 概念示範 / pitch deck slide 已經夠。
 
@@ -142,7 +142,7 @@ Output：互動 React component artifact。你可以喺 panel 入面真係撳 bu
 
 ### 5. Use Case 4 —— 長文獨立文件
 
-你 draft 緊一份 8 頁嘅 client proposal：
+你草擬緊一份 8 頁嘅 client proposal：
 
 **Trigger prompt**：
 
@@ -254,7 +254,7 @@ Output：完整教學 artifact。分享連結 / 出 HTML，同事自定節奏學
 
 呢類內部培訓素材平時要 video / Notion doc setup 1 個鐘，artifact 5 分鐘出。
 
-## 一個 mindset
+## 一個心態
 
 Artifacts 嘅深層價值唔係「render 預覽」—— 係**將迭代嘅阻力減到近零**。
 

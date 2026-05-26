@@ -24,9 +24,9 @@ featured: false
 
 你開 Claude Code，順口講：
 
-> Refactor 呢個 file，extract 啲 helper、改靚啲 naming、令佢易讀。
+> Refactor 呢個 file，抽出啲 helper、改靚啲 naming、令佢易讀。
 
-Claude 跑 5 分鐘出 250 行新 code。你睇落幾靚仔。Merge 落 staging。
+Claude 跑 5 分鐘出 250 行新 code。你睇落幾靚仔。合併落 staging。
 
 然後 QA 嗌救命 —— 有個 5 年前 patch 落去嘅怪 edge case（負數 quantity 自動轉做 refund flow）冇咗。Claude rewrite 嘅時候**諗都無諗過呢個 case 存在**，因為呢個 behavior 從來無人寫低。
 
@@ -106,7 +106,7 @@ Characterization test 嘅定義：**唔係驗證 code「應該」做乜（你唔
 
 呢度個關鍵字係 **mechanical**。Mechanical transformation 嘅特性係：理論上可以由 IDE 自動做，behavior 數學上等價。Claude 一旦開始「改良 logic」，你就要叫停。
 
-### 4. Verify equivalence + commit cadence
+### 4. 核對 equivalence + commit cadence
 
 跑曬 mechanical refactor 之後，仲要做最後驗證 —— 因為 test suite 唔可能 100% 覆蓋 production input distribution。
 
@@ -181,7 +181,7 @@ Characterization test 嘅定義：**唔係驗證 code「應該」做乜（你唔
 
 Expand-migrate-contract 係 safe refactor 嘅靈魂 pattern。中間每一步 main 都 deploy 得，唔需要長命 branch。
 
-## 一個 mindset
+## 一個心態
 
 > Make the change easy, then make the easy change.
 > —— Kent Beck

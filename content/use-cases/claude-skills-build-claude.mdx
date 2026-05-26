@@ -22,9 +22,9 @@ featured: false
 你做 admin，公司每星期出 3-5 封客戶 email。每封流程一樣：
 
 1. 你打一段 message
-2. 同 Claude 講「polish 呢段 —— 要專業但唔生硬，要 HK 客感覺真誠，唔好行貨味」
+2. 同 Claude 講「執靚呢段 —— 要專業但唔生硬，要 HK 客感覺真誠，唔好行貨味」
 3. 貼 3 個過往好嘅 example 做參考
-4. 貼公司 tone 規範
+4. 貼公司語氣規範
 5. Claude 出 3 個版本
 6. 你揀一個 fine-tune
 
@@ -33,7 +33,7 @@ featured: false
 呢個問題同 Projects 唔同：
 
 - Projects 解決「所有 chat 共用同一 context」
-- 但你呢個情況係「同一 workflow 用喺唔同內容」—— 每次 polish 唔同 email，但流程一樣
+- 但你呢個情況係「同一 workflow 用喺唔同內容」—— 每次執靚唔同 email，但流程一樣
 
 呢個就係 **Claude Skills** 解決嘅問題。
 
@@ -45,7 +45,7 @@ featured: false
 
 Build 完之後，Claude 喺對話入面會自動 detect 應該叫邊個 skill，跟住個 workflow 行。
 
-呢篇 45 分鐘 build 第一個 skill，往後幾百封 email polish 都唔需要再貼規則。
+呢篇 45 分鐘 build 第一個 skill，往後幾百封 email 執靚都唔需要再貼規則。
 
 ⚠️ Skills 而家係 Pro / Team / Max plan 嘅功能（部分早期版本）。
 
@@ -105,7 +105,7 @@ See `reference/good-examples.md` for 5 past polished emails.
 關鍵欄位：
 
 **Name**：kebab-case，唯一識別 skill
-**Description**：包括 trigger keyword + 用途講清楚。例如：「Trigger when user asks to polish / 改 / refine an English email for HK client. Skip for casual social posts.」
+**Description**：包括 trigger keyword + 用途講清楚。例如：「Trigger when user asks to 執靚 / 改 / refine an English email for HK client. Skip for casual social posts.」
 **When to use** section：明確界線，等 Claude 知幾時唔好叫
 **Step-by-step**：你想 Claude 跟嘅程序
 **Rules**：硬性規限
@@ -165,7 +165,7 @@ advised that we are working diligently to resolve this matter.」
 
 如 skill description 寫得啱，Claude 會：
 
-1. **自動 detect**「呢個係 polish email request」
+1. **自動 detect**「呢個係執靚 email request」
 2. **叫起** skill workflow
 3. **應用**你嘅規則 + 參考 example
 4. **出** 2-3 個版本 + 建議 1 個
@@ -232,7 +232,7 @@ See `reference/past-reports.md` for tone calibration.
 新手會混淆。快速釐清：
 
 **Project**：對話入面持續 context（例如你公司 brand voice 永遠 active）
-**Skill**：特定 workflow 嘅程序（例如「polish email」流程，trigger 時先啟動）
+**Skill**：特定 workflow 嘅程序（例如「執靚 email」流程，trigger 時先啟動）
 
 可以同時用：Project 提供長駐 context，Skill 提供任務專屬程序。
 
@@ -248,13 +248,13 @@ See `reference/past-reports.md` for tone calibration.
 
 人哋 install 你 skill 後，可以叫 + iterate 自己嘅版本。
 
-如果你 skill 解決一個常見 HK 問題（例如「polish 商業 email」/「draft 道歉信」/「整 IG caption」），分享出去比你一個人用更有價值 —— community 版本會持續改善。
+如果你 skill 解決一個常見 HK 問題（例如「執靚商業 email」/「draft 道歉信」/「整 IG caption」），分享出去比你一個人用更有價值 —— community 版本會持續改善。
 
-## 一個 mindset
+## 一個心態
 
 Skill 同 Project 嘅深層價值唔係「自動化」—— 係**強迫將默會嘅 knowledge 講清楚**。
 
-你寫 SKILL.md 嘅過程強迫你講出聲：「我點 polish 一封 email？」「我點揀邊個字好啲？」呢類默會 decision 平時喺你個腦 0.5 秒發生，但講清楚出嚟需要 30 分鐘。
+你寫 SKILL.md 嘅過程強迫你講出聲：「我點執靚一封 email？」「我點揀邊個字好啲？」呢類默會 decision 平時喺你個腦 0.5 秒發生，但講清楚出嚟需要 30 分鐘。
 
 寫完之後你對「自己嘅 craft」嘅理解深一個層次。Claude 變得 well-trained，但真正受益者係你自己嘅思維清晰度。
 

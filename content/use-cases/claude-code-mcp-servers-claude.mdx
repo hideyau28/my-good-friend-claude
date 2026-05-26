@@ -28,7 +28,7 @@ featured: false
 
 Claude 自己唔識讀 Notion。你要手動 copy task → 貼 → 問 Claude。慢。
 
-呢個限制嘅根源：**Claude 嘅 default 動作只限於 read / write 檔案 + 跑 shell + web search**。外部 SaaS 服務（Notion / Slack / GitHub API / database / etc）要特定整合層。
+呢個限制嘅根源：**Claude 嘅預設動作只限於 read / write 檔案 + 跑 shell + web search**。外部 SaaS 服務（Notion / Slack / GitHub API / database / etc）要特定整合層。
 
 呢個層就係 **MCP（Model Context Protocol）** —— Anthropic 推嘅開放標準，等 Claude（同其他 AI）用標準方式連外部工具。
 
@@ -281,7 +281,7 @@ Build → 註冊 → Claude 可以叫起「hello」工具。
 
 每個開發者喺自己 shell 設自己環境變數（`GITHUB_TOKEN`）。設定共用，憑證個別。
 
-## 一個 mindset
+## 一個心態
 
 MCP 嘅深層 insight：**AI 嘅未來唔係「更聰明嘅模型」，係「標準化嘅工具生態」**。
 

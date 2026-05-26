@@ -66,7 +66,7 @@ Chat 模式幫到你做一次 deep review（睇 [investment-portfolio-review-cla
 
 ### 2. 核心 prompt — 計 allocation drift + flag categories
 
-呢個 prompt 比較長，要寫清楚成個月度流程。Cowork 會 plan 同 execute，第一次跑用 dry run 模式睇下啱唔啱。
+呢個 prompt 比較長，要寫清楚成個月度流程。Cowork 會 plan 同執行，第一次跑用 dry run 模式睇下啱唔啱。
 
 <PromptBlock label="完整 prompt — 每月 1 號自動跑 portfolio audit">
 我有一個投資組合散喺幾個 brokerage，想你每個月 1 號朝早 9 點自動做以下嘅嘢：
@@ -211,7 +211,7 @@ Cowork 出咗報告之後，你嘅工作流：
 
 ### 變化 3：個股 / dividend stock 揀手投資者版（加 earnings calendar alert）
 
-如果你揸個股 + dividend stock（騰訊、滙豐、領展、AT&T、JNJ 嗰類），個股集中度同 earnings event 都要 audit：
+如果你揸個股 + dividend stock（騰訊、滙豐、領展、AT&T、JNJ 嗰類），個股集中度同 earnings event 都要審視：
 
 <PromptBlock label="變化 3 — 個股 + dividend stock 揀手版">
 我除咗 ETF 之外，仲揸 8-10 隻個股（港股 + 美股）。
@@ -238,11 +238,11 @@ Rebalance suggestion 加：
 
 個股投資者嘅 audit 比 ETF 投資者複雜 2-3 倍，但 Cowork 自動化嘅 ROI 反而更高——你本來要每個月手動 check 8 隻股嘅 earnings + 集中度，依家一封 email 搞掂。
 
-## 一個 mindset
+## 一個心態
 
 > 投資組合 rebalance 嘅最大障礙從來唔係「唔知點做」，而係**「冇 trigger 提我做」**。Set-and-forget 嘅問題唔係「set」錯，而係「forget」太徹底——徹底到 5 年後先發現美股已經由 30% 漂到 51%。
 >
-> Cowork 嘅角色：將「每月 review portfolio」由「我要記得做」嘅 mental load，變成「inbox 有封 email 等我」嘅 passive trigger。Drift 過 threshold 先出聲，平靜嘅月份冇 noise。
+> Cowork 嘅角色：將「每月覆檢 portfolio」由「我要記得做」嘅 mental load，變成「inbox 有封 email 等我」嘅 passive trigger。Drift 過 threshold 先出聲，平靜嘅月份冇 noise。
 >
 > 你嘅角色：每個月 1 號用 5 分鐘 scan 報告，drift 過 5% 就用 30 分鐘決定 + 落單。一年 12 次，總共 6 個鐘。換返嚟嘅係**投資組合永遠喺 target ± 5% 嘅 band 入面**，唔再有「5 年冇 review」嘅災難。
 >
