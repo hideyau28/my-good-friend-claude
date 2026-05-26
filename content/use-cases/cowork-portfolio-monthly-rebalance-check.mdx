@@ -66,7 +66,7 @@ Chat 模式幫到你做一次 deep review（睇 [investment-portfolio-review-cla
 
 ### 2. 核心 prompt — 計 allocation drift + flag categories
 
-呢個 prompt 比較長，要寫清楚成個月度流程。Cowork 會 plan 同執行，第一次跑用 dry run 模式睇下啱唔啱。
+呢個 prompt 比較長，要寫清楚成個月度流程。Cowork 會 plan 同執行，第一次跑用 預演 模式睇下啱唔啱。
 
 <PromptBlock label="完整 prompt — 每月 1 號自動跑 portfolio audit">
 我有一個投資組合散喺幾個 brokerage，想你每個月 1 號朝早 9 點自動做以下嘅嘢：
@@ -108,7 +108,7 @@ Chat 模式幫到你做一次 deep review（睇 [investment-portfolio-review-cla
 - 香港冇 capital gains tax，唔需要諗 tax-loss harvesting，但要 flag 美股股息預扣稅（W-8BEN 用戶 30% / UCITS ETF 15%）作為 context
 - 報告語氣：基於 data，列出 suggestion，唔係 instruction
 
-set 好之後 confirm 我，dry run 一次畀我睇 output，再 schedule 落每月 1 號 9am 自動跑。
+設定 好之後 核對 我，預演 一次畀我睇 output，再 schedule 落每月 1 號 9am 自動跑。
 </PromptBlock>
 
 ### 3. Rebalance suggestion logic — HK 無 CGT 但要諗 MPF lock-in

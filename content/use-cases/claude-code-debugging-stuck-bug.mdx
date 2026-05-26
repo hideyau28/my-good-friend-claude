@@ -118,7 +118,7 @@ git bisect run ./check-bug.sh
 - Exit 0 如果 `/api/orders` 返 200
 - Exit 1 如果 返 500
 - Exit 125 如果 `pnpm install` 或 `pnpm dev` 起唔到（compile error 唔算 bug，bisect 應該 skip）
-- Cleanup：每次 run 完要 kill server，唔好攬住 port
+- Cleanup：每次 執行 完要 kill server，唔好攬住 port
 
 加 timeout 防 server hang。
 </PromptBlock>

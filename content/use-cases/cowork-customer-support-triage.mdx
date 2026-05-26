@@ -30,7 +30,7 @@ featured: false
 
 Cowork 嘅角色：每朝 8:30am 自動跑一次，幫你分晒類、draft 好 FAQ 嗰批回覆，**9 點你開 inbox 已經有個整齊嘅 dashboard，review-and-send 就走得**。
 
-> Caveat：Cowork 仲係 research preview，要 Pro/Max plan。佢會直接讀你嘅 inbox，**第一次跑一定要 dry run，唔好畀佢自動 send**。
+> Caveat：Cowork 仲係 research preview，要 Pro/Max plan。佢會直接讀你嘅 inbox，**第一次跑一定要 預演，唔好畀佢自動 send**。
 
 ## 跟住做
 
@@ -56,7 +56,7 @@ Cowork 嘅角色：每朝 8:30am 自動跑一次，幫你分晒類、draft 好 F
    - **URGENT**：客戶已付款 / 已下單，今日內要回應（例如：已出貨但未到、約咗今日交收、約咗 demo）
    - **FAQ-answerable**：問題喺 `faq.md` 入面 cover 到嘅
    - **COMPLAINT / NEEDS-HUMAN**：投訴、退款、custom 要求、情緒激動、或者 FAQ 答唔到嘅
-4. 對 FAQ-answerable 嗰批，每張 ticket draft 一個回覆：
+4. 對 FAQ-answerable 嗰批，每張 ticket 草擬 一個回覆：
    - 跟 `voice.md` 嘅語氣
    - 引用 `faq.md` 嘅事實答案，唔好作
    - 留個 `[需店主 confirm]` tag 喺需要我 fact-check 嘅地方
@@ -68,7 +68,7 @@ Cowork 嘅角色：每朝 8:30am 自動跑一次，幫你分晒類、draft 好 F
 - COMPLAINT 嗰批淨係列出 customer、ticket subject、初步 sentiment（嬲 / 失望 / 投訴 / 退款）——等我自己處理
 - 報告 email 寄返畀我
 
-set 好之後 confirm，schedule 落每朝 8:30am 自動跑。
+設定 好之後 confirm，schedule 落每朝 8:30am 自動跑。
 </PromptBlock>
 
 ### 3. 三層 output format（呢度係核心）
@@ -94,7 +94,7 @@ set 好之後 confirm，schedule 落每朝 8:30am 自動跑。
 9:00am 你坐低：
 
 1. **5 分鐘**處理 URGENT — 即刻覆，呢啲冇得 batch
-2. **15 分鐘** scan FAQ drafted batch — 每張 ticket 撳 send（或者改少少先 send）。Claude draft 嘅嘢七成可以原文用，三成要微調
+2. **15 分鐘** scan FAQ drafted batch — 每張 ticket 撳 send（或者改少少先 send）。Claude 草擬嘅嘢七成可以原文用，三成要微調
 3. **20 分鐘** 處理 complaint queue — 呢啲先係你真正嘅工，要諗、要打電話、要 escalate
 
 第一個禮拜你會發現 Claude 嘅 FAQ classification 有大概 10% 出錯（例如將 complaint 當咗 FAQ）。每次出錯你**喺 `faq.md` 入面加多句**「以下情況唔屬於 FAQ：客戶用咗『投訴』『嬲』『退錢』等字眼」，準確度會升。
@@ -110,7 +110,7 @@ set 好之後 confirm，schedule 落每朝 8:30am 自動跑。
 
 1. 連去我嘅 WhatsApp Business（透過 Meta Business Suite export，或者我每朝會把過去 24 小時嘅未覆訊息 export 做 .csv 擺入呢個 folder）
 2. 將每段對話分 URGENT / FAQ / COMPLAINT
-3. 對 FAQ 嗰批，draft 嘅回覆要：
+3. 對 FAQ 嗰批，草擬嘅回覆要：
    - 短（WhatsApp 文化，唔好寫成 email）
    - 對應返我 WhatsApp Business quick reply 嘅 short code（例如 `/有貨` `/運費`），如果有 match 就直接喺 draft 入面寫「建議用 short code: /有貨」
 4. 報告同上

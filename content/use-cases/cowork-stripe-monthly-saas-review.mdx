@@ -68,7 +68,7 @@ featured: false
 我係 solo SaaS founder。 我想設定每月 1 號朝早 7 點自動跑一次嘅 founder dashboard。
 
 **工作 folder：** `~/Documents/founder-dashboard/`
-**Stripe key：** 由 `.env` 讀 `STRIPE_API_KEY`（restricted read-only key）
+**Stripe key：** 由 `.env` 讀 `STRIPE_API_KEY`（restricted 唯讀 key）
 **今個月 folder：** `2026-MM/`（用上個月嘅年月）
 
 **流程：**
@@ -119,7 +119,7 @@ featured: false
 - 所有計算公式喺 report 底寫返出嚟，方便我 audit
 - 如果某個指標 Claude 唔肯定點計，標「需要 founder 確認」，唔好估
 
-set 好之後 confirm 我，再 schedule 落每月 1 號朝早 7 點自動跑。
+設定 好之後 核對 我，再 schedule 落每月 1 號朝早 7 點自動跑。
 </PromptBlock>
 
 ### 3. Output format + delivery
@@ -151,7 +151,7 @@ Cowork 出嘅 markdown 可以有兩個落腳點，揀一個（或者兩個都做
 <PromptBlock label="變化 1 — LemonSqueezy 版本">
 （同主 prompt 一樣，但改）：
 
-- API source 換成 LemonSqueezy API（read-only key）
+- API source 換成 LemonSqueezy API（唯讀 key）
 - LemonSqueezy 已經幫你計咗部分 metric（dashboard 有 MRR / churn），但 cohort retention 同 LTV 仲係要 Claude 自己計
 - Subscription status 嘅 enum 名唔同（LemonSqueezy 用 `active` / `on_trial` / `cancelled` / `expired`）—— Claude 要識區分
 - Webhooks 嘅 event 名都唔同——但因為我哋係月底 snapshot，唔靠 webhook，問題唔大

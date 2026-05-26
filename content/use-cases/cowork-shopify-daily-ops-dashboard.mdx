@@ -56,7 +56,7 @@ SHOPIFY_TOKEN=shpat_xxxxxxxxxxxx
 <PromptBlock label="完整 prompt — 每朝 9am Shopify daily ops">
 我開一間香港 Shopify 小店（賣家品），用 SF Express 寄貨，付款方式有 Stripe / FPS / COD。
 
-每朝香港時間 9:00am 自動跑以下流程，用 `~/Documents/shopify-ops/.env` 入面嘅 token 連 Shopify Admin API（read-only）：
+每朝香港時間 9:00am 自動跑以下流程，用 `~/Documents/shopify-ops/.env` 入面嘅 token 連 Shopify Admin API（唯讀）：
 
 **第一段 — Overnight orders（過去 24 小時）**
 - 總單數、總銷售額（HKD）
@@ -82,12 +82,12 @@ SHOPIFY_TOKEN=shpat_xxxxxxxxxxxx
 寄去 boss@mystore.hk。
 
 **限制：**
-- 絕對唔好改 Shopify 任何嘢（read-only）
+- 絕對唔好改 Shopify 任何嘢（唯讀）
 - 唔好自動回客 / 自動 refund
 - 數據對唔上（e.g. API timeout）→ email 寫「數據不完整」，唔好估
 - 用 HKT 時區、HKD 銀碼
 
-Set 好 confirm 我，再 schedule 每朝 9:00am HKT 跑。第一次 dry run 唔好真寄 email，show output 我睇。
+Set 好 核對 我，再 schedule 每朝 9:00am HKT 跑。第一次 預演 唔好真寄 email，show output 我睇。
 </PromptBlock>
 
 ### 3. Tune 你嘅 alert threshold

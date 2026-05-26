@@ -28,7 +28,7 @@ featured: false
 
 每個 meeting 你**應該**做嘅 prep：
 
-1. 揾返上次同呢個人傾過咩（search Gmail / Slack / Notion）
+1. 揾返上次同呢個人傾過咩（搜尋 Gmail / Slack / Notion）
 2. 揾返今次相關嘅 doc / spec / 數字
 3. 諗 3 條要問嘅 question，至少有個 angle 入場
 4. 睇下個議程合唔合理
@@ -56,7 +56,7 @@ Claude Desktop（Pro / Max）→ Cowork mode。第一次用要授權以下 acces
 呢個 prompt 重點係教 Claude **點對照**：唔係淨係 dump calendar，而係每個 attendee 都要返 Gmail / Drive 揾返 context。
 
 <PromptBlock label="完整 prompt — 每朝自動出 meeting prep">
-我想 set 一個每朝 08:50 (HKT) 自動跑嘅 workflow。
+我想 設定 一個每朝 08:50 (HKT) 自動跑嘅 workflow。
 
 **Trigger：** 每個工作日 (Mon-Fri) 朝早 08:50
 
@@ -64,9 +64,9 @@ Claude Desktop（Pro / Max）→ Cowork mode。第一次用要授權以下 acces
 
 由我嘅 Google Calendar 攞返今日 09:00 之後嘅所有 events。
 排除：
-- 已 cancel 嘅
-- 我 decline 咗嘅
-- 純 block time / focus time（無其他 attendee 嘅）
+- 已 取消嘅
+- 我 拒絕咗嘅
+- 純 預留時間 / 專注時段（無其他 attendee 嘅）
 - 1 小時以內嘅短 sync 但 attendee 超過 8 個嘅（大 town hall，唔需要 prep）
 
 **Step 2：每個 meeting 出一頁 prep doc**
@@ -91,15 +91,15 @@ C. **相關 docs**
 - 標返 last edited date（太舊嘅要提我留意）
 
 D. **3 條 prep question**
-基於 B + C，幫我 draft 3 條我入 meeting 之前要諗清楚嘅 question。
+基於 B + C，幫我 草擬 3 條我入 meeting 之前要諗清楚嘅 question。
 要求：
-- 唔好 generic（唔好出「咩係 success metric」呢類阿媽問題）
+- 唔好 空泛（唔好出「咩係 success metric」呢類阿媽問題）
 - 要扣 context（例如「上次你提過 timeline 會 push 1 個月，今次有無 update？」）
 - 至少有 1 條係 risk / blocker / 唔肯定嘅地方
 
 E. **Agenda 建議**
-如果 calendar event 已經有 agenda：check 有冇漏 B 入面嗰啲未解決嘅 item。
-如果冇 agenda：draft 1 個 5-bullet agenda。
+如果 calendar event 已經有 agenda：檢查 有冇漏 B 入面嗰啲未解決嘅 item。
+如果冇 agenda：草擬 1 個 5-bullet agenda。
 
 **Step 3：output 落 Google Drive**
 
@@ -120,24 +120,24 @@ E. **Agenda 建議**
 唔好喺 email 入面 dump prep 內容——只係 pointer。
 
 **重要限制：**
-- 全程 read-only：唔好覆任何 email、唔好改 calendar、唔好 share 任何 doc 出去
+- 全程 唯讀：唔好覆任何 email、唔好改 calendar、唔好 share 任何 doc 出去
 - 如果搜唔到上次 context（例如新 attendee），明講「冇 prior context」，唔好作
-- 唔好 cross-reference 任何標咗「private / personal」嘅 calendar 或 email
-- Confidential 嘅 thread（標咗 confidential / HR / legal）只列存在，唔好抽內容
+- 唔好 交叉比對 任何標咗「private / personal」嘅 calendar 或 email
+- Confidential 嘅 thread（標咗 機密 / HR / legal）只列存在，唔好抽內容
 
-set 好之後 confirm 我，行 dry run 一次睇 output，先 schedule。
+設定 好之後 核對 我，行 預演 一次睇 output，先 schedule。
 </PromptBlock>
 
 ### 3. Output 格式 + Dry run
 
 第一次跑**唔好直接 schedule**。叫 Cowork：「即時跑一次今朝 calendar，show 我 5 份 prep doc，唔好真係寫入 Drive」。
 
-睇住佢出嘅 output，check 幾樣嘢：
+睇住佢出嘅 output，檢查 幾樣嘢：
 
 - **Context 抽得準唔準**——5 份入面有冇 1 份係抽錯 thread / 攞錯 doc
 - **3 條 question 嘅質素**——有冇真係扣到 context，定係籠統
 - **Agenda 建議**——合唔合理，有冇漏明顯嘅 item
-- **隱私邊界**——有冇唔小心抽咗 personal email / confidential thread
+- **隱私邊界**——有冇唔小心抽咗 私人 email / confidential thread
 
 執完先啟用 schedule。輸出落 Google Drive 之後，你可以將 prep doc folder 置頂落 desktop 或者收藏，每朝一 click 就到。
 
@@ -145,29 +145,29 @@ set 好之後 confirm 我，行 dry run 一次睇 output，先 schedule。
 
 頭一個禮拜出嘅 5 × 5 = 25 份 prep doc，你會發現規律：
 
-- **某啲 attendee Cowork 唔識搵 context**（例如名字喺 Gmail 用英文、calendar 用中文）→ 加一個 alias mapping 落 prompt
+- **某啲 attendee Cowork 唔識搵 context**（例如名字喺 Gmail 用英文、calendar 用中文）→ 加一個 別名對照 落 prompt
 - **3 條 question 太籠統** → 加例子落 prompt，show 你想要嘅 question 風格
 - **Agenda 同主辦人原本嘅議程撞**→ 改成「淨係喺主辦人冇 set agenda 時先 draft」
-- **某啲定期短 meeting（daily standup）唔需要 prep**→ 加 exclusion rule
+- **某啲定期短 meeting（daily standup）唔需要 prep**→ 加 排除規則
 
 呢個 iteration 大約 2 個禮拜會穩定。穩定之後幾乎唔需要再執——除非你跳 team / 換 role。
 
 ## 變化例子
 
-### 變化 1：唔用 Cowork，每朝 manual trigger
+### 變化 1：唔用 Cowork，每朝 手動觸發
 
 Pro 用家冇 scheduled task，但用 Claude Desktop + MCP 一樣做到，淨係要你每朝自己觸發。
 
 <PromptBlock label="變化 1 — Manual trigger 版">
-我每朝 8:45 開電腦會手動 trigger 你一次。
+我每朝 8:45 開電腦會手動 觸發 你一次。
 
 每次跑：
 - 讀今日 Google Calendar
 - 對每個 meeting，做上面 Step 2 嘅 A-E
-- output 唔需要寫 Drive，直接喺呢個 chat 出 markdown 我自己 copy
-- 結尾 list 「最需要 prep」嗰 1-2 個
+- output 唔需要寫 Drive，直接喺呢個 chat 出 markdown 我自己 複製
+- 結尾 列出 「最需要 prep」嗰 1-2 個
 
-我會 save 個 prompt 做 [快速命令]，每朝撳一次。
+我會 儲存 個 prompt 做 [快速命令]，每朝撳一次。
 </PromptBlock>
 
 呢個 setup 嘅 trade-off：你要記得觸發（一兩個禮拜未養成習慣會漏），但你可以即時跟進、即時微調。
@@ -181,16 +181,16 @@ Pro 用家冇 scheduled task，但用 Claude Desktop + MCP 一樣做到，淨係
 
 由 Slack 搜過去 30 日：
 - 同每個 attendee 嘅 DM
-- attendees 都 in 嘅 channel 入面，最近 mention 過 meeting 主題 keyword 嘅 message
+- attendees 都 in 嘅 channel 入面，最近 提及過 meeting 主題 keyword 嘅 message
 
 抽 3 個最相關，列：
 - Channel 或 DM
 - 日期
 - 1 句撮要
 
-呢層尤其捉到啲「Slack 講咗、email 冇 follow up」嘅 commitment——呢啲最易遺忘。
+呢層尤其捉到啲「Slack 講咗、email 冇 跟進」嘅 commitment——呢啲最易遺忘。
 
-私隱限制同 email 一樣：private channel / 標 confidential 嘅 thread 只列存在，唔抽內容。
+私隱限制同 email 一樣：private channel / 標 機密嘅 thread 只列存在，唔抽內容。
 </PromptBlock>
 
 ### 變化 3：Founders / managers 版 — 1:1 meeting prep
@@ -203,16 +203,16 @@ Pro 用家冇 scheduled task，但用 Claude Desktop + MCP 一樣做到，淨係
 Step 2 嘅 B「上次 context」改成：
 - 揾返上次同呢個人嘅 1:1 prep doc（如果有）
 - 抽出上次嘅 action item：佢應承過嘅 + 我應承過嘅
-- 標返：邊啲已 close、邊啲仲 open、邊啲 overdue
+- 標返：邊啲已 完結、邊啲仲 處理中、邊啲過期
 
 Step 2 嘅 D「3 條 prep question」改成：
 1. 一條 follow-up：上次 action item 嘅進度
-2. 一條 forward-looking：佢手頭 project 嘅 blocker / risk
-3. 一條 personal：基於最近 Slack / email 嘅 signal（例如最近 PR review 嘅 turnaround、休假 pattern、佢主動提過嘅長遠 goal）— 唔好 forced，搵唔到信號就跳過
+2. 一條 前瞻性：佢手頭 project 嘅 blocker / risk
+3. 一條 personal：基於最近 Slack / email 嘅 signal（例如最近 PR review 嘅 turnaround、休假 pattern、佢主動提過嘅長遠 goal）— 唔好 生硬，搵唔到信號就跳過
 
 額外加 Step 2.5：
 - 列我上次 1:1 應承過佢但未做嘅嘢（呢個係**最容易失信**嘅地方，必出）
-- 列佢 last 3 個 PR / project deliverable 嘅 summary，畀我有 concrete嘢可以讚
+- 列佢 last 3 個 PR / project deliverable 嘅 summary，畀我有 具體嘢可以讚
 
 呢類 prep 對保住團隊 trust 嘅 ROI，遠高過任何 sales meeting prep。
 </PromptBlock>
