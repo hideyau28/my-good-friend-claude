@@ -185,7 +185,7 @@ content(voice): retone #NNN slug-name (BEFORE → AFTER)
 |---|---|
 | `velite.config.ts` | Content schema + SECTION enum |
 | `src/lib/content.ts` | SECTIONS / CATEGORY_BADGES / SECTION_DESCRIPTIONS / TIER_CURRICULUM / pickFirstRead |
-| `src/app/collaborate/page.tsx` | ⚠️ CONTACT_EMAIL placeholder still active |
+| `src/app/collaborate/page.tsx` | ✅ CONTACT_EMAIL set to yau@flowstudiohk.com (2026-05-26) |
 | `scripts/import-hero.mjs` / `batch-import-heroes.mjs` | Hero pipeline |
 | `HERO-PROMPTS-BATCH.md` | 59 hero prompt completed |
 
@@ -198,10 +198,8 @@ content(voice): retone #NNN slug-name (BEFORE → AFTER)
 
 1. ~~**Voice retone — 45 articles**~~ ✅ COMPLETE (2026-05-26)
 2. ~~**Borderline cleanup — 7 articles**~~ ✅ COMPLETE (2026-05-26, commit `5096f46`)
-3. 🔴 **Replace `/collaborate` email** — `src/app/collaborate/page.tsx:12`
-   - 現時 placeholder: `'hello@my-good-friend-claude.com'`
-   - 改為：你嘅真實合作 email
-   - 30 秒就改完，係 production launch 唯一 blocker
+3. ~~**Replace `/collaborate` email**~~ ✅ DONE (2026-05-26, commit `2f7dff0`)
+   - Set to `yau@flowstudiohk.com` — production launch blocker cleared
 4. 🟡 **Pricing anchors** on `/collaborate` FAQ（`page.tsx:144-149`）
    - 現時已有 ballpark：「HK 5-figure 起 / workshop HK 4-figure」
    - 收到第一單付費 quote 後可以加返具體 anchor
@@ -210,8 +208,7 @@ content(voice): retone #NNN slug-name (BEFORE → AFTER)
 
 ## 🚀 How to resume — next session 開頭一句
 
-**Launch blocker（最快）**：
-- 「改 /collaborate email 做 your@email.com」（30 秒）
+**Launch blocker**：✅ cleared 2026-05-26 — site production-ready
 
 **寫新文**：
 - 「開 #089，topic：[咩 topic]」（30-60 分鐘）
