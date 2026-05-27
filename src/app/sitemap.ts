@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { getAllUseCases } from '@/lib/content'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:4321'
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://my-good-friend-claude.vercel.app'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [

@@ -1,6 +1,7 @@
 import type { UseCase } from '@/lib/content'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:4321'
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://my-good-friend-claude.vercel.app'
 const SITE_NAME = '我的好朋友 Claude'
 
 /**

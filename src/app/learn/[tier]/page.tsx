@@ -27,9 +27,20 @@ export async function generateMetadata(props: { params: Params }): Promise<Metad
   const { tier } = await props.params
   if (!isCategory(tier)) return {}
   const c = TIER_CURRICULUM[tier]
+  const tierKeywords: Record<Category, string[]> = {
+    chat: ['Claude Chat 教學', 'Claude AI 入門', 'AI 寫嘢 香港', 'ChatGPT 替代'],
+    cowork: ['Claude Cowork', 'Claude Projects', 'AI 自動化 工作', 'HK 小店 AI'],
+    code: ['Claude Code', 'AI 寫 code', 'developer AI', 'Claude CLI 教學'],
+  }
   return {
     title: c.title,
     description: c.intro,
+    keywords: [...tierKeywords[tier], 'Claude 香港', 'AI 教學 廣東話'],
+    openGraph: {
+      title: `${c.title} · 我的好朋友 Claude`,
+      description: c.intro,
+      type: 'website',
+    },
   }
 }
 

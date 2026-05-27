@@ -17,7 +17,9 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image' },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://my-good-friend-claude.vercel.app',
+  ),
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

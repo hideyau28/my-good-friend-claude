@@ -15,7 +15,22 @@ import {
 
 export const metadata: Metadata = {
   title: 'Use Case 庫',
-  description: '所有真實香港情境，跟住做就得。',
+  description:
+    '140+ 個香港真實情境嘅 Claude AI use case 庫——打工仔、老闆、學生家長、消費者、創作者都用得。Chat / Cowork / Code 三條路徑、12 個版面分類，跟住做就得。',
+  keywords: [
+    'Claude use case',
+    'Claude 教學 香港',
+    'AI 教學 廣東話',
+    'Claude Code 教學',
+    'Claude Cowork 教學',
+    'HK 打工仔 AI',
+    '香港 AI 用法',
+  ],
+  openGraph: {
+    title: 'Use Case 庫 · 我的好朋友 Claude',
+    description: '140+ 個香港真實情境嘅 Claude AI use case，跟住做就得。',
+    type: 'website',
+  },
 }
 
 type SearchParams = Promise<{ section?: string; audience?: string }>

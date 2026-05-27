@@ -1,6 +1,7 @@
 import { getAllUseCases } from '@/lib/content'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:4321'
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://my-good-friend-claude.vercel.app'
 const SITE_TITLE = '我的好朋友 Claude'
 const SITE_DESC = '一齊由零開始用 Claude — 寫畀香港人嘅 AI 教學副刊'
 const AUTHOR = 'editor@example.com (一個香港人)'
