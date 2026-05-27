@@ -11,6 +11,7 @@ import { MdxRenderer } from '@/components/use-case/MdxRenderer'
 import { RelatedNext } from '@/components/use-case/RelatedNext'
 import { UseCaseJsonLd } from '@/components/use-case/JsonLd'
 import { InteractiveLessonCTA } from '@/components/use-case/InteractiveLessonCTA'
+import { ArticleTools } from '@/components/use-case/ArticleTools'
 import { NewsletterCTA } from '@/components/design/NewsletterCTA'
 import { getRelatedUseCases, getUseCaseBySlug } from '@/lib/content'
 
@@ -75,6 +76,7 @@ export default async function UseCasePage(props: { params: Params }) {
         <div className="max-w-3xl mx-auto px-6 pb-12 prose-content">
           <MdxRenderer code={useCase.body} />
         </div>
+        <ArticleTools toolsNeeded={useCase.toolsNeeded} />
         {articleRaw && (
           <InteractiveLessonCTA
             title={useCase.title}
