@@ -112,6 +112,10 @@ export default function CollaboratePage() {
           <h3>四．Pair-build day</h3>
           <p>
             一日 paired session（remote 或 in-person HK）。你 own laptop，我 own laptop，screen share。
+            <strong>
+              {' '}
+              <a href="/pair-build">睇詳細 page →</a>
+            </strong>
           </p>
           <ul>
             <li><strong>Use case</strong>：你想學 Claude Code、stuck 喺一個 bug、想 prototype 一個 idea、想 spin up 一個 internal tool</li>

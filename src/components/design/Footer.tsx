@@ -40,6 +40,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="/about" className="hover:text-[var(--color-seal)] no-underline">關於本副刊</Link></li>
               <li><Link href="/collaborate" className="hover:text-[var(--color-seal)] no-underline">合作</Link></li>
+              <li><Link href="/pair-build" className="hover:text-[var(--color-seal)] no-underline">Pair-build day</Link></li>
               <li><Link href="/#newsletter" className="hover:text-[var(--color-seal)] no-underline">每週日訂閱</Link></li>
               <li><Link href="/feed.xml" className="hover:text-[var(--color-seal)] no-underline">RSS</Link></li>
             </ul>
