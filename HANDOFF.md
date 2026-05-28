@@ -196,6 +196,51 @@ content(voice): retone #NNN slug-name (BEFORE → AFTER)
 - ✅ **84 / 84 articles have heroes** (100% coverage as of 2026-05-24)
 - **Master style**: 16:9 cream paper / 4-color (#FBF7EA #F7F2E2 #C42424 #0F0B05) / ink hatching / no faces / vermillion 朱紅 印章 corner
 
+## 📌 2026-05-27 session — major updates
+
+**Content scale**: 84 → **141 articles** (chat 81 / cowork 30 / code 30).
+New articles issue 89-145. ⚠️ 57 new articles 冇 hero image (gap).
+
+**Voice cleanup — 5 rounds done**: ~165 files swept, ~745 substitutions.
+Applied the linguistic report's「動詞/形容詞本土化、名詞原語化」principle
+INSIDE + OUTSIDE PromptBlock. Report saved at the doc the user shared.
+
+**SEO — critical fix landed**: production sitemap/robots were emitting
+`localhost:4321` URLs (Google couldn't index). Fixed:
+- `NEXT_PUBLIC_SITE_URL=https://my-good-friend-claude.vercel.app` set in
+  Vercel production env
+- All 5 SITE_URL fallback defaults updated (sitemap/robots/layout/feed/JsonLd)
+- /use-cases + /learn/[tier] metadata enhanced (description + keywords + OG)
+- Verified live: sitemap.xml + robots.txt now show production URLs ✅
+
+**Monetization infra built**:
+- `cantonese-usecase-tutor` skill + `InteractiveLessonCTA` (文末「試」copy-prompt)
+- `ArticleTools` (文末「文中工具 · 連結」) — `src/lib/tools-registry.ts`
+  maps toolsNeeded → URLs. Fill `affiliateUrl` + `hasAffiliate: true`
+  per tool when affiliate programs joined (Notion Partner / Beehiiv /
+  Shopify / MacWhisper). UI auto-shows `*` disclosure.
+- `/pair-build` dedicated landing — productized HK$5-15k/day offer.
+  Booking gated by `NEXT_PUBLIC_PAIR_BUILD_BOOKING_URL` env (mailto
+  fallback when unset). Case studies are PLACEHOLDERS — user to fill real.
+
+### ⏭️ NEXT SESSION pending (user actions)
+
+1. 🔴 **Beehiiv newsletter — 聽日整 (deferred 2026-05-27)**
+   - User signing up tomorrow. Once they paste Publication ID + API key:
+     ```
+     echo "<pub_id>"  | vercel env add BEEHIIV_PUBLICATION_ID production
+     echo "<api_key>" | vercel env add BEEHIIV_API_KEY production
+     echo "true"      | vercel env add NEXT_PUBLIC_NEWSLETTER_ENABLED production
+     vercel --prod  # or push to trigger redeploy
+     ```
+   - Then test the newsletter form, confirm subscriber lands in Beehiiv.
+2. 🟡 **Affiliate URLs** — when user joins Notion/Beehiiv/Shopify/MacWhisper
+   programs, fill `affiliateUrl` in `src/lib/tools-registry.ts`.
+3. 🟡 **Pair-build** — real case studies + `NEXT_PUBLIC_PAIR_BUILD_BOOKING_URL`
+   (Calendly/Tally) + verify stack-list FAQ accuracy.
+4. 🟡 **Hero images for 57 new articles** — autonomous job available
+   (image-gen + master style). User can request anytime.
+
 ## 🔓 Remaining backlog（launch readiness）
 
 1. ~~**Voice retone — 45 articles**~~ ✅ COMPLETE (2026-05-26)
