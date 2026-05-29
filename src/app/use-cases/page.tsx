@@ -12,6 +12,7 @@ import {
   type Audience,
   type Section,
 } from '@/lib/content'
+import { buildListingGraph, jsonLdScriptProps } from '@/lib/structured-data'
 
 export const metadata: Metadata = {
   title: 'Use Case 庫',
@@ -66,8 +67,13 @@ export default async function UseCasesIndexPage(props: { searchParams: SearchPar
     countInAudience: audienceFiltered.filter((u) => u.section === sec).length,
   }))
 
+  const listingGraph = buildListingGraph(
+    filtered.map((u) => ({ slug: u.slug, title: u.title })),
+  )
+
   return (
     <>
+      <script {...jsonLdScriptProps(listingGraph)} />
       <MastheadCompact />
       <main className="max-w-5xl mx-auto px-6 py-12">
         <SectionLabel number="◉" label="USE CASE 庫" className="mb-6" />

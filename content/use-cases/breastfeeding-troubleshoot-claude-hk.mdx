@@ -1,5 +1,5 @@
 ---
-title: "BB 唔肯食奶 / 媽媽乳量唔夠？用 Claude 拆「正常波動」vs「真係要 lactation consultant」signal"
+title: "BB 唔肯食奶 / 媽媽乳量唔夠？用 Claude 拆「正常波動」vs「真係要泌乳顧問」嘅訊號"
 slug: "breastfeeding-troubleshoot-claude-hk"
 issue: 143
 publishedAt: 2026-05-27
@@ -9,52 +9,52 @@ section: "健康"
 subcategory: "母嬰 / 餵哺"
 difficulty: 2
 timeMinutes: 30
-toolsNeeded: ["Claude Chat", "餵奶 / 換片 log（手機 Notes 或 app）", "BB 體重紀錄"]
-description: "餵奶頭 3 個月，BB 食量、媽媽乳量、latch 樣樣 panic。KellyMom、母嬰健康院、阿姑各有講法。用 Claude 拆「3-month growth spurt 正常波動」vs「真係要 IBCLC」嘅 signal。"
+toolsNeeded: ["Claude Chat", "餵奶 / 換片記錄（手機 Notes 或 app）", "BB 體重紀錄"]
+description: "餵奶頭 3 個月，BB 食量、媽媽乳量、含乳樣樣慌。KellyMom、母嬰健康院、阿姑各有講法。用 Claude 拆「3 個月猛長期正常波動」vs「真係要 IBCLC」嘅訊號。"
 keywords: ["HK 餵奶 troubleshoot", "母嬰健康院 lactation", "breastfeeding HK", "IBCLC consultation", "餵母乳 香港", "growth spurt", "低奶 真假", "tongue tie HK"]
 related: ["postpartum-mental-health-claude", "chronic-condition-management-claude", "doctor-visit-prep-claude"]
 featured: false
 ---
 
-> ⚠️ Claude 唔取代 paediatrician、IBCLC（International Board Certified Lactation Consultant）或者母嬰健康院護士。本文係幫你**整理數據去見真人**嘅工具。BB 體重持續落、12 小時冇濕片、嗜睡叫唔醒、發燒 = 即刻見醫生 / 急症室，唔係打字。
+> ⚠️ Claude 唔取代兒科醫生、IBCLC（International Board Certified Lactation Consultant）或者母嬰健康院護士。本文係幫你**整理數據去見真人**嘅工具。BB 體重持續落、12 小時冇濕片、嗜睡叫唔醒、發燒 = 即刻見醫生 / 急症室，唔係打字。
 
 ## 情境
 
 凌晨 2:14。
 
-BB 食咗 8 分鐘就鬆口、扭計、再含返、再鬆口。你個胸而家硬 lump 一邊、另一邊軟到你諗緊「係咪冇晒奶」。手機開住 KellyMom 一個 tab、HK Mommy group 一個 tab、母嬰健康院小冊子 PDF 一個 tab。
+BB 食咗 8 分鐘就鬆口、扭計、再含返、再鬆口。你個胸而家一邊硬一嚿、另一邊軟到你諗緊「係咪冇晒奶」。手機開住 KellyMom 一個 tab、HK Mommy group 一個 tab、母嬰健康院小冊子 PDF 一個 tab。
 
 阿姑朝早話：「你個 BB 餓喎，加返奶粉啦。」
 姑奶話：「以前我哋邊有人話低奶。」
 老公話：「你食多啲鯽魚湯。」
-BB 個 paediatrician 上次覆診講：「體重曲線跌咗一格，下次再 check。」
+BB 個兒科醫生上次覆診講：「體重曲線跌咗一格，下次再 check。」
 
 你而家 5 個聲喺度，數據零個。
 
-香港餵奶嘅資訊環境特別亂：母嬰健康院 protocol、KellyMom evidence-based 國際 standard、阿姑經驗、媽媽 group 故事、奶粉公司 marketing——每個 source 都覺得自己啱。但**冇人有你 BB 嘅 specific data**。
+香港餵奶嘅資訊環境特別亂：母嬰健康院 protocol、KellyMom 國際循證 standard、阿姑經驗、媽媽 group 故事、奶粉公司 marketing——每個 source 都覺得自己啱。但**冇人有你 BB 嘅具體數據**。
 
 呢篇用 Claude 做：
 
-1. **餵奶 log 結構化**——一週 raw data（frequency、每次長度、wet/dirty diaper、體重曲線）
-2. **拆訊號 vs noise**——「3-month growth spurt」、「cluster feeding」呢啲正常波動，vs「真低奶 / latch issue / tongue tie / 體重 faltering」要見 IBCLC 嘅紅旗
-3. **HK 路線**——母嬰健康院 lactation consultant / 私營 IBCLC / La Leche League HK
-4. **Mental load**——餵奶 stress 同產後情緒嘅 overlap（cross-ref `/use-cases/postpartum-mental-health-claude`）
+1. **餵奶記錄結構化**——一週原始數據（次數、每次長度、濕片 / 大便、體重曲線）
+2. **拆訊號 vs 雜音**——「3 個月猛長期」、「密集餵奶」呢啲正常波動，vs「真低奶 / 含乳問題 / 黐脷根 / 體重落後」要見 IBCLC 嘅紅旗
+3. **香港路線**——母嬰健康院泌乳顧問 / 私營 IBCLC / La Leche League HK
+4. **精神負荷**——餵奶壓力同產後情緒嘅重疊（交叉參考 `/use-cases/postpartum-mental-health-claude`）
 
-**再講多次**：Claude 唔可以睇 latch、唔可以摸你個胸、唔可以 weigh BB。Claude 嘅角色係幫你**by 數據**而唔係**by 焦慮**去決定下一步。
+**再講多次**：Claude 唔可以睇含乳、唔可以摸你個胸、唔可以磅 BB。Claude 嘅角色係幫你**靠數據**而唔係**靠焦慮**去決定下一步。
 
 ## 跟住做
 
-### 1. 一週餵奶 log raw data
+### 1. 一週餵奶記錄原始數據
 
-第一步係**收 7 日數據**先。一日唔夠——BB 食量本身一日內可以 fluctuate 30%，cluster feeding 日同平日睇起上嚟好似兩個 BB。
+第一步係**收 7 日數據**先。一日唔夠——BB 食量本身一日內可以波動 30%，密集餵奶日同平日睇起上嚟好似兩個 BB。
 
 每次餵奶記：
 
 - **開始時間**（例：02:14）
 - **邊邊**（左 / 右 / 兩邊）
 - **每邊長度**（分鐘——可以粗略）
-- **BB 主動鬆口定你 unlatch**
-- **餵完 BB state**（瞓著 / 滿足醒著 / 仲喊扭計）
+- **BB 主動鬆口定你拉開**
+- **餵完 BB 狀態**（瞓著 / 滿足醒著 / 仲喊扭計）
 
 每日另外記：
 
@@ -62,255 +62,255 @@ BB 個 paediatrician 上次覆診講：「體重曲線跌咗一格，下次再 c
 - **大便數 + 性狀**（黃色 seedy、綠色、頻率）
 - **抽奶量**（如有抽——分左右、每次 ml）
 - **奶粉補充**（如有——幾多 ml、咩 brand、何時加）
-- **媽媽身體**：脹痛、塞奶位置、乳頭損傷、headache
+- **媽媽身體**：脹痛、塞奶位置、乳頭損傷、頭痛
 - **BB 體重**（每週 1 次喺母嬰健康院或者用屋企磅，**裸磅、同一個磅、同一時段**）
 
-工具方面 Huckleberry、BabyTracker app 都 OK，唔想裝 app 就手機 Notes 開一個 template。**重點唔係工具靚，係 7 日 consistency**。
+工具方面 Huckleberry、BabyTracker app 都 OK，唔想裝 app 就手機 Notes 開一個範本。**重點唔係工具靚，係 7 日一致**。
 
-### 2. PromptBlock — 拆訊號 vs noise
+### 2. PromptBlock — 拆訊號 vs 雜音
 
-收齊 7 日 data，貼入 Claude：
+收齊 7 日數據，貼入 Claude：
 
-<PromptBlock label="完整 prompt — 餵奶 log 拆 signal vs noise">
-我係 HK 媽媽，BB [N 週 / N 個月]，[純母乳 / combo feed / 全奶粉]。出世體重 [N kg]，最近一次體重 [N kg]（[日期]）。出院時體重 [N kg]。
+<PromptBlock label="完整 prompt — 餵奶記錄拆訊號 vs 雜音">
+我係香港媽媽，BB [N 週 / N 個月]，[純母乳 / 混合餵養 / 全奶粉]。出世體重 [N kg]，最近一次體重 [N kg]（[日期]）。出院時體重 [N kg]。
 
-過去 7 日 log：
+過去 7 日記錄：
 
-[paste 你嘅 raw data — 每日餵奶次數 + 長度 + 濕片數 + 大便 + 抽奶量 + 媽媽身體狀態 + BB 行為]
+[貼你嘅原始數據 — 每日餵奶次數 + 長度 + 濕片數 + 大便 + 抽奶量 + 媽媽身體狀態 + BB 行為]
 
 請幫我做以下分析，**唔好行貨**：
 
 📊 **1. 量化基線**
-- 24 小時餵奶平均次數 + range
+- 24 小時餵奶平均次數 + 範圍
 - 每次餵奶平均長度
 - 濕片日均（目標：≥ 6 條真濕，[N 個月] 嘅 BB 標準）
-- 大便頻率 + 性狀（純母乳 BB 大便 pattern range 闊）
-- 體重 trajectory：g/day 升幅 vs 月齡 standard（WHO 曲線）
+- 大便頻率 + 性狀（純母乳 BB 大便 pattern 範圍闊）
+- 體重 trajectory：g/day 升幅 vs 月齡標準（WHO 曲線）
   - 0-3 個月：~25-35 g/day
   - 3-6 個月：~15-20 g/day
 - 抽奶總量（如有）
 
-🟢 **2. 「正常波動」signal（**唔需要**升級）**
-- Cluster feeding 黃昏 / 夜晚（特別係 evening fussiness）
-- 3 週、6 週、3 個月、6 個月 growth spurt 食得密 2-3 日
-- BB 食 5-10 分鐘鬆口（efficient feeder，奶 supply 強）
-- 餵完仲 fussy 但濕片夠、體重升 OK（可能 reflux / 腸氣，唔係餓）
-- 媽媽覺得「空」但 BB 出 output OK（established supply 唔脹係正常）
-- 一兩日體重升慢 / plateau（量度誤差大過 signal）
+🟢 **2. 「正常波動」訊號（**唔需要**升級）**
+- 密集餵奶喺黃昏 / 夜晚（特別係 evening fussiness）
+- 3 週、6 週、3 個月、6 個月猛長期食得密 2-3 日
+- BB 食 5-10 分鐘鬆口（食得有效率，奶量強）
+- 餵完仲扭計但濕片夠、體重升 OK（可能反流 / 腸氣，唔係餓）
+- 媽媽覺得「空」但 BB 出量 OK（奶量穩定後唔脹係正常）
+- 一兩日體重升慢 / 停滯（量度誤差大過訊號）
 
-🟠 **3. 紅旗 signal（**建議**揾 IBCLC / paediatrician）**
+🟠 **3. 紅旗訊號（**建議**揾 IBCLC / 兒科醫生）**
 - 濕片連續 2-3 日 < 6 條
-- 體重 trajectory 連續 2 週 < 月齡 standard 50%
-- BB 餵完極 fussy + 濕片少 + 體重升慢（三樣同時）
+- 體重 trajectory 連續 2 週 < 月齡標準 50%
+- BB 餵完極扭計 + 濕片少 + 體重升慢（三樣同時）
 - 媽媽乳頭損傷、流血、餵奶時極痛持續 > 7 日
-- 反覆塞奶 / mastitis（同一個位置 3 週內 2+ 次）
-- BB 喺胸前每次餵奶都嗌、扯、唔 latch（latch issue / tongue tie suspect）
+- 反覆塞奶 / 乳腺炎（同一個位置 3 週內 2 次以上）
+- BB 喺胸前每次餵奶都嗌、扯、唔含到（含乳問題 / 黐脷根 suspect）
 - BB 出世後 2 週仲未返到出世體重
 
 🔴 **4. 急性紅旗（**今日 / 而家**見醫生）**
 - BB 12+ 小時冇濕片
 - BB 嗜睡叫唔醒、唔肯食
 - BB 黃疸（皮膚 / 眼白黃）+ 食得差
-- 媽媽發燒 > 38.5、單邊乳房紅腫熱（mastitis）
+- 媽媽發燒 > 38.5、單邊乳房紅腫熱（乳腺炎）
 - BB 體重跌 > 出世體重 10%（新生兒）或者持續跌（任何月齡）
 
-📋 **5. 我嘅 specific assessment**
-基於我 paste 嘅 data，請講：
-- 我而家最似邊一個 bucket（綠 / 橙 / 紅）
-- 你最唔肯定 / 想多啲 data 嘅地方
+📋 **5. 我嘅具體評估**
+基於我貼嘅數據，請講：
+- 我而家最似邊一個類別（綠 / 橙 / 紅）
+- 你最唔肯定 / 想多啲數據嘅地方
 - 接住 3 日要 track 咩
-- 邊個 HK resource 最啱我嘅 stage（睇下一個 prompt）
+- 邊個香港資源最啱我嘅階段（睇下一個 prompt）
 
 🚫 **唔好**
-- 唔好「你 BB OK 啦」式 reassure
-- 唔好誇張到「即刻要醫生」如果其實係正常 growth spurt
-- 唔好假裝你可以 diagnose tongue tie / latch
-- 唔好建議停母乳 / 加奶粉 / 食 lactation cookies——呢啲係 IBCLC / paediatrician 決定
+- 唔好「你 BB OK 啦」式安撫
+- 唔好誇張到「即刻要醫生」如果其實係正常猛長期
+- 唔好假裝你可以診斷黐脷根 / 含乳問題
+- 唔好建議停母乳 / 加奶粉 / 食 lactation cookies——呢啲係 IBCLC / 兒科醫生決定
 
-語氣：冷靜、結構化、evidence-based——好似一個受過 training 嘅 IBCLC 睇你 log（但唔係 substitute）。
+語氣：冷靜、結構化、循證——好似一個受過訓練嘅 IBCLC 睇你記錄（但唔係取代）。
 </PromptBlock>
 
-呢個 prompt 嘅關鍵：**Claude 唔係答「你低唔低奶」**，係幫你睇數據邊個 bucket。最 valuable 嘅 output 通常係第 5 點——你唔知自己 miss 咗咩。
+呢個 prompt 嘅關鍵：**Claude 唔係答「你低唔低奶」**，係幫你睇數據屬邊個類別。最有用嘅 output 通常係第 5 點——你唔知自己漏咗咩。
 
-### 3. Next step — wait / 母嬰健康院 / 私營 IBCLC
+### 3. 下一步 — 等 / 母嬰健康院 / 私營 IBCLC
 
-Bucket 出咗，下一步取決於 urgency + budget。
+類別出咗，下一步取決於緊急程度 + 預算。
 
-<PromptBlock label="完整 prompt — HK 餵奶支援 next step">
-我啱啱拆完 log，我嘅 bucket 係 [綠 / 橙 / 紅]，main concern 係 [具體：低奶疑似 / latch 痛 / 體重升慢 / 反覆塞奶 / tongue tie suspect]。
+<PromptBlock label="完整 prompt — HK 餵奶支援下一步">
+我啱啱拆完記錄，我嘅類別係 [綠 / 橙 / 紅]，主要 concern 係 [具體：低奶疑似 / 含乳痛 / 體重升慢 / 反覆塞奶 / 黐脷根 suspect]。
 
-請幫我整 HK 2026 真實路線，**唔好淨係 list 機構**：
+請幫我整香港 2026 真實路線，**唔好淨係 list 機構**：
 
-🟢 **如果綠 bucket（正常波動）**
-- 再 track 3-7 日 confirm pattern
+🟢 **如果綠類別（正常波動）**
+- 再 track 3-7 日確認 pattern
 - 加入觀察：每次餵奶前後 BB 行為、媽媽身體變化
-- Trigger 升級：濕片跌、體重 plateau 超過 2 週、媽媽身體痛持續
+- 升級條件：濕片跌、體重停滯超過 2 週、媽媽身體痛持續
 
-🟡 **如果橙 bucket（建議揾 lactation 支援）**
+🟡 **如果橙類別（建議揾泌乳支援）**
 
 **入口 1：母嬰健康院（免費 / 低收費）**
-- 預約「哺乳諮詢」（唔係定期覆診）—— 部分中心有受過 IBCLC training 嘅護士
-- 帶埋 7 日 log + BB 體重紀錄
-- 開場：「我做咗 7 日 log，[concern]，我想 latch assessment + supply 評估」
-- Waiting：1-3 週（depending on 中心）
-- Limitation：未必個個中心都有 IBCLC level expertise
+- 預約「哺乳諮詢」（唔係定期覆診）—— 部分中心有受過 IBCLC 訓練嘅護士
+- 帶埋 7 日記錄 + BB 體重紀錄
+- 開場：「我做咗 7 日記錄，[concern]，我想要含乳評估 + 奶量評估」
+- 等候：1-3 週（視乎中心）
+- 限制：未必個個中心都有 IBCLC 級數嘅 expertise
 
 **入口 2：私營 IBCLC（International Board Certified Lactation Consultant）**
-- HK 有獨立執業 IBCLC，可以**屋企探訪**或診所
-- 費用：HK$1500-3000 / 次（90-120 分鐘，包 latch assessment + weight check + follow-up plan）
-- Search：搜「Hong Kong IBCLC」+「lactation consultant」，揀有 IBCLC credential（唔淨係「lactation counsellor」）
-- 推薦時機：latch 痛持續、tongue tie suspect、複雜 case（早產、低奶疑似、回奶 relactation）
+- 香港有獨立執業 IBCLC，可以**上門**或者診所
+- 費用：HK$1500-3000 / 次（90-120 分鐘，包含乳評估 + 磅重 + 跟進計劃）
+- 搜尋：搜「Hong Kong IBCLC」+「lactation consultant」，揀有 IBCLC 認證（唔淨係「lactation counsellor」）
+- 推薦時機：含乳痛持續、黐脷根 suspect、複雜個案（早產、低奶疑似、重新泌乳）
 
-**入口 3：醫院 lactation service**
-- 私家醫院（聖德、養和、港怡）一般有 in-house lactation consultant，產後出院後仍可 book follow-up
-- 部分醫管局醫院產科有 lactation support，但 outpatient 通常經母嬰健康院
+**入口 3：醫院泌乳服務**
+- 私家醫院（聖德、養和、港怡）一般有 in-house 泌乳顧問，產後出院後仍可 book follow-up
+- 部分醫管局醫院產科有泌乳支援，但門診通常經母嬰健康院
 
-**入口 4：La Leche League HK / peer support**
+**入口 4：La Leche League HK / 同路人支援**
 - 免費 monthly meeting + WhatsApp / FB group
-- Peer-led（唔係 medical），適合 normalisation + 情緒支援
-- 唔取代 clinical assessment
+- 同路人主導（唔係 medical），適合 normalisation + 情緒支援
+- 唔取代臨床評估
 
-🔴 **如果紅 bucket（急性）**
-- BB 急性紅旗（嗜睡、12+ 小時冇濕片、黃疸）：paediatrician 或急症
-- 媽媽 mastitis（發燒 + 乳房紅腫）：GP 同日，唔好等
-- 兩樣**唔係**「揾 IBCLC 等 1 週」嘅 case
+🔴 **如果紅類別（急性）**
+- BB 急性紅旗（嗜睡、12+ 小時冇濕片、黃疸）：兒科醫生或急症
+- 媽媽乳腺炎（發燒 + 乳房紅腫）：GP 同日，唔好等
+- 兩樣**唔係**「揾 IBCLC 等 1 週」嘅個案
 
-🩺 **Tongue tie 特別 note**
-- HK tongue tie assessment + frenotomy：要揾**有經驗嘅 paediatrician 或 ENT**，唔係個個 GP 都做
-- IBCLC 可以**suspect**，但**diagnose + procedure** 係醫生
-- 私營：HK$3000-8000（assessment + procedure，視乎醫生）
+🩺 **黐脷根特別 note**
+- 香港黐脷根評估 + 剪脷根手術：要揾**有經驗嘅兒科醫生或 ENT**，唔係個個 GP 都做
+- IBCLC 可以**懷疑**，但**診斷 + 手術**係醫生
+- 私營：HK$3000-8000（評估 + 手術，視乎醫生）
 
-💰 **Budget tier 推薦**
+💰 **預算層推薦**
 - $0 預算：母嬰健康院 + La Leche League + KellyMom 自己睇
-- $1500-3000：1 次私營 IBCLC home visit（最 high-yield 嘅 single 投資）
-- $5000+：IBCLC + paediatrician + tongue tie work-up（複雜 case）
+- $1500-3000：1 次私營 IBCLC 上門（最 high-yield 嘅單次投資）
+- $5000+：IBCLC + 兒科醫生 + 黐脷根 work-up（複雜個案）
 
 ❌ **唔好做**
 - 唔好淨係問 HK Mommy group 就決定加奶粉 / 停母乳
-- 唔好食 herbal galactagogue（fenugreek、blessed thistle）self-treat 低奶——部分有 hormonal interaction
-- 唔好買連 IBCLC credential 都冇嘅「催乳師」（HK 市場混雜，部分有 train、部分冇）
-- 唔好以為「我搞唔掂餵奶 = 我做 mom 失敗」（**呢個係 mental health flag，唔係餵奶 flag**）
+- 唔好食草本催奶（fenugreek、blessed thistle）自我治療低奶——部分有荷爾蒙交互作用
+- 唔好幫襯連 IBCLC 認證都冇嘅「催乳師」（香港市場混雜，部分有訓練、部分冇）
+- 唔好以為「我搞唔掂餵奶 = 我做 mom 失敗」（**呢個係精神健康 flag，唔係餵奶 flag**）
 
-語氣：實際、唔 judge 邊種餵法、唔煽情。
+語氣：實際、唔批判邊種餵法、唔煽情。
 </PromptBlock>
 
-呢個路線嘅關鍵：**唔好喺單一 source（母嬰健康院 OR KellyMom OR 阿姑）入面 stuck**。每個 source 都有 blind spot。私營 IBCLC home visit 一次嘅回報通常好高——佢可以睇到你 log 寫唔出嘅嘢（latch angle、BB 抓握、乳頭 shape）。
+呢個路線嘅關鍵：**唔好喺單一 source（母嬰健康院 OR KellyMom OR 阿姑）入面卡住**。每個 source 都有 blind spot。私營 IBCLC 上門一次嘅回報通常好高——佢可以睇到你記錄寫唔出嘅嘢（含乳角度、BB 抓握、乳頭形狀）。
 
-### 4. Mental load — 唔好 sacrificing self 過頭
+### 4. 精神負荷 — 唔好過度犧牲自己
 
-呢一步好多文章 skip，但實際上係**最大風險**。
+呢一步好多文章省略，但實際上係**最大風險**。
 
-餵奶 troubleshoot 嘅 hidden cost：**24/7 vigilance + self-blame + sleep deprivation** 三樣疊埋，係產後抑鬱嘅 strongest predictor 之一。
+餵奶 troubleshoot 嘅隱藏成本：**24/7 警覺 + 自責 + 睡眠不足** 三樣疊埋，係產後抑鬱嘅最強預測因子之一。
 
-<PromptBlock label="完整 prompt — 餵奶 mental load 自查">
+<PromptBlock label="完整 prompt — 餵奶精神負荷自查">
 我餵奶 [N 週 / N 個月]，最近發現我自己：
-- [症狀：每次餵奶前 anxiety / 半夜醒咗 check BB 呼吸 / 對加奶粉極度抗拒到自我 punish / 覺得餵奶決定我做 mom 嘅 value / 同老公因為餵奶問題嗌交 / 一日喊超過 3 次]
+- [症狀：每次餵奶前焦慮 / 半夜醒咗 check BB 呼吸 / 對加奶粉極度抗拒到自我懲罰 / 覺得餵奶決定我做 mom 嘅 value / 同老公因為餵奶問題嗌交 / 一日喊超過 3 次]
 
 請幫我：
 
-🧠 **1. 區分「合理 stress」vs「過載」**
-- 餵奶頭 6 週難 = normal
-- 餵奶 3 個月後仲每日 cry = 唔 normal
-- 對 BB 食量過度 hypervigilance（每 30 分鐘 check）= overload signal
-- 同伴侶因為餵奶 vs 奶粉 emotionally entrenched = couple-level overload
+🧠 **1. 區分「合理壓力」vs「過載」**
+- 餵奶頭 6 週難 = 正常
+- 餵奶 3 個月後仲每日喊 = 唔正常
+- 對 BB 食量過度警覺（每 30 分鐘 check）= 過載訊號
+- 同伴侶因為餵奶 vs 奶粉 情緒對立 = couple 層面過載
 
 📋 **2. EPDS 廣東話 micro-screen**（4 條核心）
 - 過去 7 日，我喊嘅次數
-- 我可以笑得返出嗎
-- 我有冇覺得 BB 唔肯食奶 / 我冇奶 = 我嘅 fault
+- 我可唔可以笑得返出嚟
+- 我有冇覺得 BB 唔肯食奶 / 我冇奶 = 我嘅錯
 - 我有冇諗過自我傷害
 
 📊 **3. 拆「餵奶問題」vs「產後情緒」**
-- 餵奶 issue 解決 → mood 即刻 lift = 餵奶 driver
-- 餵奶 issue 解決 → mood 冇變 = 產後情緒 underlying
-- 餵奶仲未解決但 mood 不停跌 = 兩樣 overlap，要平行處理
+- 餵奶問題解決 → 情緒即刻好返 = 餵奶係主因
+- 餵奶問題解決 → 情緒冇變 = 產後情緒係底層
+- 餵奶仲未解決但情緒不停跌 = 兩樣重疊，要平行處理
 
-🩺 **4. HK 路線（兩條 parallel）**
+🩺 **4. 香港路線（兩條平行）**
 - 餵奶 track：母嬰健康院 / IBCLC（上一個 prompt）
 - 情緒 track：母嬰健康院做正式 EPDS、GP、Mind HK
-- 唔好「餵奶搞掂先睇情緒」——餵奶可能要 3 個月先 stabilize，情緒等唔起
+- 唔好「餵奶搞掂先睇情緒」——餵奶可能要 3 個月先穩定，情緒等唔起
 
-💬 **5. 同伴侶 reset 對話 script**
-- 「我哋因為餵奶 vs 奶粉 爭咗 [N] 週。我而家想我哋兩個 align：BB 食得飽、生長 OK、媽媽 functional —— 呢三樣係 priority。餵奶 method 係 means，唔係 end。」
+💬 **5. 同伴侶重整對話講法**
+- 「我哋因為餵奶 vs 奶粉 嗌咗 [N] 週。我而家想我哋兩個 align：BB 食得飽、生長 OK、媽媽撐得住 —— 呢三樣係 priority。餵奶方法係手段，唔係目的。」
 
 🚫 **唔好嘅 framing**
-- 「我餵唔到母乳 = 我冇 maternal instinct」
-- 「我加咗奶粉 = 我 give up」
+- 「我餵唔到母乳 = 我冇母性本能」
+- 「我加咗奶粉 = 我放棄」
 - 「其他媽媽餵到，我餵唔到 = 我問題」
 
 ✅ **要嘅 framing**
-- 「BB fed + mom intact > 任何單一餵奶 method」
-- 「Combo feed 唔係妥協，係 evidence-based option」
-- 「我嘅 mental bandwidth 係 BB 嘅 long-term attachment 嘅 input，唔係 trade-off」
+- 「BB 食得飽 + 媽媽完好 > 任何單一餵奶方法」
+- 「混合餵養唔係妥協，係循證 option」
+- 「我嘅精神 bandwidth 係 BB 長期 attachment 嘅 input，唔係 trade-off」
 
-語氣：尊重你嘅餵奶 commitment，同時尊重你係一個 finite human。
+語氣：尊重你嘅餵奶 commitment，同時尊重你係一個有極限嘅人。
 </PromptBlock>
 
-呢一步如果中 ≥ 2 個 symptom，**跳去** `/use-cases/postpartum-mental-health-claude` 做完整 EPDS。餵奶 troubleshoot 同產後情緒嘅 pipeline 應該係**平行**進行，唔係 sequential。
+呢一步如果中 ≥ 2 個症狀，**跳去** `/use-cases/postpartum-mental-health-claude` 做完整 EPDS。餵奶 troubleshoot 同產後情緒嘅 pipeline 應該係**平行**進行，唔係順序。
 
 ## 變化例子
 
-### 變化 1：純母乳 vs combo feed vs 全奶粉
+### 變化 1：純母乳 vs 混合餵養 vs 全奶粉
 
-三個情境嘅 log structure 要調整。
+三個情境嘅記錄結構要調整。
 
-**純母乳**：核心 metric 係濕片 + 體重 trajectory + 媽媽身體（supply proxy）。**冇 ml 數可以參考**，唔好嘗試「估」每次 BB 食咗幾多 ml。
+**純母乳**：核心指標係濕片 + 體重 trajectory + 媽媽身體（奶量 proxy）。**冇 ml 數可以參考**，唔好嘗試「估」每次 BB 食咗幾多 ml。
 
-**Combo feed**（部分奶粉補充）：log 要 split——母乳 session 同奶粉 session 分開記，留意 BB 對母乳 session 嘅 effort（rejection？preference？）。Combo feed **唔係失敗**——係 HK 大部分返工媽媽嘅現實 option。
+**混合餵養**（部分奶粉補充）：記錄要分開——母乳 session 同奶粉 session 分開記，留意 BB 對母乳 session 嘅 effort（拒絕？偏好？）。混合餵養 **唔係失敗**——係香港大部分返工媽媽嘅現實 option。
 
-**全奶粉**：log 簡單啲（ml 數有 visibility），但要留意 over-feeding pattern（每 2 小時餵足 quota 但 BB 其實只係 comfort suck）、bottle brand fit、constipation。
+**全奶粉**：記錄簡單啲（ml 數有 visibility），但要留意過度餵食 pattern（每 2 小時餵足 quota 但 BB 其實只係 comfort suck）、奶樽 brand 是否合適、便秘。
 
-<PromptBlock label="變化 1 — 三種餵養模式 log 調整">
-我嘅餵養模式係 [純母乳 / combo / 全奶粉]，BB [N 個月]。請畀我**模式-specific** 嘅 log template。
+<PromptBlock label="變化 1 — 三種餵養模式記錄調整">
+我嘅餵養模式係 [純母乳 / 混合 / 全奶粉]，BB [N 個月]。請畀我**模式專屬**嘅記錄範本。
 
-📋 **純母乳 log 重點**
+📋 **純母乳記錄重點**
 - 每邊餵奶長度（active sucking vs comfort）
-- 濕片 / 大便（核心 supply proxy）
-- 媽媽身體：脹痛、empty 感、塞奶
-- BB post-feed state
+- 濕片 / 大便（核心奶量 proxy）
+- 媽媽身體：脹痛、空感、塞奶
+- BB 餵後狀態
 - **唔記 ml 數**
 
-📋 **Combo feed log 重點**
+📋 **混合餵養記錄重點**
 - 母乳 session 同奶粉 session 分開
-- BB latch effort each母乳 session
+- BB 每個母乳 session 嘅含乳 effort
 - 奶粉 ml + brand + 何時加
 - 補奶粉 trigger（餵完仲喊？routine top-up？）
-- 母乳 supply 隨時間 trajectory（combo 可能慢慢全奶粉，要早 catch）
+- 母乳奶量隨時間 trajectory（混合餵養可能慢慢全奶粉，要早 catch）
 
-📋 **全奶粉 log 重點**
-- 每餐 ml + interval
-- BB 食奶速度（快食 = under-feeding suspect / 慢食 = nipple flow 問題）
-- Reflux / 吐奶 pattern
-- Constipation（奶粉 BB 較常見）
-- Brand switch effect（如試過唔同 brand）
+📋 **全奶粉記錄重點**
+- 每餐 ml + 間隔
+- BB 食奶速度（快食 = 食唔夠 suspect / 慢食 = 奶嘴流量問題）
+- 反流 / 嘔奶 pattern
+- 便秘（奶粉 BB 較常見）
+- Brand switch 效果（如試過唔同 brand）
 
 ⚠️ **三個模式共同紅旗**
-- 體重 trajectory 持續 < 月齡 standard
+- 體重 trajectory 持續 < 月齡標準
 - 濕片日均 < 6
-- BB lethargy / 嗜睡叫唔醒
+- BB 嗜睡 / 叫唔醒
 - 餵完 BB 持續 distressed
 
-🩺 **HK resource overlap**
-- 三個模式都可以揾母嬰健康院 / paediatrician
-- IBCLC 對 combo feed 都有用（transitioning 策略）
-- 唔好以為「全奶粉媽媽 = 唔需要 lactation support」
+🩺 **香港資源重疊**
+- 三個模式都可以揾母嬰健康院 / 兒科醫生
+- IBCLC 對混合餵養都有用（transitioning 策略）
+- 唔好以為「全奶粉媽媽 = 唔需要泌乳支援」
 
-語氣：唔 judge 模式，focus 喺 BB outcomes。
+語氣：唔批判模式，focus 喺 BB outcomes。
 </PromptBlock>
 
-### 變化 2：返工後抽奶 logistics
+### 變化 2：返工後抽奶安排
 
-HK 法定產假 14 週，好多媽媽返工後想繼續部分母乳。Logistics 係另一個 troubleshoot domain。
+香港法定產假 14 週，好多媽媽返工後想繼續部分母乳。安排係另一個 troubleshoot 範疇。
 
-<PromptBlock label="變化 2 — 返工抽奶 logistics 規劃">
-我 [N 週] 後返工，想繼續 [全母乳 / combo]。我返工：[office / hybrid / shift]。
+<PromptBlock label="變化 2 — 返工抽奶安排規劃">
+我 [N 週] 後返工，想繼續 [全母乳 / 混合]。我返工：[office / hybrid / shift]。
 
 請幫我整：
 
 🍼 **1. 抽奶機選擇**
 - 雙頭電動（Spectra、Medela Symphony rental、Elvie / Willow wearable）—— 返工首選
-- 手動（Haakaa）—— supplementary，唔可以淨係靠
-- HK rental：醫院級 Symphony 可以 rent（HK$500-800 / 月）
+- 手動（Haakaa）—— 輔助，唔可以淨係靠
+- 香港 rental：醫院級 Symphony 可以租（HK$500-800 / 月）
 - 平價 brand 慎選——suction efficiency 差 = 抽得少 = 你以為低奶
 
 ⏰ **2. 抽奶時間表 prototype**
@@ -322,132 +322,132 @@ HK 法定產假 14 週，好多媽媽返工後想繼續部分母乳。Logistics 
 - 10pm 餵 / 抽
 - 半夜睇 BB 需求
 
-🏢 **3. 公司 logistics**
+🏢 **3. 公司安排**
 - 邊度抽：lactation room、wellness room、會議室 book、廁所係 last resort
 - 雪奶：公司 fridge / cooler bag + ice pack
-- 抽奶機 plug + 私隱
-- 同 manager / HR 溝通 script
+- 抽奶機插電 + 私隱
+- 同 manager / HR 溝通講法
 
-📊 **4. Supply maintenance**
-- 抽奶量 ≠ BB 直接食量（BB latch efficient 過機）
-- 連續 1-2 週抽量跌 = 評估，唔係 panic
-- Pump time 短於 BB latch time = supply 可能 dip
+📊 **4. 奶量維持**
+- 抽奶量 ≠ BB 直接食量（BB 含乳有效率過機）
+- 連續 1-2 週抽量跌 = 評估，唔係慌
+- 抽奶時間短過 BB 含乳時間 = 奶量可能 dip
 
 🩺 **5. 紅旗**
-- BB daycare / 婆婆睇 BB：奶粉補充過量 + 你抽量逐週跌 = supply tank 風險
+- BB daycare / 婆婆睇 BB：奶粉補充過量 + 你抽量逐週跌 = 奶量乾塘風險
 - 媽媽返工後反覆塞奶 = schedule 調整 + IBCLC
 
-🛒 **6. HK 實際**
+🛒 **6. 香港實際**
 - 雪奶 freezer storage：6 個月內用
-- BB 拒 bottle（喜歡直接 latch）：返工前 2-3 週開始練習，邊個唔係媽媽餵
-- 唔少媽媽返工後 6-8 週轉 combo——**呢個 normal**，唔係 failure
+- BB 拒奶樽（鍾意直接含乳）：返工前 2-3 週開始練習，邊個唔係媽媽餵
+- 唔少媽媽返工後 6-8 週轉混合餵養——**呢個正常**，唔係 failure
 
-語氣：實際 logistics，唔煽情。
+語氣：實際安排，唔煽情。
 </PromptBlock>
 
-### 變化 3：BB 1 歲斷奶 decision
+### 變化 3：BB 1 歲斷奶決定
 
-WHO 建議母乳餵到 2 歲，AAP 講最少 1 歲。HK 媽媽好多喺 6-12 個月有斷奶 pressure（返工、social 場合、屋企人意見、自己 burnout）。
+WHO 建議母乳餵到 2 歲，AAP 講最少 1 歲。香港媽媽好多喺 6-12 個月有斷奶壓力（返工、social 場合、屋企人意見、自己 burnout）。
 
-<PromptBlock label="變化 3 — 斷奶 decision framework">
-我 BB [N 個月]，我考慮緊 [完全斷奶 / 減 session 部分斷奶 / 等 BB self-wean]。
+<PromptBlock label="變化 3 — 斷奶決定框架">
+我 BB [N 個月]，我考慮緊 [完全斷奶 / 減 session 部分斷奶 / 等 BB 自然離乳]。
 
 請幫我拆：
 
-🧠 **1. 區分「BB ready」vs「媽媽 ready」vs「外部 pressure」**
-- BB ready signal：對固體食物興趣大、餵奶 session 變短 / 分心、自己 day-wean
-- 媽媽 ready signal：身體攰、return to work 矛盾、想要 fertility return、單純夠
-- 外部 pressure：屋企人「夠喇」、社交場合 awkward、「BB 1 歲後母乳冇 nutrition」（**錯**——仲有 nutritional + immunological value）
+🧠 **1. 區分「BB ready」vs「媽媽 ready」vs「外部壓力」**
+- BB ready 訊號：對固體食物興趣大、餵奶 session 變短 / 分心、自己 day-wean
+- 媽媽 ready 訊號：身體攰、返工矛盾、想恢復 fertility、單純夠
+- 外部壓力：屋企人「夠喇」、社交場合 awkward、「BB 1 歲後母乳冇 nutrition」（**錯**——仲有 nutritional + immunological value）
 
 ⏰ **2. Timing options**
-- 完全斷奶 over 2-4 週（gradual，避免塞奶 + 情緒 dip）
+- 完全斷奶 over 2-4 週（漸進，避免塞奶 + 情緒 dip）
 - 部分斷奶（保留朝 + 夜 session）
-- Night-wean only（保留 day feed）
-- Self-wean（BB 主導，可能 18-24 個月）
+- 淨係 night-wean（保留 day feed）
+- 自然離乳（BB 主導，可能 18-24 個月）
 
-📋 **3. Physical taper schedule**
+📋 **3. 身體遞減時間表**
 - 一週 drop 1 session
 - 揀最易 drop 嗰個先（通常 mid-day）
-- 留意塞奶——cabbage leaves、cold compress、minimal pumping
-- 突然斷奶（< 1 週）= mastitis 風險高
+- 留意塞奶——椰菜葉、凍敷、少量抽奶
+- 突然斷奶（< 1 週）= 乳腺炎風險高
 
-🧠 **4. Emotional dimension**
-- 媽媽斷奶 hormonal dip 真實——progesterone drop 可以 trigger mood low 2-6 週
-- 跟產後抑鬱有 overlap—— flag 自己 mood
+🧠 **4. 情緒維度**
+- 媽媽斷奶荷爾蒙 dip 真實——progesterone drop 可以 trigger 情緒低 2-6 週
+- 同產後抑鬱有重疊—— flag 自己情緒
 - BB attachment 唔係靠餵奶單一 channel——加多其他 bonding routine
 
-🩺 **5. HK 醫療 input**
-- Paediatrician：BB nutrition transition（cow's milk vs toddler formula vs 食物 sourcing）
+🩺 **5. 香港醫療 input**
+- 兒科醫生：BB 營養過渡（cow's milk vs toddler formula vs 食物 sourcing）
 - 母嬰健康院：標準斷奶 protocol
-- IBCLC：複雜 case（突發醫療要斷、relactation regret）
+- IBCLC：複雜個案（突發醫療要斷、重新泌乳 regret）
 
 ❌ **唔好 framing**
 - 「斷咗奶 = 我哋 bond 完」
 - 「我餵到 [N] 個月已經夠，唔需要 justify」（**對嘅**——但唔需要對任何人 justify）
 
 ✅ **要 framing**
-- 「斷奶 decision 屬於我 + BB + paediatrician triangle，唔係 extended family panel」
+- 「斷奶決定屬於我 + BB + 兒科醫生 triangle，唔係 extended family panel」
 
-語氣：尊重每個 timeline、唔 push、唔 judge。
+語氣：尊重每個 timeline、唔 push、唔批判。
 </PromptBlock>
 
 ## 一個思維框架
 
-餵奶 troubleshoot 嘅 HK 困局：**資訊過載 + 文化噪音 + 數據不足**。
+餵奶 troubleshoot 嘅香港困局：**資訊過載 + 文化噪音 + 數據不足**。
 
-- KellyMom（國際 evidence-based）vs 母嬰健康院（HK protocol）vs 阿姑（經驗）vs Mommy group（軼事）—— 5 個 source 講 5 個故事
-- 文化 script：「為母則強」、「BB 健康就夠」、「母乳先係愛」、「奶粉冇 nutrition」（**全部 oversimplified**）
-- 你 BB 嘅 actual data：log 7 日先有嘢可以分析
+- KellyMom（國際循證）vs 母嬰健康院（香港 protocol）vs 阿姑（經驗）vs Mommy group（軼事）—— 5 個 source 講 5 個故事
+- 文化 script：「為母則強」、「BB 健康就夠」、「母乳先係愛」、「奶粉冇 nutrition」（**全部過度簡化**）
+- 你 BB 嘅實際數據：記錄 7 日先有嘢可以分析
 
-呢個困局嘅 unlock：**先收 specific data，再揀邊個 source 嘅建議啱**。冇 data 嘅情況下，5 個 source 嘅建議都係 noise——你揀邊個取決於邊個聲大過你嘅 anxiety threshold。
+呢個困局嘅 unlock：**先收具體數據，再揀邊個 source 嘅建議啱**。冇數據嘅情況下，5 個 source 嘅建議都係雜音——你揀邊個取決於邊個聲大過你嘅焦慮 threshold。
 
 Claude 喺呢個 pipeline 入面嘅角色好窄：
 
-- ✅ 幫你**structure** 7 日 log（一致 format = pattern emerge）
-- ✅ 幫你**拆訊號 vs noise**（growth spurt 正常 vs 真低奶）
-- ✅ 幫你 **rehearse** 同 IBCLC / paediatrician / 屋企人嘅對話
-- ✅ 凌晨 2 點 BB 鬆口你 panic 嘅嗰陣有得用
+- ✅ 幫你**結構化** 7 日記錄（一致 format = pattern 浮現）
+- ✅ 幫你**拆訊號 vs 雜音**（猛長期正常 vs 真低奶）
+- ✅ 幫你**演練**同 IBCLC / 兒科醫生 / 屋企人嘅對話
+- ✅ 凌晨 2 點 BB 鬆口你慌嗰陣有得用
 
 唔可以做：
 
-- ❌ Latch assessment（要實體睇）
-- ❌ Diagnose tongue tie / palate issue（要醫生）
-- ❌ Weigh BB（要磅）
-- ❌ 取代 IBCLC 90 分鐘 home visit（一次 home visit 嘅回報通常高過 10 個 prompt）
+- ❌ 含乳評估（要實體睇）
+- ❌ 診斷黐脷根 / 上顎問題（要醫生）
+- ❌ 磅 BB（要磅）
+- ❌ 取代 IBCLC 90 分鐘上門（一次上門嘅回報通常高過 10 個 prompt）
 
 最後三個提醒：
 
-- ✅ **7 日 data > 7 個 opinions**——log 完先決定
-- ⚠️ **「我餵唔到」唔等於「我失敗」**——餵奶 outcome 同 maternal value 唔係一對一
-- 🆘 **BB 急性紅旗**（12+ 小時冇濕片、嗜睡叫唔醒、黃疸 + 食差、體重持續跌）= 急症 / paediatrician 同日，唔係打字俾 Claude
+- ✅ **7 日數據 > 7 個意見**——記錄完先決定
+- ⚠️ **「我餵唔到」唔等於「我失敗」**——餵奶 outcome 同母親價值唔係一對一
+- 🆘 **BB 急性紅旗**（12+ 小時冇濕片、嗜睡叫唔醒、黃疸 + 食差、體重持續跌）= 急症 / 兒科醫生同日，唔係打字畀 Claude
 
 ---
 
 ### 🩺 真人支援（HK 2026）
 
 **免費 / 低收費**
-- **母嬰健康院**（衞生署）：哺乳諮詢、定期覆診 weight check、可轉介 paediatrician
-- **La Leche League HK**：peer support monthly meeting + WhatsApp group
-- **醫管局產科** outpatient：產後 lactation follow-up（要視乎醫院）
+- **母嬰健康院**（衞生署）：哺乳諮詢、定期覆診磅重、可轉介兒科醫生
+- **La Leche League HK**：同路人支援 monthly meeting + WhatsApp group
+- **醫管局產科**門診：產後泌乳跟進（要視乎醫院）
 
 **私營 IBCLC（International Board Certified）**
-- Home visit HK$1500-3000 / 次（90-120 分鐘）
-- 揀有 **IBCLC credential** 嘅 consultant（唔係淨係「lactation counsellor」 / 「催乳師」）
-- 高 ROI for：latch 痛、tongue tie suspect、低奶疑似、relactation
+- 上門 HK$1500-3000 / 次（90-120 分鐘）
+- 揀有 **IBCLC 認證** 嘅顧問（唔係淨係「lactation counsellor」 / 「催乳師」）
+- 高回報 for：含乳痛、黐脷根 suspect、低奶疑似、重新泌乳
 
 **醫療**
-- Paediatrician：體重 trajectory、tongue tie、BB feeding issue
-- GP：媽媽 mastitis、乳頭損傷、產後身體
-- ENT / paediatric dentist：tongue tie frenotomy（如需）
+- 兒科醫生：體重 trajectory、黐脷根、BB feeding issue
+- GP：媽媽乳腺炎、乳頭損傷、產後身體
+- ENT / 兒童牙醫：黐脷根剪脷根手術（如需）
 
-**Mental health overlap**
+**精神健康重疊**
 - 母嬰健康院 EPDS（產後 6 週 + 8 個月 routine）
 - Mind HK directory（filter 廣東話 + 產後）
 - 平行睇 `/use-cases/postpartum-mental-health-claude` 完整 EPDS workflow
 
 **緊急**
-- BB 急性：paediatrician 同日 / 急症室
-- 媽媽 mastitis 發燒：GP 同日
+- BB 急性：兒科醫生同日 / 急症室
+- 媽媽乳腺炎發燒：GP 同日
 - 媽媽自殘 / 傷害 BB 念頭：撒瑪利亞防止自殺會 **2389 2222**（24 小時中文）或急症室
 
-你 7 日後帶住 log 出現喺 IBCLC / 母嬰健康院 / paediatrician 面前——你係**第一次**令對方有真實 data 可以做嘢嘅 parent。治療精準度 + 你嘅 anxiety baseline，都會 shift。
+你 7 日後帶住記錄出現喺 IBCLC / 母嬰健康院 / 兒科醫生面前——你係**第一次**令對方有真實數據可以做嘢嘅 parent。治療精準度 + 你嘅焦慮 baseline，都會 shift。

@@ -14,6 +14,7 @@ import { InteractiveLessonCTA } from '@/components/use-case/InteractiveLessonCTA
 import { ArticleTools } from '@/components/use-case/ArticleTools'
 import { NewsletterCTA } from '@/components/design/NewsletterCTA'
 import { getRelatedUseCases, getUseCaseBySlug } from '@/lib/content'
+import { extractHowToSteps } from '@/lib/structured-data'
 
 /**
  * Read the raw .mdx source for a slug and strip the YAML frontmatter.
@@ -65,10 +66,11 @@ export default async function UseCasePage(props: { params: Params }) {
     Promise.resolve(getRelatedUseCases(useCase, 3)),
     loadArticleRaw(slug),
   ])
+  const howToSteps = extractHowToSteps(articleRaw)
 
   return (
     <>
-      <UseCaseJsonLd useCase={useCase} />
+      <UseCaseJsonLd useCase={useCase} steps={howToSteps} />
       <MastheadCompact />
       <article>
         <ArticleHero useCase={useCase} />

@@ -1,5 +1,5 @@
 ---
-title: "BNO Visa 申請前用 Claude：document checklist + 自我評估 + 5 年 cost 計返先諗清楚"
+title: "BNO Visa 申請前用 Claude：文件清單 + 自我評估 + 5 年成本計清楚先諗"
 slug: "bno-visa-application-prep-claude"
 issue: 131
 publishedAt: 2026-05-27
@@ -10,7 +10,7 @@ subcategory: "移民 / 簽證"
 difficulty: 2
 timeMinutes: 50
 toolsNeeded: ["Claude Chat"]
-description: "BNO Visa 5+1 嘅資訊散晒，中介開 1-3 萬。教用 Claude 做 due diligence：document checklist、自我 eligibility check、5 年 cost projection、UK landing 30 日清單。冇 sell direction。"
+description: "BNO Visa 5+1 嘅資訊散晒，中介開價 1-3 萬。教你用 Claude 做查證：文件清單、自我資格評估、5 年成本估算、UK 落地 30 日清單。唔 sell 方向。"
 keywords: ["BNO Visa 申請", "BNO 5+1 cost", "HK 移民英國 prep", "BNO checklist", "ILR 申請", "IHS 計算"]
 related: ["visa-application-claude", "monthly-budget-hk-claude", "emergency-fund-claude"]
 featured: false
@@ -30,75 +30,75 @@ featured: false
 
 你 switch tab 去 FB 群組，見到中介廣告：「全套 BNO Visa 代辦 HK$28,000 包文件 + 申請 + 落地接待」。
 
-你諗：「俾錢揾人搞晒？定自己搞？」
+你諗：「畀錢搵人搞晒？定自己搞？」
 
-但你連**自己係咪 qualify** 都仲未確認——你 1985 年出世，你阿爸有 BNO 但你冇 active BNO passport，咁你算唔算？你 partner 唔係 HK 永居，可以一齊去嗎？你三隻貓點算？
+但你連**自己係咪合資格**都仲未確認——你 1985 年出世，你阿爸有 BNO 但你冇 active 嘅 BNO passport，咁你算唔算？你伴侶唔係香港永居，可以一齊去嗎？你三隻貓點算？
 
-呢個 BNO Visa decision paralysis 嘅根本原因：
+呢個 BNO Visa 決策癱瘓嘅根本原因：
 
-- **GOV.UK 寫畀 immigration officer 讀**，唔係寫畀第一次諗移民嘅你
-- **中介有 incentive 簡化故事**——佢哋 close deal 收錢，唔會詳細講你 5 年總成本
-- **HK 群組 anecdote 唔等於你嘅 case**——人哋 single + 軟件工程師同你 married + 兩個細路完全唔同 math
-- **「移民英國要幾錢」冇單一答案**——visa fee 只係冰山一角，rent + tax + ILR + 機票 + 寵物運輸全部要加
+- **GOV.UK 寫畀移民官睇**，唔係寫畀第一次諗移民嘅你
+- **中介有誘因簡化故事**——佢哋傾成單收錢，唔會詳細講你 5 年總成本
+- **香港群組嘅故仔唔等於你嘅情況**——人哋單身 + 軟件工程師同你已婚 + 兩個細路完全唔同數
+- **「移民英國要幾錢」冇單一答案**——簽證費只係冰山一角，租金 + 稅 + ILR + 機票 + 寵物運輸全部要加
 
-呢篇用 Claude **50 分鐘做 due diligence**——eligibility check、document checklist、5 年 cost projection、UK landing 清單。冇 sell direction，平實鋪事實俾你自己決定。
+呢篇用 Claude **50 分鐘做查證**——資格評估、文件清單、5 年成本估算、UK 落地清單。唔 sell 方向，平實鋪事實畀你自己決定。
 
-> ⚠️ Claude 唔係 immigration lawyer。重要決定揾 OISC（Office of the Immigration Services Commissioner）registered consultant，或者英國 solicitor。呢篇係幫你**before 揾 consultant 之前自己搞清楚問題**，唔係取代專業意見。
+> ⚠️ Claude 唔係移民律師。重要決定搵 OISC（Office of the Immigration Services Commissioner）registered consultant，或者英國 solicitor。呢篇係幫你**喺搵 consultant 之前自己搞清楚問題**，唔係取代專業意見。
 
 ## 跟住做
 
-### 1. BNO eligibility check + 自我評估
+### 1. BNO 資格評估 + 自我評估
 
-唔好問 Claude「我可唔可以申請 BNO Visa」——佢答唔到，因為答案靠你嘅具體 status。先做自我評估：
+唔好問 Claude「我可唔可以申請 BNO Visa」——佢答唔到，因為答案靠你嘅具體身份。先做自我評估：
 
-> **我嘅 BNO status**
+> **我嘅 BNO 身份**
 > - 我嘅出生年份：1985
 > - 我有冇 BNO passport：[有 / 過期 / 從未申請 / 唔知阿爸阿媽有冇]
 > - 1997 年 6 月 30 日之前我係咪 born in HK or registered as BN(O)：[Yes / No / 唔肯定]
-> - 我 partner / 配偶嘅 status：HKSAR 永居 / non-permanent / 非 HK 居民
+> - 我伴侶 / 配偶嘅身份：香港永居 / non-permanent / 非香港居民
 > - 我細路（如有）：年齡 + 國籍
-> - 我父母（如想帶）：年齡 + BNO status
+> - 我父母（如想帶）：年齡 + BNO 身份
 >
 > **我嘅情況**
-> - 婚姻：single / married / cohabiting
+> - 婚姻：單身 / 已婚 / 同居
 > - 細路：有幾多個 + 年齡
 > - 寵物：有冇 + 物種 + 數量
-> - 物業：HK 有冇樓 / 租定買
-> - 工作：industry + 可唔可以 remote / 要本地揾工
+> - 物業：香港有冇樓 / 租定買
+> - 工作：行業 + 可唔可以 remote / 要本地揾工
 > - 儲蓄：HK$ 流動現金 + MPF + 投資
 
-呢類具體資料入 Claude，先有可行動分析。
+呢類具體資料入 Claude，先有可行動嘅分析。
 
-### 2. Personalized document checklist
+### 2. 個人化文件清單
 
-<PromptBlock label="完整 prompt — BNO Visa document checklist + eligibility">
-[貼上你嘅 BNO status + 情況]
+<PromptBlock label="完整 prompt — BNO Visa 文件清單 + 資格">
+[貼上你嘅 BNO 身份 + 情況]
 
-我考慮申請 BNO Visa（5+1 route），未 lock 決定。請幫我做 due diligence：
+我考慮申請 BNO Visa（5+1 route），未鎖定決定。請幫我做查證：
 
-🔍 **第 1 部分：eligibility 確認**
+🔍 **第 1 部分：資格確認**
 
 根據我提供嘅資料，請列：
-- 我本人 qualify 嘅 route（main applicant / dependant / 都唔 qualify）
-- 我 partner 嘅 status（係咪可以做 dependant，定要自己 qualify）
+- 我本人合資格嘅 route（main applicant / dependant / 都唔合資格）
+- 我伴侶嘅身份（係咪可以做 dependant，定要自己合資格）
 - 細路（如有）嘅 dependant route
 - 父母（如想帶）嘅 ARAP / adult dependant 限制——呢個出名嚴
-- 邊個 gap / 不確定點要 verify（叫我去邊度查 / 揾邊類專業）
+- 邊個缺口 / 不確定點要核實（叫我去邊度查 / 搵邊類專業）
 
-📋 **第 2 部分：document checklist（personalized）**
+📋 **第 2 部分：文件清單（個人化）**
 
 按我嘅情況分類列：
 
-✅ **Main applicant 文件**
-- BNO passport（有效 / 過期都可申請，但要證明 status）
+✅ **主申請人文件**
+- BNO passport（有效 / 過期都可申請，但要證明身份）
 - HKSAR passport
 - 出生證明
-- 過去 6 個月地址證明（HK 水電 bill / 銀行月結單）
-- TB test certificate（IOM 認可診所，HK 有 list）
-- 18 個月 maintenance funds 證明（俾自己 + dependants，每人 amount 唔同）
+- 過去 6 個月地址證明（香港水電費單 / 銀行月結單）
+- TB test certificate（IOM 認可診所，香港有名單）
+- 18 個月生活費證明（畀自己 + dependants，每人金額唔同）
 
-✅ **Partner / 配偶**（如 dependant）
-- 結婚證書（或 cohabiting 2 年證明）
+✅ **伴侶 / 配偶**（如做 dependant）
+- 結婚證書（或同居 2 年證明）
 - 同居地址證明
 - 各自 TB test
 - 共同財務 / 通訊紀錄
@@ -109,229 +109,229 @@ featured: false
 - 11 歲以下唔使 TB test，11 歲以上要
 
 ✅ **寵物**（如有）
-- 唔係 visa application 文件，但要 parallel 處理：
+- 唔係簽證申請文件，但要同步處理：
 - DEFRA pet import rules（rabies vaccine、microchip、health cert）
-- HK 出口要 AFCD 文件
+- 香港出口要漁護署（AFCD）文件
 - UK 入口要 [APHA] 認可 transporter
 - 預算：貓 / 狗 HK$15,000-30,000 一隻空運
 
-請每項用我具體 case mark：✅ 已有 / 🟡 要 prep / 🔴 仲未 sort
+請每項用我具體情況標示：✅ 已有 / 🟡 要準備 / 🔴 仲未搞掂
 
-🧾 **第 3 部分：申請費用 breakdown（main applicant + dependants）**
+🧾 **第 3 部分：申請費用明細（主申請人 + dependants）**
 
 請逐項計：
 - Visa application fee（5 年 leave）
 - IHS（Immigration Health Surcharge）= £1,035/年 × 5 × 人數
 - Biometric enrolment fee
-- Priority service（optional）
+- Priority service（可選）
 - 翻譯 / certified copy 費用
 - TB test（每人 HK$）
 
 我嘅總申請成本（family of [人數]）：HK$？
 
-⏰ **第 4 部分：timeline**
-- 申請前 prep：通常幾耐
-- Online apply → biometric appointment：幾日
-- Biometric → decision：standard / priority
-- Decision → 可以入英國：vignette 有效期
+⏰ **第 4 部分：時間表**
+- 申請前準備：通常幾耐
+- 網上申請 → biometric appointment：幾日
+- Biometric → 結果：standard / priority
+- 結果 → 可以入英國：vignette 有效期
 
 語氣：平實、唔催決定、唔淡化成本、唔 sell 中介。
 </PromptBlock>
 
-Claude 出嘅清單，每樣對返你 case 拆。**留意佢明確講「呢項我答唔到，要揾 OISC consultant」嘅地方**——嗰啲就係你要花錢買專業意見嘅位。
+Claude 出嘅清單，每樣對返你情況拆。**留意佢明確講「呢項我答唔到，要搵 OISC consultant」嘅地方**——嗰啲就係你要花錢買專業意見嘅位。
 
-### 3. 5-year cost projection（連 ILR）
+### 3. 5 年成本估算（連 ILR）
 
-呢步好多人 skip，結果落咗英國先發現 budget 唔夠。
+呢步好多人省略，結果落咗英國先發現預算唔夠。
 
-<PromptBlock label="完整 prompt — BNO 5 年 cost projection">
+<PromptBlock label="完整 prompt — BNO 5 年成本估算">
 [貼返你嘅家庭組成 + 工作可能性 + 揀定 UK 邊個地區]
 
-我想計清楚 BNO 5+1 嘅**真實 5 年總成本**，包括我留 HK 比較。家庭 = [人數 + 細路年齡]。預算地區：[Manchester / Reading / Birmingham / outer London / 等]。
+我想計清楚 BNO 5+1 嘅**真實 5 年總成本**，包括我留香港比較。家庭 = [人數 + 細路年齡]。預算地區：[Manchester / Reading / Birmingham / outer London / 等]。
 
 請畀我兩個 scenario 對比：
 
 📊 **Scenario A：BNO 5+1 落地英國**
 
-**Year 1（landing 年）**
+**Year 1（落地年）**
 - Visa + IHS（已計）
 - 機票（單程，全家）
 - 寵物運輸（如有）
-- 第一個月 Airbnb / temp housing
-- Rent deposit（通常 5 週 rent）+ first month rent
-- 傢俬 + 家電（second-hand 預算 vs new）
-- 車（必要 vs optional 視乎地區）
+- 第一個月 Airbnb / 臨時住宿
+- Rent deposit（通常 5 週租金）+ 第一個月租金
+- 傢俬 + 家電（二手預算 vs 全新）
+- 車（必要 vs 可選視乎地區）
 - Council tax（band 估算）
 - 水電煤 + broadband（月平均）
-- NHS 已 cover（IHS 已俾）
-- School uniform / 註冊費（如有細路）
-- Setup misc（NIN apply、bank account、driver licence convert）
+- NHS 已覆蓋（IHS 已畀）
+- 校服 / 註冊費（如有細路）
+- 安頓雜項（NIN 申請、bank account、駕照轉換）
 
 **Year 2-5（穩定期，每年）**
-- Rent（按地區估算 £/month × 12）
+- Rent（按地區估算 £/月 × 12）
 - Council tax
 - Utilities
 - 食 + grocery（家庭預算）
-- Transport（車 / public）
-- Tax + NI（如有 UK income，按 £30k / £50k / £70k 三個檔）
-- Childcare / school（如適用——state free 但 wraparound care 收費）
+- 交通（車 / public）
+- Tax + NI（如有 UK 收入，按 £30k / £50k / £70k 三個檔）
+- Childcare / 學校（如適用——state free 但 wraparound care 收費）
 - Insurance（contents、車）
 
 **Year 6（ILR 申請）**
-- ILR application fee（per person）
+- ILR application fee（每人）
 - Life in the UK test（£50/人）
-- English language test（如未 exempt）
-- Optional：solicitor fee
+- English language test（如未豁免）
+- 可選：solicitor fee
 
 **5 年 + ILR 總成本估算**：£？ ≈ HK$？
 
-📊 **Scenario B：留 HK 對比**
+📊 **Scenario B：留香港對比**
 
-同期 5 年 HK 開支：
-- Rent / mortgage
+同期 5 年香港開支：
+- 租金 / 按揭
 - MPF 繼續供
 - 稅
 - 生活雜費
 
 差額 = ？
 
-💰 **資金 source 分析**
-- 我嘅 HK 儲蓄夠頂幾年冇 UK income：？
+💰 **資金來源分析**
+- 我嘅香港儲蓄夠頂幾年冇 UK 收入：？
 - MPF 提早領取（移民理由）流程
-- HK 物業：賣 vs 租出 vs 留住
+- 香港物業：賣 vs 租出 vs 留住
 - 匯率風險（GBP/HKD 過去波幅）
 
 🔍 **隱藏成本提醒**
-- UK 私人 healthcare（即使 NHS，dental + 眼鏡好多人加 BUPA）
+- UK 私人 healthcare（即使有 NHS，dental + 眼鏡好多人加 BUPA）
 - ILR 後申請 UK citizenship（另計 £1,500/人）
-- 細路長大讀 university：home fee 要住夠 3 年先 qualify
-- HK 物業繼續持有：UK tax resident 後要報全球收入
+- 細路長大讀大學：home fee 要住夠 3 年先合資格
+- 香港物業繼續持有：成為 UK 稅務居民後要報全球收入
 
-語氣：俾我數字，唔好價值判斷。
+語氣：畀我數字，唔好價值判斷。
 </PromptBlock>
 
-呢個 cost projection 嘅價值唔係「準確數字」（市場會變），係**俾你嘅 brain 一個 framework 去思考**。你睇完可能話：「OK 數字 work，繼續 prep」，又或者「等多兩年儲多啲先」——兩個都係 valid decision。
+呢個成本估算嘅價值唔係「準確數字」（市場會變），係**畀你個腦一個框架去思考**。你睇完可能話：「OK 數字 work，繼續準備」，又或者「等多兩年儲多啲先」——兩個都係正當決定。
 
-### 4. UK landing 30 天 setup 清單
+### 4. UK 落地 30 天安頓清單
 
-如果你最終 decide go，第一個月個 setup 排序錯=後面樣樣排隊。
+如果你最終決定去，第一個月個安頓排序錯=後面樣樣排隊。
 
-<PromptBlock label="完整 prompt — UK landing 30 天 setup">
-我下個月 BNO Visa landing UK，地區 [Manchester / 你揀]。家庭 = [人數]。請整 **30 天 setup 行動次序**：
+<PromptBlock label="完整 prompt — UK 落地 30 天安頓">
+我下個月 BNO Visa 落地 UK，地區 [Manchester / 你揀]。家庭 = [人數]。請整 **30 天安頓行動次序**：
 
 🛬 **Day 1-3（落地即做）**
-- 機場 BRP（Biometric Residence Permit）collect 點 / 時間
-- Temp accommodation check-in
+- 機場 BRP（Biometric Residence Permit）領取地點 / 時間
+- 臨時住宿 check-in
 - 買 UK SIM card（PAYG vs contract——頭一個月用 PAYG）
-- 開 monzo / starling（online bank，唔使 proof of address）
+- 開 Monzo / Starling（網上銀行，唔使 proof of address）
 
-📋 **Day 4-10（核心 admin）**
-- Apply NIN（National Insurance Number）——online 申請
+📋 **Day 4-10（核心行政）**
+- 申請 NIN（National Insurance Number）——網上申請
 - 揾 GP register（NHS——免費但要 register）
 - 細路 school place application（council 嘅 admissions）
-- 揾 long-term rental（agent vs SpareRoom vs OpenRent）
-- 攞 Right to Rent check（landlord 要睇 BRP）
+- 揾長租盤（agent vs SpareRoom vs OpenRent）
+- 攞 Right to Rent check（業主要睇 BRP）
 
-🏠 **Day 11-20（housing + bank）**
-- Sign tenancy agreement（睇 deposit protection scheme）
-- Council tax register（搬入後 14 日內）
-- Utilities transfer / setup（gas、electric、water——有 comparison sites）
-- Broadband install（lead time 1-3 週）
-- 開 high street bank（Lloyds / Barclays，有實體分行做 mortgage future）
+🏠 **Day 11-20（住屋 + 銀行）**
+- 簽 tenancy agreement（睇 deposit protection scheme）
+- Council tax 登記（搬入後 14 日內）
+- Utilities 轉名 / 開通（gas、electric、water——有 comparison sites）
+- Broadband 安裝（lead time 1-3 週）
+- 開 high street bank（Lloyds / Barclays，有實體分行做日後按揭）
 
-🚗 **Day 21-30（lifestyle setup）**
-- Driver licence：HK licence 換 UK 一年內有效，建議考 UK theory + practical
-- 車：second-hand market（AutoTrader）+ insurance（comparison sites）
+🚗 **Day 21-30（生活安頓）**
+- 駕照：香港駕照換 UK 一年內有效，建議考 UK theory + practical
+- 車：二手市場（AutoTrader）+ insurance（comparison sites）
 - 細路 GP + school 註冊完成
 - Local library card（免費 + e-books 好用）
-- 註冊 HMRC self-assessment（如有 self-employment / HK rental income）
+- 註冊 HMRC self-assessment（如有 self-employment / 香港租金收入）
 
-⚠️ **常見 trap**
-- Credit history 由零開始——頭 6 個月好難借嘢
-- Council tax 唔自己 register 會欠數
-- HK income 第一年 split year treatment 要識報
-- 寵物 quarantine 唔需要（如做齊 pre-arrival）但 transporter 要 book 早
+⚠️ **常見陷阱**
+- 信用紀錄由零開始——頭 6 個月好難借嘢
+- Council tax 唔自己登記會欠數
+- 香港收入第一年 split year treatment 要識報
+- 寵物隔離唔需要（如做齊 pre-arrival）但 transporter 要早 book
 
 📞 **重要電話 / link**
 - GOV.UK（一律 official source）
-- Citizens Advice（免費 admin help）
-- HK 移英 community group（Discord / FB，crowdsourced tips）
+- Citizens Advice（免費行政 help）
+- 香港移英 community group（Discord / FB，crowdsourced tips）
 
-語氣：實際、按 priority 排、唔 over-promise。
+語氣：實際、按 priority 排、唔誇大。
 </PromptBlock>
 
-呢張清單 print 出嚟，每日剔。第一個月最 stressful，**唔好靠記憶 manage**——每個 admin task 都有 dependency，漏一樣後面樣樣 delay。
+呢張清單印出嚟，每日剔。第一個月最辛苦，**唔好靠記憶處理**——每個行政 task 都有 dependency，漏一樣後面樣樣 delay。
 
 ## 變化例子
 
 ### 變化 1：帶老人 / 寵物移民
 
-呢兩個都係 BNO Visa 嘅 hard mode：
+呢兩個都係 BNO Visa 嘅高難度模式：
 
 <PromptBlock label="變化 1 — 帶父母 + 寵物 BNO move">
-我 main applicant，想帶父母 + 2 隻貓一齊去 UK。請拆兩個難點：
+我做 main applicant，想帶父母 + 2 隻貓一齊去 UK。請拆兩個難點：
 
 👴 **父母 dependant route（出名嚴）**
 
 BNO Visa 嘅 adult dependant relative 條件：
 - 父母 / 祖父母 / 成年細路 / 兄弟姊妹
 - 必須 financially / physically dependent on you
-- HK 攞唔到 adequate care（呢個 bar 好高，UK 政府預設 HK care system 充足）
-- 出名 refusal rate 高
+- 喺香港攞唔到 adequate care（呢個門檻好高，UK 政府預設香港照顧系統充足）
+- 出名拒簽率高
 
-Alternative route：
-- 父母自己 qualify BNO（如 born pre-1997 + register）——最直接
+替代 route：
+- 父母自己合資格 BNO（如 born pre-1997 + register）——最直接
 - ARAP（Adult Relative Application Programme）——非常嚴
-- Visitor visa 6 個月一次 rotate——唔可以長住
+- Visitor visa 6 個月一次輪流——唔可以長住
 
-請就我父母嘅 status 評估邊條 route realistic。
+請就我父母嘅身份評估邊條 route 實際可行。
 
 🐾 **寵物移居（貓 × 2）**
 
-UK pet import（non-commercial route）：
+UK 寵物入口（non-commercial route）：
 - Microchip（ISO standard）
-- Rabies vaccine（最少 landing 前 21 日打）
-- EU Animal Health Certificate（HK 認可 vet 簽，10 日有效）
+- Rabies vaccine（最少落地前 21 日打）
+- EU Animal Health Certificate（香港認可獸醫簽，10 日有效）
 - Approved route + transporter（唔可以 cabin，要 manifest cargo）
 
-預算 per cat：
-- Vet + cert：HK$3,000-5,000
+每隻貓預算：
+- 獸醫 + cert：HK$3,000-5,000
 - Crate（IATA approved）：HK$1,500
-- Air freight + UK customs clear：HK$15,000-25,000
-- UK side vet check-up：£100
+- 空運 + UK customs clear：HK$15,000-25,000
+- UK 那邊獸醫 check-up：£100
 
-行李 timeline：
+時序：
 - 提早 4 個月開始 vaccine schedule
-- Book transporter 3 個月前
-- 你 landing 同寵物 landing 可以分開（佢哋通常 day 後到）
+- 3 個月前 book transporter
+- 你落地同寵物落地可以分開（佢哋通常遲一日到）
 
 語氣：實事求是，唔 sugar-coat 難度。
 </PromptBlock>
 
-### 變化 2：帶細路（schooling timing + school type）
+### 變化 2：帶細路（升學時機 + 學校類型）
 
-落地時間影響成個 school year，要算清楚：
+落地時間影響成個學年，要計清楚：
 
-<PromptBlock label="變化 2 — 細路 schooling timing + state vs grammar vs private">
-我 [年齡] 細路一齊去 UK。請整 schooling prep：
+<PromptBlock label="變化 2 — 細路升學時機 + state vs grammar vs private">
+我 [年齡] 細路一齊去 UK。請整升學準備：
 
-📅 **UK school year 同 HK 唔同**
-- UK：September start，year 結束係 July
-- 細路 reception（age 4-5）= UK Year 1 ≈ HK K3
+📅 **UK 學年同香港唔同**
+- UK：9 月開學，學年結束係 7 月
+- 細路 reception（age 4-5）= UK Year 1 ≈ 香港 K3
 - 落地時 mid-year vs end-of-year 影響好大
 
 📊 **三類學校對比**
 
 **State school（免費）**
-- Council allocate by catchment
-- BNO 落地即 eligible（唔使等 ILR）
+- Council 按校網分配
+- BNO 落地即合資格（唔使等 ILR）
 - 質素：postcode 決定，OFSTED rating 公開
 - 申請：搬入 + 提交 BRP + utility bill
 
-**Grammar school（免費但 selective）**
+**Grammar school（免費但選拔）**
 - 入學試（11+ exam）
 - Kent、Buckinghamshire、Trafford 有 grammar system
-- 細路要 prep 1 年（HK 補習文化 transferable）
+- 細路要準備 1 年（香港補習文化用得着）
 - 競爭激烈但學費零
 
 **Private school（收費）**
@@ -340,80 +340,80 @@ UK pet import（non-commercial route）：
 - 部分接受 mid-year entry
 - 入學試 + interview
 
-🗓️ **timing strategy**
-- 8 月落地最理想（趕 September start）
-- 1 月落地：細路 join mid-year，settling 較慢但 OK
-- 5-7 月落地：可能要 wait September
+🗓️ **timing 策略**
+- 8 月落地最理想（趕 9 月開學）
+- 1 月落地：細路 mid-year 插班，適應較慢但 OK
+- 5-7 月落地：可能要等 9 月
 
-📝 **prep before landing**
-- HK school 攞英文 transcript + 推薦信
-- 細路英文水平 honest assessment
-- 揀地區先睇 catchment area + OFSTED report
+📝 **落地前準備**
+- 香港學校攞英文成績單 + 推薦信
+- 細路英文水平誠實評估
+- 揀地區先睇校網 + OFSTED report
 - Mumsnet / 移英 community 嘅 school review
 
-⚠️ **University fee trap**
-- Home fee status 要住夠 3 年 + ILR / settled
+⚠️ **大學學費陷阱**
+- Home fee 身份要住夠 3 年 + ILR / settled
 - 細路 sixth form 之前落地比較穩
 - International fee = 3 倍 home fee
 
-語氣：俾我 framework，唔好 push 邊種 school 最好。
+語氣：畀我框架，唔好 push 邊種 school 最好。
 </PromptBlock>
 
-### 變化 3：留 HK home base + UK split residency
+### 變化 3：留香港大本營 + UK 兩邊居住
 
-唔係 all-in 移民，分開兩邊住嘅 setup：
+唔係 all-in 移民，分開兩邊住嘅安排：
 
-<PromptBlock label="變化 3 — split residency BNO Visa setup">
-我攞 BNO Visa 但唔想完全離開 HK。我 plan 一年 6 個月 UK + 6 個月 HK。請評估呢個 setup：
+<PromptBlock label="變化 3 — 兩邊居住 BNO Visa 安排">
+我攞 BNO Visa 但唔想完全離開香港。我計劃一年 6 個月 UK + 6 個月香港。請評估呢個安排：
 
-📐 **BNO Visa physical presence 要求**
+📐 **BNO Visa 實際居留要求**
 - 5 年 leave 期間：冇 minimum stay per year（唔似其他 visa）
 - 但 ILR 申請：5 年內**唔可以離開 UK 多過 180 日 per 12-month period**
-- 即係話：split 50/50 = ILR fail
+- 即係話：50/50 分開住 = ILR fail
 - 你要 ILR 嘅話：最少 UK 6 個月 + 1 日 per year
 
-🏠 **housing strategy**
-- HK home：留住 / 租出 / 賣？
-- UK：短租 vs 長租（landlord 想 12 個月 contract，唔鍾意 6 個月住客）
-- Alternative：service apartment（貴但 flex）
+🏠 **住屋策略**
+- 香港屋企：留住 / 租出 / 賣？
+- UK：短租 vs 長租（業主想 12 個月 contract，唔鍾意 6 個月住客）
+- 替代：service apartment（貴但靈活）
 - 或者揾 BNO community house-share
 
-💼 **work + tax 複雜性**
-- HK employer remote work：UK tax resident 後要報 UK income
-- UK tax resident threshold：183+ days per tax year（或 ties test）
-- 雙重課稅協定有 cover 但要 file 兩邊
-- 強烈建議揾 cross-border accountant（HK + UK qualified）
+💼 **工作 + 稅嘅複雜性**
+- 幫香港僱主 remote work：成為 UK 稅務居民後要報 UK 收入
+- UK 稅務居民門檻：183+ days per tax year（或 ties test）
+- 雙重課稅協定有 cover 但要兩邊報
+- 強烈建議搵 cross-border accountant（香港 + UK 兩邊有資格）
 
-💰 **finances**
-- HK 戶口繼續用，但 UK 戶口要建立 credit history
-- ISA 免稅 allowance £20k/年，only UK tax resident 用
-- MPF：你冇完全 leave HK，可能未 qualify early withdrawal
+💰 **財務**
+- 香港戶口繼續用，但 UK 戶口要建立信用紀錄
+- ISA 免稅 allowance £20k/年，只有 UK 稅務居民用得到
+- MPF：你冇完全離開香港，可能未合資格 early withdrawal
 
-🚨 **trade-off 要諗清楚**
-- 慳成本（HK income 高 + UK 半年住）
+🚨 **取捨要諗清楚**
+- 慳成本（香港收入高 + UK 半年住）
 - 但 ILR 不可能（除非後期轉 full UK）
-- BNO 5 年完，係咪需要 ILR？仲是俾自己 keep door open？
+- BNO 5 年完，係咪需要 ILR？定係畀自己 keep door open？
 - 如果只係要英國身份保險，唔搞 ILR 都 OK——但 visa 5 年後要重新諗
 
-⏳ **decision frame**
-- Year 1-2：split 試水
-- Year 3：decide commit full UK or stay split
-- Commit 嘅話：搬齊家庭，rebuild UK life
-- 唔 commit 嘅話：5 年完接受冇 ILR，回 HK
+⏳ **決策框架**
+- Year 1-2：兩邊住試水
+- Year 3：決定 commit full UK 定維持兩邊住
+- Commit 嘅話：搬齊家庭，喺 UK 重建生活
+- 唔 commit 嘅話：5 年完接受冇 ILR，返香港
 
-語氣：俾我選項，唔好 push「應該全家移」。
+語氣：畀我選項，唔好 push「應該全家移」。
 </PromptBlock>
 
 ## 一個思維框架
 
-BNO Visa 嘅 decision paralysis 唔係你猶豫不決——係**問題本身 multi-dimensional**。GOV.UK 答得到「點申請」，但答唔到「我應唔應該申請」。中介答得到「我幫你搞」，但 incentive 唔對齊。FB 群組答得到「我嘅 case 點」，但你嘅 case 唔係佢嘅 case。
+BNO Visa 嘅決策癱瘓唔係你猶豫不決——係**問題本身多維度**。GOV.UK 答得到「點申請」，但答唔到「我應唔應該申請」。中介答得到「我幫你搞」，但誘因唔對齊。FB 群組答得到「我嘅情況點」，但你嘅情況唔係佢嘅情況。
 
-呢個思維嘅轉變：**Claude 唔係答你「應唔應該移民」嘅工具**——係幫你**將問題拆細**嘅工具。Eligibility、cost、timing、家庭組成——每樣分開計，加埋之後個 decision 自然浮出。Decide 與否係你自己嘅事。
+呢個思維嘅轉變：**Claude 唔係答你「應唔應該移民」嘅工具**——係幫你**將問題拆細**嘅工具。資格、成本、時機、家庭組成——每樣分開計，加埋之後個決定自然浮出。決定與否係你自己嘅事。
 
 最後提醒：
 
-- ✅ **早準備唔等於早 commit**。文件 prep 6-12 個月唔遲，留時間思考。
-- ⚠️ **唔好淨係靠中介**。中介有 incentive close deal，自己 due diligence 過 + OISC consultant cross-check 先穩陣。
-- 🆘 **politically loaded 嘅 decision，留俾自己**。Claude 唔會 push direction，朋友 push direction 都聽住諗，**最終你自己同屋企人傾**。
+- ✅ **早準備唔等於早 commit**。文件準備 6-12 個月唔遲，留時間思考。
+- ⚠️ **唔好淨係靠中介**。中介有誘因傾成單，自己查證過 + OISC consultant cross-check 先穩陣。
+- 🆘 **政治上敏感嘅決定，留畀自己**。Claude 唔會 push 方向，朋友 push 方向都聽住諗，**最終你自己同屋企人傾**。
 
-呢個 decision 唔急。慢慢諗，平實計，唔好俾恐慌或者 FOMO 推。一路平安。
+呢個決定唔急。慢慢諗，平實計，唔好畀恐慌或者 FOMO 推。一路平安。

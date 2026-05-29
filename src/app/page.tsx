@@ -7,6 +7,7 @@ import { EditorByline } from '@/components/design/EditorByline'
 import { NewsletterCTA } from '@/components/design/NewsletterCTA'
 import { UseCaseCard } from '@/components/use-case/UseCaseCard'
 import { getAllUseCases, getFeaturedUseCases, CATEGORY_LABELS, type Category } from '@/lib/content'
+import { buildWebSiteGraph, jsonLdScriptProps } from '@/lib/structured-data'
 
 export default function HomePage() {
   const featured = getFeaturedUseCases(6)
@@ -19,6 +20,7 @@ export default function HomePage() {
 
   return (
     <>
+      <script {...jsonLdScriptProps(buildWebSiteGraph())} />
       <Masthead />
 
       <main className="max-w-6xl mx-auto px-6">
