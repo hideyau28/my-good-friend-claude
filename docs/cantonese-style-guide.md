@@ -1,7 +1,7 @@
 # 《我的好朋友 Claude》內容風格指南 — 廣東話中英混雜清理
 
 > 本指南係編輯審稿用嘅工具，確保全站文案用地道、自然、有溫度嘅香港廣東話。
-> 最後更新：2026-05-29
+> 最後更新：2026-05-29（第二版：經外部廣東話編輯審閱修訂）
 
 ---
 
@@ -22,7 +22,16 @@ WhatsApp, Telegram, Signal, Instagram, YouTube, Discord, Slack, Notion, Google S
 API, prompt, code, workflow, dashboard, automation, Next.js, Vercel, TypeScript, MDX, SEO, MCP, SDK, CLI, Git, GitHub, IDE, VS Code, JSON, HTML, CSS
 
 ### 香港慣用
-OK, sorry, date, cafe, gathering, podcast, hobby, GP (家庭醫生), EAP, IB
+OK, sorry, cafe, podcast, GP (家庭醫生), EAP, IB
+
+### 日常科技 / 應用
+App, Email, Link（條 link）, Post（出 post）, UI / UX, IT
+
+### 職場 / 求職
+CV, Interview, Offer
+
+### 已同化嘅日常動詞（免死金牌）
+Keep（keep 住）, Send（send 畀我）, Share
 
 ### 醫療 / 心理（專有名詞）
 counsellor（學校語境約定俗成）, PTSD, ADHD, OCD
@@ -45,8 +54,8 @@ tutor（補習老師語境下可用，但「補習老師」更佳）, mock（DSE
 | self-harm | 自殘、自傷 | 心理健康語境用「自傷」較溫和 |
 | function（動詞） | 正常生活、運作 | 「function 唔到」→「正常生活都做唔到」 |
 | fix | 修正、搞掂、處理 | 「fix 情緒」→「處理情緒」 |
-| optimize | 改善、最佳化 | 「optimize 支援」→「改善支援效率」 |
-| dump（名詞/動詞） | 倒出、寫低、坦白交代 | 「老實 dump」→「坦白寫低」 |
+| optimize | 執靚、優化、提升 | 「optimize 支援」→「執靚個支援流程」 |
+| dump（名詞/動詞） | 一口氣打晒出嚟、盡訴心中情、呻出嚟 | 「老實 dump」→「一口氣打晒出嚟」 |
 | query | 提問、問法 | |
 | script（對話腳本） | 對白範本、講法 | 唔係程式碼嗰個 script |
 | plateau | 瓶頸、停滯 | |
@@ -64,19 +73,28 @@ tutor（補習老師語境下可用，但「補習老師」更佳）, mock（DSE
 | metric | 指標 | |
 | crisis | 危機 | |
 | work out | 搞得掂 | |
-| dismiss | 唔當一回事、輕視 | |
+| dismiss | 當耳邊風、當無到、唔當一回事 | |
 | hang out | 出街、聚下 | |
 | vague | 含糊 | |
 | quality time | 專屬時間、二人時間 | |
 | date（約會） | 拍拖、約會 | |
-| over-bearing | 管太多 | |
-| hold 住 | 忍住、各自保留 | |
+| over-bearing | 控制慾強、管得太嚴 | |
+| hold 住 | 忍住、各自保留 | 視乎語境，口語對話可保留「hold 住」 |
 | commit 做 | 承諾做 | |
 | Don'ts | 唔好做嘅嘢 | |
 | cautious | 謹慎 | |
 | case | 情況、個案 | 視乎語境 |
 | feedback | 意見 | |
 | tracking | 記錄、追蹤 | |
+| run（workflow / 程式） | 執行、運行 | |
+| trigger | 觸發、啟動 | |
+| cross-reference | 交叉比對 | |
+| draft | 起草、寫、草擬 | |
+| generic | 空泛、籠統 | |
+| follow up | 跟進 | |
+| make sense | 合理、講得通 | |
+| read-only | 唯讀 | |
+| sync（開會） | 同步、夾一夾 | 「短 sync」可視乎語境改為「簡短夾一夾」 |
 
 ---
 
@@ -91,10 +109,11 @@ tutor（補習老師語境下可用，但「補習老師」更佳）, mock（DSE
 
 ### 3.2 中英混雜原則
 
-- **一句入面唔好超過一個英文詞**（白名單詞彙除外）
+- **非白名單嘅英文詞，一句入面唔好超過一個。**（白名單詞彙不計入此限，例如「用 Claude API 起草 Prompt」係容許嘅，因為全屬白名單。）
 - 如果成句都係廣東話但夾住一個英文動詞，多數可以搵到廣東話替代
 - 白名單名詞前後唔使加引號，自然咁寫入去
 - 唔好用英文做動詞：❌「去 set」「try fix」 → ✅「去定」「試下處理」
+- **豁免動詞：** 已完全融入香港口語嘅動詞如 Keep（keep 住）、Send、Share 容許保留，不需硬譯為「保持」或「傳送」。
 
 ### 3.3 敏感話題語氣
 
@@ -111,6 +130,23 @@ tutor（補習老師語境下可用，但「補習老師」更佳）, mock（DSE
 - ❌ 寫 lorem ipsum / placeholder 英文文案
 - ❌ 英文標點夾廣東話（用中文標點：「」、——、⋯⋯）
 
+### 3.5 英文動詞與時態助詞嘅結合
+
+喺書面語境，**切勿將英文動詞直接加上「咗、緊、過」等廣東話助詞**。呢種寫法口語常見，但寫出嚟會令句法鬆散。
+
+- ❌ 錯誤示範：「已 cancel 嘅」、「我 decline 咗」
+- ✅ 正確做法：直接轉用中文動詞（「已取消嘅」、「我已拒絕」）
+
+### 3.6 嚴格防禦大陸用語
+
+AI 好容易喺翻譯過程混入大陸用語，審稿時必須替換為香港慣用語：
+
+- 禁用「視頻」，改用「影片」
+- 禁用「屏幕」，改用「螢幕 / 熒幕」
+- 禁用「質量」，改用「質素 / 品質」
+- 禁用「激活」，改用「啟動 / 啟用」
+- 禁用「給力、走心、靠譜」等內地網絡詞，改用對應嘅香港廣東話
+
 ---
 
 ## 4. 審稿 Checklist
@@ -119,9 +155,11 @@ tutor（補習老師語境下可用，但「補習老師」更佳）, mock（DSE
 
 ### 語言
 - [ ] Frontmatter `title` 同 `description` 冇非白名單英文
-- [ ] 正文每段唔超過 2 個英文詞（白名單除外）
-- [ ] 冇英文動詞做謂語（set、fix、optimize、dump 等）
+- [ ] 正文每段非白名單英文唔超過 2 個
+- [ ] 冇英文動詞做謂語（set、fix、optimize、dump 等；Keep / Send / Share 屬豁免）
 - [ ] 冇英文形容詞做定語（functional、vague、cautious 等）
+- [ ] 冇英文動詞硬加助詞（「cancel 咗」「decline 咗」→ 轉中文動詞）
+- [ ] 冇大陸用語（視頻、屏幕、質量、激活、給力 等）
 - [ ] PromptBlock 內文同正文一致標準
 
 ### 語氣
