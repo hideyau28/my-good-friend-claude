@@ -1,5 +1,5 @@
 ---
-title: "Cowork freelancer 每月 1 號自動出 invoice：pull timesheet → calc hours → email 客戶"
+title: "Cowork 自由業者每月 1 號自動出 invoice：抽工時表 → 計鐘數 → email 客戶"
 slug: "cowork-freelancer-monthly-invoicing"
 issue: 96
 publishedAt: 2026-05-27
@@ -10,7 +10,7 @@ subcategory: "Freelance / 自由業"
 difficulty: 2
 timeMinutes: 45
 toolsNeeded: ["Claude Desktop (Pro/Max)", "Timesheet (Toggl / Clockify / Google Sheet)", "Email + 客戶 list"]
-description: "HK freelancer / consultant 每月 1 號自動出 invoice 嘅 Cowork workflow：Claude pull Toggl / Clockify timesheet、group by client、計 hours × rate、出 PDF、draft email 等你 review。手做半日嘅 invoicing 收返做 30 分鐘檢視。"
+description: "香港自由業者 / 顧問每月 1 號自動出 invoice 嘅 Cowork 流程：Claude 抽 Toggl / Clockify 工時表、按客戶分組、計鐘數 × 收費、出 PDF、起稿 email 等你過目。手做半日嘅出單收返做 30 分鐘檢視。"
 keywords: ["freelancer invoice automation", "HK freelance 出單", "toggl clockify claude integration", "consultant 月結 invoice", "claude cowork 教學"]
 related: ["cowork-expense-automation", "cowork-order-automation", "employment-contract-review-claude"]
 featured: false
@@ -18,33 +18,33 @@ featured: false
 
 ## 情境
 
-你係 freelance designer / consultant / writer，手頭通常有 4–8 個 client，每個 client 月底要出 invoice。手做嘅流程：
+你係自由身設計師 / 顧問 / 寫手，手頭通常有 4–8 個客戶，每個客戶月底要出 invoice。手做嘅流程：
 
-- 開 Toggl / Clockify，filter 上個月、by client export CSV
-- 開計算機（或 Excel），逐個 client 計 total hours × hourly rate
-- 加 tax / 折扣（如果有）、加 reimbursable expenses
-- 套返你個 invoice template（Numbers / Word / 某個 SaaS），改 invoice number、改日期、改金額
-- 出 PDF、開 email、寫一段「Hi 大佬，附上 X 月 invoice，payment terms NET 30」、attach、send
+- 開 Toggl / Clockify，篩選上個月、按客戶匯出 CSV
+- 開計算機（或者 Excel），逐個客戶計總鐘數 × 時薪
+- 加稅 / 折扣（如果有）、加可報銷開支
+- 套返你個 invoice 範本（Numbers / Word / 某個 SaaS），改 invoice 編號、改日期、改金額
+- 出 PDF、開 email、寫一段「Hi 大佬，附上 X 月 invoice，找數期 NET 30」、夾附件、send
 
-8 個 client 做晒，**4 個鐘冇咗**。而且月月做、月月一樣。
+8 個客戶做晒，**4 個鐘冇咗**。而且月月做、月月一樣。
 
-呢個任務完全係 Cowork 嘅 sweet spot — **重覆、多來源、有明確輸出、但最後一步要你親自 send**。設定一次，每月 1 號 10am 自動起稿晒，你坐低半個鐘檢視 + 撳 send 就完。
+呢個任務完全係 Cowork 嘅強項 — **重覆、多來源、有明確輸出、但最後一步要你親自 send**。設定一次，每月 1 號 10am 自動起晒稿，你坐低半個鐘檢視 + 撳 send 就完。
 
-> Caveat：Cowork 仲係 research preview，要 Pro / Max plan。**唔好叫佢 auto-send invoice email** — invoice 出錯（rate 計錯、發錯客）係要追嘅，draft mode 永遠係最後一道閘。
+> 注意：Cowork 仲係 research preview，要 Pro / Max plan。**唔好叫佢自動 send invoice email** — invoice 出錯（收費計錯、發錯客）係要追嘅，草稿模式永遠係最後一道閘。
 
 ## 跟住做
 
-### 1. 預備 timesheet source + client master list
+### 1. 預備工時表來源 + 客戶主檔
 
 Cowork 要兩樣嘢做基礎：
 
-**Timesheet source**（揀其中一個）：
+**工時表來源**（揀其中一個）：
 
-- **Toggl Track**：去 Reports → Detailed → export CSV，或者直接畀 Claude 用你個 Toggl API token 去 pull
+- **Toggl Track**：去 Reports → Detailed → 匯出 CSV，或者直接畀 Claude 用你個 Toggl API token 去抽
 - **Clockify**：同上
-- **Google Sheet**：如果你自己手 log（一行一個 session：date / client / hours / description）
+- **Google Sheet**：如果你自己手動記（一行一條紀錄：日期 / 客戶 / 鐘數 / 描述）
 
-**Client master list** — 開一個 `~/Documents/freelance/clients.csv`：
+**客戶主檔** — 開一個 `~/Documents/freelance/clients.csv`：
 
 ```
 client_id,client_name,contact_email,hourly_rate_hkd,currency,payment_terms,billing_address
@@ -53,82 +53,82 @@ TKO,TKO Studio,finance@tko.studio,1000,HKD,NET 14,
 ZEN,Zenith Tokyo,ap@zenith.jp,150,USD,NET 30,3-1-1 Shibuya Tokyo
 ```
 
-呢張表係 source of truth — Claude 唔會自己估 rate、自己估 email，全部由呢度攞。
+呢張表係唯一依據 — Claude 唔會自己估收費、自己估 email，全部由呢度攞。
 
-再開個 invoice template folder：`~/Documents/freelance/invoices/2026/`。Template 用 markdown 或者 .docx 都得（Claude 可以 render 出 PDF）。
+再開個 invoice 範本資料夾：`~/Documents/freelance/invoices/2026/`。範本用 markdown 或者 .docx 都得（Claude 可以出 PDF）。
 
-### 2. 核心 prompt — 計 hours、apply rate、加 tax / discount、draft invoice
+### 2. 核心 prompt — 計鐘數、套收費、加稅 / 折扣、起稿 invoice
 
 入 Claude Desktop Cowork mode，畀佢呢個 prompt：
 
-<PromptBlock label="完整 prompt — 每月 1 號自動 draft invoice">
-我係香港 freelance consultant，每月 1 號早上 10 點要 draft 上個月嘅 invoice 畀我所有 active client。流程如下：
+<PromptBlock label="完整 prompt — 每月 1 號自動起稿 invoice">
+我係香港自由身顧問，每月 1 號早上 10 點要起稿上個月嘅 invoice 畀我所有現有客戶。流程如下：
 
 **輸入來源：**
 
-1. Toggl Track（用我個 API token，已存 keychain）— pull 上個月（即係 today minus 1 month 至 today minus 1 day）所有 time entries
-2. ~/Documents/freelance/clients.csv — client master list（包括 rate、email、payment terms、currency）
-3. ~/Documents/freelance/invoices/template.md — invoice template
-4. ~/Documents/freelance/invoices/last-invoice-number.txt — 上一張 invoice 嘅編號（用嚟 increment）
+1. Toggl Track（用我個 API token，已存喺 keychain）— 抽上個月（即係今日減 1 個月至今日減 1 日）所有時間紀錄
+2. ~/Documents/freelance/clients.csv — 客戶主檔（包括收費、email、找數期、幣值）
+3. ~/Documents/freelance/invoices/template.md — invoice 範本
+4. ~/Documents/freelance/invoices/last-invoice-number.txt — 上一張 invoice 嘅編號（用嚟遞增）
 
-**第一步：pull + group**
+**第一步：抽 + 分組**
 
-- 攞上個月 Toggl entries
-- 按 client 欄位（Toggl 入面個 client field）group
-- 每個 client 計：total hours、entries 清單（date / description / hours）
-- 同 clients.csv 對 client_name，揾返 rate / email / payment terms
+- 攞上個月 Toggl 嘅紀錄
+- 按 Toggl 入面個 client 欄位分組
+- 每個客戶計：總鐘數、紀錄清單（日期 / 描述 / 鐘數）
+- 同 clients.csv 對 client_name，揾返收費 / email / 找數期
 
 **第二步：計數**
 
-- subtotal = total hours × hourly_rate
+- 小計 = 總鐘數 × 時薪
 - 如果客戶幣值唔係 HKD（即 currency 欄係 USD / RMB / JPY），保留原幣顯示
-- 如果我喺 ~/Documents/freelance/adjustments-[月份].txt 入面為某個 client 寫咗 discount 或 reimbursable expense，套落去（discount 減、expense 加）
-- HK freelancer 通常唔收 GST/VAT，所以 default 唔加 tax；如果某個 client 喺 clients.csv 有 tax_rate 欄，就加返
+- 如果我喺 ~/Documents/freelance/adjustments-[月份].txt 入面為某個客戶寫咗折扣或可報銷開支，套落去（折扣減、開支加）
+- 香港自由業者通常唔收 GST/VAT，所以預設唔加稅；如果某個客戶喺 clients.csv 有 tax_rate 欄，就加返
 
-**第三步：draft invoice**
+**第三步：起稿 invoice**
 
-- 每個 client 出一份：
-  - Invoice number：sequential，由 last-invoice-number.txt 開始 increment（例：INV-2026-042、INV-2026-043...）
-  - Issue date：今日
-  - Due date：今日 + payment_terms 日數
-  - Line items：用 description group（同類 session 合埋一行）；如果一個 client 嘅 entries 超過 15 條就用「by category」mode（design / dev / meeting / admin）
-  - Subtotal、(discount / expense)、Total、Currency
-  - Payment instructions：由 ~/Documents/freelance/payment-instructions.md 嗰度 import
-- Render 做 PDF，存喺 ~/Documents/freelance/invoices/2026/[月份]/INV-XXXX-[client_id].pdf
-- 同時生成一份 ~/Documents/freelance/invoices/2026/[月份]/summary.md（所有客 total、grand total、有冇 flagged 嘅）
+- 每個客戶出一份：
+  - Invoice 編號：順序遞增，由 last-invoice-number.txt 開始（例：INV-2026-042、INV-2026-043...）
+  - 開單日期：今日
+  - 找數限期：今日 + payment_terms 日數
+  - 項目明細：用描述分組（同類紀錄合埋一行）；如果一個客戶嘅紀錄超過 15 條就用「按類別」模式（design / dev / meeting / admin）
+  - 小計、（折扣 / 開支）、總額、幣值
+  - 找數指示：由 ~/Documents/freelance/payment-instructions.md 嗰度匯入
+- 出做 PDF，存喺 ~/Documents/freelance/invoices/2026/[月份]/INV-XXXX-[client_id].pdf
+- 同時生成一份 ~/Documents/freelance/invoices/2026/[月份]/summary.md（所有客戶嘅總額、總計、有冇要標記嘅）
 
-**第四步：draft email（DRAFT only — 唔好 send）**
+**第四步：起稿 email（淨係 DRAFT — 唔好 send）**
 
-- 每個 client 草擬 一封 email，存做 .eml 喺同一個 folder：
+- 每個客戶草擬一封 email，存做 .eml 喺同一個資料夾：
   - To：contact_email
   - Subject：「Invoice [INV number] — [月份] services」
-  - Body 用呢個語氣（professional but warm）：
-    「Hi [client first name]，
-    附上 [月份] 嘅 invoice（[INV number]），總額 [Total][Currency]。Payment terms [payment_terms] 日。
-    如有問題隨時 ping 我，唔該晒。
+  - Body 用呢個語氣（專業但親切）：
+    「Hi [客戶名]，
+    附上 [月份] 嘅 invoice（[INV number]），總額 [Total][Currency]。找數期 [payment_terms] 日。
+    如有問題隨時搵我，唔該晒。
     [我嘅名]」
-  - Attach 個 PDF
+  - 夾埋個 PDF
 
 **第五步：通知我**
 
 - 寄一封 email 畀我（subject「[月份] Invoice Draft Ready — N clients, total HKD X」）
-- Body 包：每個 client 一行（client name / hours / total / currency / 有冇 flag）+ 個 grand total + 邊個 folder 揾啲 draft + 提醒「全部係 draft，去 review 完先 send」
+- Body 包括：每個客戶一行（客戶名 / 鐘數 / 總額 / 幣值 / 有冇標記）+ 個總計 + 喺邊個資料夾揾啲 draft + 提醒「全部係 draft，檢視完先 send」
 
 **重要限制：**
 
-- **絕對唔好自動 send 任何 invoice email**。draft 完通知我就停。
-- 如果某個 client 上個月 0 小時，skip 唔出 invoice（但喺 summary 入面寫低「[client]: 0h, no invoice」）
-- 如果某條 entry 冇 client 欄（Toggl 忘咗 tag），全部 dump 入 ~/Documents/freelance/invoices/2026/[月份]/untagged.csv 等我手動分
-- 計完 increment last-invoice-number.txt（但只有我之後撳 send 先 commit；draft 階段先寫去 .pending 檔）
+- **絕對唔好自動 send 任何 invoice email**。起稿完通知我就停。
+- 如果某個客戶上個月 0 小時，略過唔出 invoice（但喺 summary 寫低「[client]: 0h, no invoice」）
+- 如果某條紀錄冇 client 欄（Toggl 漏咗 tag），全部倒入 ~/Documents/freelance/invoices/2026/[月份]/untagged.csv 等我手動分
+- 計完遞增 last-invoice-number.txt（但只有我之後撳 send 先確認；draft 階段先寫去 .pending 檔）
 
-設定 好之後 核對 我，再 schedule 落每月 1 號 10am 自動跑。
+設定好之後同我核對，再排去每月 1 號 10am 自動跑。
 </PromptBlock>
 
-第一次跑一定要 預演：「即場跑一次上個月 data，輸出晒所有檔案但**唔好真係 schedule**」。睇下 rate 計啱冇、email 語氣啱唔啱、PDF format 過唔過得到客個 finance team。OK 先啟用 schedule。
+第一次跑一定要預演：「即場跑一次上個月嘅 data，輸出晒所有檔案但**唔好真係 schedule**」。睇下收費計啱冇、email 語氣啱唔啱、PDF 格式過唔過到客戶嘅財務部。冇問題先啟用 schedule。
 
-### 3. PDF / markdown output + email draft（DON'T auto-send）
+### 3. PDF / markdown 輸出 + email 草稿（唔好自動 send）
 
-最後 output 應該係呢個 folder structure：
+最後輸出應該係呢個資料夾結構：
 
 ```
 ~/Documents/freelance/invoices/2026/05/
@@ -140,21 +140,21 @@ ZEN,Zenith Tokyo,ap@zenith.jp,150,USD,NET 30,3-1-1 Shibuya Tokyo
 ├── INV-2026-044-ZEN.eml
 ├── summary.md                  ← 你睇呢度先
 ├── untagged.csv                ← 有嘢漏 tag 嘅
-└── last-invoice-number.pending ← review 完先 promote
+└── last-invoice-number.pending ← 檢視完先 promote
 ```
 
 你做嘅事：
 
-1. 開 `summary.md`，掃一眼 grand total — 同你印象中嘅月度收入差幾多？差太遠就有嘢錯
-2. 開 `untagged.csv` — 處理漏 tag 嘅 entries（手動分返客或者算 admin time）
-3. 隨機抽 1–2 個 client 嘅 PDF 開嚟睇 — line items 有冇重覆、rate 啱唔啱、due date 啱唔啱
-4. 開每個 .eml（macOS 雙撳會喺 Mail 度開做 draft），檢一檢語氣，撳 send
+1. 開 `summary.md`，掃一眼總計 — 同你印象中嘅月收入差幾多？差太遠就有嘢錯
+2. 開 `untagged.csv` — 處理漏咗 tag 嘅紀錄（手動分返客戶或者當 admin 時間）
+3. 隨機抽 1–2 個客戶嘅 PDF 開嚟睇 — 項目明細有冇重覆、收費啱唔啱、找數限期啱唔啱
+4. 開每個 .eml（macOS 㩒兩下會喺 Mail 度開做 draft），檢一檢語氣，撳 send
 
-**為咩唔 auto-send？** Invoice 錯一次嘅成本（追數、改 invoice、同 client 解釋）遠高過你 review 嗰半個鐘。Cowork 嘅哲學係「**機械工序自動化、判斷工序留返畀人**」，invoice send 就係嗰條判斷線。
+**點解唔自動 send？** Invoice 錯一次嘅成本（追數、改 invoice、同客戶解釋）遠高過你檢視嗰半個鐘。Cowork 嘅哲學係「**機械工序自動化、判斷工序留返畀人**」，invoice send 就係嗰條判斷線。
 
-### 4. Payment tracker — 點 update status
+### 4. 收款追蹤 — 點更新狀態
 
-出咗 invoice 之後仲有 follow-up：邊張 paid、邊張過期。再開一個 `~/Documents/freelance/ar-tracker.csv`：
+出咗 invoice 之後仲有跟進：邊張找咗數、邊張過期。再開一個 `~/Documents/freelance/ar-tracker.csv`：
 
 ```
 invoice_number,client_id,issue_date,due_date,amount,currency,status,paid_date,notes
@@ -163,97 +163,97 @@ INV-2026-043,TKO,2026-05-01,2026-05-15,8000,HKD,paid,2026-05-12,
 INV-2026-044,ZEN,2026-05-01,2026-05-31,3750,USD,overdue,,sent reminder 06/05
 ```
 
-每月 1 號嗰個 task 加多一步：**「跑完 draft 之後，將今次新出嘅 invoice append 落 ar-tracker.csv，預設 status = 'draft'。我撳 send 嗰陣，我會手動改去 'sent'。」**
+每月 1 號嗰個任務加多一步：**「跑完 draft 之後，將今次新出嘅 invoice 加落 ar-tracker.csv，預設 status = 'draft'。我撳 send 嗰陣，我會手動改去 'sent'。」**
 
-再加一個每星期一 9am 嘅輕量 task：「scan ar-tracker.csv，如果有 status='sent' 而 today > due_date 嘅，flag 做 '過期' 同寄個 weekly summary 畀我」。呢個係下面變化 3 嘅基礎。
+再加一個每星期一 9am 嘅輕量任務：「掃 ar-tracker.csv，如果有 status='sent' 而 today > due_date 嘅，標記做 '過期' 同寄個每週 summary 畀我」。呢個係下面變化 3 嘅基礎。
 
 ## 變化
 
 ### 變化 1：Retainer 版（固定每月金額 + 附交付物 summary）
 
-有啲 client 唔係 hourly billing，係月費 retainer（例：每月 HKD 25,000，包乜乜乜）。
+有啲客戶唔係按鐘計，係月費 retainer（例：每月 HKD 25,000，包乜乜乜）。
 
-<PromptBlock label="變化 1 — Retainer client">
+<PromptBlock label="變化 1 — Retainer 客戶">
 （喺 clients.csv 加多兩欄：billing_type = "hourly" 或 "retainer"、monthly_fee_hkd）
 
-對於 billing_type = "retainer" 嘅 client：
+對於 billing_type = "retainer" 嘅客戶：
 
-- 唔使計 hours × rate，subtotal 直接用 monthly_fee_hkd
-- 但係仍然 pull 佢嗰個月嘅 Toggl entries — 用嚟生成「Deliverables this month」section attach 落 invoice：
-  - 用 description group（design / strategy / meetings...）
-  - 每組寫總 hours 同 1–2 句 highlight（由 entry description 抽）
-  - 唔顯示 hourly rate
-- 額外加一句 footer：「Retainer covers up to [X] hours/month per agreement; this month: [Y] hours.」
-- 如果 Y > X 多過 10%，喺 summary.md flag「ACME exceeded retainer cap」等我考慮傾加價
+- 唔使計鐘數 × 收費，小計直接用 monthly_fee_hkd
+- 但係仍然抽佢嗰個月嘅 Toggl 紀錄 — 用嚟生成「Deliverables this month」嗰段夾落 invoice：
+  - 用描述分組（design / strategy / meetings...）
+  - 每組寫總鐘數同 1–2 句重點（由紀錄描述抽出嚟）
+  - 唔顯示時薪
+- 額外加一句頁尾：「Retainer covers up to [X] hours/month per agreement; this month: [Y] hours.」
+- 如果 Y > X 多過 10%，喺 summary.md 標記「ACME exceeded retainer cap」等我考慮傾加價
 </PromptBlock>
 
-呢個轉變令 retainer client 收 invoice 嘅時候唔係淨係見到「HKD 25,000，due NET 30」— 仲見到佢哋畀嘅錢買咗乜，續約 / 加價傾起上嚟易好多。
+呢個轉變令 retainer 客戶收 invoice 嘅時候唔係淨係見到「HKD 25,000，due NET 30」— 仲見到佢哋畀嘅錢買咗啲乜，續約 / 加價傾起上嚟易好多。
 
-### 變化 2：Multi-currency（USD / HKD / RMB client mix）
+### 變化 2：Multi-currency（USD / HKD / RMB 客戶混合）
 
-香港 freelancer 客源好多時 split — 本地 client 收 HKD、日本 / 新加坡 client 收 USD、大陸 client 收 RMB。
+香港自由業者客源好多時分開 — 本地客戶收 HKD、日本 / 新加坡客戶收 USD、大陸客戶收 RMB。
 
 <PromptBlock label="變化 2 — 多幣值處理">
 （clients.csv 已經有 currency 欄）
 
-對於非 HKD client：
+對於非 HKD 客戶：
 
-- Invoice 完全用 client 嘅 currency 出（USD client 見到嘅係 USD 金額、唔好喺 invoice 度顯示 HKD 換算 — 會搞亂佢個 AP）
-- Hourly rate 用 clients.csv 入面 client 自己嘅幣值（即 ZEN 嘅 rate 係 150 USD，唔係 1170 HKD 換算）
+- Invoice 完全用客戶嘅幣值出（USD 客戶見到嘅係 USD 金額、唔好喺 invoice 度顯示 HKD 換算 — 會搞亂佢個 AP）
+- 時薪用 clients.csv 入面客戶自己嘅幣值（即 ZEN 嘅收費係 150 USD，唔係 1170 HKD 換算）
 
-但係 summary.md 入面**我自己睇嘅版本**要：
+但係 summary.md 入面**我自己睇嗰個版本**要：
 
-- 每個 client 顯示原幣 + 用今日中銀牌價換算 HKD（標明匯率同日期）
+- 每個客戶顯示原幣 + 用今日中銀牌價換算 HKD（標明匯率同日期）
 - Grand total 顯示「HKD equivalent: X」— 我用嚟同上個月比、同銀行戶口比
 
-Payment instructions 按 currency 切：
+找數指示按幣值分：
 
 - HKD：本地過數資料
-- USD：Wise / SWIFT info
-- RMB：支付寶 / WeChat Pay info
-- 由 ~/Documents/freelance/payment-instructions-[currency].md 各自 import
+- USD：Wise / SWIFT 資料
+- RMB：支付寶 / WeChat Pay 資料
+- 由 ~/Documents/freelance/payment-instructions-[currency].md 各自匯入
 </PromptBlock>
 
-呢個變化解決一個實際痛點：用單一幣值畀所有 client 會出事（USD client 收到一張 HKD invoice 要 finance team 自己換、好多時佢哋直接退返畀你）。
+呢個變化解決一個實際痛點：用單一幣值畀所有客戶會出事（USD 客戶收到一張 HKD invoice 要自己財務部換、好多時佢哋直接退返畀你）。
 
-### 變化 3：加 follow-up 自動 nudge（過期 >14 日自動起稿催收 email）
+### 變化 3：加自動跟進催數（過期 >14 日自動起稿催收 email）
 
-最辛苦嘅 freelance 工作唔係出 invoice，係催數。
+最辛苦嘅自由業工作唔係出 invoice，係催數。
 
-<PromptBlock label="變化 3 — Overdue follow-up draft">
+<PromptBlock label="變化 3 — 過期跟進草稿">
 每星期一早上 9 點額外跑：
 
-第一步：scan ~/Documents/freelance/ar-tracker.csv
+第一步：掃 ~/Documents/freelance/ar-tracker.csv
 
 - 揾所有 status = 'sent' 而 (today - due_date) > 0 嘅 invoice
 - 分三層：
-  - **Layer 1**（過期 1–14 日）：唔做嘢，但喺 weekly summary 列出嚟
-  - **Layer 2**（過期 15–30 日）：草擬 一封 polite reminder email（.eml 存喺 ~/Documents/freelance/followups/）
-  - **Layer 3**（過期 31+ 日）：草擬 一封 firm but still professional 嘅 follow-up，加 cc 我自己一份做記錄
+  - **層 1**（過期 1–14 日）：唔做嘢，但喺每週 summary 列出嚟
+  - **層 2**（過期 15–30 日）：草擬一封客氣嘅提醒 email（.eml 存喺 ~/Documents/freelance/followups/）
+  - **層 3**（過期 31+ 日）：草擬一封語氣堅定但仍然專業嘅跟進，加 cc 我自己一份做記錄
 
-Layer 2 email tone：
+層 2 email 語氣：
 「Hi [client]，
 Just a friendly reminder that invoice [number] (issued [date], due [date]) is still showing as outstanding on my end — total [amount][currency]. 可能已經 process 緊，唔該幫我確認返 status？
 Thanks!
 [我]」
 
-Layer 3 email tone：
+層 3 email 語氣：
 「Hi [client]，
 Following up again on invoice [number], now [N] days past due. Could you please advise on payment status by end of this week? Happy to jump on a call if there's any issue I should know about.
 Thanks for your help,
 [我]」
 
-第二步：寄 weekly summary 畀我
+第二步：寄每週 summary 畀我
 
 - Subject：「AR Status — [N] 過期, HKD X outstanding」
-- Body：3 個 layer 各自列出（invoice number / client / amount / days 過期 / draft 喺邊）
-- 提醒：所有 follow-up email 都係 draft，要我自己 review + send
+- Body：3 個層各自列出（invoice 編號 / 客戶 / 金額 / 過期日數 / draft 喺邊）
+- 提醒：所有跟進 email 都係 draft，要我自己檢視 + send
 
-絕對唔好自動 send 催收 email — 催數係 relationship 嘅事，tone 一錯爛個 client。
+絕對唔好自動 send 催收 email — 催數係關係嘅事，語氣一錯就爛咗個客戶。
 </PromptBlock>
 
-催收係 freelancer 嘅 hidden labor — 大部分人因為「唔好意思」拖到 60、90 日先出聲，最後傷感情又收唔到錢。Cowork draft 好晒，你淨係要決定「呢封 send 唔 send、要唔要改幾個字」就夠 — 心理門檻低好多。
+催收係自由業者嘅隱形勞動 — 大部分人因為「唔好意思」拖到 60、90 日先出聲，最後傷感情又收唔到錢。Cowork 起晒稿，你淨係要決定「呢封 send 唔 send、要唔要改幾個字」就夠 — 心理門檻低好多。
 
 ---
 
-> Invoice 同催數係 freelance 入面最重覆、但又最影響現金流嘅工序。Cowork 嘅角色唔係搶你個 final say — 係幫你由「諗起就唔想做」變返「review + send」嘅 30 分鐘工。**機械嘢留畀機械、判斷嘢留畀你**，月月準時收錢嗰種安穩，先係 freelance 真正嘅自由。
+> Invoice 同催數係自由業入面最重覆、但又最影響現金流嘅工序。Cowork 嘅角色唔係搶你個最終決定權 — 係幫你由「諗起就唔想做」變返「檢視 + send」嘅 30 分鐘工。**機械嘢留畀機械、判斷嘢留畀你**，月月準時收錢嗰種安穩，先係自由業真正嘅自由。
