@@ -1,5 +1,5 @@
 ---
-title: "香港租約細節拆解：用 Claude 揾出業主嗰啲 catch（租客必睇）"
+title: "香港租約細節拆解：用 Claude 揾出業主嗰啲伏（租客必睇）"
 slug: "hong-kong-tenancy-agreement-claude"
 issue: 10
 publishedAt: 2026-02-10
@@ -11,7 +11,7 @@ heroImage: "/hero/hong-kong-tenancy-agreement-claude.webp"
 difficulty: 2
 timeMinutes: 30
 toolsNeeded: ["Claude Chat", "租約 PDF"]
-description: "香港租約細節拆解：用 Claude AI 一次過讀整份 tenancy agreement，揾出 hidden clause、預警 unfair term、提示問業主嘅 question。租客 sign 之前必做嘅 30 分鐘。"
+description: "香港租約細節拆解：用 Claude AI 一次過讀晒成份 tenancy agreement，揾出暗藏條款、預警唔公道嘅條文、提示要問業主嘅問題。租客簽之前必做嘅 30 分鐘。"
 keywords: ["香港租約", "tenancy agreement", "租客 權益", "租屋 注意", "claude 法律"]
 related: ["hong-kong-mortgage-comparison", "claude-pdf-summary"]
 featured: false
@@ -19,142 +19,142 @@ featured: false
 
 ## 情境
 
-你睇咗單樓，業主 send 份租約 PDF 落你 WhatsApp，叫你「睇下 OK 就 sign」。
+你睇咗單樓，業主 send 份租約 PDF 落你 WhatsApp，叫你「睇下 OK 就簽」。
 
 呢份租約：
 
 - **15-20 頁，律師體中文**（甚至英中混雜）
-- **充滿 standard term 同 boilerplate**——令你以為「咁多嘅，都係 normal 啦」
-- **暗藏 unfavorable clause**——例如：押金條件、提前退租罰款、修葺責任、寵物 / 同住 restriction、續約 rent increase mechanism
+- **滿晒標準條文同行貨**——令你以為「咁多嘅，都係正常啦」
+- **暗藏對你唔利嘅條款**——例如：押金條件、提前退租罰款、修葺責任、寵物／同住限制、續約加租機制
 
-你 sign 之前需要 30 分鐘讀清楚，但你冇法律 background，亦冇兩個鐘。
+你簽之前要 30 分鐘讀清楚，但你冇法律底子，又冇兩個鐘。
 
-呢篇用 Claude 做 30 分鐘嘅 **租約細節拆解**——揾出 unusual clause、預警可能蝕底嘅 term、列你應該問業主嘅 question。
+呢篇教你用 Claude 做 30 分鐘嘅 **租約細節拆解**——揾出唔尋常嘅條款、預警可能蝕底嘅條文、列出你應該問業主嘅問題。
 
-> **重要 disclaimer**：呢個 process 唔係 legal advice。Claude 嘅 output 係幫你**理解條約 + 識得問問題**，唔取代律師意見。涉及大金額或者你 strong 唔肯定，sign 之前花 $1,500-2,000 揾律師睇半個鐘。
+> **重要免責聲明**：呢個過程唔係法律意見。Claude 幫到你嘅，係**睇得明條約 + 識得問問題**，唔取代律師意見。涉及大金額、或者你好唔肯定，簽之前花 $1,500-2,000 揾律師睇半個鐘。
 
 ## 跟住做
 
 ### 1. 上傳份租約 PDF（如果係相機 scan，先 OCR）
 
-Claude.ai 直接拖入對話框就得。如果係手機影嘅 scan PDF（冇 text layer），先用 Mac Preview 或者 Adobe Acrobat 做 OCR。
+Claude.ai 直接拖入對話框就得。如果係手機影嘅掃描 PDF（冇文字圖層），先用 Mac Preview 或者 Adobe Acrobat 做 OCR。
 
 ### 2. 用呢個 prompt
 
-<PromptBlock label="完整 prompt — 香港租約 30 分鐘 strategic review">
-我會 sign 呢份香港住宅租約。請幫我做以下 review。 我嘅 context：
+<PromptBlock label="完整 prompt — 香港租約 30 分鐘策略式拆解">
+我即將簽呢份香港住宅租約，請幫我做以下分析。我嘅背景資料：
 
 - 物業類型：[私人住宅 / 公屋租出 / 唐樓 / 服務式公寓]
 - 月租：[填]
-- 押金（按金 + 上期）：[填，通常 2+1 月]
-- Tenancy 年期：[填，通常 2 年 fixed + 1 年生死合約]
-- 我嘅特殊情況：[例如：有寵物 / 想擺裝修 / 同 partner 唔結婚但同住 / 想 work from home 開細生意]
+- 押金（按金 + 上期）：[填，通常 2+1 個月]
+- 租期：[填，通常 2 年死約 + 1 年生約]
+- 我嘅特殊情況：[例如：有寵物 / 想做裝修 / 同伴侶冇結婚但同住 / 想喺屋企做細生意]
 
-請整理以下 4 個 section：
+請整理以下 4 個部分：
 
-**Part 1：Standard term overview**
-列出呢份租約 cover 嘅 key term，每個 1 句：rent、deposit、term、break clause、auto renewal、utilities、management fees、stamp duty。 標記每個係咪市場 standard。
+**Part 1：標準條文概覽**
+列出呢份租約涵蓋嘅關鍵條文，每個一句講晒：租金、押金、租期、break clause、自動續約、水電煤、管理費、印花稅。逐個標明係咪市場標準。
 
-**Part 2：⚠️ Red flag clauses（最重要嘅一段）**
-逐個 review 以下類別，揾出對租客 unfavorable 嘅 clause：
+**Part 2：⚠️ 紅旗條款（最重要嘅一段）**
+逐個檢視以下類別，揾出對租客唔利嘅條款：
 
-- **押金條件**：退還 timing、扣留條件（係咪只係「fair wear and tear」或者「any damage」呢類 broader wording）
-- **修葺責任**：邊啲屬 tenant、邊啲屬 landlord？特別注意「Tenant shall be responsible for all repairs」呢類 catch-all
-- **提前退租 / Break clause**：有冇？penalty 幾多？是否 unconscionable
-- **Subletting / 同住人**：完全禁、需 consent、定 freely allowed
+- **押金條件**：退還時間、扣留條件（係咪淨係「fair wear and tear」，定係「any damage」呢類過闊嘅寫法）
+- **修葺責任**：邊啲屬租客、邊啲屬業主？特別留意「Tenant shall be responsible for all repairs」呢類一網打盡嘅寫法
+- **提前退租 / break clause**：有冇？罰款幾多？合唔合理
+- **轉租 / 同住人**：完全禁止、需要同意、定可以自由安排
 - **寵物 / 裝修 / 改動**：明文點寫
-- **續約 mechanism**：rent increase 點計？capped？open market？
-- **Termination on breach**：點 trigger？landlord 有冇 unilateral right
-- **訪客 / 短期 letting (Airbnb)**：通常禁
+- **續約機制**：點計加租？有冇封頂？跟市價？
+- **違約終止**：點樣觸發？業主有冇單方面終止嘅權利
+- **訪客 / 短租（Airbnb）**：通常禁止
 
-每個 red flag 給：clause 個原文、point out 點 unfavorable、建議點 negotiate。
+每個紅旗都要畀：條款原文、指出點解對租客唔利、建議點傾。
 
-**Part 3：Missing protections（租約冇寫嘅嘢）**
-列出市場上 reasonable 但呢份租約**冇 cover** 嘅 protection，例如：
-- 業主進入物業需要 advance notice
-- 維修 default 後 tenant 嘅 recourse
-- 租金支付方法嘅 record（防業主將來話冇收到）
-- Force majeure / 物業變得不適居
+**Part 3：欠缺嘅保障（租約冇寫嘅嘢）**
+列出市場上合理、但呢份租約**冇涵蓋**嘅保障，例如：
+- 業主入屋要事先通知
+- 業主遲遲唔維修時，租客有咩追討途徑
+- 租金支付方法嘅紀錄（防業主將來話冇收過）
+- 不可抗力 / 物業變得唔適合居住
 
-**Part 4：我應該問業主嘅 question（最多 5 條）**
-基於 above analysis，列 5 條 sharp question 我 sign 之前要 negotiate 或者 confirm。
+**Part 4：我應該問業主嘅問題（最多 5 條）**
+根據以上分析，列出 5 條尖銳問題，我簽之前要傾或者要確認。
 
-語氣：直接、實用、predictive（提醒我可能未來會撞嘅問題）。
-唔出行貨 disclaimer 喺每個 section（信尾 caveat 已有）。
+語氣：直接、實用、有前瞻性（提醒我將來可能撞到嘅問題）。
+唔好喺每個部分都出行貨式免責聲明（信尾已經有 caveat）。
 </PromptBlock>
 
-### 3. 核對兩三個 critical point
+### 3. 核對兩三個關鍵位
 
-Claude 嘅 output 95% 啱，但呢類 legal 文件，**5% 嘅錯誤可以等於幾萬蚊**。 至少核實：
-- **押金條件嘅原文** ——「fair wear and tear」vs「any damage」差別好大
-- **Break clause 嘅 exact wording** ——你需要 escape clause 嗰陣，wording 邊個字都 matter
-- **Auto renewal 同續約 rent**——通常呢度業主埋伏
+Claude 嘅 output 95% 啱，但呢類法律文件，**5% 嘅錯誤可以等於幾萬蚊**。至少核實：
+- **押金條件嘅原文**——「fair wear and tear」同「any damage」差好遠
+- **break clause 嘅準確字眼**——你要用退租條款嗰陣，邊一個字都好緊要
+- **自動續約同續約租金**——業主通常喺呢度埋伏
 
-### 4. 用 output 同業主 negotiate（或者揾律師審）
+### 4. 用 output 同業主傾（或者揾律師審）
 
-如果 red flag 一兩個，你可以直接 negotiate（業主通常會 budge 細節）。
-如果 red flag 三個以上，**呢份租約唔係 normal**，揾律師審先 sign 比較安全。
+如果紅旗得一兩個，你可以直接同業主傾（細節位業主通常肯讓）。
+如果紅旗三個以上，**呢份租約唔尋常**，揾律師審過先簽會穩陣啲。
 
 ## 變化例子
 
-### 變化 1：商業 / shop / office 租約
+### 變化 1：商業 / 鋪位 / 寫字樓租約
 
-<PromptBlock label="變化 1 — 商業租約 review">
-同 above prompt 一樣，但呢份係商業租約（[shop / office / industrial]）。
+<PromptBlock label="變化 1 — 商業租約拆解">
+同上面個 prompt 一樣，但呢份係商業租約（[鋪位 / 寫字樓 / 工業單位]）。
 我嘅生意係：[填]
 
-特別 focus 以下嘢：
-- **Permitted use clause**——清晰寫明我嘅生意係 permitted？（最常釀爭議）
-- **Outgoings**——management fee、rates、government rent 邊個畀？
-- **Reinstatement obligation**——退場時要還原成乜樣？呢個可以幾萬蚊
-- **Fitting out 期同 rent free 期**——點 calc？
-- **Surrender / 提前退場**——商業 lease 嘅 break penalty 通常嚴重
-- **Anchor tenant / 商場 mix 變動**——如果你係 mall tenant，呢個對你影響大
+特別留意以下嘢：
+- **准許用途條款**——有冇清楚寫明我嘅生意係准許嘅？（最常引起爭議）
+- **雜費（outgoings）**——管理費、差餉、地租邊個畀？
+- **還原責任**——退場時要還原成點？呢個可以幾萬蚊
+- **裝修期同免租期**——點計？
+- **交吉 / 提前退場**——商業租約嘅退租罰款通常好重
+- **主租戶 / 商場租戶組合變動**——如果你係商場租戶，呢個對你影響好大
 
-語氣：商業 due diligence。
+語氣：商業盡職審查。
 </PromptBlock>
 
 ### 變化 2：你想退租，業主話要罰錢
 
-<PromptBlock label="變化 2 — 退租 dispute">
-我而家已經 sign 咗租約 [幾耐]，因為 [原因] 想提早退租。
-業主話我要畀 [幾多錢] penalty。
+<PromptBlock label="變化 2 — 退租爭議">
+我而家已經簽咗租約 [幾耐]，因為 [原因] 想提早退租。
+業主話我要畀 [幾多錢] 罰款。
 
 請：
-1. Review 我份租約嘅 break / early termination clause（原文喺下面）
-2. Confirm 業主 claim 嗰個 amount 係咪 align 條文
-3. 揾出邊度有 ambiguity 我可以 negotiate
-4. 列我可以提嘅 alternative（例如：揾人接手剩低 lease / pay rent until landlord finds new tenant / mitigation argument）
-5. 草擬一封 email 畀業主 propose alternative
+1. 檢視我份租約嘅 break / 提前終止條款（原文喺下面）
+2. 確認業主索取嗰個金額係咪同條文一致
+3. 揾出邊度有含糊位、我可以同佢傾
+4. 列出我可以提出嘅替代方案（例如：揾人接手剩低嘅租期 / 畀租金直到業主搵到新租客 / 損失減輕嘅理據）
+5. 草擬一封 email 畀業主，提出替代方案
 
-【租約條文】：（貼相關 clauses）
+【租約條文】：（貼相關條款）
 </PromptBlock>
 
 ### 變化 3：你係業主，要起稿一份對你有利嘅租約
 
-<PromptBlock label="變化 3 — 業主視角 draft">
-我有一個物業要租出，想 草擬 一份租約。
-我嘅 priority（排優先次序）：
-1. [例：保護物業免被 damage]
-2. [例：rent 收得穩定]
-3. [例：保留 future 重新發展物業嘅 flexibility]
+<PromptBlock label="變化 3 — 業主視角起草">
+我有一個物業要租出，想草擬一份租約。
+我嘅優先次序（由高到低）：
+1. [例：保護物業免受損壞]
+2. [例：租金收得穩定]
+3. [例：保留將來重新發展物業嘅彈性]
 
-請整一份 draft 標準住宅租約，要做到：
-1. 用 Hong Kong standard tenancy agreement 為 base
-2. 喺以下 area enhance landlord protection（但唔好 unconscionable 到 unenforceable）：
+請整一份標準住宅租約初稿，要做到：
+1. 以香港標準租約（standard tenancy agreement）為基礎
+2. 喺以下範疇加強業主保障（但唔好過分到變成無法執行）：
    - 押金條件
    - 修葺責任
-   - 物業 inspection right
-   - 退場 reinstatement
-3. 同我講邊啲 clause 一般要 negotiate（即係如果租客有 leverage 會要改）
+   - 物業查察權
+   - 退場還原
+3. 同我講邊啲條款一般會被要求修改（即係租客有籌碼時會想改嗰啲）
 
-Caveat：呢個 output 唔係 legal advice，sign 前一定要律師審。
+Caveat：呢個 output 唔係法律意見，簽之前一定要律師審。
 </PromptBlock>
 
 ## 一個心態
 
-香港租約市場唔對等——**業主有 boilerplate，租客 first time 簽**。 你睇唔出 catch，唔係你蠢，係 information asymmetry。
+香港租約市場唔對等——**業主有現成行貨，租客好多時係第一次簽**。你睇唔出有伏，唔係你蠢，係資訊不對稱。
 
-Claude 嘅優勢喺呢度最大：佢將業主嘅 boilerplate 變成你睇得明嘅 analysis。30 分鐘嘅 effort，可能幫你避到幾萬蚊蝕底。
+Claude 嘅優勢喺呢度最大：佢將業主嘅行貨條文，變成你睇得明嘅分析。30 分鐘嘅功夫，可能幫你避到幾萬蚊蝕底。
 
-**但記住 disclaimer**：呢個唔係 legal advice。涉及大金額或者你 unsure，律師費 $1,500 嘅回報永遠 positive。
+**但記住免責聲明**：呢個唔係法律意見。涉及大金額、或者你唔肯定，畀 $1,500 律師費永遠抵。

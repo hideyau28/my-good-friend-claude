@@ -1,5 +1,5 @@
 ---
-title: "八達通 auto reload setup 用 Claude：揀啱信用卡 + 自動 split 公私數 + 月底自動 review"
+title: "用 Claude 設定八達通自動增值：揀啱信用卡 + 自動分公私數 + 月底自動覆核"
 slug: "octopus-auto-reload-budget-claude"
 issue: 133
 publishedAt: 2026-05-27
@@ -10,7 +10,7 @@ subcategory: "個人 admin"
 difficulty: 1
 timeMinutes: 20
 toolsNeeded: ["Claude Chat"]
-description: "八達通每月洗 HK$500-2500，自動增值張卡揀錯就白蝕 cashback。教你用 Claude 比較 5 張 HK 信用卡 reward、設 reload threshold、split 公私數、月尾 audit 出 spending insight。"
+description: "八達通每月洗 HK$500-2500，自動增值張卡揀錯就白蝕 cashback。教你用 Claude 比較 5 張香港信用卡 reward、設定增值門檻、分公私數、月尾審一審睇消費規律。"
 keywords: ["八達通 auto reload", "HK 信用卡 reward", "八達通 自動增值", "Octopus card credit", "AAVS", "Citi PremierMiles", "HSBC Red"]
 related: ["monthly-budget-hk-claude", "hong-kong-tax-prep-claude", "emergency-fund-claude"]
 featured: false
@@ -18,7 +18,7 @@ featured: false
 
 ## 情境
 
-5 月 26 日夜晚，你 review 信用卡 statement。
+5 月 26 日夜晚，你睇緊信用卡 statement。
 
 過去 3 個月八達通自動增值（AAVS）：
 - 4 月：HK$1,500（3 次 × HK$500）
@@ -32,36 +32,36 @@ featured: false
 
 你心諗：「我用咗呢張卡 6 年，從來冇諗過 reload 邊張啱啲。」
 
-仲有第二個問題：你部分 reload 係公司報得（出差搭港鐵），部分係私人（返工 + 出街食飯）。但 statement 全部撈埋一齊，每月 reconcile 要半個鐘 manually 翻 receipt。
+仲有第二個問題：你部分增值係公司報得（出差搭港鐵），部分係私人（返工 + 出街食飯）。但 statement 全部撈埋一齊，每月對數要半個鐘逐張 receipt 慢慢翻。
 
-第三個問題：八達通 app 嘅 transaction history 你由 2024 年都未睇過。可能有：
-- 重複扣費（閘機 double-tap）
+第三個問題：八達通 app 嘅交易紀錄你由 2024 年都未睇過。可能有：
+- 重複扣費（閘機拍兩次）
 - 7-11 / OK 便利店嘅「細」衝動
 - 出咗街但唔記得邊度洗咗 HK$80
 
 呢個 admin 漏洞嘅悖論：
 - **「八達通好細數」** —— 但年計 HK$18-30k 流走
 - **「Cashback 1% 差別好細」** —— 但 HK$20k × 1% = HK$200 / 年免費
-- **「Auto reload 方便」** —— 但你冇諗過邊張卡 reward 高
-- **「公私數一齊撈」** —— 但月尾 reconcile 你 30 分鐘×12 = 6 個鐘 / 年
+- **「自動增值方便」** —— 但你冇諗過邊張卡 reward 高
+- **「公私數一齊撈」** —— 但月尾對數你 30 分鐘×12 = 6 個鐘 / 年
 
-你真正需要：**1 次 setup（20 分鐘）→ 揀啱卡 + 自動 split + 月尾 audit prompt template**。
+你真正需要：**設定一次（20 分鐘）→ 揀啱卡 + 自動分公私數 + 一個月尾審數嘅 prompt template**。
 
-呢篇用 Claude **比較 5 張 popular HK 卡 reward + 設 reload threshold + 公私數 categorization + 月底 transaction audit**。
+呢篇用 Claude **比較 5 張熱門香港卡嘅 reward + 設定增值門檻 + 公私數分類 + 月底交易審核**。
 
 ## 跟住做
 
-### 1. 攞 5 張卡 reward + 你 monthly Octopus spend
+### 1. 攞 5 張卡 reward + 你每月八達通開支
 
-開始之前 prep：
+開始之前準備：
 
 > **資料準備**
 > 1. 你而家 AAVS 連嘅信用卡
-> 2. 過去 3 個月八達通 reload 總額（睇 app → 交易紀錄）
-> 3. 過去 3 個月 reload 邊度用（返工 / 出街 / 公幹）
-> 4. 你手上其他 HK 信用卡（用緊定唔用緊）
+> 2. 過去 3 個月八達通增值總額（睇 app → 交易紀錄）
+> 3. 過去 3 個月增值咗喺邊度用（返工 / 出街 / 公幹）
+> 4. 你手上其他香港信用卡（用緊定唔用緊）
 
-5 張 popular HK 卡 Octopus AAVS reward（2026 年參考）：
+5 張熱門香港卡嘅八達通 AAVS reward（2026 年參考）：
 
 | 卡 | AAVS Reward | 備註 |
 |---|---|---|
@@ -72,22 +72,22 @@ featured: false
 | AE Explorer | 1.5 點 / HK$1 | 上限每月 reload |
 | BoC i-card | 1% rebate | 學生 / 細額友好 |
 
-呢個 list 唔係 exhaustive，但呢 5 張覆蓋大部分 HK 打工仔組合。
+呢個清單唔算齊晒，但呢 5 張已經覆蓋大部分香港打工仔嘅組合。
 
-### 2. PromptBlock — Claude 推薦 best card + reload amount
+### 2. PromptBlock — Claude 推薦最啱嘅卡同增值金額
 
-<PromptBlock label="完整 prompt — Octopus AAVS 卡 + reload 配置">
-我想 optimize 我嘅八達通自動增值 setup。
+<PromptBlock label="完整 prompt — 八達通 AAVS 揀卡 + 增值配置">
+我想執靚我嘅八達通自動增值設定。
 
 📊 **我嘅實際 spend**
 
-過去 3 個月八達通 reload：
-- 第 1 個月：HK[金額]（reload 次數：[次數]）
-- 第 2 個月：HK[金額]（reload 次數：[次數]）
-- 第 3 個月：HK[金額]（reload 次數：[次數]）
+過去 3 個月八達通增值：
+- 第 1 個月：HK[金額]（增值次數：[次數]）
+- 第 2 個月：HK[金額]（增值次數：[次數]）
+- 第 3 個月：HK[金額]（增值次數：[次數]）
 - 平均：HK[金額] / 月
 
-Reload 用途分布（粗略估計）：
+增值用途分布（粗略估計）：
 - 返工港鐵 / 巴士：[%]
 - 出街食飯 / 購物：[%]
 - 7-11 / OK 便利店：[%]
@@ -102,14 +102,14 @@ Reload 用途分布（粗略估計）：
 🎯 **目標**
 
 我想知：
-1. **邊張卡 reload reward 最高**（計埋上限）
-2. **每次 reload 邊個 amount 最 optimal**（HK$250 / HK$500 / HK$1,000 自動加值門檻嘅 trade-off）
-3. **應唔應該分 2 張卡**（一張公幹報得、一張私人，方便月尾 split）
+1. **邊張卡增值 reward 最高**（計埋上限）
+2. **每次增值幾多錢最抵**（HK$250 / HK$500 / HK$1,000 自動加值門檻之間嘅取捨）
+3. **應唔應該分 2 張卡**（一張公幹報得、一張私人，方便月尾分開）
 4. **新申請張卡定用而家有嘅** —— 計埋迎新 + 年費 + 真實 cashback
 
 📋 **比較分析**
 
-請對比以下 5 張卡（我 monthly reload HK[金額]）：
+請對比以下 5 張卡（我每月增值 HK[金額]）：
 
 1. Citi Cash Back（1.2%，上限）
 2. HSBC Red（0.4% 無上限）
@@ -128,84 +128,84 @@ Reload 用途分布（粗略估計）：
 
 最後畀我：
 - 排名前 3 張，理由
-- 「最 optimal」嘅 reload 配置（例如張 A 連 AAVS、張 B 連手機 7-11、張 C 連特定商戶）
-- 若要新申請：邊個迎新最值 + 申請時機 tip
+- 「最抵」嘅增值配置（例如張 A 連 AAVS、張 B 連手機 7-11、張 C 連特定商戶）
+- 若要新申請：邊個迎新最值 + 幾時申請最好
 
-語氣：實際、HK 本地、計埋年費 / 上限唔好淨講「點數最多」。
+語氣：實際、香港本地、計埋年費 / 上限唔好淨講「點數最多」。
 </PromptBlock>
 
-Claude 會比較計算，輸出具體 reward 數字。**「原來我每年蝕咗 HK$240 cashback」**呢類發現好常見。
+Claude 會幫你比較計算，輸出具體 reward 數字。**「原來我每年蝕咗 HK$240 cashback」**呢類發現好常見。
 
-### 3. Auto reload + categorization rule setup
+### 3. 設定自動增值同分類規則
 
-揀好卡之後，setup 自動規則：
+揀好卡之後，設定自動規則：
 
-<PromptBlock label="完整 prompt — AAVS threshold + 公私數 split 規則">
+<PromptBlock label="完整 prompt — 增值門檻 + 公私數分類規則">
 我已揀好[卡名]做 AAVS。
 
-📐 **Threshold 設置問題**
+📐 **門檻設定問題**
 
-八達通自動增值有 3 個常見 threshold：
-- 餘額 ≤ HK$0 → reload HK$250
-- 餘額 ≤ HK$0 → reload HK$500
-- 餘額 ≤ HK$0 → reload HK$1,000
+八達通自動增值有 3 個常見門檻：
+- 餘額 ≤ HK$0 → 增值 HK$250
+- 餘額 ≤ HK$0 → 增值 HK$500
+- 餘額 ≤ HK$0 → 增值 HK$1,000
 
 請幫我諗：
-- 我每月 reload [金額]，邊個 threshold 最 optimal？
-- Trade-off：細 reload 次數多（卡 reward 上限風險）vs 大 reload 次數少（八達通蝕咗實 cash）
-- 出 trip / 大件事如何 handle（過 HK$3,000 上限）
+- 我每月增值 [金額]，邊個門檻最抵？
+- 取捨：細額增值次數多（撞中卡 reward 上限風險）vs 大額增值次數少（八達通閘住一舊現金）
+- 出 trip / 大件事點處理（過 HK$3,000 上限）
 
-🏷 **公私數 split 規則**
+🏷 **公私數分類規則**
 
 我想月尾分得清邊啲係：
-- ✅ 公司可報（出差 / 客戶 meeting / 公幹）
+- ✅ 公司可報（出差 / 客戶會議 / 公幹）
 - 🏠 私人開支（返工日常 / 出街）
 
-但八達通 transaction history 唔會自動分。請建議：
+但八達通交易紀錄唔會自動分。請建議：
 
-1. **物理 split 法**
+1. **實體分卡法**
    - 用 2 張八達通？（1 張公幹 + 1 張私人）
-   - Trade-off：易分 vs 銀包重 / 增值麻煩
+   - 取捨：易分 vs 銀包重 / 增值麻煩
 
-2. **時間 split 法**
-   - 公幹日子標記（calendar）
-   - 月尾 交叉比對
+2. **時間區分法**
+   - 公幹日子喺 calendar 標記
+   - 月尾交叉比對
 
-3. **金額 pattern split 法**
+3. **金額規律區分法**
    - 大額（多過 HK$30 一筆）通常 = 出 trip 港鐵 / 高鐵 / 機場
    - 細額（少過 HK$20）通常 = 7-11 / OK / 便利店 / 茶餐廳
    - 中額（HK$20-30）= 港鐵日常返工
 
-4. **app rule 法**
+4. **app 標記法**
    - 八達通 app 可標記交易（手動）
-   - MTR Mobile app 紀錄獨立可見
-   - 邊個 efficient？
+   - MTR Mobile app 紀錄獨立睇到
+   - 邊個慳時間？
 
 🎯 **建議混合方案**
 
-畀我 1 個適合「每月 80% 私人 + 20% 公幹」用戶嘅 hybrid system：
-- 5 分鐘 / 月 admin 上限
+畀我 1 個適合「每月 80% 私人 + 20% 公幹」嘅人用嘅混合做法：
+- 每月最多花 5 分鐘
 - 數字準確度足夠報公司
 - 唔需要每筆手動分類
 
-📋 **Setup checklist**
+📋 **設定 checklist**
 
-- AAVS 申請 step
-- 八達通 app 設置
-- Calendar 提醒（公幹日 + 月尾 review）
-- 銀行 alert（reload 異常觸發，例如 1 日 reload 3 次 = 唔正常）
+- AAVS 申請步驟
+- 八達通 app 設定
+- Calendar 提醒（公幹日 + 月尾覆核）
+- 銀行通知（增值異常就提示，例如 1 日增值 3 次 = 唔正常）
 
-語氣：實際操作 step，唔好理論。
+語氣：實際操作步驟，唔好理論。
 </PromptBlock>
 
-### 4. 月底 transaction audit prompt
+### 4. 月底交易審核 prompt
 
-每月最後一日，跑呢個 audit：
+每月最後一日，行呢個審核：
 
-<PromptBlock label="完整 prompt — 月尾八達通 transaction audit">
-我貼上個月八達通 transaction history（由 app export 或截圖貼字）：
+<PromptBlock label="完整 prompt — 月尾八達通交易審核">
+我貼上個月八達通交易紀錄（由 app 匯出或截圖貼字）：
 
-[貼你嘅 transaction list — 通常 30-80 行]
+[貼你嘅交易紀錄 — 通常 30-80 行]
 
 格式：日期、時間、地點、金額、餘額
 
@@ -213,9 +213,9 @@ Claude 會比較計算，輸出具體 reward 數字。**「原來我每年蝕咗
 
 📊 **Section 1：總支出分解**
 
-- 總 reload 次數 + 金額
-- 總消費次數 + 金額（reload 唔計）
-- 平均每日 spend
+- 總增值次數 + 金額
+- 總消費次數 + 金額（增值唔計）
+- 平均每日消費
 - 同上 2 個月對比（若我貼埋）
 
 📊 **Section 2：類別自動分類**
@@ -232,32 +232,32 @@ Claude 會比較計算，輸出具體 reward 數字。**「原來我每年蝕咗
 
 每類：金額 + 次數 + 佔總 %
 
-📊 **Section 3：公私數預估 split**
+📊 **Section 3：公私數初步分類**
 
-根據 pattern（時間 + 地點 + 我貼嘅公幹日 list）：
+根據規律（時間 + 地點 + 我貼嘅公幹日清單）：
 - 公幹估算：HK[金額]（[次數] 筆）
 - 私人估算：HK[金額]（[次數] 筆）
-- 唔肯定（需手動 review）：[筆數]
+- 唔肯定（需手動覆核）：[筆數]
 
-📊 **Section 4：異常 flag**
+📊 **Section 4：異常標示**
 
 🚨 識別：
-- 同地點 1 分鐘內重複扣費（閘機 double-tap）
+- 同地點 1 分鐘內重複扣費（閘機拍兩次）
 - 異常大額（>HK$50 一筆）
 - 凌晨時段消費（係咪你？）
-- 7-11 / OK 高頻（細額衝動 pattern）
+- 7-11 / OK 高頻（細額衝動嘅規律）
 
-📊 **Section 5：spending insight**
+📊 **Section 5：消費觀察**
 
-- 「我嘅天我喺 7-11 洗咗 HK[金額]」嘅時刻
-- 邊日 spending 最高（pattern：星期五晚？）
-- 邊個地點重複出現（潛在自動消費）
+- 「我的天我喺 7-11 洗咗 HK[金額]」嘅時刻
+- 邊日消費最高（規律：星期五晚？）
+- 邊個地點重複出現（可能係自動扣款）
 
 📋 **Section 6：下個月行動**
 
-- 1 個 cut 建議（最低 hanging fruit）
-- 1 個 categorization 改善（pattern 唔清嘅地方）
-- 1 個 admin 簡化（如果你發現我做緊重複嘢）
+- 1 個慳錢建議（最易摘嘅低處果實）
+- 1 個分類改善（規律唔清嘅地方）
+- 1 個流程簡化（如果你發現我做緊重複嘢）
 
 語氣：偵探式、數據為本、唔批判。
 </PromptBlock>
@@ -270,7 +270,7 @@ Claude 會比較計算，輸出具體 reward 數字。**「原來我每年蝕咗
 
 如果你唔係淨用八達通：
 
-<PromptBlock label="變化 1 — 多 e-wallet 整合比較">
+<PromptBlock label="變化 1 — 多個 e-wallet 整合比較">
 我除咗八達通，仲用：
 - O! ePay：每月約 HK[金額]
 - AlipayHK：每月約 HK[金額]（淘寶 + 街市）
@@ -281,135 +281,135 @@ Claude 會比較計算，輸出具體 reward 數字。**「原來我每年蝕咗
 
 請比較：
 1. 邊個 e-wallet 嘅 top-up reward 最高
-2. 邊張信用卡 link 邊個 wallet 最 optimal
-3. 商戶 acceptance pattern（街市 / 連鎖 / 出街食 / 網購）
-4. 整體「每月 HK[金額] 流量」嘅 best card portfolio
+2. 邊張信用卡連邊個 wallet 最抵
+3. 邊度收邊個（街市 / 連鎖 / 出街食 / 網購）
+4. 整體「每月 HK[金額] 流量」最佳嘅卡組合
 
-🎯 **portfolio 設計**
+🎯 **組合設計**
 
-畀我 1 個「3 張卡 + 4 個 wallet」嘅 hybrid setup：
+畀我 1 個「3 張卡 + 4 個 wallet」嘅混合做法：
 - 每張卡負責邊個 wallet / 場景
-- 月尾 reconcile 流程
-- 唔好太多 admin overhead（5 分鐘 / 月上限）
+- 月尾對數流程
+- 唔好太多瑣碎工夫（每月最多 5 分鐘）
 
-📊 **常見組合 pitfall**
+📊 **常見組合伏位**
 
-- 重複 top-up reward cap
+- 重複撞中 top-up reward 上限
 - 年費食晒 cashback
-- Wallet 餘額凍結（年尾凍結現金 HK$5k+ 唔抵）
+- Wallet 餘額凍結（年尾凍住 HK$5k+ 現金唔抵）
 
-語氣：HK 本地實戰 setup，唔好抄外國 guide。
+語氣：香港本地實戰設定，唔好抄外國 guide。
 </PromptBlock>
 
-### 變化 2：學生家長 — student card + 學校貨幣
+### 變化 2：學生家長 — 學生卡 + 學校貨幣
 
 細路用嘅八達通邏輯唔同：
 
-<PromptBlock label="變化 2 — 學生 / 家長 八達通 setup">
+<PromptBlock label="變化 2 — 學生 / 家長八達通設定">
 我有[細路年齡]，佢用學生八達通。學校仲有獨立貨幣（例如 e-card 食飯 / 圖書館）。
 
 📐 **學生八達通專項**
 
-- ✅ 港鐵半價（要 register）
+- ✅ 港鐵半價（要登記）
 - ✅ 部分巴士優惠
 - ❌ AAVS 連家長信用卡（要家長帳戶授權）
 
 🎯 **問題**
 
 1. 應唔應該畀細路 AAVS？
-   - Pro：唔會冇錢搭車
-   - Con：失控 spending（7-11 零食）
+   - 好處：唔會冇錢搭車
+   - 壞處：消費失控（7-11 零食）
 
-2. 細路 spending 監控
-   - 八達通 app 可分享 view
-   - 每月 budget 例如 HK$300 零用？
-   - Threshold 設低（reload HK$100 一次 vs HK$500）
+2. 細路消費監控
+   - 八達通 app 可分享畫面睇
+   - 每月例如 HK$300 零用預算？
+   - 門檻設低（每次增值 HK$100 vs HK$500）
 
-3. 學校 e-card / 食飯 card
+3. 學校 e-card / 食飯卡
    - 同八達通分開
-   - 月尾 reconcile（學校 portal vs 八達通）
-   - 細路 spending literacy 教學機會
+   - 月尾對數（學校 portal vs 八達通）
+   - 教細路理財嘅機會
 
-📊 **建議 setup**
+📊 **建議設定**
 
-- Reload threshold：[建議金額]
-- 每月家長 review：5 分鐘 + 細路 5 分鐘一齊
-- 異常 alert（1 日 >HK$80 觸發 notification）
-- 「零食 budget」獨立 → 細路自己管
+- 增值門檻：[建議金額]
+- 每月家長覆核：5 分鐘 + 同細路一齊 5 分鐘
+- 異常通知（1 日 >HK$80 就提示）
+- 「零食預算」獨立 → 細路自己管
 
 🚨 **唔好**
-- AAVS 上限調高（細路無上限 = 災難）
-- 唔同細路傾就斬 reload（失去學習機會）
-- 用 monitoring 做罰（變鬥智鬥力）
+- AAVS 上限調高（細路冇上限 = 災難）
+- 唔同細路傾就斬增值（失去學習機會）
+- 用監控嚟懲罰（變鬥智鬥力）
 
-語氣：細路 financial literacy 教學 +家長控制平衡。
+語氣：教細路理財 + 家長控制兩者平衡。
 </PromptBlock>
 
 ### 變化 3：樂悠咭 senior — 公共交通優惠
 
 如果你 60 歲以上或者幫長輩 setup：
 
-<PromptBlock label="變化 3 — 樂悠咭 senior 配置">
+<PromptBlock label="變化 3 — 樂悠咭長者配置">
 我[60 歲以上 / 幫父母]用樂悠咭。
 
 📐 **樂悠咭專項**
 
-- HK$2 / 程（巴士、港鐵、渡輪、綠 minibus）
-- 大幅減低 transport budget
-- 但仲有：便利店、街市、的士、紅 minibus 用八達通
+- HK$2 / 程（巴士、港鐵、渡輪、綠色小巴）
+- 大幅減低交通開支
+- 但仲有：便利店、街市、的士、紅色小巴用八達通
 
 🎯 **配置問題**
 
-1. 樂悠咭 AAVS 設置？
+1. 樂悠咭點設定 AAVS？
    - 公共交通 HK$2 → 每月可能淨係 HK$60-120
-   - 但便利店 / 街市 / 食飯仲要 reload
-   - Threshold 建議：HK$200 一次
+   - 但便利店 / 街市 / 食飯仲要增值
+   - 門檻建議：每次 HK$200
 
 2. 卡分工
    - 樂悠咭：純交通 + 細額
    - 另 1 張普通八達通：街市大額 + 出 trip
-   - 信用卡 link 邊張？
+   - 信用卡連邊張？
 
-3. 長輩 spending pattern
+3. 長輩消費規律
    - 街市每日（細額 HK$20-80）
    - 茶樓 / 茶餐廳（中額）
    - 醫院 / 診所交通
    - 公屋 / 居屋管理費（部分用八達通）
 
-📊 **每月 review**
+📊 **每月覆核**
 
-幫長輩做唔好 over-engineer：
-- 5 分鐘 review（一齊飲茶傾）
-- 唔好 push budget app（學唔嚟）
-- focus：reload 次數有冇異常（迷路 / 被騙 flag）
+幫長輩做唔好整得太複雜：
+- 5 分鐘覆核（一齊飲茶傾）
+- 唔好硬推 budget app（學唔嚟）
+- 重點：增值次數有冇異常（迷路 / 被騙就睇得出）
 
-🚨 **詐騙 flag**
-- 突然大額 reload
+🚨 **詐騙警號**
+- 突然大額增值
 - 陌生地點消費
-- 1 日多次 reload（卡被盜？）
+- 1 日多次增值（卡被盜？）
 
-🎯 **長輩 financial wellness**
-- 樂悠咭省落嘅錢 → 鼓勵儲（每月 HK$500-1000 慳到）
-- 唔好「省咗就洗多啲」陷阱
-- 同子女月度傾 5 分鐘
+🎯 **長輩理財健康**
+- 樂悠咭慳落嘅錢 → 鼓勵儲（每月慳到 HK$500-1000）
+- 唔好跌入「慳咗就洗多啲」陷阱
+- 同子女每月傾 5 分鐘
 
-語氣：尊重長輩自主，但提供 safety net。
+語氣：尊重長輩自主，但提供一個安全網。
 </PromptBlock>
 
 ## 一個心態
 
 八達通呢類「細數 admin」嘅悖論：**單筆 HK$50 唔覺，但年計 HK$20k 唔睇。Cashback 1% 差別好細，但年計 HK$200 免費錢。**
 
-呢個悖論嘅原因：HK 人對「日常細額」有 cognitive blind spot。你會比較 HK$50 vs HK$80 嘅一頓飯，但唔會比較 0.4% vs 1.2% AAVS reward。
+呢個悖論嘅原因：香港人對「日常細額」有個盲點。你會格價 HK$50 同 HK$80 嘅一頓飯，但唔會格 0.4% 同 1.2% 嘅 AAVS reward。
 
-呢個心態嘅 reframe：八達通唔係「方便工具」—— 係**「每月 HK$1-2k 嘅 mini budget category」**。佢值得 20 分鐘 / 年 setup + 15 分鐘 / 月 audit。Total 3 個鐘 / 年 → 慳 HK$300-500 cashback + 6 個鐘公私數 reconcile = 真係抵。
+換個角度睇：八達通唔係「方便工具」—— 係**「每月 HK$1-2k 嘅一個小型開支類別」**。佢值得每年花 20 分鐘設定 + 每月 15 分鐘審一審。一年總共 3 個鐘 → 慳 HK$300-500 cashback + 6 個鐘公私數對數 = 真係抵。
 
-Claude 喺呢度嘅角色：你一個人 google 5 張卡 reward 要 1 個鐘 + 計上限 + 對自己 spend 估算 = 太煩。Claude 一次過比較 + 計 + 出 recommendation + 出 audit template。
+Claude 喺呢度嘅角色：你一個人 google 5 張卡 reward 要 1 個鐘 + 計上限 + 對自己嘅消費估算 = 太煩。Claude 一次過幫你比較 + 計 + 出建議 + 出審核 template。
 
 最後提醒：
 
 - ✅ **AAVS 配啱卡** = 每年免費 HK$200-400 cashback。低處果實。
-- ⚠️ **公私數分清** = 月尾慳半個鐘 + 報數準確（公司 audit 通過）。
-- 🎯 **月尾 audit 唔係 budget app 上身** = 15 分鐘看規律 + 1 個 cut 建議。可持續。
+- ⚠️ **公私數分清** = 月尾慳半個鐘 + 報數準確（公司審核過到關）。
+- 🎯 **月尾審數唔係 budget app 上身** = 15 分鐘睇規律 + 1 個慳錢建議。撐得住、做得長。
 
-今晚就試：開八達通 app → screenshot 上月 transaction → 貼入 Section 4 prompt → 15 分鐘有 insight。下個月再做一次，pattern 就清楚。
+今晚就試：開八達通 app → 截上月交易嘅圖 → 貼入 Section 4 prompt → 15 分鐘就有觀察。下個月再做一次，規律就清楚。

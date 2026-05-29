@@ -1,5 +1,5 @@
 ---
-title: "HK 睇樓出 offer 用 Claude：揾返真實成交價 + 賣方心態分析 + 出價 script"
+title: "HK 睇樓出 offer 用 Claude：揾返真實成交價 + 賣方心態分析 + 出價講法"
 slug: "property-offer-negotiation-claude-hk"
 issue: 141
 publishedAt: 2026-05-27
@@ -10,7 +10,7 @@ subcategory: "買樓 / 出價"
 difficulty: 2
 timeMinutes: 40
 toolsNeeded: ["Claude Chat", "瀏覽器（中原 / 美聯 / 香港置業 / 利嘉閣成交紀錄）", "土地註冊處 IRIS 系統（可選）"]
-description: "HK 睇樓出 offer 用 Claude：拆 listing 叫價、查返同屋苑同類成交、分析賣方 motivation（急讓 / 移民 / 投資轉手），再拎到一條可以喺 WhatsApp send 嘅出價 script + walkaway BATNA。"
+description: "HK 睇樓出 offer 用 Claude：拆 listing 叫價、查返同屋苑同類成交、分析賣方動機（急讓 / 移民 / 投資轉手），再拎到一條可以喺 WhatsApp 發畀 agent 嘅出價講法 + 抽身 BATNA。"
 keywords: ["HK 出價 樓", "中原成交", "二手樓 negotiate", "property offer Hong Kong", "賣方心態", "出 offer script"]
 related: ["hong-kong-mortgage-comparison", "hong-kong-tenancy-agreement-claude", "cowork-hk-property-listing-watchlist"]
 featured: false
@@ -22,31 +22,31 @@ featured: false
 
 > 「呢個盤好 hot，琴日已經有人入過 offer，業主開 $9.5M，你要快，就而家落 $9.3M quick offer，我 push 業主，可能畀你。」
 
-你個心既興奮又驚——興奮係因為終於見到啱嘅；驚係因為**呢個價究竟係咪 fair？業主係咪真係咁堅定？快啲落 offer 究竟係幫你定害你？**
+你個心既興奮又驚——興奮係因為終於見到啱嘅；驚係因為**呢個價究竟係咪合理？業主係咪真係咁堅定？快啲落 offer 究竟係幫你定害你？**
 
-呢篇教你出 offer 之前，用 Claude 做三段 prep：**(1) 核實叫價對唔對返同類成交、(2) 拆賣方 likely motivation、(3) 寫一條可以喺 WhatsApp send 嘅出價 script，連 BATNA**。
+呢篇教你出 offer 之前，用 Claude 做三段準備：**(1) 核實叫價對唔對返同類成交、(2) 拆賣方真正動機、(3) 寫一條可以喺 WhatsApp 發畀 agent 嘅出價講法，連 BATNA 都備定**。
 
-> 重要 disclaimer：Claude 出嘅 analysis 係幫你**理解 deal**，唔係 financial advice 亦都唔係 legal advice。最終出價拍板係你自己。臨約一 sign 落去就 binding，sign 之前真係要冷靜過。
+> 一個重要提醒：Claude 出嘅分析係幫你**睇清楚成單買賣**，唔係投資建議，亦都唔係法律意見。最終出價拍板係你自己。臨約一簽落去就有法律約束力，簽之前真係要冷靜過。
 
 ## 跟住做
 
-### 1. 收 listing info + 真實成交 data
+### 1. 收 listing 資料 + 真實成交數據
 
 開 Claude 之前，自己先收齊呢幾舊：
 
-- **Listing 本身**：copy 個 Centaline / 美聯 / 28Hse listing URL，再 複製 低叫價、面積、層數、座向、入伙年份、有冇連租約
-- **同屋苑近期成交**：去中原成交、美聯網上成交搜索、香港置業、利嘉閣，揀**過去 6 個月**、同屋苑、面積差 ±10% 以內、3 房（或者你 target 嘅房數）嘅成交。最少撈 5–8 宗
-- **如果想再 strict**：上土地註冊處 IRIS 攞返業主買入價（每次查 $20–25），睇佢幾時買、買幾錢——係 BATNA prep 嘅 game changer
-- **同區替代盤**：揾 2–3 個 listing 同你心水盤平嘅、面積差唔多嘅，當 anchor
+- **Listing 本身**：copy 個 Centaline / 美聯 / 28Hse listing URL，再抄低叫價、面積、層數、座向、入伙年份、有冇連租約
+- **同屋苑近期成交**：去中原成交、美聯網上成交搜尋、香港置業、利嘉閣，揀**過去 6 個月**、同屋苑、面積差 ±10% 以內、3 房（或者你想揾嘅房數）嘅成交。最少撈 5–8 宗
+- **如果想再嚴謹啲**：上土地註冊處 IRIS 攞返業主買入價（每次查 $20–25），睇佢幾時買、買幾錢——做 BATNA 準備嘅關鍵一着
+- **同區替代盤**：揾 2–3 個 listing 同你心水盤價錢相近、面積差唔多嘅，當參照
 
-呢一步唔可以 skip。Claude 唔係 live data 工具，**你餵幾準佢就答幾準**。
+呢一步唔可以省。Claude 唔係即時數據工具，**你餵幾準佢就答幾準**。
 
-### 2. 拆 fair price range + 賣方 motivation
+### 2. 拆合理價區間 + 賣方動機
 
-將上面啲 data 貼入 Claude，跑呢個 prompt。
+將上面啲數據貼入 Claude，跑呢個 prompt。
 
-<PromptBlock label="完整 prompt — fair price + 賣方心態分析">
-我喺度諗緊 buy 一個 HK 二手私樓單位。請幫我做以下三 part 分析。
+<PromptBlock label="完整 prompt — 合理價 + 賣方心態分析">
+我喺度諗緊買一個香港二手私樓單位。請幫我做以下三部分分析。
 
 **Listing 資料：**
 - 屋苑 / 街道：[屋苑名]
@@ -56,8 +56,8 @@ featured: false
 - 入伙年份：[YYYY]
 - 叫價：HK$[X]M（呎價 HK$[Y]/呎）
 - 連租 / 吉樓：[連租至 YYYY-MM / 吉樓]
-- Listing 上 portal 幾耐：[N 日]
-- Agent 講嘅其他 context：[「業主急讓」「移咗英國」「另一單已落訂等住換」]
+- Listing 喺 portal 上放咗幾耐：[N 日]
+- Agent 講嘅其他背景：[「業主急讓」「移咗英國」「另一單已落訂等住換」]
 
 **同屋苑過去 6 個月成交（我撈嘅）：**
 [Date | 面積 | 房 | 層數 | 成交價 | 呎價]
@@ -73,96 +73,96 @@ featured: false
 
 ---
 
-**Part 1：Fair price range**
+**Part 1：合理價區間**
 
 基於我畀嘅同屋苑成交，計：
-- 過去 6 個月嘅 median 呎價、最高、最低
-- 將 median 呎價 × 呢個盤實用呎 = baseline fair value
-- 計埋層數 / 座向 / 入伙年份應該加 / 減幾多 %（如果 data 不足，講「不足以判斷」唔好硬作）
-- 出一個 fair price range：低位、中位、高位（用 HK$M 計，唔好出 6 位數字）
+- 過去 6 個月嘅中位呎價、最高、最低
+- 將中位呎價 × 呢個盤實用呎 = 基準合理價值
+- 計埋層數 / 座向 / 入伙年份應該加 / 減幾多 %（如果數據不足，講「不足以判斷」唔好硬作）
+- 出一個合理價區間：低位、中位、高位（用 HK$M 計，唔好出 6 位數字）
 
-**Part 2：賣方 likely motivation**
+**Part 2：賣方真正動機**
 
-由 agent 講嘅 context、業主持有期、買入價（如有）、listing 上幾耐、係咪連租約等等 signal，推測：
-- 賣方屬於邊一類：(a) 急讓（移民 / 換樓在即 / cash flow tight）、(b) 投資自住兩可（唔急、靠價）、(c) 收租轉手（純睇 yield）、(d) 大細屋（樓換樓）
-- 每個 signal 點 read（明寫「叫高 5%、上 portal 60 日仲喺度 → 唔似真急讓」呢類 reasoning）
-- 估佢真正 bottom line 大概係叫價嘅 [X%]，理由：[...]
-- 我有幾大 negotiation leverage（0–10 分）
+由 agent 講嘅背景、業主持有期、買入價（如有）、listing 放咗幾耐、係咪連租約等等線索，推測：
+- 賣方屬於邊一類：(a) 急讓（移民 / 換樓在即 / 現金周轉緊張）、(b) 投資自住兩可（唔急、靠價）、(c) 收租轉手（純睇租金回報）、(d) 大細屋（樓換樓）
+- 每個線索點解讀（明寫「叫高 5%、放上 portal 60 日仲喺度 → 唔似真急讓」呢類推理）
+- 估佢真正底線大概係叫價嘅 [X%]，理由：[...]
+- 我有幾大議價籌碼（0–10 分）
 
-**Part 3：紅 flag**
+**Part 3：紅旗警號**
 
-呢個 deal 有冇異常 signal？例如：
+呢單買賣有冇異常訊號？例如：
 - 同屋苑同類成交呎價明顯低過叫價超過 10%
-- 業主買入價 + 持有期 + SSD（額外印花稅）3 年 window 嘅關係
-- 連租約但 agent 話「自住筍盤」呢類 narrative mismatch
-- 「快啲落 quick offer」嘅 sales pressure 是否合理
+- 業主買入價 + 持有期 + SSD（額外印花稅）3 年限期之間嘅關係
+- 連租約但 agent 話「自住筍盤」呢類講法前後唔對版
+- 「快啲落 quick offer」嘅催促壓力是否合理
 
-唔肯定就講唔肯定，唔好強行 list。
+唔肯定就講唔肯定，唔好強行砌出嚟。
 </PromptBlock>
 
-### 3. 出價 script（口頭 vs WhatsApp）+ counter-offer 預備
+### 3. 出價講法（口頭 vs WhatsApp）+ 還價預備
 
-有咗 fair range 同 motivation read，就可以寫實質出價 script。
+有咗合理價區間同動機解讀，就可以寫實質嘅出價講法。
 
-<PromptBlock label="出價 script — 口頭 / WhatsApp 兩個版本">
-基於上面 Part 1 嘅 fair range 同 Part 2 嘅 motivation read，幫我寫兩個版本嘅出價 script：
+<PromptBlock label="出價講法 — 口頭 / WhatsApp 兩個版本">
+基於上面 Part 1 嘅合理價區間同 Part 2 嘅動機解讀，幫我寫兩個版本嘅出價講法：
 
-**版本 A：口頭出（喺 agent office 或者睇樓現場）**
-- 一句 opening，呼應 agent（friendly 但唔過分熱情）
-- 一句 anchor reasoning（提返 2 宗最近同類成交呎價）
-- 出價數字 + 附帶條件（成交期、首期 cheque、按揭安排）
-- 一句 walkaway hint（唔係威脅、係 clear expectation：「呢個係我可以 commit 嘅價，過咗呢個我哋下個禮拜睇另外兩個盤」）
+**版本 A：口頭出（喺 agent 公司或者睇樓現場）**
+- 一句開場，呼應 agent（友善但唔過分熱情）
+- 一句定錨理由（提返 2 宗最近同類成交呎價）
+- 出價數字 + 附帶條件（成交期、首期支票、按揭安排）
+- 一句抽身暗示（唔係威脅、係講清楚預期：「呢個係我可以落實嘅價，過咗呢個我哋下個禮拜睇另外兩個盤」）
 
-**版本 B：WhatsApp send 畀 agent**
+**版本 B：WhatsApp 發畀 agent**
 - 4–6 行、好讀
-- 同樣 anchor + 出價 + 條件
+- 同樣定錨 + 出價 + 條件
 - 結尾留時限：48 小時內覆，唔覆當業主唔考慮
 
-**Counter-offer 預備：**
-如果業主 counter，最 likely 嘅 3 個情境同我嘅 response：
-1. Counter 介乎我出價 + 1–3%：[response 點覆]
-2. Counter 大致中間落墨（split the difference）：[response]
-3. Counter 接近 / keep 原叫價：[response，幾時應該 walk away]
+**還價預備：**
+如果業主還價，最有可能嘅 3 個情境同我嘅回應：
+1. 還價介乎我出價 + 1–3%：[點覆]
+2. 還價大致中間落墨（一人讓一步）：[回應]
+3. 還價接近 / 守住原叫價：[回應，幾時應該抽身]
 
-**我嘅 BATNA（walkaway）：**
-- 由 Part 1 嘅 fair range 出發，我嘅 max ceiling 應該係幾錢？
-- 如果業主死守 keep 叫價，我嘅 plan B 係邊兩個 alternative 盤？（用我之前畀嘅替代 listing）
-- 心理 anchor：呢個盤其實得幾「unique」？同類盤一個月內有冇得睇？
+**我嘅 BATNA（抽身底線）：**
+- 由 Part 1 嘅合理價區間出發，我嘅上限應該係幾錢？
+- 如果業主死守叫價，我嘅後備方案係邊兩個替代盤？（用我之前畀嘅替代 listing）
+- 心理定錨：呢個盤其實有幾「獨一無二」？同類盤一個月內有冇得睇？
 </PromptBlock>
 
-拎住兩條 script，揀啱 channel send。口頭出 offer 慢一拍，畀 agent 即場讀你；WhatsApp 出 offer 留紀錄、業主見到原文、agent 冇得 paraphrase 你個價。**價錢拉鋸位緊張嘅時候用 WhatsApp**。
+拎住兩條講法，揀啱渠道發。口頭出 offer 慢一拍，畀 agent 即場睇你反應；WhatsApp 出 offer 留紀錄、業主見到原文、agent 冇得改你個價嘅意思。**價錢拉鋸位緊張嘅時候用 WhatsApp**。
 
-### 4. 簽臨約前 last sanity check
+### 4. 簽臨約前嘅最後核對
 
-業主接 offer 之後，agent 通常即日約你 sign 臨時買賣合約 + 落細訂（成交價 3–5%）。 sign 之前先返去 Claude，再過一次：
+業主接 offer 之後，agent 通常即日約你簽臨時買賣合約 + 落細訂（成交價 3–5%）。簽之前先返去 Claude，再過一次：
 
-- 成交期同你按揭批核 timeline 夾唔夾（壓力測試批唔批到）
-- 釐印費 / 從價印花稅按你身份計實幾錢（HK 永居首置 vs 非首置 vs 非香港居民 BSD 15%）
-- 如果業主持貨少過 3 年，SSD 喺賣方度，理論上唔影響你，但驗證下 narrative
+- 成交期同你按揭批核時間表夾唔夾（壓力測試批唔批到）
+- 釐印費 / 從價印花稅按你身份計實幾錢（香港永居首置 vs 非首置 vs 非香港居民 BSD 15%）
+- 如果業主持貨少過 3 年，SSD 喺賣方度，理論上唔影響你，但驗證下個講法
 - 釐清「樓契」、「按揭契」、地下車位（如有）、會所使用、管理費水平
 - 連租盤就要對清楚租約剩幾耐、按金幾錢、租客有冇優先購買權
 
-呢一 part **唔好齋靠 Claude**，買賣律師樓嗰邊都會 raise。但你先 surface 問題，傾偈快好多。
+呢一部分**唔好齋靠 Claude**，買賣律師樓嗰邊都會提你。但你先發掘到問題，傾起上嚟快好多。
 
 ## 變化例子
 
-### 變化 1：純二手私樓（standard case）
+### 變化 1：純二手私樓（標準情況）
 
-上面個 main flow 就係呢個 case 嘅 template。重點：**同屋苑、同類面積、過去 6 個月**——三個條件齊先係 valid anchor。 用屋苑名 + 中原成交 google 通常拎到。
+上面個主流程就係呢個情況嘅範本。重點：**同屋苑、同類面積、過去 6 個月**——三個條件齊先係有效嘅參照。用屋苑名 + 中原成交 google 通常揾到。
 
-### 變化 2：新樓 vs Show flat 銷售
+### 變化 2：新樓 vs 示範單位銷售
 
-<PromptBlock label="變化 2 — 一手新盤 / Show flat">
+<PromptBlock label="變化 2 — 一手新盤 / 示範單位">
 我而家睇緊一手新樓，[盤名]，第 [N] 期。
 
 幫我拆：
 
-1. **價單 vs 真實付出**：發展商價單呎價 HK$[X]，但有「即供 / 建期」折扣、印花費回贈、車位送 / 賣分開、首置一律額外折——將呢啲全部 normalize，計返「effective 呎價」 vs 同區二手呎價。
-2. **付款方法 trade-off**：即供 vs 建期 vs 二按 / 呼吸 plan，每個方案幾年後嘅實際財務暴露。如果有「呼吸 plan」之類，明寫風險（rate reset 風險）。
-3. **發展商 motivation**：呢期已賣到第幾成？仲有幾多伙未賣？發展商急唔急清貨（睇銷售紀錄冊 + 新聞）？影響你嘅 negotiation room（一手通常硬價但 incentive 可傾）。
-4. **出價 script**：一手通常唔還價，但可以爭 [車位 / 額外印花費回贈 / mortgage referral 利息]。寫一條「sales 跟我落 form 之前我會 confirm 嘅 list」。
+1. **價單 vs 真實付出**：發展商價單呎價 HK$[X]，但有「即供 / 建期」折扣、印花費回贈、車位送 / 賣分開、首置一律額外折——將呢啲全部歸一齊計，計返「實際呎價」 vs 同區二手呎價。
+2. **付款方法取捨**：即供 vs 建期 vs 二按 / 呼吸 plan，每個方案幾年後嘅實際財務承擔。如果有「呼吸 plan」之類，明寫風險（利率重設風險）。
+3. **發展商動機**：呢期已賣到第幾成？仲有幾多伙未賣？發展商急唔急清貨（睇銷售紀錄冊 + 新聞）？影響你嘅議價空間（一手通常硬價但着數位可傾）。
+4. **出價講法**：一手通常唔還價，但可以爭 [車位 / 額外印花費回贈 / 按揭轉介利息]。寫一條「sales 跟我落 form 之前我會確認嘅清單」。
 
-唔好用行貨「新樓平均回報」之類，要 anchor 喺呢個盤呢期嘅實際 data。
+唔好用行貨「新樓平均回報」之類，要扣返呢個盤呢期嘅實際數據。
 </PromptBlock>
 
 ### 變化 3：居屋 / HOS 二手轉讓（綠表 / 白居二）
@@ -172,12 +172,12 @@ featured: false
 
 幫我拆：
 
-1. **真實購入成本**：叫價 HK$[X]M 係未補價成交價。同類已補價 free market 成交呎價對比，計返「綠表市場 vs 自由市場」嘅 discount 係幾多 %。
-2. **轉售限制**：呢個盤喺 HA（房委會）/ HS（房協）邊個系統？我買咗之後幾耐先可以喺自由市場放？補地價 mechanism 點計、補幾多？
-3. **賣方 motivation**：未補價居屋業主放盤通常係：換樓 / 移民 / cash flow。用 listing 上幾耐 + 叫價 vs 同屋苑近月成交，推測佢真實 bottom line。
-4. **出價 script**：綠表市場議價空間通常細過私樓，寫一條 grounded 嘅出價 + 條件（成交期要配合 HA / HS 批核 timeline）。
+1. **真實購入成本**：叫價 HK$[X]M 係未補價成交價。同類已補價自由市場成交呎價對比，計返「綠表市場 vs 自由市場」嘅折讓係幾多 %。
+2. **轉售限制**：呢個盤喺 HA（房委會）/ HS（房協）邊個系統？我買咗之後幾耐先可以喺自由市場放？補地價點計、補幾多？
+3. **賣方動機**：未補價居屋業主放盤通常係：換樓 / 移民 / 現金周轉。用 listing 放咗幾耐 + 叫價 vs 同屋苑近月成交，推測佢真實底線。
+4. **出價講法**：綠表市場議價空間通常細過私樓，寫一條扎實嘅出價 + 條件（成交期要配合 HA / HS 批核時間表）。
 
-提醒我：居屋按揭由 HA 擔保，銀行批核同私樓有 d 唔同；如果我係白居二，配額同 timeline 唔可以亂。
+提醒我：居屋按揭由 HA 擔保，銀行批核同私樓有啲唔同；如果我係白居二，配額同時間表唔可以亂。
 </PromptBlock>
 
-> 出 offer 個 moment，agent 想你快、業主想你高、你想你抵——三方 incentive 唔同。Claude 嘅價值唔係幫你「壓死業主」，係幫你**喺 30 分鐘內由「靠感覺」升級到「靠 data」**：知道呢個盤同屋苑真實 baseline、知道業主大概邊度收手、知道你自己邊度應該 walk。 落筆 sign 臨約之前你需要嘅唔係勇氣，係呢份 grounding。
+> 出 offer 嗰一刻，agent 想你快、業主想你高、你想你抵——三方各有各嘅着數要顧。Claude 嘅價值唔係幫你「壓死業主」，係幫你**喺 30 分鐘內由「靠感覺」升級到「靠數據」**：知道呢個盤同屋苑真實基準、知道業主大概邊度收手、知道你自己邊度應該抽身。落筆簽臨約之前你需要嘅唔係勇氣，係呢份踏實。
