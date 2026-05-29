@@ -1,5 +1,5 @@
 ---
-title: "玩日版 RPG 撞語言牆？用 Claude 即時翻譯 + 解 quest 背景"
+title: "玩日版 RPG 撞語言牆？用 Claude 即時翻譯 + 解任務背景"
 slug: "jp-rpg-translation-claude"
 issue: 45
 publishedAt: 2026-05-22
@@ -11,7 +11,7 @@ heroImage: "/hero/jp-rpg-translation-claude.webp"
 difficulty: 1
 timeMinutes: 5
 toolsNeeded: ["Claude Chat（mobile / desktop）", "智能手機（影 game screen）"]
-description: "玩 FF14 日服、Persona、軌跡系列 等 JP-only RPG，撞到日文 dialogue 一頭霧水？影低 screen，paste 入 Claude 即時翻譯 + 解 quest 背景 + 角色關係，唔使等中文 patch 就玩到。"
+description: "玩 FF14 日服、Persona、軌跡系列等 JP-only RPG，撞到日文對白一頭霧水？影低個畫面，貼入 Claude 即時翻譯 + 解任務背景 + 角色關係，唔使等中文 patch 就玩到。"
 keywords: ["jp rpg 翻譯", "日版遊戲 ai", "claude 翻譯", "ff14 日服", "persona 中文", "atlus 遊戲翻譯", "玩日文遊戲"]
 related: ["claude-language-learning-conversation-partner", "youtube-transcript-summary-claude"]
 featured: false
@@ -19,194 +19,194 @@ featured: false
 
 ## 情境
 
-你終於買咗 Final Fantasy 14 日服 sub，興奮咁開新角，jump 入新手 city。第一個 NPC 行埋嚟講：
+你終於買咗 Final Fantasy 14 日服 sub，興奮咁開新角，衝入新手城鎮。第一個 NPC 行埋嚟講：
 
 > 「冒険者よ、ここは光の柱が空に伸びる地、グリダニア。エオルゼアの森に祝福を受けし者として、汝に最初の試練を授けよう。」
 
 ⋯⋯吓？
 
-你開 Google Translate → 機械翻譯，意思 OK 但**完全冇 game lore context**——「光の柱」係咩？「エオルゼア」係邊？「最初の試練」係主線定 side quest？
+你開 Google Translate → 機械翻譯，意思 OK 但**完全冇遊戲世界觀嘅背景**——「光の柱」係咩？「エオルゼア」係邊？「最初の試練」係主線定支線任務？
 
-或者你玩 Persona 5 Royal 嘅 JP 版，遇到一段 confidant dialogue：
+或者你玩 Persona 5 Royal 嘅 JP 版，遇到一段 confidant 對白：
 
 > 「君のことを、もっと知りたいんだ。」
 
 機翻：「我想更多了解你。」
 
-但你唔知個角色當下嘅感情狀態、佢哋之前發生過咩事、應該答邊個 option 先 unlock 下個 social link tier。
+但你唔知個角色當下嘅感情狀態、佢哋之前發生過咩事、應該答邊個選項先解鎖到下一個 social link 等級。
 
-呢個就係**JP-only 或者「中文 patch 仲未出」嘅 RPG 玩家**經典 friction：text wall 唔係翻譯問題，係 **context 缺失**問題。
+呢個就係**JP-only 或者「中文 patch 仲未出」嘅 RPG 玩家**經典痛點：成幅日文牆唔係翻譯問題，係 **背景缺失**問題。
 
 呢篇用 Claude：
 
-- ⏱ 5 秒翻譯一段 dialogue
-- 🎯 連帶解 quest 背景、角色關係、揀對話 option 嘅 implication
-- 📚 你 build 緊 lore knowledge，唔係 dump 答案
+- ⏱ 5 秒翻譯一段對白
+- 🎯 連帶解任務背景、角色關係、揀對話選項會點
+- 📚 你慢慢儲到世界觀知識，唔係一口氣攞晒答案
 
 ## 跟住做
 
-### 1. 影低個 screen
+### 1. 影低個畫面
 
 開 Claude mobile app（或 desktop browser），新開一個 chat。
 
-**iPhone**：撳 screenshot（電源 + 音量上）→ Photos 入面揀張相 → share to Claude → 加 prompt。
+**iPhone**：撳 screenshot（電源 + 音量上）→ Photos 入面揀張相 → 分享去 Claude → 加 prompt。
 
-**Android**：類似 — Power + Volume Down → share to Claude。
+**Android**：類似 — Power + Volume Down → 分享去 Claude。
 
-**PC / Console**：用 Steam screenshot (F12) / PS5 share button → upload 去 Claude desktop。
+**PC / Console**：用 Steam screenshot (F12) / PS5 share button → 上載去 Claude desktop。
 
-⚠️ 直接打字輸入日文都得，但**影 screen 連帶 character portrait + UI context** 嘅效果好過好多——Claude 睇到邊個 NPC 講嘢、有冇 quest icon、揀緊邊個對話 option。
+⚠️ 直接打字輸入日文都得，但**影個畫面、連埋人物頭像同 UI 一齊影低**嘅效果好過好多——Claude 睇到邊個 NPC 講嘢、有冇任務 icon、揀緊邊個對話選項。
 
 ### 2. 用呢個 base prompt
 
-<PromptBlock label="完整 prompt — JP RPG dialogue 翻譯 + lore context">
+<PromptBlock label="完整 prompt — JP RPG 對白翻譯 + 世界觀背景">
 我而家玩緊 [遊戲名]（[platform / 版本，例：FF14 PC 日服 / Persona 5 Royal PS5 JP]）。
 
-依家撞到呢段：[upload screenshot 或 paste 日文]
+依家撞到呢段：[上載 screenshot 或貼日文]
 
-請整以下幾 part：
+請整以下幾個部分：
 
-**Part 1：直譯（natural 中文）**
+**Part 1：直譯（自然中文）**
 唔好機翻 — 用順口繁中或粵語俱可，保留說話者語氣（古風 / 少女 / 老人 / 武士等）。
 
-**Part 2：Quest / scene 背景**
-- 呢段對話發生喺邊個 chapter / area
-- 講緊邊個事件 / 邊個 character relationship
-- 我而家做緊嘅係 main story / side quest / event 定 character bond
+**Part 2：任務 / 場景背景**
+- 呢段對話發生喺邊個章節 / 區域
+- 講緊邊個事件 / 邊段角色關係
+- 我而家做緊嘅係主線 / 支線 / 活動定角色羈絆
 
 **Part 3：關鍵詞解釋**
-任何 game-specific 嘅 lore term（地名、種族、組織、技能、装備）— 用 1 句解
+任何遊戲專屬嘅世界觀名詞（地名、種族、組織、技能、装備）— 用 1 句解
 例：「エオルゼア = FF14 嘅大陸名，主舞台」
 
-**Part 4：選擇 option 嘅 implication**
-（如果係 dialogue choice scene）
-- 每個 option 直譯
-- 揀邊個會 unlock / lock 咩 (social link, affinity, route divergence)
-- 如果係 RNG / temp reaction 唔影響 long-term，講明
+**Part 4：揀對話選項會點**
+（如果係要揀對白嘅場景）
+- 每個選項直譯
+- 揀邊個會解鎖 / 鎖死咩 (social link, affinity, route divergence)
+- 如果只係即時反應、唔影響長遠，講明
 
 **Part 5：⚠️ 預警**
-- 我會唔會 lock 自己出某個 route / ending
-- 有冇 missable item 喺呢個 scene
+- 我會唔會鎖死自己去某個 route / ending
+- 呢個場景有冇錯過咗就攞唔返嘅 item
 
-語氣：好似旁邊識嗰隻遊戲嘅朋友傾，唔係 wiki dump。
+語氣：好似旁邊識嗰隻遊戲嘅朋友傾，唔好好似 wiki 咁照搬。
 </PromptBlock>
 
-### 3. Follow-up：問深入啲
+### 3. 跟進：問深入啲
 
-收到 base response 之後，按需要 跟進：
+收到第一個回覆之後，按需要追問：
 
 > 「Part 2 你講『光の柱事件』係邊個 patch 嘅嘢？我宜家玩緊 2.0 base game 應該未發生？」
 
-> 「我而家 affinity 同呢個 character 係 Rank 3，揀第 2 個 option 會 lock 我去 bad ending route 嗎？」
+> 「我而家同呢個角色嘅 affinity 係 Rank 3，揀第 2 個選項會唔會鎖死我去 bad ending route？」
 
-> 「Part 3 個『真名解放』skill 我學識咗未？定係 future content？」
+> 「Part 3 個『真名解放』技能我學識咗未？定係之後嘅內容先有？」
 
-Claude 對主流 JP RPG（FF14、Persona、Atlus 系列 SMT / P3-5、軌跡 / Trails、Tales of、Xenoblade、Monster Hunter）有相當深 lore knowledge——對於 niche / 新作可能要 google check，**所以遇到 lore 上嘅關鍵 turning point，建議 cross-睇吓一下中文 wiki**。
+Claude 對主流 JP RPG（FF14、Persona、Atlus 系列 SMT / P3-5、軌跡 / Trails、Tales of、Xenoblade、Monster Hunter）嘅世界觀都識得相當深——遇到冷門 / 新作可能要 Google 查一查，**所以撞到劇情上嘅關鍵轉捩點，建議順手對返一對中文 wiki**。
 
 ## 變化
 
-### 變化 1：成個 cutscene 嘅完整摘要
+### 變化 1：成段 cutscene 嘅完整摘要
 
-如果你 record 咗一段 5-10 分鐘 cutscene（用 PS5 / Switch / OBS），可以 transcribe 之後貼落去：
+如果你錄低咗一段 5-10 分鐘 cutscene（用 PS5 / Switch / OBS），可以做成文字稿之後貼落去：
 
-<PromptBlock label="變化 1 — Cutscene 完整摘要 + 角色 motivation">
-以下係 [遊戲名] 一段 cutscene 嘅日文 transcript（[幾耐]）：
+<PromptBlock label="變化 1 — Cutscene 完整摘要 + 角色動機">
+以下係 [遊戲名] 一段 cutscene 嘅日文文字稿（[幾耐]）：
 
-[paste transcript]
+[貼文字稿]
 
 請整：
 
-**Scene summary（3-4 句）**
-一個 episode-of-the-week 嘅 dramatized 描述
+**場景摘要（3-4 句）**
+好似講一集劇咁，戲劇化咁描述一次
 
-**角色 by 角色**
-每個 character：
+**逐個角色拆**
+每個角色：
 - 講咗咩
-- emotional state（沮喪 / 怒 / 諷刺 / 真情流露 / 演技）
-- 動機 motivation — 佢點解依家咁做
+- 情緒狀態（沮喪 / 怒 / 諷刺 / 真情流露 / 演技）
+- 動機 — 佢點解依家咁做
 
-**轉折點 turning points**
-邊一句 / 邊個 reaction 改變晒 scene 嘅方向
+**轉捩點**
+邊一句 / 邊個反應改變晒成個場景嘅方向
 
-**未解嘅 thread**
-依個 scene 提到但未解嘅 plot hook，可能會喺後面 chapter 收返
+**未解嘅伏線**
+呢個場景提到但未解嘅伏線，可能會喺後面章節收返
 
-**Spoiler protection**
-唔好 spoil 未來 chapter — 我宜家睇緊呢個 cutscene 已經係我嘅 spoiler frontier
+**防劇透**
+唔好劇透後面嘅章節 — 我宜家睇緊呢段 cutscene，已經係我知道嘅最前位置
 
-語氣：劇本分析師 + 一個熟 lore 嘅 fan，唔係 wiki summary。
+語氣：劇本分析師 + 一個熟世界觀嘅 fan，唔好好似 wiki 咁總結。
 </PromptBlock>
 
-### 變化 2：學日文 mode（一邊玩一邊學）
+### 變化 2：學日文模式（一邊玩一邊學）
 
-如果你係**有少少 N4-N3 日文基礎**嘅人，可以用 Claude 變語言學習 partner：
+如果你係**有少少 N4-N3 日文基礎**嘅人，可以叫 Claude 做你嘅語言學習拍檔：
 
 <PromptBlock label="變化 2 — 玩 game 同時學日文">
 我學緊日文（[你嘅 level，例：N4]）。我玩緊 [遊戲名]。
 
-呢段對話：[paste 日文 / screenshot]
+呢段對話：[貼日文 / screenshot]
 
 請整：
 
 **Part 1：原文 + 假名 furigana**
 畀我每個漢字嘅假名讀音（例：冒険者[ぼうけんしゃ]）
 
-**Part 2：逐句拆 grammar**
-標出我 level 應該識嘅 pattern，同 1 個我未識嘅 pattern + 簡短解釋
+**Part 2：逐句拆文法**
+標出我程度應該識嘅句式，同 1 個我未識嘅句式 + 簡短解釋
 
-**Part 3：3 個今日記嘅詞**
+**Part 3：今日記 3 個詞**
 唔好太貪心 — 3 個就夠
-例：祝福（しゅくふく）= blessing
-每個給 1 個 example sentence
+例：祝福（しゅくふく）= 祝福
+每個畀 1 句例句
 
-**Part 4：聽力 challenge（可選）**
-如果呢段對話有 voice acting，你估有冇 contraction / colloquialism（だ→じゃ、ない→ねぇ 等）我應該留意
+**Part 4：聽力挑戰（可選）**
+如果呢段對話有配音，你估有冇我應該留意嘅口語縮讀（だ→じゃ、ない→ねぇ 等）
 
 **Part 5：今日嘅自我練習**
-畀我 1 條短句，用今日學嘅 grammar pattern + 1 個新詞，要我自己造嚟回應呢個 NPC
+畀我 1 條短句，用今日學嘅句式 + 1 個新詞，要我自己造嚟回應呢個 NPC
 
-語氣：耐心 tutor，唔好 dump 一頁文法 table。
+語氣：有耐性嘅 tutor，唔好一口氣掟一頁文法表畀我。
 </PromptBlock>
 
 ### 變化 3：揀 build / equipment 顧問
 
-JP-only RPG 嘅 mechanics text 通常都係日文：
+JP-only RPG 嘅機制說明通常都係日文：
 
 <PromptBlock label="變化 3 — 裝備 / build / skill 揀對">
 我玩緊 [遊戲名] 嘅 [class / 角色名]。
 
-呢個装備 / skill 嘅描述：[screenshot / paste]
+呢個装備 / skill 嘅描述：[screenshot / 貼文字]
 
 請：
 
 **Part 1：直譯描述**
 標出關鍵數字、條件、debuff
 
-**Part 2：對我個 build 嘅實際 impact**
+**Part 2：對我個 build 嘅實際影響**
 我現時嘅 build / role 係：[填，例：FF14 BLM caster，刷 raid 為主]
 - 點解呢個對我有用 / 冇用
 - vs 我宜家用緊嘅 [填裝備名]，邊個 expected DPS / mit 高
-- 換唔換 worth it（畀個 quick yes / no + 1 句 reason）
+- 抵唔抵換（畀個爽快 yes / no + 1 句原因）
 
-**Part 3：升級 path**
-- 呢件嘢喺邊度 farm / craft / 換
-- 後面有冇 better tier，我跳過直接等好過？
+**Part 3：升級路線**
+- 呢件嘢喺邊度刷 / 整 / 換
+- 後面有冇更好嘅 tier，我跳過直接等好過？
 
-**Part 4：⚠️ trap**
-- 呢件嘢有冇「睇落好但其實 niche / 同 build 撞」嘅情況
-- 有冇社群共識係 inferior / re-balance 過
+**Part 4：⚠️ 陷阱**
+- 呢件嘢有冇「睇落好但其實太冷門 / 同 build 撞」嘅情況
+- 社群有冇共識話佢其實偏弱 / 被 re-balance 過
 
-語氣：副本老手朋友，畀 actionable 意見唔係 disclaimer。
+語氣：副本老手朋友，畀啲實際可行嘅意見，唔好淨係叫人小心。
 </PromptBlock>
 
 ## 一個心態
 
-JP-only RPG 對好多港人嚟講係**「想玩但驚浪費時間」**——你買咗 sub、買咗 console、買咗 game，但每次撞到一面 text wall 就好想 alt-tab。
+JP-only RPG 對好多港人嚟講係**「想玩但驚浪費時間」**——你買咗 sub、買咗 console、買咗 game，但每次撞到一幅日文牆就好想 alt-tab 走人。
 
-Claude 唔係要取代你學日文（如果你想學，**變化 2** 嘅 mode 就係你嘅 daily reps）。Claude 嘅 value 係 **lower 個 friction threshold**——由「我要查 wiki + Google translate + 上日本攻略 site」嘅 5 分鐘 break，變成「影張相 → 5 秒返返個 quest」。
+Claude 唔係要取代你學日文（如果你想學，**變化 2** 個模式就係你嘅每日練習）。Claude 嘅價值係**幫你拉低門檻**——由「我要查 wiki + Google translate + 上日本攻略 site」嘅 5 分鐘斷片，變成「影張相 → 5 秒返返個任務」。
 
-呢個 difference 對於每日只有 1-2 個 rdr session 嘅返工族嚟講，係**玩到完款唔玩**嘅分別。
+呢個分別對於每日得 1-2 節遊戲時間嘅返工族嚟講，就係**玩到通關定半途而廢**嘅分別。
 
-最後一個 tip：**唔好 over-rely**。Boss 戰嘅 dialogue 你抽走全部 context 嚟睇翻譯，反而 lose 咗 voice acting + cinematography 嘅 emotional impact。Translate 嗰 D 真係卡住你進度嘅 text，畀自己慢慢沉浸喺氣氛入面。
+最後一個 tip：**唔好太依賴**。Boss 戰嘅對白，你抽走晒全部前文後理淨係睇翻譯，反而會錯過咗配音同運鏡帶嚟嘅情感衝擊。翻譯嗰啲真係卡住你進度嘅文字就算，其他畀自己慢慢沉浸喺氣氛入面。
 
 GG WP，enjoy 你嘅遊戲。

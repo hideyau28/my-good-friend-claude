@@ -1,5 +1,5 @@
 ---
-title: "WhatsApp group chat 摘要：用 Claude 一次過抽 decision + action（200 條訊息變 5 分鐘）"
+title: "WhatsApp group chat 摘要：用 Claude 一次過抽決定 + 行動（200 條訊息變 5 分鐘）"
 slug: "whatsapp-group-chat-summary-claude"
 issue: 8
 publishedAt: 2026-01-27
@@ -23,27 +23,27 @@ featured: true
 
 > **未讀訊息：247 條**
 
-你開始 scroll，前 30 條係 typing-in-progress、emoji reaction、food photo。你已經 lost 晒。
+你開始㩒住一直碌，頭 30 條係打緊字、emoji reaction、食物相。你已經蕩失晒。
 
 但呢 200 幾條入面可能有：
 
 - 老細 @ 你叫你做嘢
-- 一個 decision 喺 8 點傾完
-- 兩個 deadline change
-- 客戶 escalation
-- 你接咗 ball 都唔知
+- 一個決定喺 8 點傾完
+- 兩個 deadline 改咗
+- 客戶投訴升級
+- 你接咗個波都唔知
 
-scroll 到尾通常 10-15 分鐘。 呢篇用 Claude **10 秒**摘出 actionable items。
+碌到尾通常 10 至 15 分鐘。呢篇用 Claude **10 秒**抽晒啲要做嘅嘢出嚟。
 
 ## 跟住做
 
-### 1. 由 WhatsApp export 個 chat
+### 1. 由 WhatsApp 匯出個 group chat
 
 📱 **iPhone**：
 1. 開個 group chat
-2. 撳最頂個 group 名 → scroll 到底「Export Chat」
-3. 揀「Without Media」（純文字，快過）
-4. Share → save to Files / Notes / email 畀自己
+2. 㩒最頂個 group 名 → 碌到底「Export Chat」
+3. 揀「Without Media」（純文字，快啲）
+4. Share → 存落 Files / Notes，或者 email 畀自己
 
 🤖 **Android**：類似步驟。Settings → Export chat。
 
@@ -54,116 +54,116 @@ scroll 到尾通常 10-15 分鐘。 呢篇用 Claude **10 秒**摘出 actionable
 [19/02/2026, 14:24:10] Mary Chan: 同意。我 @everyone confirm 一下
 ```
 
-### 2. Upload 個 txt 落 Claude，用呢個 prompt
+### 2. 將個 txt 檔擺落 Claude，用呢個 prompt
 
 <PromptBlock label="完整 prompt — group chat 訊息整理">
-以下係我 WhatsApp 一個 work group 嘅 export，過去 [幾耐] 嘅訊息。 我嘅名係 [填]。
+以下係我 WhatsApp 一個 work group 嘅匯出紀錄，過去 [幾耐] 嘅訊息。我嘅名係 [填]。
 
-請整理出以下 5 個 section：
+請整理出以下 5 個部分：
 
-**Part 1：Decisions taken**
-邊啲嘢已經 group 一致同意 / 老細拍板？每個 decision：
+**Part 1：已拍板嘅決定**
+邊啲嘢已經全 group 一致同意，或者老細拍板？每個決定：
 - 一句講係咩
 - 邊個推 / 邊個敲定
-- 對其他人嘅 immediate impact
+- 對其他人有咩即時影響
 
-**Part 2：Action items（按 owner 排）**
+**Part 2：行動項目（按負責人排）**
 有人要做嘅事，每個：
-- [ ] 行動 — owner — deadline（如有）
-- Source quote（簡短引用個 message context）
+- [ ] 行動 — 負責人 — deadline（如有）
+- 出處引文（簡短引一引相關訊息）
 
-如果係我（[我嘅名]）被 assign 嘅，highlight 出嚟（⭐️）
+如果係我（[我嘅名]）被分派嘅，標出嚟（⭐️）
 
-**Part 3：Open questions**
-仲未決定嘅嘢：
-- 個 question
-- Blocking 邊個 / 缺乜先決定到
-- 提議 next step
+**Part 3：未決嘅問題**
+仲未拍板嘅嘢：
+- 個問題係咩
+- 卡住喺邊個 / 等齊咩先決定到
+- 提議下一步點行
 
-**Part 4：⚠️ Heads-up（我可能 miss 嘅嘢）**
+**Part 4：⚠️ 提我一聲（我可能漏咗嘅嘢）**
 - 我有冇被 @
-- 有冇人 indirectly reference 我（例如：「我聽 [我名] 講...」、「[我名] 嗰邊 update 咗 ma？」）
-- 有冇 deadline / commitment 連帶影響我
-- 有冇任何 conflict / tension 嘅 hint 我應該知
+- 有冇人間接提到我（例如：「我聽 [我名] 講...」、「[我名] 嗰邊 update 咗未？」）
+- 有冇 deadline / 承諾連帶影響我
+- 有冇任何衝突 / 緊張氣氛嘅蛛絲馬跡係我應該知嘅
 
 **Part 5：唔關我事但要知**
-其他人嘅 update，我留意一下夠喇：
+其他人嘅近況，我留意一下夠喇：
 - 一兩句 bullet
 - 涉及邊啲人 / project
 
-語氣：efficient、actionable、結構化。
-唔需要重複 chat 本身嘅 emoji / reaction，淨係抽 substance。
+語氣：精簡、可以即刻行動、有結構。
+唔使重複 chat 本身嘅 emoji / reaction，淨係抽重點出嚟。
 
 【Chat export】：
 （貼）
 </PromptBlock>
 
-### 3. Spot check 你被 @ 嘅 part
+### 3. 抽查你被 @ 嗰部分
 
-Part 4 嘅內容好緊要，**核實一次去返原文 context**。 AI 偶爾會 miss subtle indirect mention（例如：「對啊，呢個跟之前 [我名] 嗰個 case 一樣」）。 唔信任 100%，但快速核實比起 manually scroll 200 條快好多。
+Part 4 嘅內容好緊要，**核實一次，返去原文 context 對返**。AI 偶爾會漏咗啲含蓄、間接嘅提及（例如：「係呀，呢個同之前 [我名] 嗰單嘢一樣」）。唔好 100% 信佢，但快快手核實一次，都比你手動碌 200 條快好多。
 
-### 4. Action items follow up
+### 4. 跟進行動項目
 
-呢個 prompt 嘅最高 ROI 嗰 part：Part 2 入面 ⭐️ 嗰啲。 即係喺 group 入面我被 assign 嘅嘢——通常 5 分鐘內 reply 一句「On it, will update by [日期]」，就 done deal。 ahead of game，老細 / 同事都會 notice。
+呢個 prompt 回報率最高嗰部分：Part 2 入面 ⭐️ 嗰啲。即係喺 group 入面被分派畀我嘅嘢——通常 5 分鐘內回一句「收到，我會喺 [日期] 之前 update」，就搞掂。行先一步，老細同同事都會留意到。
 
 ## 變化例子
 
-### 變化 1：家庭 / friend group 嘅大型 chat（去 trip 旅行）
+### 變化 1：家庭 / friend group 嘅大型 chat（去旅行）
 
-<PromptBlock label="變化 1 — Trip planning group chat">
-以下係一個 family / friend group chat，我哋 plan 緊去 [destination] 嘅 trip。 我嘅名係 [填]。
+<PromptBlock label="變化 1 — 旅行計劃 group chat">
+以下係一個 family / friend group chat，我哋計劃緊去 [destination] 旅行。我嘅名係 [填]。
 
 請整理：
 
-1. **Trip details locked in**：destination、dates、participants、accommodation booked 等
-2. **Pending decisions**：仲未 sort 嘅嘢（航班、活動、food preference）
-3. **Action items**：邊個負責邊樣 + deadline
-4. **預算 / 錢嘅 status**：邊啲已 paid、邊啲 outstanding、誰欠誰
-5. **我嘅 to-do**（我喺呢個 group 嘅 commitment）
+1. **已敲定嘅行程細節**：目的地、日期、邊個去、訂咗邊間住宿等
+2. **仲未決嘅嘢**：未搞掂嘅部分（航班、活動、食咩）
+3. **行動項目**：邊個負責邊樣 + deadline
+4. **預算 / 錢嘅情況**：邊啲已俾、邊啲仲未找、邊個欠邊個
+5. **我嘅待辦**（我喺呢個 group 答應咗嘅嘢）
 
-語氣：family-friendly，唔好 sound 似 work memo。
+語氣：輕鬆啲，唔好好似返工 memo 咁。
 </PromptBlock>
 
 ### 變化 2：家長 group chat（學校嘢、興趣班、playdate）
 
 <PromptBlock label="變化 2 — 家長 group chat 整理">
-以下係小朋友學校嘅 parent group chat。 我嘅名係 [填]，小朋友嘅名 [填]。
+以下係小朋友學校嘅 parent group chat。我嘅名係 [填]，小朋友嘅名 [填]。
 
 請整理：
 
-1. **學校 official update**：邊啲係 reliable info（由家長 quote 學校 / 老師），邊啲係 rumor / 推測
-2. **Date 同 deadline**：未來兩星期內 relevant（活動 / submission / 學費 / event 等）
-3. **要我 RSVP / decide 嘅嘢**
-4. **其他家長嘅 concern / opinion**：如果有 emerging consensus 或 controversy，flag 出嚟（我可能要表態）
-5. **不關我事嘅 chat noise**：例如其他小朋友嘅 birthday party、唔同班嘅嘢
+1. **學校官方消息**：邊啲係可靠資訊（由家長引述學校 / 老師），邊啲係傳聞 / 推測
+2. **日期同 deadline**：未來兩星期內相關嘅（活動 / 交功課 / 學費 / 活動等）
+3. **要我 RSVP / 決定嘅嘢**
+4. **其他家長嘅顧慮 / 意見**：如果開始有共識或者有爭議，標出嚟（我可能要表態）
+5. **唔關我事嘅閒聊**：例如其他小朋友嘅生日會、唔同班嘅嘢
 
-我嘅 priority：catch 涉及我小朋友嘅 deadline 同 action。
+我最緊要嘅：捉實涉及我小朋友嘅 deadline 同要做嘅事。
 </PromptBlock>
 
 ### 變化 3：你係 group admin 想出 weekly summary
 
 <PromptBlock label="變化 3 — Group admin 出 weekly summary">
 我係呢個 WhatsApp group 嘅 admin（[group purpose: 例如 team / community / volunteer org]）。
-每週日我想 send 一個 weekly summary 入個 group。
+每個禮拜日我想 send 一個每週摘要入個 group。
 
-請由 past 7 日嘅 chat 整理：
+請由過去 7 日嘅 chat 整理：
 
-1. **本週主要 decision** — 一段（最多 5 點 bullet）
+1. **本週主要決定** — 一段（最多 5 點 bullet）
 2. **下週要關注嘅嘢** — 一段（最多 3 點）
-3. **Action item recap** — 每個 owner 嘅 commitment（用嚟 follow up）
-4. **想感謝 / 認可嘅 contribution** — 個人 name + 簡短描述（可選）
-5. **Open thread 提示** — 仲未決嘅 topic，invite 大家本週繼續傾
+3. **行動項目回顧** — 每個負責人答應咗嘅嘢（用嚟跟進）
+4. **想多謝 / 表揚嘅付出** — 人名 + 簡短描述（可選）
+5. **未傾完嘅話題提示** — 仲未決嘅題目，請大家本週繼續傾
 
-Format：WhatsApp-friendly（短段、emoji 適量、易讀手機 screen）
+格式：適合 WhatsApp（短段、emoji 適量、喺手機螢幕易睇）
 長度：250 字內
 </PromptBlock>
 
 ## 一個心態
 
-WhatsApp 嘅 design intent 唔係「可以 catch up」，係「real-time chat」。 你 miss 咗一段時間 = 你 lost context。 呢個 product design 對打工仔不利。
+WhatsApp 設計出嚟唔係畀你「補返」，係「即時傾」。你失蹤咗一段時間 = 你斷晒線索。呢個設計對打工仔好唔利。
 
-呢個 prompt 嘅優勢：**你由 push notification 受害者，變成 strategic reader**。
+呢個 prompt 嘅好處：**你由被 push notification 追住打嘅受害者，變成識揀重點睇嘅人**。
 
-返工最痛苦嘅唔係做嘢，係 **冇 update + 怕 miss 重要 message** 嘅 anxiety。 一個 10 分鐘嘅 group chat audit，可以還你成個朝早嘅 calm。
+返工最痛苦嘅唔係做嘢，係 **冇 update、怕漏咗重要訊息** 嗰種焦慮。每日花 10 分鐘審一審 group chat，可以還你成個朝早嘅平靜。
 
-**配 schedule：**每日早上 9am + 放工前 30 分鐘各做一次。Done。
+**配個時間表：**每朝 9 點 + 放工前 30 分鐘各做一次。搞掂。

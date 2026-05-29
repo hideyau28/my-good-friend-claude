@@ -21,7 +21,7 @@ featured: false
 
 你成日要問 Claude。工作流程通常係：
 
-1. Highlight 一段文字（喺 Mail / Notes / Browser）
+1. 揀起一段文字（喺 Mail / Notes / Browser）
 2. 複製
 3. 切換去 Claude desktop app（或者 browser tab）
 4. 貼上
@@ -32,7 +32,7 @@ featured: false
 
 8 步。每日 30 次 = 4 個鐘阻力。
 
-呢篇用 macOS Shortcuts.app + Anthropic API key 整個 keyboard 快捷鍵：**Highlight → ⌥+space → Claude 回覆貼上返**。3 步。每次慳 30 秒。
+呢篇用 macOS Shortcuts.app + Anthropic API key 整個鍵盤快捷鍵：**揀起文字 → ⌥+space → Claude 回覆貼上返**。3 步。每次慳 30 秒。
 
 > 注意：呢個需要：(1) 你 Mac 有 macOS 13+ 嘅 Shortcuts.app；(2) 你有 Anthropic API key（[console.anthropic.com](https://console.anthropic.com) 申請，大約 $3/M input token）；(3) 你接受用付費 API 而唔係月費訂閱。
 
@@ -42,7 +42,7 @@ featured: false
 
 1. 去 [console.anthropic.com](https://console.anthropic.com)
 2. 註冊 → API keys → 建立 key
-3. **複製保留好** —— 一旦閂咗個 tab 就唔會再顯示
+3. **複製保留好** —— 一旦閂咗個 tab 就唔會再顯示出嚟
 4. 入 $5 落 console（足夠你用幾個月嘅個人用量）
 
 ### 2. 開 macOS Shortcuts.app 整快捷鍵
@@ -78,23 +78,23 @@ Apps → Shortcuts → + 新 shortcut
 
 跟 Claude 嘅步驟做（第一次會用你 15-20 分鐘）。
 
-### 3. 設定 keyboard 快捷鍵
+### 3. 設定鍵盤快捷鍵
 
 ```
 System Settings → Keyboard → Keyboard Shortcuts → Services → Text
 ```
 
-搵到你個新 Shortcut，綁定 keyboard 組合（我用 `⌥ + space`，因為通常未被用）。
+搵到你個新 Shortcut，綁定鍵盤組合（我用 `⌥ + space`，因為通常未被佔住）。
 
 ### 4. 試一次
 
-開 Mail / Notes / 任何 app，highlight 一句英文，撳 `⌥ + space`，等 1-2 秒，**回覆會自動貼上落你個游標位置**。
+開 Mail / Notes / 任何 app，揀起一句英文，撳 `⌥ + space`，等 1-2 秒，**回覆會自動貼上落你個游標位置**。
 
 🎉 成功。
 
 ## 變化例子
 
-### 變化 1：唔同 prompt 對應唔同 keyboard 快捷鍵
+### 變化 1：唔同 prompt 對應唔同鍵盤快捷鍵
 
 整三個 Shortcuts，分別觸發唔同 prompt：
 
@@ -113,7 +113,7 @@ System Settings → Keyboard → Keyboard Shortcuts → Services → Text
 呢套設定完成後，我嘅日常工作流程應該係 highlight → 揀啱嗰個 shortcut → 結果貼上返。
 </PromptBlock>
 
-### 變化 2：觸發後出選單，揀 prompt（無 keyboard 組合限制）
+### 變化 2：觸發後出選單，揀 prompt（無鍵盤組合限制）
 
 <PromptBlock label="變化 2 — 一個 shortcut 出 prompt 選單">
 我有太多想要嘅 prompt（5+ 個），但 keyboard 組合已用滿。
@@ -158,24 +158,24 @@ System Settings → Keyboard → Keyboard Shortcuts → Services → Text
 
 比起 ChatGPT Plus / Claude Pro 嘅 $20/月，呢個 API 設定唔一定平。**但用處在於減少工作流程嘅阻力，唔係睇銀碼**。
 
-如果你想成本再低啲，用 Claude Haiku（input $0.80/M）—— 質素稍低但日常修飾已經夠用。
+如果你想成本再低啲，用 Claude Haiku（input $0.80/M）—— 質素稍低，但日常執字已經夠用。
 
 ## 同 Raycast 嘅比較
 
-Raycast 係另一個 Mac 高級用戶工具，亦有 AI 外掛（包 Anthropic / OpenAI API）。對比：
+Raycast 係另一個 Mac 進階用戶工具，亦有 AI 外掛（包 Anthropic / OpenAI API）。對比：
 
-- **Raycast AI**：介面靚啲、有 prompt 庫、可以連住指令。$10/月（Pro）或者免費 plan 限 GPT 某啲功能
-- **macOS Shortcuts + API**：自己整、要設定、但完全免費嘅框架加你自己嘅 API 成本
-- **Mac 快捷鍵嘅優勢**：唔依賴第三方 app；快捷鍵喺 macOS 更新之間穩定；可以分享 `.shortcut` 檔畀朋友
+- **Raycast AI**：介面靚啲、有 prompt 庫、可以連住指令。$10/月（Pro），或者免費版限住 GPT 某啲功能
+- **macOS Shortcuts + API**：自己整、要設定、但個框架完全免費，再加你自己嘅 API 成本
+- **Mac 快捷鍵嘅優勢**：唔使靠第三方 app；快捷鍵喺 macOS 更新之間都穩陣；可以分享 `.shortcut` 檔畀朋友
 
-我自己用緊 macOS Shortcuts（因為完全唔依賴 Raycast 訂閱），但 Raycast 對「我唔想搞設定」嘅人阻力較低。
+我自己用緊 macOS Shortcuts（因為完全唔使靠 Raycast 訂閱），但 Raycast 對「我唔想搞設定」嘅人嚟講阻力細啲。
 
 ## 一個思維轉變
 
-呢個設定嘅槓桿唔係慳一兩秒，係**消除切換情境**。
+呢個設定嘅槓桿唔係慳一兩秒，係**唔使再切換情境**。
 
-由 Mail 切換去 Claude 再切換返 Mail，**腦袋每次重新載入情境**都要 30-60 秒。連續做幾次，你短暫記憶散晒。
+由 Mail 切換去 Claude 再切換返 Mail，**腦袋每次重新載入情境**都要 30-60 秒。連續做幾次，你短暫記憶就散晒。
 
-`⌥+space` 直接修改，**腦袋從未離開過 Mail**。呢個腦力嘅保留比個 30 秒慳到嘅時間更值錢。
+`⌥+space` 直接喺原地修改，**腦袋從來冇離開過 Mail**。呢份腦力嘅保留，比個 30 秒慳到嘅時間更值錢。
 
-個人開發者 / 創作者嘅優勢就係呢類設定 —— **你嘅工具適應你嘅腦袋，唔係你適應工具**。
+個人開發者 / 創作者嘅優勢就係呢類設定 —— **係你嘅工具遷就你嘅腦袋，唔係你遷就工具**。

@@ -1,5 +1,5 @@
 ---
-title: "WhatsApp 客戶回覆模板（HK 小店主版）：用 Claude set 5 個常用 reply"
+title: "WhatsApp 客戶回覆模板（香港小店主版）：用 Claude 定 5 個常用回覆"
 slug: "whatsapp-customer-reply-hk"
 issue: 23
 publishedAt: 2026-05-12
@@ -11,7 +11,7 @@ heroImage: "/hero/whatsapp-customer-reply-hk.webp"
 difficulty: 1
 timeMinutes: 10
 toolsNeeded: ["Claude Chat", "WhatsApp Business"]
-description: "WhatsApp 客戶回覆模板：5 個 HK 小店主用 Claude set 嘅常用 reply。教你點 prompt 保留店主聲線，配 WhatsApp Business quick reply 變自動化客戶服務。"
+description: "WhatsApp 客戶回覆模板：5 個香港小店主用 Claude 定好嘅常用回覆。教你點 prompt 保留店主聲線，配 WhatsApp Business quick reply 變自動化客戶服務。"
 keywords: ["whatsapp 客戶回覆", "whatsapp business 教學", "小店主 ai", "客戶服務 模板", "ig dm 回覆"]
 related: ["english-email-polish-hk", "claude-content-repurpose"]
 featured: false
@@ -25,22 +25,22 @@ featured: false
 - 「點計運費？」
 - 「可唔可以平啲？」
 - 「點解仲未到？」
-- 「我想 cancel」
+- 「我想取消」
 
-直接 copy paste 標準回覆，**啲客覺得你冷冰冰**。 逐個諗點覆，**你會癲**。 呢篇教你一個中間做法：用 Claude 幫你整一批模板，**保留語氣、又快過自己諗**。
+直接複製貼上標準回覆，**啲客覺得你冷冰冰**。 逐個諗點覆，**你會癲**。 呢篇教你一個中間做法：用 Claude 幫你整一批模板，**保留語氣、又快過自己諗**。
 
 ## 跟住做
 
-### 1. 先 set 你嘅「店主聲線」
+### 1. 先定好你嘅「店主聲線」
 
-呢一步只做一次。你要畀 Claude 知你平時點講嘢，佢之後出嘅回覆先唔會似 chatbot。
+呢一步只做一次。你要畀 Claude 知你平時點講嘢，佢之後出嘅回覆先唔會似機械人。
 
-<PromptBlock label="完整 prompt — 一次過 set 好">
+<PromptBlock label="完整 prompt — 一次過定好">
 我開緊一間香港小店，賣【你嘅產品 — 例如手作飾物 / 童裝 / 韓妝代購】。
 我希望啲客覺得我：
 - 親切但唔肉麻
-- 講嘢用廣東話書面語混合（例如「OK 嘅」「冇問題」「等我 檢查 下」）
-- 唔會 sell hard
+- 講嘢用廣東話書面語混合（例如「OK 嘅」「冇問題」「等我查下」）
+- 唔會硬銷
 - 唔會用「您」，用「你」
 - 句尾偶然用「啦」「喎」但唔好成日
 
@@ -57,13 +57,13 @@ featured: false
 > Q2: 「點計運費？」
 > Q3: 「可唔可以平 $10？」
 > Q4: 「我訂咗一個禮拜仲未到 wor」
-> Q5: 「我想 cancel order」
+> Q5: 「我想取消張單」
 
 ### 3. 收 Claude 嘅 output，搬入 WhatsApp Business 嘅 quick reply
 
-WhatsApp Business 有個 feature 叫 **Quick Replies** —— 你可以喺 Settings → Business tools → Quick replies 入面 save 短碼。 例如 `/有貨` 即出「有貨呀～呢隻仲有 3 件，你想要邊個 size？」。
+WhatsApp Business 有個功能叫 **Quick Replies** —— 你可以喺 Settings → Business tools → Quick replies 入面儲短碼。 例如 `/有貨` 即出「有貨呀～呢隻仲有 3 件，你想要邊個 size？」。
 
-把 Claude 出嘅每個版本 save 做一個 quick reply，**你撳一下就出，但仲係你把聲**。
+將 Claude 出嘅每個版本儲做一個 quick reply，**你撳一下就出，但仲係你把聲**。
 
 ## 變化例子
 
@@ -72,8 +72,8 @@ WhatsApp Business 有個 feature 叫 **Quick Replies** —— 你可以喺 Setti
 <PromptBlock label="變化 1 — 處理投訴 / 退款">
 我嘅客戶因為【原因，例如：訂單遲咗一星期】嬲咗，要求退款 / 賠償。
 請畀我一個回覆，要做到：
-1. 先 acknowledge 佢嘅情緒（唔好即刻 defensive）
-2. 用 plain 啲嘅中文解釋件事點解咁
+1. 先回應佢嘅情緒（唔好即刻護住自己）
+2. 用淺白啲嘅中文解釋件事點解咁
 3. 提出一個具體解決方案（退款 / 補單 / 送贈品）
 4. 收尾 keep 住關係
 
@@ -90,20 +90,20 @@ WhatsApp Business 有個 feature 叫 **Quick Replies** —— 你可以喺 Setti
 - 唔好假裝知道
 </PromptBlock>
 
-### 把握機會 upsell
+### 把握機會順帶推介
 
-<PromptBlock label="變化 3 — 客戶買單嗰陣輕度 upsell">
+<PromptBlock label="變化 3 — 客戶買單嗰陣輕度推介">
 個客戶啱啱話「OK 我要呢個」。
-請寫一句輕度嘅 upsell，介紹一個相關產品（例如：買銀器嘅推介保養油），
+請寫一句輕輕嘅推介，介紹一個相關產品（例如：買銀器嘅推介保養油），
 要求：
-- 唔好 hard sell
-- 寫到似「friendly 提一聲」
+- 唔好硬銷
+- 寫到似「親切咁提一聲」
 - 兩句之內
-- 留個 outlet 畀佢 say no 而唔失禮
+- 留個空間畀佢拒絕而唔失禮
 </PromptBlock>
 
-## 一個 caveat
+## 一個提醒
 
-呢個方法 work 嘅前提係——**你嘅 prompt 入面有寫到你嘅店、你嘅語氣**。如果你直接抄外國嘅 prompt 寫 "professional customer service rep"，出嚟嘅嘢會好生硬，似 chatbot。
+呢個方法行得通嘅前提係——**你嘅 prompt 入面有寫到你嘅店、你嘅語氣**。如果你直接抄外國嘅 prompt 寫 "professional customer service rep"，出嚟嘅嘢會好生硬，似機械人答客。
 
-最 minimum 嗰幾句聲線描述，係你個 brand 嘅靈魂。 寫得好，之後成個 customer service 就慳到。
+最起碼嗰幾句聲線描述，係你個招牌嘅靈魂。 寫得好，之後成個客戶服務就慳到。

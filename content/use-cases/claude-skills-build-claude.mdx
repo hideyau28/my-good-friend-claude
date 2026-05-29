@@ -1,5 +1,5 @@
 ---
-title: "Claude Skills：build 自己嘅 skill 慳每日 30 分鐘 prompt 輸入"
+title: "Claude Skills：整自己嘅 skill 慳每日 30 分鐘 prompt 輸入"
 slug: "claude-skills-build-claude"
 issue: 79
 publishedAt: 2026-05-24
@@ -11,7 +11,7 @@ heroImage: "/hero/claude-skills-build-claude.webp"
 difficulty: 2
 timeMinutes: 45
 toolsNeeded: ["Claude.ai (Pro / Team / Max)", "文字編輯器（VS Code / Sublime / Notes）"]
-description: "你每星期寫 5 次「Polish 呢段 email 到專業但唔生硬」，每次貼 3 段參考 + tone 規則。Claude Skill = 一個 markdown 文件記低嗮邏輯 + 參考，往後叫 skill 名就直接行。教你由零 build 第一個 skill。"
+description: "你每星期寫 5 次「執靚呢段 email，要專業但唔生硬」，每次貼 3 段參考加語氣規則。Claude Skill = 一個 markdown 文件記低晒邏輯同參考，往後叫個 skill 名就直接行。教你由零整第一個 skill。"
 keywords: ["Claude Skills", "Skill 製作", "可重用 prompt", "Claude workflow", "AI 自動化", "prompt engineering"]
 related: ["claude-projects-setup-claude", "claude-artifacts-deep-dive-claude", "claude-long-conversation-management-claude"]
 featured: false
@@ -26,26 +26,26 @@ featured: false
 3. 貼 3 個過往好嘅 example 做參考
 4. 貼公司語氣規範
 5. Claude 出 3 個版本
-6. 你揀一個 fine-tune
+6. 你揀一個再微調
 
-每次 5 段貼 + 揀 = 12-15 分鐘。每星期 5 次 = 75 分鐘。每年 65 個鐘貼同一啲嘢。
+每次貼 5 段加揀 = 12-15 分鐘。每星期 5 次 = 75 分鐘。每年 65 個鐘貼同一啲嘢。
 
 呢個問題同 Projects 唔同：
 
 - Projects 解決「所有 chat 共用同一 context」
-- 但你呢個情況係「同一 workflow 用喺唔同內容」—— 每次執靚唔同 email，但流程一樣
+- 但你呢個情況係「同一個 workflow 用喺唔同內容」—— 每次執靚唔同 email，但流程一樣
 
 呢個就係 **Claude Skills** 解決嘅問題。
 
-**Skill** = 一個 markdown 文件（加可選 helper files），描述：
+**Skill** = 一個 markdown 文件（加可選嘅 helper files），描述：
 
-- 點 觸發 個 workflow
-- 用咩參考 / 規則
-- Output 跟咩結構
+- 點觸發個 workflow
+- 用咩參考、咩規則
+- 出嚟嘅結果跟咩結構
 
-Build 完之後，Claude 喺對話入面會自動 detect 應該叫邊個 skill，跟住個 workflow 行。
+整完之後，Claude 喺對話入面會自動認出應該叫邊個 skill，跟住個 workflow 行。
 
-呢篇 45 分鐘 build 第一個 skill，往後幾百封 email 執靚都唔需要再貼規則。
+呢篇 45 分鐘整第一個 skill，往後幾百封 email 執靚都唔使再貼規則。
 
 ⚠️ Skills 而家係 Pro / Team / Max plan 嘅功能（部分早期版本）。
 
@@ -65,7 +65,7 @@ my-skill/
 └── scripts/              # 進階：bash / python helper（可選）
 ```
 
-最簡單嘅 skill = 1 個 SKILL.md。複雜嘅 skill 加參考 files + scripts。
+最簡單嘅 skill = 1 個 SKILL.md。複雜啲嘅 skill 加參考 files 同 scripts。
 
 SKILL.md 嘅結構：
 
@@ -98,22 +98,22 @@ See `reference/good-examples.md` for 5 past polished emails.
 
 呢個 frontmatter（頂嗰個 YAML block）嘅 `description` 係**關鍵** —— Claude 用呢段判斷「呢個對話應唔應該叫呢個 skill」。寫具體啲。
 
-### 2. Build 第一個 skill
+### 2. 整第一個 skill
 
-打開文字編輯器，建立 folder `email-polish-hk/`，建立 file `SKILL.md`，貼上面個 example 改成你具體情況嘅內容。
+打開文字編輯器，開個 folder `email-polish-hk/`，開個 file `SKILL.md`，貼上面個 example 改成你具體情況嘅內容。
 
 關鍵欄位：
 
-**Name**：kebab-case，唯一識別 skill
-**Description**：包括 trigger keyword + 用途講清楚。例如：「Trigger when user asks to 執靚 / 改 / 微調 an English email for HK client. Skip for casual social posts.」
-**When to use** section：明確界線，等 Claude 知幾時唔好叫
+**Name**：kebab-case，獨一無二咁識別個 skill
+**Description**：包括 trigger keyword 同清楚講用途。例如：「Trigger when user asks to 執靚 / 改 / 微調 an English email for HK client. Skip for casual social posts.」
+**When to use** section：劃清界線，等 Claude 知幾時唔好叫
 **Step-by-step**：你想 Claude 跟嘅程序
 **Rules**：硬性規限
-**Reference**：連結去 supporting files
+**Reference**：連去 supporting files
 
 ### 3. 加參考 files
 
-`reference/good-examples.md` 例：
+`reference/good-examples.md` 範例：
 
 ```markdown
 # Past polished emails (good examples)
@@ -133,18 +133,18 @@ See `reference/good-examples.md` for 5 past polished emails.
 
 呢個 file 比抽象規則強 10 倍 —— Claude 參考真實 example 嘅規律。
 
-### 4. Install skill 入 Claude
+### 4. 將 skill 裝入 Claude
 
-方法視乎你 access level：
+方法視乎你嘅 access level：
 
 **方法 A —— Claude.ai Pro plan**：
 - Settings → Skills → Upload custom skill
-- Zip 你 skill folder upload
-- Claude 自動 parse + 通知 install success
+- 將你個 skill folder zip 起上載
+- Claude 自動解析，再通知你裝好
 
 **方法 B —— Claude Code（開發者）**：
 - 將 skill folder 放入 `~/.claude/skills/`（user-global）或者 `./.claude/skills/`（project）
-- Claude Code 開新 session 時自動 load
+- Claude Code 開新 session 時自動載入
 
 **方法 C —— Claude API / SDK**：
 - 透過 Agent SDK 嘅 skill parameter 傳入
@@ -152,7 +152,7 @@ See `reference/good-examples.md` for 5 past polished emails.
 
 ### 5. 測試 skill
 
-返去 Claude 對話，貼一段 draft email：
+返去 Claude 對話，貼一段 email 草稿：
 
 ```
 我想 polish 呢段：
@@ -165,32 +165,32 @@ advised that we are working diligently to resolve this matter.」
 
 如 skill description 寫得啱，Claude 會：
 
-1. **自動 detect**「呢個係執靚 email request」
+1. **自動認出**「呢個係執靚 email 嘅請求」
 2. **叫起** skill workflow
-3. **應用**你嘅規則 + 參考 example
-4. **出** 2-3 個版本 + 建議 1 個
+3. **套用**你嘅規則同參考 example
+4. **出** 2-3 個版本，再建議 1 個
 
 如果 Claude 冇自動叫：
 
 - 你可以明確講「use email-polish-hk skill」
-- 或者 review skill description 唔夠具體
+- 或者係 skill description 唔夠具體，要返去執
 
 ### 6. 每週調整 skill
 
-同 Projects 一樣，第 1 個禮拜 skill 唔完美。每個禮拜五 5 分鐘：
+同 Projects 一樣，第 1 個禮拜個 skill 唔會完美。每個禮拜五 5 分鐘：
 
-- Review 過去 5 次 invocation
+- 睇返過去 5 次 invocation
 - 揾邊樣你手動改多次 → 加規則
-- 揾邊樣 over-rule → 放鬆
-- 加新嘅 good example 入參考 file
+- 揾邊樣管得太死 → 放鬆
+- 加新嘅好 example 入參考 file
 
-3 個月後你 skill 自動進化到極準。
+3 個月後你個 skill 會自己進化到極準。
 
 ## 變化
 
 ### 變化 1：多步 skill（workflow chain）
 
-複雜 skill 唔淨止 1 步。例如「由 project notes 出每週報告」：
+複雜啲嘅 skill 唔淨止 1 步。例如「由 project notes 出每週報告」：
 
 ```markdown
 # Weekly report generator
@@ -229,39 +229,39 @@ See `reference/past-reports.md` for tone calibration.
 
 ### 變化 2：Project 同 skill 嘅分別
 
-新手會混淆。快速釐清：
+新手好易撈亂。快速釐清：
 
-**Project**：對話入面持續 context（例如你公司 brand voice 永遠 active）
-**Skill**：特定 workflow 嘅程序（例如「執靚 email」流程，trigger 時先啟動）
+**Project**：對話入面長駐嘅 context（例如你公司嘅 brand voice 永遠開住）
+**Skill**：某個 workflow 嘅程序（例如「執靚 email」流程，觸發時先啟動）
 
 可以同時用：Project 提供長駐 context，Skill 提供任務專屬程序。
 
 例：Bull Kicks Brand project + email-polish skill + sales-pipeline skill + product-description skill = 4 個 skill 喺同一個 project 入面各自可叫。
 
-### 變化 3：將 skill 分享畀同事 / community
+### 變化 3：將 skill 分享畀同事或者 community
 
-你 build 嘅 skill 可以分享。將 skill folder zip + upload 去：
+你整嘅 skill 可以分享。將 skill folder zip 起上載去：
 
 - **Team（內部）**：Claude Team plan 嘅共享 skill library
-- **Public（對外）**：GitHub repo + 分享下載連結
-- **Anthropic skill marketplace**：部分 skill 可以 submit（check current submission process）
+- **Public（對外）**：GitHub repo 加分享下載連結
+- **Anthropic skill marketplace**：部分 skill 可以提交（睇返目前嘅提交流程）
 
-人哋 install 你 skill 後，可以叫 + 調整自己嘅版本。
+人哋裝咗你個 skill 之後，可以叫起佢再調整成自己嘅版本。
 
-如果你 skill 解決一個常見 HK 問題（例如「執靚商業 email」/「draft 道歉信」/「整 IG caption」），分享出去比你一個人用更有價值 —— community 版本會持續改善。
+如果你個 skill 解決一個常見嘅 HK 問題（例如「執靚商業 email」、「寫道歉信」、「整 IG caption」），分享出去會比你一個人用有價值好多 —— community 版本會持續改善。
 
 ## 一個心態
 
-Skill 同 Project 嘅深層價值唔係「自動化」—— 係**強迫將默會嘅 knowledge 講清楚**。
+Skill 同 Project 嘅深層價值唔係「自動化」—— 係**逼你將心照不宣嘅 knowledge 講清楚**。
 
-你寫 SKILL.md 嘅過程強迫你講出聲：「我點執靚一封 email？」「我點揀邊個字好啲？」呢類默會 decision 平時喺你個腦 0.5 秒發生，但講清楚出嚟需要 30 分鐘。
+你寫 SKILL.md 嘅過程，逼你講出聲：「我點執靚一封 email？」「我點揀邊個字好啲？」呢類心照嘅判斷平時喺你個腦 0.5 秒就發生，但要講清楚出嚟就要 30 分鐘。
 
-寫完之後你對「自己嘅 craft」嘅理解深一個層次。Claude 變得 well-trained，但真正受益者係你自己嘅思維清晰度。
+寫完之後你對「自己嘅 craft」嘅理解深一個層次。Claude 教得好咗，但真正受惠嘅係你自己嘅思維清晰度。
 
 最後提醒：
 
-- ✅ **第一個 skill 唔需要完美**。Ship 個粗略版本，4 個禮拜後調整。
-- ⚠️ **Skill 同 system prompt 唔好 overlap 太多**。Project context（長駐）vs skill（workflow）—— 分清楚。
-- 🎯 **分享 skill 建立 community 網絡**。HK Claude user community 仲新 —— 早分享 = 早建立聲譽。
+- ✅ **第一個 skill 唔使完美**。出個粗略版本，4 個禮拜後再調整。
+- ⚠️ **Skill 同 system prompt 唔好重疊太多**。Project context（長駐）同 skill（workflow）—— 分清楚。
+- 🎯 **分享 skill 可以建立 community 網絡**。HK Claude user community 仲好新 —— 早分享 = 早建立聲譽。
 
-Build 第一個 skill 嗰朝你會發現 —— 你以為「我已經喺腦入面做完啦」嘅嘢，講清楚出嚟，竟然有 30 條暗藏規則。Skill = 你 craft 嘅活文件。
+整第一個 skill 嗰朝你會發現 —— 你以為「我喺腦入面已經做完㗎啦」嘅嘢，講清楚出嚟，竟然有 30 條暗藏規則。Skill = 你 craft 嘅一份活文件。

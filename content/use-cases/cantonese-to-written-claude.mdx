@@ -1,5 +1,5 @@
 ---
-title: "廣東話轉書面語教學：用 Claude polish podcast transcript（保留個人口吻）"
+title: "廣東話轉書面語教學：用 Claude 執靚 podcast transcript（保留個人口吻）"
 slug: "cantonese-to-written-claude"
 issue: 16
 publishedAt: 2026-03-24
@@ -11,7 +11,7 @@ heroImage: "/hero/cantonese-to-written-claude.webp"
 difficulty: 2
 timeMinutes: 20
 toolsNeeded: ["Claude Chat", "錄音轉文字 app（macOS Notes / Whisper）"]
-description: "廣東話轉書面語教學：用 Claude polish podcast 或者訪問嘅 transcript，保留受訪者個人口吻，唔會 over-formal 變新聞稿。配 Whisper 廣東話 transcription 嘅 stack 推介。"
+description: "廣東話轉書面語教學：用 Claude 執靚 podcast 或者訪問嘅 transcript，保留受訪者個人口吻，唔會過度正式變新聞稿。配 Whisper 廣東話 transcription 嘅工具組合推介。"
 keywords: ["廣東話 轉 書面語", "podcast transcript polish", "訪問稿 轉換", "whisper 廣東話", "podcast 文章化"]
 related: ["claude-content-repurpose", "claude-pdf-summary"]
 featured: false
@@ -23,11 +23,11 @@ featured: false
 
 > 「我覺得呢個 industry 而家嗰個 trend 係咁——大家都諗住要 AI，但好多 founder 其實連自己個 product 想 solve 乜個 problem 都未諗清楚 lor。Like，我見過好多 pitch deck 都係 AI for X，但 X 個 problem 係咪真係 worth solving 都未問過。」
 
-要將呢段變做一篇文章嘅 quote，正常做法係執去書面語。但**99% 嘅 AI 改完**：
+要將呢段變做一篇文章嘅引文，正常做法係執去書面語。但**99% 嘅 AI 改完係咁**：
 
 > 「我認為現時這個行業的趨勢，是大家都希望採用 AI，但許多創業者尚未明確思考自己產品所要解決的問題。我見過不少 pitch deck 都是『AI for X』，但是否 X 真的值得解決，他們都未曾深究。」
 
-讀返去**完全唔似嗰個人**——對方原本嘅 rhythm、accent、casual feel 全部冇晒。 對方會嬲，亦會分享唔出去（因為唔似自己）。
+讀返去**完全唔似嗰個人**——對方原本嘅節奏、口音、隨意嘅感覺，全部冇晒。 對方會嬲，亦會分享唔出去（因為唔似自己）。
 
 呢篇教你一個 **「轉書面語但保留個性」** 嘅 prompt。
 
@@ -37,71 +37,71 @@ featured: false
 
 選一個：
 - **macOS Notes app**：有內建 dictation，但要重新讀稿。準確度視乎 macOS 版本，建議 Sonoma 之後嘅版本
-- **Whisper**（OpenAI 開源 model）：local 跑、免費、準確度高。GitHub 揾 `whisper.cpp` 或者 `MacWhisper` app
-- **Otter.ai / Fireflies**：cloud service，廣東話準確度麻麻，建議只用嚟 backup
+- **Whisper**（OpenAI 開源 model）：喺本機跑、免費、準確度高。GitHub 揾 `whisper.cpp` 或者 `MacWhisper` app
+- **Otter.ai / Fireflies**：雲端服務，廣東話準確度麻麻，建議只用嚟 backup
 
-廣東話 transcription 而家最 reliable 係 Whisper Large model。**唔好用 ChatGPT 嘅 voice transcription**，佢預設轉普通話。
+廣東話 transcription 而家最穩陣係 Whisper Large model。**唔好用 ChatGPT 嘅 voice transcription**，佢預設轉普通話。
 
 ### 2. 餵 transcript + 呢個 prompt
 
 <PromptBlock label="完整 prompt — 轉書面語但保留個性">
 以下係 [人物名字] 嘅口語訪問稿（廣東話）。我要將佢轉做書面語，發佈喺 [媒體類型，例如 newsletter / blog post / 雜誌專訪]。
 
-請跟以下 rule：
+請跟以下規則：
 
 **保留嘅嘢：**
-1. **個人嘅思考 rhythm**——佢中途停頓、轉折、自問自答嘅 pattern，係佢嘅 voice
-2. **特定字眼**：如果佢用咗英文字（pitch deck、founder、problem、worth solving 等），唔好硬譯成中文。HK reader 識讀英中夾雜，硬譯反而 awkward
-3. **語氣詞嘅意思**——「lor / wo / la / gar」呢類唔需要直譯，但要保留嗰種 emphasis 嘅 feel。例如「咁 lor」可以變「就是這樣」、「都唔知 wo」變「也不清楚」
-4. **specific 嘅 example 同 anecdote**——一字唔少保留
+1. **個人嘅思考節奏**——佢中途停頓、轉折、自問自答嘅模式，係佢嘅 voice
+2. **特定字眼**：如果佢用咗英文字（pitch deck、founder、problem、worth solving 等），唔好硬譯成中文。香港讀者識讀英中夾雜，硬譯反而突兀
+3. **語氣詞嘅意思**——「lor / wo / la / gar」呢類唔需要直譯，但要保留嗰種強調嘅感覺。例如「咁 lor」可以變「就是這樣」、「都唔知 wo」變「也不清楚」
+4. **具體嘅例子同小故事**——一字唔少保留
 
 **要執走嘅嘢：**
-1. **重複字、口頭禪**（「即係」、「咁樣」、「對啊」、「然後呢」）—— 但唔好執到 100%，留少少 keep human feel
-2. **明顯嘅口語 grammar error**（例：「我有講過」→「我之前有提過」）
-3. **「呃」、「嗯」、「哈」**等 filler sound
+1. **重複字、口頭禪**（「即係」、「咁樣」、「對啊」、「然後呢」）—— 但唔好執到清晒，留少少保住人味
+2. **明顯嘅口語文法錯誤**（例：「我有講過」→「我之前有提過」）
+3. **「呃」、「嗯」、「哈」**等填充聲
 
-**Format：**
-- 唔好變成大段獨白，每幾段 break 一下
-- 每個 quote 之後可以加少少 context（用 [編按] 標記）
-- 文章開頭加一句短引言介紹 context
+**格式：**
+- 唔好變成大段獨白，每幾段斷一斷
+- 每個引文之後可以加少少背景（用 [編按] 標記）
+- 文章開頭加一句短引言介紹背景
 
 **禁忌：**
-- 唔好「淨化」對方嘅意見，保留 sharp / controversial 嘅 phrasing
-- 唔好「professional化」對方嘅語氣，佢點 casual 都保留
+- 唔好「淨化」對方嘅意見，保留尖銳、有爭議嘅講法
+- 唔好將對方嘅語氣「變正式」，佢幾隨意都保留
 - 唔好加入冇講過嘅嘢，更加唔好加你自己嘅評論
 
 【Transcript】：
 （貼晒個 transcript 落嚟）
 </PromptBlock>
 
-### 3. Send 畀對方 fact-check
+### 3. Send 畀對方核對事實
 
-呢一步好緊要，**唔好懶**。改完之後 send return PDF / Google Doc 畀對方，畀佢:
+呢一步好緊要，**唔好懶**。改完之後 send 返 PDF / Google Doc 畀對方，畀佢：
 
-- 改返意思偏咗嘅 quote
-- 加 nuance（佢可能想 soften / 加 caveat）
-- 刪走唔想出嘅敏感 line
+- 改返意思偏咗嘅引文
+- 加多少少分寸（佢可能想講得婉轉啲、加個但書）
+- 刪走唔想出嘅敏感句子
 
-呢個 step 同時係 trust-building。受訪者見到你尊重佢嘅 voice，下次仲會再受訪。
+呢一步同時係建立信任。受訪者見到你尊重佢嘅 voice，下次仲會再受訪。
 
-### 4. 你係 editor 嘅最後一執
+### 4. 你係編輯嘅最後一執
 
-改回個別字眼，加副標、 pull-quote。Claude 嘅 output 通常會把每段都「完整成一段」， real magazine 文章係會散嘅、有 visual hierarchy。
+改回個別字眼，加副標、 pull-quote。Claude 嘅 output 通常會將每段都「完整成一段」，真正嘅雜誌文章係會散嘅、有視覺層次。
 
 ## 變化例子
 
 ### 變化 1：將訪問抽出做一個短專欄（500 字）
 
 <PromptBlock label="變化 1 — 訪問 → 500 字短文">
-基於以下 30 分鐘嘅訪問 transcript，請寫一篇 500 字嘅短文章，subject 係 [中心主題]。
+基於以下 30 分鐘嘅訪問 transcript，請寫一篇 500 字嘅短文章，主題係 [中心主題]。
 
 要求：
 - 第一人稱（用受訪者嘅口吻）
-- 圍繞 1 個 central insight，唔好 cover 太多嘢
-- 保留 2-3 個 direct quote（最 striking 嘅）
-- 結尾留個 thoughtful question / observation
+- 圍繞 1 個核心洞見，唔好包太多嘢
+- 保留 2-3 個原文引文（最搶眼嗰啲）
+- 結尾留個有深度嘅問題或者觀察
 
-唔好變 listicle，要 narrative arc：context → insight → implication。
+唔好變成條列式清單，要有敘事弧：背景 → 洞見 → 啟示。
 
 【Transcript】：
 （貼）
@@ -110,38 +110,38 @@ featured: false
 ### 變化 2：訪問 → 對話形式專訪（Q&A 格式）
 
 <PromptBlock label="變化 2 — 訪問 → Q&A 形式">
-請將呢個 transcript reformat 做 Q&A 形式嘅專訪。
+請將呢個 transcript 重新排做 Q&A 形式嘅專訪。
 
 我嘅問題（一段段口語）：[paste interviewer questions]
 受訪者答案：[paste responses]
 
 請：
-1. 將我嘅問題執成 clean、professional 嘅問句（保留我嘅好奇 angle，但 grammar 要正）
-2. 將受訪者答案 polish（廣東話 → 書面語），保留 voice，按上面嗰個 rule set
-3. 揀 5–6 個最 substantive 嘅 question-answer pair（如果 transcript 有 10+ 對）
-4. 排返 logical narrative order（唔係 chronological，係 thematic）
+1. 將我嘅問題執成乾淨、正式嘅問句（保留我嘅好奇角度，但文法要正）
+2. 將受訪者答案執靚（廣東話 → 書面語），保留 voice，按上面嗰套規則
+3. 揀 5–6 個最有內容嘅問答配對（如果 transcript 有 10 對以上）
+4. 排返有邏輯嘅敘事次序（唔係按時間，係按主題）
 </PromptBlock>
 
 ### 變化 3：抽 quote 做 IG quote graphic
 
 <PromptBlock label="變化 3 — 抽 quote 做 IG quote">
-由呢個訪問 transcript 抽出 5 個 standalone quotable line。
+由呢個訪問 transcript 抽出 5 句可以獨立成立、值得引用嘅句子。
 
-每個 quote 要：
+每個引文要：
 - 30 字以內（IG quote graphic 用）
-- 自成一句，唔靠 context 都讀得明
-- 保留個人嘅 voice / phrasing
-- 唔同 angle（例：1 個 contrarian observation、1 個 personal reflection、1 個 practical advice、1 個 sharp critique、1 個 humorous）
+- 自成一句，唔靠上文下理都讀得明
+- 保留個人嘅 voice 同講法
+- 唔同角度（例：1 個唱反調嘅觀察、1 個個人反思、1 個實用建議、1 個尖銳批評、1 個幽默嘅）
 
-每個 quote 後面標返出處時間戳（如果 transcript 有）。
+每個引文後面標返出處時間戳（如果 transcript 有）。
 </PromptBlock>
 
-## 一個心態 shift
+## 一個心態轉變
 
 對好多人嚟講，「執書面語」= 將粗糙嘅嘢變光鮮。 但呢個諗法用喺訪問稿就死。
 
-**訪問嘅 value，就係嗰個人嘅獨特性**。 你執到「professional」啲，反而 strip 走最值錢嗰部分。
+**訪問嘅價值，就係嗰個人嘅獨特性**。 你執到「正式」啲，反而抽走咗最值錢嗰部分。
 
-正確嘅 framing：**你係 transcriptionist + editor，唔係 ghostwriter**。 你嘅 job 係幫個讀者聽到對方把聲，唔係幫對方變成另一個人。
+換個角度睇：**你係文字記錄員兼編輯，唔係代筆人**。 你嘅工作係幫個讀者聽到對方把聲，唔係幫對方變成另一個人。
 
-呢個 distinction 對 podcast host、newsletter writer、文化雜誌嘅 freelancer 都好重要。識揀啱 prompt rule，你嘅 output 唔會被 ChatGPT-flavor 沖散。
+呢個分別對 podcast host、newsletter writer、文化雜誌嘅 freelancer 都好重要。識揀啱 prompt 規則，你嘅 output 唔會被 ChatGPT 嗰種味沖散。
