@@ -10,7 +10,7 @@ subcategory: "TDD / Testing"
 difficulty: 3
 timeMinutes: 50
 toolsNeeded: ["Claude Code CLI", "你個 test framework (jest / vitest / pytest / etc.)"]
-description: "Claude Code TDD 工作流：你 own test、Claude own impl 嘅 pair programming 模式。red-green-refactor 具體 prompt + edge case ratchet + 邊類問題啱用 TDD。"
+description: "Claude Code TDD 工作流：你負責 test、Claude 負責 impl 嘅 pair programming 模式。red-green-refactor 具體 prompt + edge case ratchet + 邊類問題啱用 TDD。"
 keywords: ["Claude Code TDD", "AI pair programming", "test-driven development Claude", "Claude red green refactor", "claude code 測試"]
 related: ["claude-code-tutorial-website", "claude-code-legacy-codebase-onboarding", "claude-code-hooks-claude"]
 featured: false
@@ -24,7 +24,7 @@ featured: false
 
 兩個禮拜後 production 出事——佢個 test 同個 impl 係**同一刻寫出嚟**，互相驗證緊對方嘅幻覺。Edge case 一個都冇 cover。
 
-呢個係 Claude Code 嘅預設 failure mode。**解法唔係叫佢寫好啲 test**，係改變分工：**你 own test、Claude own impl**，行真正 TDD。
+呢個係 Claude Code 嘅預設 failure mode。**解法唔係叫佢寫好啲 test**，係改變分工：**你負責 test、Claude 負責 impl**，行真正 TDD。
 
 呢篇教實際 ritual：red-green-refactor 點同 Claude pair、邊類問題啱用、邊類唔啱。
 
@@ -39,7 +39,7 @@ featured: false
 
 當我講「TDD mode」或者「red-green」嘅時候：
 
-- 我會寫 failing test，你只 own implementation
+- 我會寫 failing test，你只負責 implementation
 - 你**唔可以**改我啲 test file（除非我明確叫你 refactor test）
 - 你寫**最少**嘅 code 令 test pass，唔好預先優化
 - Pass 之後問我：「需要加 edge case test 嗎？」唔好自動加
@@ -51,7 +51,7 @@ featured: false
 <PromptBlock label="Session 開頭">
 我哋而家行 TDD mode（睇 CLAUDE.md）。
 
-我 own test file，你 own implementation。每個 cycle：我貼 failing test → 你出 minimal impl → 我睇過再決定下一步。
+我負責 test file，你負責 implementation。每個 cycle：我貼 failing test → 你出 minimal impl → 我睇過再決定下一步。
 
 確認你明白規則。
 </PromptBlock>
@@ -188,4 +188,4 @@ HK dev 嘅 pragmatic line：**critical path 同 business logic 行 TDD，UI 同 
 
 > Claude Code 一次過寫 impl + test 嘅 mode，唔係錯，係**啱 exploration、唔啱 production**。分清楚兩個階段，唔好用同一個 workflow 食晒兩邊。
 
-TDD pair-programming 嘅 unlock 唔係「test coverage 高啲」，係**你重新攞返 design authority**——你 own spec，Claude own implementation。code quality 嘅差距，就喺呢個分工。
+TDD pair-programming 嘅 unlock 唔係「test coverage 高啲」，係**你重新攞返 design authority**——你負責 spec，Claude 負責 implementation。code quality 嘅差距，就喺呢個分工。

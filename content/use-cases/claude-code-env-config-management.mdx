@@ -170,9 +170,9 @@ jobs:
         run: pnpm tsx scripts/env-check-ci.ts /tmp/vercel-env.json
 ```
 
-有 drift 時 `env-check-ci.ts` 會 exit 1，PR 變紅。順手喺 Claude Code 加個 PreToolUse hook：每次 `git push` 之前自動本機檢查一次，喺你部機就攔住，唔使等 CI 失敗。
+有走樣時 `env-check-ci.ts` 會 exit 1，PR 變紅。順手喺 Claude Code 加個 PreToolUse hook：每次 `git push` 之前自動本機檢查一次，喺你部機就攔住，唔使等 CI 失敗。
 
-呢一層搭好之後，env drift 由「定期發生」變成「制度上唔可能 ship 出去」。
+呢一層搭好之後，env 走樣由「定期發生」變成「制度上唔可能 ship 出去」。
 
 ## 變化
 
@@ -225,9 +225,9 @@ apps/
 
 ## 一個心態
 
-> **Env config drift 唔係紀律問題，係 system design 問題。** 靠人類記性同 Slack 提醒一定輸；靠 single source of truth + 自動 propagate + CI 檢查就贏。
+> **Env config 走樣唔係紀律問題，係 system design 問題。** 靠人類記性同 Slack 提醒一定輸；靠 single source of truth + 自動 propagate + CI 檢查就贏。
 
-最反直覺嘅一點：**dashboard 唔應該係 source of truth**。Vercel / Railway 嘅 UI 好順手，但每次喺度撳一下就係一次潛在 drift。`.env.example`（或者 secret manager）入 git、入 PR review，先至有歷史、有 review、有得 rollback。
+最反直覺嘅一點：**dashboard 唔應該係 source of truth**。Vercel / Railway 嘅 UI 好順手，但每次喺度撳一下就係一次潛在走樣。`.env.example`（或者 secret manager）入 git、入 PR review，先至有歷史、有 review、有得 rollback。
 
 換個角度睇：env config 同 schema migration 一樣，係 **infrastructure-as-code** 嘅一部分。冇人會用手撳 migration，但好多人用手撳 env var —— 諗起就唔合理。
 
