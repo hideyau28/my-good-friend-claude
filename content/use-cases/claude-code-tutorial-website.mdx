@@ -177,6 +177,39 @@ Claude 會：
 加完之後 commit 同 deploy 上 Vercel。
 </PromptBlock>
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經整到個網站出嚟。下面呢段係畀**想由「跑一次得咗」做到「過幾個月返嚟改都唔會炒車」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+vibe coding 最呃人嘅地方係：**第一次撳 enter 個個網站靚仔咁出咗嚟，唔代表你之後改一改唔會整爛佢**。呢個 project，識嘢嘅人即刻會問呢幾個位，你早啲知就唔會喺度跌錢：
+
+**1. 冇 git，等於冇返轉頭嘅路**
+Claude Code 每次改 file 係直接改落你部機，唔會自動幫你存返舊版本。改改下叫佢加個 feature，佢順手改爛咗首頁，你想 undo 都唔知 undo 去邊。
+- 會出事：改到一半發現之前 work 嘅嘢冇咗，但又冚唪唥蓋咗，得返而家炒咗嘅版本。
+- 點救：一開頭就叫 Claude「幫我 `git init` 同寫個 `.gitignore`，每做完一個 work 嘅 step 就 commit 一次」。咁就算之後整爛，都可以叫佢 reset 返去上一個 commit。
+
+**2. localhost 行到，Vercel 唔代表行到**
+你部機行緊嘅係 dev mode，Vercel deploy 嗰陣係 production build，兩者要求唔同——dev 容許嘅嘢（隨手 import、type 唔啱）production build 會直接 fail。
+- 會出事：localhost 睇得好好，一 deploy 就紅字 build failed，個 vercel.app URL 開唔到。
+- 點救：deploy 之前叫 Claude「本機行一次 production build（`npm run build`）確認過先 deploy」。有 error 就連紅字一齊貼返畀佢，叫佢用淺白中文解釋同改。
+
+**3. 同一句嘢，Claude 第二次唔一定明返你頭先講過嘅 context**
+傾耐咗、改多咗，session 一長 Claude 可能會「唔記得」你早幾步嘅決定，例如你話過唔好 dark mode，傾到後尾佢又加返。
+- 會出事：你以為佢知嘅嘢佢唔知，改出嚟同你預期唔同，越改越亂。
+- 點救：重要嘅規矩寫低落一個 `CLAUDE.md` file（叫 Claude 幫你開），佢每次都會讀。或者開新一輪任務時，喺 prompt 度簡短覆述返「記住：白底、serif 標題、唔好 dark mode」。
+
+**4. 撳 enter 撳到上癮，連刪嘢都照 approve**
+Claude 每跑一條 command 前會問你 OK 唔 OK，但跟得耐你會習慣性狂撳 enter。一旦佢提議嘅係 `rm`（刪 file）或者覆蓋成個 folder，你照撳就真係刪咗。
+- 會出事：手快撳咗，刪咗唔想刪嘅嘢，或者覆蓋咗你改過嘅內容。
+- 點救：睇住佢嗰句 command 先撳。見到 `rm`、`-rf`、`mv`、`>` 呢類字眼，停一停，唔肯定就問返 Claude「呢句會刪咩？刪咗有冇得返轉頭？」。有咗第 1 點嘅 git，就算撳錯都救得返。
+
+**5. 「幫我加個 feature」≠「幫我整一個會長久 work 嘅 feature」**
+Claude 好擅長即刻整一個睇落 work 嘅嘢，但唔代表佢揀嘅做法之後好維護。例如叫佢加 blog，佢可能直接 hardcode 幾篇文落 code 入面，你下次想加文又要返嚟搞。
+- 會出事：頭一兩篇好快，到第十篇先發現結構唔啱，要推倒重嚟。
+- 點救：講需求時連「之後點維護」一齊講，例如「我之後想自己加文，唔想每次都返嚟改 code」。Claude 識得就會揀一個畀你自己加內容嘅做法（例如用 MDX file），而唔係寫死。
+
+呢幾個位，就係「跑一次 demo 得咗」同「過幾個月返嚟都信得過」之間嘅距離。
+
 ## 邊個適合呢條路？
 
 呢條路最啱以下幾類人：

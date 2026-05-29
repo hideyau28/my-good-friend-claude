@@ -334,6 +334,39 @@ for await (const message of result) {
 
 Solo dev 唔需要。Agency / startup 跑 5 條以上 automation workflow 嗰陣，SDK 嘅重試、錯誤處理、成本記錄就抵返成本。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經跑得起。下面呢段係畀想由「跑一次靚仔」做到「跑足半年都唔出事」嘅人——初學者可以跳過，唔影響你跟住做。
+
+Headless automation 最陰公嘅地方係：**冇人睇住**。Interactive 你會即刻見到出錯、即刻 Ctrl-C；headless 喺凌晨 3 點靜雞雞做嘢，做錯咗都冇人知，直到你某朝發現條 PR 一早合咗、又或者三個禮拜冇出過報告。呢幾個位，就係 headless 真實會仆街嘅地方，你要預咗：
+
+**1. 靜默失敗，跑咗等於冇跑**
+cron 跑你個 script，就算 Claude 中途死咗、API timeout、quota 爆咗，cron 都唔會嘈——佢只係照樣 schedule 下一次。你以為日日有報告，其實個 file 兩個禮拜前已經停咗喺度。
+- 會出事：你以為個系統幫緊手，實情佢靜咗好耐，你反而少咗份警覺。
+- 點救：script 開頭 `set -euo pipefail`（範本已經有），出事即刻非零 exit。再加一句「跑成功就掂一吓 healthcheck URL / 出一個『我仲生勾勾』嘅訊息」——連續幾日冇收到，你就知佢死咗。寧願嘈，唔好靜。
+
+**2. `--dangerously-skip-permissions` 配錯 `--allowed-tools` 範圍**
+個 flag 個名已經叫你小心。Headless 冇 TTY，冇人撳 Y/N，所以 Claude 喺你開放嘅 tool 範圍內可以為所欲為。如果你 `Bash(git:*)` 開太闊，理論上 `git push --force`、`git reset --hard` 都喺範圍內。
+- 會出事：一個你冇預到嘅破壞性指令喺無人看管下執行咗，而且冇人即時截停。
+- 點救：tool scope 收到最窄——要乜開乜，唔好用 `Bash(git:*)` 咁闊，寫明 `Bash(git diff:*,git log:*)`。破壞性嘅嘢(push、合併、major 升級)留返畀人手，prompt 入面寫死「絕對唔好 commit / push，我會 review」(範本嘅 dep script 正正係咁做)。
+
+**3. LLM 唔係 deterministic，同一個 prompt 唔保證同一個結果**
+你今日試 review prompt 出到 3 個準確 finding，唔代表下次同一條 PR 都出返一樣。Headless 跑落去，有時會多嘢、漏嘢、format 走樣。如果你下游靠 parse 佢個 output(例如當「LGTM」做 pass 訊號去自動合併)，格式一變就會出事。
+- 會出事：下游腳本撞到意料之外嘅 output,parse 錯、或者攞咗個唔啱嘅訊號去做下一步。
+- 點救：要落腳本 parse 就用 `--output-format json`，唔好靠 grep 段自由文字。任何「自動做下一步」嘅決定(自動合併、自動 deploy)都要有一道人手閘，唔好畀 LLM 嘅一句說話直接觸發。
+
+**4. 個 repo state 唔係你 script 預期嗰個**
+你個 dep script 假設一開波喺乾淨嘅 main。但如果上次跑到一半死咗，留低咗條 `bot/deps-xxx` branch 未清、或者 working tree 有未 commit 嘅嘢，今次 `git checkout -b` 就會撞名失敗，成個 script 連鎖爆煲。
+- 會出事：script 喺一個你冇預到嘅 git state 開波，做出嚟嘅嘢唔係你想要嗰樣，甚至污染咗個 repo。
+- 點救：script 開頭先做 idempotent 嘅清理——確認喺 main、`git stash` 或者 check 過 working tree 乾淨先行落去；branch 名撞到就先刪舊嗰條。每次跑都當「由零開始」咁設計，唔好假設上次跑得乾淨。
+
+**5. 成本同 quota，跑得越密蝕得越靜**
+Headless 嘅 bill 唔似你坐喺度睇住跳。一條 cron 每 5 分鐘跑一次、又或者你 schedule 咗一個大 refactor 批次跑到失控，個數會喺你訓覺嗰陣一路堆上去。撞到 rate limit / quota，輕則靜默失敗(見第 1 點)，重則一個月嘅 budget 一個禮拜燒晒。
+- 會出事：月底個 bill 嚇你一跳，又或者半夜撞爆 quota，連帶第二朝你真係要用嗰陣都用唔到。
+- 點救：先用平 model(`--model claude-haiku-4-5`)封住成本，發覺漏嘢先升。頭一個月每日睇 Anthropic console 摸清真實單價。高頻 cron 加埋一個「今日已經跑咗幾多次」嘅上限，唔好任由佢無限重試。
+
+呢幾個位，就係「跑一次 demo 靚仔」同「跑足半年、你訓得安樂」之間嘅距離。Headless 唔係叫你撒手不管，係叫你預先諗定「佢出事嗰陣，我點樣即刻知」。
+
 ## 一個心態
 
 Headless 嘅深層體會：**你嘅產出唔再受你個鐘頭數限制**。

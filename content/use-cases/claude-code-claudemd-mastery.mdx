@@ -164,6 +164,39 @@ Claude Code 喺 sub-folder 跑會自動讀兩層。記住：**子層唔好重覆
 
 Claude 出嘅草稿通常 70% 啱、30% 估錯。你逐條核對一次，半個鐘有得交。**比起人手由零寫快 5 倍**。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經用得。下面呢段係畀想由「跑一次驗收 OK」做到「日日用都唔失控」嘅人——初學者可以跳過，唔影響你跟住做。
+
+CLAUDE.md 最唔老實嘅地方係：**你寫得越多，Claude 跟得越唔齊**。佢唔係一條條 if-else，而係連你成個 codebase 一齊塞落 context 度做提示。下面呢幾個位，係 demo 順、但日日用就會浮出嚟嘅陷阱，你要預咗：
+
+**1. 寫到 500 行，反而冇條 rule 跟得實**
+你越補越多 rule，份 CLAUDE.md 由 80 行脹到 400 行。Claude 唔會「逐條對」，佢係喺成段 context 度抽重點，rule 一多就稀釋，重要嗰幾條反而沉底。
+- 會爆成點：你明明寫咗「唔好用漸變」，佢照用；你問返佢，佢答得出條 rule，但啱啱嗰下冇跟。
+- 點救：分層。最 critical 嘅禁令（炸過 prod 嗰啲）擺前面、用粗體；次要嘅 nice-to-have 拆去 sub-folder 嘅 CLAUDE.md 或 slash command。寧願短而硬，唔好長而軟。
+
+**2. 規矩之間打架，Claude 揀錯邊**
+你某個位寫「全部 PascalCase」，另一個位又寫「test file 用 kebab-case」，再 import 一份 team doc 又有第三套講法。Claude 撞到衝突唔會停低問你，佢會自己估一個。
+- 會爆成點：佢揀咗其中一套照做，你 review 先發現同你心目中嗰套唔同。
+- 點救：自己讀一次成份 doc 搵矛盾；每條 rule 寫清楚適用範圍（「component file」定「所有 file」）。一個 project 一套真理，唔好兩個 section 各講各。
+
+**3. 你改咗 stack，但 CLAUDE.md 仲停喺上個月**
+篇文教你「每月調整」，但現實係你轉咗 Vitest、搬走咗個 deprecated package，份 doc 冇跟住改。Claude 照住份過時嘅 doc 做，比你乜都唔寫仲衰——因為佢會好有信心咁做錯。
+- 會爆成點：佢「跟足 CLAUDE.md」去 import 你已經刪咗嘅 package，或者用返你已經淘汰嗰套 test framework。
+- 點救：當 CLAUDE.md 係 code 嘅一部分。換 dep、改 convention 嗰個 commit，順手改埋 CLAUDE.md；過時嘅 rule 比冇 rule 更危險，定期清。
+
+**4. 寫死咗 secret 或內部資料落去**
+CLAUDE.md 通常會 commit 入 repo。有人為咗「畀 Claude 方便」，順手貼咗 staging 嘅 connection string、內部 URL、甚至 token 落去。
+- 會爆成點：一個本應低調嘅 config file，連你啲 secret 一齊入咗 git 歷史，public repo 就更大鑊。
+- 點救：CLAUDE.md 只放「點做」唔放「鎖匙」。要講環境變數就講名（例如「set DATABASE_URL」），唔好貼真值；commit 前當佢同其他 source code 一樣過一次 secret 檢查。
+
+**5. 抄人哋一份「萬用 CLAUDE.md」落自己 project**
+網上有好多現成範本，貼落嚟好快。但別人嗰套 convention、禁令、commands 同你個 project 唔對位，Claude 就會照住一份同你 codebase 唔 match 嘅指示做。
+- 會爆成點：佢叫你跑一條你根本冇嘅 script、跟一套你 project 唔用嘅命名，同你個 codebase 越偏越遠。
+- 點救：範本當靈感，唔好當答案。每條 rule 問返自己「呢個係咪我呢個 project 真係咁做」，唔啱就刪。短而真，好過長而抄。
+
+呢幾個位，就係「跑一次驗收 OK」同「日日用都信得過」之間嘅距離。
+
 ## 一個心態
 
 > CLAUDE.md 嘅回報唔係寫嗰陣感覺到 —— 係寫完之後每一個 session 都慳返 5 分鐘解釋時間。

@@ -253,6 +253,39 @@ Phase 2 backfill 紀律加碼：
 
 Multi-tenant 嘅心法：**冇一個 migration 係 atomic across tenants（跨 tenant 原子化）**。你要當佢係 100 個獨立 migration 嘅漸進式 rollout。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經部署得。下面呢段係畀**想由「staging 跑 OK」做到「真係夠膽 deploy 落 production」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+Migration 最唔老實嘅地方係：**喺 staging 同你個細數據庫跑得靚，唔代表喺 production 千萬 row、幾百個 concurrent connection 之下唔出事**。三段式幫你避開大部分災難，但仲有呢幾個位會喺真 production 仆街，你要預咗：
+
+**1. ADD COLUMN 都未必 instant（睇你加咩）**
+篇文講過 `ADD COLUMN` nullable 係 metadata-only、唔鎖 table。但只要你順手加 `NOT NULL`、加 volatile DEFAULT、或者加 `CHECK` constraint，就可能觸發 full table rewrite，喺大 table 鎖死分鐘級。Claude 出 SQL 時好容易順手補返個 NOT NULL「睇落穩陣啲」。
+- 會出事：Phase 1 你以為 instant，實際鎖晒成個 `users` table，所有寫入排隊，前端 timeout。
+- 點救：Phase 1 一律淨係 nullable、無 DEFAULT。constraint 等 backfill 完先用 `ADD CONSTRAINT ... NOT VALID` 再 `VALIDATE CONSTRAINT` 兩步落，避免 full scan 鎖寫。叫 Claude 明寫「呢句喺 X 百萬 row 嘅 table 上鎖唔鎖、鎖幾耐」。
+
+**2. Backfill 一個大 UPDATE 食晒 connection 同 WAL**
+篇文已經叫你分 batch，但「分 batch」嘅參數先係生死位。Batch 太大（例如一次 UPDATE 50 萬 row）會撐爆 WAL、拖死 replication lag、食晒 connection pool，連正常 app query 都攞唔到 connection。
+- 會出事：backfill 跑住跑住，replica 落後幾分鐘，read replica 上嘅 query 攞到舊數據，或者 app 全站變慢。
+- 點救：batch 細（1000 至 5000 row），每 batch 之間 sleep、commit，睇住 replication lag 同 active connection 數。叫 Claude 加 `FOR UPDATE SKIP LOCKED` 同每 batch 之間檢查 lag、超過 threshold 就自動 pause。
+
+**3. Dual-write 兩條路唔同步，數據靜靜雞分叉**
+Phase 2 你以為「寫 user 嘅地方」都 cover 晒，但 admin tool、import script、第三方 webhook、raw SQL patch，往往有條暗路淨係寫舊 `name` 唔寫新 column。冇 error，靜默失敗。
+- 會出事：過咗幾日先發現一批新 row `first_name` 係 NULL，但你 Phase 2 核實嗰陣 backfill 已經跑完，呢啲係之後新入嘅，你 DROP 舊 column 嗰刻先知數據對唔返。
+- 點救：DROP 之前（Phase 3）再跑多次 `WHERE name IS NOT NULL AND first_name IS NULL` 嘅 count，唔係 0 就停手查邊條暗路漏咗；高危表可以加個 DB trigger 喺過渡期強制同步兩個 column，當安全網。
+
+**4. Rollback migration 從來冇真係跑過**
+你寫咗 `down.sql`，但十居其九冇喺 staging 真跑過。到 production 出事、半夜要 rollback 嗰刻，先發現 down migration 本身有 bug、或者 reconstruct 唔返原本數據（例如 `name` 拆完再砌返，中間多咗個 space）。
+- 會出事：危機當下你最需要嘅 rollback 反而再爆一個 error，雪上加霜。
+- 點救：每個 down migration 都要喺 staging restore 一份 prod snapshot，行一次 up → down → 對 row count + sample，confirm 砌得返。冇測過嘅 rollback 等於冇 rollback。
+
+**5. Migration 同 deploy 嘅次序撞返轉頭**
+三段式假設「schema 先行、code 後到」或者反過來，但你個 CI/CD 究竟邊個先跑？如果 migration 喺 deploy 之後先 run（或者反過來），就會短暫出現「新 code 讀緊未存在嘅 column」或者「舊 code 撞到已 DROP 嘅 column」，即係篇文開頭嗰個 90 秒災難換個方式翻版。
+- 會出事：明明跟咗三段式，但因為 pipeline 次序錯，中間幾十秒一樣 500。
+- 點救：搞清楚你個 platform 係 migrate-then-deploy 定 deploy-then-migrate，Phase 1（純加）兩種次序都安全，Phase 3（DROP）就必須確保所有舊 pod 都收皮先至 run。叫 Claude 對住你個實際 deploy pipeline 講明每 phase 應該幾時 trigger migration。
+
+呢幾個位，就係「staging 跑 OK」同「production 千萬 row 都唔仆街」之間嘅距離。
+
 ## 一個心態
 
 > Schema change is not an event. It's a process that spans a week.

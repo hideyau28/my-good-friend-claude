@@ -227,6 +227,34 @@ Content site 嘅風險狀況同 B2B SaaS 唔同。呢度 build fail 就立即知
 
 **唔好覺得呢個係偷雞**。務實覆蓋嘅核心係：test 嘅回報取決於「冇 test 嘅壞處有幾大」。Content site 冇咩壞處，test 嘅回報就低。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就用得。下面呢段係寫畀**想由「一個 sprint 跟到」做到「半年後個 codebase 改晒樣都仲信得過呢套分層」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+呢套分層最唔老實嘅地方係：**第一日貼好 label 唔代表三個月後仲啱**。codebase 會生，module 會搬，path 會改名。呢套策略實際會喺呢幾個位仆街，你要預咗：
+
+**1. Path glob 一改名就靜靜雞失效**
+你 CLAUDE.md 寫死 `src/permissions/isAllowed.ts` 係 critical path。有日你 refactor，搬咗去 `src/auth/permissions/check.ts`。CLAUDE.md 冇人同步改。
+- 點解錯：Claude 一睇新 path 對唔上任何 critical glob，就當佢係 cold path——你最關鍵嘅權限檢查靜靜雞跌出咗保護網，冇報錯、冇紅字，你完全唔知。
+- 點救：將 coverage policy 嘅 path 同 import 真實結構掛鈎，refactor 嘅 prompt 明寫「如果你搬咗 critical / hot path 入面任何 file，順手更新 CLAUDE.md 嘅 path glob，喺回覆度列出改咗邊行」。定期叫 Claude 對一次「policy 列嘅 path 有冇已經唔存在」。
+
+**2. Coverage 數字靚，但 test 喺 mock 一個 mock**
+情境段講過嗰個 CSV export「3 個 test 全部 mock 一個 mock」。critical path 一樣會中招：你逼到 line + branch 99%，但每個 dependency 都 mock 做「永遠成功」，等於 test 緊個 mock，唔係 test 緊你嘅 logic。
+- 點解錯：覆蓋率係「行有冇被執行過」，唔係「行為啱唔啱」。100% 綠燈可以完全冇 assert 過真正嘅 business rule，partial failure 一發生 production 即爆。
+- 點救：critical path 嘅 prompt 明寫「唔可以將同層嘅 critical dependency mock 做 happy path」（電商變化嗰段已經點咗呢樣，但要當通則）。Review test 嗰陣睇 assert 喺度 assert 乜，唔好淨係睇個 coverage %。
+
+**3. Cold path 偷偷升咗呢，但冇人升 label**
+你個 admin 退款工具開頭真係手動用、錯咗即刻知。但生意做大咗，呢個工具開始夜晚自動跑 batch refund，冇人睇住。佢仲喺 `src/admin/**`，仲係 0% test。
+- 點解錯：「錯咗即時知」呢個假設係 cold path 0% 嘅唯一理由。一旦冇人睇住自動跑，呢個假設就破咗，但 path 冇變、policy 冇變，風險靜靜雞由 cold 變 critical。
+- 點救：定期問返自己「邊啲 cold path 已經由人手變自動、由有人睇變冇人睇」。一升做自動 / 一掂到錢同權限，就即刻搬個 file 入 critical glob。分層係活嘅，唔係貼一次就封存。
+
+**4. Claude 對「邊界情況」嘅想像力，受你個 prompt 框死**
+critical path 階段一叫 Claude 列 input boundary、business rule edge、external failure。佢列得幾好，取決於佢估唔估到你個 domain 嘅暗坑。你冇講「呢個系統有 multi-currency」，佢就唔會諗到 currency rounding——正正就係情境段爆嘅嗰個。
+- 點解錯：LLM 唔知你冇講出口嘅 domain 假設。漏咗嘅邊界唔會報錯，佢只會喺 production 用真錢示範畀你睇。
+- 點救：階段一收到佢列嘅清單之後，唔好即刻揀，反問「以我哋係 [你個 domain：multi-currency / multi-tenant / 有 webhook retry] 嘅系統，你仲漏咗邊類邊界？」逼多一round。寧願階段一拗耐啲，好過階段二寫到靚但漏咗死穴。
+
+呢幾個位，就係「貼一次 label 個 dashboard 好睇」同「半年後 codebase 改晒樣個分層仲信得過」之間嘅距離。
+
 > 100% 覆蓋率唔等於 100% 安全。Test 寫喺低風險嘅地方，等如將你嘅注意力分散——關鍵 bug 走出去嘅機會反而高。覆蓋嘅藝術唔係多，係**準**。
 
 香港 dev 嘅務實底線：critical 100%、hot 80%、cold 0%。寫死入 CLAUDE.md，等 Claude Code 自動分到層，你就唔需要每次同佢拗「呢個 file 要唔要 test」。

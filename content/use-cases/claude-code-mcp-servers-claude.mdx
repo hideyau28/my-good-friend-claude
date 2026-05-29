@@ -281,6 +281,39 @@ server.connect();
 
 每個開發者喺自己 shell 設返自己嘅環境變數（`GITHUB_TOKEN`）。設定共用，憑證各自管。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經連得到工具。下面呢段係畀想由「demo 跑得通」做到「日日靠佢做嘢都唔出事」嘅人——初學者可以跳過，唔影響你跟住做。
+
+MCP 最唔老實嘅地方係：**佢唔似一個 function call 咁，錯咗會即刻 throw 畀你睇**。好多時佢係靜靜雞返個空結果，Claude 照樣畀你一個信心十足嘅答案。呢度有幾個位，你裝之前要預咗。
+
+**1. Token 跟住 settings.json 入咗 git**
+上面教你直接喺 `~/.claude/settings.json` 寫 `GITHUB_TOKEN`、`NOTION_API_KEY`。如果你貪方便擺咗去 project 入面個 `./.claude/settings.json`，再 commit，個 token 就連住 git 歷史一齊出街。
+- 會出事：token 入咗公開 repo，等於攞自己個 GitHub / Notion 戶口畀人。就算你之後 delete 條 line，git 歷史仍然留住。
+- 點救：project 層用 `${GITHUB_TOKEN}` 呢種環境變數寫法（變化 3 嗰種），真實 token 淨係放喺 shell 或者 `~/.claude/`（個人層、唔入 git）。`.gitignore` 加埋 project 嘅 settings。萬一漏咗，當條 token 已經爆，去原平台 revoke 重新 issue，唔好淨係 delete。
+
+**2. 連到咗，但每次都攞返「空白」（權限冇 share）**
+Notion 嗰段已經提咗「share with integration」。實際上呢個係最常見嘅靜默失敗：`/mcp` 顯示 notion 連住、工具齊，但你問佢攞任務，佢答「搵唔到」。
+- 會出事：你以為 MCP 壞咗、或者以為個 database 真係空，其實係 integration 冇被 share 入嗰個 page。Claude 唔會話你知係權限問題，佢淨係見到一個空 response。
+- 點救：撞到「明明有嘢但 Claude 話冇」，第一個 suspect 永遠係權限／scope，唔係 MCP 本身。Notion 去 page 右上「Connections」確認 integration 在場；GitHub 確認 token 個 scope（讀私人 repo 同公開 repo 要嘅 scope 唔同）。
+
+**3. 「Allow always」按落去，後悔莫及**
+文中建議唯讀操作揀「Allow always」。陷阱係：你以為自己批嘅係唯讀，但有啲 MCP 將讀同寫包喺同一個 server 入面，你一個「Allow always for this MCP server」可能連 `create_issue`、`delete` 都一齊放行咗。
+- 會出事：Claude 自己判斷要「update 一下」就動手改你真實嘅 Notion / GitHub / 生產 DB，唔再問你。改錯咗你先發現。
+- 點救：分清楚「Allow always for this tool」同「for this server」。會改動嘅工具（create / update / delete）一律逐次批。Postgres / SQLite 呢類，盡量用個唯讀連線字串，由源頭斷咗寫入嘅可能，唔好靠記性。
+
+**4. `npm install -g` 之後，邊個版本根本冇人知**
+全局裝嘅 MCP server 唔會 pin 喺你 project 入面。過幾個月你或者隊友重裝，攞到嘅係新版本，工具名、參數、行為都可能變咗。
+- 會出事：同一份 settings、同一條 prompt，喺你機跑得掂，喺隊友機因為 server 版本唔同而靜靜雞行為唔一致；或者升級之後舊 prompt 突然搵唔到個工具。
+- 點救：團隊共用嘅話，喺文檔寫清楚 server 名同版本，唔好淨係「裝個 GitHub MCP」。升級當係改 dependency 咁睇，升完用 `/mcp` 對一對工具列表有冇變。第三方／社區 MCP 尤其要釘住一個 commit，唔好盲目跟 latest。
+
+**5. 裝太多 MCP，Claude 反而揀錯工具**
+一次過裝十個 server，每個帶幾件工具，Claude 每個 prompt 都要喺幾十件工具入面揀。工具一多，揀錯、亂叫、或者塞爆 context 嘅機會就上升。
+- 會出事：你問一個簡單問題，Claude 兜去叫咗個唔相干嘅工具；或者明明有現成工具佢偏偏唔用。回應慢咗、又唔準。
+- 點救：呼應文中「由 1 至 2 個開始」——唔淨係為咗新手友善，係真係影響準確度。同一個 task 用唔到嘅 server，暫時喺 settings 停用佢。工具列表保持精簡，Claude 揀得準好多。
+
+呢幾個位，就係「demo 跑得通」同「日日靠佢做嘢都唔出事」之間嘅距離。
+
 ## 一個心態
 
 MCP 嘅深層啟示：**AI 嘅未來唔係「更聰明嘅模型」，而係「標準化嘅工具生態」**。

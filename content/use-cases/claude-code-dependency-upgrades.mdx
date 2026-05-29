@@ -220,6 +220,34 @@ Driver bump 一定要做嘅步驟：
 
 ⚠️ Claude 識讀 changelog + 掃 code，但 **production data 嘅 edge case 佢唔識**。Driver bump 必須人手檢視 staging dataset。
 
+## 拆解：點解 work，同邊度會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「升完跑得起」做到「升完三個月都唔會半夜爆 prod」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+Dependency upgrade 最危險嘅地方係：**最大鑊嘅問題，唔會喺你個 terminal 紅燈出現**。Typecheck 綠、build 綠、page 開得到，你以為穩陣，但有幾類嘢會靜悄悄等你 merge 完先發作。呢幾個位你要預咗：
+
+**1. Claude 講嘅 breaking change，可能係「佢以為」嘅版本**
+Claude 嘅知識有 cutoff，而 framework 升得快。你問佢「React 19 點升」，佢答嘅可能係某個時間點嘅理解——RC 同正式版之間 API 改過、minor patch 又改過。
+- 會出事：佢叫你跟一條根本已經唔存在嘅 migration step，或者漏咗一條最新先加嘅 breaking change，你照跟、升完先發現對唔上。
+- 點救：逼佢用 WebFetch 抓**官方嗰一個 minor 版本**嘅 release notes，唔好淨係靠記憶；每條 claim 同你裝咗嘅實際版本號（睇 lockfile）對返。step 1 嗰份報告當分流，唔當聖旨。
+
+**2. grep 掃唔到嘅用法，先至係漏網之魚**
+step 1 靠掃 code 揾受影響嘅 API，但 grep 類掃描只睇到「字面寫成咁」嘅用法。
+- 會出事：你經 re-export 包過一層嘅 API、用字串砌出嚟嘅 dynamic import、codegen 出嚟嘅 file、或者 `node_modules` 入面某個冇升嘅 library 內部仲用緊舊 API——全部掃唔到，升完喺 runtime 先爆。
+- 點救：唔好當「報告冇列到 = 安全」。叫 Claude 連 re-export 同 barrel file（`index.ts` 嗰類）一齊追；最後實際行一次成個 app 嘅關鍵 path，唔好淨係信靜態掃描。
+
+**3. Typecheck 綠燈 ≠ 行為冇變**
+最陰公嘅 breaking change 唔會改 type signature，只改**行為**——上面提過 Next.js 15 個 caching 預設由 cache-by-default 轉去 fetch-fresh，type 完全唔變。
+- 會出事：build 全綠、demo 睇落正常，但上 prod 之後 cache 行為變咗，要麼資料舊、要麼 origin 被打爆，幾日後先有人 report。
+- 點救：升之前列一張「行為類 breaking change」清單（caching、null / date handling、預設值改變），逐條落 staging 用真實流量觀察；單靠 typecheck 同 demo 揾唔到呢類問題。
+
+**4. Codebase 太大，Claude 中途會「斷片」**
+5 年舊 codebase 塞唔晒入一個 context window。分幾次 session 改，Claude 唔會記得上一 session 點改。
+- 會出事：同一條 migration 規則，頭 20 個 file 用 A 寫法、後 30 個 file 用 B 寫法，兩種都 compile 到，但風格分裂、日後接手嘅人一頭霧水；更弊係佢「以為」改晒，其實漏咗冇入 context 嗰批。
+- 點救：將 migration plan 寫低做一份 checklist file commit 入 repo（呢篇尾段都建議咁做），每次開新 session 都餵返佢做 anchor；改完用 grep 數一數舊 API 嘅剩餘數量，跌到零先算完，唔好靠感覺。
+
+呢幾個位，就係「升完跑得起」同「升完三個月都信得過」之間嘅距離。
+
 ## 一個心態
 
 Dependency upgrade 嘅深層體會：**bump 唔係「一個動作」，係「一段過程」**。

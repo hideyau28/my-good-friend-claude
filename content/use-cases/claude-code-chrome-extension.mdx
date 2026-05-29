@@ -167,6 +167,39 @@ git push -u origin main
 呢個係第一個「中等複雜度」嘅步驟，謹慎啲做。
 </PromptBlock>
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經整到一個用得嘅 extension。下面呢段係畀**想由「裝完試一次 OK」做到「用足幾個月都唔崩」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+寫 extension 最唔老實嘅地方係：**你個 extension 唔係跑喺自己屋企，係寄人籬下喺人哋個網頁度**。Gmail、IG 隨時改版，你冇得控制。呢幾個位實會爆，你要預咗：
+
+**1. 網站一改版，你個 selector 就死**
+你叫 Claude Code 用 `.aDP` 或者某個 class name 去揀個掣，但呢啲 class 係 Gmail 自動生成、隨時會變嘅。佢哋 deploy 一個新版面，你個 selector 對唔到嘢。
+- 會出事：個 extension 靜靜雞唔做嘢，唔會彈錯，你以為仲 work，其實已經死咗一個禮拜。
+- 點救：揀嘢盡量靠穩定嘅嘢（`aria-label`、文字內容、`data-` 屬性），唔好靠亂碼 class；喺 code 加一句「揀唔到就 console.warn 出嚟」，等你一開 DevTools 就見到佢喊。
+
+**2. 頁面係慢慢載出嚟，你個 script 跑得太早**
+content script 一注入就即刻搵個元素，但 Gmail / Notion 呢類係 SPA，內容係 JS 慢慢砌出嚟。你跑嗰刻個元素根本未存在。
+- 會出事：刷新有時 work 有時唔 work，你以為自己癲咗。
+- 點救：叫 Claude Code 改用 `MutationObserver` 等個元素出現先做嘢，唔好用一個 `setTimeout` 嘅死時間去賭；同埋 SPA 切頁係唔會 reload 嘅，要 listen URL 變化重新跑。
+
+**3. Manifest V3 嘅 background 唔係長開，係 service worker 會瞓著**
+你可能 demo 嗰陣 background 記住咗個狀態，但 MV3 嘅 service worker 閒置一陣就會被 Chrome 殺咗，記憶體裏面啲變數全部清零。
+- 會出事：擺一陣返嚟，之前嘅設定 / 計數無端端 reset。
+- 點救：所有要記住嘅嘢一律寫落 `chrome.storage.local`，唔好淨係擺喺一個全域變數度當佢會永遠喺度。
+
+**4. 改完 code 唔 reload，你以為改咗其實冇**
+你改完檔，但個 extension 仲係載住舊版。content script 尤其陰公，有時要連目標分頁都 reload 埋先食到新 code。
+- 會出事：你同 Claude Code 嘥成個鐘 debug 一個「其實已經改好」嘅問題，兩邊都黐線。
+- 點救：每次改完去 `chrome://extensions` 撳一下個 reload 圖示，再 refresh 返目標頁；debug 時養成「改一次、reload 一次、試一次」嘅節奏，唔好一次過改五樣嘢。
+
+**5. 權限攞得太闊，將來想分享或者上架就還神**
+為咗方便，prompt 可能畀 Claude 加咗 `<all_urls>` 或者一大堆 permission。自己用冇人理，但一旦你想 send 個 repo 畀朋友、或者真係上 Chrome Web Store，過唔到審核又或者朋友見到個權限提示會卻步。
+- 會出事：朋友裝嗰陣見到「可讀取你所有網站嘅資料」即刻縮沙。
+- 點救：原文 prompt 已經叫咗「只攞最基本權限」——記得真係 review 返 `manifest.json`，將個 host 收窄到你真正用嘅網域（例如淨係 `mail.google.com`），唔好留住個 demo 時嘅闊權限。
+
+呢幾個位，就係「裝完試一次 OK」同「用足幾個月都信得過」之間嘅距離。
+
 ## 一個思維框架
 
 唔好跌落「我要發佈落 Chrome Web Store」嘅陷阱。

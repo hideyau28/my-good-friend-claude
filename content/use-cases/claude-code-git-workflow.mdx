@@ -206,6 +206,39 @@ Agent({ prompt: "Draft maintainer reply: 讚好嘅地方 + 列具體要改嘅 po
 
 3 個 subagent 並行，整合返一份檢視報告。你最後加返人味，approve 定 request changes。OSS maintainer 由「30 分鐘睇一個 PR」變「5 分鐘睇一個」，啲 PR 唔再積壓三個月。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經用得。下面呢段係畀**想由「demo 一次跟到 template」做到「全團隊用足一年都唔出事」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+git 自動化最危險嘅地方係：**Claude 唔 commit 嘅嘢，你睇唔到**。一個 commit 靚仔，唔代表佢冇靜靜雞做咗你唔想佢做嘅嘢。呢套流程，實際會喺呢幾個位爆，你要預咗：
+
+**1. hook 設死咗，全團隊一齊 commit 唔到**
+文中都提咗：個 regex 或者 commitlint config 設錯，`exit 2` 會擋住所有 commit。問題係呢個 config 你 commit 咗入 repo，一 pull 落嚟全團隊中招。
+- 會出事：唔止你一個，pull 咗份 config 嘅人全部 commit 唔到，但佢哋唔知點解，以為自己壞咗。
+- 點救：hook 加返「逃生門」——例如認 `--no-verify` 或者一個環境變數 bypass；config 改動單獨開 PR、寫清楚 reviewer 要本機試 commit 一次先 merge。寧願鬆少少，唔好成隊塞住。
+
+**2. `git add` 揀錯檔，secret 跟住 commit 出去**
+slash command 寫咗「唔好 `-A`」，但 Claude 推斷「相關檔案」嗰陣，會唔會手快加埋 `.env.local`、`*.pem`、debug 時 dump 出嚟嘅 log，冇人擔保。
+- 會出事：API key / token 入咗 git history，就算之後刪返，history 仲喺度，等於洩咗，要 rotate key。
+- 點救：唔好淨靠 prompt 自律——加 `.gitignore` 兜底，再加 `git secrets --scan` 或者 gitleaks 落 hook 做真正嘅閘。Claude 自律係第一層，工具掃描係最後一層。
+
+**3. Claude 自動 rebase / force push，撞甩同事啱啱 push 嘅 commit**
+文中話 Claude 唔驚 `--force-with-lease`，呢個係優點都係陷阱。喺共用 branch 上 force push，分分鐘蓋走人哋未 pull 嘅嘢。
+- 會出事：同事尋日 push 嘅 commit 喺 remote 消失，佢下次 pull 先發現，排查半日。
+- 點救：CLAUDE.md 寫明「protected / 共用 branch 永遠唔准 force push，只可以喺自己 feature branch 用」；`--force-with-lease` 一定優先過 `--force`，最少佢會喺 remote 有新嘢嗰陣 fail，唔會盲蓋。
+
+**4. commit message 啱 format，但「點解」嗰段係作出嚟**
+hook 只驗 conventional 嘅**格式**（type / scope / subject），驗唔到 body 講嘅「點解改」係咪真。Claude 由 diff 反推意圖，推錯咗你又冇睇，就成為一條誤導後人嘅 commit。
+- 會出事：半年後有人 `git blame` 撞到呢條 commit，照住個錯 reason 去理解，跟住改錯嘢。
+- 點救：「點解」呢段你一定要過目，尤其係 fix 類 commit——bug 嘅真正成因 Claude 估唔到，要你補。squash 多條 WIP 嗰陣更加要睇，因為佢要由一堆零碎 diff 砌返個故事。
+
+**5. JIRA ID 抽錯或者抽漏，PR 連唔返單**
+slash command 靠由 branch name 抽 JIRA ID。branch 名唔跟 format（例如你開漏咗、或者用咗 `temp-fix`），Claude 就抽唔到，PR 個 Why 段就會吉，或者填個錯 ID。
+- 會出事：PR merge 咗但 JIRA 單冇 link，release note / audit trail 斷咗一截，compliance 追唔返。
+- 點救：branch name regex 落 hook 做硬閘（文中第 3 步已提，記得真係加埋 JIRA prefix 嗰條）；抽唔到 ID 嗰陣 Claude 應該停低問你，唔好靜雞雞填個空白或者亂估。
+
+呢幾個位，就係「demo 一次 commit 靚仔」同「成隊人用足一年都信得過」之間嘅距離。最緊要記住：Claude 跑 git 快過你五倍，但快嘅嘢出事都快五倍——閘要你用工具落，唔好淨靠 prompt 自律。
+
 ## 一個心態
 
 Solo dev：CLAUDE.md 寫得鬆啲都得，反正你自己一個。重點係寫低你**自己**嘅慣性（你已經慣咗用 conventional commit，咁就寫低，Claude 跟你而唔係跟業界平均）。

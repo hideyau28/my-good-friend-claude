@@ -198,6 +198,39 @@ test('checkout flow 行到尾', async ({ page }) => {
 
 呢條 flow 一綠，等於話收錢條 pipeline 通晒。Black Friday 前一晚 push，跑完先放心瞓。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經用得。下面呢段係畀**想由「跑一次 OK」做到「自動化值得信、出事真係捉到」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+驗證腳本最危險嘅地方係：**佢自己靜靜雞死咗，但報你綠**。一個成日報綠嘅 smoke test，等於冇 test，仲衰過冇——因為你會信佢。呢套流程實際會喺呢幾個位仆街，你要預咗：
+
+**1. 撈錯個 deployment（SHA 對唔上）**
+Step 1 用 `githubCommitSha` 對你個 HEAD。但 Vercel 可能仲未收到 webhook、或者揀咗你之前一個 commit 嘅 deployment。`jq` 揀唔到就 `URL` 同 `STATE` 係空，`STATE != READY` 永遠唔成立，loop 一路行到 timeout。
+- 會出事：等足 400 秒先 timeout，你以為 build 慢，其實係根本對唔到單；又或者撈到上一個舊 deploy，驗咗個舊版報你綠。
+- 點救：loop 入面分開兩件事——「搵唔到呢個 SHA 嘅 deployment」同「搵到但未 READY」要有唔同 log。等夠幾轉都搵唔到 SHA 就明講「Vercel 未見到呢個 commit」早啲收手，唔好靜靜等到 timeout。
+
+**2. Smoke 用 grep 認關鍵字，太鬆會永遠綠**
+Step 2 靠 `grep -q "$expect"` 認 body。問題係好多 SPA / SSR 嘅 error page、login redirect、甚至 Vercel 自己嘅 404，都係回 HTTP 200，body 入面又啱啱好撞到你個關鍵字（譬如成版都有個 nav 寫住「月費」）。
+- 會出事：page 其實壞咗，但因為關鍵字喺 layout 度照出，smoke 報綠，你完全唔知。
+- 點救：關鍵字揀只會喺「正常 render」先出嘅嘢（譬如真實 plan 價錢、訂單號格式），唔好揀 header / footer 嘅字。`/api/health` 嗰類就明確 check JSON 入面個 field，唔好淨係 grep 個 `ok` 字。
+
+**3. Playwright 對住 preview URL，但 preview 有 protection / 認證牆**
+Step 3 直接 `page.goto(BASE)`。但 Vercel preview deployment 預設可能有 Deployment Protection（Vercel Authentication），未登入會俾 401 / 重定向去登入頁；你條 selector 點都揀唔到，test 報 fail。
+- 會出事：明明個 app 冇事，但 Playwright 成片紅，你以為自己 ship 爛咗，嘥半個鐘揾錯方向。
+- 點救：要驗 protected preview，就用 Vercel 嘅 protection bypass token（行內叫 automation bypass），喺 request header 或 query 帶住佢；或者改驗一個冇開 protection 嘅 branch / 環境。揀邊條路冇所謂，但一定要喺 prompt 同 CLAUDE.md 寫死，因為 Claude 唔會自動知你個 preview 鎖咗。
+
+**4. Flaky test 報紅，你慢慢就會 disable 佢**
+Step 3 啲 test 靠 `toBeVisible`、靠 timeout。網絡慢少少、cold start、Stripe iframe 慢 load，都會間中 fail。一個十次有一次無端紅嘅 smoke，比你想像中毒——因為人類對「成日嘈」嘅 alert 會自動麻木。
+- 會出事：你開始見到紅都唔 click 入去睇，最後索性 `/ship` 跳過 Playwright；真係出事嗰次，你都當佢又 flaky。
+- 點救：寧願少幾條、條條穩，都好過多而 flaky。用 `getByRole` / `getByText` 呢類語意 selector 唔好靠 CSS class；有 timeout 嘅就俾夠位（cold start 真係慢）。間中紅嗰條，要即刻 debug 或者剷走，唔好留住污染你對綠燈嘅信任。
+
+**5. Slack 報咗綠，但 webhook 其實 POST 失敗**
+Step 4 POST 去 webhook。但 webhook URL 過期、Slack channel 改咗名、rate limit,POST 會靜靜失敗。最毒嘅 case 係：smoke 真係紅，但連「報紅」嗰個 POST 都失敗——你乜都收唔到，以為冇 push 過。
+- 會出事：你靠「冇消息即好消息」，但其實係通知 pipeline 自己死咗，出事你一無所知。
+- 點救：check webhook POST 嘅 HTTP response code,POST 唔到 2xx 就要喺 terminal 大聲報錯、non-zero exit，唔好當成功。`/ship` 跑完一定要喺你眼前留返一句明確總結，唔好淨係靠 Slack——Slack 收唔到嗰次，正正係你最需要知嗰次。
+
+呢幾個位，就係「跑一次 smoke OK」同「半夜出事真係 ping 醒你」之間嘅距離。一套你信得過嘅驗證，前提係佢識報紅；一套只識報綠嘅驗證，係安慰劑。
+
 ## 一個心態
 
 > 部署唔係「`git push` 完就算」，係「用戶真係見到嘅嘢同你 staging 一樣」先算。中間嗰段差距，就係靠呢套例行核實補返。

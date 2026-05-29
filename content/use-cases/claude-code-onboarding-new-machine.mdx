@@ -238,6 +238,39 @@ load_secret() {
 
 CLAUDE.md template 跨 OS 100% 重用。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經用得。下面呢段係畀**想由「今日跑一次掂」做到「半年後換機都唔使 debug」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+bootstrap script 最唔老實嘅地方係：**寫嗰日跑得，唔代表三個月後仲跑得**。你個 script 接住一大堆外部嘢——Homebrew、npm registry、GitHub、API endpoint——任何一樣搬咗位，你新機開箱嗰朝就會喺度乾等。呢幾個位你要預咗：
+
+**1. curl pipe bash 中途斷咗，你以為跑完咗**
+`curl ... | bash` 一條過好爽，但網絡 timeout、Homebrew 裝到一半 fail，個 pipe 可能照樣 exit 0，你以為 setup 好晒，實情 brew bundle 根本冇跑。
+- 會出事：你開 project 先發現缺 pnpm、缺 gh，逐個補，慢過手動。
+- 點救：script 頂部寫 `set -euo pipefail`，每個關鍵步驟之後即刻 verify（`command -v pnpm || exit 1`）；尾段印一個 checklist 逐項 check 返，唔好淨係印「Done」。
+
+**2. Symlink 蓋走咗你本來想留嘅檔**
+`ln -sf` 嘅 `-f` 係「force」——如果新機個 `.zshrc` 已經有公司 IT 預設咗嘅嘢，你一 symlink 就無聲無息蓋走。
+- 會出事：公司嘅 proxy、VPN、PATH 設定唔見咗，你又唔知幾時開始唔見。
+- 點救：symlink 之前先 backup（`mv ~/.zshrc ~/.zshrc.bak` 如果唔係 symlink），或者用 stow 類工具管理；Mac → Linux 嗰陣 `.zshrc` 入面 Mac 專屬指令（`security`、`pbcopy`）要 guard 住 OS 判斷，唔好成個照搬。
+
+**3. Homebrew / formula 改名，Brewfile 靜雞雞 fail**
+Brew formula 會改名、會 deprecate（cask 尤其多），但 `brew bundle` 撞到一個裝唔到，預設會繼續裝其他，最後 exit code 唔一定反映「有嘢漏咗」。
+- 會出事：你以為成個 tool chain 齊，實情少咗一兩件，到用先知。
+- 點救：定期（文章講嘅每幾個月）喺 throwaway VM 或者 Docker 行一次 bootstrap，當 regression test；`brew bundle` 之後 `brew bundle check` 對返清單。
+
+**4. Keychain 攞 secret 嗰下卡住，env var 變空**
+`export ANTHROPIC_API_KEY="$(load_secret ...)"` 如果嗰個 key 未入過 keychain，`security` 會 fail，但 `2>/dev/null` 食咗 error，結果 export 咗個空字串。
+- 會出事：Claude Code 或者其他 CLI 報「invalid key」，你查半日先發現其實係空，唔係錯。
+- 點救：load 完即刻檢查（`[ -z "$ANTHROPIC_API_KEY" ] && echo "warning: ANTHROPIC_API_KEY 空" >&2`）；唔好靜靜 swallow，至少 warn 一句。寧願嘈，唔好靜默失敗。
+
+**5. bootstrap.sh 入面 hardcode 咗你嘅 username / repo URL**
+你今日寫死 `github.com/[你]/dotfiles`、寫死 5 個 repo URL，到 team onboarding 或者換 org 嗰陣，每個人都要 fork 改一餐。
+- 會出事：新同事照抄你條 curl link，clone 咗你嘅私人 repo（或者 clone 唔到），第一步就卡。
+- 點救：repo list 抽去一個 `repos.txt` 或者 env var，script 讀檔唔好寫死；team 版用 `$GITHUB_ORG` 變數，唔好將個人嘢溝入共用 repo。
+
+呢幾個位，就係「今日 demo 跑得」同「半年後盲開新機都信得過」之間嘅距離。
+
 ## 一個心態
 
 呢個 onboarding 嘅深層體會：**每次手動設置都係未來自己嘅債**。

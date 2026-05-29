@@ -223,6 +223,39 @@ apps/
 
 `/env-add` slash command 升級：第一個問題加埋「邊個 package？」，根據答案揀對應 `.env.example` 同 Vercel project（每個 app 喺 Vercel 通常獨立一個 project）。Claude 嘅 CLAUDE.md 寫清楚：「env var 只放對應 package，唔好共用；要分享就喺 build-time inject」。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經用得。下面呢段係畀想由「跑一次 sync 綠燈」做到「跑足一年都信得過」嘅人——初學者可以跳過，唔影響你跟住做。
+
+env 自動化最唔老實嘅地方係：**第一次推靚仔，唔代表第十次同你個 secret 對得齊**。呢套流程實際會喺呢幾個位爆，你要預咗：
+
+**1. drift check 只睇「有冇個 key」，唔睇「個值啱唔啱」**
+`vercel env ls` 印返嘅係 var 名同存唔存在，唔會解密畀你睇個值。所以三欄全部打勾，唔代表 staging 個 `DATABASE_URL` 真係指住 staging DB——好可能上次手快複製咗 prod 嗰條入去。
+- 點解錯：你信咗個綠燈，但 staging 其實打緊 prod DB，跑 QA 嘅時候改到真用戶資料。
+- 點救：drift check 加多一層 sanity——例如 prod 嘅 Stripe key 要 `sk_live_` 開頭、其餘 env 要 `sk_test_`；DB host 要 match 個 env 嘅命名。對唔到就標黃，唔好當綠燈。
+
+**2. `vercel env add` 撞名唔會幫你覆蓋，會報錯或者開多份**
+`/env-add` 假設條 var 係新嘅。但你 re-run 一次、或者個 var 已經存在，CLI 嘅行為同「update」唔一樣——輕則中途 fail，重則同名兩份留喺度，讀到邊個睇彩數。
+- 點解錯：你以為更新咗值，其實舊值仲喺度生效，deploy 之後行為對唔上你改嘅嘢。
+- 點救：slash command 入面寫明「先 `vercel env rm` 再 add」，或者明確分「新增」同「更新」兩條路；每次入完即刻 `env ls` 確認得返一份。
+
+**3. CI 把關需要 token，個 token 本身就係新嘅 secret**
+你叫 CI 跑 `vercel env ls`，要畀佢 `VERCEL_TOKEN`。呢個 token 有讀晒你成個 project env 嘅權限——佢一漏，等於成袋 secret 漏。
+- 會出事：token 喺 log、fork PR、或者第三方 action 度漏出去，攻擊者攞到你全部 env 嘅 metadata 同部分 access。
+- 點救：用 scope 到最窄嘅 token、設到期日、淨係喺 protected branch 嘅 CI 行；fork 嘅 PR 唔好攞得到 secret。順手定期 rotate 呢個 token，當佢同其他高敏感 key 一樣。
+
+**4. `.env.local` 同 secret manager 各講各話**
+你接咗 1Password / Doppler 之後，本機仲有舊嘅 `.env.local`。`pnpm env:pull` 覆蓋唔覆蓋、定 append，要睇你點寫——寫得唔清楚就會出現「manager 改咗、你部機冇跟」嘅靜默 drift。
+- 點解錯：你以為 pull 完就最新，實情 local 殘留咗一條舊 key,debug 半日先發覺問題喺你部機，唔喺 code。
+- 點救：`env:pull` 寫成「整份覆蓋」而唔係「補漏」,pull 之前備份舊份；CLAUDE.md 講明 secret manager 係唯一真相，本機 file 隨時可棄。
+
+**5. Rotate 一條 key，三個 env 唔同步換會中途撞期**
+`/rotate` 順序換 dev → staging → prod，但舊 key revoke 同新 key 生效之間有個窗口。prod 仲用緊舊 key 嘅 instance 未 redeploy 完，你就 revoke 咗，真用戶嗰一刻會撞到 401。
+- 會出事：rotate 嘅幾分鐘內，prod 間歇性 auth 失敗，你以為換 key 好安全，結果整咗段 downtime。
+- 點救：用「先加新 key、deploy 核實食到、先 revoke 舊 key」嘅 overlap 次序，唔好 revoke 行先；高敏感 key 揀低峰時間 rotate。
+
+呢幾個位，就係「sync 綠燈」同「一年都對得齊」之間嘅距離。
+
 ## 一個心態
 
 > **Env config 走樣唔係紀律問題，係 system design 問題。** 靠人類記性同 Slack 提醒一定輸；靠 single source of truth + 自動 propagate + CI 檢查就贏。

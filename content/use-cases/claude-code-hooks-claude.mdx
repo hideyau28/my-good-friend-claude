@@ -318,6 +318,39 @@ fi
 
 呢個架構複雜度係高啲，但對你日常 workflow 嘅槓桿好大。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經用得。下面呢段係寫畀**想由「demo 跑得過」做到「全隊用足一年都唔出事」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+Hook 最陰濕嘅地方係：**佢係靜靜哋自動跑嘅，所以佢一壞，你好可能唔知道**。排版 hook 唔出聲，你以為佢有跑；安全 hook 攔錯嘢，你以為係 Claude 唔肯做。呢幾個位，就係 hook 由「幫手」變「累事」嘅地方，你要預咗：
+
+**1. 安全 hook 嘅 pattern 比對，又會漏又會錯殺**
+個 `pre-bash-safety.sh` 用 `grep` 配 string，但 shell 指令有一萬種寫法。`rm -rf /` 攔到，但 `rm -rf  /`（兩個空格）、`rm -fr /`、變數展開成 `/` 嘅 `rm -rf $DIR`、或者擺埋落 `bash -c "..."` 入面，全部可能溜過去。反過嚟，`git push --force.*main` 又會錯殺你 push 去 `feature/login-mainpage` 嘅正常分支。
+- 會出事：你以為有層保護，其實有窿；又或者 hook 成日錯殺，你索性 disable 咗佢，等於冇咗道防線。
+- 點救：當佢係「減少意外」而唔係「真安全邊界」——真係危險嘅嘢，靠 Claude 嘅 permission 確認同你自己睇清楚。pattern 寫鬆啲、錯殺寧願 log warning（唔 exit 1）唔好硬攔；定期 review 你個 danger list。
+
+**2. PostToolUse 嘅 `cd` 同相對路徑，會悄悄做錯位**
+`post-write-format.sh` 做咗 `cd "$(dirname "$file_path")"`，`post-write-test.sh` 又靠 `if [ -f "package.json" ]` 同 `npm test` 喺當前目錄跑。但 hook 嘅工作目錄、同埋你以為佢喺邊度跑，唔一定一樣。monorepo 裏面 `package.json` 喺 sub-package，跑 root 個 `npm test` 就完全跑錯；`prettier --write` 喺錯目錄又揾唔到 `.prettierrc`，出嚟嘅排版同你 CI 嗰套唔同。
+- 會出事：排版結果同 CI 唔一致（hook 排完 CI 又話 fail），或者 test 跑咗錯 suite 報咗個無意義嘅綠燈。
+- 點救：用絕對路徑、唔好靠 `cd`；揾 project root 用「向上揾到 `package.json` / `.git`」嘅方式定位，再喺嗰度跑；每個 repo 釘死 prettier 版本（放 devDependency），唔好靠全域 `prettier`。
+
+**3. PostToolUse 改完個 file，Claude 唔知道**
+排版 hook 喺 Claude 寫完之後改咗個 file 嘅內容。但 Claude 腦海裏面個 file 仲係佢自己嗰個版本。下一步佢用舊內容去做 Edit，個 old_string 對唔到，Edit 就 fail；又或者佢覆寫返，推翻咗你排版嘅結果。
+- 會出事：Claude 同 hook 互相覆蓋，Edit 連環 fail，你睇住佢鬼打牆。
+- 點救：排版類 hook 盡量唔好改動會即刻再被 Edit 嘅 file；或者揀喺 Stop 階段先一次過排版，唔好喺每次 Write 之後即跑。要即跑就接受 Claude 偶爾要重讀個 file。
+
+**4. Hook 慢 = 你每個動作都拖慢**
+Hook 係同步跑嘅：佢未 return,Claude 就等住。`post-write-test.sh` 喺大 project 跑 `npm test` 隨時幾十秒到幾分鐘，而佢係**每次 Write src file 都跑一次**。Claude 改五個 file，你就等五次全套 test。
+- 會出事：原本好快嘅 session 變到一頓一頓，慢到你想成個 hook 拆走。
+- 點救：文章已提——大 project 唔好全套跑。再進一步：只跑同改動 file 相關嘅 test、加 timeout（hook 跑太耐就斬）、或者重嘅檢查（full test / type check）擺去 Stop 階段一次過跑，唔好掛喺 PostToolUse。
+
+**5. `jq` 唔喺度、或者 input 個 schema 變咗，個 hook 靜靜哋當冇事行過**
+全部 script 第一句都係 `command=$(echo "$input" | jq -r '.command')`。如果部機冇裝 `jq`，呢句直接 error，但因為後面 `exit 0`，個安全 hook 會「乜都冇攔到就放行」——fail open，最危險嗰種。同樣，如果某個工具傳入嘅 JSON 入面冇 `.command`（例如 Bash 以外嘅工具配錯咗 matcher）,`jq` 會俾你 `null`，你個 pattern 比對就形同虛設。
+- 會出事：你以為防線開咗，實情係靜靜哋成個關咗，而你完全冇收到通知。
+- 點救：開頭 check 依賴(`command -v jq >/dev/null || { echo "hook: jq missing" >&2; exit 2; }`)；安全類 hook 寧願 fail closed（揾唔到嘢就當可疑、exit 非 0）；裝好個 hook 之後，親手用一個真係危險嘅指令試一次，確認佢真係會攔。
+
+呢幾個位，就係「demo 跑得過」同「全隊用足一年都信得過」之間嘅距離。Hook 慳到你嘅紀律，但你要花一次工夫，確認道防線真係喺度、而且攔啱嘢。
+
 ## 一個心態
 
 Hooks 背後嘅深層體會：**AI agent 同人協作嘅安全同質素，唔應該全靠手動紀律。應該將啲煩悶嘅 guardrail 自動化**。

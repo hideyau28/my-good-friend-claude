@@ -244,6 +244,39 @@ Agent({
 
 每個視窗一個 Claude Code session。總共：3 個 IDE + 3 個 Claude = 你調度開發嘅能力遠超傳統做法。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經用得。下面呢段係畀**由「開到三個 worktree 好爽」做到「日日靠佢開發都唔出事」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+Worktree 最呃人嘅地方係：**三個資料夾睇落獨立，但底下共用同一個 `.git`**。隔離係假象，真正一齊用嘅嘢一爆就好難捉。實際會喺呢幾個位仆街，你要預咗：
+
+**1. 同一個 branch 唔可以 check out 兩次**
+你想喺第二個 worktree 再開 `main` 嚟對照？Git 會拒絕：一個 branch 同一時間只可以 check out 喺一個 worktree。
+- 會出事：`git worktree add` 直接報 `fatal: 'main' is already checked out`，你以為個指令打錯。
+- 點救：每個 worktree 用自己嘅 branch；淨係想睇某個 commit 唔改嘢，就 `git worktree add --detach <path>` 開 detached HEAD，唔佔住個 branch 名。
+
+**2. 兩個 Claude Code session 改同一個檔案**
+feature-a 同 fix-login 表面上唔同任務，但隔離嘅只係 working directory——如果兩邊都改到 `package.json`、common util、或者同一條 migration，merge 嗰陣就撞。
+- 會出事：兩個 PR 各自綠燈，merge 第二個嗰陣先爆 conflict，而你已經唔記得當時點解咁改。
+- 點救：開 worktree 之前心入面分清楚「邊個負責邊忽」；共用檔案（lockfile、schema）盡量只喺一個 worktree 郁。撞到就以 main 為準 rebase，唔好兩邊夾硬夾。
+
+**3. 未 commit 嘅嘢 remove 咗就冇得返**
+做完急 bug 想清場，手痕打 `git worktree remove --force`——但嗰個 worktree 仲有未 commit 嘅改動。
+- 會出事：`--force` 連未存嘅工作一齊鏟，呢啲嘢冇喺任何 commit 入面，`git reflog` 都救唔返。
+- 點救：清場前先喺嗰個 worktree `git status` 睇清楚。冇 `--force` 嘅 `git worktree remove` 本身會擋住有未 commit 改動嘅情況——當佢報錯，係喺幫你，唔好亂加 `--force`。
+
+**4. 慳磁碟，但 build artifact 唔慳**
+共用 `.git` 慳到 Git 歷史嘅空間，但每個 worktree 嘅 `node_modules`、build 輸出、`.next` 之類係各自一份。
+- 會出事：開五個 worktree = 五份 dependencies，磁碟同 `pnpm install` 時間都乘五，個機開始喘。
+- 點救：worktree 數量有紀律（呼應下面「先試 2 個」）；用完即 remove；用得到 pnpm 嘅 global store / hard link 就慳返。
+
+**5. IDE 同 Claude 撈亂咗邊個 worktree**
+五個資料夾名似樣（`my-app-feature-a`、`my-app-feature-b`），夜咗眼花，你會喺 feature-b 個窗度做緊 feature-a 嘅嘢。
+- 會出事：commit 入錯 branch、同錯個 Claude session 講錯背景，最衰係 push 咗先發現。
+- 點救：資料夾名寫到一睇就知（用任務名唔好淨係 a／b）；每次落手前望一眼 terminal 個 path 同 `git status` 頭一行嘅 branch 名。
+
+呢幾個位，就係「開到三個 worktree 好爽」同「日日靠佢開發都唔出事」之間嘅距離。
+
 ## 一個心態
 
 Worktree 真正睇通嘅一點：**切換情境蝕嘅時間唔係「冇得避」——係「慣性做法本身帶嚟嘅摩擦」**。

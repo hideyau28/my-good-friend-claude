@@ -264,6 +264,44 @@ Webhook 同 REST 唔同 —— **係你 send 出去**，但收嘅人要知你個
 
 Partner 接 webhook 嘅時候，永遠睇返自動同步嗰份 docs。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經用得。下面呢段係畀想由「跑一次 sync OK」做到「成個 team 用足一年都信得過」嘅人——初學者可以跳過，唔影響你跟住做。
+
+自動化 docs 最唔老實嘅地方係：**第一次 generate 對晒，唔代表第三十次 commit 都對**。呢條三層鏈，實際會喺呢幾個位仆街，你要預咗：
+
+**1. example refresh 跑落 staging 但攞錯或者攞唔到資料**
+
+`refresh-examples.ts` 假設每個 endpoint 都用同一個 token、同一份 example request 就 call 得通。實際上 `POST` 要 valid body、`/api/orders/:id` 要一個真係存在嘅 id、有啲 endpoint 仲要前置狀態（要先有張單先 GET 到）。
+- 會出事：一係 400 或者 404，一係 staging 個 DB 啱啱清空，個 example 變咗空 array 或者 error body，然後當「正確 response」寫入 docs。客戶睇住份 docs 照做，先發現 shape 根本唔啱。
+- 點救：每個 endpoint 喺 spec 入面擺定一個有效嘅 example request；寫 script 嗰陣 assert HTTP status 喺 2xx 先肯寫入，唔係就 fail 出聲。寧願 refresh 失敗，都唔好靜雞雞寫個錯 example 入去。
+
+**2. Claude 對比 example vs spec 嗰陣「眼瞓」漏咗 field**
+
+verify prompt 叫 Claude 逐個 endpoint 對 field。但 response 一深（nested object、array of object、`data.items[].metadata`）、endpoint 一多，LLM 唔係逐 byte diff，係靠理解，長 context 之下會靜靜漏報。
+- 會出事：佢出份 report 話「全部對齊」，但其實有個 nested field 嘅 type 由 number 變咗 string，冇人察覺，直到 frontend run-time 先爆。
+- 點救：結構性對比（spec response schema vs example JSON）交畀程式做——寫個細 validator 用 spec 去 validate example，真正逐 field 行。Claude 嘅角色擺喺「解釋點解唔 match、應該改邊一層」，唔好靠佢做 exact diff。
+
+**3. pre-commit hook 一慢，大家就 `--no-verify` 繞過**
+
+個 hook 每次 commit 都 `openapi:emit` 加 `gen:types`，project 一大，呢兩步可能要跑好幾秒。開發者趕住 commit，好快就學識 `git commit --no-verify`，個攔截形同虛設。
+- 會出事：本地攔截被人繞過，docs 又開始漂移，你以為有自動化其實冇。
+- 點救：pre-commit 只做快嘅嘢（format、lint），把 docs sync 嘅硬性把關擺去 CI（PR 入 main 嗰度）。CI 跑唔過就 merge 唔到，呢度繞唔到。本地 hook 係提醒，CI 先係真正防線。
+
+**4. emit 出嚟嘅 diff 順序唔穩，逼到次次都有 noise**
+
+`zod-to-openapi` 或者 codegen 工具如果唔保證 output 嘅 key 順序穩定（或者你升咗版），同一份 source 生出嚟嘅 yaml 可能行序唔同。pre-commit 嗰句 `git diff --exit-code` 就會次次都話「out of sync」，就算你乜都冇改。
+- 會出事：每次 commit 都被 hook 擋，大家煩到索性關咗佢，前功盡廢。
+- 點救：generate 之後過一層 deterministic format（固定 key 排序、固定 indent），例如統一用 `prettier` 寫返個 yaml。確保同一 source 出 byte-identical output，個 diff 先有意義。
+
+**5. 改 Zod schema 改壞咗，等於一鍵把錯誤推落三層**
+
+呢套嘢嘅威力係 single source 一改、三層全跟。但反過嚟講——你改 Zod schema 改錯咗（打多隻字、type 寫錯），個錯就會自動 codegen 落 types、寫入 example、出晒去 partner docs，一路冇人 review。
+- 會出事：source 錯，downstream 全錯，而且因為係「自動」，反而冇人逐層望，錯得仲齊。
+- 點救：source 層（route handler 入面嘅 Zod schema）嘅改動，要當正常 code 咁認真 review；加埋對住舊 spec 嘅 contract test——field 由 required 變 optional、type 變更呢類 breaking change，要 CI 出聲示警，唔好靜靜放行。
+
+呢幾個位，就係「跑一次 sync OK」同「47 條 endpoint 用足一年都信得過」之間嘅距離。
+
 ## 一個心態
 
 API docs 過時嘅根源唔係懶 —— 係 docs 同 code **本身就分開兩個 source**。靠人手對齊，一定有漏。

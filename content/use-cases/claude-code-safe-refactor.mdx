@@ -181,6 +181,39 @@ Characterization test 嘅定義：**唔係驗證 code「應該」做乜（你唔
 
 Expand-migrate-contract 係 safe refactor 嘅靈魂規律。中間每一步 main 都部署得，唔需要長命 branch。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經安全用得。下面呢段係畀**想由「test 全綠收工」做到「PR 唔會喺三個月後反咬你」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+Safe refactor 最唔老實嘅地方係：**test 全綠唔等於 behavior 真係冇變**。test suite 係你寫嘅，你唔知道嘅 edge case，test 入面一樣冇。呢個流程實際會喺呢幾個位仆街，你要預咗：
+
+**1. Characterization test 釘錯咗 behavior（test 自己就係錯）**
+你叫 Claude「跑一次確認全部 pass」——但如果個 test 一開始就假設錯咗現有行為，佢會寫一個將個假設變成綠燈嘅 test，然後你以為釘死咗，其實釘咗個幻覺。
+- 會出事：refactor 之後 test 全綠，但 production 真係變咗 behavior，因為你個安全網本身就漏底。
+- 點救：第二步寫完 test，**喺未 refactor 之前**先用真實 production input 跑一次，逐個 assert 同你肉眼睇 code 嘅預期對一對；可疑 case 尤其要人手核實，唔好淨係信「綠燈」。
+
+**2. 「機械式」transformation 其實改咗 behavior**
+Extract function、move 次序、early return 取代 nested if——呢啲喺有 side effect 或者 short-circuit 嘅 code 入面，唔係真係等價。例如將一段 `&&` 條件拆出 helper，evaluation 次序同 early exit 可能變咗。
+- 會出事：Claude 真心覺得自己只係「搬位」，但 short-circuit、exception 傳播、log 次序已經唔同。
+- 點救：堅持「每個 transformation 跑一次 test、變紅即 revert」嗰條鐵律，唔好攒住一次過做五個 transformation 先跑；越細粒度越易 bisect 邊步搞爛。
+
+**3. Test 唔覆蓋嘅 input 分布，先係 production 真正跑嘅嘢**
+第四步揀 5 個 sample 對 byte——但 production 一日跑幾萬條 input，你揀嗰 5 個唔代表真實分布。Claude 對「等價」嘅判斷只限於佢見過嘅 sample。
+- 會出事：refactor 後上線，撞到一個你 sample 冇覆蓋嘅 input 組合先爆，而嗰時已經唔係你 review window。
+- 點救：揀 sample 唔好靠估，如果有 production log，抽真實流量做 replay；高風險 module 考慮喺新舊兩版並行跑一段時間（shadow run）對數，確認零差異先拆走舊版。
+
+**4. Mass rename 漏咗 dynamic reference**
+變化 1 用 `git grep` 出曬 `OrderProcessor`——但 grep 捉唔到字串拼出嚟嘅引用：reflection、config 入面個 class name string、序列化資料、log 上落格式。
+- 會出事：typecheck 同 test 全綠，但 runtime 一個 `class_exists` 或者反序列化舊資料就 fail，而呢啲路徑通常冇 test。
+- 點救：rename 唔好淨靠 grep symbol，要連 string literal、config、序列化過嘅舊資料一齊搜；改名後喺有真實資料嘅環境 smoke 一次，唔好淨喺 test 環境收貨。
+
+**5. 拆 commit 拆得靚，但 reviewer 一個 squash 就化為烏有**
+第四步特登將 commit 1（test）同 commit 2（refactor）分開，等可以獨立 revert——但合 PR 嗰陣一個 squash merge，兩個 commit 變一個，你嘅「test 永遠保留、refactor 可棄置」嘅結構喺 main 上面就冇咗。
+- 會出事：之後想 revert 個 refactor，順手連 characterization test 都 revert 埋，安全網消失。
+- 點救：呢類 PR 唔好 squash，用 merge commit 或者 rebase 保留兩個 commit；或者乾脆分兩個 PR，test 先入 main，refactor 後出，責任界線最清。
+
+呢幾個位，就係「test 全綠收工」同「三個月後都唔會反咬你」之間嘅距離。
+
 ## 一個心態
 
 > Make the change easy, then make the easy change.

@@ -227,6 +227,39 @@ Claude 學識篩選之後，唔會再喺 root 亂咁 install。
 
 呢張表喺 mixed-framework agency 工作流幫到手——junior 同 Claude 都唔會撈亂 directive。
 
+## 拆解：點解 work，同邊度會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「demo 跑一次靚仔」做到「成隊人用足一年都信得過」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+monorepo 自動化最唔老實嘅地方係：**Claude 跟到 CLAUDE.md 嘅程度，係軟性嘅，唔係硬性嘅**。CLAUDE.md 入面寫「唔可以跨 package」，係一句 instruction，唔係一道牆——Claude 大部分時候會聽，但唔等於佢冇能力越界。呢個分別，喺呢幾個位會爆，你要預咗：
+
+**1. CLAUDE.md 寫咗界線，但工具層面冇真正擋住**
+你 root CLAUDE.md 寫到明「packages/ui 唔可以 import db」，但呢個只係叫 Claude 自律。Claude 嘅 Edit / grep 工具技術上仍然 access 到成個 repo。
+- 會出事：context 一長、instruction 沉到對話底，Claude 開始「飄」返去摸 `apps/web`，你 review 嗰陣先捉到。
+- 點救：唔好淨係靠 CLAUDE.md。真正嘅 boundary 要落喺工具層——ESLint 嘅 import 限制（例如 `no-restricted-imports` / boundaries plugin）、TypeScript project references、CI 上面跑 `turbo build --filter` 驗證冇跨界。CLAUDE.md 係導航，lint + CI 先係護欄。
+
+**2. Per-package CLAUDE.md 邊啲真係 load、邊啲冇，你估唔到**
+你以為入 `packages/auth` 工作就一定會載到嗰份 scoped CLAUDE.md，但實際載邊幾份、幾深，視乎 Claude 點解讀「目前喺邊度工作」。一個 task 掂幾個 package 嘅時候尤其唔肯定。
+- 會出事：你以為某條 package-local 規矩生效咗，其實嗰份 CLAUDE.md 根本冇入 context，Claude 照舊犯規。
+- 點救：最關鍵嗰幾條 rule（例如「改完 schema 一定跑 db:generate」）唔好淨係收喺 per-package CLAUDE.md，root map 都寫多次。要驗證就直接問 Claude「你而家 load 咗邊幾份 CLAUDE.md？」逼佢報返出嚟。
+
+**3. Subagent 並行改同一個 type，邊個版本先啱冇人話事**
+「user id 由 string 改 uuid」派三個 subagent 同時做，db / auth / apps 各改各。但 type 嘅 source of truth 喺邊？三個 agent 各有各嘅理解，好易出現 db 改咗做 `string & branded`、auth 當佢純 `string`。
+- 會出事：每個 diff 自己睇 OK，三個夾埋 type 對唔上，typecheck 喺最後先一次過爆一堆紅。
+- 點救：跨 package 嘅 shared type，先用一個 agent 定死 source of truth（通常喺最底層 package，例如 db）再 commit，跟住先派下游 agent 跟住改。係 sequential 跑 critical path，唔好為咗快將有依賴關係嘅嘢一齊放飛。
+
+**4. Merge order 啱，但中間每一步都未必 build 得起**
+你 review 完安排 db → auth → apps 嘅 merge order，睇落好合理。但 merge 完 db、未 merge auth 嗰一刻，個 repo 係咪 build 得起？好多時係唔得——auth 仲 reference 緊舊 type。
+- 會出事：CI 喺中間 commit 紅嗮，main 一度 broken，其他同事 pull 落嚟一頭霧水。
+- 點救：有依賴關係嘅跨 package 改動，最好擺埋同一個 PR 一齊 merge（atomic），唔好分開幾個 PR 順序入。真係要分，就用 feature flag 或者過渡期同時支援新舊 type，唔好留中間斷層。
+
+**5. token 慳咗，但你失去咗「成個改動」嘅全局視角**
+subagent 並行確實慳 token，但代價係：冇一個 agent（包括你個 parent）由頭到尾見過成個改動嘅全貌。每個只見自己嗰嚿。
+- 會出事：一啲只有「跨 package 一齊睇先發現」嘅問題——例如 db 改咗欄位名、apps 嗰邊 query 仲用舊名——三個 diff 分開睇都唔覺。
+- 點救：subagent 跑完，你自己（或者開多一個 agent）做一次 cross-package 嘅 final review，專登搵「A 改咗、B 冇跟」嘅斷層。並行係用嚟趕進度，唔係用嚟跳過整合驗證。
+
+呢幾個位，就係「demo 跑一次靚仔」同「成隊人用足一年都信得過」之間嘅距離。CLAUDE.md 幫你導航，但真正擋得住越界同斷層嘅，係 lint、CI、typecheck 同你最後嗰隻人眼。
+
 ## 一個心態
 
 Monorepo 嘅核心唔係「將代碼放埋一齊」——係**邊界**。Package boundary 喺人類眼中係 folder structure，喺 Claude 眼中**預設係透明嘅**，因為佢嘅預設工具係 flat grep。

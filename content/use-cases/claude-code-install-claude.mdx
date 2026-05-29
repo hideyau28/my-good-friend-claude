@@ -252,6 +252,39 @@ claude --model claude-opus-4-7
 
 日常工作：接受預設。研究任務：明確用 Opus。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經裝得好。下面呢段係畀**想由「裝到一次 hello world」做到「日日用都唔會無啦啦炒咗成個環境」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+裝開發工具最唔老實嘅地方係：**今次喺你部機 work，唔代表下次開新 terminal、或者換咗部機都 work**。安裝呢一步，實際會喺呢幾個位仆街，你要預咗：
+
+**1. 改錯 shell 設定檔，新 terminal 又打回原形**
+Mac 新版預設 zsh，但唔少舊教學叫你寫去 `~/.bashrc`，或者你部機其實用緊 `~/.zprofile`。寫錯檔，當前 terminal `source` 完好似 work，開過新 window 就乜都唔記得。
+- 會出事：`claude: command not found` 或者 `ANTHROPIC_API_KEY` 變空，但你明明「啱啱先設定過」。
+- 點救：打 `echo $0` 或者 `echo $SHELL` 確認自己用緊邊個 shell，先決定寫去邊個檔；改完一定要開一個全新 terminal window 再 `claude --version` 同 `echo $ANTHROPIC_API_KEY` 驗一次，唔好淨係信當前 session。
+
+**2. 用 sudo 裝 global package，留低權限地雷**
+撞到 `EACCES` 嗰陣，最快手就係 `sudo npm install -g`。一時 work，但之後啲檔案 owner 變咗 root，下次更新或者裝第二個 package 又再 permission denied，越補越亂。
+- 會出事：之後每次 `npm install -g` 都要 sudo，甚至 npm cache 同 global folder 權限花到要成個重裝。
+- 點救：唔好行 sudo 條路。跟返文中重設 npm prefix 去 `~/.npm-global` 嗰個做法，等 global package 裝喺你自己 home 目錄，根本唔使 root。如果之前已經 sudo 裝爛咗，揾返被 root 佔咗嘅 folder 改返 owner，或者用 nvm 重裝一套乾淨 Node。
+
+**3. API key 表面入咗 git，背後已經外洩**
+文中提你加 `.env` 落 `.gitignore`，但 key 其實係寫咗喺 `~/.zshrc`，唔係 `.env`；又或者你喺某個 script、某個 `.env.example` 度為咗方便貼咗真 key 落去。`.gitignore` 只擋未 track 嘅檔，擋唔到你已經 commit 咗、或者 paste 落聊天記錄、issue、screenshot 嘅 key。
+- 會出事：key 一旦推上 public repo 或者貼出街，會被自動爬蟲幾分鐘內掃到，有機會被人盜用燒爆你 API 額度。
+- 點救：key 只放環境變數，唔好硬寫入任何會入 repo 嘅檔；commit 前 `git status` 同 `git diff` 望真有冇 key。萬一漏咗出去，唔好淨係刪 commit——歷史仲喺度，要即刻去 console 撤銷舊 key、重新 create 一條。
+
+**4. 開頭就「Allow always」，之後一個唔覺意執行咗危險指令**
+為咗順手，新手好易見到 permission 提示就狂㩒「Allow always」。問題係呢個係粗略歸類，你一旦對「shell 指令」開咗永久放行，之後連 `rm -rf`、`git push --force` 都唔再問你。
+- 會出事：Claude 自把自為改檔或者刪嘢，你連㩒 N 嘅機會都冇，事後先發現。
+- 點救：跟返文中講嘅——開頭全部手動批准，只對明確安全嘅動作（讀檔、`git status`、`ls`）先用 always；破壞性指令永遠保持逐次確認。重要嘢入咗 git 之後再放手，炒咗都 `git restore` 救得返。
+
+**5. 唔睇住用量，月底先發現燒爆 budget**
+Claude Code 比起 web 版，係一個 prompt 可以連環讀幾十個檔、改幾輪嘅 agent，token 用量遠多過你直覺。第一個禮拜你「摸索緊」，試錯特別多，成本好易畀你估嘅高。
+- 會出事：自己以為冇用幾多，Anthropic console 月中先見到數字遠超預期。
+- 點救：跟文中講嘅先劃個月度預算，頭一個禮拜每日去 console 望真實用量；勿一裝好就放隻大 model 通頂跑，日常接受預設、需要深度推理先明確用 Opus。
+
+呢幾個位，就係「裝到一次 hello world」同「日日用都信得過、唔會無啦啦炒環境」之間嘅距離。
+
 ## 一個心態
 
 Claude Code 安裝嘅隱藏啟示：**CLI 工具都有學習曲線，但每日嘅回報會利疊利**。

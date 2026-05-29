@@ -189,6 +189,39 @@ npx webpack-bundle-analyzer stats.json
 
 修完即刻再跑一次 `time pnpm build`，記低 Δ。CI 加咗 cache key 之後再記多次冷啟動同熱啟動嘅分別。
 
+## 拆解：點解 work，同邊度會仆街
+
+跟到上面就已經夠用。下面呢段係畀**想由「跑一次 profile 揾到嘢」做到「次次量度都信得過」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+效能調優最容易呃自己嘅地方係：**個數字郁咗，唔代表你真係改善咗件事**。你以為收窄到元兇，其實量度本身就已經呃緊你。呢個 workflow 實際會喺呢幾個位爆，你要預咗：
+
+**1. Profiler 自己拖慢咗你個程式（observer effect）**
+好多 profiler 用 instrumentation（喺每個 function 入口插 hook）去計時，呢樣本身有開銷。開咗 profiler 嗰刻，啲 function call 多嘅細 function 會被放大到睇落好似好食時間，但實際生產環境根本唔係咁。
+- 會出事：你照住 profile 排名去修，結果修咗一個喺真實環境其實唔慢嘅位。
+- 點救：盡量用 sampling profiler（`py-spy`、`pprof`、Chrome 嘅 sampling mode）而唔係 instrumentation；睇 wall-clock 排名之餘留意絕對毫秒數，唔好淨睇百分比。喺 prompt 講明你用緊邊種 profiler，Claude 解讀 flame graph 嗰陣會慎重啲。
+
+**2. 你量度嗰個 workload 唔代表真實流量**
+你喺 dev 機跑五分鐘 load test，但個 N+1 喺資料量細嗰陣可能完全唔覺。生產有十萬條 order，dev 得五十條，個 query plan 連 Postgres 揀唔揀 index 都可能唔同。
+- 會出事：你喺 dev 量度話「修好咗」，上到生產又慢返，因為 baseline 根本量錯咗環境。
+- 點救：量度要用貼近生產嘅資料量同 cache 狀態（凍 cache vs 熱 cache 要分開講）。`EXPLAIN ANALYZE` 喺有代表性嘅資料上跑，唔好用空表。Claude 唔知你個 dev 環境同生產差幾遠，呢個 context 要你親手補。
+
+**3. Re-measure 個 Δ 其實係雜訊**
+你修完一個位，p95 由 950ms 跌到 920ms，你開心咗。但你只跑咗一次，背景有個 cron job、有 GC、有鄰居 VM 搶 CPU——呢 30ms 可能純粹係 run-to-run variance。
+- 會出事：你以為某個修正有效，commit 咗，但其實個 Δ 喺誤差範圍以內，下次量度又彈返上去。
+- 點救：每個量度跑多幾次取中位數，唔好淨信一 run。改善要夠大、夠穩定先當數（譬如三 run 都係 77% 先信，唔係偶然一次）。叫 Claude 出修正嗰陣，順手問佢「呢個改動理論上應該慳幾多」，同實測對一對，差太遠就有古怪。
+
+**4. Claude 睇嘅 profile 係截斷版，唔係全貌**
+你 `tail -n 500` 條 slow log，或者貼咗半個 flame graph 落去——Claude 只睇到你畀佢嗰嚿。佢唔會知道你剪走咗嘅嗰半係咪藏住真正元兇，但佢答得好肯定。
+- 會出事：Claude 喺一個被你截斷嘅 profile 上，自信咁指錯元兇，你又信咗去修。
+- 點救：餵之前自己確認最熱嗰幾條真係喺你貼出嚟嗰段入面；如果係 sampling 出嚟嘅 svg / json，盡量畀完整 file，唔好淨貼一截文字摘要。Claude 講「呢條最熱」嗰陣，反問佢「你係咪只睇到我貼嘅部分，有冇可能真正瓶頸喺截走咗嗰段」。
+
+**5. 修一個瓶頸，會令下一個瓶頸浮出嚟（Amdahl 陷阱）**
+你修好咗食 67% 嗰個 N+1，p95 跌一大截，正常。但跌完之後，原本佔 10% 嘅另一個位，而家可能變咗佔 40%——瓶頸搬咗位，唔係冇咗。
+- 會出事：你以為一個 PR 搞掂，收工；過兩日又有人投訴慢，因為新嘅頭號元兇你冇再 profile。
+- 點救：每修完一個，**重新 profile 一次**（唔係淨重新量總時間），睇新嘅 top-1 喺邊。呢個正正係上面「返 step 1 攞新 profile」嗰步嘅理由——唔好跳。
+
+呢幾個位，就係「跑一次 profile 揾到嘢」同「次次量度都信得過、改善真係落到生產」之間嘅距離。
+
 ## 一個紀律
 
 > 冇量度過就唔好優化。冇收窄到就唔好修。
