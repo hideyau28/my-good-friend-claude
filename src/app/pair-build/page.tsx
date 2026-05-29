@@ -291,7 +291,7 @@ export default function PairBuildPage() {
 
           <h3>取消 / rescheduling policy？</h3>
           <p>
-            > 14 日前取消：full refund。 7-14 日前：deposit 唔退但可以
+            &gt; 14 日前取消：full refund。 7-14 日前：deposit 唔退但可以
             reschedule 一次。 &lt; 7 日：deposit 唔退、reschedule 我盡量
             accommodate 但唔保證有 slot。
           </p>
