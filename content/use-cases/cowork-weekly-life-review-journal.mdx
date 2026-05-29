@@ -1,5 +1,5 @@
 ---
-title: "Cowork 每星期日 8pm 自動 aggregate 你一週：calendar / journal / message 出一頁 life review"
+title: "Cowork 每星期日 8pm 自動整合你一週：calendar / journal / message 出一頁 life review"
 slug: "cowork-weekly-life-review-journal"
 issue: 101
 publishedAt: 2026-05-27
@@ -23,26 +23,26 @@ Annie Dillard 有句嘢成日畀人引：「我哋點過一日，就係點過一
 
 聽落好深，但實際操作就好惡頂。
 
-你試過喺星期日夜晚坐低，攤開個 notebook，打算寫一頁 weekly review。寫個標題「本週反思」，跟住個腦一片白。星期一發生咩事？已經唔記得。星期三嗰個會議幾時開？要返去 calendar check。你 scroll 一陣 calendar、scroll 一陣 WhatsApp、scroll 一陣相簿，半個鐘過咗，你寫咗 3 句廢話：「今個禮拜幾忙」「要再 work-life balance 啲」「下個禮拜加油」。
+你試過喺星期日夜晚坐低，攤開個 notebook，打算寫一頁 weekly review。寫個標題「本週反思」，跟住個腦一片白。星期一發生咩事？已經唔記得。星期三嗰個會議幾時開？要返去 calendar 揾返。你揭一陣 calendar、揭一陣 WhatsApp、揭一陣相簿，半個鐘過咗，你寫咗 3 句廢話：「今個禮拜幾忙」「要再 work-life balance 啲」「下個禮拜加油」。
 
-問題唔係你冇 insight。問題係 **整合一週嘅 raw data 已經攰到你冇腦力做真正嘅反思**。
+問題唔係你冇睇法。問題係 **整合一週嘅原始資料已經攰到你冇腦力做真正嘅反思**。
 
-呢個 friction 令到 99% 嘅人放棄 weekly review。然後一年過去，你回望，覺得「咦點解嗰年咁模糊嘅」——因為冇過任何 marker，所以記憶就溶咗。
+呢個阻力令到 99% 嘅人放棄 weekly review。然後一年過去，你回望，覺得「咦點解嗰年咁模糊嘅」——因為冇留低任何標記，所以記憶就溶咗。
 
 呢篇教你設定 Cowork 每星期日 8pm 自動跑：
 
 - 讀過去 7 日 calendar（會議 / 日程）
 - 讀你嘅 daily journal app（如有）/ notes
-- 列出你主動 star / archive 嘅重要 message thread（你揀邊啲入，唔係佢自己抓）
+- 列出你主動 star / 封存嘅重要 message thread（你揀邊啲入，唔係佢自己抓）
 - 出一頁 weekly review markdown，5 個 section：本週 highlight / energy drain / 出乎預期 / pattern 觀察 / 下週 1 個承諾
 
-8:30pm 你開電腦，份 review 已經喺度。你睇 10 分鐘，加 5 句自己嘅補充，存落 Obsidian / Notion / 一個 dated folder。完成。
+8:30pm 你開電腦，份 review 已經喺度。你睇 10 分鐘，加 5 句自己嘅補充，存落 Obsidian / Notion / 一個有日期嘅 folder。完成。
 
-> 注意：呢個工作流會讀你 calendar + journal + 你揀嘅 message thread。所有資料 keep local（出嚟嘅 markdown 落你自己 Obsidian vault / 本地 folder，唔上雲）。私隱設定喺步驟 1 講清楚。
+> 注意：呢個工作流會讀你 calendar + journal + 你揀嘅 message thread。所有資料 keep 喺本機（出嚟嘅 markdown 落你自己 Obsidian vault / 本地 folder，唔上雲）。私隱設定喺步驟 1 講清楚。
 
 ## 跟住做
 
-### 1. 設定 data source — privacy-first 點 keep local
+### 1. 設定 data source — 私隱行先，點 keep 喺本機
 
 呢一步係最重要。你而家要整合嘅係你成個禮拜嘅生活 — 嗰份 markdown 比你 inbox 敏感得多。
 
@@ -62,15 +62,15 @@ Annie Dillard 有句嘢成日畀人引：「我哋點過一日，就係點過一
 - 工作機密文件
 ```
 
-輸出**淨係寫去本地檔案夾**（例：`~/Documents/weekly-review/2026-W21.md`）。唔好寄 email、唔好上 Notion shared workspace、唔好 sync 去手機 cloud。份 review 係你自己睇嘅，唔係交付物。
+輸出**淨係寫去本地檔案夾**（例：`~/Documents/weekly-review/2026-W21.md`）。唔好寄 email、唔好上 Notion shared workspace、唔好同步去手機 cloud。份 review 係你自己睇嘅，唔係交付物。
 
 如果你用緊公司機，呢個工作流唔啱——揾部私人機做。
 
-### 2. 核心 reflection prompt — 5 條具體問題，唔好行貨「reflect」
+### 2. 核心反思 prompt — 5 條具體問題，唔好行貨「反思一下」
 
 呢度係呢個工作流嘅靈魂。坊間 99% 嘅 AI weekly review prompt 都係「請幫我反思過去 7 日」——出嚟嘅都係雞湯。
 
-關鍵：**好嘅反思 prompt 問 5 條具體問題，唔係 1 條籠統「reflect」**。
+關鍵：**好嘅反思 prompt 問 5 條具體問題，唔係 1 條籠統「反思一下」**。
 
 <PromptBlock label="完整 prompt — 每星期日 8pm 自動 weekly review">
 我想設定一個每星期日 8pm 自動運行嘅 weekly life review 工作。
@@ -93,61 +93,61 @@ Annie Dillard 有句嘢成日畀人引：「我哋點過一日，就係點過一
 **每次運行嘅結構（5 個 section，順序唔可以變）：**
 
 📌 **1. 本週 highlight（3 個，唔多唔少）**
-- 唔係「最開心嘅事」——係**過去 7 日，你會喺 1 年後仲記得嘅 3 個 moment**
-- 唔一定正面（一個喪禮、一個 hard conversation 都算）
+- 唔係「最開心嘅事」——係**過去 7 日，你會喺 1 年後仲記得嘅 3 個時刻**
+- 唔一定正面（一個喪禮、一場難講嘅對話都算）
 - 每個 highlight：1 句乜事 + 1 句點解佢會留底
-- 唔好 vague 形容詞（「meaningful」「impactful」） — 要具體
+- 唔好用含糊形容詞（「好有意義」「好震撼」） — 要具體
 - 例：「星期三同 J 食飯，佢提到佢媽過身嗰半年點度過，我第一次聽 — 之後我成晚瞓唔到。」
 
 ⚡ **2. Energy drain（最多 3 個）**
-- 過去 7 日，邊啲事 / 對話 / 任務 disproportionately 攰
-- 唔等於「最忙」——係「相對佢嘅 size 嚟講，攞走我最多嘢嗰啲」
+- 過去 7 日，邊啲事 / 對話 / 任務特別不成比例咁攰
+- 唔等於「最忙」——係「相對佢嘅大小嚟講，攞走我最多嘢嗰啲」
 - 對每個：1 句現象 + 1 個假設點解
-- 唔好怪外因晒（「個 client 好煩」） — 諗下你自己嘅 contribution
-- 例：「同 M 嘅每週 sync，30 分鐘但攰過 3 個鐘 meeting — 假設：我每次都要 manage 佢嘅情緒先講到正事。」
+- 唔好成日怪外因（「個 client 好煩」） — 諗下你自己嗰份
+- 例：「同 M 嘅每週 sync，30 分鐘但攰過 3 個鐘會議 — 假設：我每次都要顧住佢嘅情緒先講到正事。」
 
 🎲 **3. 出乎預期嘅事（1-3 個）**
-- 過去 7 日，邊啲事 deviate 你預期？
+- 過去 7 日，邊啲事偏離咗你嘅預期？
 - 包括好 + 壞 + 中性意外
-- 一個禮拜冇 surprise = 你 over-scheduled / 對外界封閉
-- 例：「我以為呢個 pitch 一定 reject，結果星期五收到正面回應 — 我對自己 work 嘅判斷可能太 harsh。」
+- 一個禮拜完全冇意外 = 你排得太密 / 對外界封閉
+- 例：「我以為呢個 pitch 一定畀人拒絕，結果星期五收到正面回應 — 我對自己份嘢嘅判斷可能太苛刻。」
 
 🔍 **4. Pattern 觀察（對比過去 2-4 週）**
 - 攞呢週對住過去 3 週嘅 review（讀返 ~/Documents/weekly-review/ folder 嘅近 3 份）
 - 揾**重複出現嘅 theme**：人名、情緒、藉口、時段、身體狀態
-- 唔好 生硬 — 如果冇 pattern 就寫「呢週冇明顯 pattern」
-- 例：「過去 4 週每週日夜晚都 noted 星期一恐懼 — 唔係偶然，係結構性。」
+- 唔好砌硬 — 如果冇 pattern 就寫「呢週冇明顯 pattern」
+- 例：「過去 4 週每週日夜晚都記低星期一恐懼 — 唔係偶然，係結構性。」
 
-🎯 **5. 下週 1 個 commitment（淨係 1 個）**
-- 唔好 5 個 goal — 揀 1 個
-- 必須係**可觀察嘅行為**，唔係 mindset（「我會更 present」係 invalid）
-- 由前面 4 個 section 自然 emerge，唔係抽空 invent
-- 1 句 commitment + 1 句點知道做咗
+🎯 **5. 下週 1 個承諾（淨係 1 個）**
+- 唔好 5 個目標 — 揀 1 個
+- 必須係**可觀察嘅行為**，唔係心態（「我會更投入當下」係無效）
+- 由前面 4 個 section 自然帶出嚟，唔係抽空想出嚟
+- 1 句承諾 + 1 句點知道做咗
 - 例：「下週同 M sync 之前，預先寫 3 個議題出嚟，唔好等佢開頭。下週日 review 時 檢查 有冇做。」
 
 ---
 
 **語氣限制：**
 - 唔好雞湯（「You did great this week!」）
-- 唔好醫療化（「呢個可能係 burnout 嘅 sign」 — 唔係你 job）
-- 唔好行動 prescription 超過 commitment 嗰個
+- 唔好醫療化（「呢個可能係 burnout 嘅徵兆」 — 唔係你嘅本份）
+- 除咗嗰個承諾，唔好再開多啲行動指令
 - 鏡映 > 建議
 - 第二人稱（「你」），唔好「我」（你係寫畀我睇，唔係扮我）
 - 寫廣東話書面語，唔好普通話 / 太書面
 
 **邊界：**
-- 如果 input 有自殘 / 自殺 / 急性危機內容：停 weekly review，輸出 1 行：「呢週 input 有 concerning 內容，weekly review 唔係啱嘅 container。請睇『用 Claude 做每日心理健康日記』嗰篇文末嘅 HK 真人支援。」
+- 如果 input 有自傷 / 自殺 / 急性危機內容：停低 weekly review，輸出 1 行：「呢週 input 有令人擔心嘅內容，weekly review 唔係啱嘅容器。請睇『用 Claude 做每日心理健康日記』嗰篇文末嘅 HK 真人支援。」
 - 唔好假裝係治療師
-- 唔好分析「你嘅 attachment style」「你嘅 childhood pattern」 — out of scope
+- 唔好分析「你嘅 attachment style」「你嘅童年模式」 — 超出範圍
 
 設定好之後即時試運行一次（預演），畀我睇輸出，確認無問題先排程。
 </PromptBlock>
 
-呢個 prompt 嘅關鍵唔係 fancy — 係**逼你（同 Claude）唔講廢話**。每個 section 都有 anti-pattern（「唔好 vague 形容詞」「唔好心態承諾」） — 因為冇呢啲 guard rail，AI 出嘅 review 一定變成 LinkedIn-grade 雞湯。
+呢個 prompt 嘅關鍵唔係花巧 — 係**逼你（同 Claude）唔講廢話**。每個 section 都有一條「咪咁做」嘅界線（「唔好用含糊形容詞」「唔好心態承諾」） — 因為冇呢啲護欄，AI 出嘅 review 一定變成 LinkedIn 級數嘅雞湯。
 
-### 3. Markdown 輸出 + 私人 storage
+### 3. Markdown 輸出 + 私人儲存
 
-第一週試運行之後，定 storage convention：
+第一週試運行之後，定低儲存嘅慣例：
 
 ```
 ~/Documents/weekly-review/
@@ -161,14 +161,14 @@ Annie Dillard 有句嘢成日畀人引：「我哋點過一日，就係點過一
 
 幾個原則：
 
-- **唔好 sync 上 cloud**（iCloud / Dropbox / Google Drive 都唔好）。份 review 你會寫好 raw 嘅嘢，cloud breach 你會 regret。如果一定要 backup，用 encrypted external drive。
-- **唔好分享**（包括伴侶）。Weekly review 嘅 raw honesty 喺於你知冇人睇。
-- **唔好 edit 舊嘅**。今週讀返第 19 週覺得幼稚 — 唔好改。Pattern 識別嘅前提係 raw record。
-- **File naming 用 ISO 週數**（W21 而唔係 May-W3），方便 sort + 跨年。
+- **唔好同步上 cloud**（iCloud / Dropbox / Google Drive 都唔好）。份 review 你會寫好坦白嘅嘢，雲端一旦外洩你會後悔。如果一定要備份，用加密咗嘅外置硬碟。
+- **唔好分享**（包括伴侶）。Weekly review 嗰份赤裸嘅誠實，正正在於你知冇人睇。
+- **唔好改舊嘅**。今週讀返第 19 週覺得幼稚 — 唔好改。要睇出 pattern，前提係嗰份記錄夠原汁原味。
+- **檔名用 ISO 週數**（W21 而唔係 May-W3），方便排序 + 跨年。
 
-### 4. Monday-morning reading ritual
+### 4. 星期一朝早嘅閱讀儀式
 
-呢一步好多人 skip，但係**真正攞 ROI 嘅地方**。
+呢一步好多人跳過，但係**真正攞到回報嘅地方**。
 
 星期日 8pm 寫咗份 review，唔好即刻睇。**瞓一晚先**。
 
@@ -176,70 +176,70 @@ Annie Dillard 有句嘢成日畀人引：「我哋點過一日，就係點過一
 
 呢 5 分鐘做 3 樣嘢：
 
-1. **Mark 嗰個承諾喺今週 calendar**（block 一格時間實際做）
-2. **如果有規律觀察 → 寫一句 follow-up 諗法**（唔強迫，有先寫）
-3. **合上 file。唔好分享、唔好 act on highlight / drain 嗰啲。**
+1. **將嗰個承諾標喺今週 calendar**（劃一格時間實際去做）
+2. **如果有規律觀察 → 寫一句跟進嘅諗法**（唔強迫，有先寫）
+3. **合上 file。唔好分享、唔好即刻為 highlight / drain 嗰啲嘢去行動。**
 
-星期一 7:35am 你帶住嗰一個承諾開工。其餘 4 個 section 嘅工作已經做完——你個腦會喺 background 處理。
+星期一 7:35am 你帶住嗰一個承諾開工。其餘 4 個 section 嘅工作已經做完——你個腦會喺背景默默消化。
 
 ## 變化例子
 
 ### 變化 1：Couples / 家庭 weekly review
 
-唔係將你自己份 review 畀伴侶睇。係**兩個人各自寫，星期日 9pm 一齊坐 20 分鐘對 1 個 section**。
+唔係將你自己份 review 畀伴侶睇。係**兩個人各自寫，星期日 9pm 一齊坐 20 分鐘對住 1 個 section 傾**。
 
 <PromptBlock label="變化 1 — 家庭 weekly review（2 人或以上）">
 修改原 prompt：
 
 - 輸出兩份 markdown：`2026-W21-A.md`（我）、`2026-W21-B.md`（伴侶）
-- 各自從自己 calendar / journal aggregate（私隱：唔好 cross-read）
-- Section 5（commitment）改為「畀家庭嘅 1 個 commitment」（共同嘅，唔係個人）
-- 加 section 6：「上週 commitment 兌現咗未」（兩個人各自 mark yes/no/部分）
-- 額外輸出 `2026-W21-shared.md` — 淨係包：兩個人嘅 section 5 + section 6，俾兩個人坐低嗰陣對住傾
+- 各自從自己 calendar / journal 整合（私隱：唔好互相讀對方嘅）
+- Section 5（commitment）改為「畀家庭嘅 1 個承諾」（共同嘅，唔係個人）
+- 加 section 6：「上週承諾兌現咗未」（兩個人各自標 yes/no/部分）
+- 額外輸出 `2026-W21-shared.md` — 淨係包：兩個人嘅 section 5 + section 6，畀兩個人坐低嗰陣對住傾
 
-對話 20 分鐘嘅 structure：
+對話 20 分鐘嘅結構：
 - 5 分鐘：各自讀對方嘅 section 5 + 6（唔出聲）
-- 10 分鐘：傾下週 shared commitment
-- 5 分鐘：定下星期日同一時間再 meet
+- 10 分鐘：傾下週共同承諾
+- 5 分鐘：定下星期日同一時間再見面
 
-唔好 escalate 做關係衝突 session — 嗰個係另一個 container（睇「用 Claude 做每日心理健康日記」嗰篇變化 2）。
+唔好升級做關係衝突 session — 嗰個係另一個容器（睇「用 Claude 做每日心理健康日記」嗰篇變化 2）。
 </PromptBlock>
 
-呢個變化嘅 trap：兩個人會想讀對方份完整 review。唔好。Weekly review 嘅 honesty depend 喺 audience-of-one。共享層淨係承諾同跟進。
+呢個變化嘅陷阱：兩個人會想讀對方份完整 review。唔好。Weekly review 嘅誠實，全靠「只得一個讀者」呢一點。共享層淨係承諾同跟進。
 
-### 2：Quarterly review（extended）— annual review 嘅 prep
+### 2：Quarterly review（加長版）— annual review 嘅準備
 
-每月最後一個星期日 + 每季最後一個星期日，跑 extended 版本：
+每月最後一個星期日 + 每季最後一個星期日，跑加長版本：
 
 <PromptBlock label="變化 2 — Quarterly review（每季尾用一次）">
 讀過去 13 週（一個 quarter）嘅 weekly review markdown：~/Documents/weekly-review/2026-W[N-12].md 到 W[N].md
 
 唔好重新做 weekly section。出 quarterly 嘅 4 個 section：
 
-🌊 **1. Energy 流向 audit**
-- 過去 13 週 energy drain section 重複出現嘅 entity（人名、project、會議）
-- 邊個 drain 而家仲喺度？呢一季有冇 structural 處理過？
-- 如果 13 週前嘅 drain 仍然原封不動 — 問點解。
+🌊 **1. Energy 流向審視**
+- 過去 13 週 energy drain section 重複出現嘅對象（人名、project、會議）
+- 邊個 drain 而家仲喺度？呢一季有冇從結構上處理過？
+- 如果 13 週前嗰個 drain 仍然原封不動 — 問點解。
 
-📈 **2. Commitment 兌現率**
-- 13 個 commitment, 兌現咗幾多
+📈 **2. 承諾兌現率**
+- 13 個承諾，兌現咗幾多
 - 唔兌現嘅 pattern：類型？難度？時段？
-- 唔係要 100%，係要識別「我成日 set 邊類 commitment 都做唔到」
+- 唔係要 100%，係要睇出「我成日定邊類承諾都做唔到」
 
-🔮 **3. 喺 13 週前嘅你估唔到嘅嘢**
-- 由 highlight + 出乎預期 兩個 section aggregate
-- 一季 = 13 個 surprise window. 邊啲 turned out 重要過你諗？
-- 用嚟 calibrate 下季嘅 planning（你嘅 forecast 一向偏咩方向）
+🔮 **3. 13 週前嘅你估唔到嘅嘢**
+- 由 highlight + 出乎預期 兩個 section 整合
+- 一季 = 13 個意外窗口。邊啲結果重要過你當初諗？
+- 用嚟校正下季嘅 planning（你嘅預測一向偏咩方向）
 
-🎯 **4. 下季 1 個 theme（唔係 goal）**
-- 唔好 SMART goal — 揀 1 個 theme word（例：consolidate / depth / repair / patience）
+🎯 **4. 下季 1 個主題（唔係目標）**
+- 唔好 SMART goal — 揀 1 個主題字（例：整固 / 深度 / 修補 / 耐性）
 - 1 句點解
-- 點知道一季尾係 honoured 咗呢個 theme
+- 點知道一季尾係兌現咗呢個主題
 
 呢份 quarterly review 係 annual review 嘅原料 — 12 月最後一週讀晒 4 份 quarterly 出 annual。
 </PromptBlock>
 
-Annual review 一向係玄學 task，因為你 12 月坐低諗成年發生咩事——已經太遲。Quarterly cadence 解決呢個。
+Annual review 一向係玄學任務，因為你 12 月坐低諗成年發生咩事——已經太遲。Quarterly 嘅節奏正好解決呢個。
 
 ### 變化 3：Therapy prep 模式
 
@@ -250,50 +250,50 @@ Annual review 一向係玄學 task，因為你 12 月坐低諗成年發生咩事
 
 輸出 `therapy-prep-[YYYY-MM-DD].md`：
 
-📋 **1. Theme aggregation**
+📋 **1. 主題整合**
 - 過去 N 週重複出現嘅情緒 / 議題 / 人物
-- 唔分析、唔解讀 — 只 list
+- 唔分析、唔解讀 — 只列出
 
-❓ **2. 3 個我可能想 bring up 嘅 topic**
-- 由 energy drain + 出乎預期 兩個 section emerge
-- 1 句乜 + 1 句點解我覺得值得 bring up
+❓ **2. 3 個我可能想提出嘅 topic**
+- 由 energy drain + 出乎預期 兩個 section 帶出嚟
+- 1 句乜 + 1 句點解我覺得值得提
 - 排優先次序
 
 📝 **3. 上次 session 之後我留意到嘅嘢**
-- 過去 N 份 review 入面有冇提到上次 session content / 治療師講過嘅嘢
-- 有冇 commitment 同 session 出嚟嘅 insight 相關
-- 有冇 resistance（每次想寫但跳過嘅 theme）
+- 過去 N 份 review 入面有冇提到上次 session 嘅內容 / 治療師講過嘅嘢
+- 有冇承諾同 session 出嚟嘅 insight 相關
+- 有冇抗拒（每次想寫但跳過嘅 theme）
 
 🚧 **4. 唔包嘅嘢**
 - 我嘅「診斷」 — 唔好估
 - 治療師應該講咩 — 唔好預設
-- 解決方案 — therapy 唔係 solution-shopping
+- 解決方案 — therapy 唔係嚟搵現成答案
 
-呢份 prep 寄 / print 出嚟，session 前 20 分鐘讀一次。Session 入面唔需要逐點過 — 係令你個腦準備好。
+呢份 prep 寄 / 印出嚟，session 前 20 分鐘讀一次。Session 入面唔需要逐點過 — 係令你個腦準備好。
 
-唔取代「用 Claude 做每日心理健康日記」嗰篇嘅 GP 探訪 prep。嗰個係跨月 baseline，呢個係 session-to-session continuity。
+唔取代「用 Claude 做每日心理健康日記」嗰篇嘅 GP 探訪 prep。嗰個係跨月嘅基準，呢個係一節接一節嘅連貫。
 </PromptBlock>
 
-呢個變化嘅前提：你已經有治療師。如果未有但覺得需要——睇「用 Claude 做每日心理健康日記」文末嘅 HK 轉介。
+呢個變化嘅前提：你已經有治療師。如果未有但覺得需要——睇「用 Claude 做每日心理健康日記」文末嘅 HK 轉介資訊。
 
 ## 一個思維框架
 
 > 「我哋點過一日，就係點過一世。」—— Annie Dillard
 
-呢句嘅意思唔係「每日要過得 meaningful」。係**你嘅一世就係你嘅一日嘅整合**——所以如果你冇一個 cheap reliable 嘅機制整合自己嘅日子，你就會 by 預設過一世模糊。
+呢句嘅意思唔係「每日要過得有意義」。係**你嘅一世就係你嘅一日嘅整合**——所以如果你冇一個又平又可靠嘅機制整合自己嘅日子，你就會慣性咁過一世模糊。
 
-Weekly review 嘅死敵唔係懶——係 **整合 friction**。坐低諗一週要 1 個鐘，邊個 maintain 到。
+Weekly review 嘅死敵唔係懶——係 **整合嘅阻力**。坐低諗一週要 1 個鐘，邊個維持到。
 
-Cowork 嘅槓桿係：**將整合自動化，將你嘅腦力留畀真正嘅反思**。份 markdown 出嚟之後，你嘅 job 唔係寫——係讀。讀 10 分鐘、加 5 句補充、揀 1 個承諾。
+Cowork 嘅槓桿係：**將整合自動化，將你嘅腦力留畀真正嘅反思**。份 markdown 出嚟之後，你嘅工作唔係寫——係讀。讀 10 分鐘、加 5 句補充、揀 1 個承諾。
 
-呢個係 sustainable 嘅秘訣。你唔需要每週日 sacrifice 1 個鐘——你需要每週日 sacrifice 15 分鐘 read + reflect。
+呢個係維持得落去嘅秘訣。你唔需要每週日犧牲 1 個鐘——你需要每週日犧牲 15 分鐘去讀同反思。
 
 最後幾個提醒：
 
-- ✅ **Sustainable 一年比 ambitious 一個月有用 100 倍**。Annual review 嘅原料係 52 份 weekly，唔係 1 份 perfect quarterly。
-- ⚠️ **Weekly review 唔係 productivity tool**。如果你發現自己用佢嚟 track KPI / output / 任務完成率——你錯用咗。佢係 life record，唔係 work log。
-- 🔒 **Privacy 唔可以妥協**。Local-only、唔分享、唔 sync。份 review 嘅 honesty depend 喺呢點。
-- 🛑 **急性危機 ≠ weekly review 時刻**。如果今週你 input 有自殘念頭、不勝負荷、急性焦慮——關咗 Cowork，去睇「用 Claude 做每日心理健康日記」文末嘅 HK 24 小時熱線。
+- ✅ **撐得住一年，勝過拼盡一個月一百倍**。Annual review 嘅原料係 52 份 weekly，唔係 1 份完美嘅 quarterly。
+- ⚠️ **Weekly review 唔係生產力工具**。如果你發現自己用佢嚟追蹤 KPI / 產出 / 任務完成率——你用錯咗。佢係生活記錄，唔係工作日誌。
+- 🔒 **私隱唔可以妥協**。淨係留喺本機、唔分享、唔同步。份 review 嘅誠實全靠呢一點。
+- 🛑 **急性危機 ≠ weekly review 時刻**。如果今週你 input 有自傷念頭、不勝負荷、急性焦慮——關咗 Cowork，去睇「用 Claude 做每日心理健康日記」文末嘅 HK 24 小時熱線。
 
 星期日 8pm。份 markdown 出嚟。你瞓一晚。星期一朝早 7:30，沖杯咖啡，讀 5 分鐘。
 

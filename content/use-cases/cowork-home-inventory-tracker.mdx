@@ -1,5 +1,5 @@
 ---
-title: "Cowork 自動 build 屋企 inventory：每件電器 / 家具 + 保固 / 折舊 / 保險覆蓋一頁睇晒"
+title: "Cowork 自動整屋企 inventory：每件電器 / 家具 + 保固 / 折舊 / 保險覆蓋一頁睇晒"
 slug: "cowork-home-inventory-tracker"
 issue: 100
 publishedAt: 2026-05-27
@@ -10,7 +10,7 @@ subcategory: "屋企管理"
 difficulty: 2
 timeMinutes: 40
 toolsNeeded: ["Claude Desktop (Pro/Max)", "iPhone / Android 拍照", "保險單 PDF"]
-description: "HK 屋細，但每屋都有 30-50 件 trackable items：電器、家具、collectibles。保險 claim 嗰陣冇 inventory = 蝕。Cowork 自動 build master inventory：影張相 + receipt 丟入 folder，extract 品牌型號購入日期價錢保固，每 6 個月計 depreciation + check 保險覆蓋夠唔夠。"
+description: "香港屋細，但每屋都有 30-50 件值得記低嘅嘢：電器、家具、收藏品。保險 claim 嗰陣冇 inventory 就蝕。Cowork 自動整 master inventory：影張相 + 收據丟入 folder，抽出品牌型號購入日期價錢保固，每 6 個月計折舊 + 睇下保險覆蓋夠唔夠。"
 keywords: ["屋企 inventory tracker", "保險 claim 準備", "HK 家居 asset list", "depreciation tracker Claude", "家居保險 覆蓋 audit"]
 related: ["cowork-receipt-warranty-management", "cowork-auto-backup-files-photos", "insurance-policy-review-claude"]
 featured: false
@@ -24,21 +24,21 @@ featured: false
 
 最後你出嗰張 list 三成靠估、四成冇單、剩低三成 claim 得返。保險賠你個沙發 HKD 2,000（替換價其實 HKD 8,000），因為你冇證明買嘅時候幾錢。
 
-呢個 scenario 喺香港屋企每年發生：水浸、火警、爆竊、漏電燒嘢。你以為自己屋細冇咁多嘢——其實隨便數都有：
+呢種事喺香港屋企每年都發生：水浸、火警、爆竊、漏電燒嘢。你以為自己屋細冇咁多嘢——其實隨便數都有：
 
 - **電器**：雪櫃、洗衣機、冷氣（3 部）、電視、微波爐、電飯煲、抽油煙機、熱水爐、Dyson、空氣清新機……
 - **家具**：梳化、餐枱椅、床、衣櫃、書枱……
 - **貴重物**：相機、手錶、波鞋 collection、playstation、結婚戒指、首飾……
 
-30-50 件 trackable items，總價值隨時 HKD 30 萬以上。**保險買得啱唔啱、claim 得返幾多，全部取決於你有冇 inventory**。
+30-50 件值得記低嘅嘢，總價值隨時 HKD 30 萬以上。**保險買得啱唔啱、claim 得返幾多，全部取決於你有冇 inventory**。
 
-呢篇用 Cowork 自動 build：每件嘢影張相 + 收據丟入 folder，自動抽出結構化資料，每 6 個月計 depreciation、check 保險覆蓋。
+呢篇用 Cowork 自動整：每件嘢影張相 + 收據丟入 folder，自動抽出結構化資料，每 6 個月計折舊、睇下保險覆蓋。
 
-> Cowork 仲係 research preview，要 Pro/Max plan。inventory data sensitive，淨係畀佢掂 dedicated folder。
+> Cowork 仲係 research preview，要 Pro/Max plan。inventory 資料好敏感，淨係畀佢掂專用 folder。
 
 ## 跟住做
 
-### 1. Photo + receipt capture protocol
+### 1. 影相 + 收據嘅拍攝規矩
 
 開個 folder：`~/Documents/home-inventory/_intake/`。每件嘢入屋（或者執屋盤點舊嘢嗰陣），影 **3 張相**：
 
@@ -46,16 +46,16 @@ featured: false
 2. **型號標籤**（通常喺底 / 後 / 側面，細細個白色貼紙）
 3. **收據**（紙單或者 email screenshot）
 
-三張相 file name 自己唔使諗，亂咁丟入 `_intake/`。如果係已經買咗幾年嘅嘢冇單，淨係影前兩張，收據空白嗰格 Cowork 會記做「unknown — 估」。
+三張相個 file name 自己唔使諗，亂咁丟入 `_intake/`。如果係已經買咗幾年嘅嘢冇單，淨係影前兩張，收據空白嗰格 Cowork 會記做「未知——估」。
 
-開埋兩個 sibling folders：
+開埋兩個並排嘅 folder：
 - `~/Documents/home-inventory/_processed/` — 處理完搬入嚟，按房間分 sub-folder
-- `~/Documents/home-inventory/_master.xlsx` — 主 inventory spreadsheet
+- `~/Documents/home-inventory/_master.xlsx` — 主 inventory 試算表
 
-### 2. 個核心 extraction prompt
+### 2. 個核心抽資料 prompt
 
-<PromptBlock label="完整 prompt — 每晚 build inventory">
-我想設定每晚 10pm 自動執行嘅 home inventory build。
+<PromptBlock label="完整 prompt — 每晚整 inventory">
+我想設定每晚 10pm 自動執行嘅 home inventory 整理。
 
 **Folder：** `~/Documents/home-inventory/_intake/`
 **唔好掂：** 其他 folder、`_processed/` 入面嘅嘢
@@ -63,149 +63,149 @@ featured: false
 **每晚做：**
 
 1. 掃 `_intake/` 入面所有 .jpg / .heic / .png / .pdf
-2. 將屬於同一件物品嘅相 group 埋一齊（用拍攝時間 ± 10 分鐘、location metadata、視覺相似度判斷）
-3. 對每組相，extract 以下 fields：
+2. 將屬於同一件物品嘅相歸埋一組（用拍攝時間 ± 10 分鐘、location metadata、視覺相似度判斷）
+3. 對每組相，抽出以下欄位：
    - 物品類別（電器 / 家具 / 電子產品 / 廚具 / 衣物 / 收藏 / 其他）
    - 品牌（盡量讀標籤）
    - 型號（serial / model number）
    - 描述（中文一句，例如「Dyson V11 無線吸塵機 黃色」）
-   - 房間（如果相入面有 context 可以估，否則空白等我填）
+   - 房間（如果相入面有線索可以估，否則空白等我填）
    - 購入日期（YYYY-MM-DD，從收據；冇單就標「估：[年份]」）
    - 購入價（HKD；冇單就 web search 同型號當年市價估，標「估」）
    - 商戶
-   - 保固期（從收據 / 品牌標準保政策）
+   - 保固期（從收據 / 品牌標準保固政策）
    - 序號 / IMEI（如有）
-   - 相片路徑（list 番屬於呢件嘢嘅 3 張相）
-4. Append 入 `_master.xlsx` 嘅 `Inventory` sheet，加 unique ID（HI-001、HI-002……）
+   - 相片路徑（列番屬於呢件嘢嘅 3 張相）
+4. 加入 `_master.xlsx` 嘅 `Inventory` sheet，加個獨立 ID（HI-001、HI-002……）
 5. 將原相搬入 `_processed/[房間 / unsorted]/[HI-ID]/`
-6. 如果同一件嘢之前已經 log 過（同型號 + 同 serial），唔好重複，喺 Notes 寫「補充相」就算
+6. 如果同一件嘢之前已經記錄過（同型號 + 同 serial），唔好重複，喺 Notes 寫「補充相」就算
 
 **限制：**
 - 唯讀模式：原相唔好刪、唔好改
-- 估嘅 field 一律 prefix「估：」，唔好扮確定
-- 唔好將相 send 去任何外部 service
-- HKD 5,000 以上嘅 item 喺 Notes 寫「⚠️ 待我核」等我自己驗
+- 估嘅欄位一律加前綴「估：」，唔好扮確定
+- 唔好將相傳去任何外部服務
+- HKD 5,000 以上嘅物品喺 Notes 寫「⚠️ 待我核」等我自己驗
 
-Set 好確認我，schedule 每晚 10:00 跑。
+設定好確認返我，排程每晚 10:00 跑。
 </PromptBlock>
 
-第一輪盤點（你執屋影晒舊嘢嗰晚）會跑成個鐘，列出 40-50 行。自己開 spreadsheet 過一次，補返「估」嗰啲、執返房間欄。之後每次買新嘢，影 3 張相丟入嚟就得。
+第一輪盤點（你執屋影晒舊嘢嗰晚）會跑成個鐘，列出 40-50 行。自己開試算表過一次，補返「估」嗰啲、執返房間欄。之後每次買新嘢，影 3 張相丟入嚟就得。
 
-### 3. Master inventory schema — 一頁睇晒
+### 3. Master inventory 結構 — 一頁睇晒
 
-`_master.xlsx` 嘅 `Inventory` sheet columns：
+`_master.xlsx` 嘅 `Inventory` sheet 欄位：
 
 `HI-ID | 類別 | 品牌 | 型號 | 描述 | 房間 | 購入日期 | 購入價 HKD | 商戶 | 保固到期 | 序號 | 現值估計 | 保險類別 | 相片 path | Notes`
 
-最後三欄係 Cowork 每 6 個月自動 refresh 嘅：
+最後三欄係 Cowork 每 6 個月自動更新嘅：
 
-- **現值估計** — 按類別 depreciation curve 算（電子產品每年 -20%、家具 -10%、收藏品另計）
-- **保險類別** — match 你份家居保 schedule（普通家用 / 貴重物品需另外申報 / 不受保）
-- **保固到期** — 對返當日，過咗就 strikethrough
+- **現值估計** — 按類別嘅折舊曲線算（電子產品每年 -20%、家具 -10%、收藏品另計）
+- **保險類別** — 對返你份家居保 schedule（普通家用 / 貴重物品需另外申報 / 不受保）
+- **保固到期** — 對返當日，過咗就劃返刪除線
 
-### 4. Biannual review ritual — 6 月 / 12 月第一個星期日
+### 4. 半年一次嘅 review 儀式 — 6 月 / 12 月第一個星期日
 
-每半年 Cowork 自動跑 review，email 你一份 report：
+每半年 Cowork 自動跑一次 review，email 你一份報告：
 
 <PromptBlock label="6 月 / 12 月 review prompt">
-每年 6 月 1 日 同 12 月 1 日 09:00，read `_master.xlsx`，加埋我擺喺 `~/Documents/home-inventory/_insurance/` 嘅家居保險單 PDF，跑一次完整 review：
+每年 6 月 1 日 同 12 月 1 日 09:00，讀 `_master.xlsx`，加埋我擺喺 `~/Documents/home-inventory/_insurance/` 嘅家居保險單 PDF，跑一次完整 review：
 
-**第一部分：depreciation refresh**
+**第一部分：折舊更新**
 - 重新計每件物品嘅現值（按類別曲線 + 過咗保固加 5% 折舊）
-- Update `_master.xlsx` 嘅「現值估計」欄
+- 更新 `_master.xlsx` 嘅「現值估計」欄
 - 列出貶值最快嘅 10 件嘢（純做記錄）
 
-**第二部分：保險覆蓋 audit**
-- 讀保險單，extract：總受保額、貴重物品個別申報上限、唔受保類別
+**第二部分：保險覆蓋審視**
+- 讀保險單，抽出：總受保額、貴重物品個別申報上限、唔受保類別
 - 加埋 inventory 嘅總現值
-- Flag：
+- 標出：
   - 任何單件 > 個別申報上限但未申報嘅（高風險，claim 唔足）
   - 任何類別係保單列為唔受保但 inventory 有嘅（例如部分保單唔包單車 / 收藏品）
-  - 總現值 vs 受保額差距 > 20%（under-insured 或 over-paying）
+  - 總現值 vs 受保額差距 > 20%（受保不足或者多畀咗保費）
 
 **第三部分：保固提醒**
-- 90 日內到期嘅電器，建議考慮 extended warranty
-- 已過保固但仲頻繁用嘅高價 item（諗下要唔要 service plan）
+- 90 日內到期嘅電器，建議考慮延長保固
+- 已過保固但仲頻繁用嘅高價物品（諗下要唔要保養計劃）
 
 **第四部分：行動清單**
 最多 5 項，由最緊要排起。例：
 - 「打畀保險 agent 申報新買嘅 Rolex（買入價 HKD 65,000，超過個別申報上限 HKD 20,000）」
-- 「總受保額 HKD 35 萬，inventory 估值 HKD 48 萬，under-insured HKD 13 萬」
+- 「總受保額 HKD 35 萬，inventory 估值 HKD 48 萬，受保不足 HKD 13 萬」
 
-⚠️ 你做嘅係 audit，唔係保險建議。最終 coverage 決定要同保險 agent 確認。
+⚠️ 你做嘅係審視，唔係保險建議。最終覆蓋決定要同保險 agent 確認。
 </PromptBlock>
 
-每半年坐 15 分鐘睇份 report，你嘅家居保險就由「買咗就唔再諗」變成「實際 align 緊真實風險」。
+每半年坐 15 分鐘睇份報告，你嘅家居保險就由「買咗就唔再諗」變成「真係對得住實際風險」。
 
 ## 變化
 
-### 變化 1：租客版——lease 起始 + 退租嗰陣
+### 變化 1：租客版——租約開始 + 退租嗰陣
 
 <PromptBlock label="變化 1 — 租客 inventory">
-我係租客，唔係業主。我嘅 inventory 要分兩 set：
+我係租客，唔係業主。我嘅 inventory 要分兩組：
 
-1. **業主嘅嘢**（lease 入面 inventory list 列嗰啲：雪櫃、冷氣、洗衣機）
+1. **業主嘅嘢**（租約入面 inventory list 列嗰啲：雪櫃、冷氣、洗衣機）
 2. **我自己嘅嘢**（搬入嚟之後買嘅）
 
-入伙第一日做一次 baseline：每件業主嘅嘢影 3-4 張相（含損耗位 close-up），entry 入 `_master.xlsx` 嘅 `Landlord-Owned` sheet，column 加「入伙狀態描述」（譬如「右下角有刮花、雪櫃膠邊發黃」）。
+入伙第一日做一次基準記錄：每件業主嘅嘢影 3-4 張相（包埋損耗位特寫），記入 `_master.xlsx` 嘅 `Landlord-Owned` sheet，加多一欄「入伙狀態描述」（譬如「右下角有刮花、雪櫃膠邊發黃」）。
 
-退租前一個月跑 review：對比入伙 baseline，列出邊啲損耗係 wear-and-tear（業主負責）、邊啲係 tenant damage（我要賠），準備同業主討論嘅 evidence pack。
+退租前一個月跑一次 review：對比入伙基準，列出邊啲損耗係自然耗損（業主負責）、邊啲係租客造成嘅損壞（我要賠），準備同業主討論嘅證據包。
 
-家居保只保我自己嘅嘢——所以 audit 只算 `My-Stuff` sheet。
+家居保只保我自己嘅嘢——所以審視只算 `My-Stuff` sheet。
 </PromptBlock>
 
-### 變化 2：Collectibles 投資者版——市價波動 tracking
+### 變化 2：收藏品投資者版——市價波動追蹤
 
 <PromptBlock label="變化 2 — collectibles 估值">
-我有一批 collectibles：限量波鞋、手錶、potentially Lego、漫畫。呢啲嘢嘅特性係——**會升值唔係貶值**。
+我有一批收藏品：限量波鞋、手錶、有可能 Lego、漫畫。呢啲嘢嘅特性係——**會升值唔係貶值**。
 
-加一個 sheet `Collectibles`，每件 entry 要：
+加一個 sheet `Collectibles`，每件記低：
 - 購入價 + 購入日期
-- 當前市價估計（StockX / Chrono24 / eBay sold listings 嘅 reference 價，每月 refresh 一次）
+- 當前市價估計（StockX / Chrono24 / eBay sold listings 嘅參考價，每月更新一次）
 - 真偽證明文件嘅 path（盒 / tag / 認證書相）
-- Condition grade（DS / VNDS / used，自己評）
+- 品相評級（DS / VNDS / used，自己評）
 
-每月 1 號自動 refresh 市價，update spreadsheet。
+每月 1 號自動更新市價，更新試算表。
 
-家居保大部分唔自動包 collectibles，要 separate rider。Review 嗰陣特別 flag：
-- 總 collectibles 現值
-- 邊啲已經升咗 50% 以上（如果保單係 schedule 入面，要 update 申報金額）
-- 邊啲跌咗 20% 以上（諗下要唔要 cut loss / 唔再保）
+家居保大部分唔會自動包收藏品，要另外加附加條款。Review 嗰陣特別標出：
+- 收藏品總現值
+- 邊啲已經升咗 50% 以上（如果保單係 schedule 入面，要更新申報金額）
+- 邊啲跌咗 20% 以上（諗下要唔要止蝕 / 唔再保）
 
-呢個係 inventory 兼 portfolio tracking。
+呢個係 inventory 兼資產組合追蹤。
 </PromptBlock>
 
-### 變化 3：保險 claim emergency 模式
+### 變化 3：保險 claim 緊急模式
 
 <PromptBlock label="變化 3 — 即時 claim list">
-災難發生（水浸 / 火 / 爆竊）。我打畀保險 agent 之前，要即刻出一份 claim-ready 嘅損失清單。
+災難發生（水浸 / 火 / 爆竊）。我打畀保險 agent 之前，要即刻出一份可以直接 claim 嘅損失清單。
 
-跑緊急 mode：
+跑緊急模式：
 
-我會喺 chat 入面講低咩房 / 咩物品受影響（譬如「廳同主人房嘅嘢全部水浸，廚房冇事」）。
+我會喺 chat 入面講低邊間房 / 咩物品受影響（譬如「廳同主人房嘅嘢全部水浸，廚房冇事」）。
 
 你即時生成 PDF：
-1. 受影響物品清單（從 `_master.xlsx` filter 出嚟）
+1. 受影響物品清單（從 `_master.xlsx` 篩出嚟）
 2. 每件包：購入日期、購入價、收據相 path、物品相 path、序號
-3. 總 claim 金額（按 purchase value 同 depreciated value 兩個 column 都列出，等保險公司可以分別評估）
-4. 附錄：每件物品嘅 evidence pack（壓縮 PDF，每件一頁）
+3. 總 claim 金額（按購入價同折舊後價值兩欄都列出，等保險公司可以分別評估）
+4. 附錄：每件物品嘅證據包（壓縮 PDF，每件一頁）
 
 唔好做嘅嘢：
 - 唔好幫我誇大金額
 - 唔好建議「呢樣寫多啲入去」
 - 唔好替我同保險公司溝通
 
-呢份 list 我用嚟畀 agent 同 adjuster 做正式 claim 嘅 starting point。
+呢份清單我用嚟畀 agent 同理賠員做正式 claim 嘅起點。
 </PromptBlock>
 
-## 一個 HK 住屋 reality check
+## 一個香港住屋現實提醒
 
-呢套 system 嘅 setup overhead，會隨你住嘅地方類型 scale 唔同：
+呢套系統嘅前期工夫，會隨你住嘅地方類型而唔同：
 
-- **劏房 / 公屋**：可能得 10-15 件 trackable items，第一輪盤點半個鐘搞掂。重點係嗰幾件大電器（雪櫃 / 洗衣機 / 冷氣）。
-- **私樓自住**：30-50 件，第一輪可能要兩晚分批影。回報係實實在在嘅，因為私樓家居保 premium 唔平，買啱 coverage 一年慳幾百到千幾。
-- **服務式公寓 / 連傢俬出租單位**：用「租客版」變化，重點唔係資產追蹤而係 entry condition documentation。退租嗰陣最有用。
-- **業主出租單位**：你係 landlord 反方向用——保留份單位入面業主家私嘅 inventory，每次 tenant 轉手做 handover record。
+- **劏房 / 公屋**：可能得 10-15 件值得記低嘅嘢，第一輪盤點半個鐘搞掂。重點係嗰幾件大電器（雪櫃 / 洗衣機 / 冷氣）。
+- **私樓自住**：30-50 件，第一輪可能要兩晚分批影。回報係實實在在嘅，因為私樓家居保保費唔平，買啱覆蓋一年慳幾百到千幾。
+- **服務式公寓 / 連傢俬出租單位**：用「租客版」變化，重點唔係資產追蹤而係記錄入伙時嘅狀態。退租嗰陣最有用。
+- **業主出租單位**：你係業主就反方向用——保留份單位入面業主家私嘅 inventory，每次租客轉手做交接記錄。
 
 ---
 

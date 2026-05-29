@@ -1,5 +1,5 @@
 ---
-title: "Cowork 自動 log 主子健康：每日飲食 / 嘔吐 / 拉嘢 → 月底 vet trend report"
+title: "Cowork 自動記錄主子健康：每日飲食 / 嘔吐 / 拉嘢 → 月底獸醫趨勢報告"
 slug: "cowork-pet-health-log-automation"
 issue: 102
 publishedAt: 2026-05-27
@@ -11,242 +11,242 @@ heroImage: "/hero/cowork-pet-health-log-automation.webp"
 difficulty: 1
 timeMinutes: 30
 toolsNeeded: ["Claude Desktop (Pro/Max)", "iPhone / Android 影主子 daily", "Optional: Apple Health pet weight log"]
-description: "主子有慢性病（腎 / 糖尿 / IBD），獸醫叫你 daily log 飲食 / 嘔吐 / 排便 — 結果堅持 2 個禮拜就放棄。用 Claude Desktop Cowork 接 voice note + photo + 短 text，自動 structure 入 health log，月底自動出 vet trend report。"
+description: "主子有慢性病（腎 / 糖尿 / IBD），獸醫叫你每日記低飲食 / 嘔吐 / 排便 — 結果堅持 2 個禮拜就放棄。用 Claude Desktop Cowork 接 voice note、相同短文字，自動整理入健康日誌，月底自動出獸醫趨勢報告。"
 keywords: ["寵物 健康 log", "主子 慢性病 tracker", "pet diabetes IBD monitoring", "HK 寵物 獸醫 prep", "claude cowork 寵物"]
 related: ["vet-visit-prep-claude", "pet-picky-eater-diet-transition-claude", "chronic-condition-management-claude"]
 featured: false
 ---
 
-> ⚠️ Claude 唔取代獸醫。呢個 workflow 嘅 job 係幫你**老實咁記低**主子每日狀況、月底出一頁 trend report 畀獸醫睇。任何 dose / diet / treatment 決定 = 獸醫定。
+> ⚠️ Claude 唔取代獸醫。呢個 workflow 嘅作用係幫你**老實咁記低**主子每日狀況、月底出一頁趨勢報告畀獸醫睇。任何劑量 / 飲食 / 治療決定，一律獸醫話事。
 
 ## 情境
 
 獸醫確診你主子（11 歲老貓）腎病第 2 期，叫你做兩件事：
 
-1. **每日 log**：食量、飲水量、嘔吐、排便（軟硬）、活動量
+1. **每日記錄**：食量、飲水量、嘔吐、排便（軟硬）、活動量
 2. **每月返診**：帶住紀錄一齊睇
 
 第 1 個禮拜你好勤力。Notes app 開咗一頁，每晚瞓前打：「今日食 60g，飲水 2 砵，冇嘔，1 次屎軟。」
 
-第 3 個禮拜你開始漏：返工攰、出咗街、瞓著咗。第 5 個禮拜 Notes app 入面剩返「OK」、「同上」、「忘咗 record」。第 8 個禮拜你決定唔搞了。
+第 3 個禮拜你開始漏：返工攰、出咗街、瞓著咗。第 5 個禮拜 Notes app 入面剩返「OK」、「同上」、「唔記得記低」。第 8 個禮拜你決定唔搞了。
 
-下次返診獸醫問：「過去 1 個月食量點？」你答：「⋯⋯ok 啦。」獸醫對住你個老貓嘅 SDMA 微升、Creatinine 邊緣，冇 data 可以決定要唔要加 phosphate binder。
+下次返診獸醫問：「過去 1 個月食量點？」你答：「⋯⋯ok 啦。」獸醫對住你個老貓嘅 SDMA 微升、Creatinine 邊緣，冇數據可以決定要唔要加 phosphate binder。
 
-呢個就係慢性病寵物管理嘅死結：**獸醫需要 daily granularity，但人手 log 持續唔到 8 個禮拜**。
+呢個就係慢性病寵物管理嘅死結：**獸醫需要每日嘅細緻數據，但人手記錄持續唔到 8 個禮拜**。
 
-呢篇用 **Claude Desktop Cowork** 解決：你淨係要每日講 1 句 voice note 或者影張碗嘅相，Cowork 自動 structure 入 health log。月底 prompt 1 句 → 出一頁 vet-ready trend report。30 分鐘 setup，之後每日 30 秒。
+呢篇用 **Claude Desktop Cowork** 解決：你淨係要每日講一句 voice note 或者影張碗嘅相，Cowork 自動整理入健康日誌。月底打一句 prompt，就出到一頁畀獸醫睇得明嘅趨勢報告。30 分鐘設定好，之後每日 30 秒。
 
 ## 跟住做
 
-### 1. 設定 daily input 嘅最低阻力 pipeline
+### 1. 設定每日輸入嘅最低阻力流程
 
-呢度嘅關鍵：**唔好叫自己「打字 record」**。打字係 friction，friction 就會放棄。
+呢度嘅關鍵：**唔好叫自己「打字記低」**。打字本身就係阻力，有阻力就會放棄。
 
 開一個 folder 喺 Desktop，例如 `~/PetHealth/小花/`。再開兩個 subfolder：
 
-- `inbox/` — 你每日丟 voice note / photo / 短 text 入嚟
-- `log/` — Claude Cowork 整理好嘅 structured entry 放呢度
+- `inbox/` — 你每日丟 voice note、相同短文字入嚟
+- `log/` — Claude Cowork 整理好嘅結構化記錄放呢度
 
-每日操作（揀一個你最 sustain 到嘅）：
+每日操作（揀一個你最維持得住嘅）：
 
 - **iPhone Voice Memo** → AirDrop 落 `inbox/` → 講一句「今早食一半、冇嘔、屎正常、好精神」就夠
-- **影碗 / 屎盆相** → AirDrop 落 `inbox/` → filename 唔使改
-- **iOS Shortcut**：設定一個 shortcut「Pet Log」，按一下開 Voice Memo + 自動存落 iCloud Drive `inbox/`
+- **影碗 / 屎盆相** → AirDrop 落 `inbox/` → 檔名唔使改
+- **iOS Shortcut**：設定一個 shortcut「Pet Log」，按一下開 Voice Memo，自動存落 iCloud Drive `inbox/`
 
-呢一步嘅目標：**每日 30 秒，唔使思考格式**。
+呢一步嘅目標：**每日 30 秒，唔使諗格式**。
 
-### 2. 設定 Cowork 嘅 structuring prompt
+### 2. 設定 Cowork 嘅整理 prompt
 
-Claude Desktop 開 project，attach `~/PetHealth/小花/` 個 folder。第一次 setup 同 Claude 講低 context：
+Claude Desktop 開 project，將 `~/PetHealth/小花/` 個 folder 接埋入去。第一次設定，同 Claude 講低背景：
 
-<PromptBlock label="完整 prompt — Cowork pet health log setup">
-我主子嘅 baseline：
+<PromptBlock label="完整 prompt — Cowork 寵物健康日誌設定">
+我主子嘅基本資料：
 
 - 名：[名]
-- 種類 / age / weight：[例：DSH 短毛貓 / 11 歲 / 4.2 kg]
-- Neuter / spay：[Y / N]
+- 種類 / 年齡 / 體重：[例：DSH 短毛貓 / 11 歲 / 4.2 kg]
+- 絕育：[Y / N]
 - 確診：[病名，例：CKD IRIS Stage 2 / 糖尿 / IBD]
 - 確診日期：[填]
-- 現時藥物：[藥名 + dose + 頻率]
-- Prescription diet：[diet 名]
-- 獸醫叫我每日 log：[食量 / 飲水量 / 嘔吐 / 排便 / 活動量 / 體重每週]
+- 現時藥物：[藥名 + 劑量 + 頻率]
+- 處方糧：[糧名]
+- 獸醫叫我每日記低：[食量 / 飲水量 / 嘔吐 / 排便 / 活動量 / 體重每週]
 
-我會每日丟 voice note、photo 或者短 text 入 `inbox/` 個 folder。
+我會每日丟 voice note、相或者短文字入 `inbox/` 個 folder。
 
-你嘅 job：
+你嘅工作：
 
-1. **每日**：讀 `inbox/` 入面新 file，extract 出每日 structured entry，append 入 `log/YYYY-MM.md` 一個 markdown table。Schema：
+1. **每日**：讀 `inbox/` 入面新檔案，抽出每日結構化記錄，加入 `log/YYYY-MM.md` 一個 markdown 表格。欄位：
 
 ```
 | Date | 食量 (g 或 %) | 飲水 | 嘔吐 (次/描述) | 排便 (次/質地) | 活動 (1-5) | 藥物 Y/N | Notes |
 ```
 
-2. **處理 ambiguity**：voice note 講「食咗一半」= 50%；「精神好」= 活動 4；「軟便」= soft formed。如果 input 真係冇講某個 column，留空 + flag「missing」，唔好捏造。
+2. **處理含糊嘅講法**：voice note 講「食咗一半」= 50%；「精神好」= 活動 4；「軟便」= soft formed。如果輸入真係冇講某一欄，留空再標「missing」，唔好捏造。
 
-3. **影相 input**：碗剩幾多估 %；屎相用獸醫 Bristol-like scale（1 硬粒 → 7 水樣）；嘔吐物 colour + consistency。
+3. **影相輸入**：碗剩幾多估 %；屎相用獸醫嘅 Bristol-like scale（1 硬粒 → 7 水樣）；嘔吐物記低顏色同質地。
 
-4. **每週體重**：reminder 我每個禮拜日要量 1 次。
+4. **每週體重**：每個禮拜日提我量一次。
 
-5. **Red flag 即時 ping 我**：連續 2 日唔食 / 嘔吐 ≥ 3 次 / 排便異常 ≥ 3 日 / 體重一週跌 ≥ 5% → 你立即喺 chat 提我「應該 call 獸醫」。
+5. **有 red flag 即刻提我**：連續 2 日唔食 / 嘔吐 ≥ 3 次 / 排便異常 ≥ 3 日 / 體重一週跌 ≥ 5% → 你立即喺 chat 提我「應該打畀獸醫」。
 
-每日做完整理之後，用 1 句總結今日狀況。語氣：vet tech 朋友幫手，唔好 lecture。
+每日做完整理之後，用一句總結今日狀況。語氣：好似識嘢嘅 vet tech 朋友幫手咁，唔好說教。
 </PromptBlock>
 
-之後每日你丟嘢入 `inbox/`，喺 Cowork chat 講一句「整理今日」，佢自動 append 入當月 log。
+之後每日你丟嘢入 `inbox/`，喺 Cowork chat 講一句「整理今日」，佢就自動加入當月日誌。
 
-### 3. 月底 trend analysis prompt
+### 3. 月底趨勢分析 prompt
 
 每月最後一日（或者返診前 3 日），開新 chat：
 
-<PromptBlock label="完整 prompt — 月度 vet trend report">
-請讀 `log/[今個月 YYYY-MM.md]`（如有上個月 `log/[上月 YYYY-MM.md]` 一齊讀），出一份 A4 1 頁嘅 **vet-ready trend report**。Format：
+<PromptBlock label="完整 prompt — 月度獸醫趨勢報告">
+請讀 `log/[今個月 YYYY-MM.md]`（如有上個月 `log/[上月 YYYY-MM.md]` 一齊讀），出一份 A4 一頁、畀獸醫睇得明嘅 **趨勢報告**。格式：
 
 **📋 Header**
 - 主子名 + 病情 + stage
 - Report period：[start date] → [end date]
 - Days logged：N / 30 (compliance %)
 
-**📈 1. Weight curve**
-- 每週體重 point-form
-- Trend：升 / 平 / 跌（% change）
-- Vs 上月
-
-**🍽 2. Appetite pattern**
-- 平均每日食量（g 或 % of normal）
-- 食量 < 50% 嘅日數
-- 連續唔食日子（longest streak）
-- 有冇 weekly / time-of-day pattern
-
-**💧 3. Water intake**
-- 平均 / day
-- Trend
-- 同 CKD / 糖尿 baseline 對比（如 applicable）
-
-**🤮 4. Vomiting frequency**
-- 總次數
-- Pattern（飯後？空腹？食藥後？）
-- Colour / content 變化
-
-**💩 5. Stool pattern**
-- 質地 distribution（硬 / formed / soft / 水樣 % of days）
-- Frequency / day
-- 任何血 / mucus flag
-
-**⚡ 6. Activity / mood**
-- 平均 score
+**📈 1. 體重曲線**
+- 每週體重逐點列出
+- 趨勢：升 / 平 / 跌（百分比變化）
 - 同上月對比
-- 任何 sudden change 日子 + 對應 trigger（如新藥 / 換糧 / 天氣）
 
-**💊 7. Medication compliance**
-- % 準時食
-- 漏食日 + 原因（如有 record）
+**🍽 2. 食慾規律**
+- 平均每日食量（g 或 佔正常嘅 %）
+- 食量 < 50% 嘅日數
+- 連續唔食嘅日子（最長連續日數）
+- 有冇分日子 / 分時段嘅規律
+
+**💧 3. 飲水量**
+- 每日平均
+- 趨勢
+- 同 CKD / 糖尿 baseline 對比（如適用）
+
+**🤮 4. 嘔吐頻率**
+- 總次數
+- 規律（飯後？空腹？食藥後？）
+- 顏色 / 內容物變化
+
+**💩 5. 排便規律**
+- 質地分佈（硬 / formed / soft / 水樣，各佔幾多 % 嘅日數）
+- 每日次數
+- 任何血 / 黏液要標出
+
+**⚡ 6. 活動 / 情緒**
+- 平均分
+- 同上月對比
+- 任何突然變化嘅日子，加埋對應誘因（如新藥 / 換糧 / 天氣）
+
+**💊 7. 食藥依從度**
+- 準時食嘅百分比
+- 漏食日 + 原因（如有記低）
 
 **🎯 8. 3 條獸醫應該答嘅問題**
-基於上面 data，獸醫探訪我應該問乜：
-1. [具體問題引用 data]
+基於上面嘅數據，返診我應該問乜：
+1. [具體問題，引用數據]
 2. ...
 3. ...
 
 **🚨 9. Red flag 提示（如有）**
-任何 trend 應該 escalate？
+有冇邊個趨勢應該即刻提返獸醫？
 
-語氣：data-driven、可 print A4、唔好 cute emoji 太多。⚠️ 結尾加一句：「呢份 report 係 owner observation 整理，唔係 diagnosis。」
+語氣：以數據為本、印到 A4、唔好太多花俏 emoji。⚠️ 結尾加一句：「呢份報告係主人觀察整理出嚟，唔係診斷。」
 </PromptBlock>
 
-Output 通常 1 頁。Save 做 PDF，AirDrop 落電話帶去診所。
+出嚟通常一頁。存做 PDF，AirDrop 落電話帶去診所。
 
-### 4. 獸醫探訪前 + 探訪後嘅用法
+### 4. 返診前 + 返診後嘅用法
 
-**探訪前 3 日**：跑完月度 report，先自己睇一次。如果 Claude 標咗 red flag，**唔好等定期探訪**，提早 call 診所。
+**返診前 3 日**：行完月度報告，先自己睇一次。如果 Claude 標咗 red flag，**唔好等定期返診**，提早打畀診所。
 
-**探訪嗰日**：
+**返診嗰日**：
 
-- Print A4 1 張，或者電話打開 PDF
-- 入到診室頭 2 分鐘畀獸醫睇 report
+- 印 A4 一張，或者電話打開 PDF
+- 入到診室頭 2 分鐘畀獸醫睇報告
 - 留時間問 Claude 整嘅 3 條問題
-- 獸醫嘅 response、新 dose、follow-up 日期：record 落手機，返屋企貼返入 Cowork chat，update 落 baseline doc
+- 獸醫嘅回應、新劑量、跟進日期：記低落手機，返屋企貼返入 Cowork chat，更新落基本資料文件
 
-**保險 claim**：如果你買咗寵物保險（HK 主要係 OneDegree、Pawfect、Bowtie），月度 report + 收據通常已經夠交 claim documentation。
+**保險 claim**：如果你買咗寵物保險（香港主要係 OneDegree、Pawfect、Bowtie），月度報告加收據通常已經夠交 claim。
 
 ## 變化
 
-### 變化 1：純 senior pet（無確診病）quality of life 追蹤
+### 變化 1：純粹老年寵物（無確診病）嘅生活質素追蹤
 
-老貓老狗 12 歲 +，未有確診慢性病，但獸醫叫你 watch decline。Focus shift 去 QOL marker：
+老貓老狗 12 歲以上，未有確診慢性病，但獸醫叫你留意佢退化。重點轉去生活質素（QOL）指標：
 
-<PromptBlock label="變化 1 — Senior pet QOL tracker">
-我主子 [年齡] 歲，未有確診慢性病，但獸醫叫我 watch senior decline。請改 schema focus QOL：
+<PromptBlock label="變化 1 — 老年寵物生活質素追蹤">
+我主子 [年齡] 歲，未有確診慢性病，但獸醫叫我留意佢老年退化。請改一改欄位，集中喺生活質素：
 
-每日 entry 加 column：
+每日記錄加欄：
 - **跳上沙發 / 床**：自己跳 / 要幫 / 唔再跳
-- **梳毛 grooming**：normal / 減少 / 停咗
-- **同人互動**：主動 greet / passive / hide
-- **痛感 sign**：步態 / 抗拒掂 / 食藥反應
-- **認知**：迷路 / 凌晨叫 / pacing
+- **梳毛 grooming**：如常 / 減少 / 停咗
+- **同人互動**：主動埋身 / 被動 / 匿埋
+- **痛楚徵狀**：步態 / 抗拒掂 / 食藥反應
+- **認知**：迷路 / 凌晨叫 / 兜圈踱步
 
-月度 report 加：
+月度報告加：
 - HHHHHMM scale 評估（Hurt / Hunger / Hydration / Hygiene / Happiness / Mobility / More good days than bad）
-- Trend：穩定 / 漸退 / sudden change
-- ⚠️ 如果連續 3 週 QOL 跌：建議我同獸醫 raise palliative care discussion
+- 趨勢：穩定 / 漸退 / 突然變化
+- ⚠️ 如果連續 3 週生活質素下跌：建議我同獸醫傾紓緩治療（palliative care）
 
-語氣：empathetic 但唔煽情。
+語氣：有同理心但唔煽情。
 </PromptBlock>
 
-### 變化 2：多隻主子同步（一家 3 隻）
+### 變化 2：多隻主子一齊記錄（一家 3 隻）
 
-一家養 3 隻，每隻 baseline 唔同，唔可以分享 log。
+一家養 3 隻，每隻基本資料唔同，唔可以共用一份記錄。
 
-<PromptBlock label="變化 2 — 多 pet 同步 log">
-我屋企 3 隻主子，每隻 baseline 唔同。請開 3 個 sub-folder：
+<PromptBlock label="變化 2 — 多隻主子一齊記錄">
+我屋企 3 隻主子，每隻基本資料唔同。請開 3 個 sub-folder：
 
-- `log/[名 1]-YYYY-MM.md`（[種類 / age / 病情]）
-- `log/[名 2]-YYYY-MM.md`（[種類 / age / 病情]）
-- `log/[名 3]-YYYY-MM.md`（[種類 / age / 病情]）
+- `log/[名 1]-YYYY-MM.md`（[種類 / 年齡 / 病情]）
+- `log/[名 2]-YYYY-MM.md`（[種類 / 年齡 / 病情]）
+- `log/[名 3]-YYYY-MM.md`（[種類 / 年齡 / 病情]）
 
-每日 voice note 我會明確講邊隻：「小花今日食一半」/「波波嘔咗」。如果我冇講名，flag「ambiguous，請 confirm 邊隻」唔好亂 assign。
+每日 voice note 我會明確講邊隻：「小花今日食一半」/「波波嘔咗」。如果我冇講名，請標「含糊，請我確認邊隻」，唔好亂咁分。
 
-月底分開 3 份 report。額外 cross-cutting analysis：
-- 有冇 shared trigger（換糧 / 訪客 / 搬屋）影響多過 1 隻
-- Vaccination / parasite prevention schedule 各隻 due date
-- 同 vet 探訪 coordinate（同日帶 3 隻 vs 分開）建議
+月底分開 3 份報告。額外做埋跨隻分析：
+- 有冇共通誘因（換糧 / 訪客 / 搬屋）影響到多過一隻
+- 各隻嘅疫苗 / 杜蟲時間表同到期日
+- 同獸醫返診點安排（同日帶 3 隻 vs 分開）嘅建議
 
-語氣：清晰分開、唔混淆。
+語氣：清晰分開、唔好混淆。
 </PromptBlock>
 
-### 變化 3：手術後 recovery monitoring
+### 變化 3：手術後復原監察
 
-主子做完手術（絕育 / 腫瘤切除 / 牙科 / 骨科）返屋企，獸醫畀咗 14 日 recovery checklist。
+主子做完手術（絕育 / 腫瘤切除 / 牙科 / 骨科）返屋企，獸醫畀咗 14 日復原注意清單。
 
-<PromptBlock label="變化 3 — Post-surgery recovery monitoring">
-主子 [日期] 做咗 [手術名]。獸醫畀咗 [N] 日 recovery 注意事項。請改 schema for short-term intensive monitoring：
+<PromptBlock label="變化 3 — 手術後復原監察">
+主子 [日期] 做咗 [手術名]。獸醫畀咗 [N] 日復原注意事項。請改一改欄位，做短期密集監察：
 
-每日（早 / 午 / 晚 3 次 entry）：
+每日（早 / 午 / 晚 3 次記錄）：
 - **傷口**：紅 / 腫 / 滲液 / 拆線狀況（影相）
-- **痛感 sign**：呻吟 / 唔郁 / 抗拒掂某位
-- **食慾**：手術後 day 1-3 通常下降，day 4+ 應該回復
-- **排尿 / 排便首次**：日期 + 時間（特別重要術後 48 小時）
-- **藥物**：止痛 + 抗生素 dose / time
-- **E-collar 戴**：Y / N（漏戴幾耐）
-- **活動 restriction**：有冇跳 / 跑（唔應該）
+- **痛楚徵狀**：呻吟 / 唔郁 / 抗拒掂某個位
+- **食慾**：手術後第 1 至 3 日通常下降，第 4 日後應該回復
+- **首次排尿 / 排便**：日期 + 時間（術後 48 小時內特別重要）
+- **藥物**：止痛 + 抗生素嘅劑量同時間
+- **頸圈有冇戴**：Y / N（漏戴幾耐）
+- **活動限制**：有冇跳 / 跑（唔應該）
 
-Daily flag：
-- 紅腫滲液 → 即 call 診所
-- 24 小時冇排尿 → 即 call
-- 食慾 day 4 仍然 < 30% → call
-- 痛藥之後仍然呻吟 → call
+每日要即刻提我嘅情況：
+- 紅腫滲液 → 即刻打畀診所
+- 24 小時冇排尿 → 即刻打
+- 第 4 日食慾仍然 < 30% → 打
+- 食咗止痛藥仍然呻吟 → 打
 
-第 7 日 / 第 14 日（拆線日）：出 mini-report 帶返診所。語氣：vigilant 但唔 panic。
+第 7 日 / 第 14 日（拆線日）：出一份精簡報告帶返診所。語氣：提高警覺但唔好驚慌。
 </PromptBlock>
 
 ## 一個心態
 
-慢性病 / senior pet management 嘅死結：**獸醫需要連續 data，但人手記憶撐唔到 8 個禮拜**。你唔係懶 — 係 daily friction 太高。
+慢性病 / 老年寵物照顧嘅死結：**獸醫需要連續嘅數據，但人手記憶撐唔到 8 個禮拜**。你唔係懶 — 係每日嘅阻力太高。
 
-Cowork 嘅 job 唔係幫你「分析」主子健康（呢個係獸醫嘅 job）— 係幫你**消除記錄嘅 friction**，等 8 個禮拜變到 8 個月，8 個月變到 8 年都 sustain 到。
+Cowork 嘅作用唔係幫你「分析」主子健康（呢個係獸醫嘅工作）— 係幫你**消除記錄嗰道阻力**，等 8 個禮拜變到 8 個月，8 個月變到 8 年都維持得住。
 
-最後 reminder：
+最後提你：
 
-- ✅ 老實 log 漏記嘅日 > 捏造完美 30 日
-- ⚠️ 任何 red flag 標出嚟唔好等定期探訪，即 call
-- 🆘 急性症狀（持續嘔吐血、不能站立、呼吸困難、痙攣）：直接送 24-hr emergency，唔好用 Cowork 拖時間
-- 💛 主子唔識同你講「我邊度唔舒服」— 你個 log 就係佢嘅聲音
+- ✅ 老實記低、漏記嗰幾日，好過捏造一個完美嘅 30 日
+- ⚠️ 任何 red flag 標咗出嚟，唔好等定期返診，即刻打
+- 🆘 急性症狀（持續嘔吐血、企唔起身、呼吸困難、痙攣）：直接送 24 小時急症，唔好用 Cowork 拖時間
+- 💛 主子唔識同你講「我邊度唔舒服」— 你份記錄就係佢嘅聲音

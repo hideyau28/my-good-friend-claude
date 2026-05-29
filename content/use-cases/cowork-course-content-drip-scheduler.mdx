@@ -1,5 +1,5 @@
 ---
-title: "Cowork course creator 自動 drip：12 週 cohort 每週 lesson + assignment + reminder 一次 set 完"
+title: "Cowork 課程 creator 自動 drip：12 週 cohort 每週 lesson + assignment + reminder 一次過設定"
 slug: "cowork-course-content-drip-scheduler"
 issue: 103
 publishedAt: 2026-05-27
@@ -11,7 +11,7 @@ heroImage: "/hero/cowork-course-content-drip-scheduler.webp"
 difficulty: 3
 timeMinutes: 60
 toolsNeeded: ["Claude Desktop (Pro/Max)", "Course platform (Maven / Podia / Teachable / Substack)", "Email list export"]
-description: "HK course creator 用 Cowork 一次 set 12 週 cohort drip：每週自動 drop lesson、send assignment、24 小時前 reminder、未交者跟進。手做 burnout 變後台程序。"
+description: "香港課程 creator 用 Cowork 一次過設定 12 週 cohort drip：每週自動 drop lesson、送 assignment、24 小時前 reminder、跟進未交嘅人。手做到透支，變成後台程序。"
 keywords: ["course creator automation", "cohort drip scheduler", "online teaching Cowork", "HK 課程 creator 工作流", "Maven cohort 自動化"]
 related: ["cowork-social-media-scheduler", "newsletter-editorial-calendar-claude", "claude-content-repurpose"]
 featured: false
@@ -19,28 +19,28 @@ featured: false
 
 ## 情境
 
-你係 HK 課程 creator。可能你喺 Maven 開 12 週 live cohort、Podia 賣自家「文案 mastery」、Substack 收費 community 收 80 個學員、又或者 Teachable 一個 self-paced 課程。
+你係香港課程 creator。可能你喺 Maven 開 12 週 live cohort、Podia 賣自家「文案 mastery」、Substack 收費 community 收 80 個學員、又或者 Teachable 一個 self-paced 課程。
 
-每一週你要做嘅機械工作：
+每一週你要做嘅機械工夫：
 
 - 星期一：drop 今週 lesson（video + workbook）
-- 星期三：send assignment brief
-- 星期五前一日 24 小時：reminder「assignment 聽日交」
-- 星期六：跟進未交者，個別問候
+- 星期三：送 assignment brief
+- 星期五前一日 24 小時：reminder 「assignment 聽日交」
+- 星期六：跟進未交嘅人，逐個問候
 
-80 個學員 × 4 個動作 × 12 週 = 3,840 個觸發點。你由第 3 週開始疲勞，第 6 週開始漏 reminder，第 10 週個 cohort 自己散水。
+80 個學員 × 4 個動作 × 12 週 = 3,840 個觸發點。你由第 3 週開始攰，第 6 週開始漏 reminder，第 10 週個 cohort 自己散水。
 
-呢個唔係教學嘅問題，係 **operations burnout**。學員報你個 cohort 係為咗你嘅內容同提點，唔係為咗等你手做 reminder。
+呢個唔係教學嘅問題，係 **營運透支**。學員報你個 cohort 係為咗你嘅內容同提點，唔係為咗等你手做 reminder。
 
-呢篇用 Cowork 設定：**一次 set 12 週 schedule，每週自動抓取 student progress → 起個性化 reminder draft → push email + Discord/Slack**，你淨係做最後嘅人手批准。
+呢篇用 Cowork 設定：**一次過設定 12 週 schedule，每週自動抓取學員 progress → 起一封個人化 reminder draft → 送去 email + Discord/Slack**，你淨係做最後嘅人手批准。
 
-> ⚠️ Cowork 仲係研究預覽版。涉及學員私隱（progress data、email），最低權限 OAuth；reminder 永遠 draft mode、自己最後 send。
+> ⚠️ Cowork 仲係研究預覽版。涉及學員私隱（progress 數據、email），用最低權限 OAuth；reminder 永遠 draft mode、自己最後先 send。
 
 ## 跟住做
 
 ### 1. 起 cohort + lesson library 嘅 schema
 
-開一個 folder：
+開一個資料夾：
 
 ```
 ~/Documents/cohort-2026-fall/
@@ -55,11 +55,11 @@ featured: false
 └── tone-guide.md            # 你嘅 reminder 語氣 reference
 ```
 
-呢個結構 Cowork 一眼睇得明：邊個係 source of truth、邊度要 update。`tone-guide.md` 入面寫低你自己嘅語氣（「友善但唔 hard-sell」、「永遠用學員 first name」、「唔提及成績好嘅同學做對比」），呢個係防 AI 出籠統「Hope this email finds you well」嘅關鍵。
+呢個結構 Cowork 一眼睇得明：邊個係 source of truth、邊度要更新。`tone-guide.md` 入面寫低你自己嘅語氣（「友善但唔好硬銷」、「永遠用學員 first name」、「唔好提及成績好嘅同學嚟做對比」），呢個係防止 AI 出啲空泛「Hope this email finds you well」嘅關鍵。
 
-### 2. 個性化 reminder prompt — 貼心但唔 creepy
+### 2. 個人化 reminder prompt — 貼心但唔好過火
 
-<PromptBlock label="完整 prompt — 每週 drip + 個性化 reminder">
+<PromptBlock label="完整 prompt — 每週 drip + 個人化 reminder">
 我要設定 12 週 cohort 嘅自動 drip。
 
 **Cohort metadata：**
@@ -75,40 +75,40 @@ featured: false
 - 讀 ~/Documents/cohort-2026-fall/lessons/week-N-lesson.md
 - Email 全 cohort：subject「Week N · [lesson title]」，body 用 lesson 嘅 intro 段
 - Discord/Slack post：lesson link + 一句鈎子
-- 唔好 paste 成個 lesson 落 email（鼓勵返去平台睇）
+- 唔好成個 lesson 貼落 email（鼓勵返去平台睇）
 
-**星期三 10am — Send assignment**
+**星期三 10am — 送 assignment**
 - 讀 week-N-assignment.md
-- Email：assignment brief + due date + 點樣 submit
-- Discord/Slack：pin 個 assignment thread 等學員傾
+- Email：assignment brief + due date + 點樣交
+- Discord/Slack：pin 個 assignment thread 畀學員傾
 
 **星期四 7pm（即 due date 前 24 小時）— Reminder**
 - 讀 progress/week-N-status.csv
-- 對 **未交** 嘅學員：個性化 reminder
+- 對 **未交** 嘅學員：個人化 reminder
   - 用 first name
-  - 提返佢上一週 / 上兩週嘅 progress（例：「上次你嗰篇 cold email 好好，期待今次」）
-  - **唔好** 提其他同學嘅進度做比較
-  - **唔好** 用 guilt-trip 語氣（「再唔交就跟唔上」）
+  - 提返佢上一週 / 上兩週嘅進度（例：「上次你嗰篇 cold email 好好，期待今次」）
+  - **唔好** 提其他同學嘅進度嚟做比較
+  - **唔好** 用內疚式語氣（「再唔交就跟唔上」）
   - 語氣參考 ~/Documents/cohort-2026-fall/tone-guide.md
-- 對已交：唔好 email 佢哋（避免 noise）
+- 對已交嘅：唔好 email 佢哋（避免騷擾）
 
-**星期六 11am — Follow-up 未交者**
+**星期六 11am — 跟進未交嘅人**
 - 讀 week-N-status.csv 仍然 missing 嘅學員
-- 個別 email：唔係催，係問候
+- 逐個 email：唔係催，係問候
   - 「呢週係咪有啲嘢搞？」
-  - Offer：可以推遲一週交 / 想唔想簡短傾傾 / 純粹 acknowledge 收到
-- 同時 generate 一份 summary 畀我：邊幾個 missing 兩週以上（呢啲我自己親自跟進）
+  - 提議：可以推遲一週交 / 想唔想簡短傾兩句 / 純粹答覆收到
+- 同時起一份 summary 畀我：邊幾個 missing 兩週以上（呢啲我自己親自跟進）
 
 **每週限制：**
 - 所有 email + Discord/Slack message 永遠 **draft 狀態**
-- 我星期日下午 review，批准後先 send
+- 我星期日下午睇過、批准後先 send
 - 唔可以 send 任何嘢去未喺 students.csv 名單嘅 email
-- Reminder 唔可以引用學員私下嘅嘢（DM、1:1 call 內容）—— 淨係用公開 submitted assignment
+- Reminder 唔可以引用學員私下嘅嘢（DM、1:1 call 內容）—— 淨係用公開交咗嘅 assignment
 
-**Mid-cohort adjust（第 6 週尾）：**
-- 自動 generate 一份 mid-cohort report：
-  - 整體 submission rate trend
-  - 邊 3 個學員 engagement drop 緊（可能會 churn）
+**中段調整（第 6 週尾）：**
+- 自動起一份 mid-cohort report：
+  - 整體 submission rate 趨勢
+  - 邊 3 個學員 engagement 跌緊（可能會流失）
   - 邊個 lesson 嘅 assignment submission rate 特別低（可能要簡化）
 - 我用呢份 report 決定後半段要唔要調整節奏
 
@@ -117,39 +117,39 @@ featured: false
 
 ### 3. 配合平台特性嘅 delivery
 
-每個平台有自己嘅 quirk，Cowork 要識：
+每個平台有自己嘅脾性，Cowork 要識：
 
-- **Maven**：live cohort，已經有內建 lesson schedule。Cowork 嘅角色係 **補充** Maven 漏咗嘅嘢——個性化 reminder、Discord 跟進、未交者問候
+- **Maven**：live cohort，已經有內建 lesson schedule。Cowork 嘅角色係 **補充** Maven 漏咗嘅嘢——個人化 reminder、Discord 跟進、問候未交嘅人
 - **Podia / Teachable**：self-paced，但你開 cohort 模式畀大家一齊行。Cowork 用 drip schedule 模擬 cohort 節奏
-- **Substack** paid community：冇 formal lesson 結構，你自己用 markdown post 模擬「每週一課」嘅感覺
-- **Discord**：reminder 用 thread 回覆唔好 @everyone（會 desensitize）；Slack 同理
+- **Substack** 收費 community：冇正式 lesson 結構，你自己用 markdown post 模擬「每週一課」嘅感覺
+- **Discord**：reminder 用 thread 回覆，唔好 @everyone（大家會麻木）；Slack 同理
 
-平台選擇唔影響 prompt 結構，影響嘅係 delivery channel 嘅配置同 OAuth scope。
+平台揀邊個唔影響 prompt 結構，影響嘅係 delivery channel 嘅配置同 OAuth scope。
 
-### 4. Mid-cohort adjust 儀式（第 6 週）
+### 4. 中段調整儀式（第 6 週）
 
-12 週 cohort 嘅死亡曲線通常喺第 5-7 週：學員新鮮感過咗、未到結業推力。Cowork 第 6 週尾畀你嗰份 report 係救命錨：
+12 週 cohort 嘅死亡曲線通常喺第 5-7 週：學員新鮮感過咗、又未到結業嘅推力。Cowork 第 6 週尾畀你嗰份 report 係救命錨：
 
-- **Submission rate 由 90% → 65%**：個 assignment 可能太大件，下週簡化
-- **3 個 engagement drop 嘅學員**：你親自 DM，唔好 outsource 畀 AI（呢個係你嘅 community 嘅核心）
-- **某 lesson submission 特別低**：可能你教得太快、跳咗 prerequisite
+- **Submission rate 由 90% 跌到 65%**：個 assignment 可能太大件，下週簡化
+- **3 個 engagement 跌緊嘅學員**：你親自 DM，唔好交畀 AI（呢個係你 community 嘅核心）
+- **某個 lesson submission 特別低**：可能你教得太快、跳咗前置嘅基礎
 
-呢個 ritual 嘅意義唔係「優化 metric」，係 **由你嘅 cohort 提早收到信號**，唔好等到第 12 週見到一半人冇 show up at graduation。
+呢個儀式嘅意義唔係「優化指標」，係 **由你嘅 cohort 提早收到信號**，唔好等到第 12 週先發現一半人冇出現喺結業禮。
 
 ## 變化例子
 
-### 變化 1：Live cohort + recorded async 雙軌
+### 變化 1：Live cohort + 錄影 async 雙軌
 
 <PromptBlock label="變化 1 — Live + async 混合">
-我嘅 cohort 有兩個 track：
+我嘅 cohort 有兩條 track：
 - Live track：30 人，每週四晚 8pm 直播 + 即場 Q&A
 - Async track：50 人，自己睇 recording，自己節奏
 
 請：
 1. Live 嘅 reminder 要強調「聽日 8pm 見」+ 預告 Q&A 主題
-2. Async 嘅 reminder 唔好提 live time（佢哋唔 care），淨係 emphasize 「呢週嘅 lesson 你睇咗未」
-3. Async 嘅 follow-up 闊鬆啲（48 小時 vs 24 小時）
-4. 兩 track 嘅 Discord channel 分開：reminder 唔好 cross-post
+2. Async 嘅 reminder 唔好提 live 時間（佢哋唔關心），淨係強調「呢週嘅 lesson 你睇咗未」
+3. Async 嘅跟進闊鬆啲（48 小時 vs 24 小時）
+4. 兩條 track 嘅 Discord channel 分開：reminder 唔好互相轉貼
 </PromptBlock>
 
 ### 變化 2：B2B enterprise training
@@ -158,14 +158,14 @@ featured: false
 我幫 [公司] 做 12 週 internal training，60 個員工分 5 個 cohort（每組 12 人）。
 
 請：
-1. Reminder 用公司嘅正式語氣（唔好用我 solo creator 嗰個熟絡語氣）
-2. Submission status weekly report 送埋畀 HR / L&D manager
-3. 個別 follow-up 之前要先 cc HR partner（合規要求）
-4. 任何學員 2 週 missing 自動 flag 上 HR 跟進
+1. Reminder 用公司嘅正式語氣（唔好用我 solo creator 嗰種熟絡語氣）
+2. Submission status 每週 report 送埋畀 HR / L&D manager
+3. 逐個跟進之前要先 cc HR partner（合規要求）
+4. 任何學員 2 週 missing 自動標記上 HR 跟進
 5. 結業評核資料保留 7 年（合規），所有 reminder 同 progress 存檔
 </PromptBlock>
 
-### 變化 3：Coaching 1-on-1（細規模、深度個性化）
+### 變化 3：Coaching 1-on-1（細規模、深度個人化）
 
 <PromptBlock label="變化 3 — 1:1 coaching">
 我做 8 個 1:1 coaching 學員，12 週 program，每人節奏唔同。
@@ -173,22 +173,22 @@ featured: false
 請：
 1. 每個學員獨立 lesson library（佢哋進度唔同）
 2. Reminder 引用佢哋過去 session 嘅 notes（我會放 ~/coaching/[name]/session-notes/）
-3. 唔需要 cohort-wide message，全部 1:1
-4. 我每週 1 hr call 之前，generate 一份 personalized brief：呢週應該 focus 乜、上次傾過乜、學員自己提過嘅 goal 進度
-5. 隱私：呢啲 notes 極度敏感，永遠唔可以 交叉比對 其他學員
+3. 唔需要 cohort 全體嘅 message，全部 1:1
+4. 我每週 1 hr call 之前，起一份個人化 brief：呢週應該 focus 乜、上次傾過乜、學員自己提過嘅 goal 進度
+5. 隱私：呢啲 notes 極度敏感，永遠唔可以同其他學員交叉比對
 </PromptBlock>
 
 ## 一個思維框架
 
-Course creator 嘅死穴：**你以為自己賣嘅係內容，其實學員報名係買 accountability**。
+課程 creator 嘅死穴：**你以為自己賣嘅係內容，其實學員報名係買一份「有人 keep 住你」**。
 
-12 週 cohort 嘅學員留低落最後，唔係因為 lesson 寫得最靚，係因為每週都有人 check 佢、reminder 佢、未交時問候佢。呢層 **scaffolding** 係 cohort 嘅 moat。
+12 週 cohort 嘅學員留得到去最後，唔係因為 lesson 寫得最靚，係因為每週都有人關心佢、reminder 佢、未交嗰陣問候佢。呢層 **scaffolding** 先係 cohort 嘅護城河。
 
-問題係：scaffolding 嘅勞動量 linear 跟 cohort size 增長。20 人你 manageable、80 人你死，160 人你直接放棄開 cohort。
+問題係：scaffolding 嘅勞動量係跟住 cohort size 直線增長嘅。20 人你應付得嚟、80 人你死、160 人你索性放棄開 cohort。
 
-Cowork 嘅槓桿唔係「取代你」——**個性化 reminder 永遠由你決定語氣**——而係 **將 scaffolding 嘅機械部分後台化**，等你嘅創作精力留返落兩件事：
+Cowork 嘅槓桿唔係「取代你」——**個人化 reminder 永遠由你決定語氣**——而係 **將 scaffolding 嘅機械部分搬去後台**，等你嘅創作精力留返落兩件事：
 
 1. **改良 lesson 內容**——下一個 cohort 教得更好
-2. **深度傾偈嗰幾個關鍵一對一**——啲學員真係需要你親自出現嗰陣
+2. **深度傾偈嗰幾個關鍵嘅一對一**——啲學員真係需要你親自出現嗰陣
 
-最重要嘅守則：**永遠 draft mode、永遠人手批准**。學員 email 嘅信任係多年儲落嘅，一次 AI 發錯 reminder（用錯名、提錯 assignment、語氣 off）就 erode 晒。Cowork 幫你慳時間，但 final send 嘅責任永遠係你嘅。
+最重要嘅守則：**永遠 draft mode、永遠人手批准**。學員對你 email 嘅信任係儲咗好多年嘅，一次 AI 發錯 reminder（用錯名、提錯 assignment、語氣唔啱）就會蝕晒。Cowork 幫你慳時間，但最後 send 出去嘅責任永遠係你嘅。

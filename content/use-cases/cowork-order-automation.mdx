@@ -11,7 +11,7 @@ heroImage: "/hero/cowork-order-automation.webp"
 difficulty: 2
 timeMinutes: 30
 toolsNeeded: ["Claude Cowork", "Gmail", "Google Sheet"]
-description: "Claude Cowork 教學：set 一次 schedule，每個禮拜自動掃 Gmail + IG DM 嘅訂單訊息，整理入 Google Sheet 出 weekly report。HK 小店主嘅自動化入門 use case。"
+description: "Claude Cowork 教學：設定一次排程，每個禮拜自動掃 Gmail + IG DM 嘅訂單訊息，整理入 Google Sheet 出每週報告。香港小店主嘅自動化入門 use case。"
 keywords: ["claude cowork 教學", "訂單管理 自動化", "小店 ai 工作流程", "google sheet ai", "whatsapp 訂單"]
 related: ["cowork-expense-automation", "claude-code-tutorial-website"]
 featured: true
@@ -27,26 +27,26 @@ featured: true
 
 呢一個鐘係**重覆嘢**——同一套步驟、同一個 sheet 格式、淨係內容唔同。Chat 唔啱做呢類嘢（你要逐單貼）。**Cowork 嘅賣點就係呢度：設定一次，佢自動每星期執行**。
 
-> 重要 caveat：Cowork 仲係 research preview，要 Pro/Max plan。佢有 agentic 能力會直接操作你部機嘅檔案同連接服務，**先開一個 dedicated 工作 folder 畀佢**，唔好畀佢掂你嘅敏感檔案。
+> 重要提醒：Cowork 仲係 research preview，要 Pro/Max plan。佢有 agentic 能力，會直接操作你部機嘅檔案同連接服務，**先開一個專用嘅工作 folder 畀佢**，唔好畀佢掂你嘅敏感檔案。
 
 ## 跟住做
 
 ### 1. 入 Claude Desktop，開個新嘅 Cowork session
 
-桌面版 Claude（唔係 web） → 撳「Cowork」mode。佢會問你個 task 係乜。
+桌面版 Claude（唔係 web）→ 撳「Cowork」模式。佢會問你要佢做啲乜。
 
 ### 2. 一次過畀佢成個流程嘅 prompt
 
-呢個 prompt 比較長，但好關鍵——你要寫清楚**每星期要做乜、邊度攞 input、出乜 output**。Claude Cowork 會 plan 同執行，你睇住佢做。
+呢個 prompt 比較長，但好關鍵——你要寫清楚**每星期要做乜、邊度攞 input、出乜 output**。Claude Cowork 會自己規劃同執行，你睇住佢做。
 
-<PromptBlock label="完整 prompt — set 一次，每星期自動跑">
+<PromptBlock label="完整 prompt — 設定一次，每星期自動跑">
 我開一間香港小店，賣手作飾物。我想你每個星期日早上 10 點自動做以下嘅嘢：
 
 1. 連去我嘅 Gmail，揾返過去 7 日（星期一到星期日）入面所有提到「訂單」、「order」、「想要」、「reserve」嘅電郵
 2. 同樣噉睇 IG DM（如果連咗 Meta Business Suite）
 3. 抽出以下資料：
    - 客戶名（or IG handle）
-   - 產品（盡量 match 我嘅 product 名單，喺 product-list.txt）
+   - 產品（盡量對返我嘅產品名單，喺 product-list.txt）
    - 數量
    - 銀碼（如果有講；冇就標「未報價」）
    - 地址 / 自取（如果有講）
@@ -63,18 +63,18 @@ featured: true
 - 唔好自動回覆任何訊息——只係抽 data
 - 如果有疑問，等我回覆先繼續
 
-設定 好之後 核對 我，再 schedule 落每星期日 10am 自動跑。
+設定好之後同我核對一次，再排程落每星期日 10am 自動跑。
 </PromptBlock>
 
-### 3. 同 Cowork 行一次 預演
+### 3. 同 Cowork 行一次預演
 
-第一次跑唔好直接 schedule。叫佢「預演一次，show 我 output，唔好真係 append 落 Google Sheet」。你睇下：
+第一次跑唔好直接排程。叫佢「預演一次，畀我睇 output，唔好真係 append 落 Google Sheet」。你睇下：
 
-- 佢有冇識認你啲 product 名
+- 佢有冇認得你啲產品名
 - 抽 data 嘅準確度
-- 個 summary 嘅格式啱唔啱你
+- 個總結嘅格式啱唔啱你
 
-執完 prompt 之後，先啟用 scheduled task。Cowork 會用 scheduled task 嘅 feature 幫你每週跑。
+行完 prompt 之後，先啟用 scheduled task。Cowork 會用 scheduled task 嘅功能幫你每週跑。
 
 ## 變化例子
 
@@ -90,7 +90,7 @@ Email 嘅 subject 改做「今日訂單 — 2026/05/19」。
 
 ### 變化 2：唔做 Google Sheet，直接出 Excel email
 
-如果你冇用 Google Sheet（用緊 Excel／Numbers），可以叫佢生成 .xlsx attach 落 email：
+如果你冇用 Google Sheet（用緊 Excel／Numbers），可以叫佢生成 .xlsx 檔 attach 落 email：
 
 <PromptBlock label="變化 2 — 出 Excel email">
 （同前面 prompt 一樣，但第 4 步改成）：
@@ -102,27 +102,27 @@ Email 嘅 subject 改做「今日訂單 — 2026/05/19」。
    檔案命名「2026-W[週數]-訂單.xlsx」（將 [週數] 換做實際週數），attach 落 email 寄返畀我。
 </PromptBlock>
 
-### 變化 3：加埋客戶 follow-up reminder
+### 變化 3：加埋客戶跟進提示
 
-<PromptBlock label="變化 3 — Reminder 未付錢嘅單">
+<PromptBlock label="變化 3 — 提示未付錢嘅單">
 （同前面 prompt）外加：
 
 7. 對於所有「已下單但未付款」嘅單（即 status column 係空白嘅）：
-   - 喺 email 入面另起一段「需要 follow-up」
-   - List 出客戶名、產品、訂單日期、距今幾日
+   - 喺 email 入面另起一段「需要跟進」
+   - 列出客戶名、產品、訂單日期、距今幾日
    - 排序：最耐嗰個排前面
 
-唔需要自動 send reminder 畀客——我自己 follow。
+唔需要自動 send 提示畀客——我自己跟進。
 </PromptBlock>
 
 ## 點解 Cowork 同 Chat 唔同
 
 呢個情境用 Chat 唔係做唔到，但你要：
 - 每星期主動開 Chat 一次
-- 逐單 paste 訊息畀佢
+- 逐單貼訊息畀佢
 - 自己抄入 Sheet
 - 自己計總數
 
-**Chat 係你問一次佢答一次。Cowork 係你設定一次，佢做成年**。 對「重覆但唔複雜」嘅任務，Cowork 嗰幾粒鐘 set up 嘅成本，幾個星期就回本。
+**Chat 係你問一次佢答一次。Cowork 係你設定一次，佢做成年**。對「重覆但唔複雜」嘅任務，Cowork 嗰幾粒鐘設定嘅成本，幾個星期就回本。
 
-但 caveat 重提：呢個 mode 比較新，唔好叫佢做緊要、唔可以錯嘅嘢（例如自動發 email 畀客戶、自動 charge 錢）。**佢做唯讀 data extraction 同 reporting 最 sure**，做 write actions 要小心 + 一定要 預演。
+但提醒重提一次：呢個模式比較新，唔好叫佢做緊要、唔可以錯嘅嘢（例如自動發 email 畀客戶、自動扣錢）。**佢做唯讀嘅 data extraction 同報告最穩陣**，做寫入動作要小心，而且一定要預演。

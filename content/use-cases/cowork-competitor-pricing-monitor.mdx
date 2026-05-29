@@ -1,5 +1,5 @@
 ---
-title: "Cowork 每週 monitor 競爭對手定價 + landing page change：trend 變化自動 alert"
+title: "Cowork 每週追蹤競爭對手定價 + landing page 改動：變化自動通知你"
 slug: "cowork-competitor-pricing-monitor"
 issue: 106
 publishedAt: 2026-05-27
@@ -11,7 +11,7 @@ heroImage: "/hero/cowork-competitor-pricing-monitor.webp"
 difficulty: 3
 timeMinutes: 50
 toolsNeeded: ["Claude Desktop (Pro/Max)", "競爭對手 URL list", "Optional: archive.org 對比"]
-description: "每週用 Claude Cowork 自動 monitor 5 個 direct competitor 嘅 landing page + pricing page，對比上週版本 flag 出價錢變化、新 tier、新 feature copy，週一朝早交一頁 competitive brief。HK SaaS 老闆 / 電商 startup 嘅市場研究由 2 個鐘變 10 分鐘睇報告。"
+description: "每週用 Claude Cowork 自動追蹤 5 個直接對手嘅 landing page + pricing page，對比上週版本，標示出價錢變化、新 tier、新 feature copy，週一朝早交一頁 competitive brief。香港 SaaS 老闆 / 電商 startup 嘅市場研究由 2 個鐘變 10 分鐘睇報告。"
 keywords: ["competitor monitoring automation", "pricing intelligence claude", "hk saas 市場研究", "landing page diff tracker", "competitive brief 自動化"]
 related: ["saas-tool-comparison-claude-hk", "cowork-sales-pipeline-automation", "cowork-stripe-monthly-saas-review"]
 featured: false
@@ -19,22 +19,22 @@ featured: false
 
 ## 情境
 
-你係 SaaS 或者電商創辦人，跟住 5 個 direct competitor：
+你係 SaaS 或者電商創辦人，盯住 5 個直接對手：
 
 - 佢哋幾時加價、減價
 - 邊個出咗新 pricing tier
-- Landing page 嘅 hero copy 點變（反映佢哋市場 positioning 點轉）
-- 邊個出咗新 feature、邊個悄悄 sunset 咗一個 plan
+- Landing page 嘅 hero copy 點變（反映佢哋市場定位點轉）
+- 邊個出咗新 feature、邊個靜雞雞 sunset 咗一個 plan
 
-呢類資訊唔係競爭機密，係佢哋自己擺喺公開網頁。問題係你要每週親手開 5 個 tab、scroll、憑記憶對比上週見到嘅版本——通常做兩個月就會放棄。
+呢類資訊唔係競爭機密，係佢哋自己擺喺公開網頁。問題係你要每週親手開 5 個 tab、㩒上㩒落、憑記憶對比上週見到嘅版本——通常做兩個月就會放棄。
 
-呢個 chore 嘅特性啱晒 Cowork：重覆、結構化、輸出明確（一頁 brief）、容錯率高（出草稿你睇）。每週一朝 7am 跑一次，你 9am 返公司就有杯咖啡同一頁 competitive brief 等你。
+呢樣雜務嘅特性啱晒 Cowork：重覆、結構化、輸出明確（一頁 brief）、容錯率高（出草稿你睇）。每週一朝 7am 跑一次，你 9am 返到公司就有杯咖啡同一頁 competitive brief 等你。
 
-> 利益申報：呢篇講嘅係讀**公開** landing page + pricing page。唔好用呢個流程 scrape 需要登入嘅 dashboard、付費內容、或者你冇 access 嘅 staging URL。技術上 Claude 唔會幫你做呢啲，但都要講清楚：呢條線過唔得。
+> 利益申報：呢篇講嘅係讀**公開**嘅 landing page + pricing page。唔好用呢個流程去爬需要登入嘅 dashboard、付費內容、或者你冇權限睇嘅 staging URL。技術上 Claude 唔會幫你做呢啲，但都要講清楚：呢條線過唔得。
 
 ## 跟住做
 
-### 1. 整理 competitor list + snapshot baseline
+### 1. 整理對手清單 + 做一次基線 snapshot
 
 第一步係手動嘅，做一次就得。開一個 markdown file：
 
@@ -61,59 +61,59 @@ featured: false
 ...
 ```
 
-「Positioning」同「上次 major change」呢兩個欄好重要——畀 Cowork 一個基線，知道乜叫「值得 flag」、乜叫「行貨小改」。
+「Positioning」同「上次 major change」呢兩個欄好重要——畀 Cowork 一個基線，知道乜叫「值得標出嚟」、乜叫「行貨小改」。
 
 ### 2. 核心 diff prompt
 
-<PromptBlock label="完整 prompt — 每週 competitor monitor">
+<PromptBlock label="完整 prompt — 每週對手監察">
 我要設定一個每週一朝 7am 自動跑嘅 competitor monitoring 任務。
 
 **輸入：**
-- `~/Documents/competitive-monitor/competitors.md`（5 個競爭對手嘅 URL + 我嘅背景 notes）
-- `~/Documents/competitive-monitor/snapshots/` 入面上週嘅 fetch 結果（用嚟對比）
+- `~/Documents/competitive-monitor/competitors.md`（5 個競爭對手嘅 URL + 我嘅背景筆記）
+- `~/Documents/competitive-monitor/snapshots/` 入面上週抓取嘅結果（用嚟對比）
 
 **每週一 7am 跑：**
 
-第一步：fetch 每個 competitor 嘅 landing page + pricing page + changelog（如果有）
-- 只讀 public URL
-- 抽出純文字內容（去走 nav / footer / cookie banner 等 noise）
+第一步：抓取每個對手嘅 landing page + pricing page + changelog（如果有）
+- 只讀公開 URL
+- 抽出純文字內容（去走 nav / footer / cookie banner 等雜訊）
 - 存落 `snapshots/2026-WXX/competitor-a-landing.txt` 等
 
 第二步：對比上週版本
-- 同 `snapshots/2026-W(XX-1)/` 入面對應 file 做 diff
+- 同 `snapshots/2026-W(XX-1)/` 入面對應檔案做 diff
 - 識別三類變化：
   1. **Pricing change** — 任何數字、tier name、feature gating 嘅改動
   2. **Positioning change** — hero headline、subheadline、main CTA 嘅改動
-  3. **Feature announcement** — 新 feature copy、新 page、changelog 入面嘅 entry
+  3. **Feature announcement** — 新 feature copy、新頁、changelog 入面嘅 entry
 
 第三步：每個變化寫 3-5 句 brief
 格式：
 - **[Competitor] — [變化類別]**
 - 變化內容（before → after）
-- 我嘅 take（呢個對我哋 positioning 嘅意義，1-2 句）
-- 建議 follow-up（要唔要應對 / 觀察就得 / 唔關事）
+- 我嘅判斷（呢個對我哋定位嘅意義，1-2 句）
+- 建議跟進（要唔要應對 / 觀察就得 / 唔關事）
 
 第四步：出一頁 weekly brief
-- File path：`briefs/2026-WXX-competitive-brief.md`
+- 檔案路徑：`briefs/2026-WXX-competitive-brief.md`
 - 最頂 TL;DR：3 句講晒呢週最值得知嘅
-- 跟住每個 competitor 一個 section
-- 最後 section：「冇變化」嘅 competitor 都要列（核對 我冇 miss）
+- 跟住每個對手一個 section
+- 最後 section：「冇變化」嘅對手都要列（等我核對冇漏咗）
 
 第五步：email 我
 - Subject：「Week XX competitive brief — [N] changes detected」
-- Body：上面 TL;DR + brief 嘅 file path
-- 唔好 attach 成個 brief，等我自己開 file 睇
+- Body：上面 TL;DR + brief 嘅檔案路徑
+- 唔好成個 brief 都貼晒入郵件，等我自己開檔案睇
 
 **重要限制：**
-- 只 fetch 我 list 入面嘅 URL，唔好自己 follow link 去其他頁
-- 唔好嘗試登入任何 gated content
-- 如果某個 URL 收 403 / 404，flag 出嚟唔好猜內容
-- Pricing 嘅變化要引用原文（quote 數字 + tier name），唔好 paraphrase
+- 只抓取我清單入面嘅 URL，唔好自己跟住 link 去其他頁
+- 唔好嘗試登入任何要授權先睇到嘅內容
+- 如果某個 URL 收 403 / 404，標示出嚟，唔好猜內容
+- Pricing 嘅變化要引用原文（照抄數字 + tier name），唔好自己改寫
 </PromptBlock>
 
-### 3. Weekly brief format — 你 9am 睇 5 分鐘
+### 3. Weekly brief 格式 — 你 9am 睇 5 分鐘
 
-第一次跑完之後檢查 output 嘅排版。理想嘅 brief 應該係：
+第一次跑完之後檢查吓輸出嘅排版。理想嘅 brief 應該係：
 
 ```
 # Week 21 Competitive Brief (2026-05-25 → 2026-05-31)
@@ -139,26 +139,26 @@ Sub：CTA 由「Start free」變「Talk to sales」
 
 3-5 句一個 entry。多咗你唔會睇，少咗冇 context。
 
-### 4. Monthly strategic review — 用 4 週 brief 做 trend 分析
+### 4. 月度策略檢視 — 用 4 週 brief 做趨勢分析
 
-每週嘅 brief 各自獨立冇咩用——真正嘅 value 喺月底嘅 trend。
+每週嘅 brief 各自獨立冇咩用——真正嘅價值喺月底睇到嘅趨勢。
 
-每個月最後一個禮拜五跑多一個 task：
+每個月最後一個禮拜五跑多一個任務：
 
-<PromptBlock label="月度 trend 整合">
+<PromptBlock label="月度趨勢整合">
 讀取 `~/Documents/competitive-monitor/briefs/` 入面過去 4 週嘅 brief。
 
 整一份 monthly strategic memo：
 
-1. **市場趨勢**：5 個 competitor 加埋睇，呢個月有冇 collective movement？（例：3 個都加價 → 行業 willingness to pay 上升）
-2. **個別 competitor 嘅戰略軌跡**：每個 competitor 過去 4 週嘅變化串起嚟，反映佢哋 roadmap 嘅方向
-3. **空白市場**：5 個 competitor 都冇做嘅 segment / feature / positioning，可能係我哋嘅機會
-4. **威脅信號**：邊個 competitor 嘅變化最值得我哋警戒，點解
+1. **市場趨勢**：5 個對手加埋睇，呢個月有冇集體郁動？（例：3 個都加價 → 行業嘅付費意願上升）
+2. **個別對手嘅戰略軌跡**：每個對手過去 4 週嘅變化串起嚟，反映佢哋 roadmap 嘅方向
+3. **空白市場**：5 個對手都冇做嘅 segment / feature / positioning，可能係我哋嘅機會
+4. **威脅信號**：邊個對手嘅變化最值得我哋警戒，點解
 
-寫畀我自己睇——直接、有立場、唔好「呢個視乎」嘅模稜兩可。
+寫畀我自己睇——直接、有立場、唔好「呢個就要睇情況」嗰種模稜兩可。
 </PromptBlock>
 
-呢一份 memo 一個月做一次，係你季度規劃會議嘅重要 input。
+呢一份 memo 一個月做一次，係你季度規劃會議嘅重要參考。
 
 ## 變化例子
 
@@ -167,37 +167,37 @@ Sub：CTA 由「Start free」變「Talk to sales」
 <PromptBlock label="變化 1 — 加埋 Meta ads library + Google ads transparency">
 喺原本流程上面加多一步：
 
-第一步加：fetch Meta Ad Library 入面每個 competitor 嘅 active ads（公開資料）
+第一步加：抓取 Meta Ad Library 入面每個對手嘅 active ads（公開資料）
 - 用 URL：https://www.facebook.com/ads/library/?q=[competitor name]
-- 抽出 ad creative 嘅 text、started running 日期
+- 抽出 ad creative 嘅文字、started running 日期
 - 留意：同上週對比，邊啲 ad 新出、邊啲落咗、邊啲改咗 copy
 
 第二步加：Google Ads Transparency Center 做同樣嘢
 - URL：https://adstransparency.google.com/?domain=[competitor.com]
 
 加入 brief 嘅新 section：「廣告動向」
-- Active ads 嘅 copy 主題（reflect 緊乜 messaging）
+- Active ads 嘅 copy 主題（反映緊乜 messaging）
 - 新出嘅 ad 反映乜 campaign focus
-- 落咗嘅 ad 反映乜 messaging 唔 work
+- 落咗嘅 ad 反映邊種 messaging 唔 work
 
-呢個對 paid acquisition 嘅 startup 特別有用——你睇到 competitor 嘅 paid messaging 變化，往往比 landing page 更快反映佢哋 positioning 嘅 test。
+呢個對靠 paid acquisition 嘅 startup 特別有用——你睇到對手嘅 paid messaging 變化，往往比 landing page 更快反映佢哋定位上嘅試探。
 </PromptBlock>
 
-### 變化 2：加埋新聞 + 社交 mention
+### 變化 2：加埋新聞 + 社交討論
 
 <PromptBlock label="變化 2 — 加新聞 + 社交監察">
-我想擴展呢個 monitor 去包：
+我想擴展呢個監察去埋：
 
-- Google News：每個 competitor 名搜過去 7 日（用 site:news.google.com 嘅 query format）
-- Reddit：subreddit 入面有冇 mention competitor（例：r/SaaS、r/Entrepreneur、行業特定 sub）
-- LinkedIn：competitor 公司 page 嘅新 post（公開內容）
+- Google News：每個對手名搜過去 7 日（用 site:news.google.com 嘅 query format）
+- Reddit：subreddit 入面有冇人提到對手（例：r/SaaS、r/Entrepreneur、行業特定 sub）
+- LinkedIn：對手公司 page 嘅新 post（公開內容）
 
 加入 brief 嘅新 section：「外部聲音」
-- 媒體覆蓋（PR placement、funding 公告、人事變動）
-- 用戶討論：邊啲係 positive、邊啲係 negative、有冇 recurring complaint
-- 我嘅 take：呢啲 external signal 同 landing page 變化加埋睇，反映 narrative 嘅 alignment
+- 媒體覆蓋（PR placement、融資公告、人事變動）
+- 用戶討論：邊啲係正面、邊啲係負面、有冇重複出現嘅投訴
+- 我嘅判斷：呢啲外部信號同 landing page 變化加埋睇，反映佢哋對外講法夾唔夾得埋
 
-注意：唔好嘗試讀 private LinkedIn post、唔好爬需要登入嘅 forum。
+注意：唔好嘗試讀 private LinkedIn post、唔好爬需要登入嘅論壇。
 </PromptBlock>
 
 ### 變化 3：自家 product team 內部用
@@ -208,18 +208,18 @@ Sub：CTA 由「Start free」變「Talk to sales」
 請改造呢個流程嚟做內部用：
 - 監察我哋自己嘅 changelog page + 過去 4 週嘅 release notes
 - 同我哋自己嘅 positioning doc（內部 PRD / messaging guide）對比
-- Flag：邊啲我哋出嘅 feature 喺 marketing site 上面冇反映、邊啲 messaging 過時、邊啲 pricing tier 嘅 feature list 同實際 product 唔 match
+- 標示出：邊啲我哋出咗嘅 feature 喺 marketing site 上面冇反映、邊啲 messaging 過時、邊啲 pricing tier 嘅 feature list 同實際 product 對唔上
 
-每週一畀我哋 product / marketing alignment brief：
+每週一畀我哋一份 product / marketing alignment brief：
 - 「呢個 feature 上週出咗，但 marketing page 入面冇提」
 - 「Pricing page 寫嘅 Pro tier 包 X，但 X 已經 sunset 咗」
-- 「我哋自己嘅 hero copy 同我哋上月嘅 positioning workshop 結論已經 drift」
+- 「我哋自己嘅 hero copy 同上月 positioning workshop 嘅結論已經偏咗」
 
-呢個對 10-30 人嘅 startup 特別有用——marketing / product / sales 嘅 alignment 通常喺呢個 size 開始 drift，定期 audit 比起每季打仗高效得多。
+呢個對 10-30 人嘅 startup 特別有用——marketing / product / sales 之間嘅步調通常喺呢個規模開始偏離，定期 audit 比起每季打仗高效得多。
 </PromptBlock>
 
 ## 點解競爭監察啱 Cowork 做
 
-> 競爭監察呢樣嘢嘅本質係：低 stakes 嘅單一動作（抓取一個 URL、做一次 diff），但要長時間累積先有用。Cowork 嘅優勢就喺度——人類做兩個月會放棄，自動化做兩年都唔會攰。但 5 個 competitor 嘅月度 strategic memo 你一定要自己讀、自己諗。AI 出 trend，你出判斷，呢個分工先 work。
+> 競爭監察呢樣嘢嘅本質係：每次都係低風險嘅單一動作（抓取一個 URL、做一次 diff），但要長時間累積先有用。Cowork 嘅優勢就喺度——人手做兩個月會放棄，自動化做兩年都唔會攰。但 5 個對手嘅月度 strategic memo，你一定要自己讀、自己諗。AI 出趨勢，你出判斷，呢個分工先講得通。
 
-最後一個提醒：呢個流程嘅 ethical 線好清楚——讀公開頁面 OK、爬登入後內容唔 OK。Cowork 唔會自動越過呢條線，但你 prompt 入面唔好試引佢去。市場研究嘅長期可持續性，靠你守住呢條線。
+最後一個提醒：呢個流程嘅道德界線好清楚——讀公開頁面 OK、爬登入後內容唔得。Cowork 唔會自動越過呢條線，但你 prompt 入面都唔好試引佢過去。市場研究做得長唔長久，就靠你守住呢條線。

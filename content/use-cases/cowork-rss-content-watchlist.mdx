@@ -1,5 +1,5 @@
 ---
-title: "Cowork 每朝 monitor 你 niche RSS：3 個 trending topic 自動入 content idea pool"
+title: "Cowork 每朝幫你睇 niche RSS：3 個熱話自動入 content idea pool"
 slug: "cowork-rss-content-watchlist"
 issue: 95
 publishedAt: 2026-05-27
@@ -11,7 +11,7 @@ heroImage: "/hero/cowork-rss-content-watchlist.webp"
 difficulty: 2
 timeMinutes: 40
 toolsNeeded: ["Claude Desktop (Pro/Max)", "RSS reader 或 OPML file", "Notion / Markdown file"]
-description: "Cowork 每朝 7am 自動跑 RSS automation content idea workflow：讀晒你 niche 嘅 30 個 feed、cross-check 你最近 50 條 content、surface 3 個 fresh angle 落 Notion idea pool。HK 創作者 自動化 內容靈感泉源，唔使再 scroll 一個鐘搵題材。"
+description: "Cowork 每朝 7am 自動跑 RSS content idea workflow：讀晒你 niche 嘅 30 個 feed、對照你最近 50 篇文、揀出 3 個新鮮角度落 Notion idea pool。HK 創作者 自動化 內容靈感泉源，唔使再碌一個鐘搵題材。"
 keywords: ["RSS automation content idea", "creator workflow Claude", "HK 創作者 自動化", "content ideation cowork", "niche newsletter idea pool"]
 related: ["claude-content-repurpose", "newsletter-editorial-calendar-claude", "cowork-social-media-scheduler"]
 featured: false
@@ -19,29 +19,29 @@ featured: false
 
 ## 情境
 
-你係 niche writer：寫 newsletter、寫 blog、做 podcast，總之每星期都要產出 content。你訂閱咗：
+你係 niche writer：寫 newsletter、寫 blog、做 podcast，總之每星期都要產出內容。你訂閱咗：
 
 - 30 個 RSS feed（行內 Substack、研究 blog、權威網站）
 - 5-6 個 newsletter 直入 inbox
 - IG / Threads 行內 list
 
-每朝起身嘅儀式：scroll 一個鐘攞 inspiration。問題係：
+每朝起身嘅指定動作：碌一個鐘搵靈感。問題係：
 
 - 大部分 feed 嘅內容你已經知
-- 真係精神嘅角度通常埋藏喺第 4-5 個 feed 嘅留言區
-- 而你最容易嘅陷阱：見到熱話就寫，但發現自己 6 個月前已經寫過類似嘢
+- 真係夠精彩嘅角度通常埋藏喺第 4-5 個 feed 嘅留言區
+- 而你最容易跌落去嘅陷阱：見到熱話就寫，但發現自己 6 個月前已經寫過類似嘢
 
-呢個耗精力。唔係搵唔到 idea，係要喺一堆已知資訊度篩出未寫過 + 真係新嘅角度。
+呢樣好耗精力。唔係搵唔到 idea，係要喺一堆已知資訊度篩出未寫過、又真係新鮮嘅角度。
 
-呢篇用 Cowork 設定：**每朝 7am，自動跑你 RSS、對照你過去 50 條 content、surface 3 個精神 angle 落 Notion**。你起身只係開 Notion 揀一個寫。
+呢篇用 Cowork 設定：**每朝 7am，自動幫你跑 RSS、對照你過去 50 篇文、揀 3 個夠精彩嘅角度落 Notion**。你起身只係開 Notion 揀一個寫。
 
 > ⚠️ Cowork 仲係研究預覽版。讀取 OPML / RSS 屬於低風險（公開資料）；寫入 Notion 用 token 設定最低權限。
 
 ## 跟住做
 
-### 1. 整理你嘅 niche RSS OPML + 畀 Cowork access
+### 1. 整理你嘅 niche RSS OPML，再畀 Cowork 權限
 
-由你 RSS reader（Feedly / NetNewsWire / Inoreader）export 一份 OPML：
+喺你 RSS reader（Feedly / NetNewsWire / Inoreader）匯出一份 OPML：
 
 ```
 ~/Documents/cowork-watchlist/
@@ -60,7 +60,7 @@ featured: false
 
 每行 = 一篇你已經寫過嘅嘢。Cowork 之後會用呢份做「我寫過乜」嘅參考。
 
-### 2. 核心 prompt — surface 真精神 angle
+### 2. 核心 prompt — 揀出真正精彩嘅角度
 
 <PromptBlock label="完整 prompt — 每朝 RSS watchlist">
 我想設定 Cowork 每朝 7am 自動跑一次 content ideation。
@@ -77,71 +77,71 @@ featured: false
 
 **第一步：讀過去 24 小時 feed**
 - 由 OPML 攞晒 30 個 feed 嘅 RSS URL
-- 抽出過去 24 小時嘅新文章（title、URL、首段、發佈時間）
+- 抽出過去 24 小時嘅新文章（標題、URL、首段、發佈時間）
 - 過濾：跳過明顯離 niche 嘅內容（例如純廣告、贊助 post）
 
 **第二步：交叉比對 我寫過乜**
-- 對每篇新文章，cross-check `recent-content.md`：
-  - 我喺過去 6 個月有冇寫過同一個 angle？
+- 對每篇新文章，同 `recent-content.md` 對照：
+  - 我喺過去 6 個月有冇寫過同一個角度？
   - 我喺 `ideas-archive.md` backlog 入面有冇類似 idea？
 - 如果有重疊 → 標示為「已覆蓋」，唔好提
-- 如果只係話題類似但 angle 唔同 → 標示為「有 angle 機會」
+- 如果只係話題類似但角度唔同 → 標示為「有角度機會」
 
-**第三步：surface 3 個 fresh angle**
+**第三步：揀 3 個新鮮角度**
 
 揀 3 個 idea 要符合 3 個條件：
-1. **我未寫過**：唔同我過去 50 條重覆
-2. **Community 講緊**：今朝最少 2 個 feed 提到相關話題（顯示有 momentum）
-3. **同我 niche overlap**：唔好硬塞「熱話但離 niche」嘅嘢畀我
+1. **我未寫過**：唔同我過去 50 篇重覆
+2. **大家講緊**：今朝最少 2 個 feed 提到相關話題（顯示有討論度）
+3. **同我 niche 對得上**：唔好硬塞「熱話但離 niche」嘅嘢畀我
 
 每個 idea 寫：
-- **Angle**：一句講清楚邊個切入點
-- **點解 fresh**：對比我過去寫過嘅相關文章，邊個 angle 未掂過
-- **Source signals**：邊 2-3 個 feed 講緊（titles + URLs）
-- **預計 effort**：輕量（600-800 字）vs 繁重（1500+ 字、要做 research）
-- **時效性**：呢個 angle 一個禮拜會唔會過時？定 evergreen？
+- **角度**：一句講清楚邊個切入點
+- **點解新鮮**：對比我過去寫過嘅相關文章，邊個角度未掂過
+- **來源訊號**：邊 2-3 個 feed 講緊（標題 + URLs）
+- **預計工夫**：輕量（600-800 字）vs 繁重（1500+ 字、要做資料搜集）
+- **時效性**：呢個角度一個禮拜會唔會過時？定係耐睇？
 
 **第四步：自動寫入 Notion**
 - 推上我 Notion database「Content Idea Pool」
 - Properties: Date, Angle, Source URLs, Effort, Timeliness, Status (= "New")
-- Status 永遠 default 做「New」—— 等我自己 review 之後先 promote 做「Drafting」
+- Status 永遠預設做「New」—— 等我自己睇過之後先升做「Drafting」
 
 **限制：**
-- 唔好寫超過 3 個 idea（避免 idea fatigue）
-- 如果今朝 feed 真係冇 fresh angle，就講「今朝冇」，唔好硬塞
-- 唔好直接照抄人哋 title —— 永遠重寫做我嘅 angle
-- 唔好 propose 任何涉及未證實八卦 / 個人攻擊嘅 angle
+- 唔好寫超過 3 個 idea（避免 idea 太多睇到攰）
+- 如果今朝 feed 真係冇新鮮角度，就講「今朝冇」，唔好硬塞
+- 唔好直接照抄人哋標題 —— 永遠重寫做我嘅角度
+- 唔好提出任何涉及未證實八卦 / 個人攻擊嘅角度
 
 設定好之後確認排程，星期一至五跑，週末停。
 </PromptBlock>
 
-呢個 prompt 嘅關鍵：**Cowork 唔係幫你搵 trending topic，係幫你搵「Trending 但你未掂過」嘅交集**。Cross-reference 嗰步先係真正嘅槓桿。
+呢個 prompt 嘅關鍵：**Cowork 唔係幫你搵熱話，係幫你搵「熱話但你未掂過」嘅交集**。交叉比對嗰步先係真正嘅槓桿。
 
-### 3. Notion idea pool schema + auto-push
+### 3. Notion idea pool 結構同自動推送
 
 Notion database「Content Idea Pool」設定：
 
 | Property | Type | 用途 |
 |---|---|---|
 | Angle | Title | 一句 idea |
-| Date | Date | Cowork push 嗰日 |
+| Date | Date | Cowork 推上嗰日 |
 | Source URLs | URL (multi) | Feed 來源（可以撳落去睇原文） |
-| Effort | Select (輕量 / 繁重) | 你睇咗預估安排時間 |
+| Effort | Select (輕量 / 繁重) | 你睇住預估安排時間 |
 | Timeliness | Select (一週 / 一個月 / Evergreen) | 排優先次序 |
-| Status | Select (New / Considering / Drafting / Published / Dropped) | Workflow 狀態 |
+| Status | Select (New / Considering / Drafting / Published / Dropped) | 進度狀態 |
 
-第一個禮拜你會見到 5 日 × 3 個 = 15 個 idea 入到 pool。你逐個 click 「Considering」或「Dropped」。一個月之後，pool 大概 20-30 個有質感嘅 idea backlog。
+第一個禮拜你會見到 5 日 × 3 個 = 15 個 idea 入到 pool。你逐個撳「Considering」或「Dropped」。一個月之後，pool 大概儲到 20-30 個有質感嘅 idea backlog。
 
-### 4. Friday 週末 review — 點將 idea 轉做 published piece
+### 4. 週末檢視 — 點將 idea 轉做正式出街嘅文章
 
-星期五夜晚 / 星期六朝早，做一次 weekly review：
+星期五夜晚 / 星期六朝早，做一次每週檢視：
 
 1. **篩選**：開 Notion「Status = Considering」嘅 view，通常 4-8 個 idea
-2. **配對 calendar**：揀 1-2 個 promote 做「Drafting」，配合你下週嘅 editorial calendar（睇相關文章嘅 calendar 設定）
+2. **配對 calendar**：揀 1-2 個升做「Drafting」，配合你下週嘅 editorial calendar（睇相關文章嘅 calendar 設定）
 3. **過期清理**：「Timeliness = 一週」但已經放咗超過 5 日嘅 → 移去「Dropped」或者降做 evergreen
-4. **回饋 Cowork**：每篇真係 published 嘅，將 title + URL 加入 `recent-content.md` 最頂
+4. **回饋 Cowork**：每篇真係出咗街嘅，將標題 + URL 加入 `recent-content.md` 最頂
 
-第 4 步好重要：**`recent-content.md` 持續更新，Cowork 嘅對照先會越嚟越準**。第一個月精神 angle 命中率可能 50%，三個月後升到 75-80%。
+第 4 步好重要：**`recent-content.md` 持續更新，Cowork 嘅對照先會越嚟越準**。第一個月夠精彩嘅角度命中率可能 50%，三個月後升到 75-80%。
 
 ## 變化例子
 
@@ -155,11 +155,11 @@ Notion database「Content Idea Pool」設定：
 - 學者 / 政策 think tank blog
 - Reddit r/HongKong、LIHKG 熱門板（如可抓）
 
-Cross-reference 規則調整：
-- 「未寫過」嘅判斷加多一層：我嘅立場 / 切入角度是否已表態
-- 時效性更敏感：HK 時事 angle 通常 48 小時就過氣，請特別標示
-- 「community 講緊」嘅閾值降到 2 個源頭，因為 HK niche 細
-- 避開 angle：純口號式、純情緒宣洩、未經查證嘅傳言
+交叉比對規則調整：
+- 「未寫過」嘅判斷加多一層：我嘅立場 / 切入角度係咪已經表咗態
+- 時效性更敏感：HK 時事角度通常 48 小時就過氣，請特別標示
+- 「大家講緊」嘅門檻降到 2 個源頭，因為 HK niche 細
+- 要避開嘅角度：純口號式、純情緒宣洩、未經查證嘅傳言
 </PromptBlock>
 
 ### 變化 2：Tech writer 版（HN / Lobste.rs / dev.to）
@@ -174,15 +174,15 @@ Cross-reference 規則調整：
 - 我關注嘅 dev Substack（[列 5-8 個]）
 
 特別規則：
-- 「Community 講緊」嘅閾值升到 3 個源頭（tech feed 嘈，要過濾炒作）
-- 跳過 release note / changelog 類純 announcement
-- 優先 surface「框架 / 思維」類 angle，唔係「邊個 startup raise 咗錢」
-- Cross-reference 時，將我所有英文 published piece 都計埋
+- 「大家講緊」嘅門檻升到 3 個源頭（tech feed 嘈，要過濾炒作）
+- 跳過 release note / changelog 類純公告
+- 優先揀「框架 / 思維」類角度，唔係「邊個 startup 融到資」
+- 交叉比對時，將我所有英文出咗街嘅文章都計埋
 </PromptBlock>
 
 ### 變化 3：加 Reddit + Twitter list 跨 platform signal
 
-<PromptBlock label="變化 3 — 多 platform signal aggregation">
+<PromptBlock label="變化 3 — 多 platform 訊號匯整">
 RSS 之外，我想加埋呢幾個 source（如 API / scraping 可行）：
 
 - Reddit r/[我嘅 niche subreddit]（每朝 top 20 hot post）
@@ -190,18 +190,18 @@ RSS 之外，我想加埋呢幾個 source（如 API / scraping 可行）：
 - IG saved post（過去一週我自己 save 嘅）
 
 請：
-1. 將 3 個 platform 同 RSS 合埋一齊 交叉比對
-2. 一個 angle 如果喺 2 個以上 platform 出現 → flag 做「跨 platform signal」（最強嘅 timeliness 訊號）
-3. 平台味道唔同要過濾：Reddit 嘅 hot post 通常情緒化、X 嘅熱話通常炒作，我要嘅係 angle 唔係 drama
-4. Source URLs 要包埋 Reddit thread + X post 截圖（如可），方便我返睇原 context
+1. 將 3 個 platform 同 RSS 合埋一齊交叉比對
+2. 一個角度如果喺 2 個以上 platform 出現 → 標示做「跨 platform 訊號」（最強嘅時效性訊號）
+3. 平台味道唔同要過濾：Reddit 嘅 hot post 通常情緒化、X 嘅熱話通常炒作，我要嘅係角度，唔係花生
+4. Source URLs 要包埋 Reddit thread + X post 截圖（如可），方便我返睇原本嘅來龍去脈
 </PromptBlock>
 
 ## 一個思維框架
 
 Niche creator 嘅最大隱形成本：**「我有冇撞題」嘅焦慮**。
 
-每次落筆寫，腦入面有個聲：「我之前係咪寫過？」「行家是否啱啱寫咗類似嘢？」「呢個 angle 係咪真係新？」呢種焦慮唔會殺死你，但會慢慢蠶食你嘅創作勇氣 —— 結果你寫得越嚟越保守、越嚟越籠統。
+每次落筆寫，腦入面有把聲：「我之前係咪寫過？」「行家係咪啱啱寫咗類似嘢？」「呢個角度係咪真係新？」呢種焦慮唔會殺死你，但會慢慢蠶食你嘅創作勇氣 —— 結果你寫得越嚟越保守、越嚟越籠統。
 
-Cowork 嘅 RSS watchlist 真正解嘅唔係「冇 idea」，係 **將「撞題焦慮」拆解做一個自動跑嘅對照系統**。Cross-reference 嗰步幫你睇清楚：「我寫過 X、行家講緊 Y，X ∩ Y 之外仲有 Z 未掂過」。
+Cowork 嘅 RSS watchlist 真正解嘅唔係「冇 idea」，係 **將「撞題焦慮」拆解做一個自動跑嘅對照系統**。交叉比對嗰步幫你睇清楚：「我寫過 X、行家講緊 Y，X ∩ Y 之外仲有 Z 未掂過」。
 
-> 創作者嘅注意力應該畀寫嘢本身，唔係 scroll feed 搵題材。Cowork 嘅 7am cron job 就係幫你將 scroll feed 嗰一個鐘換返做寫嘢嗰一個鐘 —— 同一個鐘，產出差成個世界。
+> 創作者嘅注意力應該畀寫嘢本身，唔係碌 feed 搵題材。Cowork 嘅 7am cron job 就係幫你將碌 feed 嗰一個鐘換返做寫嘢嗰一個鐘 —— 同一個鐘，產出差成個世界。

@@ -1,5 +1,5 @@
 ---
-title: "Cowork 每朝 triage 客服 inbox：urgent / FAQ / complaint 自動分類 + draft 回覆"
+title: "Cowork 每朝分流客服 inbox：緊急 / FAQ / 投訴自動分類，順手起好回覆"
 slug: "cowork-customer-support-triage"
 issue: 105
 publishedAt: 2026-05-27
@@ -11,7 +11,7 @@ heroImage: "/hero/cowork-customer-support-triage.webp"
 difficulty: 2
 timeMinutes: 45
 toolsNeeded: ["Claude Desktop (Pro/Max)", "客服 inbox (Zendesk / Help Scout / 直接 Gmail)", "知識庫 FAQ doc"]
-description: "Cowork helpdesk automation：每朝 8:30am 自動掃客服 inbox，分 urgent / FAQ / complaint 三類，跟住 brand voice draft 好回覆。9am 你開 inbox 直接 review-and-send。"
+description: "Cowork 客服自動化：每朝 8:30am 自動掃客服 inbox，分緊急 / FAQ / 投訴三類，再跟你嘅品牌語氣起好回覆。9am 你開 inbox 睇一眼就 send 得。"
 keywords: ["客服 inbox triage", "HK SME customer support", "Cowork helpdesk automation", "WhatsApp 客戶分類", "客服自動化"]
 related: ["whatsapp-customer-reply-hk", "cowork-order-automation"]
 featured: false
@@ -21,29 +21,29 @@ featured: false
 
 你開緊間 HK SME，可能係 e-commerce、可能係教育中心、可能係 SaaS。每朝 9 點開 inbox，見到 40 個 ticket 喺度：
 
-- 一半係**重覆 FAQ**（「你哋幾點開？」「點計運費？」「可唔可以改地址？」）
-- 三成係**真係要你睇**嘅 query（產品 spec、custom 訂單）
-- 兩成係**complaint 或者退款 request**（嬲緊嗰啲）
-- 中間夾住兩三個**urgent**（已經買咗單，今日要到貨嗰啲）
+- 一半係**重覆嘅 FAQ**（「你哋幾點開？」「點計運費？」「可唔可以改地址？」）
+- 三成係**真係要你睇**嘅查詢（產品規格、訂造訂單）
+- 兩成係**投訴或者退款要求**（嬲緊嗰啲）
+- 中間夾住兩三個**緊急**（已經買咗單，今日要到貨嗰啲）
 
-問題唔係單一條 ticket 難覆，而係**你要花 30 分鐘揀邊條先答**。 心理成本仲貴過實際打字。
+問題唔係單一條 ticket 難覆，而係**你要花 30 分鐘揀邊條先答**。心理成本仲貴過實際打字。
 
-Cowork 嘅角色：每朝 8:30am 自動跑一次，幫你分晒類、draft 好 FAQ 嗰批回覆，**9 點你開 inbox 已經有個整齊嘅 dashboard，review-and-send 就走得**。
+Cowork 嘅角色：每朝 8:30am 自動跑一次，幫你分晒類、起好 FAQ 嗰批回覆，**9 點你開 inbox 已經有個整齊嘅 dashboard，睇一眼就 send 得**。
 
-> Caveat：Cowork 仲係 research preview，要 Pro/Max plan。佢會直接讀你嘅 inbox，**第一次跑一定要 預演，唔好畀佢自動 send**。
+> 一句提提你：Cowork 仲係 research preview，要 Pro/Max plan。佢會直接讀你嘅 inbox，**第一次跑一定要預演，唔好畀佢自動 send**。
 
 ## 跟住做
 
-### 1. 先準備兩份文件：知識庫 + brand voice doc
+### 1. 先準備兩份文件：知識庫 + 品牌語氣 doc
 
-呢一步只做一次，但係**成個系統嘅靈魂**。冇呢兩份嘢，Cowork 起稿出嚟嘅嘢會似籠統 chatbot。
+呢一步只做一次，但係**成個系統嘅靈魂**。冇呢兩份嘢，Cowork 起稿出嚟嘅嘢會好空泛，似個 chatbot。
 
-開兩個 .md / .txt 檔，擺喺一個 dedicated folder（例如 `~/cowork-support/`）：
+開兩個 .md / .txt 檔，擺喺一個專用 folder（例如 `~/cowork-support/`）：
 
 - **`faq.md`** — 列出你最常收嗰 15-20 條問題同標準答案。包括：營業時間、運費、退換貨政策、付款方式、出貨時間、改地址流程等等。
-- **`voice.md`** — 描述你嘅 brand 語氣。例：「廣東話書面語混合、用『你』唔用『您』、句尾偶然用『啦』『喎』、唔 sell hard、有問題先 acknowledge 情緒先解釋」。
+- **`voice.md`** — 描述你品牌嘅語氣。例：「廣東話書面語混合、用『你』唔用『您』、句尾偶然用『啦』『喎』、唔好硬銷、有問題先安撫情緒再解釋」。
 
-### 2. 核心 triage + draft prompt
+### 2. 核心分流 + 起草 prompt
 
 開 Claude Desktop → Cowork mode → 指住個 folder。一次過畀佢成個 prompt。
 
@@ -51,27 +51,27 @@ Cowork 嘅角色：每朝 8:30am 自動跑一次，幫你分晒類、draft 好 F
 我係 [你嘅店 / 公司 名] 嘅客服。每朝 8:30am 請你幫我做以下嘢：
 
 1. 連去我嘅客服 inbox（Zendesk / Help Scout / Gmail label「客服」），讀晒過去 24 小時嘅未回覆 ticket
-2. 讀埋 `faq.md` 同 `voice.md`，呢兩份係你嘅 reference
+2. 讀埋 `faq.md` 同 `voice.md`，呢兩份係你嘅參考
 3. 將每張 ticket 分做以下三類：
    - **URGENT**：客戶已付款 / 已下單，今日內要回應（例如：已出貨但未到、約咗今日交收、約咗 demo）
-   - **FAQ-answerable**：問題喺 `faq.md` 入面 cover 到嘅
-   - **COMPLAINT / NEEDS-HUMAN**：投訴、退款、custom 要求、情緒激動、或者 FAQ 答唔到嘅
-4. 對 FAQ-answerable 嗰批，每張 ticket 草擬 一個回覆：
+   - **FAQ-answerable**：問題喺 `faq.md` 入面有得答嘅
+   - **COMPLAINT / NEEDS-HUMAN**：投訴、退款、訂造要求、情緒激動、或者 FAQ 答唔到嘅
+4. 對 FAQ-answerable 嗰批，每張 ticket 起草一個回覆：
    - 跟 `voice.md` 嘅語氣
    - 引用 `faq.md` 嘅事實答案，唔好作
-   - 留個 `[需店主 confirm]` tag 喺需要我 fact-check 嘅地方
+   - 喺需要我核實嘅地方留個 `[需店主 confirm]` 標記
 5. 出一份 markdown report，subject「[Date] 客服 triage」，內容分三 section：URGENT / FAQ drafted / Complaint queue
 
 注意：
 - 唔好自動 send 任何嘢
-- URGENT 嗰批唔需要 draft，淨係 flag 出嚟畀我即刻睇
-- COMPLAINT 嗰批淨係列出 customer、ticket subject、初步 sentiment（嬲 / 失望 / 投訴 / 退款）——等我自己處理
+- URGENT 嗰批唔使起草，淨係標出嚟畀我即刻睇
+- COMPLAINT 嗰批淨係列出 customer、ticket subject、初步情緒（嬲 / 失望 / 投訴 / 退款）——等我自己處理
 - 報告 email 寄返畀我
 
-設定 好之後 confirm，schedule 落每朝 8:30am 自動跑。
+設定好之後 confirm，schedule 落每朝 8:30am 自動跑。
 </PromptBlock>
 
-### 3. 三層 output format（呢度係核心）
+### 3. 三層輸出格式（呢度係核心）
 
 你想 Cowork 出嘅報告長成噉：
 
@@ -81,38 +81,38 @@ Cowork 嘅角色：每朝 8:30am 自動跑一次，幫你分晒類、draft 好 F
 > - 林太 #4540 — 「FedEx tracking number 唔 work」
 >
 > **FAQ DRAFTED (12)**
-> （每張 ticket 一個 collapsible，open 入去見 draft reply）
+> （每張 ticket 一個收合區，撳開入去見草擬好嘅回覆）
 >
 > **COMPLAINT / NEEDS-HUMAN (5)**
 > - Annie #4519 — 退款 request，sentiment：失望
 > - …
 
-呢個 format 嘅關鍵：**URGENT 一定要喺最上**，因為你 9am 開 inbox 第一眼要見。FAQ drafted 嗰批係「批次處理」嘅 batch，complaint 係「慢工出細貨」嘅 batch。
+呢個格式嘅關鍵：**URGENT 一定要喺最上**，因為你 9am 開 inbox 第一眼要見。FAQ 嗰批係「一次過批量處理」嗰啲，complaint 就係「慢工出細貨」嗰啲。
 
-### 4. Daily review-and-send ritual + escalation playbook
+### 4. 每朝睇一眼就 send 嘅習慣 + 升級處理 playbook
 
 9:00am 你坐低：
 
-1. **5 分鐘**處理 URGENT — 即刻覆，呢啲冇得 batch
-2. **15 分鐘** scan FAQ drafted batch — 每張 ticket 撳 send（或者改少少先 send）。Claude 草擬嘅嘢七成可以原文用，三成要微調
-3. **20 分鐘** 處理 complaint queue — 呢啲先係你真正嘅工，要諗、要打電話、要 escalate
+1. **5 分鐘**處理 URGENT — 即刻覆，呢啲冇得夾埋一齊做
+2. **15 分鐘**掃一掃 FAQ 草擬嗰批 — 每張 ticket 撳 send（或者改少少先 send）。Claude 草擬嘅嘢七成可以原文用，三成要微調
+3. **20 分鐘**處理 complaint queue — 呢啲先係你真正嘅工，要諗、要打電話、要向上升級
 
-第一個禮拜你會發現 Claude 嘅 FAQ classification 有大概 10% 出錯（例如將 complaint 當咗 FAQ）。每次出錯你**喺 `faq.md` 入面加多句**「以下情況唔屬於 FAQ：客戶用咗『投訴』『嬲』『退錢』等字眼」，準確度會升。
+第一個禮拜你會發現 Claude 嘅 FAQ 分類大概有 10% 出錯（例如將投訴當咗 FAQ）。每次出錯你**喺 `faq.md` 入面加多句**「以下情況唔屬於 FAQ：客戶用咗『投訴』『嬲』『退錢』等字眼」，準確度會升。
 
 ## 變化例子
 
 ### 變化 1：WhatsApp Business 版
 
-如果你個客服主要喺 WhatsApp 而唔係 email，先用 [WhatsApp 客戶回覆模板](/use-cases/whatsapp-customer-reply-hk) 嗰個方法設定好 quick reply 模板，再 hook Cowork 入嚟：
+如果你個客服主要喺 WhatsApp 而唔係 email，先用 [WhatsApp 客戶回覆模板](/use-cases/whatsapp-customer-reply-hk) 嗰個方法設定好 quick reply 模板，再駁 Cowork 入嚟：
 
 <PromptBlock label="變化 1 — WhatsApp 版">
-（同主 prompt 一樣，但 input source 改成）：
+（同主 prompt 一樣，但輸入來源改成）：
 
-1. 連去我嘅 WhatsApp Business（透過 Meta Business Suite export，或者我每朝會把過去 24 小時嘅未覆訊息 export 做 .csv 擺入呢個 folder）
+1. 連去我嘅 WhatsApp Business（透過 Meta Business Suite 匯出，或者我每朝會將過去 24 小時嘅未覆訊息匯出做 .csv 擺入呢個 folder）
 2. 將每段對話分 URGENT / FAQ / COMPLAINT
 3. 對 FAQ 嗰批，草擬嘅回覆要：
-   - 短（WhatsApp 文化，唔好寫成 email）
-   - 對應返我 WhatsApp Business quick reply 嘅 short code（例如 `/有貨` `/運費`），如果有 match 就直接喺 draft 入面寫「建議用 short code: /有貨」
+   - 短（WhatsApp 文化，唔好寫到好似封 email 咁）
+   - 對應返我 WhatsApp Business quick reply 嘅 short code（例如 `/有貨` `/運費`），如果配對到就直接喺草稿入面寫「建議用 short code: /有貨」
 4. 報告同上
 </PromptBlock>
 
@@ -124,10 +124,10 @@ HK 客戶經常中英混合，甚至同一張 ticket 上半段中文下半段英
 （同主 prompt 一樣，但加多兩條）：
 
 - 對每張 ticket 額外標一個 `language` tag：`zh` / `en` / `mixed`
-- Draft 回覆嘅語言要 mirror 客人嗰封 ticket：客人寫中文你寫中文，客人寫英文你寫英文，客人 mixed 你都 mixed
-- `voice.md` 入面要包括埋英文版嘅 brand voice 描述（例如：「friendly but professional, no exclamation marks, sign off with 'Cheers'」）
+- 草擬回覆嘅語言要對應客人嗰封 ticket：客人寫中文你寫中文，客人寫英文你寫英文，客人中英夾雜你都中英夾雜
+- `voice.md` 入面要包括埋英文版嘅品牌語氣描述（例如：「friendly but professional, no exclamation marks, sign off with 'Cheers'」）
 
-如果客人嘅英文唔太啱文法，唔好 mirror 佢嘅錯，用 polished 嘅英文回覆但唔好太 formal。
+如果客人嘅英文唔太啱文法，唔好跟住佢錯，用順暢嘅英文回覆，但唔好太拘謹。
 </PromptBlock>
 
 ### 變化 3：Complaint sentiment score 模式
@@ -139,16 +139,16 @@ HK 客戶經常中英混合，甚至同一張 ticket 上半段中文下半段英
 
 - **Sentiment score**：1-5（1 = 輕度不滿，5 = 已經話要去消委會 / Small Claims）
 - **Risk flag**：如果出現「消委會」「投訴」「律師」「Trustpilot」「Google review」等關鍵字，加紅色 ⚠️
-- **建議優先級**：5 分 + risk flag 嗰啲排最前
-- **唔好 draft 回覆**——complaint 嘅回應要我親自諗，draft 反而會誤導我
+- **建議優先次序**：5 分 + risk flag 嗰啲排最前
+- **唔好草擬回覆**——投訴嘅回應要我親自諗，幫我草擬反而會誤導我
 
 排序：risk-flagged → score 5 → score 4 → 其餘
 </PromptBlock>
 
-## 一個 HK 客服特有嘅 caveat
+## 一個香港客服特有嘅提醒
 
-HK consumer council（消委會）投訴 dynamic 同其他市場唔同：客人有時會喺 ticket 入面**直接 quote 條例**或者**話要 escalate 上消委會**。呢類 ticket Claude 識唔識認得到，**完全睇你 `faq.md` 入面有冇教佢**。
+香港消委會嘅投訴生態同其他市場唔同：客人有時會喺 ticket 入面**直接引條例**或者**話要去消委會投訴**。呢類 ticket Claude 認唔認得到，**完全睇你 `faq.md` 入面有冇教佢**。
 
-最 minimum 喺 `faq.md` 寫一段：「以下字眼出現就一定當 COMPLAINT、score 5、risk-flag：消委會、Consumer Council、Small Claims、Trustpilot、Google review、投訴信、律師信」。呢句一加，Claude 對 HK 客服場景嘅敏感度即刻上一級。
+最起碼喺 `faq.md` 寫一段：「以下字眼出現就一定當 COMPLAINT、score 5、risk-flag：消委會、Consumer Council、Small Claims、Trustpilot、Google review、投訴信、律師信」。呢句一加，Claude 對香港客服場景嘅敏感度即刻上一級。
 
-Cowork 唔係幫你**全自動回覆客戶**——係幫你**將早上嗰 30 分鐘 triage 時間，壓縮做 5 分鐘 review**。剩返嗰 25 分鐘，留返畀真正要動腦嘅 ticket。
+Cowork 唔係幫你**全自動回覆客戶**——係幫你**將早上嗰 30 分鐘分流時間，壓縮做 5 分鐘睇一眼**。剩返嗰 25 分鐘，留返畀真正要動腦嘅 ticket。

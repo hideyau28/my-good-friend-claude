@@ -10,7 +10,7 @@ subcategory: "報稅"
 difficulty: 2
 timeMinutes: 40
 toolsNeeded: ["Claude Desktop (Pro/Max)", "Bank statement / payslip / receipt access", "Google Drive 或本地 folder"]
-description: "HK 報稅 自動：set 一次 Cowork 排程，每月底自動讀 bank statement、糧單、收據，分類入 IRD 扣稅項 master file。4 月 BIR60 export 一次搞掂。"
+description: "HK 報稅自動化：設定一次 Cowork 排程，每月底自動讀 bank statement、糧單、收據，分類入 IRD 扣稅項 master file。4 月 BIR60 一次過匯出搞掂。"
 keywords: ["HK 報稅 自動", "MPF 扣稅 tracker", "IRD 個人報稅 prep", "HK personal tax automation", "claude cowork 報稅"]
 related: ["hong-kong-tax-prep-claude", "cowork-expense-automation", "cowork-receipt-warranty-management"]
 featured: false
@@ -32,13 +32,13 @@ featured: false
 
 正常人 4 月先一次過揾，**起碼搞 1-2 個 weekend**。揾唔到嘅就放棄申索——典型 HK 中產每年漏報 $5-10K 扣稅額，由呢個拖延而嚟。
 
-呢篇 set up 一個 Cowork 流程，**每月底自動跑 30 分鐘**：讀上月 bank statement + receipt folder → 識別有冇進稅 item → log 入一份 master tax file。4 月 IRD 寄 BIR60 嚟嗰陣，你 export 一次就搞掂，唔使翻箱倒櫃。
+呢篇教你設定一個 Cowork 流程，**每月底自動跑 30 分鐘**：讀上月 bank statement + receipt folder，識別有冇可以扣稅嘅項目，記低入一份 master tax file。4 月 IRD 寄 BIR60 嚟嗰陣，你匯出一次就搞掂，唔使翻箱倒櫃。
 
 > 利益申報：我唔係稅務會計師。Cowork 嘅輸出係幫你**全年整理**，唔係取代專業稅務建議。複雜情況（信託、海外收入、自僱、公司）請揾 CPA。
 
 ## 跟住做
 
-### 1. 開 tax category schema（跟 IRD BIR60）
+### 1. 開扣稅分類 schema（跟 IRD BIR60）
 
 喺 `~/Documents/tax-prep/2025-26/` 度開個 folder structure：
 
@@ -65,28 +65,28 @@ featured: false
 - **Mortgage Interest**：月份、銀行、息口金額（年度 cap $100K）
 - **Dependent**：受供養人、關係、年齡、同住與否
 
-呢個 schema 就係 Cowork 嘅 contract——佢之後每月 append data 都跟呢啲欄位。
+呢個 schema 就係 Cowork 嘅約定——佢之後每月 append 資料都跟呢啲欄位。
 
-### 2. 用呢個 prompt 設定月度 categorization
+### 2. 用呢個 prompt 設定每月分類
 
 開 Claude Desktop Cowork session。
 
-<PromptBlock label="完整 prompt — 每月底自動 tax categorization">
-我想 設定 一個每月最後一日晚上 10 點自動跑嘅 HK 報稅 prep 任務。
+<PromptBlock label="完整 prompt — 每月底自動分類扣稅項">
+我想設定一個每月最後一日晚上 10 點自動跑嘅 HK 報稅 prep 任務。
 
 **輸入來源：**
 1. ~/Documents/tax-prep/2025-26/source-docs/ 入面所有新加嘅 PDF / 圖片
-2. 我會手動 dump 上個月嘅 bank statement PDF 入 source-docs/bank-statements/
-3. Gmail 過去 35 日，搵 sender 包含「mpfa」、「manulife」、「aia」、「bupa」、「bochk」、「hsbc」、「donation」、「捐款收據」嘅 email
+2. 我會手動放上個月嘅 bank statement PDF 入 source-docs/bank-statements/
+3. Gmail 過去 35 日，搵寄件人包含「mpfa」、「manulife」、「aia」、「bupa」、「bochk」、「hsbc」、「donation」、「捐款收據」嘅 email
 
 **每月底自動執行：**
 
 第一步：分類新文件
 - 掃 source-docs/ 入面所有上個月新加嘅檔案
-- 用檔名 + OCR 內容識別類型（payslip / MPF / VHIS / 進修 / 慈善 / 按揭）
-- 自動 move 落對應 subfolder
+- 用檔名 + OCR 內容識別類型（糧單 / MPF / VHIS / 進修 / 慈善 / 按揭）
+- 自動搬落對應 subfolder
 
-第二步：抽 tax item 數據
+第二步：抽扣稅項數據
 - 由每份文件抽出 IRD 相關欄位（日期、金額、機構、受惠人）
 - 對住 master-tax-log.xlsx 嘅 schema append 新 row
 - 每個 sheet 同步更新年度累計
@@ -94,9 +94,9 @@ featured: false
 第三步：上限 + 漏報警示
 - 如果某項超過 IRD 年度上限（例：TVC 過 $60K），標「超出上限，剩餘嘅唔扣」
 - 如果某項距離上限好遠（例：VHIS 用咗 $2K / $8K），喺 monthly report 提醒我「仲有 $6K 額度可以用」
-- 如果上個月應該有但 source-docs/ 入面冇（例：糧單冇出現），標「missing — 跟進」
+- 如果上個月應該有但 source-docs/ 入面冇（例：糧單冇出現），標「欠缺——跟進」
 
-第四步：出 monthly report
+第四步：出每月 report
 - 寫入 ~/Documents/tax-prep/2025-26/monthly-reports/[YYYY-MM]-tax-summary.md
 - 內容：本月新增 tax item、年度累計、上限剩餘額度、漏報跟進清單
 
@@ -105,32 +105,32 @@ featured: false
 - Body：簡短 summary + 個 report 嘅 path
 
 **重要限制：**
-- 唔好交任何嘢畀 IRD，all output 都係 draft
+- 唔好交任何嘢畀 IRD，所有輸出都係草稿
 - 寧願標「未確認」都唔好作數字
-- 慈善捐款一定要對住「受認可慈善團體」清單，唔肯定就 flag
+- 慈善捐款一定要對住「受認可慈善團體」清單，唔肯定就標示出嚟
 - 唔好碰 source-docs 以外嘅資料夾
 
-設定好確認我，先試行一次睇 output，啱嘅話再排程。
+設定好確認我，先試行一次睇睇輸出，啱嘅話再排程。
 </PromptBlock>
 
-### 3. Master spreadsheet auto-maintain
+### 3. Master spreadsheet 自動維護
 
-第一次跑嘅時候，Cowork 會由你倒入落 `source-docs/` 嘅嘢 backfill 過去幾個月。之後每月底佢只 append 新嘢。
+第一次跑嘅時候，Cowork 會由你倒入落 `source-docs/` 嘅嘢補返過去幾個月。之後每月底佢只 append 新嘢。
 
-幾個關鍵 invariant 要 Cowork 守住：
+幾個關鍵原則要 Cowork 守住：
 
 - **唔覆蓋舊 row**——只 append，舊嘢有錯由你手動改
-- **年度累計每次重算**——唔好相信 cached 數字，每次由 raw row 加返
-- **跨年要清零**——4 月 1 號 trigger 開新一年嘅 `2026-27/` folder + 新 master file
+- **年度累計每次重算**——唔好信舊數字，每次由原始 row 加返
+- **跨年要清零**——4 月 1 號自動開新一年嘅 `2026-27/` folder + 新 master file
 
-呢個 master file 唔係交畀 IRD 嘅，係**你自己嘅 single source of truth**。
+呢個 master file 唔係交畀 IRD 嘅，係**你自己嘅唯一可信底稿**。
 
-### 4. 4 月 export workflow
+### 4. 4 月匯出流程
 
 IRD 5 月初寄 BIR60，但你 4 月已經可以準備好。
 
-<PromptBlock label="4 月 export prompt — 出 BIR60 草稿數據">
-本年度（2025/26）已經完結。請由 master-tax-log.xlsx 出一份 BIR60 填表 reference：
+<PromptBlock label="4 月匯出 prompt — 出 BIR60 草稿數據">
+本年度（2025/26）已經完結。請由 master-tax-log.xlsx 出一份 BIR60 填表參考：
 
 1. **Part 4.1 入息**：總應評稅入息 = 底薪 + 花紅 + 股票 vest 現金價值。對住 IR56B 嘅總數驗證
 2. **Part 4.3 強制性 MPF**：年度總額（cap $18K）
@@ -142,13 +142,13 @@ IRD 5 月初寄 BIR60，但你 4 月已經可以準備好。
 8. **Part 8.7 供養父母 / 祖父母**：每位列出年齡、同住與否、對應免稅額
 9. **Part 8.8 供養兄弟姊妹**
 
-每項 output：
+每項輸出：
 - 數字
 - 我有幾多張 supporting doc（喺邊個 folder）
 - 對應 BIR60 第幾行
 - 任何「年度未用盡額度」嘅提示（例：TVC 仲有 $X 可以年尾前補供）
 
-最後出一份 file list，5 月寄 BIR60 嗰陣我直接連 attachment 寄畀會計師 review。
+最後出一份檔案清單，5 月寄 BIR60 嗰陣我直接連附件寄畀會計師覆檢。
 </PromptBlock>
 
 4 月做呢一步通常 30 分鐘搞掂——因為全年 data 已經喺 master file 度。
@@ -172,7 +172,7 @@ IRD 5 月初寄 BIR60，但你 4 月已經可以準備好。
 **Company Dividends Sheet：**
 - 每筆股息：日期、公司、金額
 - 註明：香港公司派嘅股息**唔扣個人薪俸稅**（已喺公司層面扣咗利得稅）
-- 但要保留紀錄，IRD 可能會 query
+- 但要保留紀錄，IRD 可能會查問
 
 ⚠️ 呢個情況強烈建議揾 CPA。Cowork 只係幫你整理數據，唔係決定點申報。
 </PromptBlock>
@@ -182,7 +182,7 @@ IRD 5 月初寄 BIR60，但你 4 月已經可以準備好。
 <PromptBlock label="變化 2 — 夫婦聯合評稅 prep">
 我同配偶都有收入。每年 IRD 容許揀「個別評稅」或「合併評稅」，邊個慳啲視乎雙方收入差距。
 
-請每月 sync 我同配偶嘅 master-tax-log（佢個 file 喺 ~/Documents/tax-prep-spouse/）。
+請每月同步我同配偶嘅 master-tax-log（佢個 file 喺 ~/Documents/tax-prep-spouse/）。
 
 4 月出 BIR60 prep 嘅時候，**同時計兩個情境**：
 1. 個別評稅：我同配偶分開計
@@ -190,7 +190,7 @@ IRD 5 月初寄 BIR60，但你 4 月已經可以準備好。
 
 比較兩個總稅款，建議揀邊個。註明：呢個只係參考，最終要會計師或 IRD 計算器確認。
 
-順便：如果其中一方有未用盡嘅 allowance（例：子女免稅額），合併評稅可能可以畀另一方用。Flag 出嚟。
+順便：如果其中一方有未用盡嘅免稅額（例：子女免稅額），合併評稅可能可以畀另一方用。標示出嚟。
 </PromptBlock>
 
 ### 變化 3：海外 freelance income + 雙重課稅
@@ -201,12 +201,12 @@ IRD 5 月初寄 BIR60，但你 4 月已經可以準備好。
 每月入賬時，請額外 log：
 - 收入來源國家
 - 工作執行地點（喺香港做？喺外地做？）
-- 已喺外地預扣稅款嘅金額（withholding tax，通常 client 會出張 cert）
+- 已喺外地預扣稅款嘅金額（withholding tax，通常客戶會出張證明）
 - 對應嘅 double taxation agreement 適用條款（香港同 40+ 國家有 DTA）
 
-⚠️ 香港用「地域來源原則」（territorial source）。**收入嚟自香港以外、又喺香港以外做嘅工作**，可能可以申請唔課香港薪俸稅。但呢個判斷好複雜，case-by-case。
+⚠️ 香港用「地域來源原則」（territorial source）。**收入嚟自香港以外、又喺香港以外做嘅工作**，可能可以申請唔課香港薪俸稅。但呢個判斷好複雜，要逐個情況睇。
 
-Cowork 嘅角色：整理數據 + 列出每筆收入嘅 source / location / withholding。
+Cowork 嘅角色：整理數據 + 列出每筆收入嘅來源地、執行地點、預扣稅款。
 
 最終判斷：揾 CPA 或 IRD pre-ruling，唔好自己估。
 </PromptBlock>
@@ -215,6 +215,6 @@ Cowork 嘅角色：整理數據 + 列出每筆收入嘅 source / location / with
 
 報稅嘅痛唔係「填表」——係**「過咗 12 個月，啲嘢散晒，唔知由邊度執起」**。
 
-Cowork 嘅優勢喺：**將「4 月一次過 2 weekend」嘅恐慌，攤平做「每月底 30 分鐘 background job」**。
+Cowork 嘅優勢喺：**將「4 月一次過搞兩個 weekend」嘅恐慌，攤平做「每月底 30 分鐘嘅背景任務」**。
 
-最後一個提醒：**呢個流程嘅 output 唔係稅務建議**。BIR60 嘅最終填報責任係你，IRD 嘅最終決定係 IRD 嘅。慳幾千蚊扣稅額 vs 畀 $2-3K 揾會計師覆檢一次 master file——後者通常係抵嘅投資。Cowork 幫你做嘅，係令會計師個鐘費用減半，因為 raw data 已經執好。
+最後一個提醒：**呢個流程嘅輸出唔係稅務建議**。BIR60 嘅最終填報責任係你，IRD 嘅最終決定係 IRD 嘅。慳幾千蚊扣稅額，同畀 $2-3K 揾會計師覆檢一次 master file——後者通常係抵嘅投資。Cowork 幫你做嘅，係令會計師個鐘費用減半，因為原始數據已經執好。
