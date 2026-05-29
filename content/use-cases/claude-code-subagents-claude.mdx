@@ -1,5 +1,5 @@
 ---
-title: "Claude Code Subagents：5 個 parallel agent 同時做嘢（refactor + test + 寫文檔）"
+title: "Claude Code Subagents：5 個 agent 並行同時做嘢（重構 + 測試 + 寫文檔）"
 slug: "claude-code-subagents-claude"
 issue: 86
 publishedAt: 2026-05-24
@@ -11,7 +11,7 @@ heroImage: "/hero/claude-code-subagents-claude.webp"
 difficulty: 3
 timeMinutes: 30
 toolsNeeded: ["Claude Code 安裝咗"]
-description: "Review 大 PR 30 分鐘順序做。用 subagent 並行：code review + test 覆蓋 + 保安掃描 + PR 描述 4 個 agent 並行 6-8 分鐘搞掂。教你 setup + 邊類任務適合並行。"
+description: "睇個大 PR 順序做要 30 分鐘。用 subagent 並行：程式碼審查 + 測試覆蓋 + 保安掃描 + PR 描述，4 個 agent 一齊跑 6-8 分鐘搞掂。教你點設定，同邊類任務適合並行。"
 keywords: ["Claude Code subagents", "並行 agents", "Claude agent SDK", "AI agent 編排", "Claude Code workflow"]
 related: ["claude-code-install-claude", "claude-code-slash-commands-claude", "claude-code-worktrees-claude"]
 featured: false
@@ -19,28 +19,28 @@ featured: false
 
 ## 情境
 
-你係 senior dev。同事 push 咗一個大 PR —— 500 行改動跨 12 個檔案。
+你係資深 dev。同事 push 咗一個大 PR —— 500 行改動，跨 12 個檔案。
 
-你 review 動作：
+你睇 PR 嘅動作：
 
 1. 讀全部檔案 diff：15 分鐘
-2. Check test 覆蓋：5 分鐘
+2. 睇測試覆蓋：5 分鐘
 3. 手動跑保安掃描：5 分鐘
-4. 寫 thoughtful PR comment：10 分鐘
+4. 寫一段認真嘅 PR comment：10 分鐘
 
-總共：35 分鐘順序做。
+總共：35 分鐘，順序做。
 
-呢個順序嘅根源：**任務之間唔互相 dependent** —— code review 唔等 test 覆蓋結果，test 覆蓋唔等保安掃描。但你預設順序跑，因為個腦每次只可以集中 1 個任務。
+點解要順序做？因為**任務之間唔互相依賴** —— 程式碼審查唔使等測試覆蓋嘅結果，測試覆蓋又唔使等保安掃描。但你慣性逐個跑，因為個腦每次只可以集中喺一件事。
 
-**Subagents** 解決呢個：一個主 session 同時 spawn N 個 subagent，每個專注唔同子任務，並行跑。
+**Subagents** 就係解決呢樣嘢：一個主 session 同時開 N 個 subagent，每個專注唔同子任務，一齊並行跑。
 
 **概念**：
-- **主 agent**（你）：編排 + 整合結果
-- **Subagents**：並行工人，每個收特定任務 + 返結果
+- **主 agent**（你）：負責編排同整合結果
+- **Subagents**：並行嘅工人，每個收一個特定任務，做完交返結果
 
-呢篇拆 subagent setup + 5 個每日 use case。
+呢篇拆開 subagent 點設定，加 5 個日常用法。
 
-⚠️ Subagent 難度較高 —— 適合已用 Claude Code 1-2 個月 + 熟設定檔嘅人。
+⚠️ Subagent 難度較高 —— 適合已經用咗 Claude Code 一兩個月、熟設定檔嘅人。
 
 ## 跟住做
 
@@ -61,22 +61,22 @@ featured: false
   └── integrate → final summary 畀你
 ```
 
-每個 subagent 獨立 context window，自己嘅對話歷史。Parallelism = 真實 wall-clock 時間慳到。
+每個 subagent 有獨立嘅 context window、自己嘅對話歷史。並行做，真係慳到實際 wall-clock 時間。
 
 ### 2. 內建 vs 自訂 subagents
 
 Claude Code 自帶幾種標準 subagent 類型：
 
 - **General-purpose**：開放式任務
-- **Explore**：唯讀搜尋整個 codebase
-- **Plan**：軟件架構師角色嘅規劃
+- **Explore**：唯讀，搜尋成個 codebase
+- **Plan**：用軟件架構師角色做規劃
 - **Code reviewer**：專注程式碼品質問題
 
-自訂 subagents：你可以自己 define（下一節）。
+自訂 subagents：你可以自己定義（下一節）。
 
 ### 3. 叫起內建 subagent
 
-喺 Claude Code 對話入面，你可以透過 Agent 工具 spawn subagent：
+喺 Claude Code 對話入面，你可以透過 Agent 工具開一個 subagent：
 
 ```
 Agent(
@@ -86,15 +86,15 @@ Agent(
 )
 ```
 
-（具體 syntax 視乎 Claude Code 版本 + IDE 整合。`claude --help` 顯示當前。）
+（實際寫法視乎 Claude Code 版本同 IDE 整合。`claude --help` 會顯示當前版本嘅用法。）
 
-呢個 spawn 一個 Explore subagent。佢返一份摘要，主 agent 接住處理完整檔案。
+呢個會開一個 Explore subagent。佢交返一份摘要，主 agent 接住再處理完整檔案。
 
-### 4. Spawn 多個 subagents 並行
+### 4. 同時開多個 subagents 並行
 
-關鍵 insight：你喺同一個回應 spawn 多個 subagents，即係並行。
+關鍵一點：你喺同一個回應入面開多個 subagents，佢哋就會一齊並行做。
 
-例（PR review）：
+例（睇 PR）：
 
 ```
 我哋 spawn 4 個 subagents parallel:
@@ -124,13 +124,13 @@ Agent({
 })
 ```
 
-4 個 agent 同時 spawn → 並行做 → 主 session 等 4 個都搞掂 → 整合 4 個結果 → 你睇到全面 review。
+4 個 agent 同時開 → 並行做 → 主 session 等 4 個都搞掂 → 整合 4 份結果 → 你就睇到一個全面嘅 review。
 
-Wall-clock 時間：6-8 分鐘 vs 順序 30-35 分鐘。
+實際時間：6-8 分鐘，對比順序做要 30-35 分鐘。
 
 ### 5. 自訂 subagent 定義
 
-定義可重用 subagent 喺 `~/.claude/agents/`（user-level）或者 `./.claude/agents/`（project-level）：
+將可重用嘅 subagent 定義放喺 `~/.claude/agents/`（user-level）或者 `./.claude/agents/`（project-level）：
 
 檔案 `code-reviewer.md`：
 
@@ -160,9 +160,9 @@ Your job:
 Tone: Direct, specific. No filler. Treat me as peer dev.
 ```
 
-存。Claude Code 開新 session 時自動 load。
+存好。Claude Code 開新 session 嗰陣會自動載入。
 
-用：
+點用：
 ```
 Agent({
   description: "Review my changes",
@@ -171,9 +171,9 @@ Agent({
 })
 ```
 
-### 6. 每日 subagent 用途
+### 6. 日常 subagent 用途
 
-✅ **用途 1：並行調查**（你讀大型 codebase）
+✅ **用途 1：並行調查**（你要讀一個大型 codebase）
 
 ```
 Agent({ subagent_type: "Explore", prompt: "Find database schema files" })
@@ -181,7 +181,7 @@ Agent({ subagent_type: "Explore", prompt: "Find auth middleware" })
 Agent({ subagent_type: "Explore", prompt: "Find API route definitions" })
 ```
 
-3 個並行調查，主 session 整合結果，你決定喺邊度集中。
+3 個並行調查，主 session 整合結果，你就決定集中喺邊度落手。
 
 ✅ **用途 2：多角度 review**
 
@@ -191,7 +191,7 @@ Agent({ subagent_type: "performance-reviewer", prompt: "Audit auth flow perf" })
 Agent({ subagent_type: "readability-reviewer", prompt: "Audit auth flow clarity" })
 ```
 
-3 個唔同角度，同一段 code。主 session 綜合。
+同一段 code，三個唔同角度去睇。主 session 幫你綜合。
 
 ✅ **用途 3：並行內容生成**
 
@@ -201,9 +201,9 @@ Agent({ prompt: "Draft internal team update for these commits" })
 Agent({ prompt: "Draft social media announcement for these commits" })
 ```
 
-3 個受眾，3 種聲線，並行。
+三種受眾、三種聲線，一齊並行寫。
 
-✅ **用途 4：Deploy 前並行檢查**
+✅ **用途 4：部署前並行檢查**
 
 ```
 Agent({ prompt: "Run npm run test and report failures" })
@@ -212,9 +212,9 @@ Agent({ prompt: "Check for hardcoded secrets in diff" })
 Agent({ prompt: "Verify all new env vars documented in README" })
 ```
 
-4 個 deploy 關卡檢查，並行。1 個 fail → 停 deploy。
+4 個部署關卡檢查，一齊並行跑。一個唔過 → 即刻停部署。
 
-✅ **用途 5：Bug 調查**
+✅ **用途 5：捉 bug**
 
 ```
 Agent({ prompt: "Search for error 'XYZ' in logs" })
@@ -222,7 +222,7 @@ Agent({ prompt: "Find similar past issue in GitHub" })
 Agent({ prompt: "Check related test cases for coverage gap" })
 ```
 
-3 個並行調查角度，主 agent 整合發現。
+三個角度並行查，主 agent 整合所有發現。
 
 ## 變化
 
@@ -230,52 +230,52 @@ Agent({ prompt: "Check related test cases for coverage gap" })
 
 唔適合並行：
 
-❌ 任務之間嚴格依賴（每個都依賴上一個 output）
-❌ 單檔案編輯（並行冇 gain）
-❌ 簡單查詢（spawn 嘅 overhead > 任務時間）
-❌ 有狀態嘅任務序列（需要共用 context）
+❌ 任務之間嚴格依賴（每個都要等上一個嘅 output）
+❌ 單檔案編輯（並行冇着數）
+❌ 簡單查詢（開 subagent 嘅 overhead 大過任務本身）
+❌ 有狀態嘅任務序列（要共用 context）
 
 ✅ 適合：
 - 獨立調查
 - 多角度 review
-- 並行內容生成
-- Deploy 前多項檢查
-- 多來源資料抓取
+- 並行寫內容
+- 部署前多項檢查
+- 多來源抓資料
 
-Subagent 嘅價值同任務獨立性成正比。
+Subagent 嘅價值，同任務嘅獨立性成正比。
 
 ### 變化 2：Sub-subagents（遞迴）
 
-進階：subagent 自己可以 spawn sub-subagents。
+進階玩法：subagent 自己都可以再開 sub-subagents。
 
-例如「Refactor 架構」主 agent → spawn「Plan refactor」subagent → 嗰個再 spawn「Read existing auth module」sub-subagent。
+例如「重構架構」主 agent → 開一個「規劃重構」subagent → 嗰個再開一個「讀現有 auth module」sub-subagent。
 
-3 層通常夠。再深 = 編排複雜度過高。
+通常三層夠晒。再深落去，編排嘅複雜度就太高。
 
 ### 變化 3：Subagent + Skills + Commands 三者組合
 
-Skills 層（按第 79 篇）負責「特定程序邏輯」。Subagent 負責「並行」。
+Skills 層（睇返第 79 篇）負責「特定程序邏輯」，Subagent 負責「並行」。
 
 例：
-- `/pre-deploy-check` slash command 觸發
-- 入面 spawn 4 個 subagent（test / lint / security / 文檔）
-- 每個 subagent 入面可以叫起 skills（例如 security-audit skill）
-- 整合後出單一摘要報告
+- 用 `/pre-deploy-check` slash command 啟動
+- 入面開 4 個 subagent（測試 / lint / 保安 / 文檔）
+- 每個 subagent 入面又可以叫起 skills（例如 security-audit skill）
+- 整合之後出一份摘要報告
 
-呢個 3 層組合（command → subagent → skill）係進階 workflow 架構。
+呢個三層組合（command → subagent → skill），就係進階嘅 workflow 架構。
 
 ## 一個心態
 
-Subagent 嘅深層 insight：**CPU / IO 並行對伺服器任務已成熟，但認知任務嘅並行對人類仍然困難。AI subagent 係突破**。
+Subagent 背後最深嗰個道理：**CPU / IO 並行喺伺服器任務已經好成熟，但認知任務嘅並行，對人類嚟講仍然好難。AI subagent 就係呢度嘅突破**。
 
-之前你個腦 1 條 thread 順序行。即使多監察都唔可以真正並行注意力。Subagent = 將並行外判 —— 5 個 subagent 同時跑 5 個任務，你主腦只負責編排 + 整合。
+以前你個腦淨係得一條 thread，順住嚟行。就算幾咁專注，注意力都冇可能真正同時分開幾邊。Subagent 就係將並行外判出去 —— 5 個 subagent 同時跑 5 個任務，你個主腦只負責編排同整合。
 
-呢個 paradigm 顯著改變 senior dev / 編排者嘅角色 —— 唔再係「單獨執行」，而係「多 agent 編排」。
+呢個轉變大大改變咗資深 dev、即係編排者嘅角色 —— 唔再係「自己一個做晒」，而係「指揮一班 agent」。
 
-最後提醒：
+最後提你幾句：
 
-- ✅ **Subagent 嘅價值喺「獨立任務嘅並行」**。識別獨立任務係關鍵技能。
-- ⚠️ **Subagent 之間唔共用 context**。各自精神記憶。Spawn 時必須包含所有需要嘅 context。
-- 🎯 **自訂 subagent 1 個月會自然進化**。你每日出嘅時候會發覺「I keep doing same review pattern」，codify 入可重用嘅 subagent 定義。
+- ✅ **Subagent 嘅價值喺「將獨立任務並行」**。識唔識認出邊啲係獨立任務，先係關鍵技能。
+- ⚠️ **Subagent 之間唔共用 context**。各有各記憶，開嗰陣一定要將所需嘅 context 全部塞晒入去。
+- 🎯 **自訂 subagent 用一個月會自然進化**。你做做吓會發覺「我又重複緊同一套 review 嘅做法」，到時就將佢寫成一個可重用嘅 subagent 定義。
 
-下個大 PR review 試 4 個並行 subagent。30 分鐘 → 8 分鐘。你個腦會嘆「點解之前順序咁慢」。
+下次有大 PR 要睇，試吓開 4 個並行 subagent。30 分鐘變 8 分鐘。你個腦會諗「之前順序做點解咁慢」。

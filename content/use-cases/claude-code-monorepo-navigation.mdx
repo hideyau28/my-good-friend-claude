@@ -33,22 +33,22 @@ my-saas/
 │   └── config/           ← eslint / tsconfig presets
 ```
 
-你開 Claude Code 喺 repo root，叫佢「fix 個 admin login 嘅 bug」。Claude 做啲乜？
+你開 Claude Code 喺 repo root，叫佢「搞掂個 admin login 嘅 bug」。Claude 做啲乜？
 
 1. Grep 成個 repo 搵 `login`
-2. Match 到 23 個檔案，喺 `apps/web`、`apps/admin`、`packages/auth` 都有
+2. 配對到 23 個檔案，喺 `apps/web`、`apps/admin`、`packages/auth` 都有
 3. Context 用咗 40k token 先理解到「邊個 login 先係 admin login」
-4. 一唔小心改埋 `apps/web` 嘅 login flow，你覆檢嗰陣先發現
+4. 一唔小心改埋 `apps/web` 嘅 login flow，你檢視嗰陣先發現
 
-Monorepo 嘅默契係「package 之間有界線」，但 Claude 預設行為係 flat search — 界線對佢嚟講唔存在。
+Monorepo 嘅默契係「package 之間有界線」，但 Claude 嘅預設行為係 flat search——界線對佢嚟講唔存在。
 
-呢篇拆 4 招：root CLAUDE.md 做地圖、per-package CLAUDE.md 做 scope、`/work-in` slash command 限制範圍、subagent 平行做唔同 package。
+呢篇拆 4 招：root CLAUDE.md 做地圖、per-package CLAUDE.md 劃範圍、`/work-in` slash command 限制範圍、subagent 並行做唔同 package。
 
 ## 跟住做
 
 ### 1. Root CLAUDE.md：寫個 monorepo map
 
-Repo root 嘅 `CLAUDE.md` 唔係 README — 係**畀 Claude 睇嘅導航文件**。重點：每個 package 嘅 job、boundary、邊個唔可以亂改。
+Repo root 嘅 `CLAUDE.md` 唔係 README——係**畀 Claude 睇嘅導航文件**。重點：每個 package 嘅職責、界線、邊個唔可以亂改。
 
 ```markdown
 # my-saas — Monorepo Map
@@ -89,11 +89,11 @@ This is a pnpm workspace + Turborepo monorepo.
 唔好 grep 成個 repo — 入 target package 嘅資料夾先 grep。
 ```
 
-呢份文件 Claude 入 session 時自動讀。佢有咗地圖，就唔會盲 grep。
+呢份文件 Claude 入 session 時自動讀。佢有咗地圖，就唔會盲摸 grep。
 
-### 2. Per-package CLAUDE.md：scope 內部規則
+### 2. Per-package CLAUDE.md：劃清內部規則
 
-每個 package 自己嘅資料夾入面再放一份 `CLAUDE.md`，講該 package 嘅內部規矩。Claude Code 識自動 walk up 同 walk down 個 tree 揾呢啲 file。
+每個 package 自己嘅資料夾入面再放一份 `CLAUDE.md`，講該 package 嘅內部規矩。Claude Code 識自動喺 tree 上下行揾呢啲檔案。
 
 `packages/db/CLAUDE.md` 例子：
 
@@ -133,9 +133,9 @@ Astro 5 + React island。SSR only，無 client routing。
 - 唔好 import `apps/web/*` — boundary violation
 ```
 
-Claude 入呢個 package 工作嗰陣，root + scoped 兩份 CLAUDE.md 都 load。Context 集中，亂跨 package 嘅機會大跌。
+Claude 入呢個 package 工作嗰陣，root 同 scoped 兩份 CLAUDE.md 都會載入。Context 集中，亂跨 package 嘅機會大跌。
 
-### 3. `/work-in` slash command：硬性 scope
+### 3. `/work-in` slash command：硬性收窄範圍
 
 Slash command 喺 `.claude/commands/` 入面定義。整一個 `work-in.md`：
 
@@ -155,11 +155,11 @@ description: Scope work to a single monorepo package
 讀 `$ARGUMENTS/CLAUDE.md` 確認該 package 嘅內部規矩，先開始做嘢。
 ```
 
-用法：`/work-in packages/auth`。Claude 即刻收窄 scope，唔會去摸 `apps/web`。
+用法：`/work-in packages/auth`。Claude 即刻收窄範圍，唔會去摸 `apps/web`。
 
 ### 4. Subagent 並行：5 個 package 同時跑
 
-當你要做跨 package 嘅 refactor（例如「將 user type 由 string id 改 uuid」），唔好喺一個 session 串住做 — context 會爆。用 subagent 並行：
+當你要做跨 package 嘅 refactor（例如「將 user type 由 string id 改 uuid」），唔好喺一個 session 串住做——context 會爆。用 subagent 並行：
 
 ```
 你 dispatch 3 個 subagent:
@@ -171,11 +171,11 @@ description: Scope work to a single monorepo package
 你 review 3 個 diff，協調 merge order：db → auth → apps。
 ```
 
-每個 subagent 自己 context、自己 CLAUDE.md scope。Parent agent 只負責協調，唔處理檔案。Token 用量比 monolithic session 平 60-70%。
+每個 subagent 有自己嘅 context、自己嘅 CLAUDE.md 範圍。Parent agent 只負責協調，唔處理檔案。Token 用量比一個大 session 平 60-70%。
 
 ## 變化
 
-### 變化 1：Turborepo — 將 task graph 餵畀 Claude
+### 變化 1：Turborepo——將 task graph 餵畀 Claude
 
 Turborepo 嘅 `turbo.json` 有 task dependency graph（`build` depends on `^build`）。將佢摘要寫入 root CLAUDE.md：
 
@@ -191,11 +191,11 @@ Turborepo 嘅 `turbo.json` 有 task dependency graph（`build` depends on `^buil
 改完 packages/db 之後，記得 `turbo build --filter=...^db` 重 build 嗮 downstream。
 ```
 
-Claude 知道 build order 之後，做改動會主動建議「呢個會 cascade 去 X、Y、Z，建議跑 `turbo build --filter=...`」。
+Claude 知道 build order 之後，做改動會主動建議「呢個會連帶影響 X、Y、Z，建議跑 `turbo build --filter=...`」。
 
 ### 變化 2：pnpm workspace（無 Turborepo）
 
-冇 task graph 嘅話，靠 `pnpm --filter` flag。Root CLAUDE.md 加：
+冇 task graph 嘅話，靠 `pnpm --filter` flag。Root CLAUDE.md 加返呢段：
 
 ```markdown
 ## pnpm filter cheatsheet
@@ -207,11 +207,11 @@ Claude 知道 build order 之後，做改動會主動建議「呢個會 cascade 
 唔好喺 root 直接 `pnpm add` — 一定要用 filter。
 ```
 
-Claude 學識篩選之後，唔會再喺 root 撞 install。
+Claude 學識篩選之後，唔會再喺 root 亂咁 install。
 
 ### 變化 3：Mixed framework monorepo（Next.js + Astro + Vite）
 
-3 個 app、3 個 framework，最易撞 import / config 衝突。Root CLAUDE.md 加 framework matrix：
+3 個 app、3 個 framework，最易撞 import / config 衝突。Root CLAUDE.md 加張 framework matrix：
 
 ```markdown
 ## Framework matrix
@@ -225,19 +225,19 @@ Claude 學識篩選之後，唔會再喺 root 撞 install。
 跨 app 工作之前確認 framework — `'use client'` 喺 Astro 無效，Astro `---` frontmatter 喺 Next.js 唔識。
 ```
 
-呢張表喺 mixed-framework agency 工作流幫到手 — junior 同 Claude 都唔會撈亂 directive。
+呢張表喺 mixed-framework agency 工作流幫到手——junior 同 Claude 都唔會撈亂 directive。
 
 ## 一個心態
 
-Monorepo 嘅核心唔係「將代碼放埋一齊」— 係**邊界**。Package boundary 喺人類眼中係 folder structure，喺 Claude 眼中**預設係透明嘅**，因為佢嘅預設 tool 係 flat grep。
+Monorepo 嘅核心唔係「將代碼放埋一齊」——係**邊界**。Package boundary 喺人類眼中係 folder structure，喺 Claude 眼中**預設係透明嘅**，因為佢嘅預設工具係 flat grep。
 
-你嘅工作係將呢啲邊界變返 visible：
+你嘅工作係將呢啲邊界變返睇得見：
 
-- **Root CLAUDE.md** = 畀 Claude 個 monorepo map
+- **Root CLAUDE.md** = 畀 Claude 一張 monorepo map
 - **Per-package CLAUDE.md** = 畀 Claude 該 package 嘅 local rules
-- **Slash command** = 硬性收窄 scope，避免漂移
+- **Slash command** = 硬性收窄範圍，避免漂移
 - **Subagent** = 跨 package 工作時保持 context 隔離
 
 做嗮呢 4 件事之後，Claude Code 喺 monorepo 嘅表現由「迷路嘅實習生」變「識路嘅資深同事」。佢仍然會問你問題，但唔會再亂改 `apps/web` 個 login flow。
 
-HK agency / SaaS shop 一單客有 3-5 個 product 同一個 monorepo 係常態。前期投資呢 4 招大概半日。回報係之後每個 task 慳 30-50% token + 唔再 review 到 cross-package mistake。值得做。
+HK agency / SaaS shop 一單客有 3-5 個 product 同一個 monorepo 係常態。前期投資呢 4 招大概半日。回報係之後每個 task 慳 30-50% token，又唔會再喺 review 嗰陣捉到跨 package 改錯嘢。值得做。

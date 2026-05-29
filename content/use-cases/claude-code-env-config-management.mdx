@@ -10,7 +10,7 @@ subcategory: "Environment"
 difficulty: 2
 timeMinutes: 35
 toolsNeeded: ["Claude Code CLI", ".env files 同 Vercel / Railway env management"]
-description: "Solo / 細 team 通常有 dev / staging / prod 三個 env，手做 maintain .env 同 Vercel env vars 一定 drift。教用 Claude Code 將 .env.example 做 single source of truth、auto-sync 落 Vercel / Railway CLI、drift detection hook 接住。"
+description: "Solo / 細 team 通常有 dev / staging / prod 三個 env，手動維護 .env 同 Vercel env vars 一定走樣。教你用 Claude Code 將 .env.example 做 single source of truth、自動同步落 Vercel / Railway CLI、drift detection hook 接住。"
 keywords: ["Claude Code env management", "Vercel env sync", "environment variables AI", "secret rotation Claude", "dotenv Claude Code", "Railway env Claude"]
 related: ["claude-code-onboarding-new-machine", "claude-code-claudemd-mastery", "claude-code-security-review-workflow"]
 featured: false
@@ -31,18 +31,18 @@ featured: false
 1. Local 有 `.env.local`，自己一份
 2. Staging / prod 喺 Vercel dashboard click click 撳入 env var
 3. 加新 feature 加新 env var → 手動入 3 個地方
-4. 同事 onboard → 你 Slack 抄畀佢
-5. 某日 staging build 死，揾咗成晚先發覺：staging 漏咗 `RESEND_API_KEY`，dev 有、prod 有，淨係 staging 唔知幾時 forgotten
+4. 同事 onboard → 你喺 Slack 抄畀佢
+5. 某日 staging build 死，揾咗成晚先發覺：staging 漏咗 `RESEND_API_KEY`，dev 有、prod 有，淨係 staging 唔知幾時漏咗
 
-**問題核心**：env var 散落 4–5 個地方（local file、Vercel dashboard、Railway dashboard、你個腦、Slack DM），冇 single source of truth，drift 係必然。
+**問題核心**：env var 散落 4–5 個地方（本機 file、Vercel dashboard、Railway dashboard、你個腦、Slack DM），冇 single source of truth，走樣係必然。
 
-**Claude Code 反過來幫你**：將 `.env.example` 做 canonical schema，由 Claude 寫 slash command 自動 propagate 落 Vercel / Railway CLI，順手加 drift detection hook。下次有人加 env var，三個 environment 自動跟車。
+**Claude Code 反過來幫你**：將 `.env.example` 做 canonical schema，由 Claude 寫 slash command 自動推落 Vercel / Railway CLI，順手加 drift detection hook。下次有人加 env var，三個 environment 自動跟車。
 
 ## 跟住做
 
 ### 1. `.env.example` 做 single source of truth（5 分鐘）
 
-`.env.example` 應該係你 project 入面唯一一份「呢個 app 需要乜 env var」嘅 declaration。寫到佢可讀、可 parse：
+`.env.example` 應該係你 project 入面唯一一份「呢個 app 需要乜 env var」嘅 declaration。寫到佢易讀、又拆解得到：
 
 ```bash
 # .env.example
@@ -69,13 +69,13 @@ NEXT_PUBLIC_FEATURE_NEW_CHECKOUT=  # optional | dev=true staging=true prod=false
 
 - **每個 var 有 comment**：`required` / `optional`、邊個 env 用、format 提示
 - **冇 value**（永遠空）—— 真 secret 唔好入 git
-- **Group by domain**（DB / Auth / Feature flag），唔好亂晒龍
+- **按範疇分組**（DB / Auth / Feature flag），唔好亂晒龍
 
-呢份 file commit 入 repo，係你 team 同 Claude 嘅 contract。所有自動化都 reference 佢。
+呢份 file commit 入 repo，係你 team 同 Claude 之間嘅約定。所有自動化都跟住佢嚟做。
 
 ### 2. `/env-add` slash command：三個 env 一齊 propagate（10 分鐘）
 
-加新 env var 嘅 friction 越低，drift 越少。喺 `.claude/commands/env-add.md` 整個 slash command：
+加新 env var 嘅阻力越低，走樣越少。喺 `.claude/commands/env-add.md` 整個 slash command：
 
 ```markdown
 # /env-add <var-name>
@@ -106,13 +106,13 @@ NEXT_PUBLIC_FEATURE_NEW_CHECKOUT=  # optional | dev=true staging=true prod=false
 $ claude /env-add RESEND_API_KEY
 ```
 
-Claude 問你齊 4 樣嘢，跟住 4 個地方一次過入。**唔再有「dev 加咗、忘記 prod」**。
+Claude 問你齊 4 樣嘢，跟住 4 個地方一次過入。**唔再有「dev 加咗、唔記得 prod」**。
 
-Railway 嘅人換 `vercel env add` 做 `railway variables set`、加 `--environment` flag。
+用 Railway 嘅人，將 `vercel env add` 換做 `railway variables set`、加 `--environment` flag。
 
-### 3. Sync script：drift 一次過修返（10 分鐘）
+### 3. Sync script：走樣一次過修返（10 分鐘）
 
-`.env.example` 改咗、但某個 environment 漏咗 var？寫個 `scripts/env-sync.ts` 由 Claude 幫你生成。
+`.env.example` 改咗、但某個 environment 漏咗 var？寫個 `scripts/env-sync.ts`，由 Claude 幫你生成。
 
 開個 Claude session：
 
@@ -145,7 +145,7 @@ POSTHOG_KEY           ✓      ✓         ✗
 2 drift detected. Fix now? (y/n)
 ```
 
-3 分鐘解決一個成晚 debug 嘅 staging build。
+3 分鐘解決一個夠你 debug 成晚嘅 staging build。
 
 ### 4. Drift detection hook：CI 把關（10 分鐘）
 
@@ -170,15 +170,15 @@ jobs:
         run: pnpm tsx scripts/env-check-ci.ts /tmp/vercel-env.json
 ```
 
-`env-check-ci.ts` exit 1 if 有 drift，PR 變紅。順手喺 Claude Code 加個 PreToolUse hook：每次 `git push` 前自動跑一次 local check，喺你部機就攔住，唔使等 CI 失敗。
+有 drift 時 `env-check-ci.ts` 會 exit 1，PR 變紅。順手喺 Claude Code 加個 PreToolUse hook：每次 `git push` 之前自動本機檢查一次，喺你部機就攔住，唔使等 CI 失敗。
 
-呢一層搭好之後，env drift 由「定期發生」變成「制度上唔可能 ship」。
+呢一層搭好之後，env drift 由「定期發生」變成「制度上唔可能 ship 出去」。
 
 ## 變化
 
 ### 變化 1：多過 3 個 environment（preview / staging / canary / prod）
 
-如果你係 growth-stage product，preview branch 可能有十幾條 active、再加 canary deploy。手動管不可能。
+如果你係 growth-stage product，preview branch 可能有十幾條開緊、再加 canary deploy。手動管根本冇可能。
 
 改用 **「環境 tier」抽象** —— `.env.example` 入面 comment 唔再寫 dev/staging/prod，改寫 tier：
 
@@ -186,17 +186,17 @@ jobs:
 STRIPE_SECRET_KEY=  # required | tier:test (dev,preview,canary) tier:live (prod)
 ```
 
-寫個 `scripts/env-policy.ts` 由 tier 自動 expand 到每個實際 environment。新開條 preview branch？跑 `pnpm env:provision <branch>`，Claude 根據 tier policy 自動入晒。每多一個 environment，零額外 brain overhead。
+寫個 `scripts/env-policy.ts`，由 tier 自動展開到每個實際 environment。新開條 preview branch？跑 `pnpm env:provision <branch>`，Claude 根據 tier policy 自動入晒。每多一個 environment，你個腦都唔使多記一樣嘢。
 
 ### 變化 2：Team shared secret（1Password / Doppler / Infisical）
 
-人多咗，secret 唔可以「我嘅 Vercel CLI 入面有」就算 —— 同事 onboard 要等你逐條畀。
+人多咗，secret 唔可以「我嘅 Vercel CLI 入面有」就算數 —— 同事 onboard 要等你逐條畀。
 
 接 secret manager：
 
-- **1Password CLI**（`op`）— 細 team 最平、UI 最熟
+- **1Password CLI**（`op`）— 細 team 最平、UI 最熟手
 - **Doppler** — config-as-code、有 access control
-- **Infisical** — open source 自 host 得到
+- **Infisical** — open source，自己 host 得到
 
 Claude 寫 `scripts/env-pull.ts`：
 
@@ -206,11 +206,11 @@ const secrets = await op.read("op://Engineering/<project>/")
 await fs.writeFile(".env.local", formatDotenv(secrets))
 ```
 
-新同事 onboard：clone repo → `op signin` → `pnpm env:pull` → 識跑。Vercel 嘅 env 由 Doppler 直接 push（佢有 integration），dashboard 唔再係 source of truth、secret manager 先係。
+新同事 onboard：clone repo → `op signin` → `pnpm env:pull` → 即刻跑得起。Vercel 嘅 env 由 Doppler 直接 push（佢有 integration），dashboard 唔再係 source of truth、secret manager 先至係。
 
 ### 變化 3：Monorepo per-package env
 
-`apps/web`、`apps/api`、`apps/worker` 各自要 env。亂咁 `.env.local` 喺 root 會出事 —— `apps/api` 唔應該讀到 `NEXT_PUBLIC_*`，`apps/web` 唔應該讀到 `STRIPE_SECRET_KEY`。
+`apps/web`、`apps/api`、`apps/worker` 各自要 env。一份 `.env.local` 亂放喺 root 會出事 —— `apps/api` 唔應該讀到 `NEXT_PUBLIC_*`，`apps/web` 唔應該讀到 `STRIPE_SECRET_KEY`。
 
 每個 package 自己一份 `.env.example`：
 
@@ -221,20 +221,20 @@ apps/
 └── worker/.env.example   # queue creds, Anthropic key, S3 creds
 ```
 
-`/env-add` slash command 升級：第一個問題加埋「邊個 package？」，根據答案揀對應 `.env.example` 同 Vercel project（每個 app 喺 Vercel 通常獨立 project）。Claude 嘅 CLAUDE.md 寫清楚：「envvar 只放對應 package，唔好 share；要分享就用 build-time inject」。
+`/env-add` slash command 升級：第一個問題加埋「邊個 package？」，根據答案揀對應 `.env.example` 同 Vercel project（每個 app 喺 Vercel 通常獨立一個 project）。Claude 嘅 CLAUDE.md 寫清楚：「env var 只放對應 package，唔好共用；要分享就喺 build-time inject」。
 
 ## 一個心態
 
 > **Env config drift 唔係紀律問題，係 system design 問題。** 靠人類記性同 Slack 提醒一定輸；靠 single source of truth + 自動 propagate + CI 檢查就贏。
 
-最反直覺嘅 insight：**dashboard 唔應該係 source of truth**。Vercel / Railway 嘅 UI 好順手，但每次喺度 click 就係一次潛在 drift。`.env.example` （或者 secret manager）入 git、入 PR review，先至有 history、有 review、有 rollback。
+最反直覺嘅一點：**dashboard 唔應該係 source of truth**。Vercel / Railway 嘅 UI 好順手，但每次喺度撳一下就係一次潛在 drift。`.env.example`（或者 secret manager）入 git、入 PR review，先至有歷史、有 review、有得 rollback。
 
-呢個心態嘅 reframe：env config 同 schema migration 一樣，係 **infrastructure-as-code** 嘅一部分。冇人會手 click migration，但好多人手 click env var —— 諗起就唔合理。
+換個角度睇：env config 同 schema migration 一樣，係 **infrastructure-as-code** 嘅一部分。冇人會用手撳 migration，但好多人用手撳 env var —— 諗起就唔合理。
 
 最後提醒：
 
 - ✅ **`.env.example` 永遠跟 codebase 同步 commit**。加新 var 嗰個 PR 入面同時更新。
 - ⚠️ **真 secret 永遠唔好入 `.env.example`**，連 placeholder 都唔好寫真 key 開頭。
-- 🔁 **每季 rotate 一次高敏感 key**（Stripe / DB / Anthropic）。Claude 寫條 `/rotate <key>` slash command，三個 env 順序換、舊 key revoke、deploy 核實，半個鐘搞掂。
+- 🔁 **每季 rotate 一次高敏感 key**（Stripe / DB / Anthropic）。叫 Claude 寫條 `/rotate <key>` slash command，三個 env 順序換、舊 key revoke、deploy 核實，半個鐘搞掂。
 
 今個 weekend 抽 35 分鐘搭好呢套。下次同事問你「點解 staging 又死」，你會發現答案唔再係「我夜晚改下」。

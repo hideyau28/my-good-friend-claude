@@ -1,5 +1,5 @@
 ---
-title: "Claude Code 揀啱 model 慳 70% cost：Haiku 跑 grunt、Sonnet 出 feature、Opus 做 architecture"
+title: "Claude Code 揀啱 model 慳 70% 成本：Haiku 跑雜務、Sonnet 出 feature、Opus 做架構"
 slug: "claude-code-model-routing-cost-control"
 issue: 123
 publishedAt: 2026-05-27
@@ -11,7 +11,7 @@ heroImage: "/hero/claude-code-model-routing-cost-control.webp"
 difficulty: 2
 timeMinutes: 30
 toolsNeeded: ["Claude Code CLI", "Anthropic API key"]
-description: "Claude Code default 用 Sonnet，月底見 bill 先嚇親。其實 80% 嘅 task（rename / move / boilerplate）Haiku 已經夠用。教你 task-to-model routing：grunt 用 Haiku、feature 用 Sonnet、architecture 先出 Opus，月費直接落 70%。"
+description: "Claude Code 預設用 Sonnet，月底見單先嚇親。其實 80% 嘅工作（改名、搬檔、樣板碼）Haiku 已經夠用。教你按工作揀 model：雜務用 Haiku、feature 用 Sonnet、架構先出 Opus，月費直接落 70%。"
 keywords: ["Claude Code cost", "Haiku Sonnet Opus comparison", "AI model routing", "Claude API budget", "Claude Code 慳錢"]
 related: ["claude-code-install-claude", "claude-code-subagents-claude", "claude-code-headless-automation"]
 featured: false
@@ -21,53 +21,53 @@ featured: false
 
 你裝咗 Claude Code 兩個月，每日用，工作流順到唔捨得放低。
 
-第一個月 bill 出嚟：US$340。
+第一個月單出嚟：US$340。
 
 你嚇親。攤開 usage dashboard 望真啲：
 
-- 70% token 用咗喺「rename variable」、「move file」、「regenerate test fixture」呢類 grunt work
-- 20% 用喺日常 feature dev
-- 10% 用喺真係要諗嘢嘅 architecture / 拆 bug
+- 70% token 用咗喺「改 variable 個名」、「搬 file」、「重新生成 test fixture」呢類雜務
+- 20% 用喺日常 feature 開發
+- 10% 用喺真係要諗嘢嘅架構 / 拆 bug
 
-而呢三類 task，全部用緊同一個 model — Sonnet 4.5。
+而呢三類工作，全部用緊同一個 model —— Sonnet 4.5。
 
 呢個預設邏輯有問題：
 
-- **Sonnet 強，但 rename 一個 variable 用佢係燒銀紙**。Haiku 4.5 做呢樣嘢有 90% 質素，價錢得 1/4
-- **真係要諗嘢嘅 task 反而用緊「平衡型」**。複雜 race condition、tricky refactor，你需要嘅係 Opus
+- **Sonnet 強，但改一個 variable 個名都用佢係燒銀紙**。Haiku 4.5 做呢樣嘢有 90% 質素，價錢得 1/4
+- **真係要諗嘢嘅工作反而用緊「平衡型」**。複雜嘅 race condition、棘手 refactor，你需要嘅係 Opus
 - **Claude Code 識揀 model，但你冇教過佢點揀**。佢只能用預設
 
-呢篇教你建立 task-to-model routing。3 個 slash command、1 個 CLAUDE.md routing rule、加 subagent dispatch — 跟住做，下個月 bill 落 50%-70%，質素冇跌反而升（因為複雜 task 開始用 Opus）。
+呢篇教你建立「按工作揀 model」嘅做法。3 個 slash command、1 條 CLAUDE.md routing 規則、加 subagent 分派 —— 跟住做，下個月單落 50%-70%，質素冇跌反而升（因為複雜工作開始用 Opus）。
 
 ## 跟住做
 
-### 1. Model price comparison + use case mapping（5 分鐘）
+### 1. 三隻 model 價錢對照 + 工作分類（5 分鐘）
 
-先建立心智 model。3 隻 model 嘅 input/output 價錢（per 1M tokens，2026 May 報價）：
+先喺腦入面建立個概念。3 隻 model 嘅 input/output 價錢（每 1M tokens，2026 年 5 月報價）：
 
 | Model | Input | Output | 適合 |
 |---|---|---|---|
-| Haiku 4.5 | US$1 | US$5 | Grunt work、平行 task、boilerplate |
-| Sonnet 4.5 | US$3 | US$15 | 日常 feature dev、code review |
-| Opus 4.7 | US$15 | US$75 | Architecture、複雜 debug、長 reasoning |
+| Haiku 4.5 | US$1 | US$5 | 雜務、平行工作、樣板碼 |
+| Sonnet 4.5 | US$3 | US$15 | 日常 feature 開發、code review |
+| Opus 4.7 | US$15 | US$75 | 架構、複雜 debug、長篇推理 |
 
-Opus output 係 Haiku 嘅 15 倍。但你日常根本唔需要 Opus 級數推理。
+Opus output 係 Haiku 嘅 15 倍。但你日常根本唔需要 Opus 級數嘅推理。
 
-Task-to-model 對照：
+工作對應 model：
 
-- **Haiku**：rename / move file、generate test data、format code、寫 commit message、簡單 regex、search 用 grep 點寫
-- **Sonnet**：寫新 component、debug logic bug、refactor 一個 module、code review
-- **Opus**：揀 architecture（monolith vs microservice）、race condition、performance bottleneck、規劃多 module 改動
+- **Haiku**：改名 / 搬 file、生成 test data、執靚 code 格式、寫 commit message、簡單 regex、grep 點寫
+- **Sonnet**：寫新 component、debug 邏輯 bug、refactor 一個 module、code review
+- **Opus**：揀架構（monolith 定 microservice）、race condition、performance 瓶頸、規劃跨 module 改動
 
-### 2. /haiku /sonnet /opus slash command setup（10 分鐘）
+### 2. 整 /haiku /sonnet /opus slash command（10 分鐘）
 
-喺 project root 整 `.claude/commands/` folder：
+喺 project root 整個 `.claude/commands/` 資料夾：
 
 ```bash
 mkdir -p .claude/commands
 ```
 
-整三個 slash command 檔。`.claude/commands/haiku.md`：
+整三個 slash command 檔案。`.claude/commands/haiku.md`：
 
 ```markdown
 ---
@@ -107,11 +107,11 @@ description: Switch to Opus 4.7 for architecture / deep reasoning
 之後用 extended thinking，思考多角度。
 ```
 
-之後喺 Claude Code session 打 `/haiku`、`/sonnet`、`/opus` 就秒切。
+之後喺 Claude Code session 打 `/haiku`、`/sonnet`、`/opus` 就一秒切到。
 
-### 3. CLAUDE.md routing rule + subagent dispatch（10 分鐘）
+### 3. CLAUDE.md routing 規則 + subagent 分派（10 分鐘）
 
-喺 project root `CLAUDE.md` 加一節：
+喺 project root 嘅 `CLAUDE.md` 加一節：
 
 ```markdown
 ## Model routing
@@ -128,40 +128,40 @@ Subagent dispatch：
 - 例如「rename 30 個 file 入面個 helper 名」、「regenerate 50 個 test fixture」 → 用 Haiku subagent 平行跑
 ```
 
-之後你問 Claude「rename 哂呢個 service 入面所有 oldName」，Claude 會自己提：「呢個 grunt work，建議 `/haiku` 切先做。」
+之後你問 Claude「改晒呢個 service 入面所有 oldName」，Claude 會自己提：「呢個係雜務，建議 `/haiku` 切咗先做。」
 
 Subagent 平行跑嘅例子（喺 prompt 入面寫）：
 
 <PromptBlock>
 分派 5 個 Haiku subagent 平行做以下嘢：
-1. Rename `oldHelper` 做 `newHelper` 喺 [src/services]
-2. Update import path 喺 [src/components]
-3. Regenerate test fixture 喺 [tests/fixtures]
-4. Update doc reference 喺 [docs/]
-5. Update CHANGELOG entry
+1. 將 [src/services] 入面嘅 `oldHelper` 改名做 `newHelper`
+2. 更新 [src/components] 入面嘅 import path
+3. 重新生成 [tests/fixtures] 入面嘅 test fixture
+4. 更新 [docs/] 入面嘅文件引用
+5. 更新 CHANGELOG 一條紀錄
 
 每個 subagent 用 `model: claude-haiku-4-5`，跑完匯總。
 </PromptBlock>
 
-Haiku 平行 5 條，總成本可能仲低過用 Sonnet 順序做一條。
+Haiku 平行跑 5 條，總成本可能仲低過用 Sonnet 順序做一條。
 
-### 4. Monthly cost audit ritual（5 分鐘）
+### 4. 每月成本檢視儀式（5 分鐘）
 
 每月 1 號做：
 
 1. 開 [console.anthropic.com](https://console.anthropic.com) → Usage
-2. Filter「by model」睇分佈
-3. 健康 ratio：Haiku 50-60% / Sonnet 30-40% / Opus 5-10%
-4. 如果 Sonnet > 70% → 你 grunt work 冇切 Haiku
-5. 如果 Opus > 20% → 你濫用 Opus，部分 task Sonnet 已經做到
+2. 按 model 篩選睇分佈
+3. 健康比例：Haiku 50-60% / Sonnet 30-40% / Opus 5-10%
+4. 如果 Sonnet > 70% → 你啲雜務冇切 Haiku
+5. 如果 Opus > 20% → 你濫用 Opus，部分工作 Sonnet 已經做到
 
-調整完，下個月再睇。3 個月之內，你會 calibrate 到自己工作模式嘅最佳分佈。
+調整完，下個月再睇。3 個月之內，你會慢慢校準到最啱自己工作模式嘅分佈。
 
 ## 變化
 
-### 變化 1：Solo dev 緊 budget 版
+### 變化 1：Solo dev 緊預算版
 
-每月想壓喺 US$50 以下。預設反過嚟 — 預設 Haiku，escalate 先用 Sonnet。
+每月想壓喺 US$50 以下。預設反過嚟 —— 預設 Haiku，要升級先用 Sonnet。
 
 `CLAUDE.md`：
 
@@ -177,53 +177,53 @@ Default：Haiku 4.5。
 絕對唔好自動切 Opus。我要用就會打 /opus。
 ```
 
-呢個模式：質素稍跌、月費可以喺 US$30-50 之間。Side project / 學習階段啱用。
+呢個模式：質素稍稍跌少少、月費可以壓喺 US$30-50 之間。Side project / 學習階段啱用。
 
-### 變化 2：Agency 多 client 版
+### 變化 2：Agency 多客戶版
 
-接 5-10 個 client，要 allocate cost。每個 client 一個 folder + 一個 CLAUDE.md。
+接 5-10 個客戶，要分開計成本。每個客戶一個資料夾 + 一個 CLAUDE.md。
 
-每個 folder 嘅 `.env.local`：
+每個資料夾嘅 `.env.local`：
 
 ```bash
 ANTHROPIC_API_KEY=sk-ant-...
 ANTHROPIC_PROJECT_TAG=client-acme
 ```
 
-Anthropic console 入面開「Projects」，每個 client 一個 project，分開 billing。月底直接出 invoice line item。
+Anthropic console 入面開「Projects」，每個客戶一個 project，分開計費。月底直接出 invoice 一條 line item。
 
-Routing rule 按 client 嘅 budget 調 — premium client 容許 Opus，cost-sensitive client 預設 Haiku。
+Routing 規則按客戶嘅預算去調 —— 肯付錢嘅客戶容許用 Opus，慳得就慳嘅客戶預設 Haiku。
 
-### 變化 3：Education / learning 版
+### 變化 3：學習版
 
-你學緊新 framework / 新 concept，唔係趕住交嘢。
+你學緊新 framework / 新概念，唔係趕住交嘢。
 
 策略反過嚟：
 
-- **Opus for explain**：你唔明嘅 concept、想要深入解釋 → 直接 `/opus`。Opus 嘅解釋有層次、舉例貼題
-- **Sonnet for hands-on**：跟住寫 code、做練習 → Sonnet
-- **Haiku for repetitive drill**：generate 10 個變化 example、寫 flashcard → Haiku
+- **要解釋就用 Opus**：你唔明嘅概念、想要深入解釋 → 直接 `/opus`。Opus 嘅解釋有層次、舉例又貼題
+- **動手做就用 Sonnet**：跟住寫 code、做練習 → Sonnet
+- **重複操練就用 Haiku**：生成 10 個變化例子、寫 flashcard → Haiku
 
-學習階段「貴 model 用喺 explain」其實划算 — 你慳嘅係「Google 唔到答案嗰兩個鐘」。
+學習階段「貴 model 用嚟解釋」其實划算 —— 你慳返嘅係「Google 唔到答案嗰兩個鐘」。
 
 ## 一個心態
 
-> 預設係給唔識揀嘅人用嘅。識揀嘅人，每個 task 都揀啱 tool。
+> 預設係畀唔識揀嘅人用嘅。識揀嘅人，每件工作都揀啱工具。
 
-Claude Code 預設 Sonnet 唔係佢嘅錯 — 係佢未識你嘅工作模式。你 install 第一日，佢冇辦法分得清「rename」同「architecture」對你嘅難度差距。
+Claude Code 預設 Sonnet 唔係佢嘅錯 —— 係佢未識你嘅工作模式。你裝嘅第一日，佢冇辦法分得清「改名」同「架構」對你嘅難度差幾遠。
 
 但兩個月之後，你應該識自己。應該知道：
 
 - 自己 70% 時間做緊咩
-- 邊類 task 真係需要推理
-- 邊類 task 只係要「快、準、唔錯」
+- 邊類工作真係需要推理
+- 邊類工作只係要「快、準、唔錯」
 
-Model routing 嘅意義唔係慳錢 — 慳錢只係 side effect。真正意義係：**你開始 treat AI 做工具，唔再 treat 做萬能 oracle**。Haiku 處理 grunt、Sonnet 出活、Opus 做 deep work — 你嘅腦袋都係咁分工。
+按工作揀 model 嘅意義唔係慳錢 —— 慳錢只係順帶嘅好處。真正意義係：**你開始當 AI 係工具，唔再當佢係萬能嘅 oracle**。Haiku 處理雜務、Sonnet 出活、Opus 做要諗嘢嘅深度工作 —— 你個腦本身都係咁分工。
 
 最後提醒：
 
-- ✅ **第 1 個月實驗，第 2 個月固定 ratio**。唔好一裝 routing rule 就期待即刻慳 70%
-- ⚠️ **唔好過度 micro-optimize**。為咗慳 US$5 打 30 次 `/haiku` 切過嚟切過去，唔抵
-- 🎯 **`/cost` 喺 session 入面睇即時 token 消耗**。一個 task 跑完檢查一次，幾日就 calibrate 到
+- ✅ **第 1 個月實驗，第 2 個月固定比例**。唔好一裝咗 routing 規則就期待即刻慳 70%
+- ⚠️ **唔好過度執到盡**。為咗慳 US$5 打 30 次 `/haiku` 切過嚟切過去，唔抵
+- 🎯 **`/cost` 喺 session 入面睇即時 token 消耗**。一件工作跑完檢查一次，幾日就校準到
 
-下個鐘整 3 個 slash command + 改 CLAUDE.md。月底先睇 bill 對比。
+下個鐘整 3 個 slash command + 改 CLAUDE.md。月底先睇單對比。

@@ -20,7 +20,7 @@ featured: false
 
 你用 Claude Code 寫 feature。叫佢「整個 function 計 invoice tax，加埋 test」。
 
-佢三秒之內出晒 implementation + test。你睇下，test 全部 pass。Commit、Push、收工。
+佢三秒之內出晒 implementation + test。你睇下，test 全部 pass。Commit、push、收工。
 
 兩個禮拜後 production 出事——佢個 test 同個 impl 係**同一刻寫出嚟**，互相驗證緊對方嘅幻覺。Edge case 一個都冇 cover。
 
@@ -51,7 +51,7 @@ featured: false
 <PromptBlock label="Session 開頭">
 我哋而家行 TDD mode（睇 CLAUDE.md）。
 
-我 own test file，你 own implementation。每個 cycle：我貼 failing test → 你出 minimal impl → 我 review 同決定下一步。
+我 own test file，你 own implementation。每個 cycle：我貼 failing test → 你出 minimal impl → 我睇過再決定下一步。
 
 確認你明白規則。
 </PromptBlock>
@@ -116,7 +116,7 @@ Claude 出 list。你揀 2-3 個最高風險嘅，**自己**寫 test，再跑 re
 2. 每改一步跑一次 test，確保仲係綠
 3. 唔好加新 feature，純粹 restructure
 
-完咗之後總結你改咗乜，等我 review。
+完咗之後總結你改咗乜，等我睇過。
 </PromptBlock>
 
 呢個 pass 通常 5 分鐘搞掂，但每幾個週期做一次，code quality 同一次過寫嘅版本差距好明顯。
@@ -125,19 +125,19 @@ Claude 出 list。你揀 2-3 個最高風險嘅，**自己**寫 test，再跑 re
 
 ### 變化 1：Bug fix mode — regression test 先
 
-撞到 production bug，唔好即刻 fix。先寫 test 重現：
+撞到 production bug，唔好即刻搞掂佢。先寫 test 重現：
 
 <PromptBlock label="變化 1 — Bug regression TDD">
 Production bug：[描述病徵 + 重現步驟]。
 
 TDD mode：我先寫一個 regression test 重現呢個 bug（會紅）。
-你睇咗 test 之後**唔好**即刻寫 fix，先答我：
+你睇過 test 之後**唔好**即刻寫 fix，先答我：
 
 1. 你估個 root cause 係邊個 file / function？
 2. 有幾肯定（1-5）？
 3. 仲有冇其他可能性？
 
-等我 核對 你估嘅方向，先寫 fix。
+等我核對你估嘅方向，先寫修正。
 </PromptBlock>
 
 呢個 mode 好處：個 regression test 永遠留低，下次 refactor 唔會再出返同一個 bug。

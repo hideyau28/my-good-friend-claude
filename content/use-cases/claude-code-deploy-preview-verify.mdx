@@ -1,5 +1,5 @@
 ---
-title: "Claude Code ship 完即 verify：自動 ping Vercel preview + smoke test + Slack 通知"
+title: "Claude Code 上線完即核實：自動 ping Vercel preview + smoke test + Slack 通知"
 slug: "claude-code-deploy-preview-verify"
 issue: 124
 publishedAt: 2026-05-27
@@ -11,7 +11,7 @@ heroImage: "/hero/claude-code-deploy-preview-verify.webp"
 difficulty: 2
 timeMinutes: 35
 toolsNeeded: ["Claude Code CLI", "Vercel / Netlify / Cloudflare Pages account", "Slack / Discord webhook"]
-description: "Push 唔代表 deploy 成功。教 Claude Code 一個 ship 後 ritual：poll Vercel API 等 build ready、ping critical path、跑 Playwright smoke、Slack 報生死。一個 /ship 搞掂。"
+description: "Push 唔代表部署成功。教 Claude Code 一套上線後嘅例行核實：poll Vercel API 等 build ready、ping 關鍵路徑、跑 Playwright smoke、Slack 報生死。一個 /ship 搞掂。"
 keywords: ["Vercel deploy verify", "post-deploy smoke test", "Claude Code ship workflow", "deploy preview check", "Playwright smoke test"]
 related: ["claude-code-git-workflow", "claude-code-headless-automation", "claude-code-hooks-claude"]
 featured: false
@@ -23,9 +23,9 @@ featured: false
 
 睇 Vercel dashboard，build 綠色。睇 GitHub，合併咗。但個 page 真係 500。原因：你改咗個 env var name，本地 `.env.local` 有，Vercel project setting 冇加。Build 過得，runtime 死。
 
-呢類錯，**push 成功 ≠ deploy 成功 ≠ user-facing 正常**。Vercel 個綠剔淨係話 build pipeline 行得，唔保證個 page render 到。
+呢類錯，**push 成功 ≠ 部署成功 ≠ 用戶見到嘅嘢正常**。Vercel 個綠剔淨係話 build pipeline 行得，唔保證個 page render 到。
 
-呢篇拆 4 步，教 Claude Code 喺你打完 `git push` 之後，自動 run 一個 post-deploy 核實 ritual：等 deploy ready、ping 關鍵路徑、跑 Playwright smoke、Slack 報生死。出事第一個知嘅係你，唔係你 user。
+呢篇拆 4 步，教 Claude Code 喺你打完 `git push` 之後，自動行一套上線後嘅例行核實：等 deploy ready、ping 關鍵路徑、跑 Playwright smoke、Slack 報生死。出事第一個知嘅係你，唔係你啲用戶。
 
 ## 跟住做
 
@@ -63,11 +63,11 @@ echo "timeout waiting for deploy" >&2
 exit 1
 ```
 
-呢段 poll 每 10 秒，最多等 400 秒（一般 build 兩三分鐘）。Token 喺 Vercel account settings 開，scope 限 read deployments 已經夠。Return preview URL 畀下游用。
+呢段每 10 秒 poll 一次，最多等 400 秒（一般 build 兩三分鐘）。Token 喺 Vercel account settings 開，權限限定唯讀 deployments 已經夠。最後吐返個 preview URL 畀下游用。
 
 ### 2. Critical path smoke check
 
-有咗 preview URL，第一輪驗證係**HTTP 層**：關鍵 page response 200，response body 含預期關鍵字。冇任何 browser、快、cheap。
+有咗 preview URL，第一輪驗證係**HTTP 層**：關鍵 page 回 200，response body 含預期關鍵字。唔使任何 browser、又快又慳。
 
 `.claude/scripts/smoke-paths.sh`：
 
@@ -98,11 +98,11 @@ done
 exit $FAIL
 ```
 
-呢層捉到 90% 嘅 deploy regression：env var 漏、route 拆錯、SSR 拋 error。Cost 三秒。每條 path 配個關鍵字，捉到「200 但 render 咗 fallback empty page」嘅暗病。
+呢層捉到 90% 嘅部署 regression：env var 漏、route 拆錯、SSR 拋 error。三秒搞掂。每條 path 配個關鍵字，連「回咗 200 但 render 咗一版 fallback 空白頁」嘅暗病都捉到。
 
 ### 3. Playwright scenario test
 
-HTTP layer 過唔代表用戶 flow 行得到。第三步係 headless browser 跑 3-5 條 critical flow。
+HTTP 層過到，唔代表用戶 flow 行得到。第三步係用 headless browser 跑 3 至 5 條最關鍵嘅 flow。
 
 `tests/smoke.spec.ts`：
 
@@ -133,11 +133,11 @@ test('search 打字有結果', async ({ page }) => {
 
 跑：`PREVIEW_URL=$URL npx playwright test --project=chromium tests/smoke.spec.ts`。
 
-呢個唔係 full E2E，係 smoke —— 揀 3-5 條「呢條死咗即等於 site 死咗」嘅 flow。多咗會慢、會 flaky、會 false alarm。
+呢個唔係 full E2E，係 smoke —— 揀 3 至 5 條「呢條死咗即等於成個 site 死咗」嘅 flow。多咗會慢、會 flaky、會成日無端端報錯。
 
 ### 4. Slack / Discord 通知
 
-最後一步：將上面三輪結果 pipe 入 webhook，pass 報綠、fail 報紅 + 連 preview URL + commit message。
+最後一步：將上面三輪結果灌入 webhook，過到報綠、唔過報紅，再連埋 preview URL 同 commit message。
 
 `.claude/commands/ship.md`：
 
@@ -164,23 +164,23 @@ description: Push + verify deploy + Slack 通知
 
 ### 變化 1：Netlify 版本
 
-Netlify API 同 Vercel 邏輯一樣，poll endpoint 換做 `https://api.netlify.com/api/v1/sites/$SITE_ID/deploys`，state 認 `ready`、`error`。Cloudflare Pages 用 `/accounts/.../pages/projects/$PROJECT/deployments`，state 認 `success`。Step 2-4 完全唔使改 —— preview URL 出嚟之後嘅核實邏輯同 platform 無關，呢個就係呢個 ritual 嘅威力。
+Netlify API 同 Vercel 邏輯一樣，poll 嘅 endpoint 換做 `https://api.netlify.com/api/v1/sites/$SITE_ID/deploys`，state 認 `ready`、`error`。Cloudflare Pages 用 `/accounts/.../pages/projects/$PROJECT/deployments`，state 認 `success`。Step 2 至 4 完全唔使改 —— preview URL 出咗嚟之後嘅核實邏輯同邊個平台都無關，呢套例行核實嘅威力就喺度。
 
 ### 變化 2：三段 deploy（preview / staging / prod）
 
-Solo dev 一段 deploy 夠用。Team / SaaS 通常分三段：feature branch 開 preview、merge `develop` 出 staging、merge `main` 出 prod。
+一個人開發，一段 deploy 夠用。Team / SaaS 通常分三段：feature branch 開 preview、merge `develop` 出 staging、merge `main` 出 prod。
 
 `/ship` slash command 加參數：
 
-- `/ship preview` —— smoke paths only，平日調整用
+- `/ship preview` —— 只跑 smoke paths，平日修修補補用
 - `/ship staging` —— smoke + Playwright + Slack 通知 `#dev`
-- `/ship prod` —— 上面所有 + 額外 Lighthouse 跑分 + Slack 通知 `#general` + 跑 sentry release create
+- `/ship prod` —— 上面全部 + 額外 Lighthouse 跑分 + Slack 通知 `#general` + 跑 sentry release create
 
-CLAUDE.md codify 每段嘅 gate（譬如 prod 必須 staging 綠咗 24 小時先肯 ship），Claude 唔會冇 staging 直接 prod。
+喺 CLAUDE.md 寫明每段嘅關卡（譬如 prod 必須 staging 綠咗 24 小時先肯出），Claude 就唔會跳過 staging 直接出 prod。
 
 ### 變化 3：E-commerce checkout flow
 
-賣嘢嘅 site，最 critical 嘅唔係首頁而係 checkout。Playwright smoke 必須跑足 add-to-cart → checkout → payment confirm（用 Stripe test mode key）：
+賣嘢嘅 site，最關鍵嘅唔係首頁而係 checkout。Playwright smoke 必須跑足 add-to-cart → checkout → payment confirm（用 Stripe test mode key）：
 
 ```typescript
 test('checkout flow 行到尾', async ({ page }) => {
@@ -200,12 +200,12 @@ test('checkout flow 行到尾', async ({ page }) => {
 
 ## 一個心態
 
-> Deploy 唔係「`git push` 完就算」，係「user 真係見到嘅嘢同你 staging 一樣」先算。中間嗰段差距，就係呢個 ritual 補返。
+> 部署唔係「`git push` 完就算」，係「用戶真係見到嘅嘢同你 staging 一樣」先算。中間嗰段差距，就係靠呢套例行核實補返。
 
 最後提醒：
 
-- ✅ **先做 step 1-2**（poll + curl smoke）。15 分鐘工，已經捉到八成 regression。
-- ⚠️ **Playwright smoke 要狠揀**。多過 5 條會 flaky、會煩、會被你 disable。三條最 critical 嘅夠。
-- 🎯 **Slack 通知一定要連 preview URL**。出事個陣你撳一下就跳到出事個 page，唔需要再揾。
+- ✅ **先做 step 1 至 2**（poll + curl smoke）。15 分鐘工夫，已經捉到八成 regression。
+- ⚠️ **Playwright smoke 要狠手揀**。多過 5 條會 flaky、會煩，最後畀你自己 disable 咗。三條最關鍵嘅夠。
+- 🎯 **Slack 通知一定要連 preview URL**。出事嗰陣你撳一下就跳到出事嗰版，唔使再揾。
 
-下次禮拜五夜晚 push，落街食飯前打 `/ship` 一句。返到屋企 Slack 已經話畀你聽生定死 —— 而唔係用戶話畀你聽。
+下次禮拜五夜晚 push，落街食飯前打 `/ship` 一句。返到屋企 Slack 已經話畀你聽生定死 —— 而唔係等你啲用戶話畀你聽。

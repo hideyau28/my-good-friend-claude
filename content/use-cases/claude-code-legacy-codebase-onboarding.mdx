@@ -26,7 +26,7 @@ featured: false
 - **無 README**（或者得返啲寫住「How to set up」嘅過時草稿）
 - **無架構文件**
 - **3 個原作者已離職**
-- **CI 跑得過，但無人解釋依賴 (dependencies) 之間嘅關係**
+- **CI 跑得過，但無人解釋啲依賴 (dependencies) 之間嘅關係**
 
 你第一個禮拜要搞清楚呢個 codebase 點運作，先可以推出新功能。資深開發者嘅預設工作流程：
 
@@ -75,7 +75,7 @@ Claude Code 會花 5-10 分鐘掃瞄，出初步文件。
 - **最頻繁改動嘅檔案**（用 git log 搵近 1 年 commit 最多嘅）
 - **最關鍵嘅業務邏輯**（例如 payment / auth / data layer）
 - **最脆弱嘅檔案**（無測試覆蓋、或有測試但失敗率高）
-- **最「有陣舊除」嘅檔案**（大量被 comment 咗嘅代碼、5 個以上 TODO、已知嘅反面模式）
+- **最「有陣陳年味」嘅檔案**（大量俾人 comment 起咗嘅代碼、5 個以上 TODO、已知嘅反面模式）
 
 每個 hotspot 畀返：檔案路徑、原因、估計複雜度（1-5 星）、建議嘅第一步行動（閱讀 / 重構 / 測試 / 唔好搞住）。
 </PromptBlock>
@@ -85,9 +85,9 @@ Claude Code 會花 5-10 分鐘掃瞄，出初步文件。
 <PromptBlock label="第三步 — 偵測無用代碼">
 請幫我識別潛在嘅無用代碼：
 
-- Export 咗嘅 function 從未被引用
-- Branch / case 入面永遠行唔到嘅代碼
-- 被 comment 咗而且超過 1 年未掂過嘅代碼
+- 已 export 出嚟但從未被引用嘅 function
+- branch / case 入面永遠行唔到嘅代碼
+- 已 comment 起、而且超過 1 年未掂過嘅代碼
 - 喺 .env.example 有但 codebase 從來冇讀取過嘅環境變數
 
 輸出一份「dead code candidates」清單。每個附上：

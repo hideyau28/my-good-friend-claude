@@ -25,7 +25,7 @@ featured: true
 
 1. Google「install claude code」→ 第 1 個結果係一個撞名嘅 npm package
 2. 揾到 official docs → install 指令但你唔清楚應該喺邊個 directory 跑
-3. Run 完，error message：「ANTHROPIC_API_KEY not set」
+3. 跑完，error message：「ANTHROPIC_API_KEY not set」
 4. 揾到 API key 頁 → create key → 唔清楚喺邊度 set 環境變數
 5. 設定完，試跑第一個指令 → 權限錯誤
 6. 卡住 1 個鐘，放棄
@@ -100,10 +100,10 @@ source ~/.zshrc  # 或 .bashrc
 
 去 [console.anthropic.com](https://console.anthropic.com)：
 
-1. Sign in
+1. 登入
 2. Settings → API Keys
-3. Create key → label「claude-code-local」
-4. **Copy 嘅 key 即刻儲好**（只見到一次）
+3. Create key → 改個 label「claude-code-local」
+4. **copy 咗個 key 即刻儲好**（只係見到一次）
 
 設環境變數：
 
@@ -123,7 +123,7 @@ echo $ANTHROPIC_API_KEY
 .env.local
 ```
 
-### 4. Run 第一個 Claude Code session（10 分鐘）
+### 4. 跑第一個 Claude Code session（10 分鐘）
 
 開一個測試 project folder：
 
@@ -133,15 +133,15 @@ cd ~/claude-test
 git init  # optional but recommended
 ```
 
-Run Claude Code：
+跑 Claude Code：
 
 ```bash
 claude
 ```
 
-第一次 run，Claude Code 會：
-- Welcome message
-- 你確認工作 directory
+第一次跑，Claude Code 會：
+- 出歡迎訊息
+- 同你確認工作 directory
 - 顯示預設模式（interactive）
 - 等你第一個 prompt
 
@@ -205,9 +205,9 @@ VS Code 接駁：
 code --install-extension anthropic.claude-code
 ```
 
-開 VS Code，sidebar 出現 Claude Code panel。可以：
-- Highlight code → 問 Claude
-- Inline AI 自動補全（類似 Copilot 但模型唔同）
+開 VS Code，sidebar 會出現 Claude Code panel。可以：
+- 揀起一段 code → 問 Claude
+- 喺行內即時補全（類似 Copilot，但模型唔同）
 
 JetBrains（IntelliJ / WebStorm 等）有類似插件。
 
@@ -231,7 +231,7 @@ JetBrains（IntelliJ / WebStorm 等）有類似插件。
 - `prisma/schema.prisma` — database schema
 ```
 
-呢個等於 project 專屬嘅 system prompt。Claude 每次 session 入呢個 folder 自動 inject 背景。
+呢個等於 project 專屬嘅 system prompt。Claude 每次 session 入呢個 folder 都會自動載入呢啲背景。
 
 ### 變化 3：明確揀模型
 
@@ -254,9 +254,9 @@ claude --model claude-opus-4-7
 
 ## 一個心態
 
-Claude Code 安裝嘅隱藏 insight：**CLI 工具都有學習曲線，但每日嘅回報會利疊利**。
+Claude Code 安裝嘅隱藏啟示：**CLI 工具都有學習曲線，但每日嘅回報會利疊利**。
 
-第 1 日安裝 + 設定：1 個鐘成本第 2-7 日：每日 30 分鐘「我仲摸索緊」嘅唔順第 8 日後：每日流程順暢
+第 1 日安裝 + 設定：花你 1 個鐘。第 2 至 7 日：每日 30 分鐘「我仲摸索緊」嘅唔順。第 8 日之後：每日流程順暢。
 
 第 30 日：你諗唔明點解之前用 web 版 Claude.ai 咁慢。
 
@@ -265,7 +265,7 @@ Claude Code 安裝嘅隱藏 insight：**CLI 工具都有學習曲線，但每日
 最後提醒：
 
 - ✅ **第 1 個禮拜唔好放棄**。安裝頭幾日唔熟手，第 8 日就流暢。
-- ⚠️ **監察 API 開支**。Claude Code 用量透過 Anthropic console 追蹤。先設 $50 月度預算。1 個禮拜後你會摸清真實成本。
+- ⚠️ **睇住 API 開支**。Claude Code 用量可以喺 Anthropic console 追蹤。先劃個 $50 月度預算。1 個禮拜後你會摸清真實成本。
 - 🎯 **`claude --help` 係你最好嘅朋友**。唔記得 syntax → 直接問。
 
 下個鐘試裝好 + 跑第一個 hello world。1 個禮拜後變成你每日工作流程。

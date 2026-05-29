@@ -10,7 +10,7 @@ subcategory: "Headless / Automation"
 difficulty: 3
 timeMinutes: 45
 toolsNeeded: ["Claude Code CLI", "cron 或 launchd (Mac/Linux)", "Anthropic API key"]
-description: "Claude Code 唔淨係 interactive。Headless mode 可以入 cron、launchd、GitHub Actions、npm script，凌晨自動跑 code health、dep audit、PR review。教 4 個真實 setup + 3 個 deployment 變化。"
+description: "Claude Code 唔淨係 interactive。Headless mode 可以入 cron、launchd、GitHub Actions、npm script，凌晨自動跑 code health、dep 審查、PR review。教 4 個真實設定 + 3 個部署變化。"
 keywords: ["Claude Code headless", "claude -p cron", "GitHub Actions Claude review", "Claude Code automation", "Claude CLI scripting"]
 related: ["claude-code-install-claude", "claude-code-subagents-claude", "claude-code-hooks-claude"]
 featured: false
@@ -20,20 +20,20 @@ featured: false
 
 你 install 咗 Claude Code 兩個月，interactive session 用到出神入化。但你開始留意到一啲規律：
 
-- 每朝返工頭 30 分鐘做 `git pull` + 讀 PR + sense check 改動
+- 每朝返工頭 30 分鐘做 `git pull` + 讀 PR + 大致睇一睇啲改動
 - 每個禮拜五手動跑 `pnpm outdated` + `npm audit`，再決定升邊個
-- 每次 push 上 GitHub 都要等同事得閒先 review，PR 喺 queue 排幾個鐘
+- 每次 push 上 GitHub 都要等同事得閒先 review，PR 喺隊列度排幾個鐘
 
-呢啲動作有個共通點：**重複、有規律、唔需要實時對話**。你開緊 Claude Code、揼緊 prompt、等緊 output —— 但其實全部都可以喺你訓緊覺嘅時候做完。
+呢啲動作有個共通點：**重複、有規律、唔需要即時對話**。你開緊 Claude Code、揼緊 prompt、等緊 output——但其實全部都可以喺你訓緊覺嘅時候做完。
 
 Claude Code 有個 mode 叫 **headless**：`claude -p "task"` 直接畀任務、唔開 interactive session、做完即 exit、出入 stdout。呢個 mode 就係專門畀 cron、launchd、GitHub Actions、npm script 入面跑。
 
-呢篇拆 4 個真實 headless setup：
+呢篇拆 4 個真實 headless 設定：
 
-- Daily code health report（每朝 7 點 cron）
-- Weekly dep update with guardrails
-- GitHub Actions PR auto-review
-- Scheduled refactor batch
+- 每日 code health 報告（每朝 7 點 cron）
+- 每週 dep 升級（加埋安全閘）
+- GitHub Actions PR 自動 review
+- 排好時間嘅 refactor 批次
 
 撐住，會技術啲。但行完一次，你會明點解 senior dev 個 laptop 凌晨 3 點仍然「咁勤力」。
 
@@ -47,7 +47,7 @@ Headless 嘅入口就一句：
 claude -p "讀 README.md 同 summarize 3 句"
 ```
 
-`-p` = print mode（亦叫 non-interactive / headless）。Claude 收 prompt → 做 → 出 stdout → exit。冇對話、冇等你按 Y/N。
+`-p` = print mode（即係 non-interactive / headless）。Claude 收 prompt → 做 → 出 stdout → 收工。冇對話、冇等你按 Y/N。
 
 關鍵 flags：
 
@@ -65,7 +65,7 @@ claude -p "任務" --dangerously-skip-permissions
 claude -p "任務" --model claude-haiku-4-5
 ```
 
-⚠️ **`--dangerously-skip-permissions` 嘅 mental model**：headless mode 預設仍然會 prompt 權限（但因為冇 TTY 會 hang）。呢個 flag 等於話「我已經用 `--allowed-tools` 鎖死範圍，唔好再問」。永遠配 `--allowed-tools` 一齊用，唔好淨係 skip permission 唔限 tools。
+⚠️ **點樣理解 `--dangerously-skip-permissions`**：headless mode 預設仍然會問你攞權限（但因為冇 TTY，會卡住）。呢個 flag 等於話「我已經用 `--allowed-tools` 鎖死範圍，唔好再問」。永遠配 `--allowed-tools` 一齊用，唔好淨係跳過權限但唔限 tools。
 
 試一個無害嘅 baseline：
 
@@ -75,9 +75,9 @@ claude -p "用 1 句講 current directory 入面有咩 file" \
   --dangerously-skip-permissions
 ```
 
-出到一句 → 你已經有 headless 嘅 building block。
+出到一句 → 你已經有 headless 嘅基本積木。
 
-### 2. Daily code health report（cron）
+### 2. 每日 code health 報告（cron）
 
 目標：每朝 7:00，Claude 自動讀 main branch 嘅最新改動、寫一段「健康摘要」入 file，你食早餐睇。
 
@@ -122,9 +122,9 @@ crontab -e
 0 7 * * * /bin/bash ~/scripts/daily-health.sh >> ~/reports/cron.log 2>&1
 ```
 
-每朝 7:00 自動跑。你訓醒已經有當日 report 喺 `~/reports/health-2026-05-27.md`。
+每朝 7:00 自動跑。你訓醒已經有當日報告喺 `~/reports/health-2026-05-27.md`。
 
-⚠️ **API key**：cron 環境唔會 load 你 `.zshrc`，要喺 crontab 開頭明確 export：
+⚠️ **API key**：cron 環境唔會載入你個 `.zshrc`，要喺 crontab 開頭明確 export：
 
 ```
 ANTHROPIC_API_KEY=sk-ant-xxx
@@ -133,9 +133,9 @@ ANTHROPIC_API_KEY=sk-ant-xxx
 
 或者喺 script 入面 `source ~/.env`。
 
-### 3. Weekly dep audit with guardrails
+### 3. 每週 dep 審查（加安全閘）
 
-目標：每個禮拜一凌晨 2 點，Claude 跑 `pnpm outdated`、評估邊啲安全升、自動開 PR。
+目標：每個禮拜一凌晨 2 點，Claude 跑 `pnpm outdated`、評估邊啲升得安全、自動開 PR。
 
 `~/scripts/weekly-deps.sh`：
 
@@ -177,13 +177,13 @@ Crontab：
 0 2 * * 1 /bin/bash ~/scripts/weekly-deps.sh
 ```
 
-禮拜一返工已經有條 PR 等你 review。Test pass、summary 清楚、major upgrade 列咗出嚟畀你揀。
+禮拜一返工已經有條 PR 等你 review。測試 pass、摘要清楚、major 版本升級列咗出嚟畀你揀。
 
-呢個 setup 嘅 guardrail：Claude **唔可以** `git push --force`、唔可以合併、唔可以 touch major version。你保留最終決定權。
+呢個設定嘅安全閘：Claude **唔可以** `git push --force`、唔可以合併、唔可以郁 major 版本。你保留最終決定權。
 
-### 4. GitHub Actions PR auto-review
+### 4. GitHub Actions PR 自動 review
 
-目標：每條 PR 開出嚟，Claude 自動覆檢、留 comment。
+目標：每條 PR 開出嚟，Claude 自動覆檢、留低意見。
 
 `.github/workflows/claude-review.yml`：
 
@@ -233,15 +233,15 @@ jobs:
             });
 ```
 
-`ANTHROPIC_API_KEY` 加落 GitHub repo secrets。Push → 每條 PR 自動有第一輪 review，人 reviewer 慳 15 分鐘第一遍掃描。
+`ANTHROPIC_API_KEY` 加落 GitHub repo secrets。Push → 每條 PR 自動有第一輪 review，真人 reviewer 慳返 15 分鐘第一遍掃描。
 
-⚠️ **成本**：每條 PR 一次 review，月 100 條 PR、用 Sonnet，大約 USD $5-15。先用 `--model claude-haiku-4-5` cap 成本，發覺漏嘢先升 Sonnet。
+⚠️ **成本**：每條 PR 一次 review，月 100 條 PR、用 Sonnet，大約 USD $5-15。先用 `--model claude-haiku-4-5` 封住成本，發覺漏嘢先升 Sonnet。
 
 ## 變化
 
 ### 變化 1：macOS launchd 取代 cron
 
-Mac 用家：cron 用得，但 Apple 官方推 launchd（更穩、log 更靚、會 restart）。
+Mac 用家：cron 用得，但 Apple 官方推 launchd（更穩、log 更靚、識重新啟動）。
 
 建立 `~/Library/LaunchAgents/com.you.daily-health.plist`：
 
@@ -284,7 +284,7 @@ launchctl load ~/Library/LaunchAgents/com.you.daily-health.plist
 
 ### 變化 2：Output 直推 Slack / Discord webhook
 
-唔讀 file 改睇手機 notification？將 Claude output pipe 入 webhook：
+唔想讀 file，想改睇手機通知？將 Claude output 接駁入 webhook：
 
 ```bash
 SUMMARY=$(claude -p "summarize PR queue" \
@@ -296,11 +296,11 @@ curl -X POST "$SLACK_WEBHOOK_URL" \
   -d "$(jq -n --arg text "$SUMMARY" '{text: $text}')"
 ```
 
-每朝個 Slack channel 自動有「今日 PR 狀況」摘要。Discord 一樣 syntax，webhook URL 換埋。
+每朝個 Slack channel 自動有「今日 PR 狀況」摘要。Discord 寫法一樣，淨係換埋個 webhook URL。
 
 ### 變化 3：Claude Agent SDK（TypeScript wrapper）
 
-`claude -p` 簡單，但 output parsing、retry、cost tracking 想細啲控制，用 Claude Agent SDK：
+`claude -p` 簡單，但如果你想喺 output parsing、重試、成本記錄方面控制得細啲，就用 Claude Agent SDK：
 
 ```ts
 import { query } from "@anthropic-ai/claude-agent-sdk"
@@ -321,7 +321,7 @@ for await (const message of result) {
 }
 ```
 
-包入 npm script `package.json`：
+包入 npm script，放落 `package.json`：
 
 ```json
 {
@@ -332,25 +332,25 @@ for await (const message of result) {
 }
 ```
 
-Solo dev 唔需要。Agency / startup 跑 5+ 條 automation workflow 嗰陣，SDK 嘅 retry / error handling / cost log 抵成本。
+Solo dev 唔需要。Agency / startup 跑 5 條以上 automation workflow 嗰陣，SDK 嘅重試、錯誤處理、成本記錄就抵返成本。
 
 ## 一個心態
 
-Headless 嘅深層 insight：**你嘅產出唔再受你個鐘頭數限制**。
+Headless 嘅深層體會：**你嘅產出唔再受你個鐘頭數限制**。
 
-之前：每日 8 個 productive 鐘，你親手敲 prompt 攞 output。
-而家：8 個鐘 interactive + 16 個鐘 cron 跑緊嘢。Daily report、weekly audit、PR review 全部喺你訓覺嘅時候做晒。
+之前：每日 8 個有生產力嘅鐘頭，你親手敲 prompt 攞 output。
+而家：8 個鐘 interactive + 16 個鐘 cron 跑緊嘢。每日報告、每週審查、PR review 全部喺你訓覺嘅時候做晒。
 
 呢個改變對 3 類人特別顯著：
 
 - **Solo dev**：你冇 reviewer、冇 ops、冇 dep bot。Headless Claude 幫你補上呢 3 個角色，自己一個 ship 嘅速度追平 5 人 team。
-- **Startup 早期 team**：3 個工程師，所有 review / audit / chore 都要人做。Headless 食晒呢層 toil，工程師 focus 真正 feature。
-- **Agency / consulting**：10 個 client project，每個都要 weekly health check。Cron 跑 10 條 script、出入 client Slack。一個人服務 10 個 account。
+- **Startup 早期 team**：3 個工程師，所有 review、審查、雜務都要人做。Headless 食晒呢層瑣碎工夫，工程師可以專注喺真正嘅 feature。
+- **Agency / consulting**：10 個客戶 project，每個都要每週做一次 health check。Cron 跑 10 條 script、出入客戶 Slack。一個人服務 10 個客戶。
 
 最後提醒：
 
-- ✅ **由 1 條 cron 開始**。揀最 boring 嘅重複動作（你 dread 每日做嗰樣），先自動化嗰一條。1 個禮拜驗證 output 質素先加第 2 條。
-- ⚠️ **監察 cost**。Headless 跑得密 = bill 升得快。頭 1 個月每日睇 Anthropic console，calibrate 真實成本，再決定要唔要由 Sonnet 降去 Haiku。
+- ✅ **由 1 條 cron 開始**。揀最悶嗰個重複動作（你每日做都覺得煩嗰樣），先自動化嗰一條。一個禮拜驗證 output 質素，先加第 2 條。
+- ⚠️ **睇住成本**。Headless 跑得密 = 個 bill 升得快。頭一個月每日睇 Anthropic console，摸清真實成本，再決定要唔要由 Sonnet 降去 Haiku。
 - 🎯 **`--allowed-tools` 唔好懶**。Headless = 冇人喺度問你 Y/N。Tool 鎖死 = 你訓得安樂。
 
 今晚加一條 cron，聽朝 7 點睇佢嘅 output。一個禮拜後你會問自己：「點解之前所有嘢都要手動跑？」

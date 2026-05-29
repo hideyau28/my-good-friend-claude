@@ -1,5 +1,5 @@
 ---
-title: "Claude Code 自動 maintain API docs：OpenAPI spec、TypeScript types、example response 同步"
+title: "Claude Code 自動維護 API docs：OpenAPI spec、TypeScript types、example response 同步"
 slug: "claude-code-api-docs-generator"
 issue: 120
 publishedAt: 2026-05-27
@@ -22,20 +22,20 @@ featured: false
 
 文件呢？
 
-- `/docs/api.md` —— 最後一次 update 喺 3 個月前
+- `/docs/api.md` —— 最後一次更新喺 3 個月前
 - `openapi.yaml` —— 6 個 endpoint 仲叫舊名
 - Frontend 嘅 `api-types.ts` —— 手動 copy 嘅、有兩個 field 同 backend 唔同
 - `example-response.json` —— 嗰隻 deprecated `user_id` field 仲喺度
 
-結果：客戶 integration team 第三次寫 email 投訴「why does the response shape not match your docs?」。Frontend 同事每隔幾日撞一次 type mismatch。
+結果：客戶 integration team 第三次寫 email 投訴「why does the response shape not match your docs?」。Frontend 同事每隔幾日就撞一次 type mismatch。
 
-問題唔係冇人寫 docs，係**docs 同 code 唔係同一個 source of truth**。每次手動 sync，總有一層漏。
+問題唔係冇人寫 docs，係**docs 同 code 根本唔係同一個 source of truth**。每次靠人手對齊，總有一層漏。
 
 呢篇教用 Claude Code 建立 **3-tier doc sync**：
 
 1. **OpenAPI spec** —— single source of truth，由 route handler 直接生成
 2. **TypeScript types** —— spec 出 codegen，frontend / SDK 直接 import
-3. **Example payload** —— Claude 跑落 staging、核實個 response，update example
+3. **Example payload** —— Claude 跑落 staging、核實個 response，再更新 example
 
 加埋一個 pre-commit hook + `/api-doc` slash command —— 加新 endpoint，docs 自動跟。
 
@@ -43,9 +43,9 @@ featured: false
 
 ### 1. Route → OpenAPI spec 自動 sync
 
-第一層 source of truth 係 `openapi.yaml`，但唔係手寫，係由 route file 推導。
+第一層 source of truth 係 `openapi.yaml`，但唔係手寫，係由 route file 推導出嚟。
 
-假設你用 Hono / Express，route 大概咁樣：
+假設你用 Hono / Express，route 大概係咁：
 
 ```typescript
 // src/routes/orders.ts
@@ -56,7 +56,7 @@ app.post('/api/orders', async (c) => {
 })
 ```
 
-關鍵：**Zod schema 已經喺度**，OpenAPI 嘅資訊就喺 schema 入面。
+關鍵：**Zod schema 已經喺度**，OpenAPI 要嘅資訊就喺 schema 入面。
 
 加個 `CLAUDE.md` rule 落 project root：
 
@@ -70,7 +70,7 @@ app.post('/api/orders', async (c) => {
 4. 如果 Zod schema 改咗 field，openapi.yaml 對應 section 必須同步
 ```
 
-Claude Code 讀到呢條 rule，你下次叫佢加 endpoint 嘅時候，佢會**自動更新 spec**。
+Claude Code 讀到呢條 rule，你下次叫佢加 endpoint 嘅時候，佢就會**自動更新 spec**。
 
 裝 zod-to-openapi：
 
@@ -78,11 +78,11 @@ Claude Code 讀到呢條 rule，你下次叫佢加 endpoint 嘅時候，佢會**
 npm install @asteasolutions/zod-to-openapi
 ```
 
-呢個 lib 等 Zod schema 直接 emit OpenAPI fragment，Claude 唔需要重複寫 schema 兩次。
+呢個 lib 等 Zod schema 直接吐出 OpenAPI fragment，Claude 唔使再重複寫多次 schema。
 
 ### 2. TypeScript types codegen
 
-OpenAPI 有咗，frontend types 直接由佢生。
+OpenAPI 有咗，frontend types 直接由佢生出嚟。
 
 ```bash
 npm install -D openapi-typescript
@@ -124,11 +124,11 @@ import type { paths } from '@/types/api'
 type CreateOrderBody = paths['/api/orders']['post']['requestBody']['content']['application/json']
 ```
 
-**手動 copy field 嘅日子完。** Spec 改一行，types 即時跟。
+**人手 copy field 嘅日子玩完。** Spec 改一行，types 即刻跟。
 
 ### 3. Example payload test + 核實 pipeline
 
-最後一層：example response。呢層最易腐，因為冇人想手跑 endpoint 再 copy JSON。
+最後一層：example response。呢層最易過時，因為冇人想親手跑 endpoint 再 copy 個 JSON 出嚟。
 
 寫條 script `scripts/refresh-examples.ts`：
 
@@ -165,11 +165,11 @@ pnpm tsx scripts/refresh-examples.ts
 逐個 endpoint 出 diff report，列明邊個要改邊一層。
 </PromptBlock>
 
-Claude 會逐個檢、出 markdown report、指明「呢個 example deprecated field 要移除」或「spec 漏咗 `created_at`」。
+Claude 會逐個檢、出一份 markdown report、指明「呢個 example 嘅 deprecated field 要移除」或者「spec 漏咗 `created_at`」。
 
-呢個三層循環跑完一次，docs 同 code 完全對齊。
+呢個三層循環跑完一次，docs 同 code 就完全對齊。
 
-### 4. /api-doc slash command 加新 endpoint 一句話搞掂
+### 4. /api-doc slash command 一句話加新 endpoint
 
 最後加個 project-level slash command。喺 `.claude/commands/api-doc.md`：
 
@@ -196,7 +196,7 @@ description: 加新 API endpoint + 自動 sync 三層 docs
 /api-doc 加一個 GET /api/orders/:id endpoint，攞返單筆訂單詳情，permission 同 POST 一樣
 ```
 
-Claude 會跑晒成個 chain：route → schema → spec → types → example → 核實 → commit。
+Claude 會跑晒成條鏈：route → schema → spec → types → example → 核實 → commit。
 
 收工。
 
@@ -212,13 +212,13 @@ git diff --exit-code openapi.yaml src/types/api.ts || {
 }
 ```
 
-任何 PR 入 main，docs 唔同步直接 block。
+任何 PR 想入 main，docs 唔同步就直接擋住。
 
 ## 變化
 
 ### 變化 1：GraphQL schema 版（vs REST）
 
-GraphQL 唔需要 OpenAPI —— `schema.graphql` 本身就係 source of truth。但**同步 example query / response** 嘅問題一樣存在。
+GraphQL 唔使用 OpenAPI —— `schema.graphql` 本身就係 source of truth。但**同步 example query / response** 嘅問題一樣存在。
 
 Claude Code workflow：
 
@@ -229,30 +229,30 @@ Claude Code workflow：
 3. 寫入 docs/graphql-examples/
 ```
 
-加 codegen（`@graphql-codegen/cli`）出 TypeScript types，pattern 同 REST 版完全一樣。
+加 codegen（`@graphql-codegen/cli`）出 TypeScript types，做法同 REST 版完全一樣。
 
 ### 變化 2：Python FastAPI 版（Pydantic 同 schema）
 
-FastAPI 識自己 emit OpenAPI —— `/openapi.json` 即係 source of truth。
+FastAPI 識自己吐 OpenAPI —— `/openapi.json` 即係 source of truth。
 
 ```bash
 curl http://localhost:8000/openapi.json > openapi.json
 ```
 
-之後 chain 同 TypeScript 版一樣：openapi-typescript-codegen 出 client types，Claude 核實 example。
+之後成條鏈同 TypeScript 版一樣：openapi-typescript-codegen 出 client types，Claude 核實 example。
 
-關鍵：Pydantic model 同 endpoint signature 已經夠表達，唔需要再加 layer。Claude 直接讀 router file，spec 同步喺 import 嘅 Pydantic schema。
+關鍵：Pydantic model 同 endpoint signature 已經夠表達，唔使再加多一層。Claude 直接讀 router file，spec 就跟住 import 入嚟嘅 Pydantic schema 同步。
 
 ### 變化 3：Webhook docs（asymmetric send/receive）
 
-Webhook 同 REST 唔同 —— **你係 send 出去**，但收嘅人要知你 payload shape。
+Webhook 同 REST 唔同 —— **係你 send 出去**，但收嘅人要知你個 payload shape。
 
 呢類 docs 要分兩面：
 
 - **outgoing** —— 你發乜（payload schema + 例子）
-- **expected response** —— 對方應該回乜（success / retry）
+- **expected response** —— 對方應該回乜（成功 / 重試）
 
-用 AsyncAPI spec（係 OpenAPI 嘅 event 版本）。Claude Code workflow：
+用 AsyncAPI spec（即係 OpenAPI 嘅 event 版本）。Claude Code workflow：
 
 ```
 讀 src/webhooks/ 嘅 publisher code，提取每個 event 嘅：
@@ -262,17 +262,17 @@ Webhook 同 REST 唔同 —— **你係 send 出去**，但收嘅人要知你 pa
 出 asyncapi.yaml，跟住生 markdown docs 畀 partner team
 ```
 
-Partner integration 接 webhook，永遠 reference 自動同步嘅 docs。
+Partner 接 webhook 嘅時候，永遠睇返自動同步嗰份 docs。
 
 ## 一個心態
 
-API docs 過時嘅根源唔係懶 —— 係 docs 同 code **本身就喺兩個 source**。手動 sync 必有漏。
+API docs 過時嘅根源唔係懶 —— 係 docs 同 code **本身就分開兩個 source**。靠人手對齊，一定有漏。
 
-呢個 workflow 嘅 insight：**將 single source 嘅範圍縮到一層**（route handler 入面嘅 Zod schema），其他層全部係 derived artifacts。Derived 嘅嘢 Claude 識生，唔需要人工維護。
+呢個 workflow 嘅重點：**將 single source 嘅範圍縮到淨返一層**（route handler 入面嘅 Zod schema），其餘幾層全部係 derived artifacts。Derived 出嚟嘅嘢 Claude 識生，唔使人手維護。
 
 - ✅ **Schema-first**：Zod / Pydantic 一定要喺 route handler 入面定義。手寫 JSON schema 永遠落後。
-- ✅ **Codegen everything**：types / examples / markdown docs 全部由 spec 生。
-- ✅ **Pre-commit block**：docs 唔同步嘅 PR 唔可以入 main。CI 都要 enforce。
-- ⚠️ **Staging endpoint 要 stable**：example refresh 跑落真實 staging，唔可以連 dev。Token 用唯讀。
+- ✅ **乜都 codegen**：types / examples / markdown docs 全部由 spec 生出嚟。
+- ✅ **Pre-commit 攔截**：docs 唔同步嘅 PR 唔可以入 main，CI 都要一齊把關。
+- ⚠️ **Staging endpoint 要穩定**：example refresh 跑落真實 staging，唔可以連去 dev。Token 用唯讀。
 
-下個 sprint 加新 endpoint 嘅時候，試 `/api-doc` 一句話搞掂。半年之後再望，47 條 endpoint 嘅 docs 仲係同 code 對齊。客戶 integration team 唔再寫投訴 email。
+下個 sprint 加新 endpoint 嘅時候，試吓 `/api-doc` 一句話搞掂佢。半年之後再望返轉頭，47 條 endpoint 嘅 docs 仲係同 code 對齊。客戶 integration team 都唔再寫投訴 email。

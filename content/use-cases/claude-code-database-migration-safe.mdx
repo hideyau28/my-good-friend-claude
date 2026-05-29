@@ -18,7 +18,7 @@ featured: false
 
 ## 情境
 
-你 SaaS 跑緊。`users` table 有個 column 叫 `name`，原本一個欄存晒姓 + 名。Product 而家要分開 `first_name` / `last_name`，因為要做 personalised email。
+你 SaaS 跑緊。`users` table 有個 column 叫 `name`，原本一個欄存晒姓 + 名。產品而家要分開 `first_name` / `last_name`，因為要做個人化 email。
 
 你開 Claude Code，順手講：
 
@@ -37,15 +37,15 @@ UPDATE users SET first_name = SPLIT_PART(last_name, ' ', 1),
 
 3 秒之後 Sentry 爆 50 個 error：所有部署緊嘅舊 pod 仲喺度 `SELECT name FROM users`，column 唔見咗，HTTP 500。新 pod 起緊嚟未接到流量。中間 90 秒所有 user signup / login 死。
 
-Production migration 嘅死位永遠係：**你以為 schema 改 = 一個原子動作，其實 schema 改 + code deploy 中間嗰 60-180 秒，舊 code 同新 schema 共存**。一個唔啱就攬炒。
+Production migration 嘅死位永遠係：**你以為 schema 改 = 一個原子動作，其實 schema 改 + code deploy 中間嗰 60-180 秒，舊 code 同新 schema 一齊共存**。一個唔啱就攬炒。
 
-呢篇教 Claude 寫 migration 用 expand-migrate-contract 三段式。慢，但 SaaS / e-commerce 冇 maintenance window 都做得，每一步都 rollback 得。
+呢篇教 Claude 寫 migration 用 expand-migrate-contract 三段式。慢，但 SaaS / e-commerce 冇 maintenance window 都做得，每一步都 rollback 得返。
 
 ## 跟住做
 
 ### 1. CLAUDE.md 寫死三段式紀律
 
-Claude 預設識「schema migration」但唔識「production rollout」呢層。你要喺 project root `CLAUDE.md` 寫死規矩，每次開 session 自動讀入。
+Claude 慣性識「schema migration」但唔識「production rollout」呢層。你要喺 project root `CLAUDE.md` 寫死規矩，每次開 session 自動讀入。
 
 <PromptBlock label="CLAUDE.md 加 migration section">
 ## Database Migration 紀律
@@ -69,14 +69,14 @@ Claude 預設識「schema migration」但唔識「production rollout」呢層。
 - 確認所有 deploy 嘅 pod 都唔再讀舊 column（log audit）
 - DROP COLUMN / DROP TABLE
 
-任何 PR 想一步到位 RENAME / DROP，**reject**。
+任何 PR 想一步到位 RENAME / DROP，**一律打回頭**。
 </PromptBlock>
 
-呢段寫一次，之後每次 Claude 開 session 入 project 都會跟。冇呢段，Claude 預設出 naive SQL。
+呢段寫一次，之後每次 Claude 開 session 入 project 都會跟。冇呢段，Claude 慣性出 naive SQL。
 
 ### 2. Phase 1 — Expand：加新唔郁舊
 
-返到我哋 `users.name` split 個例。Phase 1 嘅 migration 必須係 **purely additive**。
+返到我哋 `users.name` split 個例。Phase 1 嘅 migration 必須係**純加嘢（purely additive）**。
 
 <PromptBlock label="Phase 1 — Expand migration">
 我要將 `users.name` split 做 `first_name` + `last_name`。跟 CLAUDE.md 嘅三段式紀律，依家寫 Phase 1（expand）migration。
@@ -85,7 +85,7 @@ Claude 預設識「schema migration」但唔識「production rollout」呢層。
 1. 只可以 ADD COLUMN，唔可以 touch `name`
 2. 新 column NULLABLE，default null
 3. 用我哋個 ORM（睇 `prisma/schema.prisma`）generate migration
-4. Migration SQL 出嚟畀我 review，唔好直接 apply
+4. Migration SQL 出嚟畀我睇過，唔好直接 apply
 5. 同時更新 `prisma/schema.prisma`，但**新 field 標 `?` (optional)**，等舊 code 跑得
 
 唔好做：
@@ -102,13 +102,13 @@ ALTER TABLE users ADD COLUMN first_name TEXT;
 ALTER TABLE users ADD COLUMN last_name TEXT;
 ```
 
-Deploy 呢個落 production。舊 code 仲喺度 `SELECT name`，正常運作。新 column NULL，冇人讀，零影響。
+部署呢個落 production。舊 code 仲喺度 `SELECT name`，正常運作。新 column NULL，冇人讀，零影響。
 
 ⚠️ Postgres 紀律：`ADD COLUMN` 唔加 DEFAULT 係 instant（metadata only）。如果你要加 NOT NULL DEFAULT，要分兩步：先 ADD nullable、再 backfill、再 ALTER SET NOT NULL。`ADD COLUMN NOT NULL DEFAULT 'x'` 會 rewrite 成個 table，大 table 鎖死分鐘級。
 
 ### 3. Phase 2 — Dual-write + backfill + 核實
 
-呢一 phase 最長最 boring 但最關鍵。三件事順序做：
+呢一 phase 最長最悶但最關鍵。三件事順住做：
 
 **3a. App code dual-write**
 
@@ -124,7 +124,7 @@ Deploy 呢個落 production。舊 code 仲喺度 `SELECT name`，正常運作。
 唔好掂讀取邏輯。寫先，讀後。
 </PromptBlock>
 
-Deploy 呢個。新寫入嘅 row 三個 column 都有值。舊 row 仲係得 `name`。
+部署呢個。新寫入嘅 row 三個 column 都有值。舊 row 仲係得 `name`。
 
 **3b. Backfill script（idempotent）**
 
@@ -137,12 +137,12 @@ Deploy 呢個。新寫入嘅 row 三個 column 都有值。舊 row 仲係得 `na
 3. WHERE clause 只揀 `first_name IS NULL AND name IS NOT NULL`（已 backfill 嘅唔再 touch）
 4. 拆分邏輯：first space 之前 = first_name，之後全部 = last_name；如果冇 space，全部當 first_name
 5. 每 batch print progress（processed / total / ETA）
-6. 寫一個 dry-run mode 先 sample 100 row print 出嚟我 review
+6. 寫一個 dry-run mode 先抽 100 row print 出嚟畀我睇過
 
 唔好用 ORM 嘅 `findMany` 載晒成個 table 入 memory。用 raw SQL `SELECT ... LIMIT 1000 FOR UPDATE SKIP LOCKED`。
 </PromptBlock>
 
-Dry-run 先跑、肉眼 sample 50 個 case（特別係名字得一個字、外國名、中英混合、有 prefix 「Dr.」嗰啲）。OK 再跑 full backfill。
+Dry-run 先跑、肉眼抽 50 個 case 睇（特別係名字得一個字、外國名、中英混合、有 prefix「Dr.」嗰啲）。OK 再跑 full backfill。
 
 **3c. 核對 equivalence**
 
@@ -157,11 +157,11 @@ WHERE name IS NOT NULL ORDER BY random() LIMIT 50;
 -- 肉眼睇 50 個 case 啱唔啱
 ```
 
-驗證通過先切讀取去新 column —— 改 app code `SELECT first_name, last_name`，舊 `name` field 喺 ORM model 變 deprecated comment。Deploy。
+驗證通過先切讀取去新 column —— 改 app code `SELECT first_name, last_name`，舊 `name` field 喺 ORM model 標返個 deprecated comment。部署。
 
 ### 4. Phase 3 — Contract：等一個禮拜先 DROP
 
-呢一步 Claude 最想跳過，因為「個 column 都冇人讀啦」。**唔好**。
+呢一步 Claude 最想跳過，因為「個 column 都冇人讀啦」。**唔好咁**。
 
 <PromptBlock label="Phase 3 — Contract migration">
 Phase 2 已經 deploy 咗 8 日，production log 確認過去 7 日**零次** `SELECT name` 或者 `WHERE name = ...`（grep 過 Datadog APM trace）。
@@ -177,18 +177,18 @@ Phase 2 已經 deploy 咗 8 日，production log 確認過去 7 日**零次** `S
 </PromptBlock>
 
 點解等 7 日？因為：
-- Mobile app 用戶可能未 update，舊 client binary 仲喺度叫 API
+- Mobile app 用戶可能未更新，舊 client binary 仲喺度叫 API
 - CDN / edge cache 可能仲 hit 緊舊 API response shape
-- 你公司啲 internal tool（Metabase dashboard、cron job、data export script）你未必數得晒
+- 你公司啲內部工具（Metabase dashboard、cron job、data export script）你未必數得晒
 - 如果 Phase 2 有 bug，你仲有 `name` 做 source of truth 救返
 
-7 日係 conservative 預設。SaaS 高頻 release 可以 3 日，傳統 enterprise 可能要 30 日。
+7 日係偏謹慎嘅預設。SaaS 高頻 release 可以 3 日，傳統 enterprise 可能要 30 日。
 
 ## 變化
 
 ### 變化 1：ORM migration（Prisma / Drizzle）
 
-ORM 有自動 generate migration 嘅 magic，但呢個 magic 撞到 expand-migrate-contract 會出事。
+ORM 有自動 generate migration 嘅 magic，但呢個 magic 撞正 expand-migrate-contract 就會出事。
 
 <PromptBlock label="變化 1 — Prisma 三 phase pattern">
 我用 Prisma。要 split `users.name` 做 `first_name` + `last_name`。
@@ -205,11 +205,11 @@ ORM 有自動 generate migration 嘅 magic，但呢個 magic 撞到 expand-migra
 ⚠️ 千祈唔好用 `prisma db push` 喺 production，佢會直接 sync schema 然後 RENAME。
 </PromptBlock>
 
-Drizzle / TypeORM / SQLAlchemy 同規律，重點係**每個 phase 一個 migration file，中間夾住 app deploy**。
+Drizzle / TypeORM / SQLAlchemy 都係同一套規律，重點係**每個 phase 一個 migration file，中間夾住 app deploy**。
 
 ### 變化 2：Raw SQL（冇 ORM）
 
-直接管 SQL 反而更清晰，因為冇 magic。
+直接揸 SQL 反而清晰啲，因為冇 magic。
 
 <PromptBlock label="變化 2 — Raw SQL 三段式">
 我哋用 sqlx / pg 直接寫 SQL，migration 喺 `migrations/` folder 順序執行。
@@ -231,7 +231,7 @@ Phase 3（7 日後）:
 
 ### 變化 3：Multi-tenant Postgres（shared DB + RLS）
 
-呢個最棘手：一個 migration 影響幾百個 tenant，唔可以一次過鎖晒。
+呢個最棘手：一個 migration 影響幾百個 tenant，唔可以一次過鎖晒佢哋。
 
 <PromptBlock label="變化 3 — Multi-tenant 三段式 + RLS 紀律">
 我哋 multi-tenant Postgres，所有 tenant 喺同一個 `users` table，用 `tenant_id` column + Row-Level Security policy 隔離。
@@ -251,18 +251,18 @@ Phase 2 backfill 紀律加碼：
 幫我寫成個 plan + Phase 1 migration + backfill script skeleton。
 </PromptBlock>
 
-Multi-tenant 嘅心法：**冇一個 migration 係 atomic across tenants**。你要當佢係 100 個獨立 migration 嘅 progressive rollout。
+Multi-tenant 嘅心法：**冇一個 migration 係 atomic across tenants（跨 tenant 原子化）**。你要當佢係 100 個獨立 migration 嘅漸進式 rollout。
 
 ## 一個心態
 
 > Schema change is not an event. It's a process that spans a week.
 
-新手 dev 諗 database migration 係「我寫 SQL → run → 完」。**Production migration 嘅單位唔係 SQL，係 release 週期**。每個 phase 都係一個獨立 deploy，中間有 hours / days 嘅 buffer 畀你發現問題、rollback、補底。
+新手 dev 諗 database migration 係「我寫 SQL → 跑 → 完」。**Production migration 嘅單位唔係 SQL，係 release 週期**。每個 phase 都係一個獨立 deploy，中間有幾個鐘到幾日嘅緩衝畀你發現問題、rollback、補底。
 
-Claude Code 嘅速度反而係呢度最大陷阱。佢 5 秒鐘出嚟嘅 `ALTER TABLE ... RENAME COLUMN` 喺 dev 100% 啱。喺 production 100% 攬炒。差異唔喺 SQL 啱唔啱，係**你有冇承認 schema 同 code 永遠唔可能同步 deploy 呢個事實**。
+Claude Code 嘅速度反而係呢度最大陷阱。佢 5 秒鐘出嚟嘅 `ALTER TABLE ... RENAME COLUMN` 喺 dev 100% 啱，喺 production 100% 攬炒。分別唔喺 SQL 啱唔啱，係**你有冇承認 schema 同 code 永遠唔可能同步 deploy 呢個事實**。
 
-Expand-migrate-contract 三段式嘅靈魂：**每一個 intermediate state 都係 valid production state**。Phase 1 後舊 code 仲跑得。Phase 2 後新舊 code 並存都跑得。Phase 3 後乾淨。任何一 phase 出事，你 stop 喺嗰度都唔會死。
+Expand-migrate-contract 三段式嘅靈魂：**每一個中間狀態都係一個有效嘅 production state**。Phase 1 後舊 code 仲跑得。Phase 2 後新舊 code 並存都跑得。Phase 3 後乾乾淨淨。任何一 phase 出事，你停喺嗰度都唔會死。
 
-CLAUDE.md 寫死呢條紀律，Claude 之後就唔會再出 naive migration。比起每次覆檢都要鬧佢「呢條會 break production」，一次性 codify 落 context，省返你 100 個禮拜嘅 review 力氣。
+CLAUDE.md 寫死呢條紀律，Claude 之後就唔會再出 naive migration。比起每次覆檢都要鬧佢「呢條會 break production」，一次過寫低落 context，慳返你一百個禮拜嘅 review 力氣。
 
-下次有人叫你 split column / rename table，唔好直接出 `ALTER`。先問自己：「Phase 1 點樣部署完舊 code 仲跑得？」答到先寫 SQL。答唔到，你連 Phase 1 都未 ready。
+下次有人叫你 split column / rename table，唔好直接出 `ALTER`。先問自己：「Phase 1 點樣部署完舊 code 仲跑得？」答到先寫 SQL。答唔到，你連 Phase 1 都未準備好。

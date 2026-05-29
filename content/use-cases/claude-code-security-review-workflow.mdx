@@ -20,25 +20,25 @@ featured: false
 
 你係 solo dev，或者 3 人初創 tech lead：
 
-- Product 趕住 ship，每個禮拜 5-10 個 PR
+- 產品趕住出貨，每個禮拜 5-10 個 PR
 - 冇專職 security engineer，請唔起 pen-test 公司（一單報價 USD 15K 起）
 - 但你心入面知：少少嘢漏咗就大鑊
-  - 上次 staging API 冇 auth 揾出嚟，幸好未上 prod
-  - 上個月個 contractor commit 咗 `.env.production` 入 git history
-  - 你 SaaS multi-tenant，但你有冇 100% 信心冇 tenant A 撈到 tenant B data？
+  - 上次 staging API 冇 auth，畀人揾咗出嚟，好彩未上 prod
+  - 上個月個 contractor 將 `.env.production` commit 咗入 git history
+  - 你個 SaaS 係 multi-tenant，但你有冇十足信心，冇 tenant A 撈到 tenant B 嘅 data？
 
-呢類風險共通規律：**唔係冇能力 review，係冇時間 + 冇紀律每次覆檢**。手動逐個 PR 逐個 file 對 OWASP top 10 + 掃 secret + 試 RBAC bypass —— 1 個 PR 起碼 1 個鐘，你冇可能每次做。
+呢類風險嘅共通規律：**唔係冇能力 review，係冇時間、冇紀律每次都覆檢**。手動逐個 PR、逐個 file 對住 OWASP top 10，再掃 secret、試 RBAC bypass —— 一個 PR 起碼一個鐘，你根本冇可能每次都做。
 
-⚠️ 開頭講清楚：呢套**唔係替代真嘅 security audit**。商業敏感（payment / health data / 政府合約）一定要請真人 pen-tester。Claude Code 做嘅係**第一層 filter** —— 揾出 80% 嘅 明顯 問題，等剩低 20% 真正需要人腦嘅嘢，你 budget 投得起。
+⚠️ 開頭講清楚：呢套**唔係攞嚟代替真嘅 security audit**。商業敏感嘅嘢（payment / health data / 政府合約）一定要請真人 pen-tester。Claude Code 做嘅係**第一層篩選** —— 揾出八成明顯嘅問題，等剩低兩成真正要人腦判斷嘅嘢，你個 budget 先投得起。
 
 **4 個層次**：
 
 1. **OWASP top 10**：injection、broken auth、XSS、CSRF、insecure design、misconfiguration 等
-2. **Secrets exposure**：`.env` leak、log 印 API key、commit message 帶 token
-3. **Permission bypass**：RBAC 漏洞、multi-tenant data leak、IDOR
-4. **Dependency CVE**：`package.json` / `requirements.txt` 揾未 patch known vuln
+2. **Secrets exposure**：`.env` 外洩、log 印咗 API key、commit message 帶住 token
+3. **Permission bypass**：RBAC 漏洞、multi-tenant 之間漏 data、IDOR
+4. **Dependency CVE**：喺 `package.json` / `requirements.txt` 揾未補返嘅 known vuln
 
-呢篇拆 4 個步驟 setup + 3 個變化俾唔同 product type。
+呢篇拆做 4 個設置步驟，再加 3 個變化俾唔同類型嘅產品。
 
 ## 跟住做
 
@@ -97,11 +97,11 @@ cd your-project
 git diff main...HEAD | claude /security-review
 ```
 
-Claude 會逐 layer review，輸出有 severity tag 嘅 list。你睇 CRITICAL + HIGH 先，MEDIUM 留 backlog。
+Claude 會逐層 review，輸出一張帶 severity 標籤嘅清單。你先睇 CRITICAL + HIGH，MEDIUM 留返做 backlog。
 
 ### 2. Secrets 掃描 pre-commit hook
 
-`/security-review` 係 PR 層。但你想更前置 —— **commit 前就阻**。整 `~/.claude/hooks/pre-commit-secrets.sh`：
+`/security-review` 係喺 PR 層做。但你想再前一步 —— **commit 之前就攔住**。整 `~/.claude/hooks/pre-commit-secrets.sh`：
 
 ```bash
 #!/bin/bash
@@ -134,13 +134,13 @@ fi
 exit 0
 ```
 
-`chmod +x` + 註冊 `PreToolUse` matcher `Bash`（睇 hooks 篇 setup）。Claude 試 `git commit` 即時 block。
+`chmod +x` 之後，註冊 `PreToolUse` 嘅 `Bash` matcher（設置睇返 hooks 嗰篇）。Claude 一試 `git commit` 就即刻畀佢攔住。
 
-⚠️ Hook 唔係萬能。Pattern miss 嘅情況都有，所以 layer 1 嘅 PR review 都要做。Defense in depth。
+⚠️ Hook 唔係萬能。有啲 pattern 始終會走漏眼，所以 layer 1 嘅 PR review 都一樣要做。層層設防先穩陣。
 
-### 3. RBAC bypass test —— 叫 Claude 寫攻擊 test
+### 3. RBAC bypass test —— 叫 Claude 寫攻擊用嘅 test
 
-呢個係 layer 3 最 powerful 嘅做法。唔係叫 Claude review code，係叫 Claude **扮 attacker 寫 test**。
+呢個係 layer 3 最辣嘅做法。唔係叫 Claude review 段 code，係叫 Claude **扮 attacker 寫 test**。
 
 ```bash
 claude "讀 src/api/users 全部 route handler。 \
@@ -152,19 +152,19 @@ claude "讀 src/api/users 全部 route handler。 \
         將 test 寫入 e2e/security/rbac-bypass.spec.ts"
 ```
 
-Claude 寫完，你覆檢一次，跑：
+Claude 寫完，你覆檢一次，再跑：
 
 ```bash
 pnpm playwright test e2e/security/rbac-bypass.spec.ts
 ```
 
-Test fail = 你個 RBAC 有窿。Test pass = 第一層 sanity 睇吓過。
+Test fail = 你個 RBAC 有窿。Test pass = 起碼過咗第一層 sanity check。
 
-**Tips**：每次加新 admin route / new tenant-scoped resource，就加新 test case。Claude 可以 maintain 呢個 test suite。
+**貼士**：每次加新 admin route、新 tenant-scoped 資源，就加返個新 test case。Claude 可以幫你維護成個 test suite。
 
 ### 4. CVE 自動審視（headless mode + GHA）
 
-唔好等你記得跑 `npm audit`。入 CI 自動跑。
+唔好等你記得先跑 `npm audit`。擺入 CI 自動跑。
 
 `.github/workflows/security.yml`：
 
@@ -207,15 +207,15 @@ jobs:
           fi
 ```
 
-效果：每個 PR 自動觸發，review 結果 sticky comment 喺 PR 入面，CRITICAL finding block merge。
+效果：每個 PR 自動觸發，review 結果用 sticky comment 貼喺 PR 入面，一有 CRITICAL finding 就攔住 merge。
 
-⚠️ Anthropic API spend 留意：每個 PR review 大概 USD 0.10-0.50 視乎 diff size。一個月 100 PR 大概 USD 30-50。比起請真嘅 security engineer 平 100 倍但係 complement，唔係替代。
+⚠️ 留意 Anthropic API 嘅使費：每個 PR review 大概 USD 0.10-0.50，視乎 diff 大細。一個月 100 個 PR 大概 USD 30-50。比起請真嘅 security engineer 平一百倍，但佢係補位，唔係代替。
 
 ## 變化
 
 ### 變化 1：SaaS multi-tenant 重點
 
-如果你做 multi-tenant SaaS（B2B、各客戶 data 必須 isolated），layer 3 要加重。改 `/security-review` 加：
+如果你做 multi-tenant SaaS（B2B、各個客戶嘅 data 必須隔開），layer 3 就要加重。改 `/security-review`，加埋：
 
 ```
 **Multi-tenant 額外檢查：**
@@ -225,7 +225,7 @@ jobs:
 - WebSocket / SSE channel name 必須 namespace by tenant
 ```
 
-額外叫 Claude 寫 SQL fuzz test：故意傳錯 tenant_id，確認 query 返 0 row 而唔係 leak。
+另外叫 Claude 寫個 SQL fuzz test：故意傳錯 tenant_id，確認 query 返 0 row，唔係漏咗 data 出嚟。
 
 ### 變化 2：E-commerce / payment
 
@@ -240,7 +240,7 @@ PCI compliance 完整版要請審計，但 baseline check：
 - Price 唔可以 trust client（server side 計）
 ```
 
-額外：跑 Claude review checkout flow 嘅 server action，特別 focus 「price 由邊度嚟」呢條 trace。8 成 e-commerce vulnerability 喺呢條線。
+另外：叫 Claude review checkout flow 嘅 server action，特別盯實「個價由邊度嚟」呢條線。八成 e-commerce 漏洞都喺呢條線出事。
 
 ### 變化 3：Open source / public-facing API
 
@@ -255,23 +255,23 @@ Public repo 風險唔同：
 - GitHub Actions workflow 唔可以 `pull_request_target` + checkout untrusted code（RCE 風險）
 ```
 
-額外跑 `truffleHog` / `gitleaks` 喺整個 git history 掃過（Claude 可以幫你寫 setup script）。
+另外用 `truffleHog` / `gitleaks` 將成個 git history 掃一次（Claude 可以幫你寫設置 script）。
 
 ## 一個心態
 
-Security review automation 嘅深層 insight：**安全唔係靠紀律，係靠系統**。
+Security review 自動化背後嘅深層道理：**安全唔係靠紀律，係靠系統**。
 
-Solo dev 最大嘅敵唔係 attacker —— 係**你自己嘅疲勞**。每個禮拜寫到第 4 個 PR 嘅週五夜晚，你會 skip review，會「下次 fix」，會 commit `.env` 然後即刻 force-push 補救 —— git history 已經 leak 咗。
+Solo dev 最大嘅敵人唔係 attacker —— 係**你自己嘅疲勞**。每個禮拜寫到第四個 PR 嘅週五夜晚，你會跳過 review，會諗住「下次先搞」，會 commit 咗 `.env` 之後即刻 force-push 補鑊 —— 但 git history 已經漏咗出去。
 
-呢類錯誤共通 root cause：security review 係 manual step，靠你記得 + 有時間。一旦其中一個 condition fail，review 就 skip。
+呢類錯誤嘅共通根源：security review 係一個要靠手做嘅步驟，靠你記得、又要有時間。一旦其中一個條件唔成立，個 review 就會跳過。
 
-Hook + slash command + GHA 嘅組合 = **將 review 由「我要記得做」變「唔做唔得」**。Commit hook 阻 secret，PR review 揾 OWASP 問題，CI 跑 RBAC test，CVE 自動 flag。你個腦留俾「呢個 design 應唔應該 expose 呢個 endpoint」嘅判斷題。
+Hook + slash command + GHA 三樣加埋 = **將 review 由「我要記得做」變成「唔做唔得」**。Commit hook 攔住 secret，PR review 揾 OWASP 問題，CI 跑 RBAC test，CVE 自動標示出嚟。你個腦就留返俾「呢個 design 應唔應該開呢個 endpoint」嗰類判斷題。
 
 最後提醒：
 
-- 呢套設置完，跑 1 個月，calibrate false positive rate。Too noisy = tune `/security-review` prompt 收窄；漏嘢 = 加 check item。
-- CRITICAL finding 一定要 block merge，但 MEDIUM / LOW 唔好 block（會 desensitize team）。
-- 真正敏感 product（payment、health、政府）跑完呢套之後，仲係要請真 pen-tester。Claude Code 係 first filter，唔係 last line。
-- Update `/security-review` prompt 跟 OWASP 出新版本（佢哋 3-4 年 update 一次，下次 2027）。
+- 呢套設置完，行一個月，調校吓 false positive 嘅比例。太嘈 = 收窄 `/security-review` prompt；漏嘢 = 加返檢查項目。
+- CRITICAL finding 一定要攔住 merge，但 MEDIUM / LOW 唔好攔（攔得多會搞到成隊人麻木）。
+- 真正敏感嘅產品（payment、health、政府）行完呢套之後，仲係要請真 pen-tester。Claude Code 係第一層篩選，唔係最後防線。
+- OWASP 出新版本嗰陣，記得同步更新 `/security-review` 個 prompt（佢哋三四年先更新一次，下次喺 2027）。
 
-下個鐘 setup `/security-review` + secrets hook，跑你最近一個 PR。睇下 Claude 揾到乜你 miss 咗。
+下個鐘就設置 `/security-review` 加 secrets hook，攞你最近一個 PR 跑一跑。睇吓 Claude 揾到啲乜你睇漏咗。

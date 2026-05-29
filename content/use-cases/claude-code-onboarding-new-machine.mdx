@@ -20,7 +20,7 @@ featured: false
 
 你呢個禮拜換新 Mac：
 
-- 舊機 M1 換 M4，公司 IT 順手 wipe 咗
+- 舊機 M1 換 M4，公司 IT 順手抹清晒
 - 或者你 freelancer 揾到新 client，佢借部機畀你做 contract
 - 又或者你新入職 agency，HR 派部全新機，要你今日 setup 好開工
 
@@ -89,7 +89,7 @@ echo "Dotfiles installed"
 
 ### 2. API key 用 macOS keychain 收好（5 分鐘）
 
-唔好再喺 `.zshrc` 寫 `export ANTHROPIC_API_KEY="sk-ant-..."`。Plain text key 喺 dotfiles repo 即係 leak。
+唔好再喺 `.zshrc` 寫 `export ANTHROPIC_API_KEY="sk-ant-..."`。明文 key 擺喺 dotfiles repo 即係外洩。
 
 用 macOS 內建 `security` 指令：
 
@@ -116,7 +116,7 @@ export OPENAI_API_KEY="$(load_secret OPENAI_API_KEY)"
 export GITHUB_TOKEN="$(load_secret GITHUB_TOKEN)"
 ```
 
-新機 setup：第一次手動 `security add-generic-password` 入 3-5 個 key，之後 `.zshrc` 自動 load。Dotfiles repo 唔再 hold 任何 secret。
+新機 setup：第一次手動 `security add-generic-password` 入 3-5 個 key，之後 `.zshrc` 自動 load。Dotfiles repo 唔再揸住任何 secret。
 
 🔒 用 1Password 嘅版本：裝 `1password-cli`，用 `op read "op://Private/Anthropic/api_key"` 取代 `load_secret`。跨機更方便（keychain 唔跨機）。
 
@@ -140,7 +140,7 @@ export GITHUB_TOKEN="$(load_secret GITHUB_TOKEN)"
 每步前 print 狀態，每步 fail 即 exit 1。
 ```
 
-Claude 出 script，你 review。確認無問題，commit 入 dotfiles repo 做 `bootstrap.sh`。
+Claude 出 script，你睇一遍。確認無問題，commit 入 dotfiles repo 做 `bootstrap.sh`。
 
 新機開箱流程變成：
 
@@ -240,19 +240,18 @@ CLAUDE.md template 跨 OS 100% 重用。
 
 ## 一個心態
 
-呢個 onboarding 嘅深層 insight：**每次手動設置都係未來自己嘅債**。
+呢個 onboarding 嘅深層體會：**每次手動設置都係未來自己嘅債**。
 
-第一次手動設置：1 個鐘第二次手動設置：1 個鐘（你已經唔記得上次點做）
-第三次手動設置：1 個鐘 + 開始悶第四次：你終於受唔住，花 1 個下晝寫自動化
+第一次手動設置：1 個鐘。第二次：1 個鐘（你已經唔記得上次點做）。第三次：1 個鐘，仲開始覺得悶。第四次：你終於頂唔順，花成個下晝寫自動化。
 
 對比：第一次手動設置就用 Claude Code 一齊寫埋 bootstrap.sh。第一次成本：1.5 個鐘。第 2/3/4 次每次：30 分鐘。第 5 次（教新同事）：你 forward 一條 curl link，全程零分鐘。
 
-呢個心態嘅 reframe：**dotfiles + bootstrap script 唔係「dev 潔癖」，係 onboarding 嘅回報投資**。每多寫一 line 自動化，未來嘅你（同你 team）少痛一次。
+換個角度睇：**dotfiles + bootstrap script 唔係「dev 潔癖」，係 onboarding 嘅回報投資**。每多寫一 line 自動化，未來嘅你（同你 team）就少痛一次。
 
 最後提醒：
 
 - ✅ **secret 永遠唔好入 dotfiles repo**。Keychain / 1Password / pass —— 揀一樣。
-- ⚠️ **bootstrap.sh 每 3 個月跑一次測試**（喺 throwaway VM 或者 Docker）。Brew formula 改名、API endpoint 搬位都會 break 你 script。
+- ⚠️ **bootstrap.sh 每 3 個月跑一次測試**（喺 throwaway VM 或者 Docker）。Brew formula 改名、API endpoint 搬位都會搞到你個 script 跑唔到。
 - 🎯 **dotfiles + Claude Code 嘅組合最大優勢**：CLAUDE.md template + slash command + hooks 全部 sync。新機 30 分鐘等於舊機。
 
 下個鐘開個 `dotfiles` repo，將 `.zshrc` 同 `Brewfile` 入面嘢 commit。換機嗰日你會感激今晚嘅自己。

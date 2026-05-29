@@ -19,25 +19,25 @@ featured: false
 
 ## 情境
 
-你 Claude Code 用咗 1 個月。流程：
+你用 Claude Code 用咗一個月。流程係咁：
 
-- 第 1 日：「Claude review 我嘅 code」✓
-- 第 7 日：「Claude 寫 commit message」✓
-- 第 14 日：「Claude refactor 呢個 function」✓
-- 第 21 日：「Claude check 我哋 Notion task 板」❌
+- 第 1 日：「Claude 幫我睇下我嘅 code」✓
+- 第 7 日：「Claude 幫我寫 commit message」✓
+- 第 14 日：「Claude 幫我重構呢個 function」✓
+- 第 21 日：「Claude 睇下我哋 Notion 個任務板」❌
 
-Claude 自己唔識讀 Notion。你要手動 copy task → 貼 → 問 Claude。慢。
+Claude 自己唔識讀 Notion。你要手動將任務 copy 出嚟、貼返、再問 Claude。好慢。
 
-呢個限制嘅根源：**Claude 嘅預設動作只限於 read / write 檔案 + 跑 shell + web search**。外部 SaaS 服務（Notion / Slack / GitHub API / database / etc）要特定整合層。
+呢個限制嘅根源：**Claude 預設淨係識讀寫檔案、跑 shell、做 web search**。外部 SaaS 服務（Notion、Slack、GitHub API、資料庫等等）需要一層專門嘅整合層。
 
 呢個層就係 **MCP（Model Context Protocol）** —— Anthropic 推嘅開放標準，等 Claude（同其他 AI）用標準方式連外部工具。
 
-**概念**：
-- **MCP server** = 一個程序，向 AI 提供特定工具（例如「讀 Notion 任務」、「建立 GitHub issue」）
-- **Claude Code** = MCP server 嘅使用方
-- **你** = install MCP server + 喺 Claude 註冊
+**概念係咁**：
+- **MCP server** = 一個程式，向 AI 提供特定工具（例如「讀 Notion 任務」、「建立 GitHub issue」）
+- **Claude Code** = 用 MCP server 嗰一方
+- **你** = 負責安裝 MCP server，再喺 Claude 註冊佢
 
-呢篇拆 5 個最有用嘅 MCP server + 10 分鐘 install。
+呢篇拆 5 個最有用嘅 MCP server，加埋 10 分鐘安裝步驟。
 
 ## 跟住做
 
@@ -49,56 +49,56 @@ Claude 自己唔識讀 Notion。你要手動 copy task → 貼 → 問 Claude。
 [Claude Code] ←── MCP ──→ [MCP server (Postgres)] ←── SQL ──→ [DB]
 ```
 
-Claude Code 一個用家，可以同時連多個 MCP server。每個 server 提供各自嘅工具集。
+一個 Claude Code 用家可以同時連住多個 MCP server。每個 server 提供各自嘅一套工具。
 
 ### 2. 頭 5 個最有用嘅 MCP
 
-**1. GitHub MCP** —— repo 瀏覽、issue / PR 管理、程式碼搜索
+**1. GitHub MCP** —— 瀏覽 repo、管理 issue 同 PR、搜尋程式碼
 
 用途：
 - 「列出我哋 repo 嘅未處理 PR」
 - 「讀團隊另一個 project 嘅 README」
-- 「建立 issue 標題 X、內文 Y」
+- 「建立一個 issue，標題 X、內文 Y」
 
-**2. Notion MCP** —— 任務 / 文檔 / database 讀寫
+**2. Notion MCP** —— 讀寫任務、文件、database
 
 用途：
-- 「show 我哋團隊嘅任務板」
+- 「畀我睇下我哋團隊嘅任務板」
 - 「將任務 X 標記做完成」
-- 「搜尋文檔關於『API key handling』」
+- 「搜尋同『API key handling』有關嘅文件」
 
-**3. Slack MCP** —— channel 瀏覽、發訊息、搜歷史
+**3. Slack MCP** —— 瀏覽 channel、發訊息、搜歷史
 
 用途：
-- 「搜 #engineering 關於 Redis 嘅討論」
+- 「搵下 #engineering 入面關於 Redis 嘅討論」
 - 「將每日 standup 發落 #team」
-- 「讀上個鐘嘅 DM」
+- 「讀返頭先一個鐘嘅 DM」
 
-**4. Filesystem MCP** —— 跨資料夾操作（超出 Claude Code 預設）
+**4. Filesystem MCP** —— 跨資料夾操作（超出 Claude Code 預設範圍）
 
 用途：
-- 「比較 /project-a vs /project-b 嘅結構」
+- 「比較 /project-a 同 /project-b 嘅結構」
 - 「同步 5 個姐妹 project 嘅 README」
 
 **5. Postgres / SQLite MCP** —— 直接 query 資料庫（有唯讀安全選項）
 
 用途：
-- 「Query staging DB，揾上星期建立嘅用家」
-- 「show `orders` 表嘅結構」
-- 「跑健康檢查 query」
+- 「Query staging DB，搵返上星期建立嘅用家」
+- 「畀我睇下 `orders` 表嘅結構」
+- 「跑個健康檢查 query」
 
-（其他值得一提：Filesystem、Brave Search、Sentry、Linear、Stripe —— 社區 + 官方混合。）
+（其他值得一提：Filesystem、Brave Search、Sentry、Linear、Stripe —— 官方同社區嘅都有。）
 
-### 3. Install 你第一個 MCP —— GitHub MCP
+### 3. 安裝你第一個 MCP —— GitHub MCP
 
-GitHub MCP 通常最普遍有用。安裝：
+GitHub MCP 通常最普遍、最有用。安裝：
 
 ```bash
 # 大部分 MCP servers npm 或 pip
 npm install -g @modelcontextprotocol/server-github
 ```
 
-設定 GitHub token：去 [github.com/settings/tokens](https://github.com/settings/tokens)，建立 personal access token，scope 揀 `repo`。儲好 token。
+設定 GitHub token：去 [github.com/settings/tokens](https://github.com/settings/tokens)，建立一個 personal access token，scope 揀 `repo`。儲好個 token。
 
 ### 4. 喺 Claude Code 註冊 MCP
 
@@ -106,10 +106,10 @@ npm install -g @modelcontextprotocol/server-github
 
 ```bash
 claude --config
-# 或手動 edit ~/.claude/settings.json
+# 或手動改 ~/.claude/settings.json
 ```
 
-加 MCP server entry：
+加一個 MCP server entry：
 
 ```json
 {
@@ -130,13 +130,13 @@ claude --config
 claude
 ```
 
-Claude Code 載入時會自動偵測 MCP。第一個 prompt 試：
+Claude Code 載入時會自動偵測 MCP。第一個 prompt 試下：
 
 ```
 List open PR 喺 hideyau28/my-good-friend-claude repo
 ```
 
-如設定 OK，Claude 透過 GitHub MCP 查 GitHub API → 出 PR 列表。
+如果設定 OK，Claude 會透過 GitHub MCP 查 GitHub API，再出一張 PR 列表。
 
 ### 5. 驗證 MCP 行緊
 
@@ -146,22 +146,22 @@ List open PR 喺 hideyau28/my-good-friend-claude repo
 /mcp
 ```
 
-顯示已連線嘅 MCP 同佢哋嘅工具。應該見到「github」喺度，附帶 `list_pull_requests`、`create_issue` 等工具。
+佢會顯示已連線嘅 MCP 同佢哋嘅工具。你應該見到「github」喺度，附帶 `list_pull_requests`、`create_issue` 等工具。
 
-如唔顯示：睇錯誤紀錄
+如果唔顯示，睇下錯誤紀錄：
 ```bash
 claude --verbose
 ```
 
 ### 6. 權限管理
 
-每個 MCP 工具第一次叫起，Claude Code 會問權限：
+每個 MCP 工具第一次叫起嘅時候，Claude Code 都會問你攞權限：
 
 - `Allow once`
 - `Allow always for this MCP server`
 - `Reject`
 
-新手建議：唯讀操作（list / search / read）→「Allow always」安全。任何改動（create / update / delete）→ 每次手動 approve。
+新手建議：唯讀操作（list / search / read）揀「Allow always」就安全。任何會改動嘅操作（create / update / delete）就每次手動批准。
 
 ### 7. 試第二個 MCP —— Notion
 
@@ -171,7 +171,7 @@ claude --verbose
 npm install -g @modelcontextprotocol/server-notion
 ```
 
-攞 Notion integration token：[notion.so/my-integrations](https://www.notion.so/my-integrations) → Create new integration → copy「Internal Integration Secret」
+攞 Notion integration token：[notion.so/my-integrations](https://www.notion.so/my-integrations) → Create new integration → copy 個「Internal Integration Secret」
 
 加落 Claude Code 設定：
 
@@ -189,7 +189,7 @@ npm install -g @modelcontextprotocol/server-notion
 }
 ```
 
-⚠️ 同樣，每個 Notion 頁 / database 要喺 Notion 介面明確「share with integration」—— 用家經常唔記得呢一步。冇 share = 冇權限。
+⚠️ 同樣道理，每個 Notion 頁面同 database 都要喺 Notion 介面入面明確「share with integration」—— 呢一步好多人成日唔記得。冇 share 就冇權限。
 
 重啟 Claude Code，測試：
 ```
@@ -200,7 +200,7 @@ List task 喺我「Engineering 2026」Notion database
 
 ### 變化 1：由 GitHub 安裝社區 MCP
 
-唔限於 npm 發佈嘅 MCP。社區開發嘅 MCP 多數喺 GitHub：
+唔一定要用 npm 發佈嘅 MCP。社區開發嘅 MCP 多數放喺 GitHub：
 
 ```bash
 # Clone community MCP repo
@@ -221,9 +221,9 @@ npm install
 }
 ```
 
-### 變化 2：Build 自己嘅 MCP server
+### 變化 2：整自己嘅 MCP server
 
-Anthropic 提供 MCP SDK（Python + TypeScript）：
+Anthropic 提供 MCP SDK（Python 同 TypeScript 都有）：
 
 ```bash
 npm install -g @modelcontextprotocol/sdk
@@ -256,15 +256,15 @@ server.setRequestHandler('tools/call', async (req) => {
 server.connect();
 ```
 
-Build → 註冊 → Claude 可以叫起「hello」工具。
+整好 → 註冊 → Claude 就可以叫起「hello」工具。
 
-呢個框架等於「Claude Code 嘅外掛系統」—— 對自訂整合開放。
+呢個框架就等於「Claude Code 嘅外掛系統」—— 任你自訂整合。
 
 ### 變化 3：團隊用 MCP —— 共用設定
 
-每個團隊成員自己安裝 MCP，但設定可以共用：
+每個團隊成員各自安裝 MCP，但設定可以共用：
 
-`./.claude/settings.json` 入 git：
+將 `./.claude/settings.json` 入 git：
 
 ```json
 {
@@ -279,27 +279,27 @@ Build → 註冊 → Claude 可以叫起「hello」工具。
 }
 ```
 
-每個開發者喺自己 shell 設自己環境變數（`GITHUB_TOKEN`）。設定共用，憑證個別。
+每個開發者喺自己 shell 設返自己嘅環境變數（`GITHUB_TOKEN`）。設定共用，憑證各自管。
 
 ## 一個心態
 
-MCP 嘅深層 insight：**AI 嘅未來唔係「更聰明嘅模型」，係「標準化嘅工具生態」**。
+MCP 嘅深層啟示：**AI 嘅未來唔係「更聰明嘅模型」，而係「標準化嘅工具生態」**。
 
-Claude 自己識推理但唔連工具。MCP = 嗰個連線層。每多安裝 1 個 MCP，Claude 嘅行動範圍擴闊。
+Claude 自己識推理，但唔連得到工具。MCP 就係嗰一層連線。每多裝一個 MCP，Claude 嘅行動範圍就闊多一截。
 
-5 個 MCP 設好 + Claude Code = 你嘅個人 AI 助手真實咁連到你每日工具鏈：
+5 個 MCP 設好，加埋 Claude Code，你嘅個人 AI 助手就真係連到你每日嘅工具鏈：
 - GitHub for code
 - Notion for 任務 / 文檔
 - Slack for 通訊
 - Postgres for 數據
 - Filesystem for 檔案操作
 
-Claude 變成「協調嘅嗰一層」vs「孤立嘅模型」。
+Claude 由「孤立嘅模型」變成「協調全局嗰一層」。
 
 最後提醒：
 
-- ✅ **由 1-2 個 MCP 開始**，第一日唔好裝 10 個。逐步擴展。
-- ⚠️ **MCP 工具通常 access 真實生產系統**。權限紀律好重要。Token / API key 永遠唔好 commit git。
-- 🎯 **Build 自己嘅 MCP** 如果你公司內部工具冇公開版本。SDK 對中級開發者都易上手。
+- ✅ **由 1 至 2 個 MCP 開始**，第一日唔好一次過裝 10 個。慢慢擴展。
+- ⚠️ **MCP 工具好多時係直接掂到真實嘅生產系統**。權限紀律好重要。Token 同 API key 永遠都唔好 commit 入 git。
+- 🎯 如果你公司內部工具冇公開版本，**就整返個自己嘅 MCP**。SDK 對中級開發者嚟講都唔難上手。
 
-下個鐘安裝 GitHub MCP。1 個禮拜後你會本能咁「Claude，list 我哋啲 PR」。
+下個鐘就裝 GitHub MCP。一個禮拜之後，你會好自然咁講句「Claude，list 我哋啲 PR」。

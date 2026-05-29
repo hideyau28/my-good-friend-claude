@@ -1,5 +1,5 @@
 ---
-title: "Claude Code 做 safe refactor：先 characterization test、後 mechanical move、再 verify equivalence"
+title: "Claude Code 做 safe refactor：先 characterization test、後 mechanical move、再核對等價性"
 slug: "claude-code-safe-refactor"
 issue: 114
 publishedAt: 2026-05-27
@@ -10,7 +10,7 @@ subcategory: "Refactor"
 difficulty: 3
 timeMinutes: 60
 toolsNeeded: ["Claude Code CLI", "你個 project + test framework"]
-description: "Claude Code 做 safe refactor 嘅 3-phase ritual：先 characterization test pin 住現有 behavior、再 mechanical move 唔改 logic、最後 verify equivalence。教你避開 AI 直接 rewrite 撞爛 edge case 嘅死位。"
+description: "Claude Code 做 safe refactor 嘅三步流程：先 characterization test 釘住現有行為、再 mechanical move 唔改邏輯、最後核對等價性。教你避開 AI 直接重寫撞爛 edge case 嘅死位。"
 keywords: ["Claude Code refactor", "characterization test AI", "safe refactor pattern", "legacy code refactor", "mechanical refactor"]
 related: ["claude-code-legacy-codebase-onboarding", "claude-code-tdd-pair-workflow", "claude-code-subagents-claude"]
 featured: false
@@ -24,21 +24,21 @@ featured: false
 
 你開 Claude Code，順口講：
 
-> Refactor 呢個 file，抽出啲 helper、改靚啲 naming、令佢易讀。
+> Refactor 呢個 file，抽出啲 helper、改靚啲命名、令佢易讀。
 
 Claude 跑 5 分鐘出 250 行新 code。你睇落幾靚仔。合併落 staging。
 
-然後 QA 嗌救命 —— 有個 5 年前 patch 落去嘅怪 edge case（負數 quantity 自動轉做 refund flow）冇咗。Claude rewrite 嘅時候**諗都無諗過呢個 case 存在**，因為呢個 behavior 從來無人寫低。
+然後 QA 嗌救命 —— 有個 5 年前 patch 落去嘅怪 edge case（負數 quantity 自動轉做退款流程）冇咗。Claude 重寫嘅時候**諗都無諗過呢個情況存在**，因為呢個行為從來無人寫低。
 
-Refactor 死位永遠係：**你以為自己保留咗 behavior，其實打爛咗 5 年累積落嚟嘅隱藏合約**。
+Refactor 死位永遠係：**你以為自己保留咗原有行為，其實打爛咗 5 年累積落嚟嘅隱藏合約**。
 
-呢篇教 Claude Code 嘅 3-phase safe refactor ritual。慢半個鐘，但 production 唔會嗌救命。
+呢篇教你用 Claude Code 嘅三步 safe refactor 流程。慢半個鐘，但 production 唔會嗌救命。
 
 ## 跟住做
 
-### 1. 設定 refactor scope
+### 1. 劃清 refactor 範圍
 
-開 Claude Code 之前，**先用文字定義清楚邊個 module / 邊個 function 要動**，唔好「順手執埋隔離」。Scope 失控係 refactor 撞車嘅頭號原因。
+開 Claude Code 之前，**先用文字定義清楚邊個 module、邊個 function 要動**，唔好「順手執埋隔離」。範圍失控係 refactor 撞車嘅頭號原因。
 
 <PromptBlock label="第一步 — 鎖死 scope">
 我要 refactor 呢個 file：`src/services/orderProcessor.ts`。
@@ -57,11 +57,11 @@ Refactor 死位永遠係：**你以為自己保留咗 behavior，其實打爛咗
 唔好寫任何 code。淨係輸出呢三張清單。
 </PromptBlock>
 
-第一步唔出 code —— 出 inventory。呢張 inventory 就係下一步 characterization test 嘅原材料。
+第一步唔出 code —— 出清單。呢張清單就係下一步 characterization test 嘅原材料。
 
-### 2. Characterization test：pin 死現有 behavior
+### 2. Characterization test：釘死現有行為
 
-Characterization test 嘅定義：**唔係驗證 code「應該」做乜（你唔知），而係紀錄 code「家陣」做緊乜**。包括啲怪嘢、bug-like behavior、5 年前嘅 patch。
+Characterization test 嘅定義：**唔係驗證 code「應該」做乜（你唔知），而係記錄 code「家陣」做緊乜**。包括啲怪嘢、似 bug 嘅行為、5 年前嘅 patch。
 
 <PromptBlock label="第二步 — 寫 characterization test">
 基於第一步個「internal behavior」+「可疑 edge case」清單，幫我寫一套 characterization test：
@@ -76,11 +76,11 @@ Characterization test 嘅定義：**唔係驗證 code「應該」做乜（你唔
 ⚠️ 紀律：呢一步**完全唔可以 touch production code**。淨係加 test file。寫完跑 `npm test` / `pnpm test` 確認全綠先收工。
 </PromptBlock>
 
-呢一步通常出 15-40 個 test。睇落好多，但每個都係將「冇人寫低嘅口頭合約」變成「executable 嘅安全網」。
+呢一步通常出 15-40 個 test。睇落好多，但每個都係將「冇人寫低嘅口頭合約」變成「跑得起嘅安全網」。
 
 ### 3. Mechanical refactor：只搬唔改
 
-呢一步先郁 production code。但有條鐵律：**Claude 只可以做 mechanical transformation —— rename、extract、move、inline、reorder —— 唔可以改 logic**。
+呢一步先郁 production code。但有條鐵律：**Claude 只可以做機械式 transformation —— rename、extract、move、inline、reorder —— 唔可以改邏輯**。
 
 <PromptBlock label="第三步 — Mechanical refactor only">
 而家可以動 `orderProcessor.ts`。但係有鐵律：
@@ -104,11 +104,11 @@ Characterization test 嘅定義：**唔係驗證 code「應該」做乜（你唔
 每 5-10 分鐘提一次：「下個 transformation 係乜、預期 test 仍然全綠」，等我可以喺中途叫停。
 </PromptBlock>
 
-呢度個關鍵字係 **mechanical**。Mechanical transformation 嘅特性係：理論上可以由 IDE 自動做，behavior 數學上等價。Claude 一旦開始「改良 logic」，你就要叫停。
+呢度個關鍵字係 **mechanical**。機械式 transformation 嘅特性係：理論上可以由 IDE 自動做，行為數學上等價。Claude 一旦開始「改良邏輯」，你就要叫停。
 
-### 4. 核對 equivalence + commit cadence
+### 4. 核對等價性 + 拆 commit 節奏
 
-跑曬 mechanical refactor 之後，仲要做最後驗證 —— 因為 test suite 唔可能 100% 覆蓋 production input distribution。
+跑曬 mechanical refactor 之後，仲要做最後驗證 —— 因為 test suite 唔可能 100% 覆蓋 production 入面真實 input 嘅分布。
 
 <PromptBlock label="第四步 — Equivalence verification">
 幫我做最後驗證：
@@ -124,25 +124,25 @@ Characterization test 嘅定義：**唔係驗證 code「應該」做乜（你唔
 - 兩個 commit 之間任何時間 revert commit 2 都唔影響 commit 1
 </PromptBlock>
 
-兩個 commit 分開係紀律核心。Commit 1 係**永遠有價值嘅 asset**（即使 refactor 失敗都留低個 test 安全網）。Commit 2 係**可棄置嘅嘗試**。
+兩個 commit 分開係紀律核心。Commit 1 係**永遠有價值嘅資產**（即使 refactor 失敗都留低個 test 安全網）。Commit 2 係**可棄置嘅嘗試**。
 
 ## 變化
 
 ### 變化 1：Rename refactor（大型符號搬遷）
 
-成個 module 改名、或者一個 class 改名牽連幾十個 file。呢個情況試圖一次過手做必死，但又最適合 mechanical。
+成個 module 改名、或者一個 class 改名牽連幾十個 file。呢個情況試圖一次過手做必死，但又最適合機械式咁做。
 
 <PromptBlock label="變化 1 — Mass rename safe pattern">
 我要將 `OrderProcessor` rename 做 `OrderService`，連 file name、class name、所有 import、所有 mention。
 
 紀律：
-1. 先 `git grep -n "OrderProcessor"` 出曬所有 mention，列張清單畀我 review
-2. 我 confirm 清單之後，分三批做：file rename → declaration rename → callsite rename
+1. 先 `git grep -n "OrderProcessor"` 出曬所有出現位置，列張清單畀我睇過
+2. 我確認清單之後，分三批做：file rename → declaration rename → callsite rename
 3. 每批之後跑 typecheck + test
 4. 唔好順手改任何其他嘢 —— 如果你發現「順手執埋會好啲」，加入 TODO list，呢次 PR 唔做
 </PromptBlock>
 
-呢類純 rename 嘅 PR 最理想，因為 reviewer 可以一句「all mechanical」就 approve。
+呢類純 rename 嘅 PR 最理想，因為 reviewer 可以一句「all mechanical」就批准。
 
 ### 變化 2：Extract method（拆大 function）
 
@@ -158,7 +158,7 @@ Characterization test 嘅定義：**唔係驗證 code「應該」做乜（你唔
 4. 每 extract 一個 helper，跑 test，commit 一次
 5. 全部 extract 完之後，`processOrder()` 應該係 5-7 行 sequential call
 
-唔好試 introduce 新 abstraction（class、interface、空泛）。**淨係搬位置**。
+唔好試引入新 abstraction（class、interface、空泛）。**淨係搬位置**。
 </PromptBlock>
 
 關鍵：extract 嘅次序由尾向頭。尾段 side effect 少、最 isolated、最易抽離。
@@ -176,24 +176,24 @@ Characterization test 嘅定義：**唔係驗證 code「應該」做乜（你唔
 3. 全部 callsite 遷曬之後，先刪除舊 `getUser`，再將 `getUserV2` rename 返做 `getUser`
 4. 中途如果有 callsite 我哋唔肯定點處理（例如外部 API 調用），標 TODO，唔好硬遷
 
-呢個係 expand-migrate-contract pattern。比起「一次過改 signature 然後 fix all callsites」安全好多 —— 因為每個 intermediate commit 都係 working state。
+呢個係 expand-migrate-contract 模式。比起「一次過改 signature 然後 fix all callsites」安全好多 —— 因為每個中途 commit 都係跑得起嘅狀態。
 </PromptBlock>
 
-Expand-migrate-contract 係 safe refactor 嘅靈魂規律。中間每一步 main 都 deploy 得，唔需要長命 branch。
+Expand-migrate-contract 係 safe refactor 嘅靈魂規律。中間每一步 main 都部署得，唔需要長命 branch。
 
 ## 一個心態
 
 > Make the change easy, then make the easy change.
 > —— Kent Beck
 
-Refactor 嘅死位唔係技術，係**心理**。你睇住一段「明顯寫得屎」嘅 code，個衝動係即刻重寫。Claude Code 進一步放大呢個衝動 —— 因為佢 5 分鐘真係出到 250 行新 code，誘惑大過你抵擋嘅 willpower。
+Refactor 嘅死位唔係技術，係**心理**。你睇住一段「明顯寫得屎」嘅 code，個衝動係即刻重寫。Claude Code 仲放大呢個衝動 —— 因為佢 5 分鐘真係出到 250 行新 code，個誘惑大過你抵擋到嘅意志力。
 
-3-phase ritual 嘅核心唔係教 Claude 點 refactor，係**強制你慢落嚟**：
+三步流程嘅核心唔係教 Claude 點 refactor，係**強制你慢落嚟**：
 
-- Phase 1（characterization test）：強制你**承認自己唔了解現有 behavior**。寫 test 嘅過程會發現「咦原來呢度仲有個 fallback」、「呢個 throw 我以為冇 trigger 但 test 證明有」。
-- Phase 2（mechanical refactor）：強制你**將「改良」同「搬位」分開**。Mechanical move 之後 code 通常已經易讀 50%，你會發覺「原來唔使改 logic 都可以」。
-- Phase 3（equivalence verification）：強制你**對等價性保持懷疑**，唔信「test 過 = 等價」。
+- 第一步（characterization test）：強制你**承認自己唔了解現有行為**。寫 test 嘅過程會發現「咦原來呢度仲有個 fallback」、「呢個 throw 我以為冇觸發過，但 test 證明有」。
+- 第二步（mechanical refactor）：強制你**將「改良」同「搬位」分開**。機械式搬完之後，code 通常已經易讀咗一半，你會發覺「原來唔使改邏輯都得」。
+- 第三步（核對等價性）：強制你**對等價性保持懷疑**，唔好信「test 過 = 等價」。
 
-Claude Code 喺 legacy refactor 真正嘅 unlock 唔係速度 —— 係**將「冇人寫低嘅口頭合約」轉換做 executable test**。一旦轉換完，5 年前嗰個離職同事個 patch 終於有人睇得明、改得郁。
+Claude Code 喺 legacy refactor 真正幫到手嘅地方唔係速度 —— 係**將「冇人寫低嘅口頭合約」轉換做跑得起嘅 test**。一旦轉換完，5 年前嗰個離職同事個 patch，終於有人睇得明、改得郁。
 
-下次再撞到 800 行嘅怪 file，唔好問 Claude「幫我 refactor 呢個」。問佢「幫我寫 characterization test 置頂住現有 behavior」。一個禮拜之後你會發現，呢句嘢嘅回報高過你 3 年寫過嘅任何 prompt。
+下次再撞到 800 行嘅怪 file，唔好問 Claude「幫我 refactor 呢個」。問佢「幫我寫 characterization test 釘住現有行為」。一個禮拜之後你會發現，呢句嘢嘅回報高過你 3 年寫過嘅任何 prompt。
