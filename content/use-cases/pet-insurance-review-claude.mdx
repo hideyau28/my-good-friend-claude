@@ -38,14 +38,14 @@ featured: false
 - 「等候期」全部 30-90 日唔等
 - 「年度賠償額」嘅重新計算日子唔同（保單週年 vs 曆年）
 
-你開始用 Excel 整比較表。半個鐘後你個 Excel 淨係得一堆睇唔明嘅 matrix，仲未諗到揀邊個。
+你開始用 Excel 整比較表。半個鐘後你個 Excel 淨係得一堆睇唔明嘅格仔，仲未諗到揀邊個。
 
 呢篇用 Claude **15 分鐘**：
 1. 拆 3 份條款細則嘅關鍵條款
 2. 估算 5 年實際預期開支（連埋 claim 嘅機會率）
 3. 準備 3 條有針對性嘅問題問返 broker
 
-⚠️ Claude 唔係保險顧問。具體報價一定要向有牌 broker 確認，呢篇係幫你做足準備唔被 sales 㩒住搶。
+⚠️ Claude 唔係保險顧問。具體報價一定要向有牌 broker 確認，呢篇係幫你做足準備，唔好畀對方㩒住搶。
 
 ## 跟住做
 
@@ -64,9 +64,9 @@ featured: false
 > - 主要風險擔憂：[老人病 / 牙科 / 意外受傷 / 等]
 > - 我每年願意畀嘅 budget：HK$[填]
 
-### 2. Paste 3 份 brochure 嘅 key spec + 用呢個 prompt
+### 2. 貼低 3 份 brochure 嘅關鍵資料 + 用呢個 prompt
 
-<PromptBlock label="完整 prompt — 3 寵物保 plan 對比 + 5 年 cost simulation">
+<PromptBlock label="完整 prompt — 3 個寵物保 plan 對比 + 5 年開支模擬">
 我 主子 風險狀況：[paste 上面]
 
 我 broker 畀咗 3 個 plan，詳情如下：
@@ -138,7 +138,7 @@ featured: false
 語氣：一個識保險嘅朋友幫我分析，唔好似 sales。
 </PromptBlock>
 
-### 3. Follow up — 拆你最睇唔明嘅條款
+### 3. 追問 — 拆你最睇唔明嘅條款
 
 收到比較之後，通常仲有啲特別條款你睇唔明：
 
@@ -156,7 +156,7 @@ featured: false
 
 你主子用緊一個 plan 1-2 年，續保時保費加咗：
 
-<PromptBlock label="變化 1 — Renewal premium hike 評估">
+<PromptBlock label="變化 1 — 續保加費評估">
 我 主子 用緊 [Plan 名] 已經 [X] 年。
 
 過去 X 年：
@@ -193,15 +193,15 @@ featured: false
 - 對比預期 3 年 vet 開支：有突定唔夠？
 - 主子 老化嘅風險狀況點樣影響個計算
 
-語氣：你係我個做保險 broker 嘅朋友，冇佣金壓力，唔會 hard sell。
+語氣：你係我個做保險 broker 嘅朋友，冇佣金壓力，唔會硬銷。
 </PromptBlock>
 
 ### 變化 2：第一次買保險 — 邊個年紀買最抵
 
 你主子仲後生（< 3 歲），考慮緊而家買定係 5 年後先買：
 
-<PromptBlock label="變化 2 — 後生 pet 而家買 vs 等 review">
-我 主子：[age, species, breed, current health all normal]。
+<PromptBlock label="變化 2 — 後生寵物而家買 vs 等到老咗先買">
+我 主子：[年齡、物種、品種、目前健康狀況一切正常]。
 
 我有兩個選擇：
 - A：而家 (X 歲) 就買定寵物保險
@@ -239,10 +239,10 @@ featured: false
 
 你屋企有兩隻或以上寵物，每隻分開買太貴：
 
-<PromptBlock label="變化 3 — Multi-pet 保險策略">
+<PromptBlock label="變化 3 — 多隻寵物嘅保險策略">
 我屋企：
 - 主子 貓 8 歲（vet visit 頻繁）
-- Coco 狗 3 歲（健康 active）
+- Coco 狗 3 歲（健康活潑）
 - Sunny 兔 2 歲（珍禽異獸 — 大部分主流保險唔保）
 
 請幫我分析：
@@ -271,8 +271,8 @@ featured: false
 排個最符合成本效益嘅組合。
 
 **Part 5：Claim 錢嘅現實行政成本**
-- 幾隻寵物買同一間 = 同一個 portal，賠錢時間線一致 = 方便
-- 分開幾間買 = 要填 3 份表，追 3 條 team = 多嘢搞
+- 幾隻寵物買同一間 = 同一個平台，賠錢時間線一致 = 方便
+- 分開幾間買 = 要填 3 份表，追 3 隊客服 = 多嘢搞
 - 將你嘅時間同精神成本計埋入去個決定度
 
 語氣：講出養多隻寵物嘅真實負擔，唔好太過理想化。
@@ -289,9 +289,9 @@ featured: false
 2. **你主子嘅風險狀況**？純種貓狗高遺傳病風險 = 保險預期回報高。健康唐狗短毛貓 = 保險預期回報低。
 3. **情緒管理**？有保險可以做醫療決定時唔受金錢考慮影響——呢個情緒價值喺 Excel 表度睇唔到。
 
-Claude 嘅角色唔係幫你決定買定唔買，係**攤晒啲利弊出嚟**等你可以做個有理有據嘅決定，而唔係被 broker 夾硬 push。
+Claude 嘅角色唔係幫你決定買定唔買，係**攤晒啲利弊出嚟**等你可以做個有理有據嘅決定，而唔係畀 broker 夾硬推。
 
-最後 reminder：
+最後提一提：
 
 - ✅ 簽任何 plan 之前，逐字睇清楚已存在病症 + 唔保事項嘅條款
 - ✅ 續保時永遠要重新評估，唔好自動續 5 年

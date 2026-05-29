@@ -1,5 +1,5 @@
 ---
-title: "HK 比較 IVF 診所用 Claude：成功率 + cost + protocol 對比，唔被銷售氛圍 sweep"
+title: "HK 比較 IVF 診所用 Claude：成功率、收費、protocol 三方對比，唔被銷售氣氛沖走"
 slug: "fertility-clinic-comparison-hk-claude"
 issue: 130
 publishedAt: 2026-05-27
@@ -11,7 +11,7 @@ heroImage: "/hero/fertility-clinic-comparison-hk-claude.webp"
 difficulty: 2
 timeMinutes: 40
 toolsNeeded: ["Claude Chat"]
-description: "HK IVF 診所比較：用 Claude 客觀拆解成功率、cost、protocol 三大維度，對比公立 / 私營 / 海外 telemedicine package，避免被銷售氛圍 sweep。"
+description: "HK IVF 診所比較：用 Claude 客觀拆解成功率、收費、protocol 三大維度，對比公立、私營、海外 telemedicine package，唔被銷售氣氛沖走。"
 keywords: ["HK IVF 比較", "不孕治療 HK", "IVF clinic comparison", "fertility clinic HK", "養和 IVF"]
 related: ["doctor-visit-prep-claude", "insurance-policy-review-claude", "hong-kong-school-comparison-claude"]
 featured: false
@@ -21,43 +21,43 @@ featured: false
 
 你同伴侶試咗一段時間。決定行 IVF。打開幾間診所網站：
 
-- **港大 IVF / 公立輔助生育中心** —— 排期長，但 cost 相對可控
-- **養和 / 香港浸信會醫院**等私營 —— 即時開始，但一個週期報價 15-30 萬
-- **海外 telemedicine package**（Spain / Taiwan / 泰國）—— 月子式套餐，飛兩程，cost mid-range
+- **港大 IVF、公立輔助生育中心** —— 排期長，但收費相對可控
+- **養和、香港浸信會醫院**等私營 —— 即時開始，但一個週期報價 15-30 萬
+- **海外 telemedicine package**（Spain、Taiwan、泰國）—— 月子式套餐，飛兩程，收費中間落墨
 
-第一次 consult 半個鐘，醫生 / 護士 sell 你一個 protocol：
+第一次 consult 半個鐘，醫生、護士就推你一個 protocol：
 
 - 「我哋成功率係**全港最高**」
 - 「你 [年齡]，唔好等」
-- 「呢個 package 包晒，唔會有 hidden cost」
+- 「呢個 package 包晒，唔會有隱藏收費」
 
-你坐喺度，emotional、贵、tight timeline——好難 think straight。
+你坐喺度，情緒亂、又貴、時間又緊——好難諗得清楚。
 
-呢篇教你用 Claude 喺 consult 之間做 **40 分鐘客觀對比**：拆 success rate 點解讀、cost 邊度有水分、protocol style 啱唔啱你。
+呢篇教你用 Claude 喺兩次 consult 之間做 **40 分鐘客觀對比**：拆成功率點解讀、收費邊度有水分、protocol 風格啱唔啱你。
 
-> ⚠️ 重要聲明：呢個 prompt **絕對唔係 medical advice**。Claude 唔係生殖科醫生、唔係 counselor、唔係 financial advisor。唯一可以為你揀 protocol 嘅，係你嘅主診醫生。呢個流程嘅唯一目的，係**令你帶住具體問題去 second consult**——唔係自己揀診所。
+> ⚠️ 重要聲明：呢個 prompt **絕對唔係醫療意見**。Claude 唔係生殖科醫生、唔係輔導員、唔係理財顧問。唯一可以為你揀 protocol 嘅，係你嘅主診醫生。呢個流程嘅唯一目的，係**令你帶住具體問題去 second consult**——唔係自己揀診所。
 
 ## 跟住做
 
-### 1. 列 3 間 candidate，每間攞一份報價
+### 1. 揀 3 間做候選，每間攞一份報價
 
 最少要 3 間，最好涵蓋三類：
 
-- **一間公立 / 大學醫院**（港大 / 中大 IVF）
-- **一間私營**（養和 / 浸信會 / 港怡 / 仁安）
+- **一間公立、大學醫院**（港大、中大 IVF）
+- **一間私營**（養和、浸信會、港怡、仁安）
 - **一間海外 telemedicine package**（IVF Spain、台灣送子鳥、泰國 Jetanin）
 
-每間問住：
+每間都問清楚：
 
 - **成功率數字**（每週期 live birth rate，分年齡層）
-- **書面報價**（base 週期、medication、麻醉、ICSI、PGT-A、冷凍）
-- **建議 protocol**（agonist / antagonist / mild / natural）
-- **預計 timeline**（由 stimulation 到 transfer）
-- **如果週期 fail，下一週期嘅折扣 / package**
+- **書面報價**（base 週期、藥物、麻醉、ICSI、PGT-A、冷凍）
+- **建議 protocol**（agonist、antagonist、mild、natural）
+- **預計時間表**（由 stimulation 到 transfer）
+- **如果週期失敗，下一週期嘅折扣、package**
 
-冇齊呢啲輸入，Claude 嘅輸出會好行貨。
+冇齊呢啲資料，Claude 嘅輸出會好行貨。
 
-### 2. 用呢個 prompt 解讀 success rate
+### 2. 用呢個 prompt 解讀成功率
 
 <PromptBlock label="完整 prompt — IVF 診所三邊對比">
 我同伴侶準備做 IVF。我 [年齡]，伴侶 [年齡]。我哋初步診斷：[例：unexplained / 卵巢功能下降 / 男方因素 / 多次自然流產]。
@@ -79,141 +79,141 @@ featured: false
 - [同上格式]
 - 飛行 / 住宿估算：[填]
 
-請幫我做以下 4 件事——但 **絕對唔好為我揀邊間、唔好預測我會唔會成功、唔好淡化任何一個 option 嘅風險**。你嘅角色係客觀拆解者，唔係 advocate。
+請幫我做以下 4 件事——但 **絕對唔好為我揀邊間、唔好預測我會唔會成功、唔好淡化任何一個選擇嘅風險**。你嘅角色係客觀拆解者，唔係幫邊一間講好說話。
 
-**Part 1：Success rate 點樣讀**
+**Part 1：成功率點樣讀**
 
 逐間講：
 
-- 個 rate 嘅分母係咩？（started cycle / retrieval / transfer / live birth——四個係好唔同嘅 base）
+- 個 rate 嘅分母係咩？（started cycle / retrieval / transfer / live birth——四個係好唔同嘅基數）
 - 有冇按**年齡層**分開（25-34 / 35-37 / 38-40 / 41-42 / 42+）？冇就要警惕
-- 有冇 exclude 高難度 case（exclude 嘅 rate 通常會「靚」啲）
-- 同國際 SART / HFEA benchmark 比，呢個數字屬於合理 / 偏高 / 偏低
+- 有冇剔走高難度個案（剔走咗嘅 rate 通常會「靚」啲）
+- 同國際 SART / HFEA benchmark 比，呢個數字屬於合理、偏高定偏低
 
-⚠️ 強調：success rate 係 **population statistics**，唔係個人預測。我嘅實際機會率，要由我嘅 AMH / FSH / 精液分析 + 醫生判斷。
+⚠️ 強調：成功率係 **群體統計**，唔係個人預測。我嘅實際機會率，要睇我嘅 AMH、FSH、精液分析加埋醫生判斷。
 
-**Part 2：Cost transparency 拆 hidden item**
+**Part 2：拆收費透明度同隱藏項目**
 
-整一個三邊對比表，**用同一個 cycle scope** 計（base + medication + ICSI + 1 次 fresh transfer + 剩餘胚胎冷凍 1 年）：
+整一個三方對比表，**用同一個 cycle 範圍** 計（base + medication + ICSI + 1 次 fresh transfer + 剩餘胚胎冷凍 1 年）：
 
-- 邊個 quote 包嗮，邊個 quote「另計」
-- 列出常見「另計」項目：medication（HK 醫院藥房 vs 出面配藥可以差 20-30%）、anesthesia、blastocyst culture、assisted hatching、再 transfer
+- 邊個報價包晒，邊個報價「另計」
+- 列出常見「另計」項目：medication（HK 醫院藥房同出面配藥可以差 20-30%）、anesthesia、blastocyst culture、assisted hatching、再 transfer
 - 海外 package 要加：機票、住宿（停留 2-3 週）、tele-monitoring fee、本地超聲波 fee
-- 計到「總 expected cost」+「最壞情況 cost（如果第一 cycle fail 要再做）」
+- 計到「總預計收費」加「最壞情況收費（如果第一 cycle 失敗要再做）」
 
-**Part 3：Protocol style 對比**
+**Part 3：Protocol 風格對比**
 
 每間講：
 
-- Protocol 屬於 **aggressive**（高劑量 gonadotropin、追多卵）定 **conservative / mild**（少劑量、少 OHSS 風險、可能要多個 cycle）定 **natural**
-- 個 style 對我嘅 [診斷] 屬於常見定罕見處方
-- 風險取捨：OHSS（卵巢過度刺激）風險 vs cycle 數量 vs egg quality
+- Protocol 屬於 **進取型**（高劑量 gonadotropin、追多卵）定 **保守、溫和型**（少劑量、少 OHSS 風險、可能要多個 cycle）定 **自然型**
+- 呢個風格對我嘅 [診斷] 屬於常見定罕見處方
+- 風險取捨：OHSS（卵巢過度刺激）風險、cycle 數量、egg quality 之間點衡量
 
 **Part 4：5-8 條我應該帶去 second consult 嘅具體問題**
 
-唔好問「邊間最好」（醫生唔會答）。要問可以 cross-check 嘅問題：
+唔好問「邊間最好」（醫生唔會答）。要問可以互相印證嘅問題：
 
-- 「我嘅 AMH [數值] + 年齡 [X]，喺呢個 protocol 預期 retrieval 幾多隻卵？」
+- 「我嘅 AMH [數值] 加年齡 [X]，喺呢個 protocol 預期 retrieval 幾多隻卵？」
 - 「如果第一 cycle 得 [N] 隻 mature egg，下一步係 fresh transfer 定 freeze-all？點解？」
-- 「我呢個 case 個 live birth rate，貴診所內部統計係幾多？」
-- 「如果 fail，第二 cycle 嘅 protocol 會點樣調整？」
-- 「Emotional support / counselling 包唔包喺 package？」
+- 「我呢個情況個 live birth rate，貴診所內部統計係幾多？」
+- 「如果失敗，第二 cycle 嘅 protocol 會點樣調整？」
+- 「情緒支援、輔導包唔包喺 package 入面？」
 
 ⚠️ 結尾必須提示：
 - 呢份對比唯一目的係令我 second consult 問得更具體，唔係取代醫生判斷
-- 唔好因為 cost 平就揀；唔好因為 success rate 數字大就揀
-- IVF 係 emotional + medical + financial 三維度決定，呢個 prompt 只 cover 後兩個
+- 唔好因為收費平就揀；唔好因為成功率數字大就揀
+- IVF 係情緒、醫療、財務三個維度一齊決定，呢個 prompt 只覆蓋後兩個
 </PromptBlock>
 
-### 3. Cost breakdown：自己再算一次「最壞情況」
+### 3. 拆收費：自己再算一次「最壞情況」
 
 Claude 拆完之後，自己用紙再算一次：
 
-- **Best case**：第一週期成功，總 cost = ?
-- **Realistic case**：第一週期攞唔到 viable embryo，做多半個週期，總 cost = ?
-- **Worst case**：3 個週期都 fail，總 cost = ?
+- **最好情況**：第一週期成功，總收費 = ?
+- **現實情況**：第一週期攞唔到可用胚胎，做多半個週期，總收費 = ?
+- **最壞情況**：3 個週期都失敗，總收費 = ?
 
-HK 私營 base quote 通常 15-20 萬，但加埋 medication + ICSI + PGT-A + freezing + 2 次 transfer，**實際支出可以去到 35 萬一個週期**。海外 package 表面 12-15 萬，加埋兩程飛行 + 住宿 + 本地配套，**真實 cost 18-22 萬**。
+HK 私營 base quote 通常 15-20 萬，但加埋 medication、ICSI、PGT-A、freezing、2 次 transfer，**實際支出可以去到一個週期 35 萬**。海外 package 表面 12-15 萬，加埋兩程機票、住宿、本地配套，**真實收費 18-22 萬**。
 
-呢個落差，係 90% 嘅夫婦事前估錯嘅地方。
+呢個落差，正正係九成夫婦事前估錯嘅地方。
 
-### 4. Prep 一份 question list 帶去 second consult
+### 4. 預備一份問題清單帶去 second consult
 
-唔好喺 first consult 揀。一定要 **second consult**——隔 1 週、emotion 落返嚟、帶住具體問題。
+唔好喺 first consult 就揀。一定要等 **second consult**——隔一星期、情緒平復返、帶住具體問題。
 
 帶去診症室嘅一頁紙：
 
-- **5-8 條 cross-check 問題**（Part 4 出嘅）
-- **要抄低嘅資料**：醫生口頭報嘅 personalised success rate、protocol 調整、medication 名 + 劑量、總 cost 上限
-- **離開前 must-ask**：「如果我哋而家未 ready 簽，我幾時要 跟進？AMH 會繼續跌嗎？」
+- **5-8 條互相印證嘅問題**（Part 4 出嘅）
+- **要抄低嘅資料**：醫生口頭報嘅個人化成功率、protocol 調整、藥物名加劑量、總收費上限
+- **離開前必問**：「如果我哋而家未準備好簽，我幾時要跟進？AMH 會繼續跌嗎？」
 
-醫生面對有準備嘅夫婦，**通常會由 sales mode 切返做 clinical mode**——你嘅準備係雙方都得益嘅。
+醫生面對有準備嘅夫婦，**通常會由銷售模式轉返做臨床模式**——你做足準備，係雙方都得益嘅。
 
 ## 變化例子
 
-### 變化 1：公立 vs 私營（queue time vs cost）
+### 變化 1：公立定私營（等排期定使錢）
 
-<PromptBlock label="變化 1 — 公立 vs 私營取捨">
-我考慮喺 [港大 IVF / 公立輔助生育中心] 排隊 vs 即刻去私營。我嘅情況：
+<PromptBlock label="變化 1 — 公立定私營取捨">
+我考慮喺 [港大 IVF / 公立輔助生育中心] 排隊，定即刻去私營。我嘅情況：
 
 - 年齡：[填]
 - AMH：[填]
-- 公立排期 quoted：[例：18-24 個月]
+- 公立排期報住：[例：18-24 個月]
 - 私營即時可開始
-- 我嘅 budget ceiling：[填]
+- 我嘅預算上限：[填]
 
 請：
-1. 用我年齡 + AMH，講解「等 18-24 個月」對 success rate 嘅潛在影響（AMH 每年下跌幅度、年齡 cliff）
-2. 計「等公立省嘅錢」vs「私營即刻做但 cost 高」嘅取捨
-3. 列我可以做嘅 hybrid 路線（例：公立排隊期間私營做 egg freezing）
-4. ⚠️ 強調：呢個唔係建議我揀邊樣，係 framework
+1. 用我年齡加 AMH，講解「等 18-24 個月」對成功率嘅潛在影響（AMH 每年下跌幅度、年齡懸崖）
+2. 計「等公立慳到嘅錢」同「私營即刻做但收費高」之間嘅取捨
+3. 列我可以做嘅混合路線（例：公立排隊期間，私營做 egg freezing）
+4. ⚠️ 強調：呢個唔係建議我揀邊樣，只係一個分析框架
 </PromptBlock>
 
-### 變化 2：加入 oversea telemedicine option
+### 變化 2：加入海外 telemedicine 選擇
 
 <PromptBlock label="變化 2 — 海外 telemedicine package">
-我考慮去 [Spain / Taiwan / 泰國] 做 IVF。佢哋 quote：
+我考慮去 [Spain / Taiwan / 泰國] 做 IVF。佢哋報價：
 
-- Package cost：[填]
+- Package 收費：[填]
 - 包含：[填，例：consult + stimulation monitoring + retrieval + ICSI + 1 transfer]
-- 我需要停留：[填，例：2 週 stimulation + 1 週 transfer，或者 split 兩程]
-- 本地 partner clinic（喺香港做 monitoring）：[填 / 冇]
+- 我需要停留：[填，例：2 週 stimulation + 1 週 transfer，或者分開兩程]
+- 本地合作診所（喺香港做 monitoring）：[填 / 冇]
 
 請：
-1. 拆呢個 package 嘅 hidden cost：機票、住宿、本地 monitoring fee、藥物運送 / 配藥、emergency 時嘅 contingency
-2. 列海外做 IVF 嘅 logistic risk：時差、language gap、cycle 中途要應變嘅靈活度、follow-up care
-3. 對比同等級嘅 HK 私營 total cost
-4. ⚠️ 強調 legal：嬰兒出世地點、出世紙、回港之後嘅報戶口流程，我要自己 verify
+1. 拆呢個 package 嘅隱藏收費：機票、住宿、本地 monitoring fee、藥物運送、配藥、緊急情況嘅後備安排
+2. 列海外做 IVF 嘅執行風險：時差、語言隔閡、cycle 中途要應變嘅靈活度、follow-up care
+3. 對比同等級嘅 HK 私營總收費
+4. ⚠️ 強調法律：嬰兒出世地點、出世紙、回港之後嘅報戶口流程，我要自己查證
 </PromptBlock>
 
-### 變化 3：單身 / 同性伴侶嘅額外 layer
+### 變化 3：單身、同性伴侶嘅額外考量
 
-<PromptBlock label="變化 3 — 單身 / lesbian couple navigate">
-我係 [單身女性 / lesbian couple 一方] 想做 IVF。我嘅情況：[填]。
+<PromptBlock label="變化 3 — 單身 / 同性伴侶處理流程">
+我係 [單身女性 / 同性伴侶一方] 想做 IVF。我嘅情況：[填]。
 
 請：
-1. 列 HK 法律現況：本地 IVF 對單身 / 同性伴侶嘅 access 限制（公立私營分別）
-2. 列常見海外 destination（Spain、Belgium、Taiwan、Thailand 嘅政策差異）
-3. 對應嘅 logistic：donor sperm regulation、出世紙父母欄、回港報戶口、學校 / 醫療登記時嘅實務 navigate
-4. Emotional + community resource：本地有冇 support group（請只列我可以自己 verify 嘅，唔好作）
-5. ⚠️ 強調：呢個係極複雜嘅 legal + emotional 議題。Claude 嘅 list 只係起點，正式決定前一定要諮詢律師 + 生殖科醫生 + counsellor
+1. 列 HK 法律現況：本地 IVF 對單身、同性伴侶嘅使用限制（公立私營分別）
+2. 列常見海外目的地（Spain、Belgium、Taiwan、Thailand 嘅政策差異）
+3. 對應嘅執行細節：donor sperm 規管、出世紙父母欄、回港報戶口、學校、醫療登記時嘅實務處理
+4. 情緒同社群資源：本地有冇 support group（請只列我可以自己查證嘅，唔好作）
+5. ⚠️ 強調：呢個係極複雜嘅法律加情緒議題。Claude 列嘅嘢只係起點，正式決定前一定要諮詢律師、生殖科醫生加輔導員
 </PromptBlock>
 
 ## 一個心態把關
 
-IVF 嘅資訊不對等比一般醫療更嚴重——你 emotional、tight timeline、贵——三者夾埋你最容易喺 first consult 嗰陣就簽。
+IVF 嘅資訊不對等比一般醫療更嚴重——你情緒亂、時間緊、又貴——三者夾埋，你最容易喺 first consult 嗰陣就簽。
 
 Claude 嘅角色：**喺 first consult 同 second consult 之間嗰一星期**，幫你冷靜拆數據、列問題。佢唔識揀，但佢識幫你問得具體。
 
 ⚠️ 最重要嘅心理紀律：
 
-- 唔好因為 Claude 列嘅 success rate framework 就自己 conclude 機會率——你嘅實際機會率只有主診醫生睇晒你嘅 work-up 之後先講得到
-- 唔好因為一間診所 quote 平就揀；唔好因為一間 success rate 數字大就揀
-- 唔好略過 emotional / counselling 呢一塊。IVF 嘅心理 toll 真實存在，**搵 counsellor 唔係軟弱，係 protocol 嘅一部分**
+- 唔好因為 Claude 列嘅成功率框架就自己斷定機會率——你嘅實際機會率，只有主診醫生睇晒你嘅檢查報告之後先講得到
+- 唔好因為一間診所報價平就揀；唔好因為一間成功率數字大就揀
+- 唔好略過情緒、輔導呢一塊。IVF 對心理嘅消耗真實存在，**搵輔導員唔係軟弱，係 protocol 嘅一部分**
 - 唔好獨自決定。同伴侶一齊讀 Claude 嘅輸出、一齊去 second consult、一齊問
 
-IVF 唔係買保險、唔係揀學校、唔係簽按揭——但呢三樣嘢嘅 framework 同樣適用：**喺有銷售壓力嘅環境度，唯一可以保護你嘅，係事前準備同具體問題**。
+IVF 唔係買保險、唔係揀學校、唔係簽按揭——但呢三樣嘢嘅框架同樣適用：**喺有銷售壓力嘅環境度，唯一可以保護你嘅，係事前準備同具體問題**。
 
 Claude 唔可以畀你信心話「呢間一定得」。但佢可以畀你冷靜，去到 second consult 嗰陣，由「我聽佢講」變成「我哋一齊諗」。
 
-> ⚠️ 再講一次：呢篇唔係 medical advice、唔係 financial advice、唔係 legal advice。涉及 IVF 決定，請搵生殖科醫生、IVF counsellor、必要時律師。
+> ⚠️ 再講一次：呢篇唔係醫療意見、唔係財務意見、唔係法律意見。涉及 IVF 決定，請搵生殖科醫生、IVF 輔導員，必要時搵律師。

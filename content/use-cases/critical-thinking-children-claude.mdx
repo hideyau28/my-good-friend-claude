@@ -1,5 +1,5 @@
 ---
-title: "教細路 critical thinking：用 Claude 同 P5+ 小朋友傾抽象問題"
+title: "教細路批判思考：用 Claude 同 P5+ 小朋友傾抽象問題"
 slug: "critical-thinking-children-claude"
 issue: 38
 publishedAt: 2026-08-25
@@ -11,7 +11,7 @@ heroImage: "/hero/critical-thinking-children-claude.webp"
 difficulty: 1
 timeMinutes: 30
 toolsNeeded: ["Claude Chat"]
-description: "教細路 critical thinking：用 Claude 同 P5+ 小朋友傾抽象問題（「點解 X」、「如果 X 會點」）。HK 家長嘅親子討論 setup，唔係 quiz、唔餵答案、係一齊 explore。"
+description: "教細路批判思考：用 Claude 同 P5+ 小朋友傾抽象問題（「點解 X」、「如果 X 會點」）。香港家長嘅親子討論設定，唔係考試、唔餵答案、係一齊探索。"
 keywords: ["critical thinking 小朋友", "親子討論", "小朋友 提問", "claude 教育", "啟發 思維"]
 related: ["claude-tsa-homework-hk", "hong-kong-school-comparison-claude"]
 featured: false
@@ -19,146 +19,146 @@ featured: false
 
 ## 情境
 
-小朋友升 P5、P6 嗰個 stage，開始問你抽象問題：
+小朋友升 P5、P6 嗰個階段，開始問你抽象問題：
 
-- 「點解人類要 work?」
+- 「點解人類要返工?」
 - 「如果 AI 識嗮所有嘢，學校仲做乜?」
-- 「點解我哋要 follow rule?」
+- 「點解我哋要守規矩?」
 - 「公平係咩意思?」
 
-呢類問題唔似 「2+2 等於幾」 嗰種有 single answer。 你嘅預設通常：
+呢類問題唔似「2+2 等於幾」嗰種有單一答案。 你慣性通常會：
 
 - **太忙，敷衍**：「大個你就知。」
 - **過分簡化**：「因為要返工啦。」
-- **直接 feed 你自己嘅觀點**：「人就應該 X」
+- **直接餵你自己嘅觀點**：「人就應該點點點」
 
-呢三個 response 都關閉咗 conversation。 小朋友 stop 問。
+呢三種回應都關閉咗對話。 小朋友唔再問。
 
-呢篇用 Claude 做**「三方對話」**——你、小朋友、Claude 一齊 explore 一個抽象問題，30 分鐘 turn 成親子 quality time。
+呢篇用 Claude 做**「三方對話」**——你、小朋友、Claude 一齊探索一個抽象問題，30 分鐘變成親子專屬時間。
 
-> 重要：呢個用法**唔取代你嘅 parental presence**。Claude 嘅角色係 conversation catalyst，唔係 「replace dad/mom 答嘢」。
+> 重要：呢個用法**唔取代你嘅親身陪伴**。Claude 嘅角色係對話的催化劑，唔係「代爸爸媽媽答嘢」。
 
 ## 跟住做
 
-### 1. 揀啱嘅 topic（critical step）
+### 1. 揀啱嘅題目（關鍵一步）
 
-小朋友自己 raise 嘅問題最好。 但如果你想 initiate，揀 topic 嘅 rule：
+小朋友自己提出嘅問題最好。 但如果你想開個頭，揀題目嘅原則：
 
-- **有 multiple legitimate angle**（唔係 「邊個歷史總統 first」 嗰類 single-answer）
-- **同小朋友 daily life 有關聯**（友誼、公平、為咩要做某啲嘢）
-- **冇 emotional charge**（avoid family conflict、religious、political 嗰類 first attempt）
-- **小朋友會 form opinion 嘅 level**（唔係 「meaning of life」 哲學 elite，係 P5 認知範圍）
+- **有多個都講得通嘅角度**（唔係「邊個總統最先」嗰類單一答案）
+- **同小朋友日常生活有關**（友誼、公平、為咩要做某啲嘢）
+- **冇情緒包袱**（第一次試，避開家庭衝突、宗教、政治嗰類）
+- **小朋友會有自己睇法嘅程度**（唔係「人生意義」嗰種高深哲學，係 P5 認知範圍）
 
-好嘅 starting topic：
-- 「如果你發現朋友 cheat 考試，應該唔應該講?」
-- 「電腦遊戲入面殺 character 算唔算殺生?」
-- 「點解大人話要 share，但有啲嘢佢哋唔 share?」
+好嘅起步題目：
+- 「如果你發現朋友考試出貓，應唔應該講?」
+- 「電腦遊戲入面殺死角色算唔算殺生?」
+- 「點解大人話要分享，但有啲嘢佢哋自己唔分享?」
 
-### 2. Set up 三方 conversation prompt
+### 2. 設定三方對話 prompt
 
-<PromptBlock label="完整 prompt — 三方 critical thinking conversation">
-我同我 [年齡] 小朋友 [小朋友嘅名] 想一齊 explore 呢個問題：
+<PromptBlock label="完整 prompt — 三方批判思考對話">
+我同我 [年齡] 嘅小朋友 [小朋友嘅名] 想一齊探索呢個問題：
 
-「[呢度貼小朋友嘅問題或者你想 raise 嘅 topic]」
+「[呢度貼小朋友嘅問題或者你想提出嘅題目]」
 
-請扮一個「好奇嘅同伴」（唔係老師、唔係 expert），同我哋一齊 think。 規則：
+請扮一個「好奇嘅同伴」（唔係老師、唔係專家），同我哋一齊諗。 規則：
 
-**你嘅 role：**
-1. **唔好提供 final answer**——你嘅 job 係提 follow-up question，唔係 conclude
-2. **跟住 conversation flow**——我哋 typing speed 唔同，你要 patient
-3. **小朋友每個 contribution 之後**，畀一個 「encouraging acknowledgment」 + 一個 「dig deeper」 question
-4. **Surface 多角度**——當我哋淨係 explore 一個 angle 嘅時候，你 gently introduce 「但有啲人會諗 ⋯ 你哋有冇諗過?」
-5. **避免 jargon**——用 [小朋友年齡] 對應嘅 vocabulary
-6. **永遠唔好 「validate one 觀點 over another」**——keep neutral
+**你嘅角色：**
+1. **唔好畀最終答案**——你嘅工作係追問，唔係下結論
+2. **跟住對話節奏**——我哋打字速度唔同，你要有耐性
+3. **小朋友每次發言之後**，畀一句鼓勵的肯定 + 一條深入一層嘅問題
+4. **帶出多個角度**——當我哋淨係探索一個角度嘅時候，你溫和咁帶出「但有啲人會諗⋯你哋有冇諗過?」
+5. **避免術語**——用啱 [小朋友年齡] 嘅詞彙
+6. **永遠唔好偏幫某一個觀點**——保持中立
 
-**Conversation flow：**
+**對話流程：**
 
-我會輸入小朋友嘅 response（標 「[小朋友名]: ⋯」），偶爾我自己嘅 thoughts（標 「[我]: ⋯」）。 你回應全 group。
+我會輸入小朋友嘅回應（標「[小朋友名]: ⋯」），偶爾加埋我自己嘅諗法（標「[我]: ⋯」）。 你回應成個小組。
 
-**Time budget：** 30 分鐘大概 8-10 個 exchange。 conversation natural 到一個 conclusion point 就 wrap up 一個「summary observation」。
+**時間預算：** 30 分鐘大概 8 至 10 個來回。 對話自然去到一個收結點，就總結一句觀察作結。
 
-**結尾：** 唔好 force 一個結論。 結尾 model：「今日我哋探索咗 X、Y、Z 嘅 angle。冇 single answer，呢個係 normal——critical thinking 嘅 mark 唔係 reach conclusion，係 willing to entertain ambiguity。」
+**結尾：** 唔好夾硬迫出一個結論。 結尾可以咁示範：「今日我哋探索咗 X、Y、Z 幾個角度。冇單一答案，呢個好正常——批判思考嘅標記唔係得出結論，係肯接受灰色地帶。」
 
-我哋已 ready。 第一個 contribution：
+我哋準備好喇。 第一句發言：
 
-[小朋友名]: [小朋友 raise 嘅問題]
+[小朋友名]: [小朋友提出嘅問題]
 
-請開始你嘅第一個 response。
+請開始你嘅第一個回應。
 </PromptBlock>
 
-### 3. 你做 active facilitator
+### 3. 你做主動的引導者
 
-小朋友打字慢，distract 容易。 你嘅 role：
+小朋友打字慢，又易分心。 你嘅角色：
 
-- **Type small contribution 落 chat**（小朋友 dictation 畀你打字）
-- **Step in 當對話 stuck**（「[小朋友名] 你覺得 Claude 講嗰句點?」）
-- **Inject 你嘅 view 適度**——你係 participant，唔係 silent observer。 但保留 「I'm one perspective, not the right answer」 framing
-- **Pause when needed**——如果小朋友 frustrated 或者 lost focus，stop session，唔好 force
+- **幫手打小段落落 chat**（小朋友講、你打字）
+- **對話卡住嗰陣插一句**（「[小朋友名] 你覺得 Claude 講嗰句點?」）
+- **適度加入你嘅睇法**——你係參與者，唔係旁觀者。 但要保留「我只係其中一個角度，唔係標準答案」嘅口吻
+- **有需要就暫停**——如果小朋友焦躁或者唔再專注，就停低，唔好夾硬嚟
 
-### 4. Conversation 之後
+### 4. 對話之後
 
-不嬲 follow-up：
+記得跟進：
 
-- **第二日 / 一個禮拜後 revisit**：「上次我哋傾 X 你仲有冇 new thought?」
-- **Real life connection**：當 daily situation 引發類似 question，refer back：「呢個 sound similar to 我哋上次傾嗰個 case」
-- **小朋友 surface 過嘅 angle 你 ack**：「你上次提到嗰點，我成日諗起⋯」
+- **第二日 / 一個禮拜後再傾**：「上次我哋傾 X，你仲有冇新諗法?」
+- **連返去現實生活**：當日常情況引發類似問題，拉返轉頭：「呢個好似我哋上次傾嗰單嘢喎」
+- **肯定小朋友提過嘅角度**：「你上次提到嗰點，我成日諗起⋯」
 
-呢類 follow-up 強化「我嘅 thinking has 重量」嘅 self-perception——小朋友嘅 future critical thinking confidence 建喺呢度。
+呢類跟進，強化咗「我嘅諗法有重量」嘅自我感覺——小朋友日後對批判思考嘅信心，就係喺呢度建立起嚟。
 
 ## 變化例子
 
-### 變化 1：兄弟姊妹都 join 嘅 family discussion
+### 變化 1：兄弟姊妹一齊參與嘅家庭討論
 
-<PromptBlock label="變化 1 — Family discussion (多個小朋友)">
-我哋有 [N 個] 小朋友（年齡 [列]）。 我想一齊傾呢個 question：[填]
-
-請：
-1. 用啱**最細小朋友嘅 vocabulary 為 baseline**（唔好 leave 細路 behind）
-2. 不時 specifically 邀請 specific 小朋友：「[最細小朋友名] 你覺得呢? 你會點做?」
-3. 唔好畀大細路 dominate
-4. Validate 唔同 view，特別當大細路同細細路 disagree
-
-我會 facilitate，你係 fourth participant。
-</PromptBlock>
-
-### 變化 2：唔講 abstract 概念，由真實 dilemma 入手
-
-<PromptBlock label="變化 2 — Real dilemma trigger">
-小朋友啱啱撞到 real situation：[描述事件，例如：朋友邀請佢 cheat、見到 classmate 偷嘢、覺得學校 rule 唔 fair]
+<PromptBlock label="變化 1 — 家庭討論（多個小朋友）">
+我哋有 [N 個] 小朋友（年齡 [列]）。 我想一齊傾呢條問題：[填]
 
 請：
-1. Acknowledge situation 嘅 emotion first（唔好 jump 落 reasoning）
-2. 開放 question：「你而家咩 feel?」 / 「你嗰陣諗緊咩?」
-3. 然後 abstract：「呢類 situation，你估其他人會點選擇? 點解?」
-4. 最後 actionable：「下次撞到類似情況，你有冇諗到可以點 handle?」
+1. **以最細個小朋友嘅詞彙做基準**（唔好掉低細路）
+2. 不時專登邀請指定嘅小朋友：「[最細小朋友名] 你覺得呢? 你會點做?」
+3. 唔好畀大個嗰個小朋友霸晒場
+4. 肯定唔同睇法，尤其當大細路同細細路意見唔同嘅時候
 
-呢個 sequence：feeling → reasoning → strategy。 唔好 skip feeling step。
+我做引導，你係第四個參與者。
 </PromptBlock>
 
-### 變化 3：Quiz-style explore，但 Claude 唔餵答案
+### 變化 2：唔講抽象概念，由真實兩難入手
 
-<PromptBlock label="變化 3 — Open-ended explore">
-小朋友問 一個 「fact」 question（「點解天空藍?」、「為咩有 leap year?」）。 我想用呢個 question 做 critical thinking opportunity，唔止係 「back 答案」。
+<PromptBlock label="變化 2 — 由真實兩難開始">
+小朋友啱啱遇到一個真實情況：[描述事件，例如：朋友叫佢一齊出貓、見到同學偷嘢、覺得學校規矩唔公平]
 
 請：
-1. 第一步：唔答 fact。 反問：「你估點解?」「你 already know 啲咩 hint?」
-2. 慢慢由小朋友嘅 partial knowledge build up reasoning
-3. 喺啱嘅時候 fill in fact gap，但 frame 做 「Scientist 用 lots of years 研究 reach 呢個結論⋯」 唔係 「呢個係 final answer」
-4. 結尾 hook 一個 follow-up curiosity：「呢個答案 raise 一個新 question⋯」
+1. 先接住情況入面嘅情緒（唔好即刻跳去講道理）
+2. 開放式提問：「你而家有咩感覺?」 /「你嗰陣諗緊咩?」
+3. 然後抽象化：「呢類情況，你估其他人會點揀? 點解?」
+4. 最後落到行動：「下次遇到類似情況，你有冇諗到可以點處理?」
 
-呢個 trade-off：30 分鐘 explore 過程比 30 秒 google 嘅答案 valuable，但需要小朋友 patient。
+呢個次序：感受 → 道理 → 對策。 唔好跳過感受呢一步。
 </PromptBlock>
 
-## 一個 framing 對 parent
+### 變化 3：似考試嘅探索，但 Claude 唔餵答案
 
-呢個 use case 嘅 real value 唔在小朋友學識 specific content，係**小朋友 internalize 嘅 mental model**：
+<PromptBlock label="變化 3 — 開放式探索">
+小朋友問一條「事實」問題（「點解天空係藍色?」、「點解會有閏年?」）。 我想用呢條問題做培養批判思考嘅機會，唔止係「背答案」。
 
-- 唔啟齒 「我唔知」 同自己「諗 vs」 之間有 valuable middle ground
-- Multiple perspectives 可以 simultaneously valid
-- Adult 嘅 confidence 唔等於 knowing—— 係 willing 同 ambiguity coexist
+請：
+1. 第一步：唔答事實。 反問：「你估點解?」「你已經知道啲咩線索?」
+2. 慢慢由小朋友嘅零碎知識砌返出推論
+3. 喺啱嘅時候補返事實嘅空隙，但要咁講：「科學家研究咗好多年先得出呢個結論⋯」，唔好講「呢個係標準答案」
+4. 結尾勾起一條新嘅好奇：「呢個答案又引出一條新問題⋯」
 
-呢個 model 喺 P5-7 嘅 cognitive development 黃金期 install，**佢一世 career / relationship / civic life 都受益**。
+呢個取捨係：30 分鐘探索嘅過程，比 30 秒 google 到嘅答案更有價值，但需要小朋友有耐性。
+</PromptBlock>
 
-Claude 嘅 role 細，但啱：佢提供 patient、curious、唔 judgmental 嘅 conversation partner。 你 parent 嘅 role 大——你嘅 presence 同 active facilitation 先係 magic。
+## 寫畀家長嘅一個角度
 
-最後 reminder：**唔好 over-use**。 每星期 1 次 30 分鐘 session 嘅 cadence sweet。 每日做反而 dilute 個 specialness。
+呢個用法真正嘅價值，唔在於小朋友學識咗某啲具體內容，而在於**小朋友內化咗嘅思維模式**：
+
+- 喺「我唔知」同「我覺得一定係咁」之間，其實有一片好有價值嘅灰色地帶
+- 多個角度可以同時成立
+- 大人嘅自信唔等於樣樣都知——係肯同灰色地帶共處
+
+呢個模式喺 P5 至 P7 認知發展嘅黃金期種落去，**佢一世嘅事業、人際關係、公民生活都會受惠**。
+
+Claude 嘅角色細，但啱位：佢提供一個有耐性、有好奇心、唔批判嘅對話夥伴。 你做家長嘅角色先係大——你嘅陪伴同主動引導，先係真正神奇嘅地方。
+
+最後提一句：**唔好用得太密**。 每星期一次、每次 30 分鐘嘅節奏啱啱好。 日日做反而會冲淡咗佢嘅特別。
