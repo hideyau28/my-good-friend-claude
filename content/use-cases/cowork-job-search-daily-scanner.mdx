@@ -223,4 +223,37 @@ Criteria 改：
 我目標：3 分鐘睇晒，回 1-2 個值得回嘅，其餘 batch ignore。
 </PromptBlock>
 
+## 拆解：點解會 work，同點解會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「頭兩朝 digest 靚仔」做到「三個月後仲信得過」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+自動化最唔老實嘅地方係：**頭幾日 scan 到嘢好正，但慢慢個 digest 質素靜靜雞插水，你係最後一個知嘅人**。呢個 daily scanner，實際會喺呢幾個位出事：
+
+**1. 平台 session 過期——但 Cowork 唔會喊救命**
+LinkedIn 同 JobsDB 嘅 login session 唔係永久。通常幾星期到幾個月會 expire，或者平台偵測到自動行為就強制登出。Cowork 唔會主動 alert 你「我登唔入去」——佢多數係靜靜雞 scan 返個空白頁，你個 digest 出「今日 0 個 match」，你以為今日真係冇嘢。
+- 會爆成點：誤以為市場冇嘢，其實係 scanner 壞咗，錯失一段時間嘅 listing。
+- 點救：喺 prompt 加一個「sanity check」指令——「如果 scan 到嘅 listing 總數少過 5 個，唔好靜靜地報告，要明確寫『可能 session 有問題，請手動 verify』」。每月定一日親手入去平台望一眼。
+
+**2. 「點解啱你」嘅理由係捏造嘅**
+Claude 對住 JD listing 同你份 resume，係做 pattern matching，唔係真係讀你 5 年嘅工作深度。如果 JD 寫「我哋需要有策略思維嘅人」，你份 resume 有「制定過 roadmap」，佢可能就算「match」——呢句理由聽落去靚，但係廢話，任何 PM 都 fit。
+- 會爆成點：你信晒個「點解啱你」，撳入去讀 JD 先發現根本係 ops role；或者應徵咗先知要求 coding skill。
+- 點救：Step 4 已經講——**撳入去自己讀 JD，唔好淨係信摘要**。把「點解啱你」視為「提醒我讀呢版」嘅 label，唔係 final verdict。
+
+**3. 同一個 listing 重複出現，但你以為係新嘢**
+Job boards「past 24 hours」嘅 filter 唔可靠——部份平台容許公司 re-boost 舊 listing，令佢再度顯示喺「最近」。你嘅 scanner 會誠實噉把佢報畀你，因為佢唔知係唔係舊嘢。幾個星期後你個 digest 入面見到同一間公司同一個 title，你當係新機會。
+- 會爆成點：浪費 apply 一個已經被凍結或者揾好人嘅 listing；或者對住同一個 recruiter 出現兩次感到困惑。
+- 點救：`job-criteria.txt` 加一行「Red flag：Listing post date 同 listing ID 如果見過，請 flag「可能係舊 listing re-boost」」；應徵前 check 吓 LinkedIn 上面個 listing 第一次出現係幾時。
+
+**4. Criteria 設得太緊——長期 0 match 但你唔知係條件問題**
+你 salary 寫 65k+，industry 只要 fintech / SaaS，再加唔要博彩唔要 insurance，geography 限港島九龍東——HK 每日新 posting 本來就有限，加咗咁多 filter 之後可能係真係 0 match。問題係 scanner 每朝照 send「今日 0 個 match」，你以為係市場問題，其實係條件設得太窄。
+- 會爆成點：錯過潛在機會；或者等咗一個月「市場轉好」，其實一直係你個 criteria 出事。
+- 點救：每兩個禮拜做一次「criteria review」：把「skip 咗 N 個」嘅數字同「match 到 N 個」對照——如果 skip rate 長期 95%+，係時候問自己條件係唔係太嚴。考慮暫時放寬一個 filter（例如先唔 filter 地區）試吓效果。
+
+**5. Cowork session 嘅記憶係有限嘅**
+Cowork 每個 session 有 context window 上限。如果你喺同一個 session 入面改過 criteria、叫佢做過其他嘢，或者 session 跑咗好耐，個 scanner 可能會「忘記」你部份嘅指令——例如忘記唔好 send 多過 5 個，或者忘記某個 red flag。
+- 會爆成點：某日突然 inbox 出 12 個 listing；或者你明明寫咗唔要博彩，但係佢 shortlist 咗一個 casino job。
+- 點救：定期（每個月一次）重新開個新 Cowork session，重新貼返完整 prompt。唔好依賴「佢記得之前嘅」——把 prompt 當作每次嘅 source of truth。
+
+呢幾個位，就係「頭幾日 digest 靚仔」同「三個月後仲穩定信得過」之間嘅距離。
+
 > 搵工最大嘅代價唔係搵唔到——係**永遠喺度搵**。劃個 scanner 落 Cowork，你買返每朝 25 分鐘嘅腦力。 揾到啱嗰個之前，呢 25 分鐘畀返自己——飲咖啡、睇報紙、行去搭車。 唔係條 algorithm 趕住你，係你按自己嘅步伐行。

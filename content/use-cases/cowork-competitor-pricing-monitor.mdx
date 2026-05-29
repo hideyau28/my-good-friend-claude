@@ -218,6 +218,39 @@ Sub：CTA 由「Start free」變「Talk to sales」
 呢個對 10-30 人嘅 startup 特別有用——marketing / product / sales 之間嘅步調通常喺呢個規模開始偏離，定期 audit 比起每季打仗高效得多。
 </PromptBlock>
 
+## 拆解：點解會 work，同點解會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「跑一次 demo OK」做到「跑足一年都信得過」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+自動化監察最唔老實嘅地方係：**第一週 snapshot 對得靚仔，唔代表第十週嘅 diff 仲係準確**。呢個流程，實際會喺呢幾個位爆，你要預咗：
+
+**1. Snapshot 抓到嘅係「渲染前」HTML，唔係你眼見嗰頁**
+好多 SaaS landing page 靠 JavaScript 渲染 pricing tier——Claude 抓取 URL 拿到嘅係靜態 HTML，動態加載嘅 pricing table、A/B testing variant、geo-locked content 都唔係必然抓到。
+- 會爆成點：競爭對手嗰週靜雞雞改咗 JS 渲染嘅 pricing，你嘅 diff 係空白，以為「無變化」。
+- 點救：第一次設定時手動開瀏覽器核對 Claude 抓到嘅文字係咪同你親眼見到嘅一樣。如果差距大，consider 用 archive.org Wayback Machine 嘅 snapshot 做補充對比。
+
+**2. Diff 靠文字比對，得閒鬧嘅「偽 change」一堆**
+對手改咗 HTML class name、footer 順序、廣告 tracking parameter，文字層面會出現大量「變化」，但全部係 cosmetic noise。Claude 識睇意思、唔係純 diff tool，但大量 boilerplate 改動仍然會搞亂佢嘅判斷。
+- 會爆成點：brief 滿晒「Competitor B — Positioning change」，你睇吓原來係佢地改咗法律聲明嘅 footer 文字，真正嘅 pricing 改動反而被噪音淹冇。
+- 點救：prompt 入面明確寫「只報 hero / pricing / CTA section 嘅改動，nav / footer / legal / cookie banner 嘅變化唔用報」；`competitors.md` 加番每頁嘅「重要 section 描述」做引導。
+
+**3. Claude 唔會記得「上週見過呢個版本」——靠你管好 snapshot 資料夾**
+整個流程嘅「記憶」係靠 snapshots/ 資料夾入面嘅文字檔。如果某週唔知點解冇抓到（網絡問題、403、URL 改咗），下週 Cowork 就冇嘢對比，可能靜雞雞跳過嗰個對手、或者錯誤地標晒做「全頁變化」。
+- 會爆成點：上週 Competitor A 嘅 snapshot 失敗冇存，今週用兩週前嘅舊版本做 diff，出一堆其實係上週就出現嘅「新變化」，你拿住錯資訊去開會。
+- 點救：prompt 寫明「每次跑之前先 check 上週 snapshot 係咪存在且非空，如果缺少就喺 brief 最頂標出警告，唔好用更舊版本遞補」。定期睇吓 snapshots/ 資料夾，唔好比個 archive 目錄成個變無聲無息。
+
+**4. 大量變化週 = Brief 最冇用嘅一週**
+競爭對手喺同一週出大改版（例：rebrand、pricing overhaul、新 homepage），Claude 會盡責地把所有變化列出，但 brief 會變成長達幾十頁嘅 diff dump，你睇唔晒、唔知從何入手。
+- 會爆成點：Competitor A 全面 rebrand，brief 列咗 200 條「變化」，你 skip 咗成份 brief，錯過咗最值得注意嘅一件事。
+- 點救：prompt 加一條優先度規則——「如果某個對手嘅變化超過 10 條，只報最重要嘅 3 條並加 note『大規模改動，建議人手開佢個新網頁睇一次』」。人手覆核係最後道防線，自動化係幫你篩走小噪音，唔係幫你判斷大事。
+
+**5. Pricing 數字要原文引用，但對手可能用圖片存 pricing**
+有部分對手把 pricing table 做成圖片或者 SVG，文字爬取返嚟係空白，Claude 會照常生成 brief 但 pricing section 係 N/A 或者上週數字原封不動。你以為冇變，其實係爬唔到。
+- 會爆成點：對手靜雞雞改咗 Enterprise plan 嘅 pricing 圖，你成年都冇 catch 到，直到客戶問你點解你哋咁貴先發現。
+- 點救：第一次設定時逐個對手手動 check 佢嘅 pricing page 係咪純文字。係圖片嘅話記住喺 `competitors.md` 標注「pricing 係圖片，人手月度核對」，唔好靠 Cowork 幫你自動追。
+
+呢幾個位，就係「第一週 demo 靚仔」同「半年後仲信得過個 brief」之間嘅距離。
+
 ## 點解競爭監察啱 Cowork 做
 
 > 競爭監察呢樣嘢嘅本質係：每次都係低風險嘅單一動作（抓取一個 URL、做一次 diff），但要長時間累積先有用。Cowork 嘅優勢就喺度——人手做兩個月會放棄，自動化做兩年都唔會攰。但 5 個對手嘅月度 strategic memo，你一定要自己讀、自己諗。AI 出趨勢，你出判斷，呢個分工先講得通。

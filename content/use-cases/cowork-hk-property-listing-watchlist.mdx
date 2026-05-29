@@ -200,4 +200,37 @@ email 寄畀我，subject「揾樓週報 — Week of YYYY-MM-DD」。
 3. 唔需要每日通知，呢個係趨勢監測，唔係 deal hunting。
 </PromptBlock>
 
+## 拆解：點解會 work，同點解會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「跑一次 demo OK」做到「跑足幾個月都信得過」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+自動化揾樓嘅陷阱係：**第一日跑靚仔，唔代表第三個禮拜仲靠得住**。呢個 watchlist，實際會喺呢幾個位出事，你要預咗：
+
+**1. 同一個盤日日出（去重靠唔住）**
+`seen-listings.json` 用 URL 做 unique key，但三個 portal 都有機會喺更新資料後換 URL slug（例如 Centaline 有時同一個盤會出現 `/sale/xxxx` 同 `/detail/yyyy` 兩條 link）。另外，同一個盤喺三個 portal 同時出，三條唔同 URL 就係三個唔同 entry——你個 list 越嚟越長，但其實就係果個盤。
+- 會爆成點：Telegram 一日通知你同一個盤兩三次，你以為多咗新盤，去到先知係舊料。
+- 點救：`seen-listings.json` 除咗 URL 之外，加多一個「屋苑 + 樓層 + 呎數 + 叫價」組合鍵做二次去重；prompt 寫明「如果懷疑係同一個盤唔同 URL，只出一次」。
+
+**2. 資料抓唔全——Claude 唔係唔做，係靜默跳過**
+三個 portal 嘅實用面積、入伙年份、校網等欄位，部分係靠 JavaScript 後加載（lazy load）或者要 expand 一個 accordion 先顯示。Cowork 嘅 browser 有時 capture 唔到呢啲，但唔會報錯——佢會直接留空或者標「N/A」。
+- 會爆成點：deal-breaker 欄（例如唐樓、連租約）冇 load 出嚟，Claude 見唔到就唔 filter 走，一個你唔想要嘅盤靜默入咗你嘅 STRONG list。
+- 點救：prompt 加一條規則——「如果實用面積或入伙年份缺失，唔好標 STRONG，改標『⚠ 資料不完整，請自行核實』」；同時週末嘅 review 做個 sanity check，睇吓 STRONG 入面有幾多個有齊所有欄位。
+
+**3. 呎價計算同 median 比較唔可以盲信**
+Prompt 要求 Claude 自己計「低於同區 median X%」，但 LLM 唔係計算機——佢係靠「感覺」估返個數，唔係真正抓埋一堆成交數然後做統計。佢可能用返自己訓練數據裡面嘅舊樓市印象，或者照抄 portal 上面顯示嘅参考數字。
+- 會爆成點：你見到「低於 median 8%」以為係抵，其實個 median 參考係一年前嘅數，或者係整個九龍嘅 median 唔係你個區。
+- 點救：把百分比比較從「Claude 自己計」改做「列出呎價，由我自己 judge」；如果真係想要 median，用週末 review 嗰份，讓 Claude 列 raw 數字，你用自己個 spreadsheet 計。
+
+**4. Telegram token 喺 Cowork 工作 folder——安全邊界模糊**
+`.telegram-config.json` 放喺 Cowork 工作 folder 入面，Cowork 有 file 讀取能力。呢個本身係設計需要——佢要讀 token 先可以 send 訊息——但同時意味住任何能夠讀取你 Cowork 工作 folder 嘅 session 都見到呢個 token。
+- 會爆成點：你唔小心把工作 folder share 咗俾另一個 Cowork agent 做其他任務，個 token 就 expose；或者你 screenshot Cowork 介面分享畀朋友，config 檔喺旁邊開住。
+- 點救：`.telegram-config.json` 用環境變數代替（`TELEGRAM_TOKEN`、`TELEGRAM_CHAT_ID`），唔要明文放喺 folder；就算一定要放，確保工作 folder 唔出現喺 screenshot 或者分享出去。定期去 `@BotFather` revoke 同換 token。
+
+**5. Portal 悄悄改版，agent 繼續跑但抓返嚟係垃圾**
+Centaline、Midland、28Hse 係商業網站，前端 HTML 結構會不定期更新。Cowork 記住嘅 selector 路徑或者抓資料邏輯，可能喺某次 portal 改版後靜默失效——唔係報錯，係抓返嚟嘅資料格式全部亂晒，或者每個 listing 嘅欄位全部係空。
+- 會爆成點：你三個禮拜都收到通知，但係通知你「0 個新盤」或者全部 listing 欄位係「N/A」，以為個區真係冇嘢放盤，其實係 agent 跑緊但攞唔到嘢。
+- 點救：每次 run 之後加一個 sanity check 輸出——「今日掃咗幾多個原始 listing，過濾後剩幾多個」。如果連續兩日「0 原始 listing」，自動 send 你一個 Telegram 警報「⚠ watchlist 可能失效，請手動 check」。
+
+呢幾個位，就係「第一日 demo 靚仔」同「三個月後仲係信到的可靠 watchlist」之間嘅距離。
+
 > 揾樓嘅痛唔係資料少、係資料散。你日日 refresh 三個 portal，其實做緊一份機器啱啱適合做嘅查找工夫。**Cowork 拎走呢層體力勞動，剩返畀你嘅就係真正要諗嗰啲嘢**——呢個價值唔值、呢個區啱唔啱、呢個首期供唔供得起。Agent 嘅推銷話術改變唔到你嘅預算；但你自己砌出嚟嘅基準感覺，可以。

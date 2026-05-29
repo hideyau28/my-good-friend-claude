@@ -178,6 +178,39 @@ featured: false
 5. 隱私：呢啲 notes 極度敏感，永遠唔可以同其他學員交叉比對
 </PromptBlock>
 
+## 拆解：點解會 work，同點解會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「設定好第 1 週順利」做到「12 週跑完學員仍然信你」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+自動化最唔老實嘅地方係：**第 1 週靚仔，唔代表第 8 週冇伏**。呢個 drip 流程，實際會喺呢幾個位爆，你要預咗：
+
+**1. Progress CSV 冇即時更新，reminder 指錯人**
+Cowork 讀取 `progress/week-N-status.csv` 判斷邊個「未交」，但呢個 CSV 係你或助手手動更新嘅。學員星期四下午 6:58 pm 交咗，CSV 仲未 update——Cowork 照舊起一封 reminder 草稿指佢「未交」。
+- 會爆成點：學員見到 reminder，覺得你唔 care 佢交咗，或者懷疑平台出問題，信任度即刻跌。
+- 點救：約定每次跑 drip 之前必須先 update CSV（可以用 checklist）；或者 prompt 加一句「如果你不確定 status 係最新，先問我確認再起草稿，唔好靠估」。
+
+**2. 個人化引用「上一週 assignment 好好」——但 Claude 唔係數據庫**
+Prompt 要求提返學員上兩週進度（「上次你嗰篇 cold email 好好」），呢個係人情味嘅靈魂。問題係 Cowork 係靠你放入 context 嘅嘢來生成，唔係真正 query 返學員個人記錄。如果你冇喺 CSV 或 session notes 裏面寫低具體細節，佢有機會生成聽落真實、但實際係「估」出來嘅 compliment。
+- 會爆成點：學員見到「你上週嗰篇關於社交媒體嘅文章寫得好」，但佢根本冇交過呢個 topic——比完全唔提仲衰，因為感覺係大量 copy-paste 嘅假個人化。
+- 點救：`week-N-status.csv` 加多一欄「brief note on submission」（哪怕 3–5 個字）；如果冇呢欄，prompt 改為「唔好具體引用 assignment 內容，淨係表示你留意到佢嘅進度」。
+
+**3. 學員名單改了但 Cowork 唔知**
+12 週入面，學員會加入、退款、改 email、由 Live track 轉 Async track。如果 `students.csv` 改過，但 Cowork 嘅 active session 係舊嘅，就會出現：send 草稿去已退課嘅 email、漏送新加入嘅學員、channel 分錯 track。
+- 會爆成點：退課學員收到 reminder（法律同聲譽風險）；新學員係第一週就唔收到 lesson，對你嘅第一印象大打折扣。
+- 點救：每次新週開始前，Cowork session 開頭先讀最新 `students.csv`，唔好靠 session memory；prompt 入面加「每次執行前重新讀取 students.csv，唔好用上次嘅 cache」。
+
+**4. 80 份草稿——「人手批准」變咗 rubber stamp**
+Draft mode 係安全網，但現實係：80 個學員 × 4 個動作 × 12 週，你每個星期日下午要審幾十封草稿。第 3 週你認真睇，第 6 週你快速掃，第 9 週你基本上係按確認。安全網變咗形式。
+- 會爆成點：某封 reminder 用錯名、混淆咗兩個學員嘅 assignment、語氣突然變 formal——你冇 catch，send 出去咗。
+- 點救：唔好 review 全部，改為 **random sample review**（每週隨機開 5 封認真讀）+ **flag system**（prompt 入面叫 Cowork 將任何「佢唔肯定嘅引用」用 ⚠️ 標出，你優先審呢幾封）。工夫減少，風險集中喺高危位。
+
+**5. Mid-cohort report 嘅指標被誤讀，改錯地方**
+第 6 週嗰份 report 話某個 lesson 嘅 submission rate 特別低，你即刻覺得係教材太難，下週要簡化。但 submission rate 低嘅原因可以係：平台 submission button 壞咗、assignment deadline 描述唔清楚、assignment email 落咗 spam、或者純粹係公眾假期。
+- 會爆成點：你改咗教材、降咗難度，但問題根本唔係教材——下週 submission rate 仲係咁，你白費咗時間；更壞係你低估咗學員能力，損害咗課程質素。
+- 點救：report 見到異常先唔好即刻改；先喺 Discord/Slack 問一句「呢週 assignment 有冇人遇到問題？」，收到 2–3 個學員嘅回覆先決定下一步。數據係 signal，唔係答案。
+
+呢幾個位，就係「設定好 Cowork、第 1 週完美」同「12 週跑完、80 個學員仍然信任你每一封 email」之間嘅距離。
+
 ## 一個思維框架
 
 課程 creator 嘅死穴：**你以為自己賣嘅係內容，其實學員報名係買一份「有人 keep 住你」**。

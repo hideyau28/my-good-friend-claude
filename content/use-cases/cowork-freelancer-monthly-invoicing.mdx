@@ -254,6 +254,39 @@ Thanks for your help,
 
 催收係自由業者嘅隱形勞動 — 大部分人因為「唔好意思」拖到 60、90 日先出聲，最後傷感情又收唔到錢。Cowork 起晒稿，你淨係要決定「呢封 send 唔 send、要唔要改幾個字」就夠 — 心理門檻低好多。
 
+## 拆解：點解會 work，同點解會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「試跑一次靚仔」做到「月月自動跑、月月數都啱」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+自動化出 invoice 最唔老實嘅地方係：**第一次試跑一切正常，唔代表第三個月唔靜默出錯**。呢個流程，實際會喺呢幾個位爆，你要預咗：
+
+**1. Toggl / Clockify API token 過期，Claude 照跑但出空 invoice**
+API token 唔係永久有效，過期之後 Claude 抽唔到資料。問題係佢唔一定大叫「攞唔到」——有時候 API 返 empty，佢就照當「呢個月 0 小時」處理，略過個客戶或者出張空單。
+- 會爆成點：你掃 summary.md 唔夠仔細，某個客戶「0h, no invoice」但其實佢上個月有工時，客戶冇收到 invoice，你冇收到錢。
+- 點救：prompt 加一條「如果抽返嚟嘅 Toggl 紀錄總數為 0，唔好靜默略過——停低並 email 通知我『API 可能有問題，請人手確認』」；每月睇 summary.md 嗰陣，先核對一下各客戶鐘數係唔係合理。
+
+**2. Invoice 編號撞號或跳號，客戶財務部 reject**
+流程設計係「撳 send 先 promote last-invoice-number.txt」，但如果你有月份忘咗 promote（或者 promote 咗但跑咗兩次），下個月嘅號碼就會重複或者跳號。收緊 USD 嘅日本 / 新加坡客戶財務部對編號要求極嚴，撞號即刻 reject。
+- 會爆成點：同一個客戶收到兩張同號 invoice，財務部 flag、要你重新出、收款延誤。
+- 點救：promote 步驟加做一個動作——promote 之前先讀返 last-invoice-number.txt，確認新號碼同 ar-tracker.csv 裏面現有號碼唔重複先寫入；或者用「年份 + 月份 + 序號」結構（INV-2026-05-001）令撞號機率低好多。
+
+**3. Toggl client 欄名同 clients.csv 一個字唔同，整個客戶入 untagged.csv**
+Claude 係做字串對比 client 欄，唔係語意理解。你 clients.csv 寫「Acme Co Ltd」，但 Toggl 裡面個 client tag 打咗「Acme Co」，就係唔 match——全部時間紀錄倒入 untagged.csv，唔出 invoice。
+- 會爆成點：你冇留意 untagged.csv 有嘢（或者以為係漏 tag 嘅細紀錄），客戶唔收到 invoice，你唔收到錢。
+- 點救：prompt 加一段「對唔上 clients.csv 嘅 Toggl client name，唔好靜默入 untagged——喺 summary.md 頂部用 WARNING 標出，等我 review」；定期對比 Toggl 同 clients.csv 個 client name list，保持一致。
+
+**4. adjustments 檔唔清走，上月嘅 one-off 折扣今月照套**
+你上月幫某客戶打咗 10% 折扣（因為交期延誤），寫入 adjustments-04.txt。流程係用 adjustments-[月份].txt，按月份揾，所以理論上唔會重複用。但如果你個 prompt 係「揾 ~/Documents/freelance/adjustments-*.txt 所有符合嘅檔案」——而唔係嚴格按月份——佢有機會連舊月份嘅都撈埋。
+- 會爆成點：多扣咗客戶，你要補差價或者重新出 invoice；客戶見到折扣以為成為慣例，下次傾約有麻煩。
+- 點救：prompt 寫死「**只**讀 adjustments-[今月月份].txt，唔好讀其他月份嘅 adjustments 檔案」；每月跑前養成習慣確認舊嘅 adjustments 檔已另存或刪除。
+
+**5. summary.md 嘅匯率係跑當日快照，唔係真正入帳日匯率**
+變化 2 入面，Claude 用「今日中銀牌價」換算 USD / RMB 嘅 HKD equivalent。問題係 invoice 出咗，客戶可能 NET 30 先過數，入帳當日匯率可以差好多——尤其 RMB 同 JPY 幅度大個月。
+- 會爆成點：你用 summary.md 嘅 HKD equivalent 做月收入紀錄或者報稅估算，同實際入帳金額有出入，做帳會差。
+- 點救：summary.md 嘅換算只用做自己睇嘅參考，唔好直接貼入帳簿——入帳金額要喺銀行到帳嗰日按實際匯率記錄；prompt 加一句「請注明：HKD equivalent 係 draft 日估算，非最終入帳金額」。
+
+呢幾個位，就係「試跑一次靚仔」同「月月自動跑、月月數都啱」之間嘅距離。
+
 ---
 
 > Invoice 同催數係自由業入面最重覆、但又最影響現金流嘅工序。Cowork 嘅角色唔係搶你個最終決定權 — 係幫你由「諗起就唔想做」變返「檢視 + send」嘅 30 分鐘工。**機械嘢留畀機械、判斷嘢留畀你**，月月準時收錢嗰種安穩，先係自由業真正嘅自由。

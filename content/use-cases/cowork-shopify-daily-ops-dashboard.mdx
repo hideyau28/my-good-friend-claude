@@ -162,6 +162,39 @@ Cowork 出嘅 email 9:00 入到信箱。你嘅 15 分鐘咁用：
 減價完之後（12 月 6 日）自動還原做一日一次 9am 跑。
 </PromptBlock>
 
+## 拆解：點解會 work，同點解會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「跑一次 demo OK」做到「跑足一年都信得過」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+自動化最唔老實嘅地方係：**第一次出嘅 email 靚仔，唔代表第 365 次嘅數字仲係準確。** 呢個 Shopify ops dashboard，實際會喺呢幾個位爆，你要預咗：
+
+**1. 順豐 tracking「停咗」其實係 Shopify 睇唔到**
+Shopify fulfillment 嘅 tracking 狀態係靠快遞公司推送更新——順豐唔係所有環節都有即時 webhook 推返 Shopify，有時明明已派到，Shopify 嗰邊仲係舊狀態，Claude 就標成「卡咗 ≥ 48 小時」。
+- 會爆成點：你收到提示、搵客、客話「噚日已收到喎」——白費時間，又令提示失去公信力。
+- 點救：用呢個 prompt 係做早期發現，唔係最終裁決。加落去 prompt：「標示前先核對 Shopify fulfillment page 係咪真係無更新，而唔係 tracking number 打錯或快遞商未回報。」疑似誤報嘅規律多起嚟就聯絡順豐申請 API 直接接入。
+
+**2. 庫存數字係「帳面數」，唔係「倉庫真實數」**
+Shopify 嘅 `inventory_quantity` 只反映系統入面嘅數，如果你有線下市集銷售手動扣貨、供應商送貨未入系統、或者貨喺途中仲未到，帳面數同實際存貨差距可以好大。
+- 會爆成點：明明有存貨，AI 叫你補貨；或者反過來，帳面夠但倉庫係空嘅——後者更危險，因為你唔會即時知。
+- 點救：入貨落倉當日要即時更新 Shopify inventory（唔係隔日），線下銷售用 Shopify POS 或者手動扣貨；定期（每個月）做實地點倉同 Shopify 對數，差額即時調番。
+
+**3. API call 被截斷但 Claude 唔知**
+Shopify Admin REST API 有 call rate limit（每個 app 每秒有上限）。如果你跑兩三間舖加埋廣告 API，有機會喺中途觸到限制，某一段 query 回傳空值或 error。Claude 未必識別錯誤同正常空值嘅分別，可能出一份「看似完整但其中一段缺數」嘅 email。
+- 會爆成點：庫存一段出咗「冇低庫存 SKU」，其實係因為 API 未跑完，你誤以為今日庫存 OK，錯過補貨。
+- 點救：喺 prompt 加：「每段跑完 check HTTP response code，唔係 200 就喺對應段落寫『API 未能取得數據，請人手核對』，唔好出空白。」另外喺 `SHOPIFY_TOKEN` 嗰個 private app 開 API call log，偶爾睇下有冇 429 error。
+
+**4. 退款只睇 `pending` 會漏走「已批出未落賬」**
+Shopify 退款有多個 status：`pending`（申請中）、`open`（已批准、處理中）、`success`（已完成）。Prompt 只篩 `pending` 嘅退款，`open` 狀態——即係已批出但 Stripe / FPS 仲未回賬客戶——唔會出現喺提示。
+- 會爆成點：你以為退款清晒，但有幾單已批出嘅退款其實仲 pending 落賬，客戶等唔到錢就投訴。
+- 點救：將退款篩選改為：「列出 status 係 `pending` 或 `open` 嘅退款」——兩個都要跟，直到 `success` 先算完成。
+
+**5. 環比數字用錯時區搞甩比較基準**
+你 Shopify store 嘅時區設定影響 API 回傳嘅時間戳。如果 store 設咗 UTC（Shopify 新帳嘅預設），「過去 24 小時」嘅切割點係 UTC 00:00，唔係 HKT 00:00；「同上星期同一日比」如果跨晒假期或者促銷日，數字咋唔正常但唔係真實趨勢。
+- 會爆成點：每朝環比顯示「跌 30%」，其實係因為 UTC 日期切割比你早咗 8 小時，今日只有幾個鐘嘅單對比昨日全日。
+- 點救：Shopify admin → Settings → General → Store time zone，改成「Asia/Hong Kong (UTC+8)」；Prompt 入面明寫「用 HKT 時區做日期切割」，並請 Claude 每次喺 email 頂部標明「統計區間：YYYY-MM-DD HKT 00:00 至 HKT 08:59（出報告時間）」方便人手核對。
+
+呢幾個位，就係「第一次跑靚仔」同「跑足一年、每朝 email 數字都信得過」之間嘅距離。
+
 ## 點解呢個 task 啱 Cowork
 
 > 每朝 9am 開 admin 行三圈嘅嘢，唔係難——係「日日要做、漏一日就有人投訴」。Cowork 嘅價值唔係取代你嘅判斷，而係幫你**每朝塞一封信入信箱**，逼你飲咖啡嗰 15 分鐘埋一次數。

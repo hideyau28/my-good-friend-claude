@@ -194,4 +194,37 @@ Paddle 同 Gumroad 同理，叫 Claude 一開始確認你個平台嘅 API endpoi
 呢個係輕量嘅「脈搏」，畀我每週一返工前掃一眼就知個產品健唔健康。
 </PromptBlock>
 
+## 拆解：點解會 work，同點解會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「第一次跑靚仔」做到「跑足一年個數都信得過」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+呢套流程最唔老實嘅地方係：**demo 一次對得到 Stripe，唔代表每個月出嚟嘅數都係真嘅**。計 SaaS 指標有幾個位特別容易靜悄悄出錯，你唔逐月核對係唔知嘅：
+
+**1. Yearly subscription 冇除 12，MRR 即刻虛高**
+Stripe 入面，月付同年付都係 active subscription。年付嘅 `amount` 係全年金額，唔係月份金額。Claude 明白你嘅計算公式，但如果 API 返嚟嘅 `billing_interval` 唔係逐筆都係 `month`，佢有機會將年付直接加埋 MRR，而唔除 12。
+- 會爆成點：你嘅 MRR 一夜之間暴升，ARR 虛高十倍，你以為業務大躍進——其實係計漏咗。
+- 點救：prompt 明確指示「`billing_interval = year` 嘅 subscription，金額除 12 先計入 MRR，並喺 report 底列出有幾多張年付單」；第一次跑完，自己落 Stripe 數一數年付客有幾多張，交叉核對。
+
+**2. Stripe API 分頁截斷，大帳戶嘅 cohort 唔完整**
+Stripe API 每次 call 預設返 100 條記錄，超過就要翻頁（`has_more: true` + `starting_after`）。如果你有超過 100 個 active customers，或者某個月嘅 invoice 超過 100 張，Claude 可能只處理咗第一頁，剩低嘅靜悄悄唔見咗。
+- 會爆成點：Cohort table 嘅 customer 數目比 Stripe dashboard 少；churn rate 偏低（因為部分 customer 冇被統計）；MRR 亦可能偏低。早期帳戶客少唔明顯，一增長就中招。
+- 點救：prompt 加一句「每個 API call 必須翻頁直到 `has_more` 返 `false`，唔好淨取第一頁」；跑完核對 total active customers 數字啱唔啱 Stripe 嘅 Customers 頁面。
+
+**3. 同一個 customer 同月取消再重開，churn 計多咗**
+有 customer 取消咗、但幾日後又重新 subscribe（例如改咗 plan、信用卡問題解決）。Claude 係按 event 計，`subscription.deleted` 事件係一個 churn，但佢喺同月又出現喺 active subscription 入面。視乎 prompt 點寫，可能同時計入 churned customer 同 new customer，淨係出一個人做兩個故事。
+- 會爆成點：logo churn rate 虛高；net new MRR 計法出錯；cohort retention 將呢個人計成「流失再重啟」而唔係「留低」，cohort 表扭曲。
+- 點救：prompt 加「同一個 `customer.id` 喺同一個月內既有 `subscription.deleted` 又有 `subscription.created`，視為 reactivation，唔計入 churn，另外標示」。
+
+**4. LTV 公式喺 churn 率低嘅時候出天文數字**
+Prompt 用嘅 `LTV = 1 ÷ monthly_churn_rate × ARPU`，呢條公式假設客戶係以固定比率離開（幾何分佈）。早期 founder 最易出現嘅情況係：某個月 churn rate 係 0.5%，計出嚟 LTV 係 ARPU × 200——聽落好正，但呢條公式喺 churn 率極低時係高度不穩定嘅估算，一兩個客走咗 churn rate 就可以跳一倍。
+- 會爆成點：你拿住呢個 LTV 數字去融資或者做 unit economics，investor 問起計法，答唔到；或者 churn rate 一個月 0.5%、下個月 1%，LTV 差一倍，你以為業務急劇惡化。
+- 點救：prompt 已寫咗「LTV 係估算值，要 founder 確認」——自己記住唔好過份依賴呢個數字；如果 churn rate 低過 1%，睇 cohort retention 比睇 LTV 更可靠。
+
+**5. API key 出現喺 Cowork chat 記錄，等同明文儲存**
+Prompt 叫 Cowork 由 `.env` 讀 key——但如果 Cowork 喺某個步驟喺 chat 介面 print 出 API key（例如 debug 時顯示「讀到 key：rk_live_...」），個 key 就會儲落 conversation history 度。Cowork 係 Anthropic 基礎設施，但你自己都唔應該讓 secret 出現喺 chat 介面。
+- 會爆成點：conversation 記錄被 export、截圖、或者 Claude.ai 用嚟做 training（視乎你嘅 privacy 設定），key 就唔再係 private。
+- 點救：prompt 明確寫「唔好喺任何輸出或 debug 訊息度列印 API key 或任何部分」；定期喺 Stripe 落去 rotate key（尤其係頭幾次測試跑完之後）；`.env` 放落 `.gitignore`，唔好 commit 落 repo。
+
+呢幾個位，就係「第一次跑靚仔、inbox 有 dashboard」同「個數可以拿出去見 investor 或者做決策」之間嘅距離。
+
 > Solo founder 最易犯嘅錯：每月 1 號好認真做 dashboard，第三個月開始懶，第五個月直接放棄，到 fundraising 或者第十個月先回頭執——但嗰陣 cohort 數據已經斷咗。 自動化嘅價值唔係慳嗰兩個鐘，係幫你**冇得偷懶**。 個 dashboard 每月 1 號 7am 一定喺 inbox，你睇唔睇就你嘅選擇——但起碼數據唔會斷。

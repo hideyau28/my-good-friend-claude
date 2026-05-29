@@ -181,6 +181,39 @@ E. **X thread**（5-7 條 tweet）
 呢個用途風險大（聲譽風險），預設要保守。
 </PromptBlock>
 
+## 拆解：點解會 work，同點解會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「跑一次 demo OK」做到「跑足一年都信得過」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+自動化最唔老實嘅地方係：**第一次跑靚仔，唔代表第十次冇事**。呢個排程流程，實際會喺呢幾個位爆，你要預咗：
+
+**1. 觸發器抓錯文件（最常爆）**
+prompt 叫 Cowork 讀「最新 .md 檔案」，但你個資料夾可能有草稿、有更正版、有上週嗰份。「最新」係以修改時間計定發佈時間計？如果你 publish 之後修正過一次 newsletter，Cowork 可能會重新處理舊文件。
+- 會爆成點：同一篇 newsletter 出兩套貼文，或者拆咗一份未完成嘅草稿落 Buffer。
+- 點救：命名規則加埋發佈狀態（例如 `YYYY-MM-DD-issue-N-published.md`）；prompt 指定「只處理檔名含 published 嘅最新一份」。每次觸發之後 Cowork 將該檔案移去 `processed/` 資料夾，避免重複處理。
+
+**2. Buffer API 靜默失敗（最難察覺）**
+Buffer 嘅 API 有時會回傳 200 OK 但其實貼文冇入到隊列——常見原因係 OAuth token 過期、帳號連線斷咗、或者你個 Buffer plan 已達排程上限。Cowork 唔一定識分辨「成功排程」同「server 話收到但其實唔會發佈」。
+- 會爆成點：你收到「5 條貼文已排程」嘅電郵提醒，但 Buffer 入面係空的，星期二冇嘢出。
+- 點救：prompt 加一步「排程之後即刻讀返 Buffer scheduled queue 確認條數」；同埋喺 Buffer 本身設定「排程成功」通知 email，獨立於 Cowork 嘅提醒。
+
+**3. 24 小時審視窗靜默過去**
+流程設定係「提醒電郵 → 24 小時內人手批准 → 自動發佈」。但如果你嗰週出差、電郵冇收到、或者提醒落咗垃圾桶，貼文會靜默地按排程出去——你睇都未睇過。
+- 會爆成點：一條語氣唔啱、或者攞咗敏感客戶名嘅 LinkedIn 貼文靜靜地發咗出去。
+- 點救：Buffer 嘅貼文一律設成「需要人手批准」（Approval Required）而唔係「草稿」，係兩個唔同嘅狀態——草稿到時間會自動發，Approval Required 唔批就唔會出。唔好依賴 Cowork 呢邊嘅「等我檢視」邏輯，喺 Buffer 平台本身做最後一道鎖。
+
+**4. 平台語氣跨污染**
+同一個 prompt run 生成 5 條貼文，Claude 有時會喺同一份「創意情緒」入面完成晒全部——結果 LinkedIn post 帶咗 Threads 嗰種碎片對話語氣，或者 IG caption 冇咗 emoji 嘅節奏感。
+- 會爆成點：LinkedIn 聽落係「今日有個好有趣嘅發現……」，唔夠專業；IG 係一大段文冇分段、冇 hook。
+- 點救：prompt 入面每個平台之後加一行「語氣 benchmark」——例如「LinkedIn：《Harvard Business Review》嘅洞見感，唔係 Twitter 線程」；同埋要求 Claude 每個平台獨立起草，唔好喺心裏面「改寫上一條」。月尾評估嗰步，如果某個平台輸出持續質素差，單獨抽出嚟用另一個更具體嘅 prompt 處理。
+
+**5. Hashtag 過時或者相關度低**
+Hashtag 係社交媒體入面最快過期嘅嘢。Claude 嘅訓練數據截止某個時間點，唔知道今個月哪條 tag 真係有人睇、哪條已經被 shadowban 淹沒。
+- 會爆成點：IG 出咗一堆 2022 年嘅通用大 tag（`#contentcreator`、`#growthmindset`），觸及率極低；或者用咗個平台已經限流嘅 tag。
+- 點救：每季人手更新一次 prompt 入面嘅 hashtag seed list，用你個帳號真實表現好嘅 tag 做參考；prompt 寫明「hashtag 限 8 個，混合 1-2 個細眾 niche tag + 2-3 個貼題中眾 tag，唔好出純粹大眾 tag」。
+
+呢幾個位，就係「跑一次 demo OK」同「跑足一年都信得過」之間嘅距離。
+
 ## 一個思維框架
 
 社交分發嘅腦力消耗比想像中高：

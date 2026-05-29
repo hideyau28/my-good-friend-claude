@@ -217,4 +217,37 @@ Step 2 嘅 D「3 條 prep question」改成：
 呢類 prep 對保住團隊 trust 嘅 ROI，遠高過任何 sales meeting prep。
 </PromptBlock>
 
+## 拆解：點解會 work，同點解會爆
+
+跟到上面就已經用得。下面呢段係畀**想由「試咗一朝好靚仔」做到「跑足半年都信得過」**嘅人——初學者可以跳過，唔影響你跟住做。
+
+自動化最唔老實嘅地方係：**第一朝 prep doc 出晒、靚到你心動，唔代表第二十朝仲係咁。** 呢個 workflow 實際會喺以下幾個位爆，你要預咗：
+
+**1. Attendee 名字對唔到（最高頻爆）**
+Calendar event 入面 attendee 係「wklee@company.com」，但 Gmail thread 嘅寄件人係「William Lee」、Slack 個 display name 係「阿威」。Cowork 搜返嘅時候未必識 join 三個身份。
+- 會爆成點：搵唔到 prior context，prep doc 寫「冇 prior context」——但其實你哋傾過好多次，只係名字冇 match 到。
+- 點救：prompt 入面加一個「Attendee alias」字典，例如「wklee = William Lee = 阿威」。頭一兩週邊個搵唔到就即補。
+
+**2. Scheduled task 靜默死去（最危）**
+Cowork scheduled job token 過期、API 連接斷、Gmail OAuth revoke 之後，job 可能靜默跳過、唔寫 Drive、又唔寄通知 email——你以為 prep 喺度，其實根本冇跑。
+- 會爆成點：你 9 點開電腦揾唔到 prep doc，已經係 9:15，第一個 meeting 15 分鐘後。最壞情況係你唔留意 folder，裸入 meeting 渾然不覺。
+- 點救：prompt 內「如果冇法寫入 Drive，至少寄一封錯誤通知 email 畀我」；另外每隔一段時間手動核對 Drive folder 有冇新增。發現斷咗及早 reconnect。
+
+**3. 機密 thread 意外寫落 Drive**
+你授權咗 Gmail + Drive，但 HR offer letter、個人醫療假申請、薪酬談判 thread 都係喺同一個 Gmail 帳戶。Prompt 寫咗「標咗機密只列存在」，但「機密」係你主觀 label，唔係 Gmail 官方 tag——Claude 冇辦法可靠識別所有機密郵件。
+- 會爆成點：敏感內容被抽進 prep doc、寫落 shared Drive folder，同一 folder 有 edit 權限嘅同事就可以睇到。
+- 點救：建立一個「DO NOT READ」Gmail label，所有機密郵件手動 tag；prompt 加「任何 label 含 'do-not-read' 嘅 thread 完全跳過」。比喺 prompt 講「機密嘢唔好抽」更可靠。
+
+**4. Meeting 多嗰日 context 被截斷**
+今日 8 個 meeting，每個都要搜 90 日 Gmail + Drive，context window 一次過吞唔落咁多資料，系統靜默截斷，某幾份 prep doc 嘅 B 部分出嚟係空或者半殘——但唔會有 error message 提你。
+- 會爆成點：你以為 8 份 prep doc 都齊，但其中 2-3 份嘅「上次 context」部分係白板。你唔睇唔知。
+- 點救：prompt 加一句「如果某份 prep doc 搵唔到 context 係因為資料太多，明講『context 資料量超限、請手動補充』，唔好靜默留空」。另外可以將 meeting 分兩 batch 跑（例如上午、下午各一次）。
+
+**5. Claude「補充」咗假 commitment**
+搵唔到相關 email / doc，但 Claude 覺得唔好出「冇嘢」，就根據 meeting title + attendee 推斷你「可能」應承過啲咩、「可能」有咩 decision。呢啲係幻構，唔係真實記錄。
+- 會爆成點：你帶住一條「上次你答應過 X」嘅假問題入 meeting，被對方當場打臉，trust 即時爆。
+- 點救：prompt 已有「搵唔到就明講冇 prior context，唔好作」——**但你 dry run 嗰陣要特別測試呢個邊界**：故意揀一個從未 email 過嘅新 attendee，確認 Claude 真係出「冇 prior context」而唔係生出嘢嚟。定期抽查，唔好以為設定一次就永遠 ok。
+
+呢幾個位，就係「第一朝靚仔」同「跑足半年仍然信得過」之間嘅距離。
+
 > Meeting prep 嘅問題從來唔係「冇時間 prep」——係**你最精神嗰 30 分鐘（朝早 9 點）用嚟做機械式 search**，所以入到 meeting 已經攰。Cowork 嘅槓桿：將機械式 search 推前到 8:50am 之前，你 9 點開電腦見到嘅係 **判斷題**，唔係 **搜尋題**。
