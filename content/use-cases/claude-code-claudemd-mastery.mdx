@@ -10,7 +10,7 @@ subcategory: "Project setup"
 difficulty: 2
 timeMinutes: 30
 toolsNeeded: ["Claude Code CLI", "你個 project repo"]
-description: "Claude Code 自動 read CLAUDE.md 做 context，但寫到似 README 等於白寫。教你 4 個必備 section、點 audit、點 iterate，由今日開始 Claude 跟你 project 規矩跑。"
+description: "Claude Code 自動讀 CLAUDE.md 做背景，但寫到似 README 等於白寫。教你 4 個必備 section、點驗收、點逐步改善，由今日開始 Claude 跟你 project 規矩跑。"
 keywords: ["CLAUDE.md 寫法", "Claude Code conventions", "AI dev project setup", "claude project config", "Claude Code CLAUDE.md"]
 related: ["claude-code-install-claude", "claude-code-hooks-claude", "claude-code-slash-commands-claude"]
 featured: false
@@ -18,20 +18,20 @@ featured: false
 
 ## 情境
 
-你用咗 Claude Code 兩個禮拜，跑得幾順。但有個規律一直 frustrating：
+你用咗 Claude Code 兩個禮拜，跑得幾順。但有個規律一直令人煩躁：
 
 - 你叫佢加個 component → 佢用 `camelCase` 命名，但你 project 全部係 `PascalCase`
-- 你叫佢 fix bug → 佢 import 一個 deprecated package，你頭先先至 migrate 走嗰個
+- 你叫佢修 bug → 佢 import 一個已棄用嘅 package，你頭先先至搬走嗰個
 - 你叫佢加 test → 佢用 Jest，但你個 project 已經轉咗 Vitest
 - 每次 session 開頭你都要打：「呢個 project 用 X、唔好用 Y、commit format 要 Z⋯」
 
-呢啲 friction 嘅根源：**Claude 唔知你 project 個 context**。每次新 session 等於同一個新入職同事傾偈，由零開始 onboarding。
+呢啲磨擦嘅根源：**Claude 唔知你 project 個背景**。每次新 session 等於同一個新入職同事傾偈，由零開始帶佢上手。
 
 解法叫 `CLAUDE.md` —— 放喺 project root 嘅一個 markdown file，Claude Code 自動讀入做 session context。
 
-但好多人寫 CLAUDE.md 寫到似 README：「我哋係 Next.js 15 project、用 Tailwind、部署喺 Vercel⋯」。Claude 對呢類 info 興趣有限。**佢真正受惠係 conventions、commands、forbidden patterns、project-specific gotchas** —— 即係你會花時間口頭解釋畀新人嘅嘢。
+但好多人寫 CLAUDE.md 寫到似 README：「我哋係 Next.js 15 project、用 Tailwind、部署喺 Vercel⋯」。Claude 對呢類資訊興趣有限。**佢真正受惠係命名規矩、指令、禁止用法、project 獨有嘅陷阱** —— 即係你會花時間口頭解釋畀新人嘅嘢。
 
-呢篇用呢個 project（《我的好朋友 Claude》）本身嘅 `CLAUDE.md` 做 case study，教你 30 分鐘寫一份真係用得嘅版本。
+呢篇用呢個 project（《我的好朋友 Claude》）本身嘅 `CLAUDE.md` 做實例示範，教你 30 分鐘寫一份真係用得嘅版本。
 
 ## 跟住做
 
@@ -39,10 +39,10 @@ featured: false
 
 一份合格嘅 CLAUDE.md 至少要有：
 
-1. **Stack** — 一句講晒。唔使 sell，淨係畀 Claude 對齊版本同 framework 嘅 idiom。
+1. **Stack** — 一句講晒。唔使賣廣告，淨係畀 Claude 對齊版本同 framework 嘅慣用寫法。
 2. **Commands** — `dev`、`build`、`test`、`typecheck`、`lint`。每條附一句「幾時要跑」。
-3. **File / Code Conventions** — 命名規矩、folder 結構、import style。**呢度係最 valuable 嘅 section**。
-4. **Gotchas / Forbidden Patterns** — 你曾經炸過 prod 嘅 lesson、framework quirk、唔可以 break 嘅 design rule。
+3. **File / Code Conventions** — 命名規矩、folder 結構、import 風格。**呢度係最有價值嘅 section**。
+4. **Gotchas / Forbidden Patterns** — 你曾經炸過 prod 嘅教訓、framework 怪癖、唔可以破壞嘅設計規矩。
 
 呢四個 section 加埋通常 50–100 行夠用。**唔好寫到 500 行** —— Claude context window 寶貴，每個 token 都要值錢。
 
@@ -94,11 +94,11 @@ Next.js 15 (App Router) + TypeScript (strict) + MDX + Velite + Tailwind v4 + Pag
   build 會死喺 `ReferenceError: xxx is not defined`。
 ```
 
-呢條 gotcha 救咗我至少 3 次 build。**唔講「點解」嘅規矩 Claude 會犯**，因為佢 reasoning 唔到約束。
+呢條陷阱救咗我至少 3 次 build。**唔講「點解」嘅規矩 Claude 會犯**，因為佢推理唔到約束背後嘅原因。
 
-### 3. Audit：畀一個 task 睇佢跟唔跟（5 分鐘）
+### 3. 驗收：畀一個任務睇佢跟唔跟（5 分鐘）
 
-寫完即刻 test。開新 Claude Code session，畀一個會踩晒你 convention 嘅 task：
+寫完即刻測試。開新 Claude Code session，畀一個會踩晒你規矩嘅任務：
 
 ```
 加一個新 page 叫「Issue archive」，列出歷史所有期數。
@@ -106,8 +106,8 @@ Next.js 15 (App Router) + TypeScript (strict) + MDX + Velite + Tailwind v4 + Pag
 
 睇佢：
 - File name 啱唔啱（`IssueArchive.tsx` 定係 `issue-archive.tsx`？）
-- Import 路徑跟唔跟 project alias
-- 有冇用 forbidden pattern（gradient？圓角太大？hardcode 顏色？）
+- Import 路徑跟唔跟 project 別名
+- 有冇用禁止寫法（漸變？圓角太大？寫死顏色？）
 - 改完有冇主動 `pnpm typecheck`
 
 每個唔啱嘅地方 = CLAUDE.md 入面缺一條 rule。**審視一次補一次**，2–3 個週期之後就準晒。
@@ -116,8 +116,8 @@ Next.js 15 (App Router) + TypeScript (strict) + MDX + Velite + Tailwind v4 + Pag
 
 CLAUDE.md 唔係寫完就放低。每個月睇一次：
 
-- 過去 30 日邊條 instruction 我講過 3 次以上？→ 抽返入 CLAUDE.md
-- 邊條 rule Claude 一直跟得啱？→ 可以 trim 走
+- 過去 30 日邊條指示我講過 3 次以上？→ 抽返入 CLAUDE.md
+- 邊條規矩 Claude 一直跟得啱？→ 可以刪走
 - Stack 有冇升級？dependency 有冇換？
 
 我自己嘅習慣：每次 `pnpm install` 加新 dep，順手諗一句「Claude 需唔需要知？」需要就加一行。
@@ -129,9 +129,9 @@ CLAUDE.md 唔係寫完就放低。每個月睇一次：
 如果你係 monorepo（`apps/web`、`apps/api`、`packages/ui`），用兩層 CLAUDE.md：
 
 - **Root `CLAUDE.md`** — 講 monorepo 結構、workspace tool（pnpm / turbo）、跨 package commands、shared conventions
-- **每個 package 一份** — 只寫嗰個 package 特有嘅 quirk（例如 `apps/api/CLAUDE.md` 講 Prisma schema migration flow）
+- **每個 package 一份** — 只寫嗰個 package 特有嘅怪癖（例如 `apps/api/CLAUDE.md` 講 Prisma schema migration 流程）
 
-Claude Code 喺 sub-folder 跑會自動讀兩層。記住：**子層唔好 repeat 父層** —— 只寫 delta。
+Claude Code 喺 sub-folder 跑會自動讀兩層。記住：**子層唔好重覆父層** —— 只寫差異。
 
 ### 變化 2：Team CLAUDE.md — 人類 + AI 都讀你 team 可能淨係一兩個人用 Claude Code，其他人用 VS Code。寫一份兩邊都用得到嘅版本：
 
@@ -143,11 +143,11 @@ Claude Code 喺 sub-folder 跑會自動讀兩層。記住：**子層唔好 repea
 - 永遠 immutable update，唔好 mutate
 ```
 
-效果：人類 onboard 快咗、AI 一致咗。你會發現 **「寫畀 AI 嘅文檔」其實同「寫畀新人嘅文檔」幾乎一樣**。
+效果：人類上手快咗、AI 一致咗。你會發現 **「寫畀 AI 嘅文檔」其實同「寫畀新人嘅文檔」幾乎一樣**。
 
 ### 變化 3：接手 legacy codebase — 用 Claude 幫你寫 CLAUDE.md
 
-接手一個你唔熟嘅 codebase？倒轉用 Claude：
+接手一個你唔熟嘅程式庫？倒轉用 Claude：
 
 ```
 你 read 過呢個 repo 嘅 package.json、tsconfig、src/ folder 結構，
@@ -155,12 +155,12 @@ Claude Code 喺 sub-folder 跑會自動讀兩層。記住：**子層唔好 repea
 1. Stack（一句）
 2. Commands（從 package.json scripts 抽）
 3. 你觀察到嘅 file naming conventions
-4. 你發現嘅 forbidden patterns 或 quirk
+4. 你發現嘅禁止用法或怪癖
 
 我會 review + 改 + commit。
 ```
 
-Claude 出嘅 draft 通常 70% 啱、30% 估錯。你逐條核對一次，半個鐘有得交。**比起人手由零寫快 5 倍**。
+Claude 出嘅草稿通常 70% 啱、30% 估錯。你逐條核對一次，半個鐘有得交。**比起人手由零寫快 5 倍**。
 
 ## 一個心態
 
@@ -168,9 +168,9 @@ Claude 出嘅 draft 通常 70% 啱、30% 估錯。你逐條核對一次，半個
 
 最大嘅心理障礙：**你會覺得「呢啲嘢咁明顯，駛唔駛寫」**。答案：要。對你明顯，因為你日日睇住個 codebase。對 Claude 每個新 session 都係第一次。
 
-寫 CLAUDE.md 同寫 onboarding doc 同一個道理。分別係：
+寫 CLAUDE.md 同寫入職指南同一個道理。分別係：
 
-- 寫畀新人 onboarding doc：1 年用 2 次（每次有新同事入職）
+- 寫畀新人入職指南：1 年用 2 次（每次有新同事入職）
 - 寫畀 Claude 嘅 CLAUDE.md：**每日用幾十次**
 
-回報率懸殊到唔成比例。今晚抽 30 分鐘寫一版、跑一次 audit、commit。下個禮拜你會感覺到 Claude Code「終於變乖咗」。
+回報率懸殊到唔成比例。今晚抽 30 分鐘寫一版、跑一次驗收、commit。下個禮拜你會感覺到 Claude Code「終於變乖咗」。

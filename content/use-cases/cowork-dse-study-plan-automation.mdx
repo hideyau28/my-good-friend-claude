@@ -1,5 +1,5 @@
 ---
-title: "Cowork 每週日 audit 細路 DSE 進度：weak topic 自動 surface + 下週 study plan"
+title: "Cowork 每週日檢視細路 DSE 進度：弱項自動浮現 + 下週溫習計劃"
 slug: "cowork-dse-study-plan-automation"
 issue: 99
 publishedAt: 2026-05-27
@@ -10,27 +10,27 @@ subcategory: "DSE / 升學"
 difficulty: 2
 timeMinutes: 45
 toolsNeeded: ["Claude Desktop (Pro/Max)", "細路嘅 study log (Excel / Notion / pen + paper photo)", "Past paper score record"]
-description: "Cowork 教學：每星期日晚 9 點自動掃細路嘅 study log + past paper score，identify weak topic（例如數學 M2 微分連續 3 週低分），出下週 study plan 草稿畀你同細路週日 15 分鐘傾。HK 家長 monitor 子女 DSE 進度但唔做 helicopter parent 嘅 Cowork education tracker workflow。"
-keywords: ["DSE study plan automation", "HK 家長 monitor 子女進度", "Cowork education tracker", "DSE 進度追蹤", "claude cowork 教學", "weak topic 分析"]
+description: "Cowork 教學：每星期日晚 9 點自動掃細路嘅溫習記錄 + past paper 分數，揾出弱項（例如數學 M2 微分連續 3 週低分），出下週溫習計劃草稿畀你同細路週日 15 分鐘傾。HK 家長跟進子女 DSE 進度但唔做直升機家長嘅 Cowork 教育追蹤 workflow。"
+keywords: ["DSE study plan automation", "HK 家長跟進子女進度", "Cowork education tracker", "DSE 進度追蹤", "claude cowork 教學", "弱項分析"]
 related: ["dse-prep-mental-claude", "claude-tsa-homework-hk", "primary-school-makeup-request-claude"]
 featured: false
 ---
 
 ## 情境
 
-你細路中六，DSE 倒數 8 個月。你想知佢進度，但你已經睇過上一篇——你知再加 tutor、再「溫咗書未」式監察只會 backfire。
+你細路中六，DSE 倒數 8 個月。你想知佢進度，但你已經睇過上一篇——你知再加補習、再「溫咗書未」式監察只會適得其反。
 
-但「完全唔理」你又做唔到。你係家長，你要知佢邊一科 plateau、邊一個 topic 卡住、有冇需要調整資源——但你想用**數據**講嘢，唔係用焦慮監察。
+但「完全唔理」你又做唔到。你係家長，你要知佢邊一科停滯不前、邊一個課題卡住、有冇需要調整資源——但你想用**數據**講嘢，唔係用焦慮監察。
 
 問題係：你睇唔懂 study log。細路喺 Notion / Excel 入面記低每日溫咗咩，每兩星期一次 past paper 分數，但你打開個檔案——咁多 row，邊有時間每星期人手 review？
 
-呢個係 Cowork 嘅 sweet spot：**每星期日晚 9 點自動跑一次，read 細路嘅 log + 分數，surface 邊個 topic 連續低分，出一份下週 study plan 草稿，畀你同細路週日 15 分鐘傾**。你做嘅嘢只係：週日 15 分鐘真人對話 + 同細路一齊調整個 plan。剩餘 6 日唔監察。
+呢個正正係 Cowork 最啱做嘅嘢：**每星期日晚 9 點自動跑一次，讀細路嘅記錄 + 分數，浮現邊個課題連續低分，出一份下週溫習計劃草稿，畀你同細路週日 15 分鐘傾**。你做嘅嘢只係：週日 15 分鐘真人對話 + 同細路一齊調整個計劃。剩餘 6 日唔監察。
 
-> 重要 caveat：Cowork 仲係 research preview，要 Pro/Max plan。佢會直接讀你部機嘅檔案。**先同細路講清楚個 setup，佢 agree 先做**——呢樣係家庭信任問題，唔係技術問題。study log 應該係細路自己嘅，你係攞 read access。
+> 重要提醒：Cowork 仲係研究預覽版，要 Pro/Max plan。佢會直接讀你部機嘅檔案。**先同細路講清楚個設定，佢同意先做**——呢樣係家庭信任問題，唔係技術問題。溫習記錄應該係細路自己嘅，你只係攞閱讀權限。
 
 ## 跟住做
 
-### 1. Set up study log 格式（同細路一齊傾）
+### 1. 設定溫習記錄格式（同細路一齊傾）
 
 未 prompt Cowork 之前，先同細路傾佢用咩記。三個常見格式都得：
 
@@ -40,13 +40,13 @@ featured: false
 
 另加一個 sheet / page：**Past paper score log**——日期、卷別（例如「2023 DSE 數學卷一」）、分數 / 滿分、邊幾條題目錯。
 
-呢個 setup 同細路一齊做。畀佢揀 format。**呢個唔係你嘅監察工具——係佢嘅學習工具，你只係借嚟睇趨勢**。
+呢個設定同細路一齊做。畀佢揀格式。**呢個唔係你嘅監察工具——係佢嘅學習工具，你只係借嚟睇趨勢**。
 
-### 2. 一次過畀 Cowork 完整 prompt（weak topic detection 邏輯）
+### 2. 一次過畀 Cowork 完整 prompt（弱項偵測邏輯）
 
-呢個 prompt 比較長，但核心 logic 要寫清楚：點樣定義「weak topic」、點處理「最近 plateau vs 一直差」嘅分別。
+呢個 prompt 比較長，但核心邏輯要寫清楚：點樣定義「弱項」、點處理「最近停滯 vs 一直差」嘅分別。
 
-<PromptBlock label="完整 prompt — 每星期日 9pm 自動跑 DSE 進度 audit">
+<PromptBlock label="完整 prompt — 每星期日 9pm 自動跑 DSE 進度檢視">
 我細路中六，今屆 DSE。我想你每個星期日晚上 9 點自動做以下嘅嘢：
 
 📂 **Input 來源**
@@ -55,41 +55,41 @@ featured: false
 - 如果用 Notion：[Notion page link]
 - 如果係手寫相：[/Users/[你]/Documents/[細路名]-dse-2026/handwritten-logs/] folder
 
-🔍 **每星期要做嘅 audit**
+🔍 **每星期要做嘅檢視**
 
-1. **讀過去 7 日嘅 study log**
-   - 邊幾個 topic 細路花咗最多時間
-   - 邊幾個 topic 自我評分持續低（3 或以下）
-   - 邊幾個科目 0 時間（可能避開）
+1. **讀過去 7 日嘅溫習記錄**
+   - 邊幾個課題細路花咗最多時間
+   - 邊幾個課題自我評分持續低（3 或以下）
+   - 邊幾個科目 0 時間（可能刻意迴避）
 
 2. **過去 4 星期 past paper 分數趨勢**
-   - 每科 score 嘅 trend（升 / 跌 / plateau）
-   - 同一個 topic 連續 3 次或以上低分 = weak topic
+   - 每科分數嘅趨勢（升 / 跌 / 停滯）
+   - 同一個課題連續 3 次或以上低分 = 弱項
    - 例如：「數學 M2 微分連續第 3 週低分（45%, 48%, 52%）」
-   - 例如：「Chem 有機反應 trend 升緊（65 → 72 → 78），維持就得」
+   - 例如：「Chem 有機反應趨勢升緊（65 → 72 → 78），維持就得」
 
-3. **Surface 重點**
-   - 最多 3 個 weak topic（多過 3 個就揀最 critical）
-   - 1-2 個「進步緊」嘅 topic（畀細路睇到 progress，唔淨係問題）
-   - 任何 red flag：科目完全冇碰、瞓眠時間異常、log 突然停記
+3. **浮現重點**
+   - 最多 3 個弱項（多過 3 個就揀最緊急嘅）
+   - 1-2 個「進步緊」嘅課題（畀細路睇到進展，唔淨係問題）
+   - 任何紅燈警號：科目完全冇碰、瞓眠時間異常、記錄突然停記
 
 📋 **Output 格式（合作式，唔係指令式）**
 
-寫一份 markdown，標題「[細路名] 第 [週數] 週 progress check」。內容包括：
+寫一份 markdown，標題「[細路名] 第 [週數] 週進度檢視」。內容包括：
 
 **Section 1：今個星期觀察**
-- 「Bio 細胞分裂連續 3 次 quiz 低分（範圍：[topic 名]）。可能 worth 一次集中 review。」
+- 「Bio 細胞分裂連續 3 次 quiz 低分（範圍：[課題名]）。可能值得集中溫一次。」
 - **語氣**：observation，唔係 verdict。用「可能」、「或者」、「值得考慮」，唔好用「必須」、「應該」。
 
-**Section 2：下週 study plan 建議（draft）**
-- 一個建議嘅時間分配（小時 / topic）
-- 一個 past paper 嘅建議（如果適合 attempt 邊份）
-- **留白**：每一項標明「draft — 同細路傾完先 confirm」
+**Section 2：下週溫習計劃建議（草稿）**
+- 一個建議嘅時間分配（小時 / 課題）
+- 一個 past paper 嘅建議（如果適合做邊份）
+- **留白**：每一項標明「草稿 — 同細路傾完先確認」
 
 **Section 3：傾傾 questions**
 - 3-5 條我同細路星期日傾嗰陣可以問嘅問題
 - 唔係 yes/no，要 open
-- 例如：「Bio 嗰幾條 quiz 點解你覺得 stuck？」「下星期想花幾多時間喺 M2？」
+- 例如：「Bio 嗰幾條 quiz 點解你覺得卡住？」「下星期想花幾多時間喺 M2？」
 
 **Section 4：紅燈警號（如果有）**
 - 連續多日 log 空白
@@ -98,67 +98,67 @@ featured: false
 - 自我評分連續 1-2
 
 🚫 **唔好做嘅嘢**
-- 唔好 email 細路 / send 任何嘢畀細路
-- 唔好改細路份 log
-- 唔好 generate「催谷」式語言（例如「你必須加倍努力」）
-- 報告只 save 喺 [/Users/[你]/Documents/[細路名]-dse-2026/weekly-audits/] folder，filename「week-[週數]-audit.md」
+- 唔好 email 細路 / 發任何嘢畀細路
+- 唔好改細路份記錄
+- 唔好寫出「催谷」式語言（例如「你必須加倍努力」）
+- 報告只儲喺 [/Users/[你]/Documents/[細路名]-dse-2026/weekly-audits/] folder，檔名「week-[週數]-audit.md」
 
 ⏰ **時間**
 每星期日晚上 9 點跑。我會喺週日晚 10 點（睇完報告）同細路傾 15 分鐘。
 
-設定 好之後 核對 我，先 預演 一次睇格式啱唔啱，再 schedule。
+設定好之後核對我，先預演一次睇格式啱唔啱，再排程。
 </PromptBlock>
 
-### 3. Dry run + 同細路一齊 review 第一份報告
+### 3. 預演 + 同細路一齊睇第一份報告
 
-第一次跑唔好直接 schedule。叫 Cowork「預演一次用上星期嘅 log」。睇下：
+第一次跑唔好直接排程。叫 Cowork「預演一次用上星期嘅記錄」。睇下：
 
-- 佢有冇識認 weak topic 嘅規律（連續 3 次低分定係一次差）
+- 佢有冇識認弱項嘅規律（連續 3 次低分定係一次差）
 - 語氣係咪 observation 而唔係 judgment
 - 「傾傾 questions」係咪真係 open question
-- 紅燈警號係咪過敏（每個細微波動都 flag）或者太鬆（明顯紅燈都 miss）
+- 紅燈警號係咪過敏（每個細微波動都標記）或者太鬆（明顯紅燈都漏咗）
 
-**最關鍵嘅一步**：第一份報告**畀細路睇**。佢可以 veto。例如：「呢個 topic 我自己已經知道弱，下星期 plan 咗 review，你個審視出嚟我覺得似 surveillance。」聽到呢類反饋就調整 prompt（例如：「如果細路已經 flag 過某個 topic 喺 log，唔需要再 surface」）。
+**最關鍵嘅一步**：第一份報告**畀細路睇**。佢可以否決。例如：「呢個課題我自己已經知道弱，下星期計劃咗溫返，你個報告出嚟我覺得似監視。」聽到呢類反饋就調整 prompt（例如：「如果細路已經喺記錄標注過某個課題，唔需要再浮現」）。
 
-呢個唔係你一個人嘅 dashboard。係家庭工具。
+呢個唔係你一個人嘅儀表板。係家庭工具。
 
-### 4. 星期日晚 10 點 15 分鐘儀式（唔係 review meeting）
+### 4. 星期日晚 10 點 15 分鐘儀式（唔係檢討會議）
 
 報告星期日晚 9 點出。你 9-10 點之間自己睇一次，諗下 1-2 個你想傾嘅 point。10 點同細路坐低 15 分鐘（**唔好超過 15 分鐘**——超過就變壓力）。
 
 腳本：
 
 - **頭 5 分鐘**：細路講。「呢個星期你自己覺得點？」唔好打斷，唔好攞報告出嚟。
-- **中間 5 分鐘**：你分享 1-2 個 observation。「我見份報告講 M2 連續 3 週低分，你自己 awareness 點？」**問**佢嘅 reading，唔好 lecture。
-- **最後 5 分鐘**：一齊調整下週 plan。Plan 係細路嘅，唔係你嘅。佢可以推翻 Cowork 個 draft。
+- **中間 5 分鐘**：你分享 1-2 個觀察。「我見份報告講 M2 連續 3 週低分，你自己覺得點？」**問**佢嘅看法，唔好訓話。
+- **最後 5 分鐘**：一齊調整下週計劃。計劃係細路嘅，唔係你嘅。佢可以推翻 Cowork 個草稿。
 - **唔做**：唔講分數應該幾多、唔比較同學、唔提 JUPAS 收生線。呢啲報告自己會處理，唔需要你週日提。
 
-15 分鐘完，你哋去做第二樣嘢（睇電視、食宵夜）。**剩餘 6 日唔提 audit**。
+15 分鐘完，你哋去做第二樣嘢（睇電視、食宵夜）。**剩餘 6 日唔提檢視**。
 
 ## 變化
 
-### 變化 1：中一中三 junior 版（細路仲喺 explore phase）
+### 變化 1：中一中三初中版（細路仲喺探索階段）
 
-DSE 仲遠，唔需要 weak topic surface 咁緊。改做趨勢觀察 + 興趣探索：
+DSE 仲遠，唔需要弱項浮現咁緊。改做趨勢觀察 + 興趣探索：
 
-<PromptBlock label="變化 1 — junior 版 audit">
+<PromptBlock label="變化 1 — 初中版檢視">
 細路中二（13 歲）。Junior secondary 階段，未到 DSE 衝刺。改成：
 
 📋 **每兩星期跑一次**（唔係每星期——junior 階段唔需要咁密）
 
 🔍 **重點**
-1. **科目興趣 trend**：邊一科 self-rating 升緊 / 跌緊？（未來選 elective 嘅 signal）
-2. **時間分配健康度**：有冇某科完全 0 時間（avoidance）或者某科爆 hours（unhealthy 沉迷）
-3. **校內 test 分數趨勢**（如果有記）
-4. **課外活動 / 興趣**：log 有冇記到非學術活動？
+1. **科目興趣趨勢**：邊一科自我評分升緊 / 跌緊？（未來選科嘅訊號）
+2. **時間分配健康度**：有冇某科完全 0 時間（迴避）或者某科爆鐘（過度沉迷）
+3. **校內測驗分數趨勢**（如果有記）
+4. **課外活動 / 興趣**：記錄有冇記到非學術活動？
 
 📋 **Output 重點**
-- 唔講「weak topic」（junior 階段唔需要 frame 失敗）
-- 講「你最近似乎好鍾意 [科目]」、「[科目] 嗰邊好似冇咩 input，要唔要傾下？」
-- 紅燈：唔做功課 / 完全避開學校 / 瞓眠紊亂 → 即時 flag
+- 唔講「弱項」（初中階段唔需要標籤失敗）
+- 講「你最近似乎好鍾意 [科目]」、「[科目] 嗰邊好似冇咩投入，要唔要傾下？」
+- 紅燈：唔做功課 / 完全避開學校 / 瞓眠紊亂 → 即時標記
 
 🗣 **傾偈頻率**
-每兩星期 10 分鐘，週六或週日朝早自然時段，唔好搞成正式 meeting。
+每兩星期 10 分鐘，週六或週日朝早自然時段，唔好搞成正式會議。
 </PromptBlock>
 
 ### 變化 2：國際學校 IGCSE 版
@@ -177,7 +177,7 @@ IGCSE / IB 體系唔同 DSE，subject choice + coursework weight 都唔同：
 1. Coursework deadline tracker（每科 coursework 進度 vs deadline）
 2. Past paper score（每個 subject 嘅 grade boundary 唔同——攞 official mark scheme，例如 Cambridge）
 3. Predicted grade 趨勢（每兩個月一次校內 assessment）
-4. Subject combination 健康度（會唔會 over-loaded 揀咗 9-10 科但其中 2-3 科 plateau？）
+4. 科目組合健康度（會唔會攬太多揀咗 9-10 科但其中 2-3 科停滯？）
 
 📋 **Output**
 - Grade 用 letter（A*, A, B...）唔好用 %
@@ -189,10 +189,10 @@ IGCSE / IB 體系唔同 DSE，subject choice + coursework weight 都唔同：
 
 ### 變化 3：大專 self-study 版（細路自己用，唔係家長）
 
-呢個 use case 細路自己 set up，唔關家長事——大專之後家長唔應該 audit：
+呢個用法細路自己設定，唔關家長事——大專之後家長唔應該檢視：
 
 <PromptBlock label="變化 3 — 大專 self-study 版（細路自己用）">
-我大專一年級，自己用 Cowork audit 自己進度。家長唔涉及。
+我大專一年級，自己用 Cowork 檢視自己進度。家長唔涉及。
 
 🔍 **每星期跑**
 1. 過去 7 日課堂 attendance + tutorial 出席率
@@ -202,26 +202,26 @@ IGCSE / IB 體系唔同 DSE，subject choice + coursework weight 都唔同：
 
 📋 **Output**
 - 唔需要「合作式語氣」——係我自己睇嘅
-- 直接：邊科 falling behind、邊個 deadline 衝緊嚟、瞓眠 trend
-- 大膽 recommendation：「呢個星期建議 drop X 個 social commitment 集中喺 Y assignment」
+- 直接：邊科落後緊、邊個死線衝緊嚟、瞓眠趨勢
+- 大膽建議：「呢個星期建議推掉 X 個社交約會集中喺 Y 功課」
 
 🚫 **唔做**
-- 唔 send 畀家長
+- 唔發畀家長
 - 唔同其他同學比較
-- 唔 generate guilt-trip 語言
+- 唔寫內疚式語言
 
-呢個係我自己嘅 dashboard。
+呢個係我自己嘅儀表板。
 
 📅 **加 monthly review**
-每月最後一個星期日，跑一次 month-in-review：邊科 trajectory 健康、邊科要轉策略、自己生活 work-life-study balance 點。
+每月最後一個星期日，跑一次月度回顧：邊科走勢健康、邊科要轉策略、自己生活平衡點。
 </PromptBlock>
 
 ## 點解唔淨係用 Chat
 
-Chat 嘅問題：你要每星期主動開、貼 log、問問題、save report。三個星期你就 lazy 唔做，跌返做「閒時問細路溫咗書未」嘅老路。
+Chat 嘅問題：你要每星期主動開、貼記錄、問問題、儲報告。三個星期你就懶得做，跌返做「閒時問細路溫咗書未」嘅老路。
 
-Cowork 嘅 promise：設定一次，跑 8 個月。星期日 9 點報告自動出，你 10 點 15 分鐘同細路傾。你嘅 cognitive load 由「每日擔心」變「每週 30 分鐘 structured」。
+Cowork 嘅承諾：設定一次，跑 8 個月。星期日 9 點報告自動出，你 10 點 15 分鐘同細路傾。你嘅心理負擔由「每日擔心」變「每週 30 分鐘有結構」。
 
-> **一個心態**：Audit 嘅目的唔係「揾錯處催細路」。係**將你嘅家長焦慮轉成數據，再將數據轉成 15 分鐘嘅週日對話**。剩餘 6 日，你嘅腦可以放低 monitoring，因為你知道有 system 喺度。細路嘅腦亦可以放低「阿媽今晚會唔會又問」，因為佢知道週日 10 點先傾、其他時間唔提。**家庭嘅信任，由可預測性 build 出嚟**。
+> **一個心態**：檢視嘅目的唔係「揾錯處催細路」。係**將你嘅家長焦慮轉成數據，再將數據轉成 15 分鐘嘅週日對話**。剩餘 6 日，你嘅腦可以放低監察，因為你知道有系統喺度。細路嘅腦亦可以放低「阿媽今晚會唔會又問」，因為佢知道週日 10 點先傾、其他時間唔提。**家庭嘅信任，由可預測性建立出嚟**。
 
-⚠️ Caveat 重提：Cowork 仲係新。唔好叫佢自動 send 嘢畀細路、唔好叫佢改 log。**佢做唯讀 audit + draft plan 最 sure**。所有真正嘅決定，留返畀你同細路週日嗰 15 分鐘。
+⚠️ 提醒重提：Cowork 仲係新。唔好叫佢自動發嘢畀細路、唔好叫佢改記錄。**佢做唯讀檢視 + 草稿計劃最穩陣**。所有真正嘅決定，留返畀你同細路週日嗰 15 分鐘。
