@@ -111,6 +111,22 @@
 
 Phase 3 每批 5 篇，worst-first（按細楷密度，避開純技術詞虛高），逐批 build + commit。
 
+### Phase 3 進度
+
+**Batch 1（2026-05-29）** — 5 篇，worst-first：
+
+| 文章 | 細楷 清前 → 後 |
+| --- | --- |
+| eta-online-visa-prep-claude | 774 → 324 |
+| bno-visa-application-prep-claude | 592 → 282 |
+| breastfeeding-troubleshoot-claude-hk | 665 → 245 |
+| elder-care-decision-claude-hk | 587 → 210 |
+| lost-pet-flyer-claude | 586 → 192 |
+
+- 全站 baseline：27,915 → 24,784（累計 8 篇）。
+- 簽證篇殘留偏高 = 必須保留嘅英文表格欄位 / 官方問題引文（deliverable，非夾雜）。
+- 大陸用語維持 1（非試點 sibling-conflict-mediation）。
+
 ## 後續建議
 
 - 用 `docs/cantonese-style-guide.md` 做每篇 MDX 嘅審稿基準。
