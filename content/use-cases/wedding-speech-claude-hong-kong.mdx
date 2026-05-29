@@ -1,5 +1,5 @@
 ---
-title: "婚宴致詞稿：用 Claude 寫到唔似 chatbot 嘅 wedding speech（HK 兄弟姊妹版）"
+title: "婚宴致詞稿：用 Claude 寫到唔似 chatbot 嘅婚禮致詞（香港兄弟姊妹版）"
 slug: "wedding-speech-claude-hong-kong"
 issue: 26
 publishedAt: 2026-06-02
@@ -11,7 +11,7 @@ heroImage: "/hero/wedding-speech-claude-hong-kong.webp"
 difficulty: 2
 timeMinutes: 30
 toolsNeeded: ["Claude Chat"]
-description: "婚宴致詞稿：用 Claude 由你 share 嘅 anecdote 起 personalized wedding speech，5 分鐘版本連 timing。HK 兄弟姊妹、父母、伴郎伴娘致詞嘅 prompt 範本。"
+description: "婚宴致詞稿：用 Claude 由你講嘅真實故事，起一份貼身嘅婚禮致詞，5 分鐘版本連時間分配。香港兄弟姊妹、父母、伴郎伴娘致詞嘅 prompt 範本。"
 keywords: ["婚宴 致詞", "wedding speech 範本", "兄弟姊妹 致詞", "伴郎 致詞", "父母 婚禮 講話"]
 related: ["apology-email-template-claude", "english-email-polish-hk"]
 featured: false
@@ -19,154 +19,154 @@ featured: false
 
 ## 情境
 
-朋友 / 兄弟姊妹 / 仔女嘅婚禮，你係致詞角色之一（best man / maid of honor / 兄弟姊妹 / 家長）。
+朋友 / 兄弟姊妹 / 仔女嘅婚禮，你係致詞角色之一（伴郎 / 伴娘 / 兄弟姊妹 / 家長）。
 
 你打開 Notes app：
 
-> ...
+> ⋯
 
-寫唔出嚟。你 know 你愛佢哋、知好多 story，但**將佢翻譯成 5 分鐘嘅致詞、喺一百人面前讀**，呢個 task 嚇人。
+寫唔出嚟。你知你好錫佢哋、知好多故事，但**將呢啲變成 5 分鐘嘅致詞、喺一百人面前讀出嚟**，呢件事真係嚇人。
 
-去 ChatGPT search「wedding speech template」，出嚟係：
+去 ChatGPT 打「wedding speech template」，出嚟係：
 
 > 「Ladies and gentlemen, today is a very special day...」
 
-⚠️ 100% 套版。 全場 cringe。你嘅愛要由你嘅聲講出嚟，唔係 ChatGPT 嘅預設 template。
+⚠️ 100% 套版。 全場聽到都覺得尷尬。你嘅心意要由你把聲講出嚟，唔係 ChatGPT 嘅預設範本。
 
-呢篇用 Claude **由你 share 嘅真實 story** 起一個 personalized 致詞稿——唔取代你嘅 voice、但幫你 organize 同 pace。
+呢篇用 Claude **由你講嘅真實故事**，起一份貼身嘅致詞稿——唔取代你把聲、淨係幫你梳理同掌握節奏。
 
 ## 跟住做
 
-### 1. Brain dump：你對 couple 嘅 story 同感受
+### 1. 一口氣傾倒：你對新人嘅故事同感受
 
-唔用 prompt format 寫，純 brain dump。畀自己 10 分鐘喺 Apple Notes 寫晒：
+唔好用 prompt 格式寫，淨係一口氣將腦入面嘅嘢倒晒出嚟。畀自己 10 分鐘喺 Apple Notes 寫晒：
 
-- **你點認識 the bride / groom**（具體時間、地點、第一印象）
-- **你哋之間嘅 3-5 個 specific moment / inside joke**（唔係抽象「我哋好 close」，係「2019 年我哋一齊去日本 trip 嗰陣...」）
-- **你見到 couple 一齊時最搶眼嘅一件事**
-- **你想對 couple 講嘅 1 句心底話**（私底下會講嗰啲）
-- **你嘅 audience 想 know 嘅嘢**（公私混合，HK 父母在場 vs 全 friends 場合語氣唔同）
-- **時長要求**（通常 5 分鐘，~ 600 字）
+- **你點識新郎 / 新娘**（具體時間、地點、第一印象）
+- **你哋之間 3 至 5 個具體片段 / 只有你哋識笑嘅梗**（唔係抽象嘅「我哋好熟」，係「2019 年我哋一齊去日本嗰陣⋯」）
+- **你見到佢哋一齊時，最搶眼嘅一件事**
+- **你想對佢哋講嘅 1 句心底話**（私底下先會講嗰啲）
+- **你想台下啲人知道嘅嘢**（公私混合，香港父母在場 vs 全部都係朋友嘅場合，語氣唔同）
+- **時長要求**（通常 5 分鐘，約 600 字）
 
-呢個 brain dump 係**整個過程嘅靈魂**。Claude 嘅優勢完全 depend 你 input 嘅 honesty + specificity。
+呢一段傾倒係**整個過程嘅靈魂**。Claude 寫得幾好，完全睇你倒出嚟嗰啲嘢夠唔夠老實、夠唔夠具體。
 
 ### 2. 用呢個 prompt
 
-<PromptBlock label="完整 prompt — 由 brain dump 寫 personalized 致詞">
-我下個月要喺 [bride/groom 名] 嘅婚禮致詞。我嘅 role：[兄弟 / 姊妹 / 伴郎 / 伴娘 / 父母]。
+<PromptBlock label="完整 prompt — 由傾倒嘅故事寫貼身致詞">
+我下個月要喺 [新郎/新娘 名] 嘅婚禮致詞。我嘅角色：[兄弟 / 姊妹 / 伴郎 / 伴娘 / 父母]。
 
-以下係我嘅 brain dump（唔 organized，淨係 raw story 同感受）：
-[paste 你嘅 brain dump]
+以下係我一口氣倒出嚟嘅內容（未整理，淨係原汁原味嘅故事同感受）：
+[貼上你嗰段內容]
 
 致詞要求：
-- 長度：5 分鐘（~600 字中文）
-- 場合 mix：[全 HK / 中港台 / 中英雙語 / 純英文]，audience 包括 [age range，例：bride 同 groom 兩邊家長都到]
-- Tone：[揀 — 溫情為主 / 溫情加少少幽默 / 主要幽默 + 一段真心]
-- 我嘅 personality：[揀 — 平時 reserved / 平時搞笑 / 平時感性]
+- 長度：5 分鐘（約 600 字中文）
+- 場合語言：[全廣東話 / 中港台 / 中英雙語 / 純英文]，台下包括 [年齡層，例：新郎新娘兩邊家長都到]
+- 語氣：[揀 — 溫情為主 / 溫情加少少幽默 / 主要幽默加一段真心]
+- 我嘅性格：[揀 — 平時內斂 / 平時搞笑 / 平時感性]
 
-請整一份 致詞 draft，要做到：
+請整一份致詞草稿，要做到：
 
 **結構（5 段）：**
-1. **開頭 hook（45 秒）**——一個 specific story / moment，唔係「大家好」。將 bride / groom 嘅 name 自然帶入
-2. **Build-up（90 秒）**——3 個 specific anecdote（用我 share 嘅），每個揀啱 lesson / observation about couple
-3. **轉折（30 秒）**——一句 reflection 由「同 bride/groom 嘅關係」轉去「佢哋作為 couple」
-4. **About them as couple（90 秒）**——你見到佢哋一齊嘅 striking 觀察 + 一句 wishful thinking
-5. **Close（45 秒）**——舉杯 toast，一句 memorable line
+1. **開頭引子（45 秒）**——一個具體故事 / 片段，唔係「大家好」。將新郎 / 新娘嘅名自然帶入
+2. **鋪墊（90 秒）**——3 個具體小故事（用我倒出嚟嗰啲），每個帶出一個睇法或者一件關於佢哋兩個嘅事
+3. **轉折（30 秒）**——一句反思，由「我同新郎/新娘嘅關係」轉去「佢哋兩個一齊」
+4. **講佢哋作為一對（90 秒）**——你見到佢哋一齊時最搶眼嘅觀察 + 一句祝願
+5. **收結（45 秒）**——舉杯，一句令人記得住嘅說話
 
-**Style：**
-- HK 廣東話書面語為主，英文夾雜 OK（一兩個英文字，唔好成段）
-- 唔好 cliché：「對的人」、「相伴一生」、「執子之手」呢類 skip
-- 唔好 inside joke 太多——人哋聽唔明會 awkward。1 個 inside joke + 講清楚 context 嘅做法最 sweet
-- 真心話可以 vulnerable，但唔好 over-share
+**風格：**
+- 香港廣東話書面語為主，夾少少英文無問題（一兩個英文字，唔好成段）
+- 唔好用陳腔濫調：「對的人」、「相伴一生」、「執子之手」呢類，略過
+- 唔好太多只有你哋識笑嘅梗——人哋聽唔明會尷尬。1 個內部梗加講清楚來龍去脈，呢個做法最窩心
+- 真心話可以坦白脆弱，但唔好講得太盡
 
-**Format：**
-- 寫成可以讀出嚟嘅 paragraph，唔係 bullet point
-- 段落間 indicate stage direction（例：「\[pause for 1 second\]」、「\[look at couple\]」）
-- 標重點：邊一句要 deliberately slow、邊個地方適合 笑 / 沉默
+**格式：**
+- 寫成可以讀出嚟嘅段落，唔係 bullet point
+- 段落之間標明舞台提示（例：「\[停一秒\]」、「\[望住新人\]」）
+- 標重點：邊一句要刻意放慢、邊個位適合 笑 / 沉默
 
-**最重要嘅 constraint：**
-- 唔好出我冇 share 嘅 detail（即係唔好 hallucinate 我嘅 memory）
-- 如果你需要更多 specific 嘅 anecdote，問我，唔好估
+**最重要嘅一條限制：**
+- 唔好寫我冇講過嘅細節（即係唔好亂作我嘅回憶）
+- 如果你需要多啲具體小故事，問我，唔好估
 </PromptBlock>
 
-### 3. Read out loud 三次
+### 3. 讀出聲三次
 
-呢個好緊要。 致詞同 email 唔同——**要 speak**。
+呢個好緊要。 致詞同 email 唔同——**係要講出嚟嘅**。
 
 讀出聲嗰陣你會發現：
-- 某啲句太長，呼吸唔到
-- 某啲 phrase 你讀到聽落 awkward（你打字 OK，但讀出聲似唔似你）
-- Pacing 太快 / 太慢嘅地方
+- 某啲句太長，唞唔到氣
+- 某啲句子讀落聽起嚟好彆扭（打字 OK，但讀出聲似唔似你）
+- 邊度節奏太快 / 太慢
 
-每讀完一次，改一輪。三次之後個稿大概係 final。
+每讀完一次，改一輪。三次之後個稿大致就定形。
 
-### 4. 練習 + time it
+### 4. 練習 + 計時
 
-對住 timer 練。If 超過 6 分鐘，**狠心 cut**。 婚宴致詞 sweet spot 係 4-5 分鐘——再長 audience 開始走神。
+對住計時器練。如果超過 6 分鐘，**狠心刪**。 婚宴致詞最啱嘅長度係 4 至 5 分鐘——再長落去台下就開始游魂。
 
-Cut 嘅原則：**留 emotional 嘅 moment、cut 鋪墊**。
+刪嘅原則：**留低有感情嗰啲位、刪鋪墊**。
 
 ## 變化例子
 
 ### 變化 1：你係新人本身（鞠躬感謝詞）
 
 <PromptBlock label="變化 1 — 新人致詞">
-我係新人本身。婚宴上要做一段感謝詞（同 wedding speech 不同——focus 喺感謝 + 簡短 statement of love，唔係 storytelling about each other）。
+我係新人本身。婚宴上要做一段感謝詞（同一般致詞唔同——重點喺道謝同簡短講一句心意，唔係互相講對方嘅故事）。
 
-長度：2-3 分鐘
-Audience：兩邊家長、core friends
+長度：2 至 3 分鐘
+台下：兩邊家長、最親近嘅朋友
 
 請寫：
-1. **開頭**——感謝大家出席（短，30 秒以內，唔生硬）
-2. **感謝父母**——具體 mention 父母最大嘅 sacrifice / 影響你嘅 moment（具體）
-3. **感謝 partner**——一段 simple but heart-felt（唔需要長 essay，2-3 句到位）
-4. **Forward-looking**——你哋 couple 嘅 simple wish / commitment
-5. **Toast close**
+1. **開頭**——感謝大家出席（短，30 秒以內，唔好生硬）
+2. **感謝父母**——具體講出父母最大嘅付出 / 影響你最深嗰一刻（要具體）
+3. **感謝伴侶**——一段簡單但出自真心嘅說話（唔使長篇大論，2 至 3 句到位）
+4. **展望將來**——你哋兩個簡單嘅願望 / 承諾
+5. **舉杯作結**
 
-語氣：grateful、grounded、唔過分 dramatic。
+語氣：感恩、踏實、唔好過分煽情。
 </PromptBlock>
 
 ### 變化 2：你係父母致詞（家長視角）
 
 <PromptBlock label="變化 2 — 家長致詞">
 我係新人嘅 [父 / 母]，要喺女兒 / 兒子婚禮致詞。
-我嘅 personality：[reserved / outgoing / emotional]
-我同我嘅 [son / daughter] 嘅關係：[close / formal / 有過 distance 而修補過嘅]
+我嘅性格：[內斂 / 外向 / 感性]
+我同我 [仔 / 女] 嘅關係：[親密 / 客氣 / 曾經有過隔膜但修補返]
 
-我想 share 嘅 anecdote / moment：
-[paste 你嘅 brain dump，2-3 件事]
+我想講嘅小故事 / 片段：
+[貼上你想講嘅，2 至 3 件事]
 
 致詞要求：
-- 3-4 分鐘
-- 5 段結構：introduction、childhood memory、watching them grow、their partner、blessing
-- 唔好 over-cry——keep dignified
-- 唔好 sound like an obituary
+- 3 至 4 分鐘
+- 5 段結構：開場、童年回憶、睇住佢長大、佢嘅伴侶、祝福
+- 唔好喊到唔停——保持體面
+- 唔好寫到好似讀悼詞咁
 
-呢個 audience 有 generational mix。Phrasing 要 universal accessible，但 emotion 可以 personal。
+呢個場合有唔同世代嘅人。用字要人人都聽得明，但感情可以好個人。
 </PromptBlock>
 
-### 變化 3：Last-minute（只有 30 分鐘 prep）
+### 變化 3：臨急抱佛腳（淨係得 30 分鐘準備）
 
-<PromptBlock label="變化 3 — 30 分鐘 emergency 致詞">
-我明天就係 wedding 致詞，但我而家先 realize 自己未準備。
+<PromptBlock label="變化 3 — 30 分鐘趕起致詞">
+我聽日就要做婚禮致詞，但我而家先發覺自己未準備。
 
-我 share 嘅 quick brain dump（10 點 bullet）：
-[列 10 點 raw memory / observation / feeling about couple]
+我快速倒出嚟嘅 10 點：
+[列 10 點關於新人嘅原始回憶 / 觀察 / 感受]
 
 請：
-1. 由呢 10 點揀 3 個最 strong moment（你 explain reasoning）
-2. 用呢 3 個 moment 寫一個 3 分鐘致詞 草擬
-3. 整理出 5 條「我可以即興拋 audience」嘅 rhetorical question 或 funny line（防 brain freeze）
+1. 由呢 10 點揀 3 個最有力嘅片段（講埋你揀嘅理由）
+2. 用呢 3 個片段寫一個 3 分鐘致詞草擬
+3. 整理出 5 條「我可以即興拋畀台下」嘅反問句或者好笑嘅句子（防腦閉塞）
 
-Tone：自嘲 acceptable（「Caroline 邀請我講嘢，我 yesterday 先發覺 ⋯」）但唔好 over-do。
+語氣：自嘲無問題（「Caroline 邀請我講嘢，我尋日先發覺 ⋯」）但唔好太過火。
 </PromptBlock>
 
-## 一個 reminder
+## 一句提提你
 
-致詞嘅 audience 唔係「全場一百人」——係 **bride 同 groom**。
+致詞嘅對象唔係「全場一百人」——係 **新郎同新娘**。
 
-成功 metric 唔係笑聲，唔係掌聲，係**新人嗰個 moment 感受到你嘅 care**。如果你做到呢樣，其他人嘅 reaction 自然會跟。
+成功嘅指標唔係笑聲，唔係掌聲，係**新人嗰一刻感受到你嘅心意**。如果你做到呢樣，其他人嘅反應自然會跟。
 
-Claude 嘅優勢喺：**幫你 organize 已經有嘅 love，唔係 generate love 出嚟**。
+Claude 嘅優勢喺：**幫你梳理你本來就有嘅心意，唔係幫你無中生有整出愛來**。
 
-致詞最尷尬係**讀晒行貨 template、新人都聽出唔似你**。一個真誠但 imperfect 嘅致詞，永遠贏靚但行貨嘅版本。
+致詞最尷尬係**讀晒行貨範本、新人都聽得出唔似你**。一個真誠但唔完美嘅致詞，永遠贏過靚但行貨嗰個版本。

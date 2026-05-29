@@ -1,5 +1,5 @@
 ---
-title: "請工人姐姐前用 Claude 整 interview question：兼顧工作能力 + 屋企 fit + red flag screen"
+title: "請工人姐姐前用 Claude 整面試問題：兼顧工作能力、屋企夾唔夾、篩走警號"
 slug: "domestic-helper-interview-prep-claude"
 issue: 126
 publishedAt: 2026-05-27
@@ -10,7 +10,7 @@ subcategory: "屋企 管理"
 difficulty: 1
 timeMinutes: 30
 toolsNeeded: ["Claude Chat"]
-description: "請工人姐姐前 agency 安排 15-30 分鐘 interview，問乜先唔浪費？教你用 Claude 整一份 tailored 你屋企 setup 嘅 question list：揭真實工作能力、試屋企 fit、screen red flag。"
+description: "請工人姐姐前中介安排 15-30 分鐘面試，問乜先唔浪費？教你用 Claude 整一份度身訂造你屋企情況嘅問題清單：揭真實工作能力、試屋企夾唔夾、篩走警號。"
 keywords: ["HK 工人姐姐 interview", "外傭 面試", "domestic helper interview HK", "請工人 question", "外傭 中介 面試"]
 related: ["apology-email-template-claude", "parent-teacher-feedback-claude", "hong-kong-school-comparison-claude"]
 featured: false
@@ -18,130 +18,130 @@ featured: false
 
 ## 情境
 
-中介 send 三個 candidate profile 畀你，安排咗下星期三晚 phone 或者 video interview，每個 15 到 30 分鐘。你坐喺度諗：「咁短時間，到底問乜先有用？」
+中介 send 三個候選人 profile 畀你，安排咗下星期三晚電話或者視像面試，每個 15 到 30 分鐘。你坐喺度諗：「咁短時間，到底問乜先有用？」
 
-大部分人問嘅 question 都好行貨：
+大部分人問嘅問題都好行貨：
 
 - 「你識唔識煮飯？」——CV 已寫
 - 「你帶過幾大個細路？」——profile 已寫
 - 「你做得幾耐？」——合約 record 已寫
 - 「你會唔會 OK 同我哋住？」——對方梗係答 OK
 
-15 分鐘問曬呢啲，等於冇 interview 過。你 hire 個人入屋住兩年，做嘅 decision 完全靠 agency 嘅 profile 同一個 gut feeling。
+15 分鐘問曬呢啲，等於冇面試過。你請個人入屋住兩年，做嘅決定完全靠中介嘅 profile 同一個直覺。
 
-呢篇用 Claude 整一份**度身訂造你屋企 setup** 嘅 question 清單，三個目標：揭真實工作能力、試屋企 fit、screen red flag。
+呢篇用 Claude 整一份**度身訂造你屋企情況**嘅問題清單，三個目標：揭真實工作能力、試屋企夾唔夾、篩走警號。
 
 ## 跟住做
 
-### 1. 列出你屋企真實 context
+### 1. 列出你屋企真實情況
 
-開 Claude 前，自己 jot 低呢幾樣：
+開 Claude 前，自己記低呢幾樣：
 
-- **屋企成員**：細路幾多歲、有冇長者、有冇寵物、有冇人 work from home
-- **lifestyle**：你哋幾點返工放工、weekend 通常做咩、屋企人嘅飲食習慣、有冇 dietary restriction
-- **空間**：幾大、姐姐房嘅 setup、share 廁所定獨立
-- **你最 priority 嘅 task**：照顧細路？煮飯？清潔？接送？病人照顧？
-- **你嘅 dealbreaker**：例如唔接受食辣、唔接受夜瞓開電視、唔接受用電話太多
+- **屋企成員**：細路幾多歲、有冇長者、有冇寵物、有冇人喺屋企做嘢
+- **生活作息**：你哋幾點返工放工、週末通常做咩、屋企人嘅飲食習慣、有冇飲食禁忌
+- **空間**：幾大、姐姐房點樣布置、共用廁所定獨立
+- **你最優先嘅工作**：照顧細路？煮飯？清潔？接送？病人照顧？
+- **你嘅底線**：例如唔接受食辣、唔接受夜瞓開電視、唔接受用電話太多
 
-呢啲 context 唔分享畀 Claude，問題只會係籠統「點樣帶細路」嘅 list，同 Google 出嚟一樣。
+呢啲背景唔分享畀 Claude，問題只會係籠統「點樣帶細路」嗰類，同 Google 出嚟一樣。
 
-### 2. 用呢個 prompt 整 interview question 清單
+### 2. 用呢個 prompt 整面試問題清單
 
-<PromptBlock label="完整 prompt — 整 tailored interview question 清單">
-我下星期同三個外傭 candidate 做 phone interview，每個 20 分鐘。請幫我整一份 tailored question 清單。
+<PromptBlock label="完整 prompt — 整度身訂造嘅面試問題清單">
+我下星期同三個外傭候選人做電話面試，每個 20 分鐘。請幫我整一份度身訂造嘅問題清單。
 
-我屋企 context：
+我屋企背景：
 - 成員：[爸爸 媽媽 + 兩個細路（5 歲、8 歲）+ 一隻貓]
-- Lifestyle：[父母都返 full-time，5:30pm 後返到屋企；weekend 多數出街]
-- Priority task ranking：[1. 照顧細路課後 2. 煮三餐 3. 清潔 4. 寵物]
-- Dealbreaker：[唔接受成日玩電話、唔接受對貓有 phobia]
-- 候選人 profile：[兩個有香港 experience 嘅菲律賓姐姐、一個第一次嚟港嘅印尼姐姐]
+- 生活作息：[父母都返全職，5:30pm 後返到屋企；週末多數出街]
+- 工作優先次序：[1. 照顧細路課後 2. 煮三餐 3. 清潔 4. 寵物]
+- 底線：[唔接受成日玩電話、唔接受怕貓]
+- 候選人 profile：[兩個有香港工作經驗嘅菲律賓姐姐、一個第一次嚟港嘅印尼姐姐]
 
-請出 question 清單，分四 section：
+請出問題清單，分四個部分：
 
-**Section A — 揭真實工作能力（5 條）**
+**Part A — 揭真實工作能力（5 條）**
 - 唔好問「你識唔識做 X」（佢一定答識）
-- 要 behavioral question：「上一份工，當 [具體情境]，你會點處理？」
+- 要情境式問題：「上一份工，當 [具體情境]，你會點處理？」
 - 例如：細路發燒 38 度但家長未返到，你會做啲乜先？
-- 目標：聽 specific story，唔係抽象 statement
+- 目標：聽具體經歷，唔係抽象講法
 
-**Section B — 試屋企 fit（4 條）**
-- 圍繞 lifestyle compatibility、生活習慣、價值觀
-- 例如：你 off day 通常做啲乜？你瞓覺嘅習慣係點？
-- 唔好問成 「will you be happy living with us」呢類零分問題
-- 目標：聽佢真實 lifestyle，自己 judge fit 唔 fit
+**Part B — 試屋企夾唔夾（4 條）**
+- 圍繞生活作息夾唔夾、生活習慣、價值觀
+- 例如：你放假通常做啲乜？你瞓覺嘅習慣係點？
+- 唔好問成「will you be happy living with us」呢類零分問題
+- 目標：聽佢真實生活作息，自己判斷夾唔夾
 
-**Section C — Screen red flag（4 條）**
-- 前 employer contract 結束嘅原因（佢嘅版本 vs profile 寫嘅版本有冇出入）
-- Family commitment（屋企人對佢嚟港工作嘅 expectation、有冇供緊家用 pressure）
-- 健康狀況（過去一年有冇 major illness）
-- Financial pressure signal（有冇 debt、有冇 send remittance 嘅 obligation）
-- 唔好問到似審犯——用 open question 入手，followup 先深入
+**Part C — 篩走警號（4 條）**
+- 前僱主合約結束嘅原因（佢嘅版本同 profile 寫嘅版本有冇出入）
+- 家庭責任（屋企人對佢嚟港工作嘅期望、有冇供緊家用嘅壓力）
+- 健康狀況（過去一年有冇大病）
+- 經濟壓力訊號（有冇債、有冇要寄錢返鄉嘅責任）
+- 唔好問到似審犯——用開放式問題入手，再深入跟進
 
-**Section D — 畀對方問你（2 條 prompt）**
-- 你應該 invite 對方反問
-- 對方問嘅嘢，本身就係 signal（問放假定 wifi password 定細路功課 routine）
+**Part D — 畀對方問你（2 條提示）**
+- 你應該邀請對方反問
+- 對方問嘅嘢，本身就係訊號（問放假定 wifi 密碼定細路功課安排）
 
-每條 question 後面標明：問佢嘅目的 + 你應該聽乜 signal。
+每條問題後面標明：問佢嘅目的 + 你應該聽乜訊號。
 </PromptBlock>
 
-### 3. 點 conduct 個 interview
+### 3. 點樣進行個面試
 
-收到 Claude 出嘅 list 之後，唔好照 read。記住三個 principle：
+收到 Claude 出嘅清單之後，唔好照讀。記住三個原則：
 
-- **Open question 先，followup 跟住嚟**。佢答完一個籠統 answer，跟一句「Can you give me a specific example?」——大部分人就喺呢一句出真章
-- **靜 5 秒**。對方答完唔好即刻接，留少少 silence。佢通常會自己加多句 unprompted 嘅嘢——嗰句先係真嘢
-- **Red flag 唔係 deal-breaker，係 followup trigger**。聽到不一致就跟，唔好內心 disqualify 完就轉 topic
+- **開放式問題先，跟進問題隨後**。佢答完一個籠統答案，跟一句「Can you give me a specific example?」——大部分人就喺呢一句出真章
+- **靜 5 秒**。對方答完唔好即刻接，留少少沉默。佢通常會自己加多句你冇問嘅嘢——嗰句先係真嘢
+- **警號唔係淘汰理由，係跟進嘅契機**。聽到不一致就跟，唔好內心淘汰咗就轉話題
 
-### 4. Post-interview 用 Claude score + compare candidates
+### 4. 面試後用 Claude 評分同比較候選人
 
-訪完三個，趁印象新鮮倒出你嘅 note 入 Claude：
+訪完三個，趁印象新鮮倒出你嘅筆記入 Claude：
 
-<PromptBlock label="Post-interview compare prompt">
-我訪完三個 candidate。以下係每個嘅 note（包括答嘢嘅 key point、我個 gut feeling、red flag 同 yellow flag）：
+<PromptBlock label="面試後比較 prompt">
+我訪完三個候選人。以下係每個嘅筆記（包括答嘢嘅重點、我嘅直覺、警號同要留意嘅地方）：
 
 [Candidate A note]
 [Candidate B note]
 [Candidate C note]
 
 請幫我：
-1. 對住我之前 列出嘅 priority task ranking，score 每個 1-5
-2. 對住我嘅 dealbreaker，flag 每個 candidate 有冇踩
-3. 點出我 note 入面有冇 inconsistency 或者我 underweight 咗嘅 signal
-4. 如果三個都唔 perfect（通常都係），邊個係 best trade-off？
+1. 對住我之前列出嘅工作優先次序，每個畀 1-5 分
+2. 對住我嘅底線，標明每個候選人有冇踩
+3. 點出我筆記入面有冇前後矛盾，或者我睇得太輕嘅訊號
+4. 如果三個都唔完美（通常都係），邊個最好權衡？
 
-唔好幫我做 final decision——我自己決定。但幫我睇清楚我自己嘅 bias。
+唔好幫我做最終決定——我自己決定。但幫我睇清楚我自己嘅盲點。
 </PromptBlock>
 
 ## 變化例子
 
-### 變化 1：新請第一次（新手 employer） vs 換工人姐姐
+### 變化 1：第一次請（新手僱主） vs 換工人姐姐
 
-第一次請：你冇 baseline，唔知乜叫合理。Claude prompt 加多一段「我未請過工人姐姐，請順便點出我 expectation 入面邊啲係 unrealistic（例如：唔可以 expect 一個人同時做曬 cooking、cleaning、childcare、tutoring）」。
+第一次請：你冇參照基準，唔知乜叫合理。Claude prompt 加多一段「我未請過工人姐姐，請順便點出我嘅期望入面邊啲係不切實際（例如：唔可以期望一個人同時做曬煮飯、清潔、湊細路、補習）」。
 
-換姐姐：你已知前任邊度做得好、邊度做得唔好。加段「前姐姐 [strength + weakness]，新姐姐我特別想包括返 [gap]」，Claude 會 tailor question focus 喺 gap 嗰邊。
+換姐姐：你已知前任邊度做得好、邊度做得唔好。加段「前姐姐 [強項同弱項]，新姐姐我特別想補返 [缺口]」，Claude 會將問題焦點調去個缺口嗰邊。
 
-### 變化 2：接手前 employer terminate 嘅 contract / 試新 nationality
+### 變化 2：接手畀前僱主中止過合約嘅人 / 試新國籍
 
-Profile 寫住「contract terminated by employer」係 yellow flag，唔一定係 red flag——可能係 employer 嗰邊 issue。Prompt 入面講明：「請出 3 條 question 探對方版本嘅 termination 故事，目標係聽 specific event 同 self-reflection，唔係 blame 前 employer。」
+Profile 寫住「contract terminated by employer」係要留意嘅地方，唔一定係警號——可能係僱主嗰邊嘅問題。Prompt 入面講明：「請出 3 條問題探對方版本嘅合約中止故事，目標係聽具體事件同自我反思，唔係怪責前僱主。」
 
-試新 nationality（譬如你之前只請過菲律賓姐姐而家試印尼），加段「我冇接觸過 [nationality] 工人姐姐，請列出我可能有嘅 stereotype 同 blind spot，順便提我邊啲 question 容易 trigger cultural misunderstanding」。
+試新國籍（譬如你之前只請過菲律賓姐姐而家試印尼），加段「我冇接觸過 [國籍] 工人姐姐，請列出我可能有嘅刻板印象同盲點，順便提我邊啲問題容易引起文化誤會」。
 
-### 變化 3：長者 / 病人照顧為主嘅 specialized hire
+### 變化 3：以長者 / 病人照顧為主嘅專門聘請
 
-呢個 case 揀錯成本超高。Prompt 改 priority：「主要 task 係照顧 [中風後復康嘅 80 歲嫲嫲]」，要求 question focus 喺：
+呢類情況揀錯成本超高。Prompt 改優先次序：「主要工作係照顧 [中風後復康嘅 80 歲嫲嫲]」，要求問題焦點放喺：
 
-- 過往照顧個案嘅 specific medical situation（屙血、跌倒、唔肯食藥）
-- 情緒 capacity（被長者鬧、被誤會偷嘢，點處理）
-- Physical ability（搬抬、抱起、推輪椅）
-- 同醫護溝通（識唔識同物理治療師、家庭醫生 brief 情況）
+- 過往照顧個案嘅具體醫療情況（屙血、跌倒、唔肯食藥）
+- 情緒承受力（被長者鬧、被誤會偷嘢，點處理）
+- 體能（搬抬、抱起、推輪椅）
+- 同醫護溝通（識唔識同物理治療師、家庭醫生講清楚情況）
 
-呢類 hire 唔好慳呢 30 分鐘。值得做兩輪 interview。
+呢類聘請唔好慳呢 30 分鐘。值得做兩輪面試。
 
 ## 一個心態
 
-> 你 interview 嘅唔係一個 service provider，係一個未來兩年會睇住你細路長大、入過你睡房收衫、知道你屋企 wifi password 嘅人。
+> 你面試嘅唔係一個服務供應商，係一個未來兩年會睇住你細路長大、入過你睡房收衫、知道你屋企 wifi 密碼嘅人。
 
-15 分鐘嘅 interview，最大價值唔係「揀啱人」——係**強迫你自己諗清楚，你究竟想請一個點樣嘅人入屋**。
+15 分鐘嘅面試，最大價值唔係「揀啱人」——係**強迫你自己諗清楚，你究竟想請一個點樣嘅人入屋**。
 
-Claude 嘅優勢喺呢度：佢幫你由籠統「會唔會煮飯」嘅 question，跳到 specific 你屋企 context 嘅 question。剩低嗰部分——肯唔肯靜五秒等對方答完、肯唔肯 followup 唔順耳嘅答案——係你自己嘅 job。
+Claude 嘅優勢喺呢度：佢幫你由籠統「會唔會煮飯」嗰類問題，跳到貼住你屋企情況嘅具體問題。剩低嗰部分——肯唔肯靜五秒等對方答完、肯唔肯跟進唔順耳嘅答案——係你自己嘅事。

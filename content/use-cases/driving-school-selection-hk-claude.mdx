@@ -1,5 +1,5 @@
 ---
-title: "HK 揀駕駛學校用 Claude：3 間私人教車 vs 學校格價，揾啱你 schedule + 你性格"
+title: "香港揀駕駛學校用 Claude：私人教車 vs 大學校格價，揾啱你時間表同性格"
 slug: "driving-school-selection-hk-claude"
 issue: 129
 publishedAt: 2026-05-27
@@ -10,7 +10,7 @@ subcategory: "技能 / 課程"
 difficulty: 1
 timeMinutes: 25
 toolsNeeded: ["Claude Chat"]
-description: "HK 學車揀駕駛學校 vs 私人教車師傅，幾千蚊到 2 萬一注。Claude 一頁幫你 weigh cost / waiting list / 教學風格 / pass rate，揾啱你 schedule 同你性格。"
+description: "香港學車揀駕駛學校 vs 私人教車師傅，幾千蚊到兩萬一注。Claude 一頁幫你權衡價錢、輪候時間、教學風格、合格率，揾啱你時間表同性格。"
 keywords: ["HK 學車 揀", "駕駛學校 比較", "私人教車師傅", "driving school HK", "學車 報名"]
 related: ["hong-kong-school-comparison-claude", "saas-tool-comparison-claude-hk", "doctor-visit-prep-claude"]
 featured: false
@@ -18,203 +18,203 @@ featured: false
 
 ## 情境
 
-你決定學車。 望落運輸署 approved 嘅大學校（駕駛學院、3 大那種）—— 報價企硬、堂數套餐 fixed、但 waiting list 6-12 個月。 望返私人教車師傅 —— 平、快、可以揀時間，但質素、誠信、考試 pass rate 全部口耳相傳。
+你決定學車。望落運輸署認可嘅大學校（駕駛學院、三大嗰種）—— 報價企硬、堂數套餐固定，但要輪候 6 至 12 個月。望返私人教車師傅 —— 平、快、可以揀時間，但質素、誠信、考試合格率全部靠口耳相傳。
 
-12-20 堂、幾千蚊到 2 萬，連考試費。 你拎住 3-5 份報價（學校 brochure + 朋友介紹嘅師傅 WhatsApp quote），個個都話自己 「pass rate 高」、「教得仔細」、「貼地」。
+12 至 20 堂、幾千蚊到兩萬，連考試費。你拎住 3 至 5 份報價（學校單張，加埋朋友介紹嘅師傅 WhatsApp quote），個個都話自己「合格率高」、「教得仔細」、「貼地」。
 
 問題：
 
-- 報價 format 唔同：學校係 package（堂數 + 路試 + 試車費），師傅係 per-hour 但 hidden cost（試車費、車牌、補堂）
-- 你嘅 schedule（朝九晚六打工 / 輪班 / weekend only）唔同 candidate 對應嘅 availability
-- 你嘅性格（急性子想 3 個月搞掂 vs 慢慢儲信心）match 唔同教練風格
+- 報價格式唔同：學校係套餐（堂數 + 路試 + 試車費），師傅係按鐘計，但有隱藏成本（試車費、車牌、補堂）
+- 你嘅時間表（朝九晚六打工 / 輪班 / 淨係得周末）同每個選項可以排到嘅時間夾唔夾
+- 你嘅性格（急性子想三個月搞掂，定係慢慢儲信心）夾唔夾某個教練風格
 
-呢篇用 Claude 一頁 weigh 3-5 個選項：cost、availability、教學風格、pass rate、學嘢深唔深。 25 分鐘 prep，幫你由 「邊個朋友介紹」decision 變 informed comparison。
+呢篇用 Claude 一頁權衡 3 至 5 個選項：價錢、可排時間、教學風格、合格率、學嘢深唔深。25 分鐘準備，幫你由「邊個朋友介紹」嘅決定，變成有根有據嘅比較。
 
-> Disclaimer：Claude 唔幫你揸車，唔取代你親自試堂（大部分師傅同學校都俾你試一堂先報全套）。 呢個 process 係 strategic pre-screen，等你嘅試堂時間花喺真係有可能報嘅 2-3 個 candidate 度。
+> 提提你：Claude 唔幫你揸車，亦都唔取代你親自試堂（大部分師傅同學校都俾你試一堂先報全套）。呢個流程係幫你預先篩選，等你嘅試堂時間花喺真係有可能報嘅 2 至 3 個選項度。
 
 ## 跟住做
 
-### 1. 揾 candidate（3-5 個）
+### 1. 揾選項（3 至 5 個）
 
-至少 cover 兩種：
+至少要包兩種：
 
-1. **運輸署 approved 學校 1-2 間** —— 駕駛學院（北角、沙田、屯門 yard）、套餐 brochure 由網站或 reception 攞
-2. **私人教車師傅 2-3 個** —— 朋友介紹、Facebook group（HK Driving Learners 之類）、街招
+1. **運輸署認可學校 1 至 2 間** —— 駕駛學院（北角、沙田、屯門場），套餐單張由網站或者櫃枱攞
+2. **私人教車師傅 2 至 3 個** —— 朋友介紹、Facebook group（HK Driving Learners 之類）、街招
 
-每個 candidate 你需要嘅 raw info：
+每個選項你需要拎到嘅原始資料：
 
 - 全套堂數同總價（包唔包試車、路試、補堂）
-- Availability（earliest 開堂日、每週可以排幾多堂）
+- 可排時間（最快幾時開堂、每週可以排幾多堂）
 - 用咩車（平治、Toyota、Honda、手波 / 自動波）
-- Yard 位置 / 上堂出發點
-- Self-claimed pass rate（信半成就得）
+- 練習場位置 / 上堂出發點
+- 佢自己講嘅合格率（信半成就得）
 
-如果有朋友讀過嘅 reference 評語，用 voice memo 錄低再 transcribe。
+如果有朋友親身學過嘅評語，用語音備忘錄低再轉做文字。
 
 ### 2. 上 Claude 一個對話、貼晒落去
 
-<PromptBlock label="完整 prompt — 揀駕駛學校 / 教練 strategic comparison">
-我而家比較 [N] 個學車 option，想揀一個報。 各個 candidate 嘅報價同 info 我貼喺下面：
+<PromptBlock label="完整 prompt — 揀駕駛學校 / 教練策略比較">
+我而家比較 [N] 個學車選項，想揀一個報。各個選項嘅報價同資料我貼喺下面：
 
-**Candidate 1：[學校名 / 師傅名]**
+**選項 1：[學校名 / 師傅名]**
 - 類型：[駕駛學院 / 私人師傅]
 - 套餐：[堂數、總價、包咩、唔包咩]
-- Availability：[earliest 開堂、每週幾多堂]
+- 可排時間：[最快幾時開堂、每週幾多堂]
 - 用車：[車款、手波 / 自動]
-- Yard / 出發點：[地點]
-- 其他：[pass rate claim、朋友 review、特色]
+- 練習場 / 出發點：[地點]
+- 其他：[合格率講法、朋友評語、特色]
 
-**Candidate 2：[同上]**
+**選項 2：[同上]**
 
-**Candidate 3：[同上]**
+**選項 3：[同上]**
 
-（如有 candidate 4-5 繼續加）
+（如有選項 4 至 5 繼續加）
 
-我嘅 context：
+我嘅背景：
 
-- 我嘅 schedule：[例：朝九晚六打工，得 weekend + 平日夜晚 7pm 後]
-- 我嘅性格 / 學習風格：[例：急性子想 3 個月搞掂 / 慢慢嚟唔想被鬧 / 數理感 OK 但 spatial awareness 弱]
-- 預算 ceiling：[總價 $X]
-- 時間 ceiling：[幾耐之內想攞牌]
-- 考牌 priority：[例：first attempt 一定要 pass / 願意 fail 一次 retry]
+- 我嘅時間表：[例：朝九晚六打工，得周末加平日夜晚 7pm 後]
+- 我嘅性格 / 學習風格：[例：急性子想三個月搞掂 / 慢慢嚟唔想俾人鬧 / 數理感唔錯但空間感弱]
+- 預算上限：[總價 $X]
+- 時間上限：[幾耐之內想攞牌]
+- 考牌優先次序：[例：第一次一定要合格 / 願意肥一次再考]
 - 牌種：[私家車 / 輕型貨車 / 電單車 / 自動波]
-- 我嘅 concern：[例：聽人講師傅會中途加價、學校 waiting list 排晒 / 試堂前唔知 fit 唔 fit]
+- 我嘅顧慮：[例：聽人講師傅會中途加價、學校要排好耐 / 試堂前唔知夾唔夾]
 
-請整以下 4 個 section：
+請整以下四個部分：
 
-**Part 1：總成本 + availability table**
+**第 1 部分：總成本加可排時間表格**
 
-Columns 係 candidate 名，rows 係：
+直欄係選項名，橫行係：
 
-1. **明價** —— Brochure / quote 上總價
-2. **隱藏 cost 預估** —— 試車費、補堂費、路試 retry 費（如要）、車牌 fee。 由 info 推算，缺嘅 flag 「需 confirm」
-3. **真實 total cost range** —— first attempt pass 嘅 best case + fail 一次 retry 嘅 realistic case
-4. **Earliest 開堂日** —— 由今日計
-5. **每週可以排堂 cap** —— Match 我 schedule 嘅可能性
+1. **明價** —— 單張 / 報價上嘅總價
+2. **隱藏成本預估** —— 試車費、補堂費、路試重考費（如要）、車牌費。由資料推算，缺嘅標明「需確認」
+3. **真實總成本範圍** —— 第一次就合格嘅最佳情況，加埋肥一次重考嘅實際情況
+4. **最快開堂日** —— 由今日計
+5. **每週可排堂上限** —— 同我時間表夾到嘅可能性
 6. **預計攞牌時間** —— 由今日計到攞到 P 牌
 
-**Part 2：教學風格 + 我性格 fit**
+**第 2 部分：教學風格同我性格夾唔夾**
 
-每個 candidate 一段（3-4 句），由佢嘅 self-positioning、用車、yard 位置、pass rate claim 推測：
+每個選項一段（3 至 4 句），由佢嘅自我定位、用車、練習場位置、合格率講法推測：
 
 - 教學節奏（趕 vs 慢）
 - 教練性格傾向（嚴 vs 鬆、駁嘴 vs 順得人）
-- 適合嘅學生 profile
+- 適合邊類學生
 
-對應返我講嘅性格，**fit score 1-10** + 一句 why。
+對應返我講嘅性格，**夾度評分 1 至 10** 加一句點解。
 
-冇明顯 hint 嘅，老實寫 「未見明顯 signal，要試堂先知」，唔好硬作。
+冇明顯線索嘅，老實寫「未見明顯線索，要試堂先知」，唔好硬作。
 
-**Part 3：每個 candidate 嘅 trade-off + red flag**
+**第 3 部分：每個選項嘅取捨同警號**
 
-每個 1-2 點 「報價單字裡行間 hint，但 sales 唔會主動講」：
+每個 1 至 2 點「報價單字裡行間嘅暗示，但推銷嘅唔會主動講」：
 
-- 「學校總價最平 —— 但 12 堂套餐對 spatial awareness 弱嘅學生 唔夠，補堂 cost 預估令真實 total 反而貴過師傅」
-- 「師傅 pass rate claim 95% —— 但用嘅 yard 同實際路試 yard 唔同，路試 day 適應 cost 高」
-- 「Availability 最快 —— 但每週只可以排 1 堂，攞牌時間反而最耐」
+- 「學校總價最平 —— 但 12 堂套餐對空間感弱嘅學生唔夠，補堂成本預估令真實總數反而貴過師傅」
+- 「師傅自稱合格率 95% —— 但練習用嘅場同實際路試場唔同，路試嗰日適應成本高」
+- 「最快開到堂 —— 但每週只可以排 1 堂，攞牌時間反而最耐」
 
-red flag（如有）—— 例：師傅唔肯出書面報價、學校 contract 寫住 「補堂另議」、pass rate 數字嘅 fishy 之處。
+警號（如有）—— 例：師傅唔肯出書面報價、學校合約寫住「補堂另議」、合格率數字有可疑之處。
 
-**Part 4：我報名 / 簽 contract 前 last sanity check**
+**第 4 部分：報名 / 簽約前最後核對**
 
-3-5 條 specific question，由 above analysis 出 —— 唔可以由 brochure 自己讀到答案：
+3 至 5 條具體問題，由上面分析帶出 —— 唔可以由單張自己讀到答案：
 
-- 「補堂收費 per hour 係幾多？ 補堂用車同正堂同唔同？」
-- 「路試 fail 之後 retry 套餐有冇 additional discount？ 試車費要唔要 full pay 第二次？」
-- 「過去 6 個月你帶過嘅學生 first-attempt pass rate？ （要求佢俾 specific 數字唔好 round figure 95%）」
-- 「Contract 入面 cancel / refund policy？ 試咗 2 堂發現 mismatch 可以點？」
+- 「補堂收費每個鐘幾多？補堂用車同正堂同唔同？」
+- 「路試肥咗之後重考套餐有冇額外折扣？試車費要唔要再俾足一次？」
+- 「過去 6 個月你帶過嘅學生，第一次就合格嘅比例係幾多？（要求佢俾具體數字，唔好齊頭講 95%）」
+- 「合約入面取消 / 退款政策係點？試咗 2 堂發現唔夾可以點？」
 
-語氣：data-driven、唔 hype、實際幫我 decide。
-唔出行貨 「揀啱教練最緊要」呢類 disclaimer。
+語氣：用數據講嘢、唔好誇大、實際幫我決定。
+唔好出行貨，例如「揀啱教練最緊要」嗰類廢話。
 </PromptBlock>
 
-### 3. 睇返 trade-off matrix，自己 weigh
+### 3. 睇返取捨對照表，自己權衡
 
-Claude 出嘅 fit score 唔係 final answer，係 surface 你之前冇諗過嘅 dimension。 你大概率會見到：
+Claude 出嘅夾度評分唔係最終答案，係幫你帶出之前冇諗過嘅角度。你大概率會見到：
 
-- 你以為最平嗰個，加埋 hidden cost 同補堂後唔係最平
+- 你以為最平嗰個，加埋隱藏成本同補堂之後唔係最平
 - 你以為最快嗰個，每週只可以排 1 堂，攞牌時間最耐
-- 你以為朋友推薦嗰個師傅最 fit，但佢嘅嚴格教學風格同你慢熱性格唔啱
+- 你以為朋友推薦嗰個師傅最夾，但佢嘅嚴格教學風格同你慢熱性格唔啱
 
-呢個係呢個 process 嘅 highest 優勢部分 —— 唔係 Claude 幫你揀，係 surface 你 missing 嘅 info。
+呢個係成個流程最有價值嘅部分 —— 唔係 Claude 幫你揀，係幫你帶出你漏咗嘅資料。
 
-### 4. 簽 contract / 報名前 last sanity check
+### 4. 簽約 / 報名前最後核對
 
-帶 Part 4 嘅 question 去試堂日，**唔好直接俾錢報全套**：
+帶第 4 部分嘅問題去試堂嗰日，**唔好即刻俾錢報全套**：
 
-- 私人師傅：要佢出書面 quote（WhatsApp 都得），refund / cancel policy 寫清楚
-- 駕駛學院：read contract fine print，特別係 「補堂收費」、「路試 fail 後 package 點計」、「轉教練 policy」
-- 收到 quote 之後可以再返 Claude，問 「呢張 contract 有冇 red flag」
+- 私人師傅：要佢出書面報價（WhatsApp 都得），退款 / 取消政策寫清楚
+- 駕駛學院：細閱合約細則，特別係「補堂收費」、「路試肥咗之後套餐點計」、「轉教練政策」
+- 收到報價之後可以再返 Claude，問「呢張合約有冇警號」
 
-普通學生報名 sign 完先發現 hidden cost，由 12 堂 $8000 變實際 $14000。 25 分鐘 prep 慳返呢個 surprise。
+唔少學生報名簽完先發現隱藏成本，由 12 堂 $8000 變實際 $14000。25 分鐘準備慳返呢個意外。
 
 ## 變化例子
 
 ### 變化 1：私家車 vs 輕型貨車 vs 電單車
 
 <PromptBlock label="變化 1 — 牌種對比">
-我考慮緊 [私家車 / 輕型貨車 / 電單車] 牌，但唔肯定揀邊種先。 我嘅 context：
+我考慮緊 [私家車 / 輕型貨車 / 電單車] 牌，但唔肯定揀邊種先。我嘅背景：
 
-- 用途：[例：返工代步 / 送貨 side hustle / 純興趣 + 慳通勤時間]
-- 預算：[總價 ceiling]
-- 已有牌：[冇 / 私家車 P 牌 / etc.]
-- 體格 / spatial awareness：[簡述]
+- 用途：[例：返工代步 / 送貨副業 / 純興趣加慳通勤時間]
+- 預算：[總價上限]
+- 已有牌：[冇 / 私家車 P 牌 / 其他]
+- 體格 / 空間感：[簡述]
 
 請：
 
-1. 對比三種牌嘅 學車 cost、難度、考試 pass rate（HK average）
-2. 對應我用途，邊種 ROI 最高
-3. 列我冇諗過嘅 hidden consideration（例：電單車雨季 / 輕貨揸後車牌種限制）
-4. 一個 「揀邊種之前最後問自己」嘅 question
+1. 對比三種牌嘅學車費用、難度、考試合格率（香港平均）
+2. 對應我用途，邊種最抵
+3. 列我冇諗過嘅隱藏考量（例：電單車雨季 / 輕貨揸後車牌種限制）
+4. 一條「揀邊種之前最後問自己」嘅問題
 </PromptBlock>
 
-### 變化 2：已有外國牌（轉牌）嘅 case
+### 變化 2：已有外國牌（轉牌）嘅情況
 
-<PromptBlock label="變化 2 — 外國牌轉 HK 牌">
-我有 [國家 / 地區] 嘅駕駛牌 [X 年]，想轉 HK 牌。 我嘅 context：
+<PromptBlock label="變化 2 — 外國牌轉香港牌">
+我有 [國家 / 地區] 嘅駕駛牌 [X 年]，想轉香港牌。我嘅背景：
 
 - 持牌國家：[填]
 - 持牌年期：[填]
-- 喺 HK 揸過街冇：[冇 / 有，但用國際牌]
+- 喺香港揸過街冇：[冇 / 有，但用國際牌]
 - 預算同時間：[填]
 
 請：
 
-1. 列 HK 運輸署直接轉牌嘅 criteria 同 process（簡介，等我自己 verify gov 網最新版本）
-2. 如果要重新考，建議揾 「過渡型」教練 / 學校（識教外國持牌人 HK 路面 adaptation）嘅 criteria 係咩
-3. 對比 「直接考路試唔上堂」vs 「上 3-5 堂 refresher 再考」嘅 trade-off
-4. HK 路面同 [我持牌國] 嘅 top 3 唔同（揾 hidden risk）
+1. 列香港運輸署直接轉牌嘅條件同程序（簡介，等我自己上政府網核實最新版本）
+2. 如果要重新考，建議揾「過渡型」教練 / 學校（識教外國持牌人適應香港路面）嘅條件係咩
+3. 對比「直接考路試唔上堂」同「上 3 至 5 堂重溫再考」嘅取捨
+4. 香港路面同 [我持牌國] 最大三個唔同（揾出隱藏風險）
 
-唔好俾 「一定要上滿課程」嘅行貨 advice，由我 context 推。
+唔好俾「一定要上滿課程」嘅行貨建議，由我背景推。
 </PromptBlock>
 
 ### 變化 3：重新考（fail 過、揀新教練）
 
-<PromptBlock label="變化 3 — Fail 過之後 揀新教練">
-我之前 [學校名 / 師傅名] 學車，路試 fail 咗 [N] 次。 想揀新教練再試。 之前 fail 嘅原因（自己睇 examiner 評語）：
+<PromptBlock label="變化 3 — 肥過之後揀新教練">
+我之前喺 [學校名 / 師傅名] 學車，路試肥咗 [N] 次。想揀新教練再試。之前肥嘅原因（自己睇考官評語）：
 
-- [例：S 彎 stall / 上斜溜後 / observation 唔夠]
+- [例：S 彎死火 / 上斜溜後 / 觀察唔夠]
 
-而家手上有 [N] 個新 candidate（私人 / 學校）：
+而家手上有 [N] 個新選項（私人 / 學校）：
 
-**Candidate 1-N：[同 main prompt 同樣 format]**
+**選項 1 至 N：[同主 prompt 同樣格式]**
 
 請：
 
-1. 由我 fail 嘅 root cause，邊個 candidate 嘅教學風格 / yard / 用車最 address 到呢個 weakness
-2. 「重考」應該揀私人 vs 學校嘅 trade-off（私人較 flexible 改進 specific weakness、學校 standardised）
-3. 我試堂時應該 test 邊個 candidate 邊樣（例：要佢示範教 S 彎、要佢 critique 我 current habit）
-4. 一個我冇諗過嘅 risk：fail 過嘅學生最易跌入嘅 trap 係咩
+1. 由我肥嘅根本原因，邊個選項嘅教學風格 / 練習場 / 用車最針對到呢個弱項
+2. 「重考」應該揀私人定學校嘅取捨（私人較靈活，可以針對改善某個弱項；學校較標準化）
+3. 我試堂嗰陣應該試吓每個選項邊樣（例：要佢示範教 S 彎、要佢點評我而家嘅習慣）
+4. 一個我冇諗過嘅風險：肥過嘅學生最易跌入嘅陷阱係咩
 
-語氣：直接、唔錫住我。 我 fail 過所以心理準備好 critique。
+語氣：直接、唔使錫住我。我肥過，所以心理準備好接受批評。
 </PromptBlock>
 
 ## 一個 framing
 
-學車 decision 嘅 stake 唔在 「邊間最平」或 「邊個朋友介紹最好」 —— 係**邊個 candidate 嘅 cost + schedule + 教學風格三方 mismatch 最少**。
+學車呢個決定，重點唔在「邊間最平」或者「邊個朋友介紹最好」 —— 係**邊個選項嘅價錢、時間表、教學風格三方面最夾**。
 
-報價單只係 surface info。 真實 cost 喺補堂、試車 retry、契約 fine print 度。 真實 fit 喺教練風格同你性格嘅 match 度。
+報價單只係表面資料。真實成本喺補堂、試車重考、合約細則度。真實夾唔夾，喺教練風格同你性格夾唔夾嗰度。
 
-Claude 嘅優勢：**幫你 surface 出隱藏喺 sales pitch 入面嘅 trade-off**，等你嘅 decision 唔係 「邊個 quote 最低」、「邊個朋友介紹」，係 based on 你 informed comparison。
+Claude 嘅優勢：**幫你帶出收埋喺推銷話術入面嘅取捨**，等你嘅決定唔再係「邊張報價最低」、「邊個朋友介紹」，而係建基於你有根有據嘅比較。
 
-最後 reminder：呢個 process 唔取代試堂，唔取代你坐上副駕嘅 instinct。 但比起 cold sign 一個 12 堂 contract，呢 25 分鐘嘅 prep 大概率慳你 $3000-$6000 同幾個月時間。
+最後提提你：呢個流程唔取代試堂，亦都唔取代你坐上副駕位嘅直覺。但比起未試過就硬簽一張 12 堂合約，呢 25 分鐘嘅準備大概率慳你 $3000 至 $6000 同幾個月時間。

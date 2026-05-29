@@ -1,5 +1,5 @@
 ---
-title: "補習要唔要、揀邊間？用 Claude 拆「補習癮」vs「真正需要」+ K12 各 phase 真係 helpful 嘅選擇"
+title: "補習要唔要、揀邊間？用 Claude 拆「補習癮」vs「真正需要」+ K12 各階段真係幫到嘅選擇"
 slug: "supplementary-tutoring-decision-claude-hk"
 issue: 140
 publishedAt: 2026-05-27
@@ -10,7 +10,7 @@ subcategory: "補習 / 課外"
 difficulty: 2
 timeMinutes: 35
 toolsNeeded: ["Claude Chat", "學校 report card / 評語"]
-description: "HK 補習氾濫，K1 phonics、小學雙語、DSE 名師班幾千一堂。用 Claude 拆「補習癮」vs 真 learning gap，對應 age 揀啱 tutor type、設 trial 評估同 exit strategy。"
+description: "香港補習氾濫，K1 phonics、小學雙語、DSE 名師班幾千蚊一堂。用 Claude 拆「補習癮」vs 真正學習缺口，對應年齡揀啱補習形式、設試堂期評估同退場策略。"
 keywords: ["HK 補習 揀", "名師班 vs 1-on-1", "tutoring decision HK", "K12 補習", "香港 補習社"]
 related: ["hong-kong-school-comparison-claude", "kindergarten-interview-prep-hk-claude", "claude-tsa-homework-hk"]
 featured: false
@@ -20,166 +20,166 @@ featured: false
 
 你個小朋友 P3，學校剛派咗中期成績，數學 65、英文 70。你家長群組打開 WhatsApp，A 媽媽話佢個女去咗現代教育補英文升咗 15 分，B 媽媽話 Mind Up 嘅奧數班 booking 排到 9 月，C 爸爸已經幫個仔報咗遵理 DSE 預備班 ——小朋友先 P3。
 
-你開始 anxious。但靜落嚟諗：
+你開始焦慮。但靜落嚟諗：
 
-- 個小朋友 65、70 分，**真係 learning gap，定 normal variation**？
+- 個小朋友 65、70 分，**真係學習缺口，定係正常波動**？
 - 你想報補習，**係因為小朋友需要，定係因為你自己唔安心**？
-- 報邊種：1-on-1、小班、大班、online、app？邊種對你個小朋友 work？
+- 報邊種：1-on-1、小班、大班、網上、app？邊種啱你個小朋友？
 - 補咗點知有冇用？幾時應該停？
 
-呢篇用 Claude 拆「補習癮」（家長安心 mechanism）vs 真正 learning gap，**對應小朋友 age、學科、學習 style 揀啱 tutor type**，再設 trial 期評估 framework 同 exit strategy。
+呢篇用 Claude 拆「補習癮」（家長安心嘅機制）vs 真正學習缺口，**對應小朋友年齡、學科、學習風格揀啱補習形式**，再設試堂期評估框架同退場策略。
 
-> Disclaimer：呢個唔係 anti-tutoring 文。HK 補習有時真係 work，但需要係由 evidence-based decision 出發，唔係由 anxiety + herd behaviour 出發。Claude 嘅 role 係幫你 separate signal from noise。
+> 講清楚先：呢篇唔係反補習文。香港補習有時真係幫到手，但個決定要由實證出發，唔好由焦慮加跟風出發。Claude 喺度嘅角色，係幫你分清楚邊啲係訊號、邊啲係雜音。
 
 ## 跟住做
 
-### 1. 列細路真實 issue + 學校反饋 + 你嘅 anxiety source
+### 1. 列出細路真實問題 + 學校意見 + 你焦慮嘅源頭
 
-開個 doc 寫低三樣嘢，唔好混埋一齊：
+開個文件寫低三樣嘢，唔好混埋一齊：
 
-1. **小朋友真實表現** — 成績單實際分數、邊一 part 失分（concept、computation、careless、language barrier）、老師評語原文
-2. **學校反饋** — 班主任有冇主動講「跟唔上」？同學家長一般點 react？學校 expectation 係邊個 percentile？
-3. **你嘅 anxiety source** — 老實寫：你 anxious 係因為**小朋友自己**（佢驚、佢喊、佢做唔到功課），定係因為**外部 reference**（同學報咗、群組講起、表姐個女滿分）？
+1. **小朋友真實表現** — 成績單實際分數、邊一部分失分（概念、計算、大意、語言障礙）、老師評語原文
+2. **學校意見** — 班主任有冇主動講「跟唔上」？其他家長一般點反應？學校嘅期望係邊個百分位？
+3. **你焦慮嘅源頭** — 老實寫：你焦慮係因為**小朋友自己**（佢驚、佢喊、佢做唔到功課），定係因為**外部參照**（同學報咗、群組講起、表姐個女滿分）？
 
-呢一步嘅 honesty 直接決定你要唔要補習。如果三項全部係外部 reference，可能要補嘅係 **你嘅 anxiety**，唔係小朋友。
+呢一步老唔老實，直接決定你要唔要補習。如果三項全部係外部參照，可能要補嘅係 **你嘅焦慮**，唔係小朋友。
 
-### 2. PromptBlock — Claude 對應 evidence + age 出 recommendation
+### 2. PromptBlock — Claude 對應實證 + 年齡畀建議
 
-<PromptBlock label="完整 prompt — 補習 vs 唔補習 decision">
-我考慮緊應唔應該畀小朋友報補習，想用你幫我 evidence-based 拆。
+<PromptBlock label="完整 prompt — 補習 vs 唔補習嘅決定">
+我考慮緊應唔應該畀小朋友報補習，想你幫我用實證拆開分析。
 
 **小朋友 profile：**
 - 年級：[K2 / P3 / F2 / F5]
-- 性格 / 學習 style：[例：內向、慢熱、視覺型 / 好動、坐唔定、聽覺型]
-- 真實表現：[科目 + 分數 + 失分 pattern，例：數學 65，concept 識，computation 慢、careless 失 20 分]
-- 老師評語原文：[copy 原句，唔好 paraphrase]
-- 學校 expectation：[例：band 1 直資、班 average 75、我小朋友排 25/30]
+- 性格 / 學習風格：[例：內向、慢熱、視覺型 / 好動、坐唔定、聽覺型]
+- 真實表現：[科目 + 分數 + 失分規律，例：數學 65，概念識，計算慢、大意失 20 分]
+- 老師評語原文：[抄原句，唔好改寫]
+- 學校期望：[例：band 1 直資、全班平均 75、我小朋友排 25/30]
 
 **家庭情況：**
-- 我嘅 anxiety source：[例：小朋友自己 stressed / 群組討論 / 同事個仔報咗]
-- Budget：[每月 $] / 小朋友每週可用時數：[]
-- 已 try 過嘅 home support：[例：每晚 30 分鐘 review、買咗練習但做唔晒]
+- 我焦慮嘅源頭：[例：小朋友自己壓力大 / 群組討論 / 同事個仔報咗]
+- 預算：[每月 $] / 小朋友每週可用時數：[]
+- 已試過嘅在家支援：[例：每晚 30 分鐘溫習、買咗練習但做唔晒]
 
-請整 4 個 section：
+請整 4 個部分：
 
-**Part 1：補習癮 vs 真 learning gap 診斷**
+**Part 1：補習癮 vs 真正學習缺口診斷**
 
-由我描述嘅 evidence，judge：
-- 65、70 分（或我講嗰啲數字）喺呢個年級、呢間學校 context 係 actual gap，定 normal variation？
-- 失分 pattern hint 嘅 underlying issue 係：concept 唔識、practice 不足、attention / 興趣、定 test-taking skill？
-- 我嘅 anxiety 入面，幾多 % 係小朋友 driven、幾多 % 係外部 reference driven？老實答。
+根據我描述嘅實證，判斷：
+- 65、70 分（或我講嗰啲數字）喺呢個年級、呢間學校嘅情況下，係實際缺口，定係正常波動？
+- 失分規律透露嘅根本問題係：概念唔識、練習不足、專注力 / 興趣，定係應試技巧？
+- 我嘅焦慮入面，幾多 % 係小朋友帶動、幾多 % 係外部參照帶動？老實答。
 
-**Part 2：如果真要補，邊種 tutor type fit**
+**Part 2：如果真要補，邊種補習形式啱**
 
-對應小朋友 age + 失分 pattern + 學習 style，比較：
+對應小朋友年齡 + 失分規律 + 學習風格，比較：
 - 1-on-1（私補 / 學校老師私補 / 名師個別班）
 - 小班（5-8 人，例如 Mind Up / 一般補習社）
 - 大班（30+ 人，例如名師班 ——現代、遵理、英皇）
-- Online tutor / video class
+- 網上補習 / 影片課堂
 - 自學 app（例如 Khan / Quizlet / Mathletics）
 
-每個 option 寫：
-- Fit score（1-10）
-- Why fit / not fit 呢個小朋友
-- Expected monthly cost range（HK）
-- 主要 trade-off
+每個選項寫：
+- 適合度評分（1-10）
+- 點解啱 / 唔啱呢個小朋友
+- 預計每月費用範圍（港幣）
+- 主要取捨
 
-**Part 3：Trial 期評估 framework**
+**Part 3：試堂期評估框架**
 
-如果我決定 try 一個 option，畀我 3 個 evaluation metric（**唔淨係睇分**），等我 3-4 堂之後可以判斷有冇用。
-例如：concept retention、小朋友主動 vs 被動 mention、homework 完成 quality / attitude shift 等。
-每個 metric 寫點 observe、point 量度。
+如果我決定試一個選項，畀我 3 個評估指標（**唔淨係睇分**），等我 3-4 堂之後可以判斷有冇用。
+例如：概念記憶、小朋友主動 vs 被動提起、功課完成質素 / 態度轉變等。
+每個指標寫點觀察、點量度。
 
-**Part 4：Exit strategy + re-evaluation cadence**
+**Part 4：退場策略 + 重新評估嘅節奏**
 
-- 邊個 trigger point 應該停（例：3 個月無 improvement、小朋友開始抗拒）
-- 邊個 trigger point 應該 continue / upgrade
-- 半年 / 一年 cost-benefit re-eval 應該 ask 邊啲 question
+- 邊個觸發點應該停（例：3 個月冇進步、小朋友開始抗拒）
+- 邊個觸發點應該繼續 / 升級
+- 半年 / 一年嘅成本效益重新評估應該問邊啲問題
 
-語氣：實際、唔 anti-tutoring 亦唔 push tutoring、唔出「視乎小朋友啦」嘅行貨。
+語氣：實際、唔反補習亦都唔催谷補習、唔好出「視乎小朋友啦」嘅行貨。
 </PromptBlock>
 
-### 3. Trial 期 evaluation framework — 3 個 metric
+### 3. 試堂期評估框架 — 3 個指標
 
-報咗之後，最大 trap 係「報咗就唔再評估」。Claude Part 3 會 propose 3 個 metric，但通用嘅版本：
+報咗之後，最大陷阱係「報咗就唔再評估」。Claude 喺 Part 3 會提出 3 個指標，但通用嘅版本：
 
-1. **Concept retention** — 3 堂之後抽考一條同類題（唔係補習社做過嗰條），睇佢做唔做到。做唔到 = tutor 教咗但小朋友冇 absorb。
-2. **Attitude shift** — 小朋友主動 mention 補習嘅嘢（「今日學咗一個快啲嘅方法」）vs 被動應付（「冇嘢」「忘記咗」）。主動 mention = engagement，被動 = chair time only。
-3. **Spillover effect** — 學校功課 quality / 做功課速度 / 對該科信心，有冇 spillover 改善？冇 spillover = 補習 isolated 喺嗰幾粒鐘，冇 integrate 入小朋友嘅 learning system。
+1. **概念記憶** — 3 堂之後抽考一條同類題（唔係補習社做過嗰條），睇佢做唔做到。做唔到 = 補習老師教咗但小朋友冇吸收。
+2. **態度轉變** — 小朋友主動提起補習嘅嘢（「今日學咗一個快啲嘅方法」）vs 被動應付（「冇嘢」「唔記得咗」）。主動提起 = 有投入，被動 = 淨係坐喺度。
+3. **連帶效果** — 學校功課質素 / 做功課速度 / 對該科信心，有冇連帶改善？冇連帶 = 補習孤立喺嗰幾粒鐘，冇融入小朋友嘅整個學習。
 
-3-4 堂之後三個 metric 都唔郁，**唔好等學期尾**，直接 exit 或者換 type。
+3-4 堂之後三個指標都冇郁，**唔好等學期尾**，直接退出或者換形式。
 
-### 4. Exit strategy + cost-benefit re-eval
+### 4. 退場策略 + 成本效益重新評估
 
 每 3 個月坐低問自己：
 
-- **Cost**：每月 $？小朋友每週 X 個鐘？家長接送 / 監督時間？
-- **Benefit**：對應上面 3 個 metric 有幾多 movement？
-- **Opportunity cost**：嗰 X 個鐘原本可以做咩（運動、玩、休息、家庭時間）？
+- **成本**：每月 $？小朋友每週 X 個鐘？家長接送 / 監督時間？
+- **效益**：對應上面 3 個指標有幾多進展？
+- **機會成本**：嗰 X 個鐘原本可以做咩（運動、玩、休息、家庭時間）？
 
-如果 benefit 唔 outweigh cost + opportunity cost，**stop 唔等於失敗**。HK 文化普遍 frame 「停補習 = 放棄」，呢個 framing 錯。Stop 係 informed decision，同 continue 一樣需要 courage。
+如果效益抵唔過成本加機會成本，**停咗唔等於失敗**。香港文化普遍將「停補習 = 放棄」綁埋一齊，呢個諗法錯。停係一個知情嘅決定，同繼續一樣需要勇氣。
 
 ## 變化例子
 
 ### 變化 1：幼稚園 phonics / 拼音 / 算術
 
-<PromptBlock label="變化 1 — K1-K3 補習決策">
+<PromptBlock label="變化 1 — K1-K3 補習決定">
 我小朋友 [K1 / K2 / K3]，正在考慮報 [phonics / 普通話拼音 / 算術 / 寫字] 班。
-小朋友 profile：[性格、語言環境、attention span]
-報嘅 driver：[學校老師建議 / 我自己擔心 / 同學都報]
+小朋友 profile：[性格、語言環境、專注力]
+報嘅推動力：[學校老師建議 / 我自己擔心 / 同學都報]
 
 請：
-1. K1-K3 年齡 brain development context 下，呢類補習真係 「earlier = better」？定 marginal benefit 細？
-2. 如果真要 expose，邊種 format 最 age-appropriate（playgroup-style 小班 vs structured class vs 在家 app）？
-3. Red flag：邊啲 sign 表示呢個 age 嘅小朋友 over-tutored（社交退縮、抗拒學習、瞓眠 disrupt）？
-4. Honest assessment：呢個 age 嘅補習，幾多 benefit 對小朋友、幾多 benefit 係 「家長安心 + 入小學 portfolio 加分」？
+1. K1-K3 呢個年齡嘅大腦發展階段，呢類補習真係「越早越好」？定係邊際效益好細？
+2. 如果真要接觸，邊種形式最啱呢個年齡（playgroup 式小班 vs 有系統嘅課堂 vs 在家 app）？
+3. 警號：邊啲跡象表示呢個年齡嘅小朋友補得過量（社交退縮、抗拒學習、瞓眠受擾）？
+4. 老實評估：呢個年齡嘅補習，幾多益處係落喺小朋友身上、幾多係「家長安心 + 入小學 portfolio 加分」？
 </PromptBlock>
 
 ### 變化 2：小學中游（P3-P5 中英數）
 
 <PromptBlock label="變化 2 — 小學中游 學科補底 / 拔尖">
-我小朋友 [P3 / P4 / P5]，[中 / 英 / 數] 表現 [明顯 below class average / 想再 stretch]。
-失分 pattern：[copy 老師原文評語]
-家庭 context：[例：我自己唔識教 / 工時長無時間跟功課]
+我小朋友 [P3 / P4 / P5]，[中 / 英 / 數] 表現 [明顯低於全班平均 / 想再進一步]。
+失分規律：[抄老師原文評語]
+家庭情況：[例：我自己唔識教 / 工時長冇時間跟功課]
 
 請對比：
-1. 學校老師私補（同一個 syllabus、熟小朋友 weakness）
+1. 學校老師私補（同一個課程、熟小朋友弱點）
 2. 一般補習社小班（5-8 人，例如 Mind Up / 區內補習社）
-3. 大班名師（現代 / 遵理 / Mind Up flagship）
-4. Online 1-on-1（Snapask / Tutor Circle 之類）
-5. 自學 app + 家長 review
+3. 大班名師（現代 / 遵理 / Mind Up 旗艦班）
+4. 網上 1-on-1（Snapask / Tutor Circle 之類）
+5. 自學 app + 家長檢視
 
-對應 P3-P5 嘅 cognitive stage 同 attention span，邊個最 fit？唔好 default「1-on-1 一定好過大班」。
+對應 P3-P5 嘅認知階段同專注力，邊個最啱？唔好慣性覺得「1-on-1 一定好過大班」。
 </PromptBlock>
 
 ### 變化 3：DSE 補底 vs 拔尖（F4-F6）
 
 <PromptBlock label="變化 3 — DSE 補習名師班 vs 1-on-1 抉擇">
 我小朋友 [F4 / F5 / F6]，DSE 目標 [3322 入大學 / 5** 神科]。
-強弱項：[例：中英文 stable 4，數 M2 weak、化學 stuck 喺 3]
-時間 budget：[每週可投入幾多 hours]
-經濟 budget：[每月可承擔幾多]
+強弱項：[例：中英文穩定 4，數 M2 弱、化學卡喺 3]
+時間預算：[每週可投入幾多 hours]
+經濟預算：[每月可承擔幾多]
 
-請對比兩條 route：
-1. **名師大班 route**（現代 / 遵理 / 英皇 / King's Glory ——買 notes、考試技巧、past paper drilling）
-2. **1-on-1 / 小班 route**（針對 weakness、慢慢補底）
+請對比兩條路：
+1. **名師大班路**（現代 / 遵理 / 英皇 / King's Glory ——買 notes、考試技巧、操 past paper）
+2. **1-on-1 / 小班路**（針對弱點、慢慢補底）
 
-每個 route：
-- 邊種 student profile 最 benefit（補底 vs 拔尖、自律 vs 需要 push、concept gap vs technique gap）
-- ROI 大致估算（marks gain / $ spent）
-- 主要 risk（例：名師班 over-rely on past paper、1-on-1 dependency 過強）
+每條路：
+- 邊種學生最受惠（補底 vs 拔尖、自律 vs 需要人推、概念缺口 vs 技巧缺口）
+- 回報大致估算（升幾多分 / 使幾多錢）
+- 主要風險（例：名師班過度依賴 past paper、1-on-1 太過依賴老師）
 
-最後：基於我小朋友嘅 profile，畀我一個 honest recommendation，包括「兩條都唔啱、不如重新分配時間」嘅可能。
+最後：根據我小朋友嘅情況，畀我一個老實嘅建議，包括「兩條都唔啱、不如重新分配時間」嘅可能。
 </PromptBlock>
 
 ## 一個 framing
 
-HK 補習氾濫嘅 root cause 唔係補習本身有問題，係**家長失去評估補習有效性嘅 framework**。報咗就以為做咗嘢，但有冇 work 從來冇 measure。
+香港補習氾濫嘅根源唔係補習本身有問題，係**家長冇咗一套評估補習有冇效嘅框架**。報咗就以為做咗嘢，但有冇用從來冇量過。
 
-Claude 喺呢度嘅優勢係幫你 install 返一個 framework：
+Claude 喺呢度嘅優勢係幫你裝返一套框架：
 
-- 報之前：拆 anxiety 同 actual gap
-- 報緊：3-4 堂 trial 期 + 3 個 metric
-- 半年：cost-benefit re-eval + exit 嘅 courage
+- 報之前：拆開焦慮同實際缺口
+- 報緊：3-4 堂試堂期 + 3 個指標
+- 半年：成本效益重新評估 + 收手嘅勇氣
 
-補習唔係終身契約，係 a tool。Tool 有效就用、冇效就放低。你個小朋友需要嘅唔係**最多嘅補習**，係**最 fit 佢嗰一刻 learning gap 嘅嗰幾堂**。
+補習唔係終身契約，係一件工具。工具有效就用、冇效就放低。你個小朋友需要嘅唔係**最多嘅補習**，係**最啱佢嗰一刻學習缺口嘅嗰幾堂**。

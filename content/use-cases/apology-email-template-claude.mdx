@@ -19,131 +19,131 @@ featured: false
 
 ## 情境
 
-你 fuck up 咗一單嘢：
+你搞砸咗一單嘢：
 
-- Miss 咗一個老闆強調過嘅 deadline
-- 寄錯 invoice 落客戶（多咗一個 0）
+- 錯過咗一個老闆強調過嘅 deadline
+- 寄錯 invoice 畀客戶（多咗一個 0）
 - 喺 group chat 誤會咗同事，講咗重嘢
-- 介紹咗一個供應商畀朋友，個供應商出 issue
+- 介紹咗一個供應商畀朋友，個供應商出咗問題
 
-你要 send 一封 apology email。預設寫法通常兩個極端：
+你要 send 一封 apology email。多數人慣性會寫成兩個極端：
 
-- **Over-apologize**：「I am extremely sorry for the inconvenience...」全篇都係 sorry，讀完 cringe，亦顯得冇底氣
-- **Under-apologize**：「There was an issue with the timeline」passive voice 唔擔件事，對方覺得你冇誠意
+- **道歉得太多**：「I am extremely sorry for the inconvenience...」全篇都係 sorry，讀完令人覺得難頂，亦顯得冇底氣
+- **道歉得太少**：「There was an issue with the timeline」用被動句唔擔件事，對方覺得你冇誠意
 
-呢篇用 Claude 寫一封**真誠承認 + 提出 fix + 保持尊嚴**嘅 apology email。
+呢篇用 Claude 寫一封**真誠承認 + 提出補救 + 保持尊嚴**嘅 apology email。
 
 ## 跟住做
 
-### 1. 諗清楚三樣嘢先 prompt
+### 1. 諗清楚三樣嘢先寫 prompt
 
-- **件事真實發生咗咩**（事實順序，唔係 narrative）
+- **件事究竟發生咗咩**（事實順序，唔係加戲）
 - **對方因為呢件事失去咗咩**（時間 / 錢 / 面 / 信任）
-- **你而家可以做嘅 fix**（具體 action，唔係空話）
+- **你而家可以做嘅補救**（具體行動，唔係空話）
 
-呢個係關鍵 input。冇真誠認知件事，AI 出嘅道歉永遠行貨。
+呢個係關鍵 input。冇真誠認清件事，AI 出嘅道歉永遠行貨。
 
 ### 2. 用呢個 prompt
 
-<PromptBlock label="完整 prompt — 寫一封 sincere 唔卑微嘅 apology">
+<PromptBlock label="完整 prompt — 寫一封真誠又唔卑微嘅道歉信">
 我要寫一封 apology email。詳情：
 
-對方：[同事 / 老闆 / 客戶 / vendor，名 + 職位]
-件事：[事實描述，3-4 句，唔好 spin]
-對方因此 lose 咗咩：[時間 / 錢 / 面 / trust，具體啲]
-我可以做嘅 fix：[具體 action，例如：今晚再做一次 / 退錢 / 親自打電話跟進 / 改 process 唔再發生]
+對方：[同事 / 老闆 / 客戶 / 供應商，名 + 職位]
+件事：[事實描述，3-4 句，唔好加戲]
+對方因此失去咗咩：[時間 / 錢 / 面 / 信任，具體啲]
+我可以做嘅補救：[具體行動，例如：今晚再做一次 / 退錢 / 親自打電話跟進 / 改流程唔再發生]
 
 請寫一封 email，跟以下 4 段結構：
 
-**第一段（acknowledgement）— 2 句**
+**第一段（承認件事）— 2 句**
 - 直接承認件事——「I'm writing to apologize for [具體]」
-- 唔好 「I deeply regret to inform you that」呢類 formal 拖延
-- 用 active voice，唔好 passive
+- 唔好用「I deeply regret to inform you that」呢類官腔拖延
+- 用主動句，唔好用被動句
 
-**第二段（understanding impact）— 1-2 句**
-- 表示明白對方因此 lose 咗咩
-- 唔好 minimize（「I know this small delay...」）
-- 唔好 over-dramatize（「I cannot imagine the difficulties...」）
+**第二段（理解影響）— 1-2 句**
+- 表示明白對方因此失去咗咩
+- 唔好淡化（「I know this small delay...」）
+- 唔好誇張（「I cannot imagine the difficulties...」）
 
-**第三段（fix）— 2-3 句**
-- 具體講你會點 fix
-- 帶 timeline（「by tomorrow」、「今個禮拜內」）
-- 帶 ownership（「我會 take care of」，唔係「will be resolved」）
+**第三段（補救）— 2-3 句**
+- 具體講你會點補救
+- 帶時間表（「by tomorrow」、「今個禮拜內」）
+- 帶承擔（「我會 take care of」，唔係「will be resolved」）
 
-**第四段（前瞻性）— 1 句**
-- 簡短講你會點 prevent recurrence
-- 唔需要 essay，一句 minimum effort 已 OK
+**第四段（前瞻）— 1 句**
+- 簡短講你會點防止再發生
+- 唔需要長篇大論，一句已經夠
 
 **避免：**
-- 「Sorry for any inconvenience caused」（空泛 到 meaningless）
-- 「I take full responsibility」之後跟住 blame circumstances（cringe）
-- 三次或以上 「sorry / apologize」（一兩次 enough）
+- 「Sorry for any inconvenience caused」（空泛到冇意思）
+- 「I take full responsibility」之後跟住賴環境（令人難頂）
+- 三次或以上「sorry / apologize」（一兩次夠晒）
 - 「I hope this doesn't affect our future cooperation」（自貶）
-- 過度 self-flagellation（讀完對方反而要安慰你）
+- 過度自責（讀完對方反而要安慰你）
 
 **目標語氣：** Accountable adult, not penitent child。
-**長度：** 150 字內。短係 strength。
+**長度：** 150 字內。短就係強項。
 </PromptBlock>
 
-### 3. Read out loud test
+### 3. 讀出聲再校一次
 
-寫完讀出聲。如果你讀到某句覺得「我未必會咁講」，改返你自己嘅口吻。 Claude 嘅預設語氣偏正式，你可能要調低 30% 正式度先似你本人。
+寫完讀出聲。如果你讀到某句覺得「我未必會咁講」，改返你自己嘅口吻。 Claude 嘅預設語氣偏正式，你可能要調低三成正式度先似你本人。
 
-### 4. 唔需要等對方原諒，按 send 完佢
+### 4. 唔需要等對方原諒，按 send 就算
 
 呢類 email 嘅心理位係你想對方即刻原諒你。對方未必即刻覆。 對方唔即時覆，唔代表佢記恨——可能佢需要時間消化。
 
-**你嘅 job 係 send 一封好嘅 apology email。對方點接收，你 control 唔到**。
+**你嘅責任係 send 一封好嘅 apology email。對方點接收，你控制唔到**。
 
 ## 變化例子
 
-### 變化 1：道歉 + 求對方 buy 你個 fix（需要對方配合）
+### 變化 1：道歉 + 想對方接受你個補救方案（需要對方配合）
 
-<PromptBlock label="變化 1 — Apology + 需要對方配合">
-我做錯 [事件]，但我嘅 fix 需要對方配合（例如：要對方 send 返某 file、要對方 review 我嘅 revised version、要對方 give 多一日 deadline extension）。
+<PromptBlock label="變化 1 — 道歉 + 需要對方配合">
+我做錯 [事件]，但我嘅補救需要對方配合（例如：要對方 send 返某個 file、要對方睇過我改好嘅 version、要對方畀多一日 deadline）。
 
 請寫 email：
 
-1. 開頭 apology（簡短）
-2. 講 fix plan（你會做嘅）
-3. Specifically ask 對方需要做咩
-4. 對方 cooperate 嘅話，timeline 點
+1. 開頭道歉（簡短）
+2. 講補救方案（你會做嘅）
+3. 明確講對方需要做咩
+4. 對方配合嘅話，時間表點
 
-關鍵 tension：apology 唔可以變 manipulation tool。即使我 ask，要 clearly 講「如果你冇 capacity 配合都 OK，我會 find another way」。
+關鍵張力：道歉唔可以變成操控對方嘅手段。即使我有所求，都要清楚講「如果你騰唔出時間配合都 OK，我會諗第二個辦法」。
 </PromptBlock>
 
 ### 變化 2：你其實唔係 100% 錯（複雜情況）
 
-<PromptBlock label="變化 2 — 部分責任嘅 apology">
-件事入面，我做錯咗 [X]，但其實 [Y] 都係 contribute factor（可能對方都有份）。
+<PromptBlock label="變化 2 — 部分責任嘅道歉">
+件事入面，我做錯咗 [X]，但其實 [Y] 都係成因之一（可能對方都有份）。
 
 請寫 email：
 
-1. **Own 你部分嘅錯**——明確、具體、唔 minimize
-2. **唔提 對方部分嘅錯**——呢一刻唔啱 timing。佢哋知佢哋嘅 part
-3. **Fix focus 喺 your side**
-4. 結尾 hint 未來想 align expectation 避免再發生（但唔具體 blame）
+1. **認自己嗰部分嘅錯**——明確、具體、唔淡化
+2. **唔提對方嗰部分嘅錯**——呢一刻時機唔啱。佢哋知自己嗰部分
+3. **補救焦點放喺自己呢邊**
+4. 結尾輕輕帶出未來想對齊大家嘅期望、避免再發生（但唔具體去賴邊個）
 
-關鍵 mental discipline：呢封 email 唔係 you 嘅辯護書，係 you 嘅 accountability statement。Save 「你都有份」嘅 conversation 落另一個 meeting。
+關鍵心態：呢封 email 唔係你嘅辯護書，係你嘅承擔聲明。「你都有份」嘅對話，留返第二次開會先講。
 </PromptBlock>
 
 ### 變化 3：認錯但企硬唔讓步（特殊情況）
 
-<PromptBlock label="變化 3 — Apology + 企硬 boundary">
-我做咗 [行為]，對方嬲。但我 reflect 過，覺得：
+<PromptBlock label="變化 3 — 道歉 + 企硬底線">
+我做咗 [行為]，對方嬲。但我反思過，覺得：
 
-- 個行為 itself 我會做返一次（決策係 right）
-- 但我 timing / framing / communication 上做得唔好（execution 係 wrong）
+- 個行為本身我會再做一次（決定係啱嘅）
+- 但我喺時機 / 措辭 / 溝通上做得唔好（執行係錯嘅）
 
 請寫 email：
 
-1. **Apology focus 喺 communication / execution 部分**——明確
-2. **唔 backtrack 個 underlying decision**——保持
-3. **解釋（簡短）為咩個 decision 仍然 stand**——一段
-4. **Offer dialogue**——「希望可以同你傾傾，align future」
+1. **道歉焦點放喺溝通 / 執行嗰部分**——明確
+2. **唔收回底層嗰個決定**——企硬
+3. **簡短解釋點解個決定依然成立**——一段
+4. **提出對話**——「希望可以同你傾傾，對齊將來點做」
 
-語氣：respectful、 firm、唔 defensive。
-警告：呢類 email 高難度。Send 前畀 trusted colleague 讀一次。
+語氣：尊重、堅定、唔防衞。
+警告：呢類 email 高難度。Send 前搵個信得過嘅同事讀一次。
 </PromptBlock>
 
 ## 一個心態
@@ -152,4 +152,4 @@ featured: false
 
 呢個形象比起件事本身原諒唔原諒重要好多。 老闆 / 客戶心目中：**會犯錯但會擔嘅人 > 唔會犯錯但過度防禦嘅人**。
 
-Claude 喺呢度嘅優勢：幫你拎啱個 balance，唔 over-apologize 亦唔 under-apologize。 出 draft 之後最後個修飾仍然係你嘅責任——因為語氣嘅最後 10% 只有你識調。
+Claude 喺呢度嘅優勢：幫你拎啱個平衡，唔會道歉得太多、亦唔會太少。 出咗初稿之後，最後嗰下修飾仍然係你嘅責任——因為語氣嘅最後一成，只有你自己識調。
