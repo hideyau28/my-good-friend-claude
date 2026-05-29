@@ -75,6 +75,42 @@
 3. 再處理商業 / Cowork automation 系列，統一 `workflow`、`dashboard`、`automation` 等詞嘅保留準則。
 4. 最後掃 `src/components/` 入面 button、CTA、aria-label 等短文案，避免頁面內容清咗但 UI 仲有突兀英文。
 
+## 第三輪執行（2026-05-29）
+
+> Claude Code 執行：指南升級 → 建掃描器 → genre-spread 試點批校準。
+
+### 指南升級到第二版
+
+經外部廣東話編輯（Gemini）審閱，已 fold 入 `docs/cantonese-style-guide.md`：
+
+- 白名單增刪（剔 date / gathering / hobby；加日常科技、職場、免死動詞 Keep · Send · Share）
+- 對照表 +9 個（run / trigger / draft / follow up / make sense / read-only / sync 等）
+- 譯法執靚（optimize → 執靚、dump → 一口氣打晒出嚟、over-bearing → 控制慾強）
+- 新增 §3.5 英文動詞 + 助詞、§3.6 防大陸用語（視頻 / 屏幕 / 質量 / 激活 / 給力）
+
+### 掃描器
+
+新增 `scripts/scan-cantonese.mjs`：剝走白名單 / code / JSX / URL 後數非白名單英文，以「細楷」為真信號（避開人名 / 品牌 / 領域縮寫虛高），另 flag 大陸用語同英文動詞 + 助詞。
+
+- **全站 baseline：27,915 個細楷英文 token（141 篇）**
+
+### 試點批（3 篇，校準用）
+
+| 文章 | 清前 | 清後 | 備註 |
+| --- | --- | --- | --- |
+| pet-end-of-life-grief-claude | 845 | 11 | 敏感語氣 |
+| cowork-freelancer-monthly-invoicing | 540 | 241 | 殘留係刻意保留嘅英文客戶 email 範本 |
+| sleep-insomnia-tracker-claude | 82 | 35 | 大陸用語 13 → 0 |
+
+### 校準決定（已確認）
+
+- **保留**：invoice（loanword + SEO）、Cowork（product name）、客戶 email 範本（client deliverable）、Toggl / Clockify / GP / CPAP / NET 30 / HKD 等品牌·技術·領域詞。
+- **照譯**：vet → 獸醫、client → 客戶、rate → 收費·時薪、logistics → 事務、hospice → 寧養、cremation → 火化、grief → 哀傷 等。
+
+### 下一步
+
+Phase 3 每批 5 篇，worst-first（按細楷密度，避開純技術詞虛高），逐批 build + commit。
+
 ## 後續建議
 
 - 用 `docs/cantonese-style-guide.md` 做每篇 MDX 嘅審稿基準。
