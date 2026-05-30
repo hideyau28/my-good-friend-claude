@@ -37,10 +37,12 @@ export function NewsletterCTA() {
 
         {enabled ? <SignupForm /> : <ComingSoonFallback />}
 
-        <div className="mt-6 flex items-center justify-center gap-2 text-xs font-serif text-[var(--color-ink-mute)]">
-          <Seal char="證" size={20} />
-          <span>免費 · 隨時退訂 · 唔會 spam</span>
-        </div>
+        {enabled && (
+          <div className="mt-6 flex items-center justify-center gap-2 text-xs font-serif text-[var(--color-ink-mute)]">
+            <Seal char="證" size={20} />
+            <span>免費 · 隨時退訂 · 唔會 spam</span>
+          </div>
+        )}
       </div>
     </section>
   )

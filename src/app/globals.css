@@ -15,7 +15,7 @@
   --color-ink: #0F0B05;          /* 標題、強調 */
   --color-ink-2: #261E13;        /* 內文 */
   --color-ink-soft: #44372A;     /* 次要內文 */
-  --color-ink-mute: #7A6B56;     /* metadata、時間、tag */
+  --color-ink-mute: #6B5D49;     /* metadata、時間、tag（WCAG AA ≥4.5:1 across paper shades） */
 
   /* 欄目線 */
   --color-rule: #BDB29A;

@@ -36,7 +36,7 @@ function PhotoHero({ useCase }: ArticleHeroProps) {
         <div className="relative aspect-[16/9] md:aspect-[4/3] border-b md:border-b-0 md:border-r border-[var(--color-rule)]">
           <Image
             src={useCase.heroImage!}
-            alt=""
+            alt={useCase.title}
             fill
             priority
             sizes="(max-width: 768px) 100vw, 600px"
