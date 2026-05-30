@@ -1,5 +1,7 @@
+import { Suspense } from 'react'
 import { Seal } from './Seal'
 import { SectionLabel } from './ColumnRule'
+import { NewsletterStatus } from './NewsletterStatus'
 
 /**
  * 訂閱區塊 — 副刊風格嘅 CTA。
@@ -24,6 +26,9 @@ export function NewsletterCTA() {
       className="paper-grain border-y-[3px] border-[var(--color-rule-strong)] my-16"
     >
       <div className="max-w-3xl mx-auto px-6 py-12 text-center">
+        <Suspense fallback={null}>
+          <NewsletterStatus />
+        </Suspense>
         <SectionLabel number="◉" label="訂閱本副刊" className="justify-center mb-6" />
         <h2 className="font-serif text-3xl md:text-4xl mb-3 text-[var(--color-ink)]">
           每週日早上，

@@ -69,23 +69,39 @@ async function forwardToBeehiiv(email: string): Promise<ForwardResult> {
   }
 }
 
+/**
+ * PRG redirect 返提交嗰版（same-origin Referer，否則 home），帶住結果 flag。
+ * 永遠唔好對住 no-JS form return raw JSON——失敗都要 graceful 落返頁面。
+ */
+function redirectBack(req: Request, flag: 'subscribed' | 'newsletter_error') {
+  const origin = new URL(req.url).origin
+  let pathname = '/'
+  const referer = req.headers.get('referer')
+  if (referer) {
+    try {
+      const ref = new URL(referer)
+      if (ref.origin === origin) pathname = ref.pathname
+    } catch {
+      /* malformed referer — fall back to home */
+    }
+  }
+  const url = new URL(origin)
+  url.pathname = pathname
+  url.searchParams.set(flag, '1')
+  return NextResponse.redirect(url, 303)
+}
+
 export async function POST(req: Request) {
   let email = ''
   try {
     const formData = await req.formData()
     email = String(formData.get('email') ?? '').trim().toLowerCase()
   } catch {
-    return NextResponse.json(
-      { ok: false, error: '無效嘅 request format' },
-      { status: 400 },
-    )
+    return redirectBack(req, 'newsletter_error')
   }
 
   if (!email || !EMAIL_RE.test(email)) {
-    return NextResponse.json(
-      { ok: false, error: '請輸入正確嘅 email address' },
-      { status: 400 },
-    )
+    return redirectBack(req, 'newsletter_error')
   }
 
   const result = await forwardToBeehiiv(email)
@@ -97,21 +113,8 @@ export async function POST(req: Request) {
       status: result.status,
       reason: result.reason,
     })
-    return NextResponse.json(
-      {
-        ok: false,
-        error:
-          result.status === 503
-            ? '訂閱服務暫時未開通，請稍後再試。'
-            : '訂閱失敗，請稍後再試或 email 我哋。',
-      },
-      { status: result.status },
-    )
+    return redirectBack(req, 'newsletter_error')
   }
 
-  // 成功——對 form post 嘅回應：redirect 返 home + 一個 success query
-  const url = new URL(req.url)
-  url.pathname = '/'
-  url.searchParams.set('subscribed', '1')
-  return NextResponse.redirect(url, 303)
+  return redirectBack(req, 'subscribed')
 }
